@@ -16,6 +16,7 @@ eval(getScriptText("INCLUDES_DEC_RULES"));
 eval(getScriptText("INCLUDES_DEC_APP_OBJECT"));
 eval(getScriptText("INCLUDES_DEC_DRAW"));
 eval(getScriptText("INCLUDES_DEC_HARVEST"));
+eval(getScriptText("INCLUDES_LAX_TEST"));
 
 var dictTags = null;
 var peopTemplateAttribute = aa.util.newHashMap();
@@ -227,7 +228,17 @@ function updateContacts() {
     }
 
     //xArray = new Array();
-    var capContactArray = getOutput(aa.people.getCapContactByContactID(contactSeqNumber));
+	
+	// JHS 10/9/2013 added test for null on contactSeqNumber
+	var capContactArray = new Array();
+	
+	if (!contactSeqNumber) {
+		logDebug("**WARNING updateContacts could not fund an applicant/individual");
+		}
+	else {
+		capContactArray = getOutput(aa.people.getCapContactByContactID(contactSeqNumber));
+		}
+
     if (capContactArray) {
         for (yy in capContactArray) {
             //First One is always Applicant else check for contact type
@@ -951,7 +962,8 @@ function getApplicantArrayEx() {
 
     var cArray = new Array();
     var aArray;
-    if (arguments.length == 0 && !cap.isCompleteCap() && controlString != "ApplicationSubmitAfter") // we are in a page flow script so use the capModel to get applicant
+	// JHS 10/9/2013 added test for convertToRealCapAfter since this is being run on partial caps
+    if (arguments.length == 0 && !cap.isCompleteCap() && controlString != "ApplicationSubmitAfter" && controlString != "ConvertToRealCapAfter") // we are in a page flow script so use the capModel to get applicant
     {
         var capApplicant = cap.getApplicantModel();
         aArray = getApplicantInfoArray(capApplicant);
@@ -1862,7 +1874,7 @@ function updateDocumentNumber(altID) {
         logDebug("**WARNING: updating cap alt id :  " + uResult.getErrorMessage());
     }
 
-    logDebug("EXIT: updateDocumentNumber");
+    logDebug("EXIT: updateDocumentNumber to " + altID);
 }
 
 function activateTaskForRec(wfstr) // optional process name
@@ -3182,6 +3194,9 @@ function setLicExpirationStatus(itemCap, newStatus) {
     return true;
 }
 function setLicExpirationDate(itemCap) {
+    //addSTDDEBUG("In setLicExpirationDate");
+    //addSTDDEBUG(itemCap.toString());
+    //addSTDDEBUG(arguments.length.toString());
     try {
 
         //itemCap - license capId
@@ -3515,11 +3530,9 @@ function createActiveHoldingTable() {
     for (ca in xArray) {
         var thisContact = xArray[ca];
         peopleSequenceNumber = thisContact["refcontactSeqNumber"]
-
         if (peopleSequenceNumber != null) {
             var asitModel;
             var new_asit;
-
             var availableActiveItems = getActiveHoldings(peopleSequenceNumber, AInfo["License Year"]);
             var newAsitArray = GetActiveHoldingsAsitTableArray(availableActiveItems);
 
