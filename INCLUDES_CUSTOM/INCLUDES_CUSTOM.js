@@ -6,6 +6,9 @@
 |	        available to all master scripts
 |
 | Notes   : 01/02/2013,     Lalit S Gawad (LGAWAD),     Initial Version 
+|           10/10/2013,     Laxmikant Bondre (LBONDRE), Fixed Defect - 1922.
+|                           Active Holdings are not shown because expiry date was wrong.
+|                           Fixed Expiry Date.
 /------------------------------------------------------------------------------------------------------*/
 var frm;
 
@@ -16,7 +19,6 @@ eval(getScriptText("INCLUDES_DEC_RULES"));
 eval(getScriptText("INCLUDES_DEC_APP_OBJECT"));
 eval(getScriptText("INCLUDES_DEC_DRAW"));
 eval(getScriptText("INCLUDES_DEC_HARVEST"));
-eval(getScriptText("INCLUDES_LAX_TEST"));
 
 var dictTags = null;
 var peopTemplateAttribute = aa.util.newHashMap();
@@ -415,6 +417,9 @@ function CreateTags(tagsArray, ruleParams, decCode, fullfilmentCondition) {
                                 setLicExpirationDate(newLicId, "", clacFromDt);
                             } else {
                                 AInfo["CODE.Effective Date"] = jsDateToMMDDYYYY(new Date());
+                                editFileDate(newLicId, new Date());
+                                clacFromDt = dateAdd(convertDate(seasonPeriod[1]), -1);
+                                setLicExpirationDate(newLicId, "", clacFromDt);
                             }
 
                             AInfo["CODE.TAG_TYPE"] = tagProp.TagType;
@@ -649,6 +654,9 @@ function issueSelectedSalesItems(frm) {
                             setLicExpirationDate(newLicId, clacFromDt);
                         } else {
                             AInfo["CODE.Effective Date"] = jsDateToMMDDYYYY(new Date());
+                            editFileDate(newLicId, new Date());
+                            clacFromDt = dateAdd(convertDate(seasonPeriod[1]), -1);
+                            setLicExpirationDate(newLicId, clacFromDt);
                         }
                     } else if (ats == AA02_MARINE_REGISTRY) {
                         effectiveDt = AInfo["Effective Date Marine"];
@@ -661,6 +669,9 @@ function issueSelectedSalesItems(frm) {
                             setLicExpirationDate(newLicId, clacFromDt);
                         } else {
                             AInfo["CODE.Effective Date"] = "01/01/" + frm.Year;
+                            editFileDate(newLicId, new Date());
+                            clacFromDt = dateAdd(convertDate(seasonPeriod[1]), -1);
+                            setLicExpirationDate(newLicId, clacFromDt);
                         }
                     }
                     else if (ata[1] == "Other") {
@@ -675,6 +686,9 @@ function issueSelectedSalesItems(frm) {
                             setLicExpirationDate(newLicId, "", clacFromDt);
                         } else {
                             AInfo["CODE.Effective Date"] = jsDateToMMDDYYYY(new Date());
+                            editFileDate(newLicId, new Date());
+                            clacFromDt = dateAdd(convertDate(seasonPeriod[1]), -1);
+                            setLicExpirationDate(newLicId, "", clacFromDt);
                         }
                     }
 
@@ -3194,9 +3208,6 @@ function setLicExpirationStatus(itemCap, newStatus) {
     return true;
 }
 function setLicExpirationDate(itemCap) {
-    //addSTDDEBUG("In setLicExpirationDate");
-    //addSTDDEBUG(itemCap.toString());
-    //addSTDDEBUG(arguments.length.toString());
     try {
 
         //itemCap - license capId

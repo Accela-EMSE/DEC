@@ -15,7 +15,9 @@
 |           1. DEC_CONFIG for seson period and overlap period
 |
 | Notes   : 01/02/2013,     Lalit S Gawad (LGAWAD),     Initial Version 
-|         
+|           10/10/2013,     Laxmikant Bondre (LBONDRE), Fixed Defect - 1922.
+|                           Active Holdings are not shown because expiry date was wrong.
+|                           Fixed Expiry Date.
 /------------------------------------------------------------------------------------------------------*/
 //UserNames share dropdown to update.
 //Must create following Standard choice Share Dropdown prior to running
@@ -251,9 +253,11 @@ function GetDateRange(stdChoice, sValue, year) {
                     var op = monthArray[p].toString().split("/");
                     var dt = new Date(year, op[0] - 1, op[1]);
                     if (op != 0) {
-                        if (dt < returnPeriod[returnPeriod.length - 1]) {
-                            dt = new Date((parseInt(year) + 1), op[0] - 1, op[1]);
-                        }
+                        if (returnPeriod.length > 0) {
+                            if ((returnPeriod[returnPeriod.length - 1]) && dt.getTime() < (returnPeriod[returnPeriod.length - 1]).getTime()) {
+                                dt = new Date((parseInt(year) + 1), op[0] - 1, op[1]);
+                            }
+                        } 
                     }
                     returnPeriod[returnPeriod.length] = dt;
                 }
