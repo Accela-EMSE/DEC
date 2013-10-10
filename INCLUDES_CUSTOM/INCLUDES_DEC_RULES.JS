@@ -247,15 +247,17 @@ var OS1_VENISON = "OS1_VENISON";
 //Trail Supporter Patch Fees
 var FEE_OTHER_SL_TRAILSUPP_SCHDL = "FEE_OTHER_SL_TRAILSUPP_SCHDL";
 var OS1_TRLPATCH = "OS1_TRLPATCH";
+var OS2_TP_NORES = "OS2_TP_NORES";
 
 //Habitat/Access Stamp Fees
 var FEE_OTHER_SL_HABITATACES_SCHDL = "FEE_OTHER_SL_HABITATACES_SCHDL";
 var OS1_HABITAT = "OS1_HABITAT";  // resident
-var OS2_HABITAT = "OS2_NORES"; // non-resident
+var OS2_NORES = "OS2_NORES"; // non-resident
 
 //Conservation Patron Fees
 var FEE_OTHER_SL_CONSERVPTRN_SCHDL = "FEE_OTHER_SL_CONSERVPTRN_SCHDL";
 var OS1_CNPATRN = "OS1_CNPATRN";
+var OS2_CP_NORES = "OS2_CP_NORES";
 
 //Conservationist Magazine Fees
 var FEE_OTHER_SL_CONSRVMGZNE_SCHDL = "FEE_OTHER_SL_CONSRVMGZNE_SCHDL";
@@ -1394,7 +1396,12 @@ function getAllFeeCodeByRuleFor_OTHER_SALE_CONSERVATION_PATRON_SCHDL(ruleParams,
     var feeItemCodes = new Array();
     var rp = ruleParams;
 
-    feeItemCodes.push(new FeeCodeProp(OS1_CNPATRN, "000"));
+	if (rp.IsNyResiDent) {
+		feeItemCodes.push(new FeeCodeProp(OS1_CNPATRN, "000"));
+		}
+	else {
+		feeItemCodes.push(new FeeCodeProp(OS2_CP_NORES, "000"));
+		}
 
     //if (feeItemCodes.length == 0) { feeItemCodes.push(new FeeCodeProp(OS1_CNPATRN, "000")); }
     return feeItemCodes;
@@ -1417,9 +1424,14 @@ function getAllFeeCodeByRuleFor_OTHER_SALE_TRAIL_SUPPORTER_PATCH_SCHDL(ruleParam
     var feeItemCodes = new Array();
     var rp = ruleParams;
 
-    feeItemCodes.push(new FeeCodeProp(OS1_TRLPATCH, "000"));
-
-    //if (feeItemCodes.length == 0) { feeItemCodes.push(new FeeCodeProp(OS1_TRLPATCH, "000")); }
+	if (rp.IsNyResiDent) {
+		feeItemCodes.push(new FeeCodeProp(OS1_TRLPATCH, "000"));
+		}
+	else {
+		feeItemCodes.push(new FeeCodeProp(OS2_TP_NORES, "000"));
+		}	
+	
+		//if (feeItemCodes.length == 0) { feeItemCodes.push(new FeeCodeProp(OS1_TRLPATCH, "000")); }
     return feeItemCodes;
 }
 function getAllFeeCodeByRuleFor_OTHER_SALE_VENISON_DONATION_SCHDL(ruleParams, feeSched) {
