@@ -451,7 +451,8 @@ var arryTrapEd = new Array();
 //Education
 arryTrapEd.push("Trapper Ed");
 //Prior Lic
-arryTrapEd.push("Traping");
+// JHS 10/10/2013 fixed misspelling defect 2319
+arryTrapEd.push("Trapping");
 
 function GetAllSalesItemsNames() {
     var RecordTypeArray = new Array();
