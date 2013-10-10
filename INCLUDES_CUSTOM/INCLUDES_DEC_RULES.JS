@@ -250,7 +250,8 @@ var OS1_TRLPATCH = "OS1_TRLPATCH";
 
 //Habitat/Access Stamp Fees
 var FEE_OTHER_SL_HABITATACES_SCHDL = "FEE_OTHER_SL_HABITATACES_SCHDL";
-var OS1_HABITAT = "OS1_HABITAT";
+var OS1_HABITAT = "OS1_HABITAT";  // resident
+var OS2_HABITAT = "OS2_NORES"; // non-resident
 
 //Conservation Patron Fees
 var FEE_OTHER_SL_CONSERVPTRN_SCHDL = "FEE_OTHER_SL_CONSERVPTRN_SCHDL";
@@ -1402,7 +1403,12 @@ function getAllFeeCodeByRuleFor_OTHER_SALE_HABITAT_ACCESS_SCHDL(ruleParams, feeS
     var feeItemCodes = new Array();
     var rp = ruleParams;
 
-    feeItemCodes.push(new FeeCodeProp(OS1_HABITAT, "000"));
+	if (rp.IsNyResiDent) {
+		feeItemCodes.push(new FeeCodeProp(OS1_HABITAT, "000"));
+		}
+	else {
+		feeItemCodes.push(new FeeCodeProp(OS2_NORES, "000"));
+		}
 
     //if (feeItemCodes.length == 0) { feeItemCodes.push(new FeeCodeProp(OS1_HABITAT, "000")); }
     return feeItemCodes;
