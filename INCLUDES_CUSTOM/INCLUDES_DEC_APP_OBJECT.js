@@ -757,7 +757,7 @@ function form_OBJECT(identity) {
             //if (idx == 42) break;
         }
         if (this.CountHunterGroup == 0) {
-            this.MessageHunter = "The items are not available for selection. (Not qualify or already in current holdings.\n";
+            this.MessageHunter = "The items are not available for selection. (Not qualified or already in current holdings.)\n";
         }
         if (this.Revoked_Hunting || this.Revoked_Trapping) {
             if (this.isPublicUser) {
@@ -767,7 +767,7 @@ function form_OBJECT(identity) {
             this.ContactMsgLink_Hunt = CONTACT_LINK
         }
         if (this.CountFishGroup == 0) {
-            this.MessageFish = "The items are not available for selection. (Not qualify or already in current holdings.\n";
+            this.MessageFish = "The items are not available for selection. (Not qualified or already in current holdings.)\n";
         }
         if (this.Revoked_Fishing) {
             if (this.isPublicUser) {
