@@ -1803,24 +1803,42 @@ function getPrereq_ANNUAL_DMP_2014(ruleParams) {
     var arryPrereq = null;
     if (isRuleForSelectable_ANNUAL_DMP_2014(ruleParams)) {
         arryPrereq = new Array();
-        arryPrereq.push(LIC06_HUNTING_LICENSE);
-        arryPrereq.push(LIC30_NONRES_MUZZLELOADING);
-        arryPrereq.push(LIC37_SMALL_AND_BIG_GAME);
-        arryPrereq.push(LIC12_LIFETIME_SMALL_AND_BIG_GAME);
-        arryPrereq.push(LIC33_NONRESIDENT_BIG_GAME);
-        arryPrereq.push(LIC34_NONRESIDENT_BOWHUNTING);
-        arryPrereq.push(LIC40_SUPER_SPORTSMAN);
-        arryPrereq.push(LIC13_LIFETIME_SPORTSMAN);
-        arryPrereq.push(LIC39_SPORTSMAN);
-        arryPrereq.push(LIC42_TRAPPER_SUPER_SPORTSMAN);
-        arryPrereq.push(LIC31_NONRES_SUPER_SPORTSMAN);
-        arryPrereq.push(LIC27_CONSERVATION_LEGACY);
-
+		
+		// JHS 10/14/13 DMP rules defect
+		if (ruleParams.Age >= 12 && ruleParams.Age <= 13 && ruleParams.HasHuntEd && ruleParams.HasBowHunt) {
+			arryPrereq.push(LIC04_BOWHUNTING_PRIVILEGE);
+			arryPrereq.push(LIC28_JUNIOR_BOWHUNTING);
+			arryPrereq.push(LIC09_LIFETIME_BOWHUNTING);
+			}
+		else {
+			arryPrereq.push(LIC06_HUNTING_LICENSE);
+			arryPrereq.push(LIC30_NONRES_MUZZLELOADING);
+			arryPrereq.push(LIC37_SMALL_AND_BIG_GAME);
+			arryPrereq.push(LIC12_LIFETIME_SMALL_AND_BIG_GAME);
+			arryPrereq.push(LIC33_NONRESIDENT_BIG_GAME);
+			arryPrereq.push(LIC34_NONRESIDENT_BOWHUNTING);
+			arryPrereq.push(LIC40_SUPER_SPORTSMAN);
+			arryPrereq.push(LIC13_LIFETIME_SPORTSMAN);
+			arryPrereq.push(LIC39_SPORTSMAN);
+			arryPrereq.push(LIC42_TRAPPER_SUPER_SPORTSMAN);
+			arryPrereq.push(LIC31_NONRES_SUPER_SPORTSMAN);
+			arryPrereq.push(LIC27_CONSERVATION_LEGACY);
+			}
+/*
         if (ruleParams.Age >= 12 && ruleParams.Age <= 15 && ruleParams.HasHuntEd && ruleParams.HasBowHunt) {
             arryPrereq.push(LIC28_JUNIOR_BOWHUNTING);
         } if (ruleParams.Age >= 14 && ruleParams.HasHuntEd) {
             arryPrereq.push(LIC29_JUNIOR_HUNTING);
         }
+		
+*/
+
+		if (ruleParams.Age >= 14 && ruleParams.HasHuntEd) {
+            //arryPrereq.push(LIC29_JUNIOR_HUNTING);
+			arryPrereq.push(LIC12_LIFETIME_SMALL_AND_BIG_GAME);
+			arryPrereq.push(LIC13_LIFETIME_SPORTSMAN);
+        }
+		
     }
     return arryPrereq;
 }
@@ -2232,6 +2250,7 @@ function getTag_NONRES_MUZZLELOADING(ruleParams) {
     return arryTags;
 }
 
+/*
 function getTag_LIFETM_MUZZ(ruleParams) {
     var rp = ruleParams;
     var arryTags = new Array();
@@ -2255,6 +2274,38 @@ function getTag_LIFETM_MUZZ(ruleParams) {
             }
         }
     }
+    return arryTags;
+}
+*/
+function getTag_LIFETM_MUZZ(ruleParams) {
+    var rp = ruleParams;
+    var arryTags = new Array();
+    var cndFul = new COND_FULLFILLMENT();
+
+    if (rp.Age >= 12 && rp.HasHuntEd) {
+        arryTags.push(TAG_TYPE_1_BACK_TAG);
+		}
+        
+	if (rp.Age >= 14 && rp.HasHuntEd) {
+		if ((rp.EitherOrAntler & 4) == 0) {
+				arryTags.push(TAG_TYPE_19_DEER_OF_EITHER_SEX_TAG);
+			} else if ((rp.EitherOrAntler & 8) == 0) {
+				arryTags.push(TAG_TYPE_20_ANTLERLESS_DEER_TAG);
+			}
+		} 
+
+	if (rp.Age < 12) {
+            if (!hmfulfilmmentCond.containsKey(cndFul.Condition_VerifyAgedIn)) {
+                hmfulfilmmentCond.put(cndFul.Condition_VerifyAgedIn, cndFul.Condition_VerifyAgedIn);
+            }
+        }
+        
+	if (!rp.HasHuntEd) {
+            if (!hmfulfilmmentCond.containsKey(cndFul.Condition_NeedHuntingEd)) {
+                hmfulfilmmentCond.put(cndFul.Condition_NeedHuntingEd, cndFul.Condition_NeedHuntingEd);
+            }
+        }
+
     return arryTags;
 }
 
@@ -2320,7 +2371,7 @@ function getTag_LIFETM_BOWH(ruleParams) {
         }
         if (!rp.HasHuntEd && !rp.HasBowHunt) {
             if (!hmfulfilmmentCond.containsKey(cndFul.Condition_NeedHuntingEd)) {
-                hmfulfilmmentCond.put(cndFul.Condition_VerifyAgedIn, cndFul.Condition_VerifyAgedIn);
+                hmfulfilmmentCond.put(cndFul.Condition_NeedHuntingEd, cndFul.Condition_NeedHuntingEd);
             }
         }
     }
@@ -2424,7 +2475,7 @@ function getTag_LIFETM_SPRT(ruleParams) {
         }
         if (!rp.HasHuntEd) {
             if (!hmfulfilmmentCond.containsKey(cndFul.Condition_NeedHuntingEd)) {
-                hmfulfilmmentCond.put(cndFul.Condition_VerifyAgedIn, cndFul.Condition_VerifyAgedIn);
+                hmfulfilmmentCond.put(cndFul.Condition_NeedHuntingEd, cndFul.Condition_NeedHuntingEd);
             }
         }
     }
@@ -2486,7 +2537,7 @@ function getTag_LIFETM_SBGM(ruleParams) {
         }
         if (!rp.HasHuntEd) {
             if (!hmfulfilmmentCond.containsKey(cndFul.Condition_NeedHuntingEd)) {
-                hmfulfilmmentCond.put(cndFul.Condition_VerifyAgedIn, cndFul.Condition_VerifyAgedIn);
+                hmfulfilmmentCond.put(cndFul.Condition_NeedHuntingEd, cndFul.Condition_NeedHuntingEd);
             }
         }
     }
