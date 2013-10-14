@@ -476,10 +476,12 @@ function copyCapASITtoContactASITTableRow(templateModel, subGroupName, groupName
         var subGroup = subGroups.get(subGroupIndex);
         if (subGroupName == subGroup.getSubgroupName()) {
             //get contatct ASIT exist rows.
-            var existRows = subGroup.getRows();
+            /*var existRows = subGroup.getRows();
             if (existRows == null || existRows == "") {
                 existRows = aa.util.newArrayList();
-            }
+            }*/
+            //commented out the rows above to force the truncation of the ASIT on the contact - SEA 10/14/13
+            var existRows = aa.util.newArrayList();
             //get contatct ASIT exist row index.
             var existRowIndex = existRows.size();
             var maxRowIndex = tableFields.get(tableFields.size() - 1).getRowIndex();
