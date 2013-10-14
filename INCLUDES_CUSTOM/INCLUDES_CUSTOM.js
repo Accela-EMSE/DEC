@@ -3,12 +3,14 @@
 | Event   : N/A
 |
 | Usage   : Custom Script Include.  Insert custom EMSE Function below and they will be 
-|	        available to all master scripts
+|           available to all master scripts
 |
 | Notes   : 01/02/2013,     Lalit S Gawad (LGAWAD),     Initial Version 
 |           10/10/2013,     Laxmikant Bondre (LBONDRE), Fixed Defect - 1922.
 |                           Active Holdings are not shown because expiry date was wrong.
 |                           Fixed Expiry Date.
+|           10/10/2013,     Laxmikant Bondre (LBONDRE), Fixed Defect - 1922.
+|                           Expiry date is calculated 1 day before.
 /------------------------------------------------------------------------------------------------------*/
 var frm;
 
@@ -75,8 +77,10 @@ function setSalesItemASI(newCap, recordType, decCode, quantity, wmuResult, wmu2R
             var wmu1Result = wmuResult;
             //Update Resut in asit
             var newAsitArray = GetWmuAsitTableArray(wmu1Result, wmu2Result);
-            asitModel = newCap.getAppSpecificTableGroupModel();
-            new_asit = addASITable4ACAPageFlow(asitModel, "DRAW RESULT", newAsitArray);
+            //asitModel = newCap.getAppSpecificTableGroupModel();
+            //new_asit = addASITable4ACAPageFlow(asitModel, "DRAW RESULT", newAsitArray);
+            addASITable("DRAW RESULT",newAsitArray)
+
 
             //Update Contact Attribute
             peopTemplateAttribute.put("PREFERENCE POINTS", wmu1Result.RemainingPreferencePoints);
@@ -230,16 +234,16 @@ function updateContacts() {
     }
 
     //xArray = new Array();
-	
-	// JHS 10/9/2013 added test for null on contactSeqNumber
-	var capContactArray = new Array();
-	
-	if (!contactSeqNumber) {
-		logDebug("**WARNING updateContacts could not fund an applicant/individual");
-		}
-	else {
-		capContactArray = getOutput(aa.people.getCapContactByContactID(contactSeqNumber));
-		}
+    
+    // JHS 10/9/2013 added test for null on contactSeqNumber
+    var capContactArray = new Array();
+    
+    if (!contactSeqNumber) {
+        logDebug("**WARNING updateContacts could not fund an applicant/individual");
+        }
+    else {
+        capContactArray = getOutput(aa.people.getCapContactByContactID(contactSeqNumber));
+        }
 
     if (capContactArray) {
         for (yy in capContactArray) {
@@ -389,50 +393,54 @@ function CreateTags(tagsArray, ruleParams, decCode, fullfilmentCondition) {
 
         for (var item in tagsArray) {
             var tagProp = tagsArray[item];
-
-            if (dictTags.Lookup(tagProp.TagType) == null) {
-                var isOkToCreate = checkRuletoCreateTag(ruleParams, tagProp, dictTags); 
-
-                if (isOkToCreate) {
-                    var ats = tagProp.RecordType;
-                    var ata = ats.split("/");
-                    for (var idx = 0; idx < tagProp.issuecount; idx++) {
-                        if (ata.length != 4) {
-                            logDebug("**ERROR in CreateTags.  The following Application Type String is incorrectly formatted: " + ats);
-                        } else {
-                            var newLicId = issueSubLicense(ata[0], ata[1], ata[2], ata[3], "Active", itemCap);
-                            var tagCodeDescription = GetTagTypedesc(tagProp.TagType);
-                            editAppName(tagCodeDescription, newLicId);
-
-                            var effectiveDt;
-                            var clacFromDt;
-                            var diff;
-                            var seasonPeriod;
-                            seasonPeriod = GetDateRange(DEC_CONFIG, LICENSE_SEASON, ruleParams.Year);
-                            diff = dateDiff(new Date(), seasonPeriod[0])
-                            if (diff > 0) {
-                                AInfo["CODE.Effective Date"] = jsDateToMMDDYYYY(seasonPeriod[0]);
-                                editFileDate(newLicId, seasonPeriod[0]);
-                                clacFromDt = dateAdd(convertDate(seasonPeriod[1]), -1);
-                                setLicExpirationDate(newLicId, "", clacFromDt);
+            if (tagProp != null) {
+                logDebug("NOT NULL TAG PROP");
+                if (dictTags.Lookup(tagProp.TagType) == null) {
+                    var isOkToCreate = checkRuletoCreateTag(ruleParams, tagProp, dictTags); 
+                    logDebug("isOkToCreate: " + isOkToCreate);
+                    if (isOkToCreate) {
+                        var ats = tagProp.RecordType;
+                        var ata = ats.split("/");
+                        for (var idx = 0; idx < tagProp.issuecount; idx++) {
+                            if (ata.length != 4) {
+                                logDebug("**ERROR in CreateTags.  The following Application Type String is incorrectly formatted: " + ats);
                             } else {
-                                AInfo["CODE.Effective Date"] = jsDateToMMDDYYYY(new Date());
-                                editFileDate(newLicId, new Date());
-                                clacFromDt = dateAdd(convertDate(seasonPeriod[1]), -1);
-                                setLicExpirationDate(newLicId, "", clacFromDt);
+                                var newLicId = issueSubLicense(ata[0], ata[1], ata[2], ata[3], "Active", itemCap);
+                                var tagCodeDescription = GetTagTypedesc(tagProp.TagType);
+                                editAppName(tagCodeDescription, newLicId);
+
+                                var effectiveDt;
+                                var clacFromDt;
+                                var diff;
+                                var seasonPeriod;
+                                seasonPeriod = GetDateRange(DEC_CONFIG, LICENSE_SEASON, ruleParams.Year);
+                                diff = dateDiff(new Date(), seasonPeriod[0])
+                                if (diff > 0) {
+                                    AInfo["CODE.Effective Date"] = jsDateToMMDDYYYY(seasonPeriod[0]);
+                                    editFileDate(newLicId, seasonPeriod[0]);
+                                    clacFromDt = dateAdd(convertDate(seasonPeriod[1]), 0);
+                                    setLicExpirationDate(newLicId, "", clacFromDt);
+                                } else {
+                                    AInfo["CODE.Effective Date"] = jsDateToMMDDYYYY(new Date());
+                                    editFileDate(newLicId, new Date());
+                                    clacFromDt = dateAdd(convertDate(seasonPeriod[1]), 0);
+                                    setLicExpirationDate(newLicId, "", clacFromDt);
+                                }
+
+                                AInfo["CODE.TAG_TYPE"] = tagProp.TagType;
+                                AInfo["CODE.NEW_DOC_CAP_ID"] = newLicId;
+                                setSalesItemASI(newLicId, tagProp.RecordType, decCode, 1, wmuResult, null);
+
+                                var newDecDocId = GenerateDocumentNumber(newLicId.getCustomID());
+                                updateDocumentNumber(newDecDocId, newLicId);
+                                AInfo["CODE.NEW_DEC_DOCID"] = newDecDocId;
                             }
-
-                            AInfo["CODE.TAG_TYPE"] = tagProp.TagType;
-                            AInfo["CODE.NEW_DOC_CAP_ID"] = newLicId;
-                            setSalesItemASI(newLicId, tagProp.RecordType, decCode, 1, wmuResult, null);
-
-                            var newDecDocId = GenerateDocumentNumber(newLicId.getCustomID());
-                            updateDocumentNumber(newDecDocId, newLicId);
-                            AInfo["CODE.NEW_DEC_DOCID"] = newDecDocId;
                         }
+                        dictTags.Add(tagProp.TagType, tagProp);
                     }
-                    dictTags.Add(tagProp.TagType, tagProp);
                 }
+            } else {
+                logDebug("NULL TAGPROP");
             }
         }
     }
@@ -443,10 +451,10 @@ function issueSubLicense(typeLevel1, typeLevel2, typeLevel3, typeLevel4, initSta
     logDebug("ENTER: issueSubLicense");
     //logDebug("Elapsed Time: " + elapsed());
 
-    //typeLevel3 - record status to set the license to initially						
-    //typeLevel4 - copy ASI from Application to License? (true/false)						
-    //createRefLP - create the reference LP (true/false)						
-    //licHolderSwitch - switch the applicant to license holder						
+    //typeLevel3 - record status to set the license to initially                        
+    //typeLevel4 - copy ASI from Application to License? (true/false)                       
+    //createRefLP - create the reference LP (true/false)                        
+    //licHolderSwitch - switch the applicant to license holder                      
 
     var itemCap = capId
     if (arguments.length > 5) itemCap = arguments[5]; // use cap ID specified in args
@@ -455,7 +463,7 @@ function issueSubLicense(typeLevel1, typeLevel2, typeLevel3, typeLevel4, initSta
     var newLicId = null;
     var newLicIdString = null;
 
-    //create the license record						
+    //create the license record                     
     newLicId = createChildForDec(typeLevel1, typeLevel2, typeLevel3, typeLevel4, null, itemCap);
     newLicIdString = newLicId.getCustomID();
 
@@ -598,7 +606,8 @@ function issueSelectedSalesItems(frm) {
 
                         var tagPropArray = new Array();
                         for (var t in oLic.TagsArray) {
-                            var tagProp = tagsMap.get(arryAccumTags[t]);
+                            //var tagProp = tagsMap.get(arryAccumTags[t]);
+                            var tagProp = tagsMap.get(oLic.TagsArray[t]);
                             tagPropArray.push(tagProp);
                         }
 
@@ -645,19 +654,10 @@ function issueSelectedSalesItems(frm) {
                         setLicExpirationDate(newLicId, clacFromDt);
                     } else if (ats == AA23_NONRES_FRESHWATER_FISHING || ats == AA22_FRESHWATER_FISHING) {
                         effectiveDt = AInfo["Effective Date Fishing"];
-                        seasonPeriod = GetDateRange(DEC_CONFIG, LICENSE_SEASON, frm.Year);
-                        diff = dateDiff(new Date(), seasonPeriod[0])
-                        if (diff > 0) {
-                            AInfo["CODE.Effective Date"] = jsDateToMMDDYYYY(seasonPeriod[0]);
-                            editFileDate(newLicId, seasonPeriod[0]);
-                            clacFromDt = dateAdd(convertDate(seasonPeriod[1]), -1);
-                            setLicExpirationDate(newLicId, clacFromDt);
-                        } else {
-                            AInfo["CODE.Effective Date"] = jsDateToMMDDYYYY(new Date());
-                            editFileDate(newLicId, new Date());
-                            clacFromDt = dateAdd(convertDate(seasonPeriod[1]), -1);
-                            setLicExpirationDate(newLicId, clacFromDt);
-                        }
+                        editFileDate(newLicId, effectiveDt);
+                        AInfo["CODE.Effective Date"] = effectiveDt;
+                        clacFromDt = dateAdd(convertDate(effectiveDt), -1);
+                        setLicExpirationDate(newLicId, clacFromDt);
                     } else if (ats == AA02_MARINE_REGISTRY) {
                         effectiveDt = AInfo["Effective Date Marine"];
                         seasonPeriod = GetDateRange(DEC_CONFIG, LICENSE_SEASON, frm.Year);
@@ -665,12 +665,12 @@ function issueSelectedSalesItems(frm) {
                         if (diff > 0) {
                             AInfo["CODE.Effective Date"] = jsDateToMMDDYYYY(seasonPeriod[0]);
                             editFileDate(newLicId, seasonPeriod[0]);
-                            clacFromDt = dateAdd(convertDate(seasonPeriod[1]), -1);
+                            clacFromDt = dateAdd(convertDate(seasonPeriod[1]), 0);
                             setLicExpirationDate(newLicId, clacFromDt);
                         } else {
                             AInfo["CODE.Effective Date"] = "01/01/" + frm.Year;
                             editFileDate(newLicId, new Date());
-                            clacFromDt = dateAdd(convertDate(seasonPeriod[1]), -1);
+                            clacFromDt = dateAdd(convertDate(seasonPeriod[1]), 0);
                             setLicExpirationDate(newLicId, clacFromDt);
                         }
                     }
@@ -682,12 +682,12 @@ function issueSelectedSalesItems(frm) {
                         if (diff > 0) {
                             AInfo["CODE.Effective Date"] = jsDateToMMDDYYYY(seasonPeriod[0]);
                             editFileDate(newLicId, seasonPeriod[0]);
-                            clacFromDt = dateAdd(convertDate(seasonPeriod[1]), -1);
+                            clacFromDt = dateAdd(convertDate(seasonPeriod[1]), 0);
                             setLicExpirationDate(newLicId, "", clacFromDt);
                         } else {
                             AInfo["CODE.Effective Date"] = jsDateToMMDDYYYY(new Date());
                             editFileDate(newLicId, new Date());
-                            clacFromDt = dateAdd(convertDate(seasonPeriod[1]), -1);
+                            clacFromDt = dateAdd(convertDate(seasonPeriod[1]), 0);
                             setLicExpirationDate(newLicId, "", clacFromDt);
                         }
                     }
@@ -976,7 +976,7 @@ function getApplicantArrayEx() {
 
     var cArray = new Array();
     var aArray;
-	// JHS 10/9/2013 added test for convertToRealCapAfter since this is being run on partial caps
+    // JHS 10/9/2013 added test for convertToRealCapAfter since this is being run on partial caps
     if (arguments.length == 0 && !cap.isCompleteCap() && controlString != "ApplicationSubmitAfter" && controlString != "ConvertToRealCapAfter") // we are in a page flow script so use the capModel to get applicant
     {
         var capApplicant = cap.getApplicantModel();
@@ -3223,7 +3223,6 @@ function setLicExpirationDate(itemCap) {
             dateOverride = null;
             renewalStatus = null;
         }
-
         if (arguments.length == 2) {
             calcDateFrom = arguments[1];
             dateOverride = null;
@@ -3248,13 +3247,11 @@ function setLicExpirationDate(itemCap) {
             var tmpNewDate = "";
 
             b1ExpResult = aa.expiration.getLicensesByCapID(itemCap);
-
             if (b1ExpResult.getSuccess()) {
                 this.b1Exp = b1ExpResult.getOutput();
                 //Get expiration details
                 var expUnit = this.b1Exp.getExpUnit();
                 var expInterval = this.b1Exp.getExpInterval();
-
                 if (expUnit == null) {
                     logDebug("Could not set the expiration date, no expiration unit defined for expiration code: " + this.b1Exp.getExpCode());
                 } else {
@@ -4290,4 +4287,3 @@ function elapsed() {
     var thisTime = thisDate.getTime();
     return ((thisTime - startTime) / 1000)
 }
-
