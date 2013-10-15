@@ -625,10 +625,10 @@ function issueSelectedSalesItems(frm) {
                         if (wmu2 != null && wmu1 != 'NA' && (wmu1 != wmu2 || wmu1Result.Selected == true)) {
                             wmu2Result = RunDMPLottery(frm, syear, wmu2, 2, wmu2ApplyLO, activeHoldings, wmu1Result.PreferencePoints);
                             if (wmu2Result.Selected) {
-                                CreateTags(tagPropArray, ruleParams, allDecCodes, "", wmu1Result);
-                                addStdConditionWithComments("DMP Application Result", "WMU Choice 2", " - " + wmu1 + ":  SELECTED", AInfo["CODE.NEW_DEC_DOCID"]);
+                                CreateTags(tagPropArray, ruleParams, allDecCodes, "", wmu2Result);
+                                addStdConditionWithComments("DMP Application Result", "WMU Choice 2", " - " + wmu2 + ":  SELECTED", AInfo["CODE.NEW_DEC_DOCID"]);
                             } else {
-                                addStdConditionWithComments("DMP Application Result", "WMU Choice 2", " - " + wmu1 + ":  NOT SELECTED");
+                                addStdConditionWithComments("DMP Application Result", "WMU Choice 2", " - " + wmu2 + ":  NOT SELECTED");
                             }
                         }
                     }
