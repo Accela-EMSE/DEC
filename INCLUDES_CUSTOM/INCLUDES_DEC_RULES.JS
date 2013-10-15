@@ -302,6 +302,8 @@ var ACL_1_RES = "ACL_1_RES";
 var FEE_ANL_JUNIOR_BOWHUNT_SCHDL = "FEE_ANL_JUNIOR_BOWHUNT_SCHDL";
 var AJBH_1_RES = "AJBH_1_RES";
 var AJBH_2_RESNA = "AJBH_2_RESNA";
+//Seth - adding fee item code for annual junior bowhunting non-res
+var ANBH_2_NORES = "ANBH_2_NORES";
 
 //Junior Hunting
 var FEE_ANL_JUNIOR_HUNTING_SCHDL = "FEE_ANL_JUNIOR_HUNTING_SCHDL";
@@ -1153,7 +1155,9 @@ function getAllFeeCodeByRuleFor_JUNIOR_BOWHUNTING(ruleParams, feeSched) {
     if (rp.IsNyResiDent && rp.Age >= 12 && rp.Age <= 15) { feeItemCodes.push(new FeeCodeProp(AJBH_1_RES, "000")); }
     //Annual Junior Bowhunting: NYS Resident Native American having age 12-15
     if (rp.IsNyResiDent && rp.Age >= 12 && rp.Age <= 15 && rp.IsNativeAmerican) { feeItemCodes.push(new FeeCodeProp(AJBH_2_RESNA, "000")); }
-
+	//Annual Junior Bowhunting: Non Resident having age 12-15 - Adding for Defect 8363
+    if (!rp.IsNyResiDent && rp.Age >= 12 && rp.Age <= 15) { feeItemCodes.push(new FeeCodeProp(ANBH_2_NORES, "000")); }
+    
     if (feeItemCodes.length == 0) { feeItemCodes.push(new FeeCodeProp(AJBH_1_RES, "000")); }
     return feeItemCodes;
 }
