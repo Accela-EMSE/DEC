@@ -582,13 +582,7 @@ function issueSelectedSalesItems(frm) {
                     oLic.DecCode = GetItemCode(newfd.Code3commission + "");
                     oLic.CodeDescription = GetItemCodedesc(oLic.DecCode);
 
-                    if (exists(TAG_TYPE_19_DEER_OF_EITHER_SEX_TAG, oLic.TagsArray)) {
-                        ruleParams.SetEitherOrAntler(4);
-                    }
 
-                    if (exists(TAG_TYPE_20_ANTLERLESS_DEER_TAG, oLic.TagsArray)) {
-                        ruleParams.SetEitherOrAntler(8);
-                    }
                     //Get Tgs
                     var TagsArray = null;
                     if (isNull(oLic.FNTagsArray, '') != '') {
@@ -596,6 +590,14 @@ function issueSelectedSalesItems(frm) {
                     }
                     oLic.TagsArray = TagsArray;
 
+                    if (exists(TAG_TYPE_19_DEER_OF_EITHER_SEX_TAG, oLic.TagsArray)) {
+                        ruleParams.SetEitherOrAntler(4);
+                    }
+
+                    if (exists(TAG_TYPE_20_ANTLERLESS_DEER_TAG, oLic.TagsArray)) {
+                        ruleParams.SetEitherOrAntler(8);
+                    }					
+					
                     var isDMPApp = (oLic.RecordType == AA05_DEER_MANAGEMENT_PERMIT);
                     if (isDMPApp) {
                         var wmu1 = AInfo["WMU Choice 1"];
