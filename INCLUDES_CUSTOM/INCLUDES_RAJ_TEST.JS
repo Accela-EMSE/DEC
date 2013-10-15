@@ -444,7 +444,7 @@ function revokeActiveHoldings() {
             }
 
             if (AInfo["Revoke Trapping"] == "CHECKED") {
-                validRecArray = getRevokFishRecTypeArray();
+                validRecArray = getRevokTrapRecTypeArray();
                 if (exists(tObj.RecordType, validRecArray)) {
                     itemCap = getCapIdBycapIDString(tObj.itemCapId + "");
                     revokeRecord(itemCap);
