@@ -2071,6 +2071,7 @@ function getIncl_LIFETM_FISH(ruleParams) {
     arryInc.push(LIC22_FRESHWATER_FISHING);
     arryInc.push(LIC26_SEVEN_DAY_FISHING_LICENSE);
     arryInc.push(LIC13_LIFETIME_SPORTSMAN);
+	arryInc.push(LIC12_LIFETIME_SMALL_AND_BIG_GAME);
     return arryInc;
 }
 
