@@ -3734,6 +3734,21 @@ function isValidCertificateNum(inputvalue) {
     }
     return isvalid;
 }
+
+function isAgentAbleToSell(userId) {
+    var isvalid = true;
+
+	var uObj = new USEROBJ(userId);
+    logDebug(uObj.publicUserID);
+    if (uObj.acctType == 'CITIZEN') return true;
+
+    var salesAgentInfoArray = getAgentInfo(uObj.publicUserID, uObj);
+    if (salesAgentInfoArray != null) {
+            isvalid = (salesAgentInfoArray["Agent Enabled for Sales"] != "N");
+        }
+    return isvalid;
+}
+
 function isValidUserForGameHarvest(userId) {
     var isvalid = false;
 
