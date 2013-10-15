@@ -27,7 +27,8 @@ var peopTemplateAttribute = aa.util.newHashMap();
 var salesAgentInfoArray = null;
 var hmfulfilmmentCond = aa.util.newHashMap();
 var CONTACT_LINK = '<a href="/nyssupp/Report/ReportParameter.aspx?module=Licenses&reportID=3987&reportType=LINK_REPORT_LIST" target=_blank>Print Contact DEC Tag </a>';
-var MSG_SUSPENSION = 'License to buy privilages are suspended. Please contact DEC Sales. ' + CONTACT_LINK;
+var MSG_SUSPENSION = 'License to buy privileges are suspended. Please contact DEC Sales. ' + CONTACT_LINK;
+var MSG_NO_AGENT_SALES = 'Sales privileges are suspended. Please contact DEC. ' + CONTACT_LINK;
 
 function getScriptText(vScriptName) {
     vScriptName = vScriptName.toUpperCase();
