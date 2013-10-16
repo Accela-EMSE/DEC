@@ -2727,14 +2727,12 @@ function differBySwitch(year) {
 
     var strSwitchDate = lookup("DEC_CONFIG", "SWITCH_DATE");
     
-    if (publicUserID == "PUBLICUSER94349") {
-	    var strSwitchDateOverride = lookup("SWITCH_DATE_OVERRIDE",publicUserID);
+    /*
+    var strSwitchDateOverride = lookup("SWITCH_DATE_OVERRIDE",publicUserID);
 
-	    if (strSwitchDateOverride != undefined)
-	    		strSwitchDate = strSwitchDateOverride;    	
-    }
-
-	
+    if (strSwitchDateOverride != undefined)
+    		strSwitchDate = strSwitchDateOverride;    	
+	*/
     if (isNull(strSwitchDate, '') != '') {
         var seasonPeriod = GetDateRange(DEC_CONFIG, LICENSE_SEASON, year);
 
@@ -2752,6 +2750,12 @@ function isAfterSwitchDate() {
     var retVal = true;
 
     var strSwitchDate = lookup("DEC_CONFIG", "SWITCH_DATE");
+    /*
+    var strSwitchDateOverride = lookup("SWITCH_DATE_OVERRIDE",publicUserID);
+
+    if (strSwitchDateOverride != undefined)
+    		strSwitchDate = strSwitchDateOverride;  
+	*/
     if (isNull(strSwitchDate, '') != '') {
         var switchDate = new Date(strSwitchDate);
         var diff = dateDiff(switchDate, new Date());
