@@ -2725,7 +2725,16 @@ function hasWmuDefinedItems(activeHoldingsInfo) {
 function differBySwitch(year) {
     var differYear = year;
 
-    var strSwitchDate = lookup("DEC_CONFIG", "SWITCH_DATE")
+    var strSwitchDate = lookup("DEC_CONFIG", "SWITCH_DATE");
+    
+    if (publicUserID == "PUBLICUSER94349") {
+	    var strSwitchDateOverride = lookup("SWITCH_DATE_OVERRIDE",publicUserID);
+
+	    if (strSwitchDateOverride != undefined)
+	    		strSwitchDate = strSwitchDateOverride;    	
+    }
+
+	
     if (isNull(strSwitchDate, '') != '') {
         var seasonPeriod = GetDateRange(DEC_CONFIG, LICENSE_SEASON, year);
 
