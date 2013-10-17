@@ -32,6 +32,8 @@ SCRIPT_VERSION = 2.0
 eval(getScriptText("INCLUDES_BATCH"));
 eval(getScriptText("INCLUDES_ACCELA_FUNCTIONS"));
 eval(getScriptText("INCLUDES_CUSTOM"));
+eval(getScriptText("INCLUDES_REBUILD_TAGS"));
+
 function getScriptText(vScriptName) {
     vScriptName = vScriptName.toUpperCase();
     var emseBiz = aa.proxyInvoker.newInstance("com.accela.aa.emse.emse.EMSEBusiness").getOutput();
@@ -60,6 +62,10 @@ var sysDate = aa.date.getCurrentDate();
 var currentUser = aa.person.getCurrentUser().getOutput();
 var startDate = new Date();
 var startTime = startDate.getTime(); 		// Start timer
+var vToday = startDate;
+vToday.setHours(0);
+vToday.setMinutes(0);
+vToday.setSeconds(0);
 var isPartialSuccess = false;
 var timeExpired = false;
 var sysDate = aa.date.getCurrentDate();
@@ -144,8 +150,7 @@ function getAllRefsToProcess() {
 }
 
 function getEffDate() {
-    var fvToday = new Date();
-    vEffDate = convertDate(dateAdd(fvToday, vLookAheadDays));
+    vEffDate = convertDate(dateAdd(vToday, vLookAheadDays));
 }
 
 /* FUNCTION TO GET ALL REF CONTACTS FOR A RECORD TYPE, FOR A STATUS WITH A BIRTHDATE.*/
@@ -255,14 +260,7 @@ function runProcessRecords(ipRefs) {
 }
 
 function rebuildRefTags(ipRefContact) {
-    var opError = null;
-    logDebug("Rebuild Tags for Reference Contact Number: " +  ipRefContact.toString() + " as of Effective Date: " + vEffDate.toString() + ".");
-    // Call common rebuild routine for (ipRefContact,vEffDate);
-    /* This routine should analyze given Reference Contact, Look at his / her age on given EffDate, Education,
-       what Lifetime Licenses he / she has for the Year for which the give Efective Date is in Season.
-       So what tags he / she should have and what tags he / she has.
-       Create the Tags which are not there and Create an parent application for these tags.
-       The Status of the Application should be "Approved" and put the Condition "Auto-Generated Applications" on this application.*/
+    var opError = rebuildAllTagsforaRefContact(ipRefContact,vEffDate);
     return opError;
 }
 
