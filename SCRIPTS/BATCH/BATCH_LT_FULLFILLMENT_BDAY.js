@@ -348,8 +348,8 @@ function runProcessRecords(ipRefs) {
 }
 
 function rebuildRefTags(ipRefContact) {
-    var opError = rebuildAllTagsforaRefContact(ipRefContact,vEffDate);
-    return opError;
+    var opErrors = rebuildAllTagsforaRefContact(ipRefContact,vEffDate);
+    return opErrors;
 }
 
 function showErrors(ipErrors) {

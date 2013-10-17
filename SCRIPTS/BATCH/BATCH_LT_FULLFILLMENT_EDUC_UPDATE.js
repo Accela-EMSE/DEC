@@ -1,16 +1,15 @@
 /*------------------------------------------------------------------------------------------------------/
-| Program:  BATCH_LT_FULLFILLMENT_ALL.js  Trigger: Batch
+| Program:  BATCH_LT_FULLFILLMENT_EDUC_UPDATTE.js  Trigger: Batch
 | Event   : N/A
-| Usage   : Batch job (Yearly)
+| Usage   : Batch job (Daily)
 | Agency  : DEC
 | Purpose : Batch to create tags for Lifetime fullfillment.
-| Notes   : 10/15/2013     Laxmikant Bondre (LBONDRE),     Initial Version 
+| Notes   : 10/17/2013     Laxmikant Bondre (LBONDRE),     Initial Version 
 /------------------------------------------------------------------------------------------------------*/
 /*------------------------------------------------------------------------------------------------------/
 | START: TEST PARAMETERS
 /------------------------------------------------------------------------------------------------------*/
 //aa.env.setValue("emailAddress", "");
-//aa.env.setValue("LookAheadDays", 21);
 //aa.env.setValue("showDebug", "Y");
 /*------------------------------------------------------------------------------------------------------/
 | END: TEST PARAMETERS
@@ -44,7 +43,6 @@ function getScriptText(vScriptName) {
 | START: BATCH PARAMETERS
 /------------------------------------------------------------------------------------------------------*/
 var emailAddress = getParam("emailAddress"); 				// email to send report
-var vLookAheadDays = getParam("LookAheadDays");     // LookAhead Days From Report Manager
 /*------------------------------------------------------------------------------------------------------/
 | END: BATCH PARAMETERS
 /------------------------------------------------------------------------------------------------------*/
@@ -74,7 +72,6 @@ var currentUser = aa.person.getCurrentUser().getOutput();
 var currentUserID = currentUser == null ? "ADMIN" : currentUser.getUserID().toString()
 var capId = null;
 var debug;
-var vEffDate;
 
 logDebug("Start of Job");
 
@@ -108,7 +105,6 @@ function mainProcess() {
 
         logDebug("****** Start logic ******");
 
-        getEffDate();
         var fvRefs = getAllRefsToProcess();
         var fvErrors = runProcessRecords(fvRefs);
         if (fvErrors) {
@@ -143,18 +139,15 @@ function checkBatch() {
 
 function getAllRefsToProcess() {
     var opRefContacts = aa.util.newHashMap();
+    var fvConitions = new COND_FULLFILLMENT();
     
-    opRefContacts = getRefContactsByRecTypeByStatus("Licenses","Lifetime",null,null,"Active",opRefContacts);
+    opRefContacts = getRefContactsByRecTypeByCondition("Licenses","Lifetime",null,null,fvConitions.Condition_EducRefContUpd,opRefContacts);
 
     return opRefContacts;
 }
 
-function getEffDate() {
-    vEffDate = convertDate(dateAdd(vToday, vLookAheadDays));
-}
-
 /* FUNCTION TO GET ALL REF CONTACTS FOR A RECORD TYPE, FOR A STATUS WITH A BIRTHDATE.*/
-function getRefContactsByRecTypeByStatus(ipGroup,ipType,ipSubType,ipCategory,ipStatus,ipRefContacts) {
+function getRefContactsByRecTypeByCondition(ipGroup,ipType,ipSubType,ipCategory,ipCondition,ipRefContacts) {
     var fvFind = false;
     var fvEmptyCm = aa.cap.getCapModel().getOutput();
     if ((ipGroup != null && ipGroup != "") ||
@@ -174,8 +167,14 @@ function getRefContactsByRecTypeByStatus(ipGroup,ipType,ipSubType,ipCategory,ipS
         fvFind = true;
     }
 
-    if (ipStatus != null && ipStatus != "") {
-        fvEmptyCm.setCapStatus(ipStatus);
+    if (ipCondition != null && ipCondition != "") {
+        var fvConitions = new COND_FULLFILLMENT();
+        var fvEmptyCondm = fvConitions.getConditionByFullfillmentType(ipCondition);
+        fvEmptyCondm.setConditionStatus("Applied");
+        fvEmptyCondm.setConditionStatusType("Applied");
+            
+        if (fvEmptyCondm != null) {
+            fvEmptyCm.setCapConditionModel(fvEmptyCondm);
         fvFind = true;
     }
 
@@ -260,7 +259,7 @@ function runProcessRecords(ipRefs) {
 }
 
 function rebuildRefTags(ipRefContact) {
-    var opErrors = rebuildAllTagsforaRefContact(ipRefContact,vEffDate);
+    var opErrors = rebuildAllTagsforaRefContact(ipRefContact,vToday);
     return opErrors;
 }
 
