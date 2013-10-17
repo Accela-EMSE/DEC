@@ -186,7 +186,7 @@ function SetLTFullfillmentLogic() {
     ffCondArray.push(ffConitions.Condition_DailyCallCenterSales);
     ffCondArray.push(ffConitions.Condition_NeedHuntingEd);
     ffCondArray.push(ffConitions.Condition_VerifyAgedIn);
-    ffCondArray.push("Auto-Generated Applications");
+    ffCondArray.push(ffConitions.Condition_AutoGenAppl);
 
     var recordTypeArray = new Array();
     recordTypeArray.push("Licenses/Lifetime/Fishing/Fishing License");
@@ -197,7 +197,6 @@ function SetLTFullfillmentLogic() {
 
     for (var yy in recordTypeArray) {
         var ats = recordTypeArray[yy];
-        //logDebug(ats);
         var ata = ats.split("/");
 
         var emptyCm = aa.cap.getCapModel().getOutput();
@@ -238,10 +237,7 @@ function SetLTFullfillmentLogic() {
                             var itemCapId = aa.cap.getCapID(recca[0], recca[1], recca[2]).getOutput();
                             var itemCap = aa.cap.getCap(itemCapId).getOutput();
                             altId = itemCapId.getCustomID();
-                            //appTypeResult = itemCap.getCapType();
-                            //appTypeString = appTypeResult.toString();
                             var reportFileName = GenerateReport(itemCapId, altId);
-                            //logDebug(reportFileName);
                             if (setPrefix.length > 0) {
                                 addCapSetMember(itemCapId, setResult);
                             }
