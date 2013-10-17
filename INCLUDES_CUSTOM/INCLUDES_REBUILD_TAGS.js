@@ -15,12 +15,16 @@
 /------------------------------------------------------------------------------------------------------*/
 
 function rebuildAllTagsforaRefContact(ipRefContact,ipEffDate) {
+    opErrors = null;
     var fvProcessYear = getProcessYear(ipEffDate);
     var fvAge = getRefContactAgeAsOnDate(ipRefContact,ipEffDate);
+    showMessage = true;
+    comment("Tags rebuilt for Ref Contact: " + ipRefContact + " as of Date: " + ipEffDate + ".");
+    return opErrors;
 }
 
 function getProcessYear(ipEffDate) {
-    var fvDateRange = lookup(DEC_CONFIG, LICENSE_SEASON);
+    var fvDateRange = lookup("DEC_CONFIG", "LICENSE_SEASON");
     var fvDateArr = fvDateRange.split("-");
     opYear = ipEffDate.getFullYear();
     var fvStartStr = fvDateArr[0] + "/" + opYear.toString();
@@ -30,13 +34,18 @@ function getProcessYear(ipEffDate) {
     return opYear;
 }
 
-function getRefContactAgeAsOnDate(ipRefContact,fvBirthDate) {
+function getRefContactAgeAsOnDate(ipRefContact,ipEffDate) {
     var opAge = 0;
     var fvContactQry = aa.people.getPeople(ipRefContact);
     if (fvContactQry.getSuccess()) {
         var fvContact = fvContactQry.getOutput();
-        var fvBirthDate = fvContact.getBirthDate();
-        opAge = getCompletedAge(fvBirthDate,fvBirthDate);
+        var fvBDtStr = fvContact.getBirthDate().toString();
+        var fvBDtArr = fvBDtStr.split(" ");
+        fvBDtStr = fvBDtArr[0];
+        fvBDtArr = fvBDtStr.split("-");
+        fvBDtStr = fvBDtArr[1].toString() + "/" + fvBDtArr[2].toString() + "/" + fvBDtArr[0].toString();
+        var fvBirthDate = new Date(fvBDtStr);
+        opAge = getCompletedAge(fvBirthDate,ipEffDate);
     }
     return opAge;
 }
