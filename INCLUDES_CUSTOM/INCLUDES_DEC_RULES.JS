@@ -2894,6 +2894,8 @@ function COND_FULLFILLMENT() {
     this.Condition_NeedHuntingEd = "Need Hunting Ed";
     this.Condition_VerifyAgedIn = "Verify Aged-In";
     this.Condition_YearlyLifetime = "Yearly Lifetime";
+    this.Condition_AutoGenAppl = "Auto-Generated Applications";
+    this.Condition_EducRefContUpd = "Education for Ref Contact Updated";
 
     this.getConditionByFullfillmentType = function (fullfillmentType) {
         if (fullfillmentType == this.Condition_DailyInternetSales) {
@@ -2913,6 +2915,12 @@ function COND_FULLFILLMENT() {
         }
         if (fullfillmentType == this.Condition_YearlyLifetime) {
             return this.GetQryForYearlyLifetime();
+        }
+        if (fullfillmentType == this.Condition_AutoGenAppl) {
+            return this.GetQryForAutoGenAppl();
+        }
+        if (fullfillmentType == this.Condition_EducRefContUpd) {
+            return this.GetQryForEducRefContUpd();
         }
         return null;
     }
@@ -2977,6 +2985,28 @@ function COND_FULLFILLMENT() {
         emCondm.setConditionGroup(this.ConditionGroup);
         emCondm.setConditionType(this.ConditionGroup);
         emCondm.setConditionDescription(this.Condition_YearlyLifetime);
+
+        return emCondm;
+    }
+
+    this.GetQryForAutoGenAppl = function () {
+        var cond = new COND_FULLFILLMENT();
+        var emCondm = aa.proxyInvoker.newInstance("com.accela.aa.aamain.cap.CapConditionModel").getOutput();
+        emCondm.setServiceProviderCode(aa.getServiceProviderCode());
+        emCondm.setConditionGroup(this.ConditionGroup);
+        emCondm.setConditionType(this.ConditionGroup);
+        emCondm.setConditionDescription(this.Condition_AutoGenAppl);
+
+        return emCondm;
+    }
+
+    this.GetQryForEducRefContUpd = function () {
+        var cond = new COND_FULLFILLMENT();
+        var emCondm = aa.proxyInvoker.newInstance("com.accela.aa.aamain.cap.CapConditionModel").getOutput();
+        emCondm.setServiceProviderCode(aa.getServiceProviderCode());
+        emCondm.setConditionGroup(this.ConditionGroup);
+        emCondm.setConditionType(this.ConditionGroup);
+        emCondm.setConditionDescription(this.Condition_EducRefContUpd);
 
         return emCondm;
     }
