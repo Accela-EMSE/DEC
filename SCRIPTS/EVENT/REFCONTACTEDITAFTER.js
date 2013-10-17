@@ -23,13 +23,20 @@ var SCRIPT_VERSION = 2.0
 eval(getScriptText("INCLUDES_ACCELA_FUNCTIONS"));
 eval(getScriptText("INCLUDES_ACCELA_GLOBALS"));
 eval(getScriptText("INCLUDES_CUSTOM"));
-eval(getScriptText("INCLUDES_REBUILD_TAGS"));
+eval(getCustomScriptText("INCLUDES_REBUILD_TAGS"));
 
 function getScriptText(vScriptName){
 	vScriptName = vScriptName.toUpperCase();
 	var emseBiz = aa.proxyInvoker.newInstance("com.accela.aa.emse.emse.EMSEBusiness").getOutput();
 	var emseScript = emseBiz.getMasterScript(aa.getServiceProviderCode(),vScriptName);
 	return emseScript.getScriptText() + "";	
+}
+
+function getCustomScriptText(vScriptName) {
+    vScriptName = vScriptName.toUpperCase();
+    var emseBiz = aa.proxyInvoker.newInstance("com.accela.aa.emse.emse.EMSEBusiness").getOutput();
+    var emseScript = emseBiz.getScriptByPK(aa.getServiceProviderCode(), vScriptName, "ADMIN");
+    return emseScript.getScriptText() + "";
 }
 
 var vToday = new Date();
@@ -41,3 +48,15 @@ var vRefContact = aa.env.getValue("ContactModel");
 var vContactSeqNum = vRefContact.contactSeqNumber;
 
 rebuildAllTagsforaRefContact(vContactSeqNum,vToday);
+
+if (debug.indexOf("**ERROR") > 0)
+{
+	aa.env.setValue("ScriptReturnCode", "1");
+	aa.env.setValue("ScriptReturnMessage", debug);
+}
+else
+{
+	aa.env.setValue("ScriptReturnCode", "0");
+	if (showMessage) aa.env.setValue("ScriptReturnMessage", message);
+	if (showDebug) 	aa.env.setValue("ScriptReturnMessage", debug);
+}
