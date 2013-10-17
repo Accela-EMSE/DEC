@@ -1313,6 +1313,7 @@ function getAllFeeCodeByRuleFor_SPORTSMAN(ruleParams, feeSched) {
     //Annual Sportsman: NYS Res Military Disabled having age 16+
     if (rp.IsNyResiDent && rp.Age >= 16 && rp.IsMilitaryServiceman) { feeItemCodes.push(new FeeCodeProp(ASP_4_RESMD, "000")); }
     if (rp.IsNyResiDent && rp.Age >= 16 && rp.IsDisableForYear) {
+        feeItemCodes.push(new FeeCodeProp(ASP_4_RESMD, "000"));
         //Military disabled persons will only be charged one $5 fee per license year for the their base licenses (trap, hunt, fish) whether they purchase one or all three.
         if (hasBaseLicMilitaryDisable(rp.ActiveHoldingsInfo)) {
             feeItemCodes.push(new FeeCodeProp(RESMD_FREE, "000"));
