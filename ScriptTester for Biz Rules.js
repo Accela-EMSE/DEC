@@ -1,5 +1,7 @@
-var myCapId = "13TMP-004694"
+var myCapId = "13TMP-003846"
 var myUserId = "PUBLICUSER94336"
+var startDate = new Date();
+var startTime = startDate.getTime();			// Start timer
 
 //wfTask = "License Issuance";	
 //wfStatus = "Issued";			
@@ -11,7 +13,9 @@ var runEvent = false; // set to false if you want to roll your own code here in 
 //
 // User code goes here
 //capId = aa.cap.getCapID("13EST","00000","03843").getOutput();
-showDebug = true;
+
+showDebug = 3;
+logDebug("STARTSTART - 13TMP-003846 attempt 1");
 
 
 frm = new form_OBJECT(GS2_SCRIPT, OPTZ_TYPE_CTRC);
@@ -33,6 +37,10 @@ catch(err) {
     logDebug("Stack: " + err.stack);
 	}
 
+logDebug("ENDEND - 13TMP-003846 attempt 1");
+
+
+/*
    var f = frm;
 
     var ruleParams = f.getRulesParam();
@@ -125,9 +133,10 @@ catch(err) {
 
 
 	logDebug("fj = " + JSON.stringify(fj));
-
+*/
 	
 
 // end user code
 aa.env.setValue("ScriptReturnCode", "1"); 	aa.env.setValue("ScriptReturnMessage", debug)
+
 
