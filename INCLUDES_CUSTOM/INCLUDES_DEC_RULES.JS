@@ -3154,7 +3154,6 @@ function getRevokFishRecTypeArray() {
     validRecTypeArray.push(AA26_SEVEN_DAY_FISHING_LICENSE);
 
     return validRecTypeArray;
-
 }
 
 function getRevokTrapRecTypeArray() {
@@ -3165,7 +3164,4 @@ function getRevokTrapRecTypeArray() {
     validRecTypeArray.push(AA42_TRAPPER_SUPER_SPORTSMAN); //TODO
 
     return validRecTypeArray;
-
 }
-
-   
