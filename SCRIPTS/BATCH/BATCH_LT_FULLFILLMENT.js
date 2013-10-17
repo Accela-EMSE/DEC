@@ -295,4 +295,3 @@ function GenerateReport(itemCapId, altID) {
     }
     return reportFileName;
 }
-
