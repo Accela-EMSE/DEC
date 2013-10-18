@@ -2933,7 +2933,7 @@ function createSet(setName, setDescription, setType, setStatus, setComment, setS
 |   capSet object. Last update: 10/18/2013
 /------------------------------------------------------------------------------------------------------*/
 
-function capSet(desiredSetId)
+function capSet2(desiredSetId)
     {
     this.refresh = function()
         {
@@ -2963,7 +2963,7 @@ function capSet(desiredSetId)
         var setMemberStatus;
         if (arguments.length == 2)  setMemberStatus = arguments[1]; 
             
-        var addResult = aa.set.add(this.id,addCapId)
+        var addResult = aa.set.add(this.id,addCapId);
 		
 		if (setMemberStatus) this.updateMemberStatus(capId,setMemberStatus);
 		
@@ -3016,6 +3016,7 @@ function capSet(desiredSetId)
         this.model.setSetTitle(this.name);
 		this.model.setSetComment(this.comment);
 		this.model.setSetStatusComment(this.statusComment);
+		this.model.setRecordSetType(this.type);
 		
 		logDebug("capSet: updating set header information");
 		try {
@@ -3029,9 +3030,12 @@ function capSet(desiredSetId)
     
     this.id = desiredSetId;
     this.name = desiredSetId;
-    if (arguments.length > 1 && arguments[1]) this.name = arguments[1];
+    this.type = null;
+	this.comment = null;
     
-    this.comment = null;
+	if (arguments.length > 1 && arguments[1]) this.name = arguments[1];
+	if (arguments.length > 2 && arguments[2]) this.type = arguments[2];
+    if (arguments.length > 3 && arguments[3]) this.comment = arguments[3];
     
     this.size = 0;
     this.empty = true;
@@ -3039,6 +3043,7 @@ function capSet(desiredSetId)
     this.status = "";
 	this.statusComment = "";
 	this.model = null;
+	
     var theSetResult = aa.set.getSetByPK(this.id);
     
     if (theSetResult.getSuccess())
@@ -3048,18 +3053,19 @@ function capSet(desiredSetId)
         
     else  // add the set
         {
-        theSetResult = aa.set.createSet(this.id,this.name);
+        theSetResult = aa.set.createSet(this.id,this.name,this.type,this.comment);
         if (!theSetResult.getSuccess()) 
             {
             logDebug("**WARNING** error creating set " + this.id + " : " + theSetResult.getErrorMessage);
             }
         else
             {
-            logDebug("capSet: Created new set " + this.id); 
+            logDebug("capSet: Created new set " + this.id + " of type " + this.type); 
             this.refresh();
             }
         }
     }
+
 
 
 
@@ -4327,3 +4333,81 @@ function elapsed() {
     var thisTime = thisDate.getTime();
     return ((thisTime - startTime) / 1000)
 }
+
+function addASITable4ACAPageFlow(destinationTableGroupModel,tableName,tableValueArray) // optional capId
+    	{
+  	//  tableName is the name of the ASI table
+  	//  tableValueArray is an array of associative array values.  All elements MUST be either a string or asiTableVal object
+  	// 
+  	
+    	var itemCap = capId
+  	if (arguments.length > 3)
+  		itemCap = arguments[3]; // use cap ID specified in args
+  
+  	var ta = destinationTableGroupModel.getTablesMap().values();
+  	var tai = ta.iterator();
+  	
+  	var found = false;
+  	
+  	while (tai.hasNext())
+  		  {
+  		  var tsm = tai.next();  // com.accela.aa.aamain.appspectable.AppSpecificTableModel
+  		  if (tsm.getTableName().equals(tableName)) { found = true; break; }
+  	          }
+
+
+  	if (!found) { logDebug("cannot update asit for ACA, no matching table name"); return false; }
+  	
+	var fld = aa.util.newArrayList();  // had to do this since it was coming up null.
+        var fld_readonly = aa.util.newArrayList(); // had to do this since it was coming up null.
+  	var i = -1; // row index counter
+  
+         	for (thisrow in tableValueArray)
+  		{
+  
+ 
+  		var col = tsm.getColumns()
+  		var coli = col.iterator();
+  
+  		while (coli.hasNext())
+  			{
+  			var colname = coli.next();
+  			
+			if (typeof(tableValueArray[thisrow][colname.getColumnName()]) == "object")  // we are passed an asiTablVal Obj
+				{
+				var args = new Array(tableValueArray[thisrow][colname.getColumnName()].fieldValue ? tableValueArray[thisrow][colname.getColumnName()].fieldValue : "",colname);
+				var fldToAdd = aa.proxyInvoker.newInstance("com.accela.aa.aamain.appspectable.AppSpecificTableField",args).getOutput();
+				fldToAdd.setRowIndex(i);
+				fldToAdd.setFieldLabel(colname.getColumnName());
+				fldToAdd.setFieldGroup(tableName.replace(/ /g,"\+"));
+				fldToAdd.setReadOnly(tableValueArray[thisrow][colname.getColumnName()].readOnly.equals("Y"));
+				fld.add(fldToAdd);
+				fld_readonly.add(tableValueArray[thisrow][colname.getColumnName()].readOnly);
+				
+				}
+			else // we are passed a string
+				{
+				var args = new Array(tableValueArray[thisrow][colname.getColumnName()] ? tableValueArray[thisrow][colname.getColumnName()] : "",colname);
+				var fldToAdd = aa.proxyInvoker.newInstance("com.accela.aa.aamain.appspectable.AppSpecificTableField",args).getOutput();
+				fldToAdd.setRowIndex(i);
+				fldToAdd.setFieldLabel(colname.getColumnName());
+				fldToAdd.setFieldGroup(tableName.replace(/ /g,"\+"));
+				fldToAdd.setReadOnly(false);
+				fld.add(fldToAdd);
+				fld_readonly.add("N");
+
+				}
+  			}
+  
+  		i--;
+  		
+  		tsm.setTableField(fld);
+  		tsm.setReadonlyField(fld_readonly); // set readonly field
+  		}
+  
+  
+                tssm = tsm;
+                
+                return destinationTableGroupModel;
+                
+  	}
