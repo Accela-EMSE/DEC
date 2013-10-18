@@ -4423,44 +4423,54 @@ function createEducUpdCond(ipPeopleModel) {
     var fvAppSpecificTable = fvAppSpecificTableScript.getAppSpecificTableModel();
     var fVTableFields = fvAppSpecificTable.getTableFields();
     
-    var fvNewSpEdArray = new Array();    
-    for (var fvIdx = 0; fvIdx < fVTableFields.size(); fvIdx++) {
-        var fvAppSpecificTableField = fVTableFields.get(fvIdx);
-        var fVFieldLabel = fvAppSpecificTableField.getFieldLabel();
-        if (fVFieldLabel != fvFieldName)
-            continue;
-        var fvInputValue = fvAppSpecificTableField.getInputValue();
-        fvNewSpEdArray.push(fvInputValue);
+    var fvNewSpEdArray = new Array();
+    if (fVTableFields) {
+        for (var fvIdx = 0; fvIdx < fVTableFields.size(); fvIdx++) {
+            var fvAppSpecificTableField = fVTableFields.get(fvIdx);
+            var fVFieldLabel = fvAppSpecificTableField.getFieldLabel();
+            if (fVFieldLabel != fvFieldName)
+                continue;
+            var fvInputValue = fvAppSpecificTableField.getInputValue();
+            fvNewSpEdArray.push(fvInputValue);
+            break;
+        }
     }
     
     var fvOldSpEdArray = new Array();
     var fvTemplateGroups = ipPeopleModel.getTemplate().getTemplateTables();
-    var fvSubGroups = fvTemplateGroups.get(0).getSubgroups();
-    for (var fvSubGroupIndex = 0; fvSubGroupIndex < fvSubGroups.size(); fvSubGroupIndex++) {
-        var fvSubGroup = fvSubGroups.get(fvSubGroupIndex);
-        if (fvSubGroupName != fvSubGroup.getSubgroupName())
-            continue;
+    if (fvTemplateGroups && fvTemplateGroups.size() > 0) {
+        var fvSubGroups = fvTemplateGroups.get(0).getSubgroups();
+        for (var fvSubGroupIndex = 0; fvSubGroupIndex < fvSubGroups.size(); fvSubGroupIndex++) {
+            var fvSubGroup = fvSubGroups.get(fvSubGroupIndex);
 
-        var fvFields = fvSubGroup.getFields();
-        var fvFieldPos = -1;
-        for (var fvCounter = 0; fvCounter < fvCounter.size(); fvCounter++) {
-            var fvField = fvCounter.get(fvCounter);
-            if (fvField.fieldName != fvFieldName)
+            if (fvSubGroupName != fvSubGroup.getSubgroupName())
                 continue;
-            fvFieldPos = fvCounter;
+
+            var fvFields = fvSubGroup.getFields();
+            if (fvFields) {
+                var fvFieldPos = -1;
+                for (var fvCounter = 0; fvCounter < fvFields.size(); fvCounter++) {
+                    var fvField = fvFields.get(fvCounter);
+                    if (fvField.fieldName != fvFieldName)
+                        continue;
+                    fvFieldPos = fvCounter;
+                    break;
+                }
+
+                var fvRows = fvSubGroup.getRows();
+                if (fvRows) {
+                    for (var fvCounter = 0; fvCounter < fvRows.size(); fvCounter++) {
+                        var fvRow = fvRows.get(fvCounter);
+                        var fvRowValues = fvRow.getValues();
+                        var fvValue = fvRowValues.get(fvFieldPos);
+                        fvOldSpEdArray.push(fvValue.value);
+                    }
+                }
+            }
             break;
         }
-
-        var fvRows = fvSubGroup.getRows();
-        for (var fvCounter = 0; fvCounter < fvRows.size(); fvCounter++) {
-            var fvRow = fvRows.get(fvCounter);
-            var fvRowValues = fvRow.getValues();
-            var fvValue = fvRowValues.get(fvFieldPos);
-            fvOldSpEdArray.push(fvValue.value);
-        }
-        break;
     }
- 
+
     var fvMismatch = false;
     for (var fvCounter1 in fvOldSpEdArray) {
         var fvOldSpEd = fvOldSpEdArray[fvCounter1];
