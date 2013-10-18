@@ -2937,7 +2937,7 @@ function createSet(setName, setDescription, setType, setStatus, setComment, setS
 |   capSet object. Last update: 10/18/2013
 /------------------------------------------------------------------------------------------------------*/
 
-function capSet2(desiredSetId)
+function capSet(desiredSetId)
     {
     this.refresh = function()
         {
