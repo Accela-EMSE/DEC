@@ -211,8 +211,15 @@ function getRefContactsByRecTypeByCondition(ipGroup,ipType,ipSubType,ipCategory,
                                 break;
                             }
                             var fvContact = fvContacts[fvCount2].getCapContactModel();
-                            if (!opRefContacts.containsKey(fvContact.refContactNumber))
-                                opRefContacts.put(fvContact.refContactNumber,fvContact.refContactNumber);
+                            var fvCapList = "";
+                            if (opRefContacts.containsKey(fvContact.refContactNumber)) {
+                                fvCapList = opRefContacts.get(fvContact.refContactNumber).toString();
+                                fvCapList = fvCapList + "," + fvCapID.getCustomID();
+                                opRefContacts.remove(fvContact.refContactNumber);
+                            }
+                            else
+                                fvCapList = fvCapID.getCustomID();
+                            opRefContacts.put(fvContact.refContactNumber,fvCapList);
                         }
                     }
                 }
@@ -248,6 +255,7 @@ function runProcessRecords(ipRefs) {
                         opErrors = new Array();
                     opErrors.push(fvError);
                 }
+                removeConditionFromCaps(fvRefContact,ipRefs);
             }
         }
     }
@@ -267,5 +275,22 @@ function showErrors(ipErrors) {
     for (var fvCount in ipErrors) {
         var fvError = ipErrors[fvCount];
         logDebug(fvError);
+    }
+}
+
+function removeConditionFromCaps(ipRefContact,ipRefs) {
+    var fvCapList = ipRefs.get(ipRefContact).toString();
+    var fvCapArray = fvCapList.split(",");
+    var fvConitions = new COND_FULLFILLMENT();
+    for (var fvCounter in fvCapArray) {
+        var fvCap = fvCapArray[fvCounter];
+        var fvCapIDQry = aa.cap.getCapID(fvCap);
+        if (fvCapIDQry.getSuccess()) {
+            fvCapID = fvCapIDQry.getOutput();
+            if (appHasCondition("Fulfillment","Applied",fvCondFulfill.Condition_EducRefContUpd,null)) {
+                editCapConditionStatus("Fulfillment", fvCondFulfill.Condition_EducRefContUpd, "Verified", "Not Applied", "", fvCapID);
+                removeFullfillmentCapCondition(fvCapID, fvCondFulfill.Condition_EducRefContUpd);
+            }
+        }
     }
 }
