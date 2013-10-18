@@ -11,6 +11,8 @@
 |                           Fixed Expiry Date.
 |           10/10/2013,     Laxmikant Bondre (LBONDRE), Fixed Defect - 1922.
 |                           Expiry date is calculated 1 day before.
+|           10/18/2013,     Laxmikant Bondre (LBONDRE), 
+|                           Add Fulfillment Condition for Education Updated..
 /------------------------------------------------------------------------------------------------------*/
 var frm;
 
@@ -312,6 +314,8 @@ function updateContacts() {
 
         var peopleModel = getOutput(aa.people.getPeople(peopleSequenceNumber), "");
         setContactASI(peopleModel.getTemplate(), newAInfo);
+
+        createEducUpdCond(peopleModel);
 
         //Set contact ASIT using cap asit: assumption is both are identical
         var groupName = "ASIT_APPLCNT";
@@ -4411,3 +4415,86 @@ function addASITable4ACAPageFlow(destinationTableGroupModel,tableName,tableValue
                 return destinationTableGroupModel;
                 
   	}
+    
+function createEducUpdCond(ipPeopleModel) {
+    var fvSubGroupName = "SPORTSMAN EDUCATION";
+    var fvFieldName = "Sportsman Education Type";
+    var fvAppSpecificTableScript = aa.appSpecificTableScript.getAppSpecificTableModel(capId, fvSubGroupName).getOutput();
+    var fvAppSpecificTable = fvAppSpecificTableScript.getAppSpecificTableModel();
+    var fVTableFields = fvAppSpecificTable.getTableFields();
+    
+    var fvNewSpEdArray = new Array();    
+    for (var fvIdx = 0; fvIdx < fVTableFields.size(); fvIdx++) {
+        var fvAppSpecificTableField = fVTableFields.get(fvIdx);
+        var fVFieldLabel = fvAppSpecificTableField.getFieldLabel();
+        if (fVFieldLabel != fvFieldName)
+            continue;
+        var fvInputValue = fvAppSpecificTableField.getInputValue();
+        fvNewSpEdArray.push(fvInputValue);
+    }
+    
+    var fvOldSpEdArray = new Array();
+    var fvTemplateGroups = ipPeopleModel.getTemplate().getTemplateTables();
+    var fvSubGroups = fvTemplateGroups.get(0).getSubgroups();
+    for (var fvSubGroupIndex = 0; fvSubGroupIndex < fvSubGroups.size(); fvSubGroupIndex++) {
+        var fvSubGroup = fvSubGroups.get(fvSubGroupIndex);
+        if (fvSubGroupName != fvSubGroup.getSubgroupName())
+            continue;
+
+        var fvFields = fvSubGroup.getFields();
+        var fvFieldPos = -1;
+        for (var fvCounter = 0; fvCounter < fvCounter.size(); fvCounter++) {
+            var fvField = fvCounter.get(fvCounter);
+            if (fvField.fieldName != fvFieldName)
+                continue;
+            fvFieldPos = fvCounter;
+            break;
+        }
+
+        var fvRows = fvSubGroup.getRows();
+        for (var fvCounter = 0; fvCounter < fvRows.size(); fvCounter++) {
+            var fvRow = fvRows.get(fvCounter);
+            var fvRowValues = fvRow.getValues();
+            var fvValue = fvRowValues.get(fvFieldPos);
+            fvOldSpEdArray.push(fvValue.value);
+        }
+        break;
+    }
+ 
+    var fvMismatch = false;
+    for (var fvCounter1 in fvOldSpEdArray) {
+        var fvOldSpEd = fvOldSpEdArray[fvCounter1];
+        var fvFound = false;
+        for (var fvCounter2 in fvNewSpEdArray) {
+            var fvNewSpEd = fvNewSpEdArray[fvCounter2];
+            if (fvOldSpEd == fvNewSpEd) {
+                fvFound = true;
+                break;
+            }
+        }
+        if (!fvFound) {
+            fvMismatch = true;
+            break;
+        }
+    }
+    if (!fvMismatch) {
+        for (var fvCounter1 in fvNewSpEdArray) {
+            var fvNewSpEd = fvNewSpEdArray[fvCounter1];
+            var fvFound = false;
+            for (var fvCounter2 in fvOldSpEdArray) {
+                var fvOldSpEd = fvOldSpEdArray[fvCounter2];
+                if (fvOldSpEd == fvNewSpEd) {
+                    fvFound = true;
+                    break;
+                }
+            }
+            if (!fvFound) {
+                fvMismatch = true;
+                break;
+            }
+        }
+    }
+    var fvCondFulfill = new COND_FULLFILLMENT();
+    if (fvMismatch && !appHasCondition("Fulfillment","Applied",fvCondFulfill.Condition_EducRefContUpd,null))
+        addFullfillmentCondition(capId, fvCondFulfill.Condition_EducRefContUpd);
+}
