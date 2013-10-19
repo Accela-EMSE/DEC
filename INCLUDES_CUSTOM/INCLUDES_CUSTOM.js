@@ -996,7 +996,10 @@ function getApplicantArrayEx() {
                     //First One is always Applicant else check for contact type
                     aArray = getApplicantInfoArray(capContactArray[yy], thisCap);
                     cArray.push(aArray);
-                    break;
+                    
+                    //Defects 8970 and 8971 - commenting out this break as you cannot assume the applicant/individual is always first
+                    //I think when we turned sync off the DEC Agent started being first.
+                    //break;
                 }
             }
         }
