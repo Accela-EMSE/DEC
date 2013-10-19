@@ -390,6 +390,10 @@ function CreateTags(tagsArray, ruleParams, decCode, fullfilmentCondition) {
     var wmuResult = null;
     if (arguments.length > 4) wmuResult = arguments[4]; // use wmuresult specified in args
     if (arguments.length > 5) itemCap = arguments[5]; // use cap ID specified in args
+	
+	var seasonPeriod = GetDateRange(DEC_CONFIG, LICENSE_SEASON, ruleParams.Year);
+	var diff = dateDiff(new Date(), seasonPeriod[0]);
+
     if (tagsArray != null) {
         //Maintain Tag creation dictinary.
         if (dictTags == null) {
@@ -416,10 +420,6 @@ function CreateTags(tagsArray, ruleParams, decCode, fullfilmentCondition) {
 
                                 var effectiveDt;
                                 var clacFromDt;
-                                var diff;
-                                var seasonPeriod;
-                                seasonPeriod = GetDateRange(DEC_CONFIG, LICENSE_SEASON, ruleParams.Year);
-                                diff = dateDiff(new Date(), seasonPeriod[0])
                                 if (diff > 0) {
                                     AInfo["CODE.Effective Date"] = jsDateToMMDDYYYY(seasonPeriod[0]);
                                     editFileDate(newLicId, seasonPeriod[0]);
@@ -534,6 +534,9 @@ function issueSelectedSalesItems(frm) {
     var allDecCodes = frm.getAllDecCodes();
     var recArr = frm.licObjARRAY;
     var ruleParams = frm.getRulesParam();
+	var seasonPeriod = GetDateRange(DEC_CONFIG, LICENSE_SEASON, frm.Year);
+    var diff = dateDiff(new Date(), seasonPeriod[0]);
+	
     for (var item in recArr) {
         var oLic = recArr[item];
         var wmu1Result;
@@ -644,8 +647,6 @@ function issueSelectedSalesItems(frm) {
 
                     var effectiveDt;
                     var clacFromDt;
-                    var diff;
-                    var seasonPeriod;
                     if (ats == AA24_NONRESIDENT_1_DAY_FISHING || ats == AA03_ONE_DAY_FISHING_LICENSE) {
                         effectiveDt = AInfo["Effective Date One Day Fishing"];
                         editFileDate(newLicId, effectiveDt);
@@ -667,8 +668,6 @@ function issueSelectedSalesItems(frm) {
                         setLicExpirationDate(newLicId, clacFromDt);
                     } else if (ats == AA02_MARINE_REGISTRY) {
                         effectiveDt = AInfo["Effective Date Marine"];
-                        seasonPeriod = GetDateRange(DEC_CONFIG, LICENSE_SEASON, frm.Year);
-                        diff = dateDiff(new Date(), seasonPeriod[0])
                         if (diff > 0) {
                             AInfo["CODE.Effective Date"] = jsDateToMMDDYYYY(seasonPeriod[0]);
                             editFileDate(newLicId, seasonPeriod[0]);
@@ -684,8 +683,6 @@ function issueSelectedSalesItems(frm) {
                     else if (ata[1] == "Other") {
                         AInfo["CODE.Effective Date"] = jsDateToMMDDYYYY(new Date());
                     } else {
-                        seasonPeriod = GetDateRange(DEC_CONFIG, LICENSE_SEASON, frm.Year);
-                        diff = dateDiff(new Date(), seasonPeriod[0])
                         if (diff > 0) {
                             AInfo["CODE.Effective Date"] = jsDateToMMDDYYYY(seasonPeriod[0]);
                             editFileDate(newLicId, seasonPeriod[0]);
