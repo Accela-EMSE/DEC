@@ -1201,7 +1201,7 @@ function form_OBJECT(identity) {
         return retMsg;
     }
     this.isAfterSwitchDate = function () {
-        return isAfterSwitchDate();
+        return this.isAfterSwitchDateFlag;
     }
     this.SetItemFeeSched = function (psRef, ruleParams) {
         for (var item in this.VersionItems) {
@@ -1517,7 +1517,8 @@ function License_OBJ(identity, active) {
     this.isRevoked = false;
     this.isHasPrereq = false;
     this.isSelectableByFee = false;
-
+	this.isAfterSwitchDateFlag = isAfterSwitchDate();
+	
     this.toString = function (fromAca) {
         var result = '';
         var lf = fromAca == "Yes" ? '<br />' : ', ';
