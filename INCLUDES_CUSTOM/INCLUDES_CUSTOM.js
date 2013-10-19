@@ -2383,7 +2383,7 @@ function validateFishingdates() {
     f.SetActiveHoldingsInfo(AInfo["A_ActiveHoldings"]);
 
     if (isNull(AInfo["Effective Date One Day Fishing"], '') != '') {
-        if (dateDiff(AInfo["Effective Date One Day Fishing"], new Date()) >= 0) {
+        if (dateDiff(AInfo["Effective Date One Day Fishing"], new Date()) >= 1) {
             retMsg += "One Day Fishing Effective Date cannot be prior to today's date.";
             retMsg += "<Br />";
         } else {
@@ -2397,7 +2397,7 @@ function validateFishingdates() {
         }
     }
     if (isNull(AInfo["Effective Date Seven Day Fishing"], '') != '') {
-        if (dateDiff(AInfo["Effective Date Seven Day Fishing"], new Date()) >= 0) {
+        if (dateDiff(AInfo["Effective Date Seven Day Fishing"], new Date()) >= 1) {
             retMsg += "Seven Day Fishing Effective Date cannot be prior to today's date.";
             retMsg += "<Br />";
         } else {
@@ -2412,7 +2412,7 @@ function validateFishingdates() {
     }
     if (isNull(AInfo["Effective Date Fishing"], '') != '') {
         if (f.isAfterSwitchDate()) {
-            if (dateDiff(AInfo["Effective Date Fishing"], new Date()) >= 0) {
+            if (dateDiff(AInfo["Effective Date Fishing"], new Date()) >= 1) {
                 retMsg += "Fishing Effective Date cannot be prior to today's date.";
                 retMsg += "<Br />";
             } else {
