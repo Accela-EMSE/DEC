@@ -17,9 +17,15 @@
 function rebuildAllTagsforaRefContact(ipRefContact,ipEffDate) {
     opErrors = null;
     var fvProcessYear = getProcessYear(ipEffDate);
+    var fvSeason =  getSeasonDates(fvProcessYear);
+    var fvStartDate = fvSeason.StartDate;
+    var fvExpDate = fvSeason.EndDate;
     var fvAge = getRefContactAgeAsOnDate(ipRefContact,ipEffDate);
-    showMessage = true;
-    comment("Tags rebuilt for Ref Contact: " + ipRefContact + " as of Date: " + ipEffDate + ".");
+    var fvSpEd = getSpEd(ipRefContact);
+    var fvLifeLic = getLifetimeLicenses(ipRefContact);
+    var fvEligibleTags = calculateEligTags(fvLifeLic,fvSpEd,fvAge);
+    var fvExistTags = getExistingTags(ipRefContact,fvExpDate,fvEligibleTags);
+    var opErrors = createNewTags(ipRefContact,fvStartDate,fvExpDate,fvExistTags);
     return opErrors;
 }
 
@@ -32,6 +38,25 @@ function getProcessYear(ipEffDate) {
     if (ipEffDate.getTime() < fvStartDt.getTime())
         opYear--;
     return opYear;
+}
+
+function getSeasonDates(ipProcessYear) {
+    var fvDateRange = lookup("DEC_CONFIG", "LICENSE_SEASON");
+    var fvDateArr = fvDateRange.split("-");
+    var fvStartStr = fvDateArr[0] + "/" + ipProcessYear;
+    var fvStartDt = new Date(fvStartStr);
+    var fvEndStr = fvDateArr[1] + "/" + ipProcessYear;
+    var fvEndDt = new Date(fvEndStr);
+    if (fvEndDt.getTime() < fvStartDt.getTime())
+    {
+        ipProcessYear++;
+        var fvEndStr = fvDateArr[1] + "/" + ipProcessYear;
+        var fvEndDt = new Date(fvEndStr);
+    }
+    var opSeason = new Array();
+    opSeason["StartDate"] = fvStartDt;
+    opSeason["EndDate"] = fvEndDt;
+    return opSeason;
 }
 
 function getRefContactAgeAsOnDate(ipRefContact,ipEffDate) {
@@ -64,4 +89,270 @@ function getCompletedAge(ipBirthDate,ipEffDate) {
     if (fvEffBirthDate.getTime() > ipEffDate.getTime())
         opAge--;
     return opAge;
+}
+
+function getSpEd(ipRefContact) {
+    var fvSubGroupName = "SPORTSMAN EDUCATION";
+    var fvFieldNameType = "Sportsman Education Type";
+    var fvFieldNameRevoked = "Revoked";
+       
+    var fvPeopleModel = getOutput(aa.people.getPeople(ipRefContact), "");
+    
+    var fvSpEdArray = aa.util.newHashMap();
+    var fvTemplateGroups = fvPeopleModel.getTemplate().getTemplateTables();
+    if (fvTemplateGroups && fvTemplateGroups.size() > 0) {
+        var fvSubGroups = fvTemplateGroups.get(0).getSubgroups();
+        for (var fvSubGroupIndex = 0; fvSubGroupIndex < fvSubGroups.size(); fvSubGroupIndex++) {
+            var fvSubGroup = fvSubGroups.get(fvSubGroupIndex);
+
+            if (fvSubGroupName != fvSubGroup.getSubgroupName())
+                continue;
+
+            var fvFields = fvSubGroup.getFields();
+            if (fvFields) {
+                var fvFieldPosType = -1;
+                var fvFieldPosRevoked = -1;
+                for (var fvCounter = 0; fvCounter < fvFields.size(); fvCounter++) {
+                    var fvField = fvFields.get(fvCounter);
+                    if (fvField.fieldName == fvFieldNameType)
+                        fvFieldPosType = fvCounter;
+                    if (fvField.fieldName == fvFieldNameRevoked)
+                        fvFieldPosRevoked = fvCounter;
+                }
+
+                var fvRows = fvSubGroup.getRows();
+                if (fvRows) {
+                    for (var fvCounter = 0; fvCounter < fvRows.size(); fvCounter++) {
+                        var fvRow = fvRows.get(fvCounter);
+                        var fvRowValues = fvRow.getValues();
+                        var fvValueRevoked = fvRowValues.get(fvFieldPosRevoked);
+                        if (fvValueRevoked.value != null && fvValueRevoked.value != "")
+                            continue;
+                        var fvValueType = fvRowValues.get(fvFieldPosType);
+                        fvSpEdArray.put(fvValueType.value,fvValueType.value);
+                    }
+                }
+            }
+            break;
+        }
+    }
+    return fvSpEdArray;
+}
+
+function getLifetimeLicenses(ipRefContact) {
+    var opLL = aa.util.newHashMap();
+    var fvPeopleQry = aa.people.getPeople(ipRefContact);
+    if (!fvPeopleQry.getSuccess())
+        return opLL;
+    var fvPeople = fvPeopleQry.getOutput();
+    var fvPeopleScript = new com.accela.aa.emse.dom.PeopleScriptModel(fvPeople);
+    var fvCapsQry = aa.people.getCapIDsByRefContact(fvPeopleScript);
+    if (!fvCapsQry.getSuccess())
+        return opLL;
+    var fvCaps = fvCapsQry.getOutput();
+    for (var fvCounter in fvCaps) {
+        var fvCap = fvCaps[fvCounter];
+        var fvCapID = aa.cap.getCapID(fvCap.ID1,fvCap.ID2,fvCap.ID3).getOutput();
+        var fvCapM = aa.cap.getCap(fvCapID).getOutput();
+        var fvCapType = fvCapM.getCapType();
+        if (fvCapType.getGroup() != "Licenses" || fvCapType.getType() != "Lifetime")
+           continue;
+        if (fvCapType.getSubType() == "Other" || fvCapType.getSubType() == "Fishing")
+           continue;
+        if (fvCapM.getCapStatus() != "Active" && fvCapM.getCapStatus() != "Approved")
+           continue;
+        opLL.put(fvCapType.getCategory(),"");
+    }
+    return opLL;
+}
+
+function calculateEligTags(ipLifeLic,ipSpEd,ipAge) {
+    var fvLLs = ipLifeLic.entrySet().toArray();
+    for (var fvCounter in fvLL) {
+        var fvLL = fvLLs[fvCounter];
+        var fvLicType = fvLL.getKey();
+        var fvTags = "";
+        if (fvLicType == "Bowhunting" && ipSpEd.containsKey("Hunter Ed") && ipSpEd.containsKey("Bowhunter Ed (IBEP)")) {
+            if (ipAge >= 12 && ipAge < 16)
+                fvTags = "PP,BK,ED,DD";
+            else if (ipAge >= 16)
+                fvTags = "PP,ED";
+        }
+        if (fvLicType == "Muzzleloading" && ipSpEd.containsKey("Hunter Ed")) {
+            if (ipAge >= 14)
+                fvTags = "PP,ED";
+        }
+        if (fvLicType == "Small & Big Game" && ipSpEd.containsKey("Hunter Ed")) {
+            if (ipAge >= 12 && ipAge < 14)
+                fvTags = "PP,BK";
+            else if (ipAge >= 14)
+                fvTags = "PP,BK,SD,BR,DD";
+        }
+        if (fvLicType == "Sportsman" && ipSpEd.containsKey("Hunter Ed")) {
+            if (ipAge >= 12 && ipAge < 14)
+                fvTags = "PP,BK,TK";
+            else if (ipAge >= 14)
+                fvTags = "PP,BK,TK,SD,BR,DD";
+        }
+        if (fvLicType == "Trapping License" && ipSpEd.containsKey("Trapper Ed")) {
+            fvTags = "PP";
+        }
+        ipLifeLic.put(fvLicType,fvTags);
+    }
+    var opAllTags = aa.util.newHashMap();
+    fvLLs = ipLifeLic.entrySet().toArray();
+    var fvTotalTags = 0;
+    for (var fvCounter in fvLL) {
+        var fvLL = fvLLs[fvCounter];
+        var fvLicType = fvLL.getKey();
+        var fvTags = fvLL.getValue();
+        var fvTagsArr = fvTags.split("-");
+        for (var fvTagCounter in fvTagsArr) {
+            var fvTag = fvTagsArr[fvTagCounter];
+            if (fvTag == "PP" && !opAllTags.containsKey("PP"))
+            {
+                opAllTags.put("PP",1);
+                fvTotalTags++;
+            }
+            else
+            if (fvTag == "BK" && !opAllTags.containsKey("BK"))
+            {
+                opAllTags.put("BK",1);
+                fvTotalTags++;
+            }
+            else
+            if (fvTag == "BR" && !opAllTags.containsKey("BR"))
+            {
+                opAllTags.put("BR",1);
+                fvTotalTags++;
+            }
+            else
+            if (fvTag == "DD" && !opAllTags.containsKey("DD"))
+            {
+                opAllTags.put("DD",1);
+                fvTotalTags++;
+            }
+            else
+            if (fvTag == "TK") {
+                if (!opAllTags.containsKey("FTK"))
+                {
+                    opAllTags.put("FTK",2);
+                    fvTotalTags = fvTotalTags + 2;
+                }
+                if (!opAllTags.containsKey("STK"))
+                {
+                    opAllTags.put("STK",2);
+                    fvTotalTags = fvTotalTags + 2;
+                }
+            }
+            else
+            if (fvTag == "SD" && !opAllTags.containsKey("SD"))
+            {
+                opAllTags.put("SD",1);
+                fvTotalTags++;
+            }
+            else
+            if (fvTag == "ED") {
+               if (!opAllTags.containsKey("ED"))
+               {
+                   opAllTags.put("ED",1);
+                   fvTotalTags++;
+               }
+               else
+               if (!opAllTags.containsKey("AD"))
+               {
+                   opAllTags.put("AD",1);
+                   fvTotalTags++;
+               }
+            }
+        }
+    }
+    opAllTags.put("TOTAL",fvTotalTags);
+    return opAllTags;
+}
+
+function getExistingTags(ipRefContact,ipExpDate,ipEligibleTags) {
+    var fvTotalTags = parseInt(ipEligibleTags.get("TOTAL"), 10);
+    if (fvTotalTags == 0)
+        return ipEligibleTags;
+    var fvPeopleQry = aa.people.getPeople(ipRefContact);
+    if (!fvPeopleQry.getSuccess())
+        return ipEligibleTags;
+    var fvPeople = fvPeopleQry.getOutput();
+    var fvPeopleScript = new com.accela.aa.emse.dom.PeopleScriptModel(fvPeople);
+    var fvCapsQry = aa.people.getCapIDsByRefContact(fvPeopleScript);
+    if (!fvCapsQry.getSuccess())
+        return ipEligibleTags;
+    var fvCaps = fvCapsQry.getOutput();
+    for (var fvCounter in fvCaps) {
+        var fvCap = fvCaps[fvCounter];
+        var fvCapID = aa.cap.getCapID(fvCap.ID1,fvCap.ID2,fvCap.ID3).getOutput();
+        var fvCapM = aa.cap.getCap(fvCapID).getOutput();
+        var fvCapType = fvCapM.getCapType();
+        if (fvCapType.getGroup() != "Licenses" || fvCapType.getType() != "Tag" || fvCapType.getSubType() != "Hunting")
+           continue;
+        if (fvCapM.getCapStatus() != "Active")
+           continue;
+        var fvExpQry = aa.expiration.getLicensesByCapID(fvCapID);
+        if (!fvExpQry || !fvExpQry.getSuccess())
+            continue;
+        var fvExp = fvExpQry.getOutput();
+        if (!fvExp)
+            continue;
+        var fvExpDtStr = fvExp.getExpDateString();
+        var fvExpDtArr = fvExpDtStr.split("-");
+        fvExpDtStr = fvExpDtArr[1] + "/" + fvExpDtArr[2] + "/" + fvExpDtArr[0];
+        var fvExpDt = new Date(fvExpDtStr);
+        if (fvExpDt.getTime() != ipExpDate.getTime())
+            continue;
+        var fvCategory = fvCapType.getCategory();
+        var fvtag = "";
+        if (fvCategory == "Antlerless")
+            fvTag = "AD";
+        if (fvCategory == "Back")
+            fvTag = "BK;
+        if (fvCategory == "Bear")
+            fvTag = "BR";
+        if (fvCategory == "Deer")
+            fvTag = "SD";
+        if (fvCategory == "DMP Deer")
+            fvTag = "DD";
+        if (fvCategory == "Either Sex")
+            fvTag = "ED";
+        if (fvCategory == "Fall Turkey")
+            fvTag = "FTK";
+        if (fvCategory == "Privilege Panel")
+            fvTag = "PP";
+        if (fvCategory == "Spring Turkey")
+            fvTag = "STK";
+        if (fvTag == "")
+            continue;
+        if (ipEligibleTags.containsKey(fvTag)) {
+           var fvNoOfTags = parseInt(ipEligibleTags.get(fvTag), 10);
+           if (fvNoOfTags != 0)
+           {
+               fvNoOfTags--;
+               fvTotalTags--;
+           }
+           ipEligibleTags.put(fvTag,fvNoOfTags);
+        }
+    }
+    ipEligibleTags.put("TOTAL",fvTotalTags);
+    return ipEligibleTags;
+}
+
+function createNewTags(ipRefContact,ipStartDate,ipExpDate,ipEligibleTags) {
+    var fvTotalTags = parseInt(ipEligibleTags.get("TOTAL"), 10);
+    if (fvTotalTags == 0)
+        return;
+    var fvParentApp = createParentTagApp(ipRefContact,ipStartDate,ipExpDate);
+    var fvTagArray = ipEligibleTags.entrySet().toArray();
+    for (var fvCounter in fvTagArray) {
+        var fvTagObj = fvTagArray[fvCounter];
+        var fvTagType = fvTagObj.getKey();
+        var fvTagQty = parseInt(fvTagObj.getValue(), 10);
+        for (var fvTagCounter = 0; fvTagCounter < fvTagQty; fvTagCounter++) {
+            createNewTag(fvParentApp,ipRefContact,ipStartDate,ipExpDate,fvTagType);
+        }
+    }
 }
