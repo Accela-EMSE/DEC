@@ -456,6 +456,8 @@ arryTrapEd.push("Trapper Ed");
 // JHS 10/10/2013 fixed misspelling defect 2319
 arryTrapEd.push("Trapping");
 
+var isAfterSwitchDateFlag = "not set"; // JHS 10/18/2013  Cache the date flag after we get it the first time
+
 function GetAllSalesItemsNames() {
     var RecordTypeArray = new Array();
 
@@ -2748,8 +2750,13 @@ function differBySwitch(year) {
     return differYear;
 }
 function isAfterSwitchDate() {
-    var retVal = true;
-
+	
+    if (!"not set".equals(isAfterSwitchDateFlag)) {  
+		return isAfterSwitchDateFlag; // use cached value
+		}
+		
+	var retVal = true;
+	
     var strSwitchDate = lookup("DEC_CONFIG", "SWITCH_DATE");
     /*
     var strSwitchDateOverride = lookup("SWITCH_DATE_OVERRIDE",publicUserID);
@@ -2762,6 +2769,7 @@ function isAfterSwitchDate() {
         var diff = dateDiff(switchDate, new Date());
         retVal = (diff >= 0);
     }
+	isAfterSwitchDateFlag = retVal;
     return retVal;
 }
 function getVoidableFilterArray() {
