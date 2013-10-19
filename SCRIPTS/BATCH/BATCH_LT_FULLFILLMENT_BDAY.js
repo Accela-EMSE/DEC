@@ -285,7 +285,7 @@ function getRefContactsByRecTypeByStatusByDOB(ipGroup,ipType,ipSubType,ipCategor
     return false;
 }
 
-function shoudContinue(ipContact,ipStartDate,ipEndDate) {
+function shouldContinue(ipContact,ipStartDate,ipEndDate) {
     var fvBirthDate = ipContact.getBirthDate();
     var fvBDStr = fvBirthDate.getMonth().toString() + "/" + fvBirthDate.getDate().toString() + "/" + ipStartDate.getFullYear().toString();
     fvBirthDate = new Date(fvBDStr);
