@@ -210,34 +210,29 @@ function calculateEligTags(ipLifeLic,ipSpEd,ipAge) {
         for (var fvTagCounter in fvTagsArr) {
             var fvTag = fvTagsArr[fvTagCounter];
             if (fvTag == "Turkey") {
-                if (!opAllTags.containsKey("Fall Turkey"))
-                {
+                if (!opAllTags.containsKey("Fall Turkey")) {
                     opAllTags.put("Fall Turkey",2);
                     fvTotalTags = fvTotalTags + 2;
                 }
-                if (!opAllTags.containsKey("Spring Turkey"))
-                {
+                if (!opAllTags.containsKey("Spring Turkey")) {
                     opAllTags.put("Spring Turkey",2);
                     fvTotalTags = fvTotalTags + 2;
                 }
             }
             else
             if (fvTag == "Either Sex") {
-               if (!opAllTags.containsKey("Either Sex"))
-               {
+               if (!opAllTags.containsKey("Either Sex")) {
                    opAllTags.put("Either Sex",1);
                    fvTotalTags++;
                }
                else
-               if (!opAllTags.containsKey("Antlerless"))
-               {
+               if (!opAllTags.containsKey("Antlerless")) {
                    opAllTags.put("Antlerless",1);
                    fvTotalTags++;
                }
             }
             else
-            if (!opAllTags.containsKey(fvTag))
-            {
+            if (!opAllTags.containsKey(fvTag)) {
                 opAllTags.put(fvTag,1);
                 fvTotalTags++;
             }            
@@ -284,8 +279,7 @@ function getExistingTags(ipRefContact,ipExpDate,ipEligibleTags) {
         var fvCategory = fvCapType.getCategory();
         if (ipEligibleTags.containsKey(fvCategory)) {
            var fvNoOfTags = parseInt(ipEligibleTags.get(fvCategory), 10);
-           if (fvNoOfTags != 0)
-           {
+           if (fvNoOfTags != 0) {
                fvNoOfTags--;
                fvTotalTags--;
            }
@@ -297,6 +291,7 @@ function getExistingTags(ipRefContact,ipExpDate,ipEligibleTags) {
 }
 
 function createNewTags(ipRefContact,ipStartDate,ipExpDate,ipEligibleTags) {
+    var opErrors = nul;
     var fvTotalTags = parseInt(ipEligibleTags.get("TOTAL"), 10);
     if (fvTotalTags == 0)
         return;
@@ -310,6 +305,7 @@ function createNewTags(ipRefContact,ipStartDate,ipExpDate,ipEligibleTags) {
             createNewTag(fvParentApp,ipRefContact,ipStartDate,ipExpDate,fvTag,fvTagCounter);
         }
     }
+    return opErrors;
 }
 
 function createParentTagApp(ipRefContact,ipStartDate,ipExpDate) {
@@ -391,8 +387,7 @@ function lookupDesc(ipStdChoice,ipDesc) {
 	if (fvBizDomScriptResult.getSuccess()) {
 		var fvBizDomScriptArray = fvBizDomScriptResult.getOutput().toArray();
 		
-		for (var fvCntr in fvBizDomScriptArray)
-		{
+		for (var fvCntr in fvBizDomScriptArray) {
 		    if (fvBizDomScriptArray[fvCntr].getDescription() == ipDesc)
                 return fvBizDomScriptArray[fvCntr].getBizdomainValue();
     	}
