@@ -174,28 +174,28 @@ function calculateEligTags(ipLifeLic,ipSpEd,ipAge) {
         var fvTags = "";
         if (fvLicType == "Bowhunting" && ipSpEd.containsKey("Hunter Ed") && ipSpEd.containsKey("Bowhunter Ed (IBEP)")) {
             if (ipAge >= 12 && ipAge < 16)
-                fvTags = "PP,BK,ED,DD";
+                fvTags = "Privilege Panel,Back,Either Sex,DMP Deer";
             else if (ipAge >= 16)
-                fvTags = "PP,ED";
+                fvTags = "Privilege Panel,Either Sex";
         }
         if (fvLicType == "Muzzleloading" && ipSpEd.containsKey("Hunter Ed")) {
             if (ipAge >= 14)
-                fvTags = "PP,ED";
+                fvTags = "Privilege Panel,Either Sex";
         }
         if (fvLicType == "Small & Big Game" && ipSpEd.containsKey("Hunter Ed")) {
             if (ipAge >= 12 && ipAge < 14)
-                fvTags = "PP,BK";
+                fvTags = "Privilege Panel,Back";
             else if (ipAge >= 14)
-                fvTags = "PP,BK,SD,BR,DD";
+                fvTags = "Privilege Panel,Back,Deer,Bear,DMP Deer";
         }
         if (fvLicType == "Sportsman" && ipSpEd.containsKey("Hunter Ed")) {
             if (ipAge >= 12 && ipAge < 14)
-                fvTags = "PP,BK,TK";
+                fvTags = "Privilege Panel,Back,Turkey";
             else if (ipAge >= 14)
-                fvTags = "PP,BK,TK,SD,BR,DD";
+                fvTags = "Privilege Panel,Back,Turkey,Deer,Bear,DMP Deer";
         }
         if (fvLicType == "Trapping License" && ipSpEd.containsKey("Trapper Ed")) {
-            fvTags = "PP";
+            fvTags = "Privilege Panel";
         }
         ipLifeLic.put(fvLicType,fvTags);
     }
@@ -209,62 +209,38 @@ function calculateEligTags(ipLifeLic,ipSpEd,ipAge) {
         var fvTagsArr = fvTags.split("-");
         for (var fvTagCounter in fvTagsArr) {
             var fvTag = fvTagsArr[fvTagCounter];
-            if (fvTag == "PP" && !opAllTags.containsKey("PP"))
-            {
-                opAllTags.put("PP",1);
-                fvTotalTags++;
-            }
-            else
-            if (fvTag == "BK" && !opAllTags.containsKey("BK"))
-            {
-                opAllTags.put("BK",1);
-                fvTotalTags++;
-            }
-            else
-            if (fvTag == "BR" && !opAllTags.containsKey("BR"))
-            {
-                opAllTags.put("BR",1);
-                fvTotalTags++;
-            }
-            else
-            if (fvTag == "DD" && !opAllTags.containsKey("DD"))
-            {
-                opAllTags.put("DD",1);
-                fvTotalTags++;
-            }
-            else
-            if (fvTag == "TK") {
-                if (!opAllTags.containsKey("FTK"))
+            if (fvTag == "Turkey") {
+                if (!opAllTags.containsKey("Fall Turkey"))
                 {
-                    opAllTags.put("FTK",2);
+                    opAllTags.put("Fall Turkey",2);
                     fvTotalTags = fvTotalTags + 2;
                 }
-                if (!opAllTags.containsKey("STK"))
+                if (!opAllTags.containsKey("Spring Turkey"))
                 {
-                    opAllTags.put("STK",2);
+                    opAllTags.put("Spring Turkey",2);
                     fvTotalTags = fvTotalTags + 2;
                 }
             }
             else
-            if (fvTag == "SD" && !opAllTags.containsKey("SD"))
-            {
-                opAllTags.put("SD",1);
-                fvTotalTags++;
-            }
-            else
-            if (fvTag == "ED") {
-               if (!opAllTags.containsKey("ED"))
+            if (fvTag == "Either Sex") {
+               if (!opAllTags.containsKey("Either Sex"))
                {
-                   opAllTags.put("ED",1);
+                   opAllTags.put("Either Sex",1);
                    fvTotalTags++;
                }
                else
-               if (!opAllTags.containsKey("AD"))
+               if (!opAllTags.containsKey("Antlerless"))
                {
-                   opAllTags.put("AD",1);
+                   opAllTags.put("Antlerless",1);
                    fvTotalTags++;
                }
             }
+            else
+            if (!opAllTags.containsKey(fvTag))
+            {
+                opAllTags.put(fvTag,1);
+                fvTotalTags++;
+            }            
         }
     }
     opAllTags.put("TOTAL",fvTotalTags);
@@ -306,35 +282,14 @@ function getExistingTags(ipRefContact,ipExpDate,ipEligibleTags) {
         if (fvExpDt.getTime() != ipExpDate.getTime())
             continue;
         var fvCategory = fvCapType.getCategory();
-        var fvtag = "";
-        if (fvCategory == "Antlerless")
-            fvTag = "AD";
-        if (fvCategory == "Back")
-            fvTag = "BK;
-        if (fvCategory == "Bear")
-            fvTag = "BR";
-        if (fvCategory == "Deer")
-            fvTag = "SD";
-        if (fvCategory == "DMP Deer")
-            fvTag = "DD";
-        if (fvCategory == "Either Sex")
-            fvTag = "ED";
-        if (fvCategory == "Fall Turkey")
-            fvTag = "FTK";
-        if (fvCategory == "Privilege Panel")
-            fvTag = "PP";
-        if (fvCategory == "Spring Turkey")
-            fvTag = "STK";
-        if (fvTag == "")
-            continue;
-        if (ipEligibleTags.containsKey(fvTag)) {
-           var fvNoOfTags = parseInt(ipEligibleTags.get(fvTag), 10);
+        if (ipEligibleTags.containsKey(fvCategory)) {
+           var fvNoOfTags = parseInt(ipEligibleTags.get(fvCategory), 10);
            if (fvNoOfTags != 0)
            {
                fvNoOfTags--;
                fvTotalTags--;
            }
-           ipEligibleTags.put(fvTag,fvNoOfTags);
+           ipEligibleTags.put(fvCategory,fvNoOfTags);
         }
     }
     ipEligibleTags.put("TOTAL",fvTotalTags);
@@ -349,10 +304,98 @@ function createNewTags(ipRefContact,ipStartDate,ipExpDate,ipEligibleTags) {
     var fvTagArray = ipEligibleTags.entrySet().toArray();
     for (var fvCounter in fvTagArray) {
         var fvTagObj = fvTagArray[fvCounter];
-        var fvTagType = fvTagObj.getKey();
+        var fvTag = fvTagObj.getKey();
         var fvTagQty = parseInt(fvTagObj.getValue(), 10);
         for (var fvTagCounter = 0; fvTagCounter < fvTagQty; fvTagCounter++) {
-            createNewTag(fvParentApp,ipRefContact,ipStartDate,ipExpDate,fvTagType);
+            createNewTag(fvParentApp,ipRefContact,ipStartDate,ipExpDate,fvTag,fvTagCounter);
         }
     }
+}
+
+function createParentTagApp(ipRefContact,ipStartDate,ipExpDate) {
+    var fvGroup = "Licenses";
+    var fvType = "Annual";
+    var fvSubType = "Application";
+    var fvCategory = "NA";
+    var fvDesc = "Buy Sporting License(s)";
+    var fvAppCreateResult = aa.cap.createApp(fvGroup, fvType, fvSubType, fvCategory, fvDesc);
+    if (fvAppCreateResult.getSuccess()) {
+        var newId = fvAppCreateResult.getOutput();
+        // create Detail Record
+        capModel = aa.cap.newCapScriptModel().getOutput();
+        capDetailModel = capModel.getCapModel().getCapDetailModel();
+        capDetailModel.setCapID(newId);
+        aa.cap.createCapDetail(capDetailModel);
+
+        var newObj = aa.cap.getCap(newId).getOutput(); //Cap object
+        editAppName(fvDesc, newId);
+        editFileDate(newId, ipStartDate);
+        setLicExpirationDate(newId, "", ipExpDate);
+
+        var fvPeople = aa.people.getPeople(ipRefContact).getOutput();
+        aa.people.createCapContactWithRefPeopleModel(newId,fvPeople);
+        updateAppStatus("Approved","Auto-Gen",newId);
+        
+        var fvCondFulfill = new COND_FULLFILLMENT();
+        addFullfillmentCondition(newId, fvCondFulfill.Condition_AutoGenAppl);
+        return newId;
+    }
+}
+
+function createNewTag(ipParentApp,ipStartDate,ipExpDate,ipTag,ipTagCntr) {
+    var fvGroup = "Licenses";
+    var fvType = "Tag";
+    var fvSubType = "Hunting";
+    var fvCategory = ipTag;
+    var fvTagType = "";
+    if (fvCategory == "Back")
+        fvTagType = "1";
+    if (fvCategory == "Antlerless")
+        fvTagType = "20";
+    if (fvCategory == "Either Sex")
+        fvTagType = "19";
+    if (fvCategory == "Deer")
+        fvTagType = "3";
+    if (fvCategory == "DMP Deer")
+        fvTagType = "4";
+    if (fvCategory == "Bear")
+        fvTagType = "2";
+    if (fvCategory == "Privilege Panel")
+        fvTagType = "24";
+    if (fvCategory == "Fall Turkey") {
+        if (ipTagCntr == 0)
+            fvTagType = "13";
+        else
+            fvTagType ="14";
+    }
+    if (fvCategory == "Spring Turkey") {
+        if (ipTagCntr == 0)
+            fvTagType = "15";
+        else
+            fvTagType ="16";
+    }
+    fvAppName = lookup("TAG_TYPE",fvTagType);
+    var newLicId = issueSubLicense(fvGroup, fvType, fvSubType, fvCategory, "Active", ipParentApp);
+    editAppName(fvAppName, newLicId);
+    editFileDate(newLicId, ipStartDate);
+    setLicExpirationDate(newLicId, "", ipExpDate);
+    editAppSpecific("Tag Type",fvTagType,newLicId);
+    editAppSpecific("Year",ipStartDate.getFullYear().toString(),newLicId);
+    fvYearDesc = lookupDesc("LICENSE_FILING_YEAR_Desc",ipStartDate.getFullYear().toString());
+    editAppSpecific("Year Description",fvYearDesc,newLicId);
+}
+
+function lookupDesc(ipStdChoice,ipDesc) {
+    var fvBizDomScriptResult = aa.bizDomain.getBizDomain(ipStdChoice);
+	
+	if (fvBizDomScriptResult.getSuccess()) {
+		var fvBizDomScriptArray = fvBizDomScriptResult.getOutput().toArray();
+		
+		for (var fvCntr in fvBizDomScriptArray)
+		{
+		    if (fvBizDomScriptArray[fvCntr].getDescription() == ipDesc)
+                return fvBizDomScriptArray[fvCntr].getBizdomainValue();
+    	}
+	}
+	return null;
 }
