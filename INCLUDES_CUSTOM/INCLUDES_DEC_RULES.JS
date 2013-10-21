@@ -1493,9 +1493,9 @@ function isRuleForSelectable_ANNUAL_MUZZ_2014(ruleParams) {
     return isSelectable;
 }
 function isRuleForSelectable_ANNUAL_DMP_2012(ruleParams) {
-    var isSelectable = (ruleParams.IsNyResiDent && ruleParams.Age >= 13 && ruleParams.HasHuntEd);
+    var isSelectable = (ruleParams.IsNyResiDent && ruleParams.Age > 13 && ruleParams.HasHuntEd);
     isSelectable = isSelectable || (ruleParams.IsNyResiDent && ruleParams.Age >= 12 && ruleParams.HasHuntEd && ruleParams.HasBowHunt);
-    isSelectable = isSelectable || (!ruleParams.IsNyResiDent && ruleParams.Age >= 13 && ruleParams.HasHuntEd);
+    isSelectable = isSelectable || (!ruleParams.IsNyResiDent && ruleParams.Age > 13 && ruleParams.HasHuntEd);
     isSelectable = isSelectable || (!ruleParams.IsNyResiDent && ruleParams.Age >= 12 && ruleParams.HasHuntEd && ruleParams.HasBowHunt);
     return isSelectable;
 }
