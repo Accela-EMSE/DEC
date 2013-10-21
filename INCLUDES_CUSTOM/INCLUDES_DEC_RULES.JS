@@ -1875,6 +1875,7 @@ function getPrereq_ANNUAL_DMP_2012(ruleParams) {
 			arryPrereq.push(LIC42_TRAPPER_SUPER_SPORTSMAN);
 			arryPrereq.push(LIC31_NONRES_SUPER_SPORTSMAN);
 			arryPrereq.push(LIC27_CONSERVATION_LEGACY);
+			arryPrereq.push(LIC29_JUNIOR_HUNTING);
 			}
 		}
     return arryPrereq;
