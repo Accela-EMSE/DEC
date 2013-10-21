@@ -1855,27 +1855,31 @@ function getPrereq_ANNUAL_DMP_2012(ruleParams) {
     var arryPrereq = null;
     if (isRuleForSelectable_ANNUAL_DMP_2012(ruleParams)) {
         arryPrereq = new Array();
-        arryPrereq.push(LIC06_HUNTING_LICENSE);
-        arryPrereq.push(LIC30_NONRES_MUZZLELOADING);
-        arryPrereq.push(LIC37_SMALL_AND_BIG_GAME);
-        arryPrereq.push(LIC12_LIFETIME_SMALL_AND_BIG_GAME);
-        arryPrereq.push(LIC33_NONRESIDENT_BIG_GAME);
-        arryPrereq.push(LIC34_NONRESIDENT_BOWHUNTING);
-        arryPrereq.push(LIC40_SUPER_SPORTSMAN);
-        arryPrereq.push(LIC13_LIFETIME_SPORTSMAN);
-        arryPrereq.push(LIC39_SPORTSMAN);
-        arryPrereq.push(LIC42_TRAPPER_SUPER_SPORTSMAN);
-        arryPrereq.push(LIC31_NONRES_SUPER_SPORTSMAN);
-        arryPrereq.push(LIC27_CONSERVATION_LEGACY);
 
-        if (ruleParams.Age >= 12 && ruleParams.Age <= 15 && ruleParams.HasHuntEd && ruleParams.HasBowHunt) {
-            arryPrereq.push(LIC28_JUNIOR_BOWHUNTING);
-        } if (ruleParams.Age >= 14 && ruleParams.HasHuntEd) {
-            arryPrereq.push(LIC29_JUNIOR_HUNTING);
-        }
-    }
+		// JHS 10/14/13 DMP rules defect
+		if (rp.Age >= 12 && rp.Age <= 13 && rp.HasHuntEd && rp.HasBowHunt) {
+			arryPrereq.push(LIC04_BOWHUNTING_PRIVILEGE);
+			arryPrereq.push(LIC28_JUNIOR_BOWHUNTING);
+			arryPrereq.push(LIC09_LIFETIME_BOWHUNTING);
+			}
+		else {
+			arryPrereq.push(LIC06_HUNTING_LICENSE);
+			arryPrereq.push(LIC30_NONRES_MUZZLELOADING);
+			arryPrereq.push(LIC37_SMALL_AND_BIG_GAME);
+			arryPrereq.push(LIC12_LIFETIME_SMALL_AND_BIG_GAME);
+			arryPrereq.push(LIC33_NONRESIDENT_BIG_GAME);
+			arryPrereq.push(LIC34_NONRESIDENT_BOWHUNTING);
+			arryPrereq.push(LIC40_SUPER_SPORTSMAN);
+			arryPrereq.push(LIC13_LIFETIME_SPORTSMAN);
+			arryPrereq.push(LIC39_SPORTSMAN);
+			arryPrereq.push(LIC42_TRAPPER_SUPER_SPORTSMAN);
+			arryPrereq.push(LIC31_NONRES_SUPER_SPORTSMAN);
+			arryPrereq.push(LIC27_CONSERVATION_LEGACY);
+			}
+		}
     return arryPrereq;
 }
+
 function getPrereq_ANNUAL_BOWH_2014(ruleParams) {
     var arryPrereq = null;
     if (isRuleForSelectable_ANNUAL_BOWH_2014(ruleParams)) {
