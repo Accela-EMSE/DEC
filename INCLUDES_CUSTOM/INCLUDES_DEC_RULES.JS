@@ -1561,15 +1561,15 @@ function isRuleForSelectable_NONRES_FRESHWATER_FISHING(ruleParams) {
     return isSelectable;
 }
 function isRuleForSelectable_NONRESIDENT_1_DAY_FISHING(ruleParams) {
-    var isSelectable = (!ruleParams.IsNyResiDent && ruleParams.Age >= 16 && !ruleParams.isMilitaryServiceman);
+    var isSelectable = (!ruleParams.IsNyResiDent && ruleParams.Age >= 16 && !ruleParams.IsMilitaryServiceman);
     return isSelectable;
 }
 function isRuleForSelectable_NONRESIDENT_7_DAY_FISHING(ruleParams) {
-    var isSelectable = (!ruleParams.IsNyResiDent && ruleParams.Age >= 16 && !ruleParams.isMilitaryServiceman);
+    var isSelectable = (!ruleParams.IsNyResiDent && ruleParams.Age >= 16 && !ruleParams.IsMilitaryServiceman);
     return isSelectable;
 }
 function isRuleForSelectable_SEVEN_DAY_FISHING_LICENSE_2012(ruleParams) {
-    var isSelectable = (ruleParams.IsNyResiDent && ruleParams.Age >= 16 && ruleParams.Age <= 69 && !ruleParams.isMilitaryServiceman);
+    var isSelectable = (ruleParams.IsNyResiDent && ruleParams.Age >= 16 && ruleParams.Age <= 69 && !ruleParams.IsMilitaryServiceman);
     return isSelectable;
 }
 function isRuleForSelectable_SEVEN_DAY_FISHING_LICENSE_2014(ruleParams) {
