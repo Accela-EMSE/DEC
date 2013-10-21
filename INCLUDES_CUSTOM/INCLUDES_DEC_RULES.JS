@@ -1313,8 +1313,8 @@ function getAllFeeCodeByRuleFor_SPORTSMAN(ruleParams, feeSched) {
     //Annual Sportsman: NYS Res Native American having age 16+
     if (rp.IsNyResiDent && rp.Age >= 16 && rp.IsNativeAmerican) { feeItemCodes.push(new FeeCodeProp(ASP_3_RESNAM, "000")); }
     //Annual Sportsman: NYS Res Military Disabled having age 16+
-    if (rp.IsNyResiDent && rp.Age >= 16 && rp.IsMilitaryServiceman) { feeItemCodes.push(new FeeCodeProp(ASP_4_RESMD, "000")); }
-    if (rp.IsNyResiDent && rp.Age >= 16 && rp.IsDisableForYear) {
+    //if (rp.IsNyResiDent && rp.Age >= 16 && rp.IsMilitaryServiceman) { feeItemCodes.push(new FeeCodeProp(ASP_4_RESMD, "000")); }
+    if (rp.IsNyResiDent && rp.Age >= 16 && (rp.IsDisableForYear || rp.IsPermanentDisabled)) {
         feeItemCodes.push(new FeeCodeProp(ASP_4_RESMD, "000"));
         //Military disabled persons will only be charged one $5 fee per license year for the their base licenses (trap, hunt, fish) whether they purchase one or all three.
         if (hasBaseLicMilitaryDisable(rp.ActiveHoldingsInfo)) {
@@ -1455,7 +1455,7 @@ function getAllFeeCodeByRuleFor_OTHER_SALE_VENISON_DONATION_SCHDL(ruleParams, fe
     return feeItemCodes;
 }
 function isRuleForSelectable_ONEDAY_FISH_2012(ruleParams) {
-    var isSelectable = (ruleParams.IsNyResiDent && ruleParams.Age >= 16 && ruleParams.Age <= 69);
+    var isSelectable = (ruleParams.IsNyResiDent && ruleParams.Age >= 16 && ruleParams.Age <= 69 && !ruleParams.IsMilitaryServiceman);
     return isSelectable;
 }
 function isRuleForSelectable_ONEDAY_FISH_2014(ruleParams) {
