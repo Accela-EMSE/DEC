@@ -1813,12 +1813,22 @@ function getPrereq_ANNUAL_DMP_2014(ruleParams) {
         arryPrereq = new Array();
 		
 		// JHS 10/14/13 DMP rules defect
-		if (ruleParams.Age >= 12 && ruleParams.Age <= 13 && ruleParams.HasHuntEd && ruleParams.HasBowHunt) {
-			arryPrereq.push(LIC04_BOWHUNTING_PRIVILEGE);
-			arryPrereq.push(LIC28_JUNIOR_BOWHUNTING);
-			arryPrereq.push(LIC09_LIFETIME_BOWHUNTING);
+		
+		if (rp.Age >= 12 && rp.Age <= 13) {
+				if (rp.HasHuntEd && rp.HasBowHunt) {
+					arryPrereq.push(LIC04_BOWHUNTING_PRIVILEGE);
+					arryPrereq.push(LIC28_JUNIOR_BOWHUNTING);
+					arryPrereq.push(LIC09_LIFETIME_BOWHUNTING);
+					}
+				}
+		else if (rp.Age >= 14 && rp.Age <= 15) {
+				if (rp.HasHuntEd) {
+					arryPrereq.push(LIC29_JUNIOR_HUNTING);
+					arryPrereq.push(LIC12_LIFETIME_SMALL_AND_BIG_GAME);
+					arryPrereq.push(LIC13_LIFETIME_SPORTSMAN);
+				}
 			}
-		else {
+		else if (rp.Age > 16) {
 			arryPrereq.push(LIC06_HUNTING_LICENSE);
 			arryPrereq.push(LIC30_NONRES_MUZZLELOADING);
 			arryPrereq.push(LIC37_SMALL_AND_BIG_GAME);
@@ -1832,38 +1842,34 @@ function getPrereq_ANNUAL_DMP_2014(ruleParams) {
 			arryPrereq.push(LIC31_NONRES_SUPER_SPORTSMAN);
 			arryPrereq.push(LIC27_CONSERVATION_LEGACY);
 			}
-/*
-        if (ruleParams.Age >= 12 && ruleParams.Age <= 15 && ruleParams.HasHuntEd && ruleParams.HasBowHunt) {
-            arryPrereq.push(LIC28_JUNIOR_BOWHUNTING);
-        } if (ruleParams.Age >= 14 && ruleParams.HasHuntEd) {
-            arryPrereq.push(LIC29_JUNIOR_HUNTING);
-        }
-		
-*/
-
-		if (ruleParams.Age >= 14 && ruleParams.HasHuntEd) {
-            //arryPrereq.push(LIC29_JUNIOR_HUNTING);
-			arryPrereq.push(LIC12_LIFETIME_SMALL_AND_BIG_GAME);
-			arryPrereq.push(LIC13_LIFETIME_SPORTSMAN);
-        }
-		
     }
     return arryPrereq;
 }
+
 function getPrereq_ANNUAL_DMP_2012(ruleParams) {
     var rp = ruleParams;
     var arryPrereq = null;
-    if (isRuleForSelectable_ANNUAL_DMP_2012(ruleParams)) {
+    if (isRuleForSelectable_ANNUAL_DMP_2014(ruleParams)) {
         arryPrereq = new Array();
-
+		
 		// JHS 10/14/13 DMP rules defect
-		if (rp.Age >= 12 && rp.Age <= 13 && rp.HasHuntEd && rp.HasBowHunt) {
-			arryPrereq.push(LIC04_BOWHUNTING_PRIVILEGE);
-			arryPrereq.push(LIC28_JUNIOR_BOWHUNTING);
-			arryPrereq.push(LIC09_LIFETIME_BOWHUNTING);
+		
+
+		if (rp.Age >= 12 && rp.Age <= 13) {
+				if (rp.HasHuntEd && rp.HasBowHunt) {
+					arryPrereq.push(LIC04_BOWHUNTING_PRIVILEGE);
+					arryPrereq.push(LIC28_JUNIOR_BOWHUNTING);
+					arryPrereq.push(LIC09_LIFETIME_BOWHUNTING);
+					}
+				}
+		else if (rp.Age >= 14 && rp.Age <= 15) {
+				if (rp.HasHuntEd) {
+					arryPrereq.push(LIC29_JUNIOR_HUNTING);
+					arryPrereq.push(LIC12_LIFETIME_SMALL_AND_BIG_GAME);
+					arryPrereq.push(LIC13_LIFETIME_SPORTSMAN);
+				}
 			}
-		else {
-			arryPrereq.push(LIC06_HUNTING_LICENSE);
+		else if (rp.Age > 16) {
 			arryPrereq.push(LIC30_NONRES_MUZZLELOADING);
 			arryPrereq.push(LIC37_SMALL_AND_BIG_GAME);
 			arryPrereq.push(LIC12_LIFETIME_SMALL_AND_BIG_GAME);
@@ -1875,9 +1881,8 @@ function getPrereq_ANNUAL_DMP_2012(ruleParams) {
 			arryPrereq.push(LIC42_TRAPPER_SUPER_SPORTSMAN);
 			arryPrereq.push(LIC31_NONRES_SUPER_SPORTSMAN);
 			arryPrereq.push(LIC27_CONSERVATION_LEGACY);
-			arryPrereq.push(LIC29_JUNIOR_HUNTING);
 			}
-		}
+    }
     return arryPrereq;
 }
 
