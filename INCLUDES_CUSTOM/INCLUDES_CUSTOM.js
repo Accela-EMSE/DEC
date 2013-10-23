@@ -3502,7 +3502,7 @@ function verifyDMPinfo() {
     var isYesApplyLO1 = ((sAppLo1 != null && (sAppLo1.equalsIgnoreCase('YES') || sAppLo1.equalsIgnoreCase('Y') || sAppLo1.equalsIgnoreCase('CHECKED') || sAppLo1.equalsIgnoreCase('SELECTED') || sAppLo1.equalsIgnoreCase('TRUE') || sAppLo1.equalsIgnoreCase('ON'))))
     var isYesApplyLO2 = ((sAppLo2 != null && (sAppLo2.equalsIgnoreCase('YES') || sAppLo2.equalsIgnoreCase('Y') || sAppLo2.equalsIgnoreCase('CHECKED') || sAppLo2.equalsIgnoreCase('SELECTED') || sAppLo2.equalsIgnoreCase('TRUE') || sAppLo2.equalsIgnoreCase('ON'))))
     if (isYesApplyLO1 && isYesApplyLO2) {
-        retMsg += ('Land owner information can be apply only for one chioce.');
+        retMsg += ('Landownership can only be applied to one WMU per license year.');
         retMsg += '<Br />';
     }
 
