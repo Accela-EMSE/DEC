@@ -1628,11 +1628,11 @@ function isRuleForSelectable_SMALL_AND_BIG_GAME(ruleParams) {
     return isSelectable;
 }
 function isRuleForSelectable_SMALL_GAME(ruleParams) {
-    var isSelectable = (ruleParams.IsNyResiDent && ruleParams.Age >= 16 && ruleParams.Age <= 69 && ruleParams.HasHuntEd);
+    var isSelectable = (!ruleParams.IsMilitaryServiceman && ruleParams.IsNyResiDent && ruleParams.Age >= 16 && ruleParams.Age <= 69 && ruleParams.HasHuntEd);
     return isSelectable;
 }
 function isRuleForSelectable_SPORTSMAN(ruleParams) {
-    var isSelectable = (ruleParams.IsNyResiDent && ruleParams.Age >= 16 && ruleParams.HasHuntEd);
+    var isSelectable = (!ruleParams.IsMilitaryServiceman && ruleParams.IsNyResiDent && ruleParams.Age >= 16 && ruleParams.HasHuntEd);
     return isSelectable;
 }
 function isRuleForSelectable_SUPER_SPORTSMAN(ruleParams) {
