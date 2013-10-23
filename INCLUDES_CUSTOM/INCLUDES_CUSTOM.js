@@ -1146,8 +1146,8 @@ function copyContactAppSpecificToRecordAppSpecific() {
                 var fieldArray = subGroupArray[subGroupName];
                 if (subGroupName == "ADDITIONAL INFO") {
                     editAppSpecific4ACA("A_IsNYResident", fieldArray["Are You New York Resident?"]);
-                    editAppSpecific4ACA("A_Preference_Points", fieldArray["Preference Points"]);
-                    editAppSpecific4ACA("Preference Points", fieldArray["Preference Points"]);
+                    editAppSpecific4ACA("A_Preference_Points", fieldArray["Preference Points"] ? fieldArray["Preference Points"] : "0");
+                    editAppSpecific4ACA("Preference Points", fieldArray["Preference Points"] ? fieldArray["Preference Points"] : "0");
                     editAppSpecific4ACA("A_Parent_Driver_License_Number", fieldArray["Parent Driver License Number"]);
                     editAppSpecific4ACA("A_NY_Resident_Proof_Document", fieldArray["NY Resident Proof Document"]);
                     continue;
