@@ -1624,11 +1624,11 @@ function isRuleForSelectable_NONRESIDENT_TURKEY(ruleParams) {
     return isSelectable;
 }
 function isRuleForSelectable_SMALL_AND_BIG_GAME(ruleParams) {
-    var isSelectable = (ruleParams.IsNyResiDent && ruleParams.Age >= 16 && ruleParams.Age <= 69 && ruleParams.HasHuntEd);
+    var isSelectable = (!rulesParams.IsDisableForYear && ruleParams.IsNyResiDent && ruleParams.Age >= 16 && ruleParams.Age <= 69 && ruleParams.HasHuntEd);
     return isSelectable;
 }
 function isRuleForSelectable_SMALL_GAME(ruleParams) {
-    var isSelectable = (!ruleParams.IsMilitaryServiceman && ruleParams.IsNyResiDent && ruleParams.Age >= 16 && ruleParams.Age <= 69 && ruleParams.HasHuntEd);
+    var isSelectable = (!rulesParams.IsDisableForYear && !ruleParams.IsMilitaryServiceman && ruleParams.IsNyResiDent && ruleParams.Age >= 16 && ruleParams.Age <= 69 && ruleParams.HasHuntEd);
     return isSelectable;
 }
 function isRuleForSelectable_SPORTSMAN(ruleParams) {
