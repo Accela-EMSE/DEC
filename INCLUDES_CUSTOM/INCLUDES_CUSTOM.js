@@ -3397,6 +3397,16 @@ function verifySportsmanEd() {
                 retMsg += ("Sportsman Education row #" +  rowNum +": Certification Date cannot be after today's date.");
                 retMsg += '<Br />';
             }
+			//code started
+			var asiValDate = new Date(certDate);
+			var cDate = new Date();
+			cDate .setFullYear(cDate .getFullYear()-70);
+			if(asiValDate <= cDate)
+			{
+			retMsg += ("Certification Date is incorrect.");
+			retMsg += '<Br />';
+			}
+			//code ended
         }
     }
 
