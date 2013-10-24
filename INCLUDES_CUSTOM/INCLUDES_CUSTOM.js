@@ -1123,10 +1123,12 @@ function copyContactAppSpecificToRecordAppSpecific() {
         var thisContact = xArray[ca];
         //First One is always Applicant
 
-        //Copy People Tempalte Feilds
+        //Copy People Tempalte Fields.   These are fields that the user may change on field entry, need to make 
+		//sure that the new values are used in calculations on the page before they are updated to the reference contact
         editAppSpecific4ACA("A_FromACA", "Yes");
         editAppSpecific4ACA("A_email", thisContact["email"]);
         editAppSpecific4ACA("A_birthDate", formatMMDDYYYY(thisContact["birthDate"]));
+		editAppSpecific4ACA("A_IsNYResident", thisContact["Are You New York Resident?"]);
 
         var strAnnual = null;
         var strPrev = null;
@@ -1145,7 +1147,7 @@ function copyContactAppSpecificToRecordAppSpecific() {
             for (var subGroupName in subGroupArray) {
                 var fieldArray = subGroupArray[subGroupName];
                 if (subGroupName == "ADDITIONAL INFO") {
-                    editAppSpecific4ACA("A_IsNYResident", fieldArray["Are You New York Resident?"]);
+                    //editAppSpecific4ACA("A_IsNYResident", fieldArray["Are You New York Resident?"]);
                     editAppSpecific4ACA("A_Preference_Points", isNull(fieldArray["Preference Points"],'0'));
                     editAppSpecific4ACA("Preference Points", isNull(fieldArray["Preference Points"],'0'));
                     editAppSpecific4ACA("A_Parent_Driver_License_Number", fieldArray["Parent Driver License Number"]);
