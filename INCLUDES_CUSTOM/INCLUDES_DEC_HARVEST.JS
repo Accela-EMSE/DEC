@@ -143,33 +143,6 @@ function isValidHarvestinfo(pStep) {
                 retMsg += 'Please select Deer Taken With.';
                 retMsg += '<Br />';
             }
-			//code started
-			function isValidDays(inputValue) {
-			var isValid = true;
-			if (inputValue != null && inputValue != '') {
-			var DaysPattern = /^([1-9]|[1][0-9]|[2][0-9])?$|^30$/;
-			isValid = DaysPattern.test(inputValue);
-			}
-			return isValid;
-			}
-
-			var servProvCode = expression.getValue("$$servProvCode$$").value;
-			var totalRowCount = expression.getTotalRowCount();
-			var VDays = expression.getValue("ASI::OTHER INFORMATION::Number of days hunted to kill this turkey");
-			var inputValue = VDays.value;
-			var msg = '';
-			msg = '';
-
-			if (inputValue != null || inputValue != '') {
-			var isValid = isValidDays(inputValue);
-
-			if (!isValid) {
-			msg = "Number of days hunted cannot be more than 30 days.";
-			VDays.message = msg;
-			expression.setReturn(VDays);
-			}
-			}
-			//code ended
         }
     }
     catch (err) {
