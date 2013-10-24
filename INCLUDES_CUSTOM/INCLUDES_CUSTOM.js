@@ -1639,7 +1639,7 @@ function transferReceiptAndApply(receiptCapId, targetCapId) {
 
 function addStdConditionWithComments(cType, cDesc, cShortComment, cLongComment) // optional cap ID
 {
-    logDebug("ENTER: addStdConditionWithComments");
+    logDebug("ENTER: addStdConditionWithComments: " + cType + "," + cDesc + "," + cShortComment + "," + cLongComment);
 
     var itemCap = capId;
     if (arguments.length == 5) itemCap = arguments[4]; // use cap ID specified in args
