@@ -3402,7 +3402,7 @@ function verifySportsmanEd() {
 			//code started
 			var asiValDate = new Date(certDate);
 			var cDate = new Date();
-			cDate .setFullYear(cDate .getFullYear()-70);
+			cDate .setFullYear(cDate .getFullYear()-75);
 			if(asiValDate <= cDate)
 			{
 			retMsg += ("Certification Date is incorrect.");
