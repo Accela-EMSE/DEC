@@ -40,7 +40,7 @@ catch(err) {
 logDebug("ENDEND - 13TMP-003846 attempt 1");
 
 
-/*
+
    var f = frm;
 
     var ruleParams = f.getRulesParam();
@@ -133,7 +133,7 @@ logDebug("ENDEND - 13TMP-003846 attempt 1");
 
 
 	logDebug("fj = " + JSON.stringify(fj));
-*/
+
 	
 
 // end user code
