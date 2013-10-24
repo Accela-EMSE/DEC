@@ -983,11 +983,13 @@ function getApplicantArrayEx() {
     // JHS 10/9/2013 added test for convertToRealCapAfter since this is being run on partial caps
     if (arguments.length == 0 && !cap.isCompleteCap() && controlString != "ApplicationSubmitAfter" && controlString != "ConvertToRealCapAfter") // we are in a page flow script so use the capModel to get applicant
     {
+		logDebug("getApplicantArrayEx: retrieving from page flow/partial cap");
         var capApplicant = cap.getApplicantModel();
         aArray = getApplicantInfoArray(capApplicant);
         cArray.push(aArray);
     }
     else {
+		logDebug("getApplicantArrayEx: retrieving from database");
         var capContactResult = aa.people.getCapContactByCapID(thisCap);
         if (capContactResult.getSuccess()) {
             var capContactArray = capContactResult.getOutput();
