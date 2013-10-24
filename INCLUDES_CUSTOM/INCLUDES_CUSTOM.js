@@ -740,7 +740,7 @@ function issueSelectedSalesItems(frm) {
         if (!hmfulfilmmentCond.containsKey(fullfillCond)) {
             hmfulfilmmentCond.put(fullfillCond, fullfillCond);
         }
-        addFullfillmentCondition(capId, hmfulfilmmentCond.keySet().toArray());
+        addFullfillmentConditionArray(capId, hmfulfilmmentCond.keySet().toArray());
     }
 
     //logDebug("Elapsed Time: " + elapsed());
