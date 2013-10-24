@@ -1044,15 +1044,20 @@ function getApplicantInfoArray(capContactObj) {
     aArray["passportNumber"] = capContactObj.getPeople().passportNumber;
 
     var pa;
-    if (arguments.length == 1 && !cap.isCompleteCap() && controlString != "ApplicationSubmitAfter") // using capModel to get contacts
+    if (arguments.length == 1 && !cap.isCompleteCap() && controlString != "ApplicationSubmitAfter" && controlString != "ConvertToRealCapAfter") // using capModel to get contacts
     {
-        if (capContactObj.getPeople().getAttributes() != null) {
-            pa = capContactObj.getPeople().getAttributes().toArray();
-            for (xx1 in pa) {
-                aArray[pa[xx1].attributeName] = pa[xx1].attributeValue;
-            }
-        }
+			logDebug("getApplicantInfoArray: retrieving ASI from capModel");
+
+		var subGroupArray = getTemplateValueByFormArrays(capContactObj.people.getTemplate(), null, null);
+		for (var subGroupName in subGroupArray) {
+			var fieldArray = subGroupArray[subGroupName];
+			for (var f in fieldArray) {
+				aArray[f] = fieldArray[f];
+				}
+			}
     } else {
+			logDebug("getApplicantInfoArray: retrieving from database");
+
         if (capContactObj.getCapContactModel().getPeople().getAttributes() != null) {
             pa = capContactObj.getCapContactModel().getPeople().getAttributes().toArray();
             for (xx1 in pa) {
