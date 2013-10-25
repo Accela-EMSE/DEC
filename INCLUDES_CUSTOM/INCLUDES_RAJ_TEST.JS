@@ -1,4 +1,4 @@
-function addEnforcementCondition(contSeqNum, cType, cDesc, effFromDt, expDate, cStatus, cReason) {
+function addEnforcementCondition(contSeqNum, cType, cDesc, effFromDt, expDate, cStatus, cShortComment, cLongComment) {
 
     var foundCondition = false;
     var javascriptDate = new Date()
@@ -63,14 +63,14 @@ function addEnforcementCondition(contSeqNum, cType, cDesc, effFromDt, expDate, c
                     newCondition.setConditionDescription(standardCondition.getConditionDesc());
                     newCondition.setConditionGroup(standardCondition.getConditionGroup());
                     newCondition.setConditionType(standardCondition.getConditionType());
-                    //newCondition.setConditionComment(standardCondition.getConditionComment());
-
-                    if (cReason == "") {
-                        newCondition.setConditionComment(standardCondition.getConditionComment());
-                    }
-                    else {
-                        newCondition.setConditionComment(cReason);
-                    }
+	
+					if (cShortComment != null && cShortComment != '') {
+						newCondition.setConditionComment(cShortComment);
+					}
+					
+					if (cLongComment != null && cLongComment != '') {
+						newCondition.setLongDescripton(cLongComment);
+					}
 
                     newCondition.setImpactCode(standardCondition.getImpactCode());
                     newCondition.setConditionStatus(cStatus)
@@ -332,10 +332,10 @@ function copyAddressOnRefContact(conType, cType) {
 }
 
 
-function putEnforcementConditionOnRefContact(conType, cType, cDesc, fromDate, toDate, cStat, cReason) {
+function putEnforcementConditionOnRefContact(conType, cType, cDesc, fromDate, toDate, cStatus, cShortComment, cLongComment) {
 
     var refContactNumber = findRefContactForCap(conType);
-    addEnforcementCondition(refContactNumber, cType, cDesc, fromDate, toDate, cStat, cReason);
+    addEnforcementCondition(refContactNumber, cType, cDesc, fromDate, toDate, cStatus, cShortComment, cLongComment);
 
 }
 
