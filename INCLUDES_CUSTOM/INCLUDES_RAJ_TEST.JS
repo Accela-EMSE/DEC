@@ -76,6 +76,7 @@ function addEnforcementCondition(contSeqNum, cType, cDesc, effFromDt, expDate, c
                     newCondition.setConditionStatus(cStatus)
                     newCondition.setAuditStatus("A");
 
+					newCondition.setConditionStatusType("Applied");
                     newCondition.setIssuedByUser(systemUserObj);
                     newCondition.setIssuedDate(javautilDate);
 
