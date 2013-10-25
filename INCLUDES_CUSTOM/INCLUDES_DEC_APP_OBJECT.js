@@ -756,38 +756,43 @@ function form_OBJECT(identity) {
             }
             //if (idx == 42) break;
         }
+		
+		var msgNotQual = "The items are not available for selection because the customer is not qualified or they are already in current holdings.\n"
+		var msgRevoked = "This set of privileges have been revoked and are not available for purchase. ";
+		var msgDEC = this.isPublicUser ? "Please contact DEC during business hours at 518-402-8821.\n" : "Instruct the customer that the only way to resolve this is to contact DEC during business hours at 518-402-8821.\n";
+		
         if (this.CountHunterGroup == 0) {
-            this.MessageHunter = "The items are not available for selection because the customer is not qualified or they are already in current holdings.\n";
+            this.MessageHunter = msgNotQual + msgDEC;
         }
         if (this.Revoked_Hunting || this.Revoked_Trapping) {
             if (this.isPublicUser) {
-                this.MessageHunter += "This set of privileges have been revoked and are not available for purchase. ";
+                this.MessageHunter += msgRevoked;
             }
             this.MessageHunter += "Please Contact DEC.\n";
             this.ContactMsgLink_Hunt = CONTACT_LINK
         }
         if (this.CountFishGroup == 0) {
-            this.MessageFish = "The items are not available for selection because the customer is not qualified or they are already in current holdings.\n";
+            this.MessageFish = msgNotQual + msgDEC;
         }
         if (this.Revoked_Fishing) {
             if (this.isPublicUser) {
-                this.MessageFish += "This set of privileges have been revoked and are not available for purchase. ";
+                this.MessageFish += msgRevoked;
             }
             this.MessageFish += "Please Contact DEC.\n";
             this.ContactMsgLink_Fish = CONTACT_LINK
         }
         if (this.CountLifeTimeGroup == 0) {
-            this.MessageLifeTime = "The items are not available for selection because the customer is not qualified or they are already in current holdings.\n";
+            this.MessageLifeTime = msgNotQual + msgDEC;
         }
         if (this.Revoked_Hunting || this.Revoked_Trapping || this.Revoked_Fishing) {
             if (this.isPublicUser) {
-                this.MessageLifeTime += "This set of privileges have been revoked and are not available for purchase. ";
+                this.MessageLifeTime += msgRevoked;
             }
             this.MessageLifeTime += "Please Contact DEC.\n";
             this.ContactMsgLink_Lifetime = CONTACT_LINK
         }
         if (this.CountOtherSaleGroup == 0) {
-            this.MessageOtherSale = "The items are not available for selection because the customer is not qualified or they are already in current holdings.\n";
+            this.MessageOtherSale = msgNotQual + msgDEC;
         }
     }
     this.toString = function () {
