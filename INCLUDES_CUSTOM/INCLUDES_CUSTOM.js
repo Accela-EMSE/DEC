@@ -2338,6 +2338,11 @@ function isValidBuyRecord(pStep) {
         if (msg != '') {
             retMsg += msg;
         }
+		
+		msg = verifyNotMilitaryAndDisabled();
+        if (msg != '') {
+            retMsg += msg;
+        }
     }
 
     //Calller ACA ONSUBMIT BEFORE SALESSELECT
@@ -3384,6 +3389,21 @@ function verifyMilitaryServiceType() {
     }
     return retMsg;
 }
+
+function verifyNotMilitaryAndDisabled() {
+    var retMsg = ''
+	var rowNum = 0;
+	if ((typeof (ANNUALDISABILITY) == "object")) 
+		for (var y in ANNUALDISABILITY) rowNum++;
+		
+    var MilitaryServiceman = (AInfo["Military Serviceman"] == "Yes");
+    if (MilitaryServiceman && rowNum > 0) {
+        retMsg += "Please choose either military service or military disability, but not both.";
+        retMsg += "<Br />";
+    }
+    return retMsg;
+}
+
 
 function verifySportsmanEd() {
     var retMsg = ''
