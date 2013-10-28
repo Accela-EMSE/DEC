@@ -42,6 +42,24 @@ function loadHarvestInfo() {
     logDebug("EXIT: loadHarvestInfo");
     return true;
 }
+//code started
+function isValidDays(inputValue) {
+var isValid = true;
+if (inputValue != null && inputValue != '') {
+var DaysPattern = /^([1-9]|[1][0-9]|[2][0-9]|[3][0-9]|[4][0-5])?$|^45$/;
+var retMsg = '';
+var VDays = AInfo["Number of days hunted to kill this turkey"];
+var inputValue = VDays.value;
+var isValid = isValidDays(inputValue);
+isValid = DaysPattern.test(inputValue);
+if (!isValid) {
+retMsg += "Please enter a value of 45 or less.";
+retMsg += '<Br />';
+return isValid;
+}
+}
+}
+//code ended
 function isValidHarvestinfo(pStep) {
     logDebug("ENTER: isValidBuyRecord");
     var retMsg = '';
