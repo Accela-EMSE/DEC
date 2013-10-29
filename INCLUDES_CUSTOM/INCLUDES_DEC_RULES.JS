@@ -1531,13 +1531,15 @@ function isRuleForSelectable_LIFETM_SBGM(ruleParams) {
 }
 function isRuleForSelectable_LIFETM_BOWH(ruleParams) {
     //var isSelectable = (ruleParams.IsNyResiDent);
-    var isSelectable = (ruleParams.IsNyResiDent && ruleParams.Age < 70);
+    //var isSelectable = (ruleParams.IsNyResiDent && ruleParams.Age < 70);
+    var isSelectable = (ruleParams.IsNyResiDent);
     return isSelectable;
 }
 function isRuleForSelectable_LIFETM_MUZZ(ruleParams) {
     //var isSelectable = (ruleParams.IsNyResiDent);
     //var isSelectable = (ruleParams.IsNyResiDent && ruleParams.Age >= 16  && ruleParams.Age < 70);
-    var isSelectable = (ruleParams.IsNyResiDent && ruleParams.Age < 70);
+    //var isSelectable = (ruleParams.IsNyResiDent && ruleParams.Age < 70);
+    var isSelectable = (ruleParams.IsNyResiDent);
     return isSelectable;
 }
 function isRuleForSelectable_LIFETM_TRAP(ruleParams) {
