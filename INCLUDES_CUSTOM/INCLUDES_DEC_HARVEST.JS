@@ -44,22 +44,49 @@ function loadHarvestInfo() {
 }
 //code started
 function isValidDays(inputValue) {
-var isValid = true;
-if (inputValue != null && inputValue != '') {
-var DaysPattern = /^([1-9]|[1][0-9]|[2][0-9]|[3][0-9]|[4][0-5])?$|^45$/;
-var retMsg = '';
-var VDays = AInfo["Number of days hunted to kill this turkey"];
-var inputValue = VDays.value;
-var isValid = isValidDays(inputValue);
-isValid = DaysPattern.test(inputValue);
-if (!isValid) {
-retMsg += "Please enter a value of 45 or less.";
-retMsg += '<Br />';
-return isValid;
-}
-}
+	var isValid = true;
+	var retMsg = '';
+	if (inputValue != null || inputValue != '') {
+		//var DaysPattern = /^([1-9]|[1][0-9]|[2][0-9]|[3][0-9]|[4][0-5])?$|^45$/;
+		
+		//isValid = DaysPattern.test(inputValue);
+		if (parseInt(inputValue) < 45) {
+			retMsg += "Please enter a value of 45 or less.";
+			retMsg += '<Br />';
+			return retMsg;
+		}
+		/*
+		if (isValid) {
+
+			//return retMsg;
+		}*/
+	}
+	return retMsg;
 }
 //code ended
+
+//Date of Kill code started//
+function verifyDate() {
+    var retMsg = ''
+    var isValid = true;
+			certDate = AInfo["Date of Kill"];
+            var diff = dateDiff(new Date(), new Date(certDate));
+            if (diff > 0) {
+                retMsg += ("Date cannot be after today's date.");
+                retMsg += '<Br />';
+            }
+			var asiValDate = new Date(certDate);
+			var cDate = new Date();
+			cDate .setFullYear(cDate .getFullYear()-1);
+			if(asiValDate <= cDate)
+			{
+			retMsg += ("Date is incorrect.");
+			retMsg += '<Br />';
+			}
+    return retMsg;
+}
+//code ended
+
 function isValidHarvestinfo(pStep) {
     logDebug("ENTER: isValidBuyRecord");
     var retMsg = '';
