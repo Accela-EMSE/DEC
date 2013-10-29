@@ -1477,10 +1477,11 @@ function GetTagsForUpgradeLic(peopleSequenceNumber) {
     logDebug("ENTER: GetTagsForUpgradeLic");
     var availableActiveItems = new Array();
 
-    var validActiveholdingsArray = new Array();
-    for (var t in arryTags_LTSmallAndBigGame) {
-        validActiveholdingsArray.push(arryTags_LTSmallAndBigGame[t].RecordType);
-    }
+    var validActiveholdingsArray = getActiveholdingsFilterArray();
+//    var validActiveholdingsArray = new Array();
+ //   for (var t in arryTags_LTSmallAndBigGame) {
+  //      validActiveholdingsArray.push(arryTags_LTSmallAndBigGame[t].RecordType);
+   // }
 
     var CC = new contactObj(null);
     CC.refSeqNumber = peopleSequenceNumber;
