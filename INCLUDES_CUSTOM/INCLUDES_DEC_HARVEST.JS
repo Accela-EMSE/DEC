@@ -1253,13 +1253,13 @@ function addRepritFees() {
         }
     }
 
-    if (arryTag.length > 1) {
-        addFeeWithVersion("FEE_RPLC_2", "FEE_REPRINT_FEE_SCHDL", 1, "FINAL", 1, "N");
-		logDebug("Assessing the Tag Fee: FEE_RPLC_2");
+    if (arryTag.length > 0) {
+        logDebug("DEBUG: Assessing the Tag Fee: FEE_RPLC_2");
+		addFeeWithVersion("FEE_RPLC_2", "FEE_REPRINT_FEE_SCHDL", 1, "FINAL", 1, "N");		
     }
-    if (arryLic.length > 1) {
-        addFeeWithVersion("FEE_RPLC_1", "FEE_REPRINT_FEE_SCHDL", 1, "FINAL", 1, "N");
-		logDebug("Assessing the Fee: FEE_RPLC_1");
+    if (arryLic.length > 0) {        
+		logDebug("DEBUG: Assessing the Fee: FEE_RPLC_1");
+		addFeeWithVersion("FEE_RPLC_1", "FEE_REPRINT_FEE_SCHDL", 1, "FINAL", 1, "N");
     }
 
     logDebug("EXIT: addRepritFees");
