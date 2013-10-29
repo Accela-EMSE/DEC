@@ -826,13 +826,20 @@ function ReprintDocuments() {
             activateTaskForRec("Suspension", "", newLicId);
 
             //copyAddresses(itemCapId, newLicId);
+			logDebug("DEBUG: Function Call copyASITables()");
             copyASITables(itemCapId, newLicId);
+			logDebug("DEBUG: Function Call copyASIFields()");
             copyASIFields(itemCapId, newLicId);
+			logDebug("DEBUG: Function Call copyCalcVal()");
             copyCalcVal(itemCapId, newLicId);
+			logDebug("DEBUG: Function Call copyFees()");
             copyFees(itemCapId, newLicId);
+			logDebug("DEBUG: Function Call copyConditions()");
             copyConditions(newLicId, itemCapId);
 
             var newDecDocId = GenerateDocumentNumber(newLicId.getCustomID());
+			logDebug("DEBUG: New Document Number Generated: " + newDecDocId);
+			
             updateDocumentNumber(newDecDocId, newLicId);
 
             if (ata[1] == 'Tag') {
