@@ -1166,6 +1166,7 @@ function isValidReprintDocuments(pStep) {
                 for (var y in ACTIVEDOCUMENTS) {
                     if (ACTIVEDOCUMENTS[y]["Select"] == 'Yes') {
                         selDocToPrint.push(ACTIVEDOCUMENTS[y]["Document ID"]);
+						break; //Optimization.  If we find a doc, stop looping.  We are only checking that at least one doc is Select[ed].
                     }
                 }
             }
@@ -1197,6 +1198,8 @@ function addRepritFees() {
             }
         }
     }
+	
+	logDebug("INFO: Found " + selDocToPrint.length + " docs to be reprinted.");
 
     var arryTag = new Array();
     var arryLic = new Array();
@@ -1209,16 +1212,20 @@ function addRepritFees() {
 
         if (ata[1] == 'Tag') {
             arryTag.push(itemCapId);
+			logDebug("doc added to arryTag");
         } else {
             arryLic.push(itemCapId);
+			logDebug("doc added to arryLic");
         }
     }
 
     if (arryTag.length > 1) {
         addFeeWithVersion("FEE_RPLC_2", "FEE_REPRINT_FEE_SCHDL", 1, "FINAL", 1, "N");
+		logDebug("Assessing the Tag Fee: FEE_RPLC_2");
     }
     if (arryLic.length > 1) {
         addFeeWithVersion("FEE_RPLC_1", "FEE_REPRINT_FEE_SCHDL", 1, "FINAL", 1, "N");
+		logDebug("Assessing the Fee: FEE_RPLC_1");
     }
 
     logDebug("EXIT: addRepritFees");
