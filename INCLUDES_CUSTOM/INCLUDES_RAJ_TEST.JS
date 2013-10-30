@@ -333,10 +333,11 @@ function copyAddressOnRefContact(conType, cType) {
 }
 
 
-function putEnforcementConditionOnRefContact(conType, cType, cDesc, fromDate, toDate, cStatus, cShortComment, cLongComment) {
+function putEnforcementConditionOnRefContact(conType, cCondType, cCondDesc, fromDate, toDate, cStatus, cShortComment, cLongComment) {
 
     var refContactNumber = findRefContactForCap(conType);
-    addEnforcementCondition(refContactNumber, cType, cDesc, fromDate, toDate, cStatus, cShortComment, cLongComment);
+	//aa.print ("Reference Contact Seq:" + refContactNumber);
+    addEnforcementCondition(refContactNumber, cCondType, cCondDesc, fromDate, toDate, cStatus, cShortComment, cLongComment);
 
 }
 
@@ -388,34 +389,36 @@ function createEnforcemrntCondition() {
             //Condition on the Enforcement Record Type
             addStdCondition("Revocation", "Trapping Revocation");
             //Conditions on Reference Contact - AA only conditions
-            putEnforcementConditionOnRefContact("Individual", "Revocation", "Trapping Revocation", AInfo["Start Date"], AInfo["End Date"], "Revocation in Force", AInfo["Reason"]);
+            putEnforcementConditionOnRefContact("Individual", "Revocation", "Trapping Revocation", AInfo["Start Date"], AInfo["End Date"], "Revocation in Force", AInfo["Reason"],AInfo["Narrative Description"]);
             //Conditions on Reference Contact - ACA only conditions
-            putEnforcementConditionOnRefContact("Individual", "Contact DEC", "Contact DEC (RT)", AInfo["Start Date"], AInfo["End Date"], "Revocation in Force", AInfo["Reason"]);
+             putEnforcementConditionOnRefContact("Individual", "Contact DEC", "Contact DEC (RT)", AInfo["Start Date"], AInfo["End Date"], "Revocation in Force", AInfo["Reason"], AInfo["Narrative Description"]);
         }
+		
         if (isRevokeHunting) {
             //Condition on the Enforcement Record Type
             addStdCondition("Revocation", "Hunting Revocation");
             //Conditions on Reference Contact - AA only conditions
-            putEnforcementConditionOnRefContact("Individual", "Revocation", "Hunting Revocation", AInfo["Start Date"], AInfo["End Date"], "Revocation in Force", AInfo["Reason"]);
+            putEnforcementConditionOnRefContact("Individual", "Revocation", "Hunting Revocation", AInfo["Start Date"], AInfo["End Date"], "Revocation in Force", AInfo["Reason"], AInfo["Narrative Description"]);
             //Conditions on Reference Contact - ACA only conditions
-            putEnforcementConditionOnRefContact("Individual", "Contact DEC", "Contact DEC (RH)", AInfo["Start Date"], AInfo["End Date"], "Revocation in Force", AInfo["Reason"]);
+            putEnforcementConditionOnRefContact("Individual", "Contact DEC", "Contact DEC (RH)", AInfo["Start Date"], AInfo["End Date"], "Revocation in Force", AInfo["Reason"], AInfo["Narrative Description"]);
         }
         if (isRevokeFishing) {
             //Condition on the Enforcement Record Type
             addStdCondition("Revocation", "Fishing Revocation");
             //Conditions on Reference Contact - AA only conditions
-            putEnforcementConditionOnRefContact("Individual", "Revocation", "Fishing Revocation", AInfo["Start Date"], AInfo["End Date"], "Revocation in Force", AInfo["Reason"]);
+            putEnforcementConditionOnRefContact("Individual", "Revocation", "Fishing Revocation", AInfo["Start Date"], AInfo["End Date"], "Revocation in Force", AInfo["Reason"], AInfo["Narrative Description"]);
             //Conditions on Reference Contact - ACA only conditions
-            putEnforcementConditionOnRefContact("Individual", "Contact DEC", "Contact DEC (RF)", AInfo["Start Date"], AInfo["End Date"], "Revocation in Force", AInfo["Reason"]);
+            putEnforcementConditionOnRefContact("Individual", "Contact DEC", "Contact DEC (RF)", AInfo["Start Date"], AInfo["End Date"], "Revocation in Force", AInfo["Reason"], AInfo["Narrative Description"]);
         }
+		
 
     } else if (AInfo["Enforcement Type"] == "Suspension") {
         //Condition on the Enforcement Record Type
         addStdCondition("Suspension", "Suspension of Privileges");
         //Conditions on Reference Contact - AA only conditions
-        putEnforcementConditionOnRefContact("Individual", "Suspension", "Suspension of Privileges", AInfo["Start Date"], AInfo["End Date"], "Suspension in Force", AInfo["Reason"]);
+        putEnforcementConditionOnRefContact("Individual", "Suspension", "Suspension of Privileges", AInfo["Start Date"], AInfo["End Date"], "Suspension in Force", AInfo["Reason"], AInfo["Narrative Description"]);
         //Conditions on Reference Contact - ACA only conditions
-        putEnforcementConditionOnRefContact("Individual", "Contact DEC", "Contact DEC (SP)", AInfo["Start Date"], AInfo["End Date"], "Suspension in Force", AInfo["Reason"]);
+        putEnforcementConditionOnRefContact("Individual", "Contact DEC", "Contact DEC (SP)", AInfo["Start Date"], AInfo["End Date"], "Suspension in Force", AInfo["Reason"], AInfo["Narrative Description"]);
     }
 }
 

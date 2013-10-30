@@ -14,6 +14,9 @@
 |           10/18/2013,     Laxmikant Bondre (LBONDRE), 
 |                           Add Fulfillment Condition for Education Updated..
 |           10/29/2013      Roland VonSchoech, Accela - Add modified copyFees() function to include additional debug statements.
+|           10/29/2013      Raj Koul, commented out the logDebug function for workflow tasks Line #2026
+
+
 /------------------------------------------------------------------------------------------------------*/
 var frm;
 
@@ -2021,7 +2024,7 @@ function closeTaskForRec(wfstr, wfstat, wfcomment, wfnote) // optional process n
             else
                 aa.workflow.handleDisposition(itemCap, stepnumber, wfstat, dispositionDate, wfnote, wfcomment, systemUserObj, "Y");
             //logMessage("Closing Workflow Task " + wfstr + " with status " + wfstat);
-            logDebug("Closing Workflow Task " + wfstr + " with status " + wfstat);
+            //logDebug("Closing Workflow Task " + wfstr + " with status " + wfstat);
         }
     }
 }
