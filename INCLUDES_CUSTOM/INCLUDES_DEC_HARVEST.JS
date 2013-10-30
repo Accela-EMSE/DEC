@@ -841,6 +841,10 @@ function ReprintDocuments() {
             if (!matches(itemcap.getSpecialText(),null,"",undefined))
                 editAppName(itemcap.getSpecialText(), newLicId);
 
+            var licExpObj = new licenseObject(itemCapId.getCustomID(),itemCapId);
+            if (!matches(licExpObj.b1ExpDate,null,"",undefined))
+                setLicExpirationDate(newLicId, "", licExpObj.b1ExpDate);
+
 			logDebug("DEBUG: Generate a new document number ...");
             var newDecDocId = GenerateDocumentNumber(newLicId.getCustomID());
 			logDebug("DEBUG: New Document Number Generated: " + newDecDocId);
