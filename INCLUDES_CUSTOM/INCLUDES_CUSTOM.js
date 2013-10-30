@@ -81,7 +81,22 @@ function copyFees(sourceCapId,targetCapId)
 	
 	logDebug("EXIT: copyFees");
 }
-
+//code started
+function isValidNumber(inputValue) {
+	var isValid = true;
+	var retMsg = '';
+	if (inputValue != null || inputValue != '') {
+		var Pattern = /^[1-9][0-9]{0,8}$/;
+		isValid = DaysPattern.test(inputValue);
+		if (!isValid) {
+			retMsg += "Please enter 9 digit number.";
+			retMsg += '<Br />';
+			return retMsg;
+		}
+	}
+	return retMsg;
+}
+//code ended
 function getScriptText(vScriptName) {
     vScriptName = vScriptName.toUpperCase();
     var emseBiz = aa.proxyInvoker.newInstance("com.accela.aa.emse.emse.EMSEBusiness").getOutput();
