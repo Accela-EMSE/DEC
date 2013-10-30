@@ -837,6 +837,7 @@ function ReprintDocuments() {
 			logDebug("DEBUG: Function Call copyConditions()");
             copyConditions(newLicId, itemCapId);
 
+			logDebug("DEBUG: Generate a new document number ...");
             var newDecDocId = GenerateDocumentNumber(newLicId.getCustomID());
 			logDebug("DEBUG: New Document Number Generated: " + newDecDocId);
 			
