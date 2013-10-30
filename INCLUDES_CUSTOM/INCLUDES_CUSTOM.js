@@ -13,6 +13,7 @@
 |                           Expiry date is calculated 1 day before.
 |           10/18/2013,     Laxmikant Bondre (LBONDRE), 
 |                           Add Fulfillment Condition for Education Updated..
+|           10/29/2013      Roland VonSchoech, Accela - Add modified copyFees() function to include additional debug statements.
 /------------------------------------------------------------------------------------------------------*/
 var frm;
 
@@ -31,6 +32,52 @@ var hmfulfilmmentCond = aa.util.newHashMap();
 var CONTACT_LINK = '<a href="/nyssupp/Report/ReportParameter.aspx?module=Licenses&reportID=3987&reportType=LINK_REPORT_LIST" target=_blank>Print Contact DEC Tag </a>';
 var MSG_SUSPENSION = 'License to buy privileges are suspended. Please contact DEC Sales. ' + CONTACT_LINK;
 var MSG_NO_AGENT_SALES = 'Sales privileges are suspended. Please contact DEC. ' + CONTACT_LINK;
+
+//Override function - added/updated debug statements
+function copyFees(sourceCapId,targetCapId)
+{
+	logDebug("ENTER: copyFees");
+	var feeSeqArray = new Array();
+	var invoiceNbrArray = new Array();
+	var feeAllocationArray = new Array();
+
+	logDebug("Load Fees from Source Record");
+	var feeA = loadFees(sourceCapId)
+
+	logDebug("If Fees found, enter loop (each Fee Code found will be displayed if any)...");
+	for (x in feeA)
+	{
+		thisFee = feeA[x];
+		
+		logDebug("Found Fee Code " + thisFee.code + " with status: " + thisFee.status);
+		
+		if (thisFee.status == "INVOICED")
+		{
+			logDebug("Fee Status is INVOICED.  Add fee to Target Record. Call addFee for: " + thisFee.code);
+			addFee(thisFee.code,thisFee.sched,thisFee.period,thisFee.unit,"Y",targetCapId)
+
+			var feeSeqArray = new Array();
+			var paymentPeriodArray = new Array();
+
+			logDebug("Attempt to create an Invoice on Source Record.");
+			feeSeqArray.push(thisFee.sequence);
+			paymentPeriodArray.push(thisFee.period);
+			var invoiceResult_L = aa.finance.createInvoice(sourceCapId, feeSeqArray, paymentPeriodArray);
+
+			if (!invoiceResult_L.getSuccess())
+				logMessage("**ERROR: Invoicing the fee items voided " + thisFee.code + " was not successful.  Reason: " +  invoiceResult_L.getErrorMessage());
+		}
+
+		if (thisFee.status == "NEW")
+		{
+			logDebug("Fee Status is NEW.  Add fee to Target Record.  Call addFee for: " + thisFee.code);
+			addFee(thisFee.code,thisFee.sched,thisFee.period,thisFee.unit,"N",targetCapId)
+		}
+
+	}
+	
+	logDebug("EXIT: copyFees");
+}
 
 function getScriptText(vScriptName) {
     vScriptName = vScriptName.toUpperCase();
