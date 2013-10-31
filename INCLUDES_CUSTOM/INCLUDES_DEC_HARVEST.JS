@@ -833,8 +833,8 @@ function ReprintDocuments() {
             copyASIFields(itemCapId, newLicId);
 			logDebug("DEBUG: Function Call copyCalcVal()");
             copyCalcVal(itemCapId, newLicId);
-			logDebug("DEBUG: Function Call copyFees()");
-            //copyFees(itemCapId, newLicId);
+			//logDebug("DEBUG: Function Call copyFees()");
+            //copyFees(itemCapId, newLicId); 10/31/2013 - This causes an error in ACA at the point that addFee() is called.
 			logDebug("DEBUG: Function Call copyConditions()");
             copyConditions(newLicId, itemCapId);
 
