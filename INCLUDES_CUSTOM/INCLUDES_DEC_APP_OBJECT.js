@@ -531,7 +531,7 @@ function form_OBJECT(identity) {
 
     //LICENSES Sale Items
     this.licObjARRAY = new Array();
-    this.licensesNameArray = new Array(); 	// Holds references
+    this.licensesNameArray = new Array();   // Holds references
 
     this.Clearlicenses = function (contactFieldName, asiFieldName) {
         this.licObjARRAY.length = 0;
@@ -756,11 +756,11 @@ function form_OBJECT(identity) {
             }
             //if (idx == 42) break;
         }
-		
-		var msgNotQual = "The items are not available for selection because the customer is not qualified or they are already in current holdings.\n"
-		var msgRevoked = "This set of privileges have been revoked and are not available for purchase. This issue can only be resolved by contacting DEC Law Enforcement during business hours at 518-402-8821.";
-		var msgDEC = this.isPublicUser ? "Please contact DEC during business hours at 518-402-8821.\n" : "Instruct the customer that the only way to resolve this is to contact DEC during business hours at 518-402-8821.\n";
-		
+        
+        var msgNotQual = "The items are not available for selection because the customer is not qualified or they are already in current holdings.\n"
+        var msgRevoked = "This set of privileges have been revoked and are not available for purchase. This issue can only be resolved by contacting DEC Law Enforcement during business hours at 518-402-8821.";
+        var msgDEC = this.isPublicUser ? "Please contact DEC during business hours at 518-402-8821.\n" : "Instruct the customer that the only way to resolve this is to contact DEC during business hours at 518-402-8821.\n";
+        
         if (this.CountHunterGroup == 0) {
             this.MessageHunter = msgNotQual + msgDEC;
         }
@@ -1522,8 +1522,8 @@ function License_OBJ(identity, active) {
     this.isRevoked = false;
     this.isHasPrereq = false;
     this.isSelectableByFee = false;
-	this.isAfterSwitchDateFlag = isAfterSwitchDate();
-	
+    this.isAfterSwitchDateFlag = isAfterSwitchDate();
+    
     this.toString = function (fromAca) {
         var result = '';
         var lf = fromAca == "Yes" ? '<br />' : ', ';
@@ -2096,11 +2096,18 @@ function getActiveHoldings(peopleSequenceNumber, year) {
     var allContactCaps = CC.getCaps("Licenses/*/*/*");
 
     for (var ccp in allContactCaps) {
+        
+        //Seth - updating per engineering feedback to improve performance 11/1/2013
         var itemCapId = allContactCaps[ccp];
-        var itemCap = aa.cap.getCap(itemCapId).getOutput();
-        appTypeResult = itemCap.getCapType();
+        //var itemCap = aa.cap.getCap(itemCapId).getOutput();
+        //appTypeResult = itemCap.getCapType();
+        var appTypeResult = aa.cap.getCapTypeModelByCapID(itemCapId).getOutput();
         appTypeString = appTypeResult.toString();
+
         if (exists(appTypeString, validActiveholdingsArray)) {
+            
+            //Seth - updating per engineering feedback to improve performance 11/1/2013
+            var itemCap = aa.cap.getCap(itemCapId).getOutput();
             var newActiveTag = new ACTIVE_ITEM(itemCapId, itemCap, appTypeString);
             if (newActiveTag.isActive(year)) {
                 availableActiveItems.push(newActiveTag);
