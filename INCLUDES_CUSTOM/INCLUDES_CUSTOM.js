@@ -15,6 +15,7 @@
 |                           Add Fulfillment Condition for Education Updated..
 |           10/29/2013      Roland VonSchoech, Accela - Add modified copyFees() function to include additional debug statements.
 |           10/29/2013      Raj Koul, commented out the logDebug function for workflow tasks Line #2026
+|           10/29/2013      Raj Koul, commented out the unnecessary message displaying  ref seq #2943
 
 
 /------------------------------------------------------------------------------------------------------*/
@@ -562,11 +563,6 @@ function issueSelectedSalesItems(frm) {
 
     //balanceDue == 0 ^ 
     closeTask("Issuance", "Approved", "", "");
-    if (appMatch("Licenses/Annual/Application/NA")) {
-	var seasonPeriod = GetDateRange(DEC_CONFIG, LICENSE_SEASON, frm.Year);
-   	clacFromDt = dateAdd(convertDate(seasonPeriod[1]), 0);
-        setLicExpirationDate(capId, "", clacFromDt);
-    }
 
     var arryTargetCapAttrib = new Array();
     var arryAccumTags = new Array();
@@ -2413,7 +2409,17 @@ function isValidBuyRecord(pStep) {
         if (msg != '') {
             retMsg += msg;
         }
+		msg = ActiveOrReserve();
+		if (msg !='') {
+		    retMsg += msg;
+		}
+		
+		
     }
+	
+	
+	
+	
 
     //Calller ACA ONSUBMIT BEFORE SALESSELECT
     if (pStep == 'Step3') {
@@ -2944,7 +2950,7 @@ function contactObj(ccsm) {
 
 
         if (this.refSeqNumber) {
-            aa.print("ref seq : " + this.refSeqNumber);
+            //aa.print("ref seq : " + this.refSeqNumber);   - Raj 10/31/2013
             var capTypes = null;
             var resultArray = new Array();
             if (arguments.length == 1) capTypes = arguments[0];
@@ -3474,6 +3480,18 @@ function verifyNotMilitaryAndDisabled() {
     return retMsg;
 }
 
+
+function ActiveOrReserve() {
+     var retMsg = ''
+    var isUSReserveMember = (AInfo["U.S. Reserve Member"] == "CHECKED");
+    var isFulltimeUSArmedService = (AInfo["Full-time U.S. Armed Service"] == "CHECKED");
+    if (isFulltimeUSArmedService &&  isUSReserveMember) {
+        retMsg += "Please choose only one: U.S. Reserve member or Full-time U.S. Armed Service.";
+        retMsg += "<Br />";
+    }
+    return retMsg;
+
+}
 
 function verifySportsmanEd() {
     var retMsg = ''
