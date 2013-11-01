@@ -2102,7 +2102,7 @@ function getActiveHoldings(peopleSequenceNumber, year) {
         //var itemCap = aa.cap.getCap(itemCapId).getOutput();
         //appTypeResult = itemCap.getCapType();
         var appTypeResult = aa.cap.getCapTypeModelByCapID(itemCapId).getOutput();
-        appTypeString = appTypeResult.toString();
+        appTypeString = String(appTypeResult);
 
         if (exists(appTypeString, validActiveholdingsArray)) {
             
