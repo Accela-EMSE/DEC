@@ -3486,7 +3486,7 @@ function ActiveOrReserve() {
     var isUSReserveMember = (AInfo["U.S. Reserve Member"] == "CHECKED");
     var isFulltimeUSArmedService = (AInfo["Full-time U.S. Armed Service"] == "CHECKED");
     if (isFulltimeUSArmedService &&  isUSReserveMember) {
-        retMsg += "Please choose only one: U.S. Reserve member or Full-time U.S. Armed Service.";
+        retMsg += "Please choose only one: U.S. Reserve Member or Full-time U.S. Armed Service.";
         retMsg += "<Br />";
     }
     return retMsg;
