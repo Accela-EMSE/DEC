@@ -563,7 +563,11 @@ function issueSelectedSalesItems(frm) {
 
     //balanceDue == 0 ^ 
     closeTask("Issuance", "Approved", "", "");
-
+    if (appMatch("Licenses/Annual/Application/NA")) {
+	var seasonPeriod = GetDateRange(DEC_CONFIG, LICENSE_SEASON, frm.Year);
+   	clacFromDt = dateAdd(convertDate(seasonPeriod[1]), 0);
+        setLicExpirationDate(capId, "", clacFromDt);
+    }
     var arryTargetCapAttrib = new Array();
     var arryAccumTags = new Array();
 
