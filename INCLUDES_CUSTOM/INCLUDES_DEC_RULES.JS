@@ -2532,6 +2532,7 @@ function getTag_TRAPPER_SUPER_SPORTSMAN(ruleParams) {
     arryTags.push(TAG_TYPE_3_REG_SEASON_DEER);
     arryTags.push(TAG_TYPE_2_BEAR_TAG);
     arryTags.push(TAG_TYPE_19_DEER_OF_EITHER_SEX_TAG);
+	arryTags.push(TAG_TYPE_20_ANTLERLESS_DEER_TAG);
     arryTags.push(TAG_TYPE_16_SPRING_TURKEY_TAG_1);
     arryTags.push(TAG_TYPE_15_SPRING_TURKEY_TAG_2);
     arryTags.push(TAG_TYPE_14_FALL_TURKEY_STATEWIDE);
