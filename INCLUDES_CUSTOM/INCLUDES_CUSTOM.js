@@ -741,12 +741,14 @@ function issueSelectedSalesItems(frm) {
                         if (diff > 0) {
                             AInfo["CODE.Effective Date"] = jsDateToMMDDYYYY(seasonPeriod[0]);
                             editFileDate(newLicId, seasonPeriod[0]);
-                            clacFromDt = dateAdd(convertDate(seasonPeriod[1]), 0);
+                            //clacFromDt = dateAdd(convertDate(seasonPeriod[1]), 0);
+                            clacFromDt = dateAdd(effectiveDt, 0);
                             setLicExpirationDate(newLicId, clacFromDt);
                         } else {
                             AInfo["CODE.Effective Date"] = "01/01/" + frm.Year;
                             editFileDate(newLicId, new Date());
-                            clacFromDt = dateAdd(convertDate(seasonPeriod[1]), 0);
+                            //clacFromDt = dateAdd(convertDate(seasonPeriod[1]), 0);
+                            clacFromDt = dateAdd(effectiveDt, 0);
                             setLicExpirationDate(newLicId, clacFromDt);
                         }
                     }
