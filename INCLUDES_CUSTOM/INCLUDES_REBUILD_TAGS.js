@@ -64,13 +64,15 @@ function getRefContactAgeAsOnDate(ipRefContact,ipEffDate) {
     var fvContactQry = aa.people.getPeople(ipRefContact);
     if (fvContactQry.getSuccess()) {
         var fvContact = fvContactQry.getOutput();
-        var fvBDtStr = fvContact.getBirthDate().toString();
-        var fvBDtArr = fvBDtStr.split(" ");
-        fvBDtStr = fvBDtArr[0];
-        fvBDtArr = fvBDtStr.split("-");
-        fvBDtStr = fvBDtArr[1].toString() + "/" + fvBDtArr[2].toString() + "/" + fvBDtArr[0].toString();
-        var fvBirthDate = new Date(fvBDtStr);
-        opAge = getCompletedAge(fvBirthDate,ipEffDate);
+        if (fvContact.getBirthDate()) {
+            var fvBDtStr = fvContact.getBirthDate().toString();
+            var fvBDtArr = fvBDtStr.split(" ");
+            fvBDtStr = fvBDtArr[0];
+            fvBDtArr = fvBDtStr.split("-");
+            fvBDtStr = fvBDtArr[1].toString() + "/" + fvBDtArr[2].toString() + "/" + fvBDtArr[0].toString();
+            var fvBirthDate = new Date(fvBDtStr);
+            opAge = getCompletedAge(fvBirthDate,ipEffDate);
+        }
     }
     return opAge;
 }
@@ -291,7 +293,7 @@ function getExistingTags(ipRefContact,ipExpDate,ipEligibleTags) {
 }
 
 function createNewTags(ipRefContact,ipStartDate,ipExpDate,ipEligibleTags) {
-    var opErrors = nul;
+    var opErrors = null;
     var fvTotalTags = parseInt(ipEligibleTags.get("TOTAL"), 10);
     if (fvTotalTags == 0)
         return;

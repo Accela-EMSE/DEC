@@ -9,10 +9,10 @@
 /*------------------------------------------------------------------------------------------------------/
 | START: TEST PARAMETERS
 /------------------------------------------------------------------------------------------------------*/
-//aa.env.setValue("setPrefix", "LT");
-//aa.env.setValue("emailAddress", "");
-//aa.env.setValue("showDebug", "Y");
-//aa.env.setValue("ReportName", "1 - ApplicationType");
+aa.env.setValue("setPrefix", "LT");
+aa.env.setValue("emailAddress", "saxthelm@accela.com");
+aa.env.setValue("showDebug", "Y");
+aa.env.setValue("ReportName", "1 - ApplicationType");
 /*------------------------------------------------------------------------------------------------------/
 | END: TEST PARAMETERS
 /------------------------------------------------------------------------------------------------------*/
@@ -88,7 +88,7 @@ if (!timeExpired) var isSuccess = mainProcess();
 logDebug("End of Job: Elapsed Time : " + elapsed() + " Seconds");
 if (isSuccess) {
     aa.print("Passed");
-    aa.env.setValue("ScriptReturnCode", "0");
+    //aa.env.setValue("ScriptReturnCode", "0");
     if (isPartialSuccess) {
         aa.env.setValue("ScriptReturnMessage", "A script timeout has caused partial completion of this process.  Please re-run.");
         aa.eventLog.createEventLog("Batch Job run partial successful.", "Batch Process", batchJobName, sysDate, sysDate, batchJobDesc, batchJobResult, batchJobID);
@@ -99,7 +99,7 @@ if (isSuccess) {
 }
 else {
     aa.print("Failed");
-    aa.env.setValue("ScriptReturnCode", "1");
+    //aa.env.setValue("ScriptReturnCode", "1");
     aa.env.setValue("ScriptReturnMessage", "Batch Job failed: " + emailText);
 }
 
