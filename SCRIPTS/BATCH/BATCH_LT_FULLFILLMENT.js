@@ -9,10 +9,10 @@
 /*------------------------------------------------------------------------------------------------------/
 | START: TEST PARAMETERS
 /------------------------------------------------------------------------------------------------------*/
-aa.env.setValue("setPrefix", "LT");
-aa.env.setValue("emailAddress", "saxthelm@accela.com");
-aa.env.setValue("showDebug", "Y");
-aa.env.setValue("ReportName", "1 - ApplicationType");
+//aa.env.setValue("setPrefix", "LT");
+//aa.env.setValue("emailAddress", "saxthelm@accela.com");
+//aa.env.setValue("showDebug", "Y");
+//aa.env.setValue("ReportName", "1 - ApplicationType");
 /*------------------------------------------------------------------------------------------------------/
 | END: TEST PARAMETERS
 /------------------------------------------------------------------------------------------------------*/
