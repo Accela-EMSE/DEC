@@ -94,8 +94,8 @@ if (isSuccess) {
 }
 else {
     aa.print("Failed");
-    aa.env.setValue("ScriptReturnCode", "1");
-    aa.env.setValue("ScriptReturnMessage", "Batch Job failed: " + emailText);
+    //aa.env.setValue("ScriptReturnCode", "1");
+    //aa.env.setValue("ScriptReturnMessage", "Batch Job failed: " + emailText);
 }
 
 if (emailAddress.length)
@@ -274,7 +274,8 @@ function getRefContactsByRecTypeByStatusByDOB(ipGroup,ipType,ipSubType,ipCategor
                                     continue;
                             }
                             if (!opRefContacts.containsKey(fvContact.refContactNumber))
-                                opRefContacts.put(fvContact.refContactNumber,fvContact.refContactNumber);
+                                if (fvContact.refContactNumber)
+                                    opRefContacts.put(fvContact.refContactNumber,fvContact.refContactNumber);
                         }
                     }
                 }
@@ -360,5 +361,5 @@ function showErrors(ipErrors) {
 }
 
 function updateLastRunDate() {
-    editLookup("DEC_CONFIG", fvRunProcess,(new Datte()).toString());
+    editLookup("DEC_CONFIG", fvRunProcess,(new Date()).toString());
 }
