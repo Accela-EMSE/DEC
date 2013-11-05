@@ -383,14 +383,14 @@ function createNewTag(ipParentApp,ipStartDate,ipExpDate,ipTag,ipTagCntr) {
 
 function lookupDesc(ipStdChoice,ipDesc) {
     var fvBizDomScriptResult = aa.bizDomain.getBizDomain(ipStdChoice);
-	
-	if (fvBizDomScriptResult.getSuccess()) {
-		var fvBizDomScriptArray = fvBizDomScriptResult.getOutput().toArray();
-		
-		for (var fvCntr in fvBizDomScriptArray) {
-		    if (fvBizDomScriptArray[fvCntr].getDescription() == ipDesc)
+    
+    if (fvBizDomScriptResult.getSuccess()) {
+        var fvBizDomScriptArray = fvBizDomScriptResult.getOutput().toArray();
+        
+        for (var fvCntr in fvBizDomScriptArray) {
+            if (fvBizDomScriptArray[fvCntr].getDescription() == ipDesc)
                 return fvBizDomScriptArray[fvCntr].getBizdomainValue();
-    	}
-	}
-	return null;
+        }
+    }
+    return null;
 }
