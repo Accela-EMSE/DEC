@@ -94,8 +94,8 @@ if (isSuccess) {
 }
 else {
     aa.print("Failed");
-    //aa.env.setValue("ScriptReturnCode", "1");
-    //aa.env.setValue("ScriptReturnMessage", "Batch Job failed: " + emailText);
+    aa.env.setValue("ScriptReturnCode", "1");
+    aa.env.setValue("ScriptReturnMessage", "Batch Job failed: " + emailText);
 }
 
 if (emailAddress.length)
