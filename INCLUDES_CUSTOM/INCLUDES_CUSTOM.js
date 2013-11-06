@@ -208,7 +208,8 @@ function GetWmuAsitTableArray(wmu1Result, wmu2Result) {
 
     var readOnly = "N";
     var tempObject = new Array();
-    var tempArray = new Array();
+    var tempObject2 = new Array();
+	var tempArray = new Array();
 
     tempObject = new Array();
     //Choice 1 Result
@@ -226,7 +227,7 @@ function GetWmuAsitTableArray(wmu1Result, wmu2Result) {
     tempObject["Preference Points Given"] = fieldInfo;
     fieldInfo = new asiTableValObj("Preference Points After", wmu1Result.RemainingPreferencePoints + "", "Y");
     tempObject["Preference Points After"] = fieldInfo;
-    fieldInfo = new asiTableValObj("Preference Bucket", wmu1Result.PreferenceBucket + "", "Y");
+    fieldInfo = new asiTableValObj("Preference Bucket", wmu1Result.PreferenceBucket ? wmu1Result.PreferenceBucket + "" : "" + "", "Y");
     tempObject["Preference Bucket"] = fieldInfo;
     fieldInfo = new asiTableValObj("Land Owner?", "", "N");
     tempObject["Land Owner?"] = fieldInfo;
@@ -236,26 +237,26 @@ function GetWmuAsitTableArray(wmu1Result, wmu2Result) {
 
     //Choice 2 Result
     fieldInfo = new asiTableValObj("DRAW TYPE", wmu2Result.DrawType, "Y");
-    tempObject["DRAW TYPE"] = fieldInfo;
+    tempObject2["DRAW TYPE"] = fieldInfo;
     fieldInfo = new asiTableValObj("WMU", wmu2Result.WMU, "Y");
-    tempObject["WMU"] = fieldInfo;
+    tempObject2["WMU"] = fieldInfo;
     fieldInfo = new asiTableValObj("Choice Number", "2", "Y");
-    tempObject["Choice Number"] = fieldInfo;
+    tempObject2["Choice Number"] = fieldInfo;
     fieldInfo = new asiTableValObj("Result", wmu2Result.Result(), "Y");
-    tempObject["Result"] = fieldInfo;
+    tempObject2["Result"] = fieldInfo;
     fieldInfo = new asiTableValObj("Apply Land Owner", wmu2Result.Landowner ? "CHECKED" : "UNCHECKED", "Y");
-    tempObject["Apply Land Owner"] = fieldInfo;
+    tempObject2["Apply Land Owner"] = fieldInfo;
     fieldInfo = new asiTableValObj("Preference Points Given", wmu2Result.GivenPreferencePoints + "", "Y");
-    tempObject["Preference Points Given"] = fieldInfo;
+    tempObject2["Preference Points Given"] = fieldInfo;
     fieldInfo = new asiTableValObj("Preference Points After", wmu2Result.RemainingPreferencePoints + "", "Y");
-    tempObject["Preference Points After"] = fieldInfo;
-    fieldInfo = new asiTableValObj("Preference Bucket", wmu2Result.PreferenceBucket + "", "Y");
-    tempObject["Preference Bucket"] = fieldInfo;
+    tempObject2["Preference Points After"] = fieldInfo;
+    fieldInfo = new asiTableValObj("Preference Bucket", wmu2Result.PreferenceBucket ? wmu2Result.PreferenceBucket + "" : "", "Y");
+    tempObject2["Preference Bucket"] = fieldInfo;
     fieldInfo = new asiTableValObj("Land Owner?", "", "N");
-    tempObject["Land Owner?"] = fieldInfo;
+    tempObject2["Land Owner?"] = fieldInfo;
     fieldInfo = new asiTableValObj("Correct?", "", "N");
-    tempObject["Correct?"] = fieldInfo;
-    tempArray.push(tempObject);
+    tempObject2["Correct?"] = fieldInfo;
+    tempArray.push(tempObject2);
 
     logDebug("EXIT: GetWmuAsitTableArray");
 
