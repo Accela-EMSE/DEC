@@ -148,7 +148,7 @@ function setSalesItemASI(newCap, recordType, decCode, quantity, wmuResult, wmu2R
             var newAsitArray = GetWmuAsitTableArray(wmu1Result, wmu2Result);
             //asitModel = newCap.getAppSpecificTableGroupModel();
             //new_asit = addASITable4ACAPageFlow(asitModel, "DRAW RESULT", newAsitArray);
-            addASITable("DRAW RESULT",newAsitArray)
+            addASITable("DRAW RESULT",newAsitArray,newCap)
 
 
             //Update Contact Attribute
