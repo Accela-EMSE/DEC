@@ -691,6 +691,8 @@ function issueSelectedSalesItems(frm) {
                             tagPropArray.push(tagProp);
                         }
 
+						var condIBP = new COND_IBP();
+						
                         if (wmu1 != null && wmu1 != 'NA') {
                             wmu1Result = RunDMPLottery(frm, syear, wmu1, 1, wmu1ApplyLO, activeHoldings, frm.PreferencePoints);
                             if (wmu1Result.Selected) {
@@ -699,6 +701,8 @@ function issueSelectedSalesItems(frm) {
                                 addStdConditionWithComments("DMP Application Result", "WMU Choice 1", " - " + wmu1 + ":  SELECTED", AInfo["CODE.NEW_DEC_DOCID"]);
                             } else {
                                 addStdConditionWithComments("DMP Application Result", "WMU Choice 1", " - " + wmu1 + ":  NOT SELECTED", "1 Preference Point");
+								var condIBP1 = condIBP.GetQryForSetforIBPChoice_1();
+								addStdConditionWithComments(condIBP1.getConditionType(),condIBP1.getConditionDescription(), "WMU Choice 1" + " - " + wmu1 + ":  NOT SELECTED", "");
                             }
                         }
                         if (wmu2 != null && wmu1 != 'NA' && (wmu1 != wmu2 || wmu1Result.Selected == true)) {
@@ -708,6 +712,8 @@ function issueSelectedSalesItems(frm) {
                                 addStdConditionWithComments("DMP Application Result", "WMU Choice 2", " - " + wmu2 + ":  SELECTED", AInfo["CODE.NEW_DEC_DOCID"]);
                             } else {
                                 addStdConditionWithComments("DMP Application Result", "WMU Choice 2", " - " + wmu2 + ":  NOT SELECTED");
+								var condIBP2 = condIBP.GetQryForSetforIBPChoice_2();
+								addStdConditionWithComments(condIBP2.getConditionType(),condIBP2.getConditionDescription(), "WMU Choice 2" + " - " + wmu2 + ":  NOT SELECTED", "");
                             }
                         }
                     }
