@@ -220,7 +220,7 @@ function GetWmuAsitTableArray(wmu1Result, wmu2Result) {
     tempObject["Choice Number"] = fieldInfo;
     fieldInfo = new asiTableValObj("Result", wmu1Result.Result(), "Y");
     tempObject["Result"] = fieldInfo;
-    fieldInfo = new asiTableValObj("Apply Land Owner", wmu1Result.Landowner, "Y");
+    fieldInfo = new asiTableValObj("Apply Land Owner", wmu1Result.Landowner ? "CHECKED" : "UNCHECKED", "Y");
     tempObject["Apply Land Owner"] = fieldInfo;
     fieldInfo = new asiTableValObj("Preference Points Given", wmu1Result.GivenPreferencePoints, "Y");
     tempObject["Preference Points Given"] = fieldInfo;
