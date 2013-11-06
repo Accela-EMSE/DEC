@@ -683,7 +683,8 @@ function issueSelectedSalesItems(frm) {
                         var wmu2ApplyLO = AInfo["Apply Land Owner for Choice2"];
                         var syear = AInfo["License Year"];
                         var activeHoldings = frm.ActiveHoldingsInfo;
-
+						var applyIBPCond1 = false;
+						var applyIBPCond2 = false;
                         var tagPropArray = new Array();
                         for (var t in oLic.TagsArray) {
                             //var tagProp = tagsMap.get(arryAccumTags[t]);
@@ -691,8 +692,6 @@ function issueSelectedSalesItems(frm) {
                             tagPropArray.push(tagProp);
                         }
 
-						var condIBP = new COND_IBP();
-						
                         if (wmu1 != null && wmu1 != 'NA') {
                             wmu1Result = RunDMPLottery(frm, syear, wmu1, 1, wmu1ApplyLO, activeHoldings, frm.PreferencePoints);
                             if (wmu1Result.Selected) {
@@ -701,7 +700,7 @@ function issueSelectedSalesItems(frm) {
                                 addStdConditionWithComments("DMP Application Result", "WMU Choice 1", " - " + wmu1 + ":  SELECTED", AInfo["CODE.NEW_DEC_DOCID"]);
                             } else {
                                 addStdConditionWithComments("DMP Application Result", "WMU Choice 1", " - " + wmu1 + ":  NOT SELECTED", "1 Preference Point");
-								addStdConditionWithComments("DMP Application Result", "Set for IBP Choice 1", "WMU Choice 1" + " - " + wmu1 + ":  NOT SELECTED", "");
+								applyIBPCond1 = true;
 							}
                         }
                         if (wmu2 != null && wmu1 != 'NA' && (wmu1 != wmu2 || wmu1Result.Selected == true)) {
@@ -711,7 +710,7 @@ function issueSelectedSalesItems(frm) {
                                 addStdConditionWithComments("DMP Application Result", "WMU Choice 2", " - " + wmu2 + ":  SELECTED", AInfo["CODE.NEW_DEC_DOCID"]);
                             } else {
                                 addStdConditionWithComments("DMP Application Result", "WMU Choice 2", " - " + wmu2 + ":  NOT SELECTED");
-								addStdConditionWithComments("DMP Application Result", "Set for IBP Choice 2", "WMU Choice 2" + " - " + wmu2 + ":  NOT SELECTED", "");
+								applyIBPCond2 = true;
                             }
                         }
                     }
@@ -782,7 +781,15 @@ function issueSelectedSalesItems(frm) {
                             else {
                                 logDebug("Could not link DMP" + result.getErrorMessage());
                             }
-                        }
+						}
+						
+						if (applyIBPCond1) {
+							addStdConditionWithComments("DMP Application Result", "Set for IBP Choice 1", "WMU Choice 1 NOT SELECTED", "");
+							}
+							
+						if (applyIBPCond2) {
+							addStdConditionWithComments("DMP Application Result", "Set for IBP Choice 2", "WMU Choice 2 NOT SELECTED", "");
+							}
                     }
                     setSalesItemASI(newLicId, oLic.RecordType, oLic.DecCode, oLic.feeUnit, wmu1Result, wmu2Result);
                     var newDecDocId = GenerateDocumentNumber(newLicId.getCustomID());
