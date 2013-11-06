@@ -784,11 +784,11 @@ function issueSelectedSalesItems(frm) {
 						}
 						
 						if (applyIBPCond1) {
-							addStdConditionWithComments("DMP Application Result", "Set for IBP Choice 1", "WMU Choice 1 NOT SELECTED", "");
+							addStdConditionWithComments("DMP Application Result", "Set for IBP Choice 1", "WMU Choice 1 NOT SELECTED", "", newLicId);
 							}
 							
 						if (applyIBPCond2) {
-							addStdConditionWithComments("DMP Application Result", "Set for IBP Choice 2", "WMU Choice 2 NOT SELECTED", "");
+							addStdConditionWithComments("DMP Application Result", "Set for IBP Choice 2", "WMU Choice 2 NOT SELECTED", "", newLicId);
 							}
                     }
                     setSalesItemASI(newLicId, oLic.RecordType, oLic.DecCode, oLic.feeUnit, wmu1Result, wmu2Result);
