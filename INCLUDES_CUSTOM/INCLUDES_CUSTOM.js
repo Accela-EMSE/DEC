@@ -2293,6 +2293,7 @@ function getContactCondutions(peopleSequenceNumber) {
         r.impact = cImpact;
         r.description = cDesc;
         r.comment = cComment;
+		r.statusType = thisCond.getConditionStatusType();
         if (thisCond.getEffectDate() != null) {
             r.effiectDate = new Date(thisCond.getEffectDate().getYear(), thisCond.getEffectDate().getMonth() - 1, thisCond.getEffectDate().getDayOfMonth());
             r.expireDate = new Date(thisCond.getExpireDate().getYear(), thisCond.getExpireDate().getMonth() - 1, thisCond.getExpireDate().getDayOfMonth());
@@ -2316,6 +2317,7 @@ function condMatchObjEx() {
     this.licenseObj = null;
     this.parcelObj = null;
     this.status = null;
+	this.statusType = null;
     this.type = null;
     this.impact = null;
     this.description = null;
