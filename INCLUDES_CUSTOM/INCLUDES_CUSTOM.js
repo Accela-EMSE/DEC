@@ -2211,12 +2211,14 @@ function isRevocation(RrevocationType, contactCondArray) {
     for (var conCond in contactCondArray) {
         var r = contactCondArray[conCond];
         if (r.description == RrevocationType && r.type == 'Revocation') {
-            //if (now >= r.effiectDate && now <= r.expireDate) {
-            isRevoked = true;
-            break;
-            //}
+            if (r.statusType == "Applied") {
+				if ((!r.effiectDate || now >= r.effiectDate) && (!r.expireDate || now <= r.expireDate)) {
+					isRevoked = true;
+					break;
+					}
+				}
+			}
         }
-    }
     return isRevoked;
 }
 function isSuspension(contactCondArray) {
