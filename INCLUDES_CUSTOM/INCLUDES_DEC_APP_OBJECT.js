@@ -546,8 +546,9 @@ function form_OBJECT(identity) {
     this.SetMessage = function (licIdentity, message) {
         this.licObjARRAY[this.licensesNameArray[licIdentity]].Message += message;
     }
-    this.SetSelected = function (licIdentity, bIsSelected) {
+    this.SetSelected = function (licIdentity, bIsSelected,sortOrder) {
         this.licObjARRAY[this.licensesNameArray[licIdentity]].IsSelected = bIsSelected;
+		this.licObjARRAY[this.licensesNameArray[licIdentity]].sortOrder = sortOrder;
     }
     this.GetQuantity = function (licIdentity) {
         var qty = "1";
@@ -1485,6 +1486,7 @@ function License_OBJ(identity, active) {
     this.TagsArray = null;
     this.IsSelected = false;
     this.IsActive = active;
+	this.sortOrder = 0;
     this.Message = "";
     this.DecCode = "";
     this.CodeDescription = "";

@@ -1759,7 +1759,7 @@ function getFormObjectForUpgrade(isGetActiveHoldings) {
         //var lic = new License_OBJ();
         var lic = f.licObjARRAY[idx];
         if (lic.Identity == LIC13_LIFETIME_SPORTSMAN) {
-            f.SetSelected(lic.Identity, true);
+            f.SetSelected(lic.Identity, true,1);
             var isActive = false;
             isActive = f.IsActiveItem(lic.Identity);
             f.SetItemFeeSched(lic.Identity);

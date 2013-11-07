@@ -469,6 +469,7 @@ function CreateTags(tagsArray, ruleParams, decCode, fullfilmentCondition) {
 
         for (var item in tagsArray) {
             var tagProp = tagsArray[item];
+			logDebug("CreateTags: Tag item " + tagProp);
             if (tagProp != null) {
                 logDebug("NOT NULL TAG PROP");
                 if (dictTags.Lookup(tagProp.TagType) == null) {
@@ -607,9 +608,16 @@ function issueSelectedSalesItems(frm) {
     var ruleParams = frm.getRulesParam();
 	var seasonPeriod = GetDateRange(DEC_CONFIG, LICENSE_SEASON, frm.Year);
     var diff = dateDiff(new Date(), seasonPeriod[0]);
+
+	// sort the license object array
 	
-    for (var item in recArr) {
-        var oLic = recArr[item];
+	var sortedRecArray = [];
+	for (var key in recArr) sortedRecArray.push(recArr[key]);
+
+	sortedRecArray.sort(function(a, b) { return (a.sortOrder-b.sortOrder); });
+
+    for (var idx = 0; idx < sortedRecArray.length; idx++) {
+        var oLic = sortedRecArray[idx];
         var wmu1Result;
         var wmu2Result;
 
@@ -927,55 +935,60 @@ function SetformForSelectedLics(frm) {
         }
     }
 
-    frm.SetSelected(LIC01_JUNIOR_HUNTING_TAGS, (AInfo["Junior Hunting Tags"] == "CHECKED"));
-    frm.SetSelected(LIC02_MARINE_REGISTRY, (AInfo["Marine Registry"] == "CHECKED"));
-    frm.SetSelected(LIC03_ONE_DAY_FISHING_LICENSE, (AInfo["One Day Fishing License"] == "CHECKED"));
-    frm.SetSelected(LIC04_BOWHUNTING_PRIVILEGE, (AInfo["Bowhunting Privilege"] == "CHECKED"));
-    frm.SetSelected(LIC05_DEER_MANAGEMENT_PERMIT, (AInfo["Deer Management Permit"] == "CHECKED"));
-    frm.SetSelected(LIC06_HUNTING_LICENSE, (AInfo["Hunting License"] == "CHECKED"));
-    frm.SetSelected(LIC07_MUZZLELOADING_PRIVILEGE, (AInfo["Muzzleloading Privilege"] == "CHECKED"));
-    frm.SetSelected(LIC08_TURKEY_PERMIT, (AInfo["Turkey Permit"] == "CHECKED"));
-    frm.SetSelected(LIC09_LIFETIME_BOWHUNTING, (AInfo["Lifetime Bowhunting"] == "CHECKED"));
-    frm.SetSelected(LIC10_LIFETIME_FISHING, (AInfo["Lifetime Fishing"] == "CHECKED"));
-    frm.SetSelected(LIC11_LIFETIME_MUZZLELOADING, (AInfo["Lifetime Muzzleloading"] == "CHECKED"));
-    frm.SetSelected(LIC12_LIFETIME_SMALL_AND_BIG_GAME, (AInfo["Lifetime Small & Big Game"] == "CHECKED"));
-    frm.SetSelected(LIC13_LIFETIME_SPORTSMAN, (AInfo["Lifetime Sportsman"] == "CHECKED"));
-    frm.SetSelected(LIC14_LIFETIME_TRAPPING, (AInfo["Lifetime Trapping"] == "CHECKED"));
-    frm.SetSelected(LIC15_TRAPPING_LICENSE, (AInfo["Trapping License"] == "CHECKED"));
-    frm.SetSelected(LIC16_HABITAT_ACCESS_STAMP, (AInfo["Habitat/Access Stamp"] == "CHECKED"));
-    frm.SetSelected(LIC17_VENISON_DONATION, (AInfo["Venison Donation"] == "CHECKED"));
-    frm.SetSelected(LIC18_CONSERVATION_FUND, (AInfo["Conservation Fund"] == "CHECKED"));
-    frm.SetSelected(LIC19_TRAIL_SUPPORTER_PATCH, (AInfo["Trail Supporter Patch"] == "CHECKED"));
-    frm.SetSelected(LIC20_CONSERVATIONIST_MAGAZINE, (AInfo["Conservationist Magazine"] == "CHECKED"));
-    frm.SetSelected(LIC21_CONSERVATION_PATRON, (AInfo["Conservation Patron"] == "CHECKED"));
-    frm.SetSelected(LIC18_CONSERVATION_FUND, (AInfo["Conservation Fund"] == "CHECKED"));
-    frm.SetSelected(LIC19_TRAIL_SUPPORTER_PATCH, (AInfo["Trail Supporter Patch"] == "CHECKED"));
-    frm.SetSelected(LIC20_CONSERVATIONIST_MAGAZINE, (AInfo["Conservationist Magazine"] == "CHECKED"));
-    frm.SetSelected(LIC21_CONSERVATION_PATRON, (AInfo["Conservation Patron"] == "CHECKED"));
-    frm.SetSelected(LIC22_FRESHWATER_FISHING, (AInfo["Freshwater Fishing"] == "CHECKED"));
-    frm.SetSelected(LIC23_NONRES_FRESHWATER_FISHING, (AInfo["NonRes Freshwater Fishing"] == "CHECKED"));
-    frm.SetSelected(LIC24_NONRESIDENT_1_DAY_FISHING, (AInfo["Nonresident 1 Day Fishing"] == "CHECKED"));
-    frm.SetSelected(LIC25_NONRESIDENT_7_DAY_FISHING, (AInfo["Nonresident 7 Day Fishing"] == "CHECKED"));
-    frm.SetSelected(LIC26_SEVEN_DAY_FISHING_LICENSE, (AInfo["Seven Day Fishing License"] == "CHECKED"));
-    frm.SetSelected(LIC27_CONSERVATION_LEGACY, (AInfo["Conservation Legacy"] == "CHECKED"));
-    frm.SetSelected(LIC28_JUNIOR_BOWHUNTING, (AInfo["Junior Bowhunting"] == "CHECKED"));
-    frm.SetSelected(LIC29_JUNIOR_HUNTING, (AInfo["Junior Hunting"] == "CHECKED"));
-    frm.SetSelected(LIC30_NONRES_MUZZLELOADING, (AInfo["NonRes Muzzleloading"] == "CHECKED"));
-    frm.SetSelected(LIC31_NONRES_SUPER_SPORTSMAN, (AInfo["NonRes Super Sportsman"] == "CHECKED"));
-    frm.SetSelected(LIC32_NONRESIDENT_BEAR_TAG, (AInfo["Nonresident Bear Tag"] == "CHECKED"));
-    frm.SetSelected(LIC33_NONRESIDENT_BIG_GAME, (AInfo["Nonresident Big Game"] == "CHECKED"));
-    frm.SetSelected(LIC34_NONRESIDENT_BOWHUNTING, (AInfo["Nonresident Bowhunting"] == "CHECKED"));
-    frm.SetSelected(LIC35_NONRESIDENT_SMALL_GAME, (AInfo["Nonresident Small Game"] == "CHECKED"));
-    frm.SetSelected(LIC36_NONRESIDENT_TURKEY, (AInfo["Nonresident Turkey"] == "CHECKED"));
-    frm.SetSelected(LIC37_SMALL_AND_BIG_GAME, (AInfo["Small and Big Game"] == "CHECKED"));
-    frm.SetSelected(LIC38_SMALL_GAME, (AInfo["Small Game"] == "CHECKED"));
-    frm.SetSelected(LIC39_SPORTSMAN, (AInfo["Sportsman"] == "CHECKED"));
-    frm.SetSelected(LIC40_SUPER_SPORTSMAN, (AInfo["Super Sportsman"] == "CHECKED"));
-    frm.SetSelected(LIC41_NONRESIDENT_TRAPPING, (AInfo["Nonresident Trapping"] == "CHECKED"));
-    frm.SetSelected(LIC42_TRAPPER_SUPER_SPORTSMAN, (AInfo["Trapper Super Sportsman"] == "CHECKED"));
-    frm.SetSelected(LIC43_LIFETIME_CARD_REPLACE, (AInfo["Lifetime Card Replace"] == "CHECKED"));
-    frm.SetSelected(LIC44_SPORTSMAN_ED_CERTIFICATION, (AInfo["Sportsman Ed Certification"] == "CHECKED"));
-    frm.SetSelected(LIC45_LIFETIME_INSCRIPTION, (AInfo["Lifetime Inscription"] == "CHECKED"));
+    frm.SetSelected(LIC01_JUNIOR_HUNTING_TAGS, (AInfo["Junior Hunting Tags"] == "CHECKED"),1);
+    frm.SetSelected(LIC02_MARINE_REGISTRY, (AInfo["Marine Registry"] == "CHECKED"),1);
+    frm.SetSelected(LIC03_ONE_DAY_FISHING_LICENSE, (AInfo["One Day Fishing License"] == "CHECKED"),1);
+    frm.SetSelected(LIC05_DEER_MANAGEMENT_PERMIT, (AInfo["Deer Management Permit"] == "CHECKED"),1);
+    frm.SetSelected(LIC06_HUNTING_LICENSE, (AInfo["Hunting License"] == "CHECKED"),1);
+    frm.SetSelected(LIC08_TURKEY_PERMIT, (AInfo["Turkey Permit"] == "CHECKED"),1);
+    frm.SetSelected(LIC10_LIFETIME_FISHING, (AInfo["Lifetime Fishing"] == "CHECKED"),1);
+	frm.SetSelected(LIC12_LIFETIME_SMALL_AND_BIG_GAME, (AInfo["Lifetime Small & Big Game"] == "CHECKED"),1);
+    frm.SetSelected(LIC13_LIFETIME_SPORTSMAN, (AInfo["Lifetime Sportsman"] == "CHECKED"),1);
+    frm.SetSelected(LIC14_LIFETIME_TRAPPING, (AInfo["Lifetime Trapping"] == "CHECKED"),1);
+    frm.SetSelected(LIC15_TRAPPING_LICENSE, (AInfo["Trapping License"] == "CHECKED"),1);
+    frm.SetSelected(LIC16_HABITAT_ACCESS_STAMP, (AInfo["Habitat/Access Stamp"] == "CHECKED"),1);
+    frm.SetSelected(LIC17_VENISON_DONATION, (AInfo["Venison Donation"] == "CHECKED"),1);
+    frm.SetSelected(LIC18_CONSERVATION_FUND, (AInfo["Conservation Fund"] == "CHECKED"),1);
+    frm.SetSelected(LIC19_TRAIL_SUPPORTER_PATCH, (AInfo["Trail Supporter Patch"] == "CHECKED"),1);
+    frm.SetSelected(LIC20_CONSERVATIONIST_MAGAZINE, (AInfo["Conservationist Magazine"] == "CHECKED"),1);
+    frm.SetSelected(LIC21_CONSERVATION_PATRON, (AInfo["Conservation Patron"] == "CHECKED"),1);
+    frm.SetSelected(LIC18_CONSERVATION_FUND, (AInfo["Conservation Fund"] == "CHECKED"),1);
+    frm.SetSelected(LIC19_TRAIL_SUPPORTER_PATCH, (AInfo["Trail Supporter Patch"] == "CHECKED"),1);
+    frm.SetSelected(LIC20_CONSERVATIONIST_MAGAZINE, (AInfo["Conservationist Magazine"] == "CHECKED"),1);
+    frm.SetSelected(LIC21_CONSERVATION_PATRON, (AInfo["Conservation Patron"] == "CHECKED"),1);
+    frm.SetSelected(LIC22_FRESHWATER_FISHING, (AInfo["Freshwater Fishing"] == "CHECKED"),1);
+    frm.SetSelected(LIC23_NONRES_FRESHWATER_FISHING, (AInfo["NonRes Freshwater Fishing"] == "CHECKED"),1);
+    frm.SetSelected(LIC24_NONRESIDENT_1_DAY_FISHING, (AInfo["Nonresident 1 Day Fishing"] == "CHECKED"),1);
+    frm.SetSelected(LIC25_NONRESIDENT_7_DAY_FISHING, (AInfo["Nonresident 7 Day Fishing"] == "CHECKED"),1);
+    frm.SetSelected(LIC26_SEVEN_DAY_FISHING_LICENSE, (AInfo["Seven Day Fishing License"] == "CHECKED"),1);
+    frm.SetSelected(LIC27_CONSERVATION_LEGACY, (AInfo["Conservation Legacy"] == "CHECKED"),1);
+    frm.SetSelected(LIC31_NONRES_SUPER_SPORTSMAN, (AInfo["NonRes Super Sportsman"] == "CHECKED"),1);
+    frm.SetSelected(LIC32_NONRESIDENT_BEAR_TAG, (AInfo["Nonresident Bear Tag"] == "CHECKED"),1);
+    frm.SetSelected(LIC33_NONRESIDENT_BIG_GAME, (AInfo["Nonresident Big Game"] == "CHECKED"),1);
+    frm.SetSelected(LIC35_NONRESIDENT_SMALL_GAME, (AInfo["Nonresident Small Game"] == "CHECKED"),1);
+    frm.SetSelected(LIC36_NONRESIDENT_TURKEY, (AInfo["Nonresident Turkey"] == "CHECKED"),1);
+    frm.SetSelected(LIC37_SMALL_AND_BIG_GAME, (AInfo["Small and Big Game"] == "CHECKED"),1);
+    frm.SetSelected(LIC38_SMALL_GAME, (AInfo["Small Game"] == "CHECKED"),1);
+    frm.SetSelected(LIC39_SPORTSMAN, (AInfo["Sportsman"] == "CHECKED"),1);
+    frm.SetSelected(LIC40_SUPER_SPORTSMAN, (AInfo["Super Sportsman"] == "CHECKED"),1);
+    frm.SetSelected(LIC41_NONRESIDENT_TRAPPING, (AInfo["Nonresident Trapping"] == "CHECKED"),1);
+    frm.SetSelected(LIC42_TRAPPER_SUPER_SPORTSMAN, (AInfo["Trapper Super Sportsman"] == "CHECKED"),1);
+    frm.SetSelected(LIC43_LIFETIME_CARD_REPLACE, (AInfo["Lifetime Card Replace"] == "CHECKED"),1);
+    frm.SetSelected(LIC44_SPORTSMAN_ED_CERTIFICATION, (AInfo["Sportsman Ed Certification"] == "CHECKED"),1);
+    frm.SetSelected(LIC45_LIFETIME_INSCRIPTION, (AInfo["Lifetime Inscription"] == "CHECKED"),1);
+
+// adding these after the main set in order to set the tag pre-requisites properly  JHS 11/7/2013  issue 14045
+
+    frm.SetSelected(LIC04_BOWHUNTING_PRIVILEGE, (AInfo["Bowhunting Privilege"] == "CHECKED"),2);
+    frm.SetSelected(LIC07_MUZZLELOADING_PRIVILEGE, (AInfo["Muzzleloading Privilege"] == "CHECKED"),2);
+    frm.SetSelected(LIC09_LIFETIME_BOWHUNTING, (AInfo["Lifetime Bowhunting"] == "CHECKED"),2);
+    frm.SetSelected(LIC11_LIFETIME_MUZZLELOADING, (AInfo["Lifetime Muzzleloading"] == "CHECKED"),2);
+    frm.SetSelected(LIC28_JUNIOR_BOWHUNTING, (AInfo["Junior Bowhunting"] == "CHECKED"),2);
+    frm.SetSelected(LIC29_JUNIOR_HUNTING, (AInfo["Junior Hunting"] == "CHECKED"),2);
+    frm.SetSelected(LIC30_NONRES_MUZZLELOADING, (AInfo["NonRes Muzzleloading"] == "CHECKED"),2);
+    frm.SetSelected(LIC34_NONRESIDENT_BOWHUNTING, (AInfo["Nonresident Bowhunting"] == "CHECKED"),2);
+	
+	
 
     frm.ExecuteBoRuleEngine();
 
@@ -995,18 +1008,18 @@ function SetOtherformForSelectedLics(frm) {
     frm.Quantity_Habitat_Stamp = AInfo["Quantity Habitat/Access Stamp"];
 
 
-    frm.SetSelected(LIC16_HABITAT_ACCESS_STAMP, (AInfo["Habitat/Access Stamp"] == "CHECKED"));
-    frm.SetSelected(LIC17_VENISON_DONATION, (AInfo["Venison Donation"] == "CHECKED"));
-    frm.SetSelected(LIC18_CONSERVATION_FUND, (AInfo["Conservation Fund"] == "CHECKED"));
-    frm.SetSelected(LIC19_TRAIL_SUPPORTER_PATCH, (AInfo["Trail Supporter Patch"] == "CHECKED"));
-    frm.SetSelected(LIC20_CONSERVATIONIST_MAGAZINE, (AInfo["Conservationist Magazine"] == "CHECKED"));
-    frm.SetSelected(LIC21_CONSERVATION_PATRON, (AInfo["Conservation Patron"] == "CHECKED"));
-    frm.SetSelected(LIC18_CONSERVATION_FUND, (AInfo["Conservation Fund"] == "CHECKED"));
-    frm.SetSelected(LIC19_TRAIL_SUPPORTER_PATCH, (AInfo["Trail Supporter Patch"] == "CHECKED"));
-    frm.SetSelected(LIC20_CONSERVATIONIST_MAGAZINE, (AInfo["Conservationist Magazine"] == "CHECKED"));
-    frm.SetSelected(LIC21_CONSERVATION_PATRON, (AInfo["Conservation Patron"] == "CHECKED"));
-    frm.SetSelected(LIC43_LIFETIME_CARD_REPLACE, (AInfo["Lifetime Card Replace"] == "CHECKED"));
-    frm.SetSelected(LIC44_SPORTSMAN_ED_CERTIFICATION, (AInfo["Sportsman Ed Certification"] == "CHECKED"));
+    frm.SetSelected(LIC16_HABITAT_ACCESS_STAMP, (AInfo["Habitat/Access Stamp"] == "CHECKED"),1);
+    frm.SetSelected(LIC17_VENISON_DONATION, (AInfo["Venison Donation"] == "CHECKED"),1);
+    frm.SetSelected(LIC18_CONSERVATION_FUND, (AInfo["Conservation Fund"] == "CHECKED"),1);
+    frm.SetSelected(LIC19_TRAIL_SUPPORTER_PATCH, (AInfo["Trail Supporter Patch"] == "CHECKED"),1);
+    frm.SetSelected(LIC20_CONSERVATIONIST_MAGAZINE, (AInfo["Conservationist Magazine"] == "CHECKED"),1);
+    frm.SetSelected(LIC21_CONSERVATION_PATRON, (AInfo["Conservation Patron"] == "CHECKED"),1);
+    frm.SetSelected(LIC18_CONSERVATION_FUND, (AInfo["Conservation Fund"] == "CHECKED"),1);
+    frm.SetSelected(LIC19_TRAIL_SUPPORTER_PATCH, (AInfo["Trail Supporter Patch"] == "CHECKED"),1);
+    frm.SetSelected(LIC20_CONSERVATIONIST_MAGAZINE, (AInfo["Conservationist Magazine"] == "CHECKED"),1);
+    frm.SetSelected(LIC21_CONSERVATION_PATRON, (AInfo["Conservation Patron"] == "CHECKED"),1);
+    frm.SetSelected(LIC43_LIFETIME_CARD_REPLACE, (AInfo["Lifetime Card Replace"] == "CHECKED"),1);
+    frm.SetSelected(LIC44_SPORTSMAN_ED_CERTIFICATION, (AInfo["Sportsman Ed Certification"] == "CHECKED"),1);
 
     frm.ExecuteBoRuleEngine();
 
