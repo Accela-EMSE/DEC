@@ -625,6 +625,7 @@ function issueSelectedSalesItems(frm) {
             //If DMP Application is selected then Run Lottery
             //Add Conditions for each WMU selection
             var ats = oLic.RecordType;
+		    logDebug("issueSelectedSalesItems item : " + ats);
             if (isNull(oLic.RecordType, '') != '') {
                 var ata = ats.split("/");
                 if (ata.length != 4) {
@@ -672,13 +673,13 @@ function issueSelectedSalesItems(frm) {
                     //Get Tgs
                     var TagsArray = null;
                     if (isNull(oLic.FNTagsArray, '') != '') {
-                        eval("TagsArray = " + oLic.FNTagsArray + "(ruleParams);");
+						eval("TagsArray = " + oLic.FNTagsArray + "(ruleParams);");
                     }
                     oLic.TagsArray = TagsArray;
-
+				
                     if (exists(TAG_TYPE_19_DEER_OF_EITHER_SEX_TAG, oLic.TagsArray)) {
-                        ruleParams.SetEitherOrAntler(4);
-                    }
+						ruleParams.SetEitherOrAntler(4);
+					}
 
                     if (exists(TAG_TYPE_20_ANTLERLESS_DEER_TAG, oLic.TagsArray)) {
                         ruleParams.SetEitherOrAntler(8);
