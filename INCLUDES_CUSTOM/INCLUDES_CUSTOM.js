@@ -767,9 +767,6 @@ function issueSelectedSalesItems(frm) {
                     }
                     else if (ata[1] == "Other") {
                         AInfo["CODE.Effective Date"] = jsDateToMMDDYYYY(new Date());
-						}
-                    else if (ata[1] == "Lifetime") {
-                        setLicExpirationDate(newLicId, dateAdd(null,0));					
                     } else {
                         if (diff > 0) {
                             AInfo["CODE.Effective Date"] = jsDateToMMDDYYYY(seasonPeriod[0]);
