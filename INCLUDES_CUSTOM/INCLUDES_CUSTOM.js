@@ -693,8 +693,7 @@ function issueSelectedSalesItems(frm) {
                         var wmu2ApplyLO = AInfo["Apply Land Owner for Choice2"];
                         var syear = AInfo["License Year"];
                         var activeHoldings = frm.ActiveHoldingsInfo;
-						var applyIBPCond1 = false;
-						var applyIBPCond2 = false;
+						var applyIBPCond = false;
                         var tagPropArray = new Array();
                         for (var t in oLic.TagsArray) {
                             //var tagProp = tagsMap.get(arryAccumTags[t]);
@@ -710,7 +709,7 @@ function issueSelectedSalesItems(frm) {
                                 addStdConditionWithComments("DMP Application Result", "WMU Choice 1", " - " + wmu1 + ":  SELECTED", AInfo["CODE.NEW_DEC_DOCID"]);
                             } else {
                                 addStdConditionWithComments("DMP Application Result", "WMU Choice 1", " - " + wmu1 + ":  NOT SELECTED", "1 Preference Point");
-								applyIBPCond1 = true;
+								applyIBPCond = true;
 							}
                         }
                         if (wmu2 != null && wmu1 != 'NA' && (wmu1 != wmu2 || wmu1Result.Selected == true)) {
@@ -720,7 +719,7 @@ function issueSelectedSalesItems(frm) {
                                 addStdConditionWithComments("DMP Application Result", "WMU Choice 2", " - " + wmu2 + ":  SELECTED", AInfo["CODE.NEW_DEC_DOCID"]);
                             } else {
                                 addStdConditionWithComments("DMP Application Result", "WMU Choice 2", " - " + wmu2 + ":  NOT SELECTED");
-								applyIBPCond2 = true;
+								applyIBPCond = true;
                             }
                         }
                     }
@@ -796,13 +795,10 @@ function issueSelectedSalesItems(frm) {
                             }
 						}
 						
-						if (applyIBPCond1) {
-							addStdConditionWithComments("DMP Application Result", "Set for IBP Choice 1", "WMU Choice 1 NOT SELECTED", "", newLicId);
+						if (applyIBPCond) {
+							addStdConditionWithComments("DMP Application Result", "Set for IBP Choice", "Set for IBP Choice", "", newLicId);
 							}
-							
-						if (applyIBPCond2) {
-							addStdConditionWithComments("DMP Application Result", "Set for IBP Choice 2", "WMU Choice 2 NOT SELECTED", "", newLicId);
-							}
+						
                     }
                     setSalesItemASI(newLicId, oLic.RecordType, oLic.DecCode, oLic.feeUnit, wmu1Result, wmu2Result);
                     var newDecDocId = GenerateDocumentNumber(newLicId.getCustomID());
