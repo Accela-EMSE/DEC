@@ -3038,20 +3038,21 @@ function COND_FULLFILLMENT() {
 function COND_IBP() {
     this.ConditionGroup = "DMP Lottery"
     this.ConditionType = "DMP Application Result"
-    this.Condition_SetforIBPChoice_1 = "Set for IBP Choice 1";
-    this.Condition_SetforIBPChoice_2 = "Set for IBP Choice 2";
+    this.Condition_SetforIBP = "Set for IBP Choice";
     this.Condition_WMUChoice_1 = "WMU Choice 1";
     this.Condition_WMUChoice_2 = "WMU Choice 2";
     this.Condition_WMUChoice_1_IBP = "WMU Choice 1 IBP";
     this.Condition_WMUChoice_2_IBP = "WMU Choice 2 IBP";
 
     this.getConditionByFullfillmentType = function (fullfillmentType) {
-        if (fullfillmentType == this.Condition_SetforIBPChoice_1) {
-            return this.GetQryForSetforIBPChoice_1();
+        if (fullfillmentType == this.Condition_SetforIBP) {
+            return this.GetQryForSetforIBPChoice();
         }
-        if (fullfillmentType == this.Condition_SetforIBPChoice_2) {
+        /*
+		if (fullfillmentType == this.Condition_SetforIBPChoice_2) {
             return this.GetQryForSetforIBPChoice_2();
         }
+		*/
         if (fullfillmentType == this.Condition_WMUChoice_1) {
             return this.GetQryForWMUChoice_1();
         }
@@ -3066,16 +3067,17 @@ function COND_IBP() {
         }
         return null;
     }
-    this.GetQryForSetforIBPChoice_1 = function () {
+    this.GetQryForSetforIBPChoice = function () {
         var emCondm = aa.proxyInvoker.newInstance("com.accela.aa.aamain.cap.CapConditionModel").getOutput();
         emCondm.setServiceProviderCode(aa.getServiceProviderCode());
         emCondm.setConditionGroup(this.ConditionGroup);
         emCondm.setConditionType(this.ConditionGroup);
-        emCondm.setConditionDescription(this.Condition_SetforIBPChoice_1);
+        emCondm.setConditionDescription(this.Condition_SetforIBP);
 
         return emCondm;
     }
 
+	/*
     this.GetQryForSetforIBPChoice_2 = function () {
         var emCondm = aa.proxyInvoker.newInstance("com.accela.aa.aamain.cap.CapConditionModel").getOutput();
         emCondm.setServiceProviderCode(aa.getServiceProviderCode());
@@ -3085,7 +3087,8 @@ function COND_IBP() {
 
         return emCondm;
     }
-
+	*/
+	
     this.GetQryForWMUChoice_1 = function () {
         var emCondm = aa.proxyInvoker.newInstance("com.accela.aa.aamain.cap.CapConditionModel").getOutput();
         emCondm.setServiceProviderCode(aa.getServiceProviderCode());
