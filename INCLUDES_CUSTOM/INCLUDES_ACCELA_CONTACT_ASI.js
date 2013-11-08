@@ -470,6 +470,7 @@ function InsertTemplateTableRow(templateModel, tableSubgroup, tablevalue, colNam
 }
 //Assumtion is both contact and rec has same columns with same name
 function copyCapASITtoContactASITTableRow(templateModel, subGroupName, groupName, tableFields) {
+    logDebug("ENTER: copyCapASITtoContactASITTableRow");
     var templateGroups = templateModel.getTemplateTables();
     var subGroups = templateGroups.get(0).getSubgroups();
     for (var subGroupIndex = 0; subGroupIndex < subGroups.size(); subGroupIndex++) {
@@ -485,8 +486,10 @@ function copyCapASITtoContactASITTableRow(templateModel, subGroupName, groupName
             //get contatct ASIT exist row index.
             var existRowIndex = existRows.size();
             var maxRowIndex = tableFields.get(tableFields.size() - 1).getRowIndex();
-            var addPointer = 1;
+			logDebug("copyCapASITtoContactASITTableRow maxRowIndex = " + maxRowIndex);
+           //var addPointer = 1;
             for (var currentRowIndex = 1; currentRowIndex <= maxRowIndex; currentRowIndex++) {
+				logDebug("copyCapASITtoContactASITTableRow currentRowIndex = " + currentRowIndex);
                 var values = aa.util.newArrayList();
                 var isAllFieldmatchArray = new Array();
                 for (var idx = 0; idx < tableFields.size(); idx++) {
@@ -494,42 +497,52 @@ function copyCapASITtoContactASITTableRow(templateModel, subGroupName, groupName
                     var appSpecificTableField = tableFields.get(idx);
                     var rowIndex = appSpecificTableField.getRowIndex();
                     if (rowIndex == currentRowIndex) {
+						logDebug("copyCapASITtoContactASITTableRow rowIndex = " + rowIndex);
                         var fieldLabel = appSpecificTableField.getFieldLabel();
                         var inputValue = appSpecificTableField.getInputValue();
-                        var mx = existRows.size();
+                        
+						/*
+						var mx = existRows.size();
                         for (var crix = 1; crix <= mx; crix++) {
                             isAllFieldmatchArray[crix] = false;
                             var singleTableValue = getTemplateValueByTableRow(templateModel, subGroupName, fieldLabel, crix);
                             isAllFieldmatchArray[crix] = isAllFieldmatchArray[crix] || (singleTableValue == inputValue);
                         }
+						*/
                         var v = aa.proxyInvoker.newInstance("com.accela.aa.template.field.GenericTemplateTableValue").getOutput();
-                        v.setRowIndex(addPointer + existRowIndex);
+                        //v.setRowIndex(addPointer + existRowIndex);
+						v.setRowIndex(currentRowIndex);
                         v.setGroupName(groupName);
                         v.setSubgroupName(subGroupName);
                         v.setFieldName(fieldLabel);
                         v.setValue(inputValue);
+						logDebug("copyCapASITtoContactASITTableRow " + v.getGroupName() + " (" + v.getRowIndex() + ") " + v.getFieldName() + " = " + v.getValue());
                         values.add(v);
                     }
                 }
 
                 var isAllFieldmatch = false;
+				/*
                 for (var crix in isAllFieldmatchArray) {
                     if (isAllFieldmatchArray[crix] == true) {
                         isAllFieldmatch = true;
                         break;
                     }
                 }
+				*/
                 if (!isAllFieldmatch) {
                     var t = aa.proxyInvoker.newInstance("com.accela.aa.template.subgroup.TemplateRow").getOutput();
-                    t.setRowIndex(addPointer + existRowIndex);
+                    t.setRowIndex(currentRowIndex);
                     t.setValues(values);
                     existRows.add(t);
-                    addPointer++;
+					logDebug("copyCapASITtoContactASITTableRow adding row " + currentRowIndex);
+                    //addPointer++;
                 }
             }
             subGroup.setRows(existRows);
         }
     }
+	logDebug("EXIT: copyCapASITtoContactASITTableRow");
 }
 /*----------/
 | METHODS To support examples or triubleshoot
