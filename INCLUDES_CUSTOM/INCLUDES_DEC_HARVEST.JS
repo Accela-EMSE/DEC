@@ -1277,7 +1277,7 @@ function addRepritFees() {
 		bBypassReplacementFee = true;
 	}
 	//If there is a single marine registry license being replaced with a) no other tags or b) a single Back Tag only
-	if(bReplaceMarineRegistry && arryLic.length == 1 && ((!bReplaceBackTag && arrTag ==0) || (bReplaceBackTag && arryTag.length == 1)))
+	if(bReplaceMarineRegistry && arryLic.length == 1 && ((!bReplaceBackTag && arryTag.length ==0) || (bReplaceBackTag && arryTag.length == 1)))
 	{
 		bBypassReplacementFee = true;
 	}
