@@ -98,7 +98,7 @@ function getSpEd(ipRefContact) {
     var fvFieldNameType = "Sportsman Education Type";
     var fvFieldNameRevoked = "Revoked";
        
-    var fvPeopleModel = getOutput(aa.people.getPeople(ipRefContact), "");
+    var fvPeopleModel = aa.people.getPeople(ipRefContact).getOutput();
     
     var fvSpEdArray = aa.util.newHashMap();
     if (fvPeopleModel) {
