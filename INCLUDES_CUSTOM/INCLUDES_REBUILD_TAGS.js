@@ -102,43 +102,46 @@ function getSpEd(ipRefContact) {
     
     var fvSpEdArray = aa.util.newHashMap();
     if (fvPeopleModel) {
-        var fvTemplateGroups = fvPeopleModel.getTemplate().getTemplateTables();
-        if (fvTemplateGroups && fvTemplateGroups.size() > 0) {
-            var fvSubGroups = fvTemplateGroups.get(0).getSubgroups();
-            for (var fvSubGroupIndex = 0; fvSubGroupIndex < fvSubGroups.size(); fvSubGroupIndex++) {
-                var fvSubGroup = fvSubGroups.get(fvSubGroupIndex);
+        var fvTemplate = fvPeopleModel.getTemplate();
+        if (fvTemplate) {
+            var fvTemplateGroups = fvTemplate.getTemplateTables();
+            if (fvTemplateGroups && fvTemplateGroups.size() > 0) {
+                var fvSubGroups = fvTemplateGroups.get(0).getSubgroups();
+                for (var fvSubGroupIndex = 0; fvSubGroupIndex < fvSubGroups.size(); fvSubGroupIndex++) {
+                    var fvSubGroup = fvSubGroups.get(fvSubGroupIndex);
 
-                if (fvSubGroupName != fvSubGroup.getSubgroupName())
-                    continue;
+                    if (fvSubGroupName != fvSubGroup.getSubgroupName())
+                        continue;
 
-                var fvFields = fvSubGroup.getFields();
-                if (fvFields) {
-                    var fvFieldPosType = -1;
-                    var fvFieldPosRevoked = -1;
-                    for (var fvCounter = 0; fvCounter < fvFields.size(); fvCounter++) {
-                        var fvField = fvFields.get(fvCounter);
-                        if (fvField.fieldName == fvFieldNameType)
-                            fvFieldPosType = fvCounter;
-                        if (fvField.fieldName == fvFieldNameRevoked)
-                            fvFieldPosRevoked = fvCounter;
-                    }
+                    var fvFields = fvSubGroup.getFields();
+                    if (fvFields) {
+                        var fvFieldPosType = -1;
+                        var fvFieldPosRevoked = -1;
+                        for (var fvCounter = 0; fvCounter < fvFields.size(); fvCounter++) {
+                            var fvField = fvFields.get(fvCounter);
+                            if (fvField.fieldName == fvFieldNameType)
+                                fvFieldPosType = fvCounter;
+                            if (fvField.fieldName == fvFieldNameRevoked)
+                                fvFieldPosRevoked = fvCounter;
+                        }
 
-                    var fvRows = fvSubGroup.getRows();
-                    if (fvRows) {
-                        for (var fvCounter = 0; fvCounter < fvRows.size(); fvCounter++) {
-                            var fvRow = fvRows.get(fvCounter);
-                            var fvRowValues = fvRow.getValues();
-                            var fvValueRevoked = fvRowValues.get(fvFieldPosRevoked);
-                            if (fvValueRevoked.value != null && fvValueRevoked.value != "")
-                                continue;
-                            var fvValueType = fvRowValues.get(fvFieldPosType);
-                            fvSpEdArray.put(fvValueType.value,fvValueType.value);
+                        var fvRows = fvSubGroup.getRows();
+                        if (fvRows) {
+                            for (var fvCounter = 0; fvCounter < fvRows.size(); fvCounter++) {
+                                var fvRow = fvRows.get(fvCounter);
+                                var fvRowValues = fvRow.getValues();
+                                var fvValueRevoked = fvRowValues.get(fvFieldPosRevoked);
+                                if (fvValueRevoked.value != null && fvValueRevoked.value != "")
+                                    continue;
+                                var fvValueType = fvRowValues.get(fvFieldPosType);
+                                fvSpEdArray.put(fvValueType.value,fvValueType.value);
+                            }
                         }
                     }
+                    break;
                 }
-                break;
             }
-        }        
+        }
     }
 
     return fvSpEdArray;
