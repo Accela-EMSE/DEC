@@ -1247,6 +1247,11 @@ function addRepritFees() {
     var arryTag = new Array();
     var arryLic = new Array();
 
+	//Variables used to determine if replacement fees should NOT be assessed
+	var bReplaceBackTag = false;
+	var bReplaceMarineRegistry = false;
+	var bBypassReplacementFee = false;
+	
     for (y in selDocToPrint) {
         var itemCapId = getCapId(selDocToPrint[y]);
         var itemcap = aa.cap.getCap(itemCapId).getOutput();
@@ -1260,16 +1265,42 @@ function addRepritFees() {
             arryLic.push(itemCapId);
 			logDebug("doc added to arryLic");
         }
+	
+		//11/8/2013 - If ONLY one or both of the following Documents types are being replaced, there is no Fee Assessed.
+		if(appTypeString == 'Licenses/Tag/Hunting/Back') bReplaceBackTag = true;
+		if(appTypeString == 'Licenses/Annual/Fishing/Marine Registry') bReplaceMarineRegistry = true;
     }
 
-    if (arryTag.length > 0) {
-        logDebug("DEBUG: Assessing the Tag Fee: FEE_RPLC_2");
-		addFeeWithVersion("FEE_RPLC_2", "FEE_REPRINT_FEE_SCHDL", 1, "FINAL", 1, "N");		
-    }
-    if (arryLic.length > 0) {        
-		logDebug("DEBUG: Assessing the Fee: FEE_RPLC_1");
-		addFeeWithVersion("FEE_RPLC_1", "FEE_REPRINT_FEE_SCHDL", 1, "FINAL", 1, "N");
-    }
+	//If there is a single back tag being replaced with a) no other licenses or b) a single marine registry license only
+	if(bReplaceBackTag && arryTag.length == 1 && ((!bReplaceMarineRegistry && arryLic.length == 0) ||(bReplaceMarineRegistry && arryLic.length == 1)))
+	{
+		bBypassReplacementFee = true;
+	}
+	//If there is a single marine registry license being replaced with a) no other tags or b) a single Back Tag only
+	if(bReplaceMarineRegistry && arryLic.length == 1 && ((!bReplaceBackTag && arrTag ==0) || (bReplaceBackTag && arryTag.length == 1)))
+	{
+		bBypassReplacementFee = true;
+	}
+		
+	
+	//Bypass Replacement Fees for Back Tag and/or Marine Registry?
+	if(!bBypassReplacementFee)
+	{
+		//Assess Fees		
+		if (arryTag.length > 0) 
+		{
+			logDebug("DEBUG: Assessing the Tag Fee: FEE_RPLC_2");
+			addFeeWithVersion("FEE_RPLC_2", "FEE_REPRINT_FEE_SCHDL", 1, "FINAL", 1, "N"); //11/8/2013 - Currently $10.00	
+		}
+		if (arryLic.length > 0) 
+		{        
+			logDebug("DEBUG: Assessing the Fee: FEE_RPLC_1");
+			addFeeWithVersion("FEE_RPLC_1", "FEE_REPRINT_FEE_SCHDL", 1, "FINAL", 1, "N"); //11/8/2013 - Currently $5.00
+		}
+	}
+	else
+		logDebug("Do not assess a Replacement Fee for Back Tag and/or Marine Registry.");
+    
 
     logDebug("EXIT: addRepritFees");
 }
