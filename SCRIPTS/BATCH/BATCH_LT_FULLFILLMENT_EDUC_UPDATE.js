@@ -78,8 +78,7 @@ logDebug("Start of Job");
 if (!timeExpired) var isSuccess = mainProcess();
 logDebug("End of Job: Elapsed Time : " + elapsed() + " Seconds");
 if (isSuccess) {
-    aa.print("Passed");
-    //aa.env.setValue("ScriptReturnCode", "0");
+    aa.env.setValue("ScriptReturnCode", "0");
     if (isPartialSuccess) {
         aa.env.setValue("ScriptReturnMessage", "A script timeout has caused partial completion of this process.  Please re-run.");
         aa.eventLog.createEventLog("Batch Job run partial successful.", "Batch Process", batchJobName, sysDate, sysDate, batchJobDesc, batchJobResult, batchJobID);
@@ -89,9 +88,8 @@ if (isSuccess) {
     }
 }
 else {
-    aa.print("Failed");
-    //aa.env.setValue("ScriptReturnCode", "1");
-    //aa.env.setValue("ScriptReturnMessage", "Batch Job failed: " + emailText);
+    aa.env.setValue("ScriptReturnCode", "1");
+    aa.env.setValue("ScriptReturnMessage", "Batch Job failed: " + emailText);
 }
 
 aa.print(debug);
@@ -289,11 +287,10 @@ function removeConditionFromCaps(ipRefContact,ipRefs) {
         var fvCapIDQry = aa.cap.getCapID(fvCap);
         if (fvCapIDQry.getSuccess()) {
             fvCapID = fvCapIDQry.getOutput();
-           /* fvCondFulfill is not declared within this scope yet.
             if (appHasCondition("Fulfillment","Applied",fvCondFulfill.Condition_EducRefContUpd,null)) {
                 editCapConditionStatus("Fulfillment", fvCondFulfill.Condition_EducRefContUpd, "Verified", "Not Applied", "", fvCapID);
                 removeFullfillmentCapCondition(fvCapID, fvCondFulfill.Condition_EducRefContUpd);
-            } */
+            }
         }
     }
 }
