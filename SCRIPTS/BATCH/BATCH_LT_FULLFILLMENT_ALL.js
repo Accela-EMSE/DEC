@@ -213,6 +213,9 @@ function getRefContactsByRecTypeByStatus(ipGroup,ipType,ipSubType,ipCategory,ipS
                                 timeExpired = true;
                                 break;
                             }
+                            var fvContactType = fvContacts[fvCount2].getPeople().contactType;
+                            if (fvContactType != "Individual")
+                                continue;
                             var fvContact = fvContacts[fvCount2].getCapContactModel();
                             
                             if (!opRefContacts.containsKey(fvContact.refContactNumber)) {

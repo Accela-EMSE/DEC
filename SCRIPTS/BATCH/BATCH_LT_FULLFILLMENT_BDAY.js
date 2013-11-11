@@ -63,6 +63,7 @@ var currentUser = aa.person.getCurrentUser().getOutput();
 var startDate = new Date();
 var startTime = startDate.getTime(); 		// Start timer
 var vToday = startDate;
+var useAppSpecificGroupName = false;
 vToday.setHours(0);
 vToday.setMinutes(0);
 vToday.setSeconds(0);
@@ -82,7 +83,6 @@ logDebug("Start of Job");
 if (!timeExpired) var isSuccess = mainProcess();
 logDebug("End of Job: Elapsed Time : " + elapsed() + " Seconds");
 if (isSuccess) {
-    aa.print("Passed");
     aa.env.setValue("ScriptReturnCode", "0");
     if (isPartialSuccess) {
         aa.env.setValue("ScriptReturnMessage", "A script timeout has caused partial completion of this process.  Please re-run.");
@@ -93,7 +93,6 @@ if (isSuccess) {
     }
 }
 else {
-    aa.print("Failed");
     aa.env.setValue("ScriptReturnCode", "1");
     aa.env.setValue("ScriptReturnMessage", "Batch Job failed: " + emailText);
 }
@@ -267,6 +266,9 @@ function getRefContactsByRecTypeByStatusByDOB(ipGroup,ipType,ipSubType,ipCategor
                                 timeExpired = true;
                                 break;
                             }
+                            var fvContactType = fvContacts[fvCount2].getPeople().contactType;
+                            if (fvContactType != "Individual")
+                                continue;
                             var fvContact = fvContacts[fvCount2].getCapContactModel();
                             if (fvFileDate != null && fvEndFileDate != null) {
                                 var fvContinue = shouldContinue(fvContact,fvFileDate,fvEndFileDate);
