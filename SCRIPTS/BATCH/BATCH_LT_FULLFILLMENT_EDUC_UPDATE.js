@@ -61,6 +61,7 @@ var currentUser = aa.person.getCurrentUser().getOutput();
 var startDate = new Date();
 var startTime = startDate.getTime(); 		// Start timer
 var vToday = startDate;
+var useAppSpecificGroupName = false;
 vToday.setHours(0);
 vToday.setMinutes(0);
 vToday.setSeconds(0);
@@ -140,8 +141,7 @@ function getAllRefsToProcess() {
     var opRefContacts = aa.util.newHashMap();
     var fvConitions = new COND_FULLFILLMENT();
     
-    opRefContacts = getRefContactsByRecTypeByCondition("Licenses","Lifetime",null,null,fvConitions.Condition_EducRefContUpd,opRefContacts);
-
+    opRefContacts = getRefContactsByRecTypeByCondition("Licenses","Annual","Application","NA",fvConitions.Condition_EducRefContUpd,opRefContacts);
     return opRefContacts;
 }
 
@@ -172,9 +172,8 @@ function getRefContactsByRecTypeByCondition(ipGroup,ipType,ipSubType,ipCategory,
         fvEmptyCondm.setConditionStatus("Applied");
         fvEmptyCondm.setConditionStatusType("Applied");
             
-        if (fvEmptyCondm != null) {
+        if (fvEmptyCondm != null)
             fvEmptyCm.setCapConditionModel(fvEmptyCondm);
-        }
         fvFind = true;
     }
 
@@ -210,6 +209,9 @@ function getRefContactsByRecTypeByCondition(ipGroup,ipType,ipSubType,ipCategory,
                                 timeExpired = true;
                                 break;
                             }
+                            var fvContactType = fvContacts[fvCount2].getPeople().contactType;
+                            if (fvContactType != "Individual")
+                                continue;
                             var fvContact = fvContacts[fvCount2].getCapContactModel();
                             var fvCapList = "";
                             if (opRefContacts.containsKey(fvContact.refContactNumber)) {
@@ -286,10 +288,10 @@ function removeConditionFromCaps(ipRefContact,ipRefs) {
         var fvCap = fvCapArray[fvCounter];
         var fvCapIDQry = aa.cap.getCapID(fvCap);
         if (fvCapIDQry.getSuccess()) {
-            fvCapID = fvCapIDQry.getOutput();
-            if (appHasCondition("Fulfillment","Applied",fvCondFulfill.Condition_EducRefContUpd,null)) {
-                editCapConditionStatus("Fulfillment", fvCondFulfill.Condition_EducRefContUpd, "Verified", "Not Applied", "", fvCapID);
-                removeFullfillmentCapCondition(fvCapID, fvCondFulfill.Condition_EducRefContUpd);
+            capId = fvCapIDQry.getOutput();
+            if (appHasCondition("Fulfillment","Applied",fvConitions.Condition_EducRefContUpd,null)) {
+                editCapConditionStatus("Fulfillment", fvConitions.Condition_EducRefContUpd, "Verified", "Not Applied", "", capId);
+                removeFullfillmentCapCondition(capId, fvConitions.Condition_EducRefContUpd);
             }
         }
     }
