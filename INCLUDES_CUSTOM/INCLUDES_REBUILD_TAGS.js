@@ -109,7 +109,6 @@ function getSpEd(ipRefContact) {
                 var fvSubGroups = fvTemplateGroups.get(0).getSubgroups();
                 for (var fvSubGroupIndex = 0; fvSubGroupIndex < fvSubGroups.size(); fvSubGroupIndex++) {
                     var fvSubGroup = fvSubGroups.get(fvSubGroupIndex);
-
                     if (fvSubGroupName != fvSubGroup.getSubgroupName())
                         continue;
 
@@ -131,7 +130,7 @@ function getSpEd(ipRefContact) {
                                 var fvRow = fvRows.get(fvCounter);
                                 var fvRowValues = fvRow.getValues();
                                 var fvValueRevoked = fvRowValues.get(fvFieldPosRevoked);
-                                if (fvValueRevoked.value != null && fvValueRevoked.value != "")
+                                if (fvValueRevoked.value == "CHECKED" )
                                     continue;
                                 var fvValueType = fvRowValues.get(fvFieldPosType);
                                 fvSpEdArray.put(fvValueType.value,fvValueType.value);
@@ -149,20 +148,18 @@ function getSpEd(ipRefContact) {
 
 function getLifetimeLicenses(ipRefContact) {
     var opLL = aa.util.newHashMap();
-    var fvPeopleQry = aa.people.getPeople(ipRefContact);
-    if (!fvPeopleQry.getSuccess())
-        return opLL;
-    var fvPeople = fvPeopleQry.getOutput();
-    var fvPeopleScript = new com.accela.aa.emse.dom.PeopleScriptModel(fvPeople);
-    var fvCapsQry = aa.people.getCapIDsByRefContact(fvPeopleScript);
-    if (!fvCapsQry.getSuccess())
-        return opLL;
-    var fvCaps = fvCapsQry.getOutput();
+    var fvPeople = aa.people.createPeopleModel().getOutput().getPeopleModel();
+    var fvCcb = aa.proxyInvoker.newInstance("com.accela.aa.aamain.people.CapContactDAOOracle").getOutput();
+    fvPeople.setServiceProviderCode(aa.getServiceProviderCode());
+    fvPeople.setContactSeqNumber(ipRefContact);
+ 
+    var fvCaps = fvCcb.getCapContactsByRefContactModel(fvPeople).toArray();
+
     for (var fvCounter in fvCaps) {
-        var fvCap = fvCaps[fvCounter];
-        var fvCapID = aa.cap.getCapID(fvCap.ID1,fvCap.ID2,fvCap.ID3).getOutput();
+        var fvCapID = aa.cap.getCapID(fvCaps[fvCounter].getCapID().getID1(), fvCaps[fvCounter].getCapID().getID2(), fvCaps[fvCounter].getCapID().getID3()).getOutput();
         var fvCapM = aa.cap.getCap(fvCapID).getOutput();
         var fvCapType = fvCapM.getCapType();
+
         if (fvCapType.getGroup() != "Licenses" || fvCapType.getType() != "Lifetime")
            continue;
         if (fvCapType.getSubType() == "Other" || fvCapType.getSubType() == "Fishing")
@@ -176,8 +173,9 @@ function getLifetimeLicenses(ipRefContact) {
 
 function calculateEligTags(ipLifeLic,ipSpEd,ipAge) {
     var fvLLs = ipLifeLic.entrySet().toArray();
-    for (var fvCounter in fvLL) {
+    for (var fvCounter in fvLLs) {
         var fvLL = fvLLs[fvCounter];
+         
         var fvLicType = fvLL.getKey();
         var fvTags = "";
         if (fvLicType == "Bowhunting" && ipSpEd.containsKey("Hunter Ed") && ipSpEd.containsKey("Bowhunter Ed (IBEP)")) {
@@ -210,11 +208,11 @@ function calculateEligTags(ipLifeLic,ipSpEd,ipAge) {
     var opAllTags = aa.util.newHashMap();
     fvLLs = ipLifeLic.entrySet().toArray();
     var fvTotalTags = 0;
-    for (var fvCounter in fvLL) {
+    for (var fvCounter in fvLLs) {
         var fvLL = fvLLs[fvCounter];
         var fvLicType = fvLL.getKey();
         var fvTags = fvLL.getValue();
-        var fvTagsArr = fvTags.split("-");
+        var fvTagsArr = fvTags.split(",");
         for (var fvTagCounter in fvTagsArr) {
             var fvTag = fvTagsArr[fvTagCounter];
             if (fvTag == "Turkey") {
@@ -268,7 +266,7 @@ function getExistingTags(ipRefContact,ipExpDate,ipEligibleTags) {
         var fvCapID = aa.cap.getCapID(fvCap.ID1,fvCap.ID2,fvCap.ID3).getOutput();
         var fvCapM = aa.cap.getCap(fvCapID).getOutput();
         var fvCapType = fvCapM.getCapType();
-        if (fvCapType.getGroup() != "Licenses" || fvCapType.getType() != "Tag" || fvCapType.getSubType() != "Hunting")
+        if (fvCapType.getGroup() != "Licenses" || fvCapType.getType() != "Tag" || (fvCapType.getSubType() != "Hunting" && fvCapType.getSubType() != "Document"))
            continue;
         if (fvCapM.getCapStatus() != "Active")
            continue;
@@ -304,13 +302,17 @@ function createNewTags(ipRefContact,ipStartDate,ipExpDate,ipEligibleTags) {
     if (fvTotalTags == 0)
         return;
     var fvParentApp = createParentTagApp(ipRefContact,ipStartDate,ipExpDate);
+    logDebug("New Application Created: " + fvParentApp.getCustomID());
     var fvTagArray = ipEligibleTags.entrySet().toArray();
     for (var fvCounter in fvTagArray) {
         var fvTagObj = fvTagArray[fvCounter];
         var fvTag = fvTagObj.getKey();
+        if (fvTag == "TOTAL")
+            continue;
+        logDebug(fvTag);
         var fvTagQty = parseInt(fvTagObj.getValue(), 10);
         for (var fvTagCounter = 0; fvTagCounter < fvTagQty; fvTagCounter++) {
-            createNewTag(fvParentApp,ipRefContact,ipStartDate,ipExpDate,fvTag,fvTagCounter);
+            createNewTag(fvParentApp,ipStartDate,ipExpDate,fvTag,fvTagCounter);
         }
     }
     return opErrors;
@@ -351,6 +353,8 @@ function createNewTag(ipParentApp,ipStartDate,ipExpDate,ipTag,ipTagCntr) {
     var fvType = "Tag";
     var fvSubType = "Hunting";
     var fvCategory = ipTag;
+    if (fvCategory == "Privilege Panel")
+        fvSubType = "Document";
     var fvTagType = "";
     if (fvCategory == "Back")
         fvTagType = "1";
@@ -380,6 +384,7 @@ function createNewTag(ipParentApp,ipStartDate,ipExpDate,ipTag,ipTagCntr) {
     }
     fvAppName = lookup("TAG_TYPE",fvTagType);
     var newLicId = issueSubLicense(fvGroup, fvType, fvSubType, fvCategory, "Active", ipParentApp);
+    logDebug("New Tag Created: " + newLicId.getCustomID());
     editAppName(fvAppName, newLicId);
     editFileDate(newLicId, ipStartDate);
     setLicExpirationDate(newLicId, "", ipExpDate);
