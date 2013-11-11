@@ -1816,6 +1816,7 @@ function getFormObjectForUpgrade(isGetActiveHoldings) {
 
     return f;
 }
+
 function upgradeLifetimeLic() {
     logDebug("ENTER: upgradeLifetimeLic");
     try {
@@ -1938,7 +1939,21 @@ function upgradeLifetimeLic() {
                     }
 
                     setSalesItemASI(newLicId, oLic.RecordType, oLic.DecCode, oLic.feeUnit, null, null);
-                    CreateTags(oLic.TagsArray, ruleParams, oLic.DecCode, "");
+					
+					var TagsArray = null;
+                    if (isNull(oLic.FNTagsArray, '') != '') {
+						eval("TagsArray = " + oLic.FNTagsArray + "(ruleParams);");
+                    }
+					
+                    oLic.TagsArray = TagsArray;					
+					var tagPropArray = new Array()
+                    for (var t in oLic.TagsArray) {
+						var tagProp = tagsMap.get(oLic.TagsArray[t]);
+						logDebug("tagprop:" + tagProp);
+                        tagPropArray.push(tagProp);
+                    }
+					
+                    CreateTags(tagPropArray, ruleParams, oLic.DecCode, "");
 
                     var newDecDocId = GenerateDocumentNumber(newLicId.getCustomID());
                     updateDocumentNumber(newDecDocId, newLicId);
@@ -1968,6 +1983,8 @@ function upgradeLifetimeLic() {
     }
     logDebug("EXIT: upgradeLifetimeLic");
 }
+
+
 function isValidVoidSales(pStep) {
     logDebug("ENTER: isValidVoidSales");
     var retMsg = ''
