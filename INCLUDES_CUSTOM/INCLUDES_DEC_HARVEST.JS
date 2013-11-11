@@ -1198,7 +1198,7 @@ function isValidReprintDocuments(pStep) {
     try {
         if (pStep == 'Step1') {
             if (!isValidUserForReprintDocuments()) {
-                retMsg += 'Not authorize user to do Upgarde Lifetime Licenses.';
+                retMsg += 'This user is not authorized to upgrade Lifetime Licenses.';
                 retMsg += '<Br />';
             }
         }
@@ -1573,7 +1573,7 @@ function GetTagsForUpgradeLicAsitTableArray(availableItems) {
         tempObject["Status"] = fieldInfo;
         fieldInfo = new asiTableValObj("Is returning? ", '', (isUpgradeRowReadOnly(tObj.CapStatus) ? 'Y' : 'N'));
         tempObject["Is returning?"] = fieldInfo;
-        fieldInfo = new asiTableValObj("Is used?", '', (isUpgradeRowReadOnly(tObj.CapStatus) ? 'Y' : 'N'));
+        fieldInfo = new asiTableValObj("Is used?", (isUpgradeRowReadOnly(tObj.CapStatus) ? 'CHECKED' : ''), (isUpgradeRowReadOnly(tObj.CapStatus) ? 'Y' : 'N'));
         tempObject["Is used?"] = fieldInfo;
 
         tempArray.push(tempObject);  // end of record
@@ -1925,12 +1925,13 @@ function upgradeLifetimeLic() {
                     var effectiveDt;
                     var seasonPeriod = GetDateRange(DEC_CONFIG, LICENSE_SEASON, syear);
                     var diff = dateDiff(new Date(), seasonPeriod[0])
+					setLicExpirationDate(newLicId, dateAdd(null,0));	// defect 13656
                     if (diff > 0) {
                         AInfo["CODE.Effective Date"] = jsDateToMMDDYYYY(seasonPeriod[0]);
                         editFileDate(newLicId, seasonPeriod[0]);
-                        setLicExpirationDate(newLicId, "", seasonPeriod[1]);
                     } else {
                         AInfo["CODE.Effective Date"] = jsDateToMMDDYYYY(new Date());
+                        editFileDate(newLicId, new Date());
                     }
 
                     setSalesItemASI(newLicId, oLic.RecordType, oLic.DecCode, oLic.feeUnit, null, null);
