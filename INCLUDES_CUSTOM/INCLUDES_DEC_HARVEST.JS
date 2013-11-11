@@ -1839,8 +1839,16 @@ function upgradeLifetimeLic() {
             }
         }
 
+		// void the privilege panel issue 13656
+		var CC = new contactObj(null);
+		CC.refSeqNumber = frm.peopleSequenceNumber;
+		var ppPanel = CC.getCaps(AA54_TAG_PRIV_PANEL);
+		for (var y in ppPanel) {
+			voidSelectedItems.push(ppPanel[y]);
+			}
+			
         //(Void slected Lifetime liceses)
-        for (y in voidSelectedItems) {
+        for (var y in voidSelectedItems) {
             frm.RemoveActiveHoldingsbyDocId(voidSelectedItems[y]);
             itemCapId = getCapId(voidSelectedItems[y]);
             updateAppStatus("Void", "Void", itemCapId);
@@ -1944,6 +1952,9 @@ function upgradeLifetimeLic() {
                     if (isNull(oLic.FNTagsArray, '') != '') {
 						eval("TagsArray = " + oLic.FNTagsArray + "(ruleParams);");
                     }
+					
+					// add new priv panel per issue 13656
+					TagsArray.push(TAG_TYPE_24_PRIV_PANEL);
 					
                     oLic.TagsArray = TagsArray;					
 					var tagPropArray = new Array()
