@@ -1473,7 +1473,7 @@ function isValidLicesesToupgrad(pStep) {
                     retMsg += '<Br />';
                 }
             } else {
-                retMsg += 'No lieftime liceses to upgrade.';
+                retMsg += 'No lifetime licenses to upgrade.';
                 retMsg += '<Br />';
             }
         }
@@ -1539,6 +1539,9 @@ function GetTagsForUpgradeLic(peopleSequenceNumber) {
         var itemCap = aa.cap.getCap(itemCapId).getOutput();
         appTypeResult = itemCap.getCapType();
         appTypeString = appTypeResult.toString();
+		if (appTypeString.equals(AA52_TAG_BACK)) {
+			continue;   // defect 15006
+			}
         if (exists(appTypeString, validActiveholdingsArray)) {
             var newActiveTag = new ACTIVE_ITEM(itemCapId, itemCap, appTypeString);
             if (newActiveTag.isActiveForUpgrade()) {
