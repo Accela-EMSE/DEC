@@ -5,7 +5,6 @@
 | Agency  : DEC
 | Purpose : DMP - Intermediate Batch Process.
 | Notes   : 07/17/2013,     Lalit S Gawad (LGAWAD),     Initial Version 
-|           11/06/2013      John Schomp - began update to use ASIT and conditions, see TODO entries  INCOMPLETE!
 /------------------------------------------------------------------------------------------------------*/
 /*------------------------------------------------------------------------------------------------------/
 | START: TEST PARAMETERS
@@ -32,6 +31,7 @@ SCRIPT_VERSION = 2.0
 eval(getScriptText("INCLUDES_ACCELA_FUNCTIONS"));
 eval(getScriptText("INCLUDES_BATCH"));
 eval(getScriptText("INCLUDES_CUSTOM"));
+eval(getScriptText("INCLUDES_REBUILD_TAGS"));
 
 function getScriptText(vScriptName) {
     vScriptName = vScriptName.toUpperCase();
@@ -43,6 +43,7 @@ function getScriptText(vScriptName) {
 | START: BATCH PARAMETERS
 /------------------------------------------------------------------------------------------------------*/
 var emailAddress = getParam("emailAddress"); 				// email to send report
+var reportName = getParam("reportName");
 /*------------------------------------------------------------------------------------------------------/
 | END: BATCH PARAMETERS
 /------------------------------------------------------------------------------------------------------*/
@@ -121,7 +122,8 @@ function mainProcess() {
         return vSuccess;
     }
     catch (vError) {
-        logDebug("Runtime error occurred: " + vError);
+        logDebug("Runtime error occurred in line " + vError.lineNumber + " : " + vError.message);
+		logDebug("at " + vError.stack);
         return true;
     }
 }
@@ -158,44 +160,25 @@ function callIBPlogic() {
 
         var seasonPeriod = GetLicenseSeasonPeriod();
         var overLapPeriod = GetOverLapPeriod();
-        var fromDate = overLapPeriod[0];
-        var toDate = seasonPeriod[1];
+        var fromDate = aa.date.parseDate(jsDateToMMDDYYYY(overLapPeriod[0]));
+        var toDate = aa.date.parseDate(jsDateToMMDDYYYY(seasonPeriod[1]));
         var currYear = seasonPeriod[0].getFullYear();
         logDebug("License Year : " + currYear);
         logDebug("Seseon sales start date : " + fromDate);
         logDebug("Seseon sales end date : " + toDate);
-		
-		// 11/6/2013 JHS:   TODO:  Have to use SQL since there is no way to grab a list of records based on a std condition (see 11ACC-05378) 
-		//                  if there is more time we can figure out a more elegant way to flag these records requiring IBP
-		
-		var initialContext = aa.proxyInvoker.newInstance("javax.naming.InitialContext", null).getOutput(); 
-		var ds = initialContext.lookup("java:/AA"); 
-		var conn = ds.getConnection(); 
-		var s = "SELECT b.B1_ALT_ID from b1permit b, b6condit g WHERE ";
-		s+="b.b1_per_id1 = g.b1_per_id1 and ";
-		s+="b.b1_per_id2 = g.b1_per_id2 and ";
-		s+="b.b1_per_id3 = g.b1_per_id3 and ";
-		s+="b.serv_prov_code = 'DEC' and ";
-		
-		// 11/6/2013 JHS:  TODO:  figure out how to parameterize the dates for Oracle
-		
-		//s+="b.b1_file_dd >= '" + new java.sql.Date(fromDate.getTime()) + "' and ";
-		//s+="b.b1_file_dd < '" + new java.sql.Date(toDate.getTime()) + "' and ";
-		s+="b.b1_file_dd >= '01-NOV-13' and ";
-		s+="b.b1_file_dd < '30-NOV-13' and ";
-		s+="g.b1_con_des like 'Set for IBP Choice%' and ";
-		s+="b.b1_per_group = 'Licenses' and ";
-		s+="b.b1_per_type = 'Annual' and ";
-		s+="b.b1_per_sub_type = 'Hunting' and ";
-		s+="b.b1_per_category = 'Deer Management Permit' and ";
-		s+="b.b1_appl_status = 'Active'";
-		
-		var sStmt = conn.prepareStatement(s); 
-		var rSet = sStmt.executeQuery(); 
-		var counter = 0;
 
-		while (rSet.next()) {
-			counter++;
+        var emptyCm = aa.cap.getCapModel().getOutput();
+        var emptyCt = emptyCm.getCapType();
+        emptyCt.setGroup("Licenses");
+        emptyCt.setType("Annual");
+        emptyCt.setSubType("Hunting");
+        emptyCt.setCategory("Deer Management Permit");
+        emptyCm.setCapType(emptyCt);
+        emptyCm.setCapStatus("Active");
+
+		var ffConitions = new COND_IBP();
+
+        emptyCm.setCapConditionModel(ffConitions.GetQryForSetforIBPChoice());
 
         //Find all recods (Maximum record around 50000)
         //    a. Licenses/Annual/Hunting/Deer Management Permit permits 
@@ -204,20 +187,25 @@ function callIBPlogic() {
         //    d. Ainfo["WMU Choice 1 Result"] == 'LOST' or Ainfo["WMU Choice 2 Result"] == 'LOST'
 
         //appListResult = aa.cap.getCapIDListByCapModel(capModel);
-
-			var dmpId = aa.cap.getCapID(rSet.getString("B1_ALT_ID")).getOutput();
-		   
-			var dmpca = String(dmpId).split("-");
-			var dmpCapId = aa.cap.getCapID(dmpca[0], dmpca[1], dmpca[2]).getOutput();
-			var dmpCap = aa.cap.getCap(dmpCapId).getOutput();
-			var dmpStatus = dmpCap.getCapStatus();
-			aa.print(dmpId);
-			aa.print(dmpCapId.getCustomID());
-			if (dmpStatus == "Active") {
-				//logDebug(dmpCapId);
-				addCapSetMember(dmpCapId, setResult);
-			}       
-		}
+       //var res = aa.cap.getCapListByCollection(emptyCm, null, null, fromDate, toDate, null, new Array());
+	   var res = aa.cap.getCapIDListByCapModel(emptyCm);
+        if (res.getSuccess()) {
+            var vCapList = res.getOutput();
+            for (thisCap in vCapList) {
+                var dmpId = vCapList[thisCap].getCapID();
+                var dmpca = String(dmpId).split("-");
+                var dmpCapId = aa.cap.getCapID(dmpca[0], dmpca[1], dmpca[2]).getOutput();
+                var dmpCap = aa.cap.getCap(dmpCapId).getOutput();
+                var dmpStatus = dmpCap.getCapStatus();
+                aa.print(dmpId);
+                aa.print(dmpCapId.getCustomID());
+                if (dmpStatus == "Active") {
+                    //logDebug(dmpCapId);
+					logDebug("Adding record to set: " + dmpCapId.getCustomID());
+                    addCapSetMember(dmpCapId, setResult);
+                }       
+            }
+        }
 
         logDebug("Change set status to Pending: ");
         updateSetStatus(setResult.setID, setResult.setID, "Processing", "Pending", "Pending");
@@ -257,60 +245,62 @@ function callIBPlogic() {
         //logDebug(appTypeString);
 
         var dmpAinfo = new Array();
-        var t = loadASITable("DRAW RESULT", dmpCapId);
+        loadAppSpecific(dmpAinfo, dmpCapId);
         //logGlobals(dmpAinfo);
-
-		// 11/6/2013 JHS:   TODO:   this needs to be re-written to use the DRAW RESULT ASIT.  
-        if (dmpStatus == "Active") {
-			for (var drawIndex in t) {
-				var thisdraw = t[drawInex];
-				var drawType = thisdraw["Draw Type"];
-				if (drawType == DRAW_INST) {
-					if (thisdraw["WMU Choice 1 Result"] == 'LOST' && isNull(dmpAinfo["WMU Choice 1 Result IBP"], '') == '') {
-						var newIbpRec = new IBPREC_OBJ(dmpAinfo["Year"]);
-						newIbpRec.appTypeString = appTypeString;
-						newIbpRec.CapStatus = dmpStatus;
-						newIbpRec.DisabledVet = (dmpAinfo["Military Disabled"] == "CHECKED");
-						newIbpRec.dmpCap = dmpCap;
-						newIbpRec.dmpCapId = dmpCapId;
-						newIbpRec.dmpId = dmpId;
-						newIbpRec.dmpAltId = dmpAltId;
-						newIbpRec.DrawType = dmpAinfo["Draw Type"];
-						newIbpRec.Landowner = (dmpAinfo["Landowner"] == "CHECKED");
-						newIbpRec.PreferencePoints = dmpAinfo["Preference Points"];
-						newIbpRec.PreferenceBucket = dmpAinfo["Preference Bucket"];
-						newIbpRec.Resident = (dmpAinfo["Resident"] == "CHECKED");
-						newIbpRec.ItemCode = dmpAinfo["Item Code"];
-						newIbpRec.Order = getOrderForBucket(newIbpRec.PreferenceBucket, ordAinfo);
-						newIbpRec.ChoiceNum = 1;
-						newIbpRec.WMU = dmpAinfo["WMU Choice 1"];
-						newIbpRec.ApplyLandowner = (dmpAinfo["Apply Land Owner for Choice1"] == "CHECKED");
-						choice1RecordsArray.push(newIbpRec);
-					}
-					if (dmpAinfo["WMU Choice 2 Result"] == 'LOST' && isNull(dmpAinfo["WMU Choice 2 Result IBP"], '') == '') {
-						var newIbpRec = new IBPREC_OBJ(dmpAinfo["Year"]);
-						newIbpRec.appTypeString = appTypeString;
-						newIbpRec.CapStatus = dmpStatus;
-						newIbpRec.DisabledVet = (dmpAinfo["Military Disabled"] == "CHECKED");
-						newIbpRec.dmpCap = dmpCap;
-						newIbpRec.dmpCapId = dmpCapId;
-						newIbpRec.dmpId = dmpId;
-						newIbpRec.dmpAltId = dmpAltId;
-						newIbpRec.DrawType = dmpAinfo["Draw Type"];
-						newIbpRec.Landowner = (dmpAinfo["Landowner"] == "CHECKED");
-						newIbpRec.PreferencePoints = dmpAinfo["Preference Points"];
-						newIbpRec.PreferenceBucket = dmpAinfo["Preference Bucket"];
-						newIbpRec.Resident = (dmpAinfo["Resident"] == "CHECKED");
-						newIbpRec.ItemCode = dmpAinfo["Item Code"];
-						newIbpRec.Order = getOrderForBucket(newIbpRec.PreferenceBucket, ordAinfo);
-						newIbpRec.ChoiceNum = 2;
-						newIbpRec.WMU = dmpAinfo["WMU Choice 2"];
-						newIbpRec.ApplyLandowner = dmpAinfo["Apply Land Owner for Choice2"];
-						choice2RecordsArray.push(newIbpRec);
-					}
+		var drawTable = loadASITable("DRAW RESULT", dmpCapId);
+		for(i in drawTable)
+		{
+			var dmpASITinfo = drawTable[i];
+			logDebug(dmpAltId + " (" + i + ") " + dmpASITinfo["DRAW TYPE"] + " " + dmpASITinfo["Choice Number"] + " " + dmpASITinfo["Result"]);
+			if(dmpASITinfo["DRAW TYPE"] == "INSTANT")
+			{
+				if(dmpASITinfo["Choice Number"] == 1 && dmpASITinfo["Result"] == "LOST")
+				{
+					var newIbpRec = new IBPREC_OBJ(dmpAinfo["Year"]);
+                    newIbpRec.appTypeString = appTypeString;
+                    newIbpRec.CapStatus = dmpStatus;
+                    newIbpRec.DisabledVet = (dmpAinfo["Military Disabled"] == "CHECKED");
+                    newIbpRec.dmpCap = dmpCap;
+                    newIbpRec.dmpCapId = dmpCapId;
+                    newIbpRec.dmpId = dmpId;
+                    newIbpRec.dmpAltId = dmpAltId;
+                    newIbpRec.DrawType = dmpASITinfo["DRAW TYPE"];
+                    newIbpRec.Landowner = (dmpASITinfo["Land Owner"] == "CHECKED");
+                    newIbpRec.PreferencePoints = dmpAinfo["Preference Points"];
+                    newIbpRec.PreferenceBucket = dmpASITinfo["Preference Bucket"];
+                    newIbpRec.Resident = (dmpAinfo["Resident"] == "CHECKED");
+                    newIbpRec.ItemCode = dmpAinfo["Item Code"];
+                    newIbpRec.Order = getOrderForBucket(newIbpRec.PreferenceBucket, ordAinfo);
+                    newIbpRec.ChoiceNum = 1;
+                    newIbpRec.WMU = dmpASITinfo["WMU"];
+                    newIbpRec.ApplyLandowner = (dmpASITinfo["Apply Land Owner"] == "CHECKED");
+                    choice1RecordsArray.push(newIbpRec);
 				}
-            }
-        }
+				
+				if(dmpASITinfo["Choice Number"] == 2 && dmpASITinfo["Result"] == "LOST")
+				{
+					var newIbpRec = new IBPREC_OBJ(dmpAinfo["Year"]);
+                    newIbpRec.appTypeString = appTypeString;
+                    newIbpRec.CapStatus = dmpStatus;
+                    newIbpRec.DisabledVet = (dmpAinfo["Military Disabled"] == "CHECKED");
+                    newIbpRec.dmpCap = dmpCap;
+                    newIbpRec.dmpCapId = dmpCapId;
+                    newIbpRec.dmpId = dmpId;
+                    newIbpRec.dmpAltId = dmpAltId;
+                    newIbpRec.DrawType = dmpASITinfo["DRAW TYPE"];
+                    newIbpRec.Landowner = (dmpASITinfo["Landowner"] == "CHECKED");
+                    newIbpRec.PreferencePoints = dmpAinfo["Preference Points"];
+                    newIbpRec.PreferenceBucket = dmpASITinfo["Preference Bucket"];
+                    newIbpRec.Resident = (dmpAinfo["Resident"] == "CHECKED");
+                    newIbpRec.ItemCode = dmpAinfo["Item Code"];
+                    newIbpRec.Order = getOrderForBucket(newIbpRec.PreferenceBucket, ordAinfo);
+                    newIbpRec.ChoiceNum = 2;
+                    newIbpRec.WMU = dmpASITinfo["WMU"];
+                    newIbpRec.ApplyLandowner = dmpASITinfo["Apply Land Owner"];
+                    choice2RecordsArray.push(newIbpRec);
+				}
+			}
+		}
     }
     logDebug("***** END: STEP3 - record array creation ***** ");
 
@@ -379,49 +369,118 @@ function RunIBPlotteryForDMP(dmpIbpItem) {
     drw.ordbAinfo = ordAinfo;
     drw.PreferenceBucketForIbp = ibpRec.PreferenceBucket;
 
+    var dmpTag = new TagProp(LIC53_TAG_DMP_DEER, AA53_TAG_DMP_DEER, "", TAG_TYPE_4_DMP_DEER_TAG, 1);
+
+    var condFulfill = new COND_FULLFILLMENT();
+    fullfillCond = condFulfill.Condition_IBPTag;
+
+	//for (var i in drw) { logDebug("drw[" + i + "] = " + drw[i]); }
+
     //Run Lottery and create tags
     //logDebug(ibpRec.ChoiceNum);
     wmu1Result = drw.RunLottery();
-    if (wmu1Result.Selected) {
+
+	
+	// TODO : testing, add a coin toss until we figure out the lottery
+	//wmu1Result.Selected = Math.floor( Math.random() * 2 ) == 1
+	wmu1Result.Selected = true;
+    	logDebug("Lottery result: " + wmu1Result.Selected);
+	if (wmu1Result.Selected) {
         //No need to check rule for DMP since DMP is available only fo qualified customers only
+		
+		addFullfillmentCondition(ibpRec.dmpCapId, fullfillCond);
         var ruleParams = null;
-        var parentCapId = getParent(ibpRec.dmpCap);
-        CreateTags(arryTags_DMP, ruleParams, ibpRec.ItemCode, wmu1Result, parentCapId);
+        var parentCapId = getParent(ibpRec.dmpCapId);
+		
+		// Issue the new tag manually vs running through CreateTags, because there is no form/rules.
+		//CreateTags(arryTags_DMP, ruleParams, ibpRec.ItemCode, wmu1Result, parentCapId);
+		var seasonPeriod = GetDateRange(DEC_CONFIG, LICENSE_SEASON, ibpRec.Year);
+		var diff = dateDiff(new Date(), seasonPeriod[0]);
+		if (diff > 0) {
+			var clacExpDt = dateAdd(convertDate(seasonPeriod[1]), 0);
+			var startDate = seasonPeriod[0];
+			}
+		else {
+			var clacExpDt = dateAdd(convertDate(seasonPeriod[1]), 0);
+			var startDate = new Date();
+			}
+
+		newLicId = createNewTag(parentCapId,startDate,clacExpDt,"DMP Deer",null);
+		editAppSpecific("Tag Type",TAG_TYPE_4_DMP_DEER_TAG,parentCapId);
+		
+		// TODO: how to set the years
+		/*
+		editFileDate(newLicId, ipStartDate);
+		editAppSpecific("Year",ibpRec.Year,newLicId);
+		var fvYearDesc = lookupDesc("LICENSE_FILING_YEAR_Desc",ipStartDate.getFullYear().toString());
+		editAppSpecific("Year Description",fvYearDesc,newLicId);
+		*/
+			
+        
         if (ibpRec.ChoiceNum == 1) {
-            addStdConditionWithComments("DMP Application Result", "WMU Choice 1 IBP", " - " + ibpRec.WMU + ":  SELECTED", AInfo["CODE.NEW_DEC_DOCID"], ibpRec.dmpCapId);
+            addStdConditionWithComments("DMP Application Result", "WMU Choice 1 IBP", " - " + ibpRec.WMU + ":  SELECTED", newLicId.getCustomID(), ibpRec.dmpCapId);
         } else if (ibpRec.ChoiceNum == 2) {
-            addStdConditionWithComments("DMP Application Result", "WMU Choice 2 IBP", " - " + ibpRec.WMU + ":  SELECTED", AInfo["CODE.NEW_DEC_DOCID"], ibpRec.dmpCapId);
+            addStdConditionWithComments("DMP Application Result", "WMU Choice 2 IBP", " - " + ibpRec.WMU + ":  SELECTED", newLicId.getCustomID(), ibpRec.dmpCapId);
         }
-    } else {
+		
+		//logDebug(wmu1Result.Result());
+		//connect tag to DMP record
+		// jhs - not sure where to connect, using this DMP record
+		//var result = aa.cap.createAppHierarchy(ibpRec.dmpCapId, AInfo["CODE.NEW_DOC_CAP_ID"]);
+		var result = aa.cap.createAppHierarchy(ibpRec.dmpCapId, newLicId);
+		if (result.getSuccess()) {
+			logDebug("Parent DMP successfully linked");
+		}
+		else {
+			logDebug("Could not link DMP" + result.getErrorMessage());
+		}
+	}
+	else {
         if (ibpRec.ChoiceNum == 1) {
             addStdConditionWithComments("DMP Application Result", "WMU Choice 1 IBP", " - " + ibpRec.WMU + ":  NOT SELECTED", "", ibpRec.dmpCapId);
         } else if (ibpRec.ChoiceNum == 2) {
             addStdConditionWithComments("DMP Application Result", "WMU Choice 2 IBP", " - " + ibpRec.WMU + ":  NOT SELECTED", "", ibpRec.dmpCapId);
         }
     }
-    //logDebug(wmu1Result.Result());
-    //connect tag to DMP record
-    var result = aa.cap.createAppHierarchy(ibpRec.dmpCapId, AInfo["CODE.NEW_DOC_CAP_ID"]);
-    if (result.getSuccess()) {
-        logDebug("Parent DMP successfully linked");
-    }
-    else {
-        logDebug("Could not link DMP" + result.getErrorMessage());
-    }
-
-	
-	// 11/6/2013 JHS:   TODO:   this needs to be re-written to write to the DRAW RESULT ASIT per Raj.   This ASI field doesn't exist.  
-	
     //UpdateDMP Fields
-    var newAInfo = new Array();
+	// 11/6/2013 JHS:   TODO:   this needs to be re-written to write to the DRAW RESULT ASIT per Raj.   This ASI field doesn't exist. 
+	// probably need to add a new row to the DRAW_RESULT table for IBP
+	
+	var tempObject = new Array();
+    //Choice 1 Result
+    var fieldInfo = new asiTableValObj("DRAW TYPE", wmu1Result.DrawType, "Y");
+    tempObject["DRAW TYPE"] = fieldInfo;
+    fieldInfo = new asiTableValObj("WMU", wmu1Result.WMU, "Y");
+    tempObject["WMU"] = fieldInfo;
+    fieldInfo = new asiTableValObj("Choice Number", "1", "Y");
+    tempObject["Choice Number"] = fieldInfo;
+    fieldInfo = new asiTableValObj("Result", wmu1Result.Result(), "Y");
+    tempObject["Result"] = fieldInfo;
+    fieldInfo = new asiTableValObj("Apply Land Owner", wmu1Result.Landowner ? "CHECKED" : "UNCHECKED", "Y");
+    tempObject["Apply Land Owner"] = fieldInfo;
+    fieldInfo = new asiTableValObj("Preference Points Given", wmu1Result.GivenPreferencePoints + "", "Y");
+    tempObject["Preference Points Given"] = fieldInfo;
+    fieldInfo = new asiTableValObj("Preference Points After", wmu1Result.RemainingPreferencePoints + "", "Y");
+    tempObject["Preference Points After"] = fieldInfo;
+    fieldInfo = new asiTableValObj("Preference Bucket", wmu1Result.PreferenceBucket ? wmu1Result.PreferenceBucket + "" : "" + "", "Y");
+    tempObject["Preference Bucket"] = fieldInfo;
+    fieldInfo = new asiTableValObj("Land Owner?", "", "N");
+    tempObject["Land Owner?"] = fieldInfo;
+    fieldInfo = new asiTableValObj("Correct?", "", "N");
+    tempObject["Correct?"] = fieldInfo;
+	addToASITable("DRAW RESULT",tempObject,ibpRec.dmpCapId)
+
+/*    
+	var newAInfo = new Array();
     if (ibpRec.ChoiceNum == 1) {
         newAInfo.push(new NewLicDef("WMU Choice 1 Result IBP", wmu1Result.Result()));
     }
     if (ibpRec.ChoiceNum == 2) {
         newAInfo.push(new NewLicDef("WMU Choice 2 Result IBP", wmu1Result.Result()));
     }
-    copyLicASI(ibpRec.dmpCapId, newAInfo);
-
+    
+	copyLicASI(ibpRec.dmpCapId, newAInfo);
+*/
 }
 function IBPREC_OBJ(year) {
     this.Year = year;
