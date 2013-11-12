@@ -1323,22 +1323,25 @@ function copyContactAppSpecificToRecordAppSpecific() {
 	
 
 	// Defect 13354
-	var contactsA = getContactObjs(cap);
+    var capContactArray = cap.getContactsGroup().toArray();
+    if (capContactArray) {
+        for (var yy in capContactArray) {
+            if (capContactArray[yy].getPeople().contactType.toUpperCase().equals("INDIVIDUAL")) {
+					var thisContact = contactObj(capContactArray[yy]);
+		
+					if (!thisContact.isSingleAddressPerType()) {
+						var addrCountA = new Array();
+						addrCountA = thisContact.getAddressTypeCounts();
 
-	for (x in contactsA) {
-		thisContact = contactsA[x];
-
-		if (!thisContact.isSingleAddressPerType()) {
-			var addrCountA = new Array();
-			addrCountA = thisContact.getAddressTypeCounts();
-
-			for (i in addrCountA) {
-				if (addrCountA[i] > 1) {
-					isNotValidToProceed += MSG_TOO_MANY_ADDR;
+						for (i in addrCountA) {
+							if (addrCountA[i] > 1) {
+							isNotValidToProceed += MSG_TOO_MANY_ADDR;
+							}
+						}
+					}
 				}
 			}
 		}
-	}
 	
     logDebug("EXIT: copyContactAppSpecificToRecordAppSpecific");
 
@@ -3000,7 +3003,39 @@ function contactObj(ccsm) {
 
         return userModel; // send back the new or existing public user
     }
+	
+	this.isSingleAddressPerType = function() {
+		if (this.addresses.length > 1) 
+			{
+			
+			var addrTypeCount = new Array();
+			for (y in this.addresses) 
+				{
+				thisAddr = this.addresses[y];
+				addrTypeCount[thisAddr.addressType] = 0;
+				}
 
+			for (yy in this.addresses) 
+				{
+				thisAddr = this.addresses[yy];
+				addrTypeCount[thisAddr.addressType] += 1;
+				}
+
+			for (z in addrTypeCount) 
+				{
+				if (addrTypeCount[z] > 1) 
+					return false;
+				}
+			}
+		else
+			{
+			return true;    
+			}
+
+		return true;
+
+		}
+			
     this.getCaps = function () { // option record type filter
 
 
