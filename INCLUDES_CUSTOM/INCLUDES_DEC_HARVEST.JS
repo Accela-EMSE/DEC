@@ -2171,14 +2171,14 @@ function VoidsSales() {
             appTypeString = itemcap.getCapType().toString();
             var ata = appTypeString.split("/");
 
-            //Update Status
-            updateTagStatus("Void", "Void", itemCapId);
-            //updateTask("Void Document", "Void", "", "", "", itemCapId);
-            closeTaskForRec("Void Document", "Void", "", "", "", itemCapId);
-            closeTaskForRec("Report Game Harvest", "", "", "", "", itemCapId);
-            closeTaskForRec("Revocation", "", "", "", "", itemCapId);
-            closeTaskForRec("Suspension", "", "", "", "", itemCapId);
-
+            voidRec(itemCapId);
+	    var associatedTagArray = getTagsAssociatedToLicense(appTypeString);
+	    for (var tIndex in associatedTagArray) {
+		tagID = associatedTagArray[tIndex];
+		tagCapId = getTagRecordID(tagID);
+		if (tagCapId != null) 
+			voidRec(tagCapId);
+	    }
             var result = aa.cap.createAppHierarchy(capId, itemCapId);
             if (result.getSuccess()) {
                 logDebug("Parent application successfully linked");
@@ -2192,4 +2192,90 @@ function VoidsSales() {
         logDebug("Exception in VoidsSales:" + err.message);
     }
     logDebug("EXIT: VoidsSales");
+}
+
+function getTagsAssociatedToLicense(licAppType) {
+	associatedTagArray = null;
+	switch ("" + licAppType) {
+		case AA04_BOWHUNTING_PRIVILEGE:
+		case AA07_MUZZLELOADING_PRIVILEGE:
+		case AA30_NONRES_MUZZLELOADING:
+		case AA34_NONRESIDENT_BOWHUNTING:
+			associateTagArray = new Array();
+ 			associatedTagArray.push(TAG_TYPE_1_BACK_TAG);
+        		associatedTagArray.push(TAG_TYPE_19_DEER_OF_EITHER_SEX_TAG);
+        		associatedTagArray.push(TAG_TYPE_20_ANTLERLESS_DEER_TAG);
+			break;
+		case AA08_TURKEY_PERMIT:
+			associatedTagArray = getTag_ANNUAL_TRKY_2014();
+			break;
+		case AA27_CONSERVATION_LEGACY:
+			associatedTagArray = getTag_CONSERVATION_LEGACY();
+			break;
+		case AA29_JUNIOR_HUNTING:
+			associateTagArray = new Array();
+			associatedTagArray.push(TAG_TYPE_1_BACK_TAG);
+        		associatedTagArray.push(TAG_TYPE_3_REG_SEASON_DEER);
+        		associatedTagArray.push(TAG_TYPE_2_BEAR_TAG);
+			break;
+		case AA31_NONRES_SUPER_SPORTSMAN:
+			associatedTagArray = getTag_NONRES_SUPER_SPORTSMAN();
+			break;
+		case AA32_NONRESIDENT_BEAR_TAG:
+			associatedTagArray = getTag_NONRESIDENT_BEAR_TAG();
+			break;
+		case AA33_NONRESIDENT_BIG_GAME:
+			associatedTagArray = getTag_NONRES_BIG_GAME();
+			break;
+		case AA35_NONRESIDENT_SMALL_GAME:
+			associatedTagArray = getTag_NONRES_SMALL_GAME();
+			break;
+		case AA36_NONRESIDENT_TURKEY:
+			associatedTagArray = getTag_NONRESIDENT_TURKEY();
+			break;
+		case AA37_SMALL_AND_BIG_GAME:
+			associatedTagArray = getTag_SMALL_AND_BIG_GAME();
+			break;
+		case AA38_SMALL_GAME:
+			associatedTagArray = getTag_SMALL_GAME();
+			break;
+		case AA39_SPORTSMAN:
+			associatedTagArray = getTag_SPORTSMAN();
+			break;
+		case AA40_SUPER_SPORTSMAN:
+			associatedTagArray = getTag_SUPER_SPORTSMAN();
+			break;
+		case AA42_TRAPPER_SUPER_SPORTSMAN:
+			associatedTagArray = getTag_TRAPPER_SUPER_SPORTSMAN();
+			break;
+		default:
+			break;
+	}
+	return associatedTagArray;
+}
+
+function getTagRecordID(tagID) {
+
+	tagType = lookup("TAG_TYPE", tagID);
+        if ((typeof (VOIDDOCUMENTS) == "object")) {
+            for (vdi in VOIDDOCUMENTS) {
+		tagDesc = ""  + VOIDDOCUMENTS[vdi]["Description"];
+		if (tagDesc.indexOf(tagType) >= 0) {
+			tagRecordNumber = VOIDDOCUMENTS[vdi]["Document ID"];
+			tagCapId = getCapId(tagRecordNumber);
+			return tagCapId;
+                }
+            }
+	}
+	return null;
+}
+
+function voidRec(itemCapId) {
+  	//Update Status
+        updateTagStatus("Void", "Void", itemCapId);
+        //updateTask("Void Document", "Void", "", "", "", itemCapId);
+        closeTaskForRec("Void Document", "Void", "", "", "", itemCapId);
+        closeTaskForRec("Report Game Harvest", "", "", "", "", itemCapId);
+        closeTaskForRec("Revocation", "", "", "", "", itemCapId);
+        closeTaskForRec("Suspension", "", "", "", "", itemCapId);
 }
