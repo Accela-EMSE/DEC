@@ -87,19 +87,18 @@ logDebug("Start of Job");
 if (!timeExpired) var isSuccess = mainProcess();
 logDebug("End of Job: Elapsed Time : " + elapsed() + " Seconds");
 if (isSuccess) {
-    aa.print("Passed");
-    //aa.env.setValue("ScriptReturnCode", "0");
+    aa.env.setValue("ScriptReturnCode", "0");
     if (isPartialSuccess) {
         aa.env.setValue("ScriptReturnMessage", "A script timeout has caused partial completion of this process.  Please re-run.");
         aa.eventLog.createEventLog("Batch Job run partial successful.", "Batch Process", batchJobName, sysDate, sysDate, batchJobDesc, batchJobResult, batchJobID);
-    } else {
+    }
+    else {
         aa.env.setValue("ScriptReturnMessage", "Batch Job run successfully.");
         aa.eventLog.createEventLog("Batch Job run successfully.", "Batch Process", batchJobName, sysDate, sysDate, batchJobDesc, batchJobResult, batchJobID);
     }
 }
 else {
-    aa.print("Failed");
-    //aa.env.setValue("ScriptReturnCode", "1");
+    aa.env.setValue("ScriptReturnCode", "1");
     aa.env.setValue("ScriptReturnMessage", "Batch Job failed: " + emailText);
 }
 
@@ -184,8 +183,8 @@ function SetLTFullfillmentLogic() {
     var ffCondArray = new Array();
     ffCondArray.push(ffConitions.Condition_DailyInternetSales);
     ffCondArray.push(ffConitions.Condition_DailyCallCenterSales);
-    ffCondArray.push(ffConitions.Condition_NeedHuntingEd);
-    ffCondArray.push(ffConitions.Condition_VerifyAgedIn);
+    //ffCondArray.push(ffConitions.Condition_NeedHuntingEd);
+    //ffCondArray.push(ffConitions.Condition_VerifyAgedIn);
     ffCondArray.push(ffConitions.Condition_AutoGenAppl);
 
     var recordTypeArray = new Array();
@@ -194,6 +193,7 @@ function SetLTFullfillmentLogic() {
     recordTypeArray.push("Licenses/Lifetime/Hunting/Small & Big Game");
     recordTypeArray.push("Licenses/Lifetime/Hunting/Sportsman");
     recordTypeArray.push("Licenses/Lifetime/Trapping/Trapping License");
+    recordTypeArray.push("Licenses/Annual/Application/NA");
 
     for (var yy in recordTypeArray) {
         var ats = recordTypeArray[yy];
@@ -210,6 +210,8 @@ function SetLTFullfillmentLogic() {
         emptyCm.setCapStatus("Approved");
 
         for (var ff in ffCondArray) {
+            if (ats == "Licenses/Annual/Application/NA" &&
+                ffCondArray[ff] != ffConitions.Condition_AutoGenAppl) continue;
             var emCondm = ffConitions.getConditionByFullfillmentType(ffCondArray[ff]);
             emCondm.setConditionStatus("Applied");
             emCondm.setConditionStatusType("Applied");
