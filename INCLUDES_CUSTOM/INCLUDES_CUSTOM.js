@@ -1316,7 +1316,7 @@ function copyContactAppSpecificToRecordAppSpecific() {
         editAppSpecific4ACA("A_NeedHuntEd", (isMarkForNeedHutEdFulfillment(contactCondArray) ? "Yes" : "No"));
 
         if (!isSuspension(contactCondArray)) {
-            isNotValidToProceed = "" ;
+            isNotValidToProceed = false ;
         }
         break;
     }
