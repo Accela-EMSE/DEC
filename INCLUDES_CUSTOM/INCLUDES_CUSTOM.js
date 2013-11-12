@@ -36,6 +36,7 @@ var hmfulfilmmentCond = aa.util.newHashMap();
 var CONTACT_LINK = '<a href="/nyssupp/Report/ReportParameter.aspx?module=Licenses&reportID=3987&reportType=LINK_REPORT_LIST" target=_blank>Print Contact DEC Tag </a>';
 var MSG_SUSPENSION = 'License to buy privileges are suspended. Please contact DEC Sales. ' + CONTACT_LINK;
 var MSG_NO_AGENT_SALES = 'Sales privileges are suspended. Please contact DEC. ' + CONTACT_LINK;
+var MSG_TOO_MANY_ADDR = 'Please enter only one address of each type.'
 
 //Override function - added/updated debug statements
 function copyFees(sourceCapId,targetCapId)
@@ -1219,7 +1220,7 @@ function GetASITDelimitedString(tableName, tablevalue) {
 function copyContactAppSpecificToRecordAppSpecific() {
     logDebug("ENTER: copyContactAppSpecificToRecordAppSpecific");
 
-    var isNotValidToProceed = true;
+    var isNotValidToProceed = MSG_NO_AGENT_SALES;
 
     var xArray = getApplicantArrayEx();
     var peopleSequenceNumber = null;
@@ -1315,11 +1316,30 @@ function copyContactAppSpecificToRecordAppSpecific() {
         editAppSpecific4ACA("A_NeedHuntEd", (isMarkForNeedHutEdFulfillment(contactCondArray) ? "Yes" : "No"));
 
         if (!isSuspension(contactCondArray)) {
-            isNotValidToProceed = false;
+            isNotValidToProceed = "" ;
         }
         break;
     }
+	
 
+	// Defect 13354
+	var contactsA = getContactObjs(cap);
+
+	for (x in contactsA) {
+		thisContact = contactsA[x];
+
+		if (!thisContact.isSingleAddressPerType()) {
+			var addrCountA = new Array();
+			addrCountA = thisContact.getAddressTypeCounts();
+
+			for (i in addrCountA) {
+				if (addrCountA[i] > 1) {
+					isNotValidToProceed += MSG_TOO_MANY_ADDR;
+				}
+			}
+		}
+	}
+	
     logDebug("EXIT: copyContactAppSpecificToRecordAppSpecific");
 
     return isNotValidToProceed;
