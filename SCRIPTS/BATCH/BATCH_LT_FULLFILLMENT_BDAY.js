@@ -9,9 +9,9 @@
 /*------------------------------------------------------------------------------------------------------/
 | START: TEST PARAMETERS
 /------------------------------------------------------------------------------------------------------*/
-//aa.env.setValue("emailAddress", "");
-//aa.env.setValue("LookAheadDays", 21);
-//aa.env.setValue("showDebug", "Y");
+aa.env.setValue("emailAddress", "");
+aa.env.setValue("LookAheadDays", 21);
+aa.env.setValue("showDebug", "Y");
 /*------------------------------------------------------------------------------------------------------/
 | END: TEST PARAMETERS
 /------------------------------------------------------------------------------------------------------*/
@@ -40,6 +40,8 @@ function getScriptText(vScriptName) {
     var emseScript = emseBiz.getScriptByPK(aa.getServiceProviderCode(), vScriptName, "ADMIN");
     return emseScript.getScriptText() + "";
 }
+
+function logDebug(x) { aa.print(x); }
 /*------------------------------------------------------------------------------------------------------/
 | START: BATCH PARAMETERS
 /------------------------------------------------------------------------------------------------------*/
@@ -52,6 +54,7 @@ var vLookAheadDays = getParam("LookAheadDays");     // LookAhead Days From Repor
 | START: Variable Definitions
 /------------------------------------------------------------------------------------------------------*/
 var servProvCode = aa.getServiceProviderCode();
+var showDebug = 3;
 var showDebug = isNull(aa.env.getValue("showDebug"), "N") == "Y";
 var batchJobID = 0;
 var batchJobName = "";
@@ -88,13 +91,13 @@ if (isSuccess) {
         aa.env.setValue("ScriptReturnMessage", "A script timeout has caused partial completion of this process.  Please re-run.");
         aa.eventLog.createEventLog("Batch Job run partial successful.", "Batch Process", batchJobName, sysDate, sysDate, batchJobDesc, batchJobResult, batchJobID);
     } else {
-        aa.env.setValue("ScriptReturnMessage", "Batch Job run successfully.");
+        aa.env.setValue("ScriptReturnMessage", "Batch Job run successfully." + debug);
         aa.eventLog.createEventLog("Batch Job run successfully.", "Batch Process", batchJobName, sysDate, sysDate, batchJobDesc, batchJobResult, batchJobID);
     }
 }
 else {
     aa.env.setValue("ScriptReturnCode", "1");
-    aa.env.setValue("ScriptReturnMessage", "Batch Job failed: " + emailText);
+    aa.env.setValue("ScriptReturnMessage", "Batch Job failed: " + debug);
 }
 
 if (emailAddress.length)
@@ -104,7 +107,10 @@ function mainProcess() {
     var fvError = null;
     try {
         var fvSuccess = checkBatch();
-        if (!fvSuccess) return false;
+        if (!fvSuccess) {
+			logDebug("failing due to return value from checkBatch");
+			return false;
+			}
 
         logDebug("****** Start logic ******");
 
@@ -112,6 +118,7 @@ function mainProcess() {
         var fvErrors = runProcessRecords(fvRefs);
         if (fvErrors) {
             showErrors(fvErrors);
+			logDebug("failing due to " + fvErrors.length + " errors");
             return false;
         }
         updateLastRunDate();
@@ -178,7 +185,9 @@ function getRunDates(ipLastRunDate) {
 
 /* FUNCTION TO GET ALL REF CONTACTS FOR A RECORD TYPE, FOR A STATUS WITH A BIRTHDATE.*/
 function getRefContactsByRecTypeByStatusByDOB(ipGroup,ipType,ipSubType,ipCategory,ipStatus,ipBDate,ipEndBDate,ipRefContacts) {
-    var fvFind = false;
+    
+	logDebug("getRefContactsByRecTypeByStatusByDOB(" + ipGroup + "," + ipType + "," + ipSubType + "," + ipCategory + "," + ipStatus + "," + ipBDate + "," + ipEndBDate + "," + ipRefContacts);
+	var fvFind = false;
     var fvEmptyCm = aa.cap.getCapModel().getOutput();
     if ((ipGroup != null && ipGroup != "") ||
         (ipType != null && ipType != "") ||
@@ -358,7 +367,7 @@ function rebuildRefTags(ipRefContact) {
 function showErrors(ipErrors) {
     for (var fvCount in ipErrors) {
         var fvError = ipErrors[fvCount];
-        logDebug(fvError);
+        logDebug("batch error: " + fvError);
     }
 }
 
