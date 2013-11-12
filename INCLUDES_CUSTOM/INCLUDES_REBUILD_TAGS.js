@@ -398,6 +398,8 @@ function createNewTag(ipParentApp,ipStartDate,ipExpDate,ipTag,ipTagCntr) {
         editAppSpecific("Year",ipStartDate.getFullYear().toString(),newLicId);
         fvYearDesc = lookupDesc("LICENSE_FILING_YEAR_Desc",ipStartDate.getFullYear().toString());
         editAppSpecific("Year Description",fvYearDesc,newLicId);
+		
+		return newLicId;
     }
 }
 
