@@ -19,18 +19,11 @@
 |    
 /------------------------------------------------------------------------------------------------------*/
 var SCRIPT_VERSION = 2.0
+var capId = null;
 
-eval(getScriptText("INCLUDES_ACCELA_FUNCTIONS"));
-eval(getScriptText("INCLUDES_ACCELA_GLOBALS"));
-eval(getScriptText("INCLUDES_CUSTOM"));
+eval(getCustomScriptText("INCLUDES_ACCELA_FUNCTIONS"));
+eval(getCustomScriptText("INCLUDES_CUSTOM"));
 eval(getCustomScriptText("INCLUDES_REBUILD_TAGS"));
-
-function getScriptText(vScriptName){
-	vScriptName = vScriptName.toUpperCase();
-	var emseBiz = aa.proxyInvoker.newInstance("com.accela.aa.emse.emse.EMSEBusiness").getOutput();
-	var emseScript = emseBiz.getMasterScript(aa.getServiceProviderCode(),vScriptName);
-	return emseScript.getScriptText() + "";	
-}
 
 function getCustomScriptText(vScriptName) {
     vScriptName = vScriptName.toUpperCase();
@@ -46,6 +39,23 @@ vToday.setSeconds(0);
 
 var vRefContact = aa.env.getValue("ContactModel");
 var vContactSeqNum = vRefContact.contactSeqNumber;
+var emailText = "";
+var maxSeconds = 4.5 * 60; 	    // number of seconds allowed for batch processing, usually < 5*60
+var message = "";
+var br = "<br>";
+var servProvCode = aa.getServiceProviderCode();
+var systemUserObj = aa.person.getUser("ADMIN").getOutput();
+var sysDate = aa.date.getCurrentDate();
+var currentUser = aa.person.getCurrentUser().getOutput();
+var useAppSpecificGroupName = false;
+var isPartialSuccess = false;
+var timeExpired = false;
+var sysDateMMDDYYYY = dateFormatted(sysDate.getMonth(), sysDate.getDayOfMonth(), sysDate.getYear(), "");
+var currentUserID = currentUser == null ? "ADMIN" : currentUser.getUserID().toString();
+var debug = "";
+
+var showDebug = false;
+var showMessage = false;
 
 rebuildAllTagsforaRefContact(vContactSeqNum,vToday);
 

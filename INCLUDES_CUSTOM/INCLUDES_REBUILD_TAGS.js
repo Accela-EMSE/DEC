@@ -16,6 +16,7 @@
 
 function rebuildAllTagsforaRefContact(ipRefContact,ipEffDate) {
     opErrors = null;
+    logDebug("Ref Contact: " + ipRefContact);
     var fvProcessYear = getProcessYear(ipEffDate);
     var fvSeason =  getSeasonDates(fvProcessYear);
     var fvStartDate = fvSeason.StartDate;
@@ -302,17 +303,20 @@ function createNewTags(ipRefContact,ipStartDate,ipExpDate,ipEligibleTags) {
     if (fvTotalTags == 0)
         return;
     var fvParentApp = createParentTagApp(ipRefContact,ipStartDate,ipExpDate);
-    logDebug("New Application Created: " + fvParentApp.getCustomID());
-    var fvTagArray = ipEligibleTags.entrySet().toArray();
-    for (var fvCounter in fvTagArray) {
-        var fvTagObj = fvTagArray[fvCounter];
-        var fvTag = fvTagObj.getKey();
-        if (fvTag == "TOTAL")
-            continue;
-        logDebug(fvTag);
-        var fvTagQty = parseInt(fvTagObj.getValue(), 10);
-        for (var fvTagCounter = 0; fvTagCounter < fvTagQty; fvTagCounter++) {
-            createNewTag(fvParentApp,ipStartDate,ipExpDate,fvTag,fvTagCounter);
+    if (fvParentApp)
+    {
+        logDebug("New Application Created: " + fvParentApp.getCustomID());
+        var fvTagArray = ipEligibleTags.entrySet().toArray();
+        for (var fvCounter in fvTagArray) {
+            var fvTagObj = fvTagArray[fvCounter];
+            var fvTag = fvTagObj.getKey();
+            if (fvTag == "TOTAL")
+                continue;
+            logDebug("Tag: " + fvTag);
+            var fvTagQty = parseInt(fvTagObj.getValue(), 10);
+            for (var fvTagCounter = 0; fvTagCounter < fvTagQty; fvTagCounter++) {
+                createNewTag(fvParentApp,ipStartDate,ipExpDate,fvTag,fvTagCounter);
+            }
         }
     }
     return opErrors;
@@ -384,14 +388,17 @@ function createNewTag(ipParentApp,ipStartDate,ipExpDate,ipTag,ipTagCntr) {
     }
     fvAppName = lookup("TAG_TYPE",fvTagType);
     var newLicId = issueSubLicense(fvGroup, fvType, fvSubType, fvCategory, "Active", ipParentApp);
-    logDebug("New Tag Created: " + newLicId.getCustomID());
-    editAppName(fvAppName, newLicId);
-    editFileDate(newLicId, ipStartDate);
-    setLicExpirationDate(newLicId, "", ipExpDate);
-    editAppSpecific("Tag Type",fvTagType,newLicId);
-    editAppSpecific("Year",ipStartDate.getFullYear().toString(),newLicId);
-    fvYearDesc = lookupDesc("LICENSE_FILING_YEAR_Desc",ipStartDate.getFullYear().toString());
-    editAppSpecific("Year Description",fvYearDesc,newLicId);
+    if (newLicId)
+    {
+        logDebug("New Tag Created: " + newLicId.getCustomID());
+        editAppName(fvAppName, newLicId);
+        editFileDate(newLicId, ipStartDate);
+        setLicExpirationDate(newLicId, "", ipExpDate);
+        editAppSpecific("Tag Type",fvTagType,newLicId);
+        editAppSpecific("Year",ipStartDate.getFullYear().toString(),newLicId);
+        fvYearDesc = lookupDesc("LICENSE_FILING_YEAR_Desc",ipStartDate.getFullYear().toString());
+        editAppSpecific("Year Description",fvYearDesc,newLicId);
+    }
 }
 
 function lookupDesc(ipStdChoice,ipDesc) {
