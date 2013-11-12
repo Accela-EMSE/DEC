@@ -1321,27 +1321,44 @@ function copyContactAppSpecificToRecordAppSpecific() {
         break;
     }
 	
-
+	
 	// Defect 13354
-    var capContactArray = cap.getContactsGroup().toArray();
-    if (capContactArray) {
-        for (var yy in capContactArray) {
-            if (capContactArray[yy].getPeople().contactType.toUpperCase().equals("INDIVIDUAL")) {
-					var thisContact = contactObj(capContactArray[yy]);
-		
-					if (!thisContact.isSingleAddressPerType()) {
-						var addrCountA = new Array();
-						addrCountA = thisContact.getAddressTypeCounts();
+	var isMultipleAddresses = false;
+    var capContact = cap.getApplicantModel();
+    if (capContact) {
+            pmcal = capContact.getPeople().getContactAddressList();
+            if (pmcal) {
+                var addresses = pmcal.toArray();
+				if (addresses.length > 1) {
+					var addrTypeCount = new Array();
+					for (var y in addresses) {
+						var thisAddr = addresses[y];
+						addrTypeCount[thisAddr.addressType] = 0;
+						}
+			
+					for (var yy in addresses) {
+						thisAddr = addresses[yy];
+						addrTypeCount[thisAddr.addressType] += 1;
+						}
 
-						for (i in addrCountA) {
-							if (addrCountA[i] > 1) {
-							isNotValidToProceed += MSG_TOO_MANY_ADDR;
-							}
+					for (var z in addrTypeCount) {
+						if (addrTypeCount[z] > 1) 
+							isMultipleAddresses = true;
+						}
+					}
+
+				if (isMultipleAddresses) {
+					if (isNotValidToProceed) {
+						isNotValidToProceed += MSG_TOO_MANY_ADDR
+						}
+					else {
+						isNotValidToProceed = MSG_TOO_MANY_ADDR;
 						}
 					}
 				}
 			}
-		}
+
+
 	
     logDebug("EXIT: copyContactAppSpecificToRecordAppSpecific");
 
