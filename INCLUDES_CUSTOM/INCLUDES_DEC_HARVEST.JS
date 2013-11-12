@@ -1840,17 +1840,31 @@ function upgradeLifetimeLic() {
         }
 
 		// void the privilege panel issue 13656
-		var CC = new contactObj(null);
-		CC.refSeqNumber = frm.peopleSequenceNumber;
-		var ppPanel = CC.getCaps(AA54_TAG_PRIV_PANEL);
-		for (var y in ppPanel) {
-			voidSelectedItems.push(ppPanel[y]);
+		var xArray = getApplicantArrayEx();
+		var peopleSequenceNumber = null;
+		for (ca in xArray) {
+			var thisContact = xArray[ca];
+			peopleSequenceNumber = thisContact["refcontactSeqNumber"]
+			break;
+			}
+		
+		if (peopleSequenceNumber) {
+			var CC = new contactObj(null);
+			CC.refSeqNumber = peopleSequenceNumber;
+			logDebug("upgradeLifetimeLic peopleseqnumber = " + frm.peopleSequenceNumber);
+			var ppPanel = CC.getCaps(AA54_TAG_PRIV_PANEL);
+					
+			for (var y in ppPanel) {
+				voidSelectedItems.push(ppPanel[y].getCustomID());
+				logDebug("upgradeLifetimeLic found Priv Panel to Void " + ppPanel[y].getCustomID());
+				}
 			}
 			
         //(Void slected Lifetime liceses)
         for (var y in voidSelectedItems) {
             frm.RemoveActiveHoldingsbyDocId(voidSelectedItems[y]);
             itemCapId = getCapId(voidSelectedItems[y]);
+			logDebug("upgradeLifetimeLic voiding cap Id " + itemCapId);
             updateAppStatus("Void", "Void", itemCapId);
             closeTaskForRec("Void Document", "Void", "", "", "", itemCapId);
             closeTaskForRec("Report Game Harvest", "", "", "", "", itemCapId);
@@ -1953,18 +1967,16 @@ function upgradeLifetimeLic() {
 						eval("TagsArray = " + oLic.FNTagsArray + "(ruleParams);");
                     }
 					
-					// add new priv panel per issue 13656
-					TagsArray.push(TAG_TYPE_24_PRIV_PANEL);
-					
                     oLic.TagsArray = TagsArray;					
 					var tagPropArray = new Array()
                     for (var t in oLic.TagsArray) {
 						var tagProp = tagsMap.get(oLic.TagsArray[t]);
-						logDebug("tagprop:" + tagProp);
                         tagPropArray.push(tagProp);
                     }
 					
                     CreateTags(tagPropArray, ruleParams, oLic.DecCode, "");
+					// added priv panel defect 13656
+					createPrivilagePanel(ruleParams);
 
                     var newDecDocId = GenerateDocumentNumber(newLicId.getCustomID());
                     updateDocumentNumber(newDecDocId, newLicId);
@@ -1975,7 +1987,7 @@ function upgradeLifetimeLic() {
                     //connect With main Upgraded
                     for (y in notusedDocArray) {
                         itemCapId = getCapId(notusedDocArray[y]);
-                        var result = aa.cap.createAppHierarchy(newLicId, itemCapId);
+                        var result = aa.cap.createAppHierarchy(capId, itemCapId);
                         if (result.getSuccess()) {
                             logDebug("Successfully linked");
                         }
