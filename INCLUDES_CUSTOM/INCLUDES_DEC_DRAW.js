@@ -92,6 +92,7 @@ function Draw_Obj(syear, swmu, schoicenum, sdrawtype, sapplyLandOwner) {
         var ordbAinfo = new Array();
         searchCapId = GenerateAltId(AA_Preference_Order, this.Year, this.Wmu, this.DrawType);
         var ordCapId = getCapId(searchCapId);
+		logDebug("Pre-Order preference Order cap " + searchCapId + " : " + (ordCapId ? ordCapId.getCustomID() : "  Not found"));
         if (ordCapId != null) {
             loadAppSpecific(ordbAinfo, ordCapId);
             //logGlobals(ordbAinfo);
@@ -135,7 +136,7 @@ function Draw_Obj(syear, swmu, schoicenum, sdrawtype, sapplyLandOwner) {
             searchCapId = GenerateAltId(AA_Probability, year, wmu, drawtype);
             var probCapId = getCapId(searchCapId);
             var probAinfo = new Array();
-			logDebug("Preference Order cap " + searchCapId + " : " + (probCapId ? probCapId.getCustomID() : "  Not found"));
+			logDebug("Preference Probability cap " + searchCapId + " : " + (probCapId ? probCapId.getCustomID() : "  Not found"));
             if (probCapId != null) {
                 loadAppSpecific(probAinfo, probCapId);
                 //logGlobals(probAinfo);
@@ -143,7 +144,10 @@ function Draw_Obj(syear, swmu, schoicenum, sdrawtype, sapplyLandOwner) {
 
             //create category Array
             var ctgArray = new Array();
-            if (probCapId != null && ordCapId != null) {
+			
+			logDebug("do we have probability and order arrays? " + (probAinfo != null && ordbAinfo != null));
+			
+			if (probAinfo != null && ordbAinfo != null) {
                 ctgArray.push(new Category(1, ordbAinfo["C1"], probAinfo["C1"], 1));
                 ctgArray.push(new Category(2, ordbAinfo["C2"], probAinfo["C2"], 1));
                 ctgArray.push(new Category(3, ordbAinfo["C3"], probAinfo["C3"], 1));
@@ -166,10 +170,13 @@ function Draw_Obj(syear, swmu, schoicenum, sdrawtype, sapplyLandOwner) {
             if (ctgArray.length > 0) {
                 sortCategoryArray(ctgArray);
 
+				logDebug("drawResult params = "  + this.Wmu + "," + this.DrawType + "," + this.ChoiceNum + "," +  this.PreferencePoints + "," + this.IsLanOwner + "," +  this.bDisabledVet + "," +  this.IsNyResiDent + "," +  this.havedefinedItems);
+				
                 for (var out = 0; out < ctgArray.length; out++) {
                     if (ctgArray[out].ChoiceType == ChoiceNum) {
                         if (this.DrawType == DRAW_INST) {
                             eval('drawResult = verify' + ctgArray[out].Name + '(this);');
+							logDebug("drawResult = verify" + ctgArray[out].Name + "(this) = " + drawResult.Selected);
                         } else if (this.DrawType == DRAW_IBP) {
                             drawResult = new DrawResult_OBJ(this.Wmu, this.DrawType, this.ChoiceNum, this.PreferencePoints, this.IsLanOwner, bDisabledVet, this.IsNyResiDent);
                             drawResult.Selected = (this.PreferenceBucketForIbp == ctgArray[out].index);
