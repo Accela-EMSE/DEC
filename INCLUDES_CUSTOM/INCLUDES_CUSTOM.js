@@ -3720,7 +3720,7 @@ function verifyLandOwnerInfo() {
 
 function verifyDMPinfo() {
     var retMsg = ''
-
+	
     if (!isValidBowHuntWmu(AInfo["WMU Choice 1"], AInfo)) {
         retMsg += ('No Bow hunting education. Selected WMU for choice 1 is valid only for bow hunting.');
         retMsg += '<Br />';
@@ -3730,12 +3730,31 @@ function verifyDMPinfo() {
         retMsg += ('No Bow hunting education. Selected WMU for choice 2 is valid only for bow hunting.');
         retMsg += '<Br />';
     }
-
+	
+	
     var sAppLo1 = AInfo["Apply Land Owner for Choice1"]
     var sAppLo2 = AInfo["Apply Land Owner for Choice2"]
     var isYesApplyLO1 = ((sAppLo1 != null && (sAppLo1.equalsIgnoreCase('YES') || sAppLo1.equalsIgnoreCase('Y') || sAppLo1.equalsIgnoreCase('CHECKED') || sAppLo1.equalsIgnoreCase('SELECTED') || sAppLo1.equalsIgnoreCase('TRUE') || sAppLo1.equalsIgnoreCase('ON'))))
     var isYesApplyLO2 = ((sAppLo2 != null && (sAppLo2.equalsIgnoreCase('YES') || sAppLo2.equalsIgnoreCase('Y') || sAppLo2.equalsIgnoreCase('CHECKED') || sAppLo2.equalsIgnoreCase('SELECTED') || sAppLo2.equalsIgnoreCase('TRUE') || sAppLo2.equalsIgnoreCase('ON'))))
-    if (isYesApplyLO1 && isYesApplyLO2) {
+
+	//11-13-2013 - Cannot select Apply Land Owner if there are no records in the LAND OWNER INFORMATION ASI Table
+	var bAllowLandOwnerApplication = false;
+	if (isYesApplyLO1 || isYesApplyLO2) 
+	{
+		if (typeof (LANDOWNERINFORMATION) == "object")
+		{
+			if(LANDOWNERINFORMATION.length > 0) 
+				bAllowLandOwnerApplication = true;
+		}
+	}
+	
+	if(!bAllowLandOwnerApplication)
+	{
+		retMsg += 'No Land Owner Information.  Cannot select Apply Land Owner for Choice1 or Choice2 without Land Owner Information.';
+		retMsg += '<Br />';
+	}
+	
+	if (isYesApplyLO1 && isYesApplyLO2) {
         retMsg += ('Landownership can only be applied to one WMU per license year.');
         retMsg += '<Br />';
     }
