@@ -121,6 +121,7 @@ function Draw_Obj(syear, swmu, schoicenum, sdrawtype, sapplyLandOwner) {
             if (this.ordbAinfo == null) {
                 searchCapId = GenerateAltId(AA_Preference_Order, year, wmu, drawtype);
                 var ordCapId = getCapId(searchCapId);
+				logDebug("Preference Order cap " + searchCapId + " : " + (ordCapId ? ordCapId.getCustomID() : "  Not found"));
                 if (ordCapId != null) {
                     loadAppSpecific(ordbAinfo, ordCapId);
                     //logGlobals(ordbAinfo);
@@ -134,6 +135,7 @@ function Draw_Obj(syear, swmu, schoicenum, sdrawtype, sapplyLandOwner) {
             searchCapId = GenerateAltId(AA_Probability, year, wmu, drawtype);
             var probCapId = getCapId(searchCapId);
             var probAinfo = new Array();
+			logDebug("Preference Order cap " + searchCapId + " : " + (probCapId ? probCapId.getCustomID() : "  Not found"));
             if (probCapId != null) {
                 loadAppSpecific(probAinfo, probCapId);
                 //logGlobals(probAinfo);
@@ -157,7 +159,7 @@ function Draw_Obj(syear, swmu, schoicenum, sdrawtype, sapplyLandOwner) {
                 ctgArray.push(new Category(13, ordbAinfo["C13"], probAinfo["C13"], 2));
                 ctgArray.push(new Category(14, ordbAinfo["C14"], probAinfo["C14"], 2));
                 ctgArray.push(new Category(15, ordbAinfo["C15"], probAinfo["C15"], 2));
-                ctgArray.push(new Category(16, ordbAinfo["C16"], probAinfo["C15"], 2));
+                ctgArray.push(new Category(16, ordbAinfo["C16"], probAinfo["C16"], 2));
                 ctgArray.push(new Category(17, ordbAinfo["C17"], probAinfo["C17"], 2));
             }
 
