@@ -2462,7 +2462,10 @@ function isValidBuyRecord(pStep) {
     var retMsg = '';
     var msg = '';
     //Calller ACA ONSUBMIT BEFORE TBL UPDATE
-    if (pStep == 'Step1') {
+    if (pStep == 'Step1') 
+	{
+		logDebug("pStep = Step1...");
+	
         msg = verifyMilitaryServiceType();
         if (msg != '') {
             retMsg += msg;
@@ -2489,18 +2492,22 @@ function isValidBuyRecord(pStep) {
 		    retMsg += msg;
 		}
 		
-		
     }
 	
 	
 	
 	
 
-    //Calller ACA ONSUBMIT BEFORE SALESSELECT
-    if (pStep == 'Step3') {
+    //Called via Pageflow from Standard Choice -> ACA ONSUBMIT BEFORE SALESSELECT
+    if (pStep == 'Step3') 
+	{
+		logDebug("pStep = Step1...");
+	
+		logDebug("call verifyAnySalesSelect()...");
         msg = verifyAnySalesSelect();
         retMsg += msg;
 
+		logDebug("Check ASI fields for valid numeric value...");
         var isValid = true;
         if (!isValidIntegerNumber(AInfo["Quantity Trail Supporter Patch"])) {
             retMsg += 'Please enter valid integer number for Quantity Trail Supporter Patch.';
@@ -2522,20 +2529,26 @@ function isValidBuyRecord(pStep) {
             retMsg += 'Please enter valid integer number for Quantity Conservation Fund.';
             retMsg += "<Br />";
         }
+		
+		logDebug("call validateFishingdates()...");
         msg = validateFishingdates();
         retMsg += msg;
 
+		logDebug("call verifyDMPinfo()...");
         msg = verifyDMPinfo();
         if (msg != '') {
             retMsg += msg;
         }
 
+		logDebug("call verifyLandOwnerInfo()...");
         msg = verifyLandOwnerInfo();
         if (msg != '') {
             retMsg += msg;
         }
     }
 
+	logDebug("Message to return to ACA: " + retMsg);
+	
     return retMsg;
     logDebug("EXIT: isValidBuyRecord");
 }
