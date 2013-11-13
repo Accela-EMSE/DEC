@@ -3758,12 +3758,19 @@ function verifyDMPinfo() {
 		logDebug("Yes, one of them is checked.  Is the LANDOWNERINFORMATION ASI Table variable an object?");
 		if (typeof (LANDOWNERINFORMATION) == "object")
 		{
-			logDebug("Yes, it's an Object.  Are there any records? (Is the object length zero)");
+			logDebug("Yes, it's an Object.  Are there any records? (Is the object length zero)"); //NOTE: I don't believe it can ever be an object without at least one record, but leave as is.
 			if(LANDOWNERINFORMATION.length == 0) 
 			{
 				logDebug("Yes, the length is zero, no records.  Do not allow land owner status without land owner info");
 				bAllowLandOwnerApplication = false;
 			}
+			else
+				logDebug("There are " + LANDOWNERINFORMATION.length + " records in the table.");
+		}
+		else
+		{
+			logDebug("No, it is not an Object (so no records in the ASI Table).  Do not allow land owner status without land owner info");
+			bAllowLandOwnerApplication = false;
 		}
 	}
 	
