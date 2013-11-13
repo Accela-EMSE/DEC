@@ -3751,13 +3751,19 @@ function verifyDMPinfo() {
     var isYesApplyLO2 = ((sAppLo2 != null && (sAppLo2.equalsIgnoreCase('YES') || sAppLo2.equalsIgnoreCase('Y') || sAppLo2.equalsIgnoreCase('CHECKED') || sAppLo2.equalsIgnoreCase('SELECTED') || sAppLo2.equalsIgnoreCase('TRUE') || sAppLo2.equalsIgnoreCase('ON'))))
 
 	//11-13-2013 - Cannot select Apply Land Owner if there are no records in the LAND OWNER INFORMATION ASI Table
-	var bAllowLandOwnerApplication = false;
+	var bAllowLandOwnerApplication = true; //By default, don't raise a message
+	logDebug("Is one of the Apply Land Owner for Choice ASI boxes checked?");
 	if (isYesApplyLO1 || isYesApplyLO2) 
 	{
+		logDebug("Yes, one of them is checked.  Is the LANDOWNERINFORMATION ASI Table variable an object?");
 		if (typeof (LANDOWNERINFORMATION) == "object")
 		{
-			if(LANDOWNERINFORMATION.length > 0) 
-				bAllowLandOwnerApplication = true;
+			logDebug("Yes, it's an Object.  Are there any records? (Is the object length zero)");
+			if(LANDOWNERINFORMATION.length == 0) 
+			{
+				logDebug("Yes, the length is zero, no records.  Do not allow land owner status without land owner info");
+				bAllowLandOwnerApplication = false;
+			}
 		}
 	}
 	
