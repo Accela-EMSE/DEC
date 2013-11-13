@@ -88,7 +88,7 @@ function verifyDate() {
 //code ended
 
 function isValidHarvestinfo(pStep) {
-    logDebug("ENTER: isValidBuyRecord");
+    logDebug("ENTER: isValidHarvestinfo");
     var retMsg = '';
     try {
         var useAppSpecificGroupName = true;
@@ -194,7 +194,7 @@ function isValidHarvestinfo(pStep) {
         logDebug("**ERROR in isValidHarvestinfo:" + err.message);
     }
 
-    logDebug("EXIT: isValidBuyRecord");
+    logDebug("EXIT: isValidHarvestinfo");
     return retMsg;
 }
 
