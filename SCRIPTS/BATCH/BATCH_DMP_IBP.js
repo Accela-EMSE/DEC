@@ -378,8 +378,6 @@ function RunIBPlotteryForDMP(dmpIbpItem,orderInfo) {
     var condFulfill = new COND_FULLFILLMENT();
     fullfillCond = condFulfill.Condition_IBPTag;
 
-	//for (var i in drw) { logDebug("drw[" + i + "] = " + drw[i]); }
-
     //Run Lottery and create tags
     //logDebug(ibpRec.ChoiceNum);
     wmu1Result = drw.RunLottery();
@@ -388,7 +386,7 @@ function RunIBPlotteryForDMP(dmpIbpItem,orderInfo) {
 	
 	// TODO : testing, add a coin toss until we figure out the lottery
 	//wmu1Result.Selected = Math.floor( Math.random() * 2 ) == 1
-	//wmu1Result.Selected = true;
+	wmu1Result.Selected = true;
 	
     logDebug("Lottery result: " + wmu1Result.Selected);
 	
@@ -414,6 +412,19 @@ function RunIBPlotteryForDMP(dmpIbpItem,orderInfo) {
 
 		newLicId = createNewTag(parentCapId,startDate,clacExpDt,"DMP Deer",null);
 		editAppSpecific("Tag Type",TAG_TYPE_4_DMP_DEER_TAG,parentCapId);
+        var newAInfo = new Array();
+		newAInfo.push(new NewLicDef("Tag Type",TAG_TYPE_4_DMP_DEER_TAG));
+        newAInfo.push(new NewLicDef("WMU", wmu1Result.WMU));
+		newAInfo.push(new NewLicDef("Draw Type", wmu1Result.DrawType));
+		newAInfo.push(new NewLicDef("Choice", wmu1Result.ChoiceNum));
+		newAInfo.push(new NewLicDef("PreferencePoints", wmu1Result.PreferencePoints));
+		newAInfo.push(new NewLicDef("Landowner", wmu1Result.Landowner));
+		newAInfo.push(new NewLicDef("Military Disabled", wmu1Result.DisabledVet));
+		newAInfo.push(new NewLicDef("Resident", wmu1Result.Resident));
+		copyLicASI(newLicId, newAInfo);
+
+
+
 		
 		if (ibpRec.ChoiceNum == 1) {
             addStdConditionWithComments("DMP Application Result", "WMU Choice 1 IBP", " - " + ibpRec.WMU + ":  SELECTED", newLicId.getCustomID(), ibpRec.dmpCapId);
