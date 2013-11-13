@@ -289,7 +289,7 @@ function callIBPlogic() {
                     newIbpRec.dmpAltId = dmpAltId;
                     newIbpRec.DrawType = dmpASITinfo["DRAW TYPE"];
                     newIbpRec.Landowner = (dmpASITinfo["Landowner"] == "CHECKED");
-                    newIbpRec.PreferencePoints = dmpAinfo["Preference Points"];
+                    newIbpRec.PreferencePoints = dmpASITinfo["Preference Points Given"];
                     newIbpRec.PreferenceBucket = dmpASITinfo["Preference Bucket"];
                     newIbpRec.Resident = (dmpAinfo["Resident"] == "CHECKED");
                     newIbpRec.ItemCode = dmpAinfo["Item Code"];
@@ -324,7 +324,7 @@ function callIBPlogic() {
             break;
         }
 
-        RunIBPlotteryForDMP(choice1RecordsArray[itm]);
+        RunIBPlotteryForDMP(choice1RecordsArray[itm],ordAinfo);
     }
     for (var itm in choice2RecordsArray) {
         if (elapsed() > maxSeconds) // only continue if time hasn't expired
@@ -336,7 +336,7 @@ function callIBPlogic() {
             break;
         }
 
-        RunIBPlotteryForDMP(choice2RecordsArray[itm]);
+        RunIBPlotteryForDMP(choice2RecordsArray[itm],ordAinfo);
     }
     logDebug("***** END: STEP5 - Run IBP lottery ***** ");
 
@@ -359,15 +359,19 @@ function createIBPSet(recordType) {
     return createSetbylogic(id, name, setType, setComment, setStatus, setStatusComment)
 }
 
-function RunIBPlotteryForDMP(dmpIbpItem) {
-    var ibpRec = dmpIbpItem;
-    var drw = new Draw_Obj(ibpRec.Year, ibpRec.WMU, ibpRec.ChoiceNum, ibpRec.DrawType, ibpRec.ApplyLandowner);
+function RunIBPlotteryForDMP(dmpIbpItem,orderInfo) {
+    
+	var ibpRec = dmpIbpItem;
+	logDebug("RunIBPlotteryForDMP : " + ibpRec.Year + "," + ibpRec.WMU + "," + ibpRec.ChoiceNum + "," + ibpRec.DrawType + "," + ibpRec.ApplyLandowner + "," + ibpRec.PreferencePoints);
+	
+    var drw = new Draw_Obj(ibpRec.Year, ibpRec.WMU, ibpRec.ChoiceNum, DRAW_IBP, ibpRec.ApplyLandowner);
     drw.IsNyResiDent = ibpRec.Resident;
     drw.IsDisableForYear = ibpRec.DisabledVet;
     drw.IsMilitaryServiceman = ibpRec.DisabledVet;
     drw.PreferencePoints = ibpRec.PreferencePoints;
-    drw.ordbAinfo = ordAinfo;
+    drw.ordbAinfo = orderInfo;
     drw.PreferenceBucketForIbp = ibpRec.PreferenceBucket;
+	logDebug("drw : " + drw.Year + "," + drw.Wmu + "," + drw.ChoiceNum + "," + drw.DrawType + "," + drw.ApplyLandowner + "," + drw.ordbAinfo);
 
     var dmpTag = new TagProp(LIC53_TAG_DMP_DEER, AA53_TAG_DMP_DEER, "", TAG_TYPE_4_DMP_DEER_TAG, 1);
 
@@ -380,11 +384,14 @@ function RunIBPlotteryForDMP(dmpIbpItem) {
     //logDebug(ibpRec.ChoiceNum);
     wmu1Result = drw.RunLottery();
 
+	// TODO:  Clear IBP Condition so it doesn't get picked up again
 	
 	// TODO : testing, add a coin toss until we figure out the lottery
 	//wmu1Result.Selected = Math.floor( Math.random() * 2 ) == 1
-	wmu1Result.Selected = true;
-    	logDebug("Lottery result: " + wmu1Result.Selected);
+	//wmu1Result.Selected = true;
+	
+    logDebug("Lottery result: " + wmu1Result.Selected);
+	
 	if (wmu1Result.Selected) {
         //No need to check rule for DMP since DMP is available only fo qualified customers only
 		
@@ -408,16 +415,7 @@ function RunIBPlotteryForDMP(dmpIbpItem) {
 		newLicId = createNewTag(parentCapId,startDate,clacExpDt,"DMP Deer",null);
 		editAppSpecific("Tag Type",TAG_TYPE_4_DMP_DEER_TAG,parentCapId);
 		
-		// TODO: how to set the years
-		/*
-		editFileDate(newLicId, ipStartDate);
-		editAppSpecific("Year",ibpRec.Year,newLicId);
-		var fvYearDesc = lookupDesc("LICENSE_FILING_YEAR_Desc",ipStartDate.getFullYear().toString());
-		editAppSpecific("Year Description",fvYearDesc,newLicId);
-		*/
-			
-        
-        if (ibpRec.ChoiceNum == 1) {
+		if (ibpRec.ChoiceNum == 1) {
             addStdConditionWithComments("DMP Application Result", "WMU Choice 1 IBP", " - " + ibpRec.WMU + ":  SELECTED", newLicId.getCustomID(), ibpRec.dmpCapId);
         } else if (ibpRec.ChoiceNum == 2) {
             addStdConditionWithComments("DMP Application Result", "WMU Choice 2 IBP", " - " + ibpRec.WMU + ":  SELECTED", newLicId.getCustomID(), ibpRec.dmpCapId);
@@ -446,15 +444,17 @@ function RunIBPlotteryForDMP(dmpIbpItem) {
 	// 11/6/2013 JHS:   TODO:   this needs to be re-written to write to the DRAW RESULT ASIT per Raj.   This ASI field doesn't exist. 
 	// probably need to add a new row to the DRAW_RESULT table for IBP
 	
+	logDebug("wmu1Result : " + wmu1Result.DrawType + "," + wmu1Result.WMU + "," + wmu1Result.Result() + "," + wmu1Result.Landowner);
+
 	var tempObject = new Array();
     //Choice 1 Result
-    var fieldInfo = new asiTableValObj("DRAW TYPE", wmu1Result.DrawType, "Y");
+    var fieldInfo = new asiTableValObj("DRAW TYPE", wmu1Result.DrawType + "", "Y");
     tempObject["DRAW TYPE"] = fieldInfo;
-    fieldInfo = new asiTableValObj("WMU", wmu1Result.WMU, "Y");
+    fieldInfo = new asiTableValObj("WMU", wmu1Result.WMU + "", "Y");
     tempObject["WMU"] = fieldInfo;
     fieldInfo = new asiTableValObj("Choice Number", "1", "Y");
     tempObject["Choice Number"] = fieldInfo;
-    fieldInfo = new asiTableValObj("Result", wmu1Result.Result(), "Y");
+    fieldInfo = new asiTableValObj("Result", wmu1Result.Result() + "", "Y");
     tempObject["Result"] = fieldInfo;
     fieldInfo = new asiTableValObj("Apply Land Owner", wmu1Result.Landowner ? "CHECKED" : "UNCHECKED", "Y");
     tempObject["Apply Land Owner"] = fieldInfo;
