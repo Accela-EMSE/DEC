@@ -21,6 +21,7 @@ var emailText = "";
 var maxSeconds = 4.5 * 60; 	    // number of seconds allowed for batch processing, usually < 5*60
 var message = "";
 var br = "<br>";
+var tagAgentPrefix = "9991";
 /*------------------------------------------------------------------------------------------------------/
 | END: USER CONFIGURABLE PARAMETERS
 /------------------------------------------------------------------------------------------------------*/
@@ -411,6 +412,7 @@ function RunIBPlotteryForDMP(dmpIbpItem,orderInfo) {
 			}
 
 		newLicId = createNewTag(parentCapId,startDate,clacExpDt,"DMP Deer",null);
+		updateDocumentNumber(tagAgentPrefix + newLicId.getCustomID(), newLicId);
 		editAppSpecific("Tag Type",TAG_TYPE_4_DMP_DEER_TAG,parentCapId);
         var newAInfo = new Array();
 		newAInfo.push(new NewLicDef("Tag Type",TAG_TYPE_4_DMP_DEER_TAG));
