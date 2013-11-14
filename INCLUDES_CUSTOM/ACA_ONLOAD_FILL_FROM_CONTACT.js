@@ -162,7 +162,7 @@ if (feeSeqList.length) {
         logMessage("**ERROR: Invoicing the fee items assessed to app # " + capIDString + " was not successful.  Reason: " + invoiceResult.getErrorMessage());
 }
 
-showMessage = true;
+/*showMessage = true;
 var contactDetails = getContactObjs(cap);
 for(x in contactDetails)
 {
@@ -170,7 +170,7 @@ for(x in contactDetails)
 	comment("Contact details");
 	comment(thisContact.people.getFirstName());
 }
-cancel = true;
+cancel = true; */
 /*------------------------------------------------------------------------------------------------------/
 | <===========END=Main=Loop================>
 /-----------------------------------------------------------------------------------------------------*/
