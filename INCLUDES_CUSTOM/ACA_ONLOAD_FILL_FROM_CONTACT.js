@@ -162,6 +162,15 @@ if (feeSeqList.length) {
         logMessage("**ERROR: Invoicing the fee items assessed to app # " + capIDString + " was not successful.  Reason: " + invoiceResult.getErrorMessage());
 }
 
+showMessage = true;
+var contactDetails = getContactObjs(cap);
+for(x in contactDetails)
+{
+	var thisContact = contactDetails[x];
+	comment("Contact details");
+	comment(thisContact.people.getFirstName());
+}
+cancel = true;
 /*------------------------------------------------------------------------------------------------------/
 | <===========END=Main=Loop================>
 /-----------------------------------------------------------------------------------------------------*/
