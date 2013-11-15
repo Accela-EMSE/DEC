@@ -4109,8 +4109,10 @@ function isValidUserForUpgradeLic(userId) {
             var isNYSDEC_Regional_Office = (salesAgentInfoArray["Agent Group"] == "NYSDEC Regional Office");
             var isNative_American_Agency = (salesAgentInfoArray["Agent Group"] == "Native American Agency");
             var isRetail = (salesAgentInfoArray["Agent Group"] == "Retail");
+			
+			isvalid = true;   //Set to true regardless of the type of Agency.. JIRA - 15666
 
-            isvalid = isNYSDEC_HQ;
+            //isvalid = isNYSDEC_HQ;
         }
     }
     return isvalid;
