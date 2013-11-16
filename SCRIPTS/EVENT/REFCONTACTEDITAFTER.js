@@ -39,6 +39,7 @@ vToday.setSeconds(0);
 
 var vRefContact = aa.env.getValue("ContactModel");
 var vContactSeqNum = vRefContact.contactSeqNumber;
+var contactType = vRefContact.getContactType();
 var emailText = "";
 var maxSeconds = 4.5 * 60; 	    // number of seconds allowed for batch processing, usually < 5*60
 var message = "";
@@ -57,7 +58,8 @@ var debug = "";
 var showDebug = false;
 var showMessage = false;
 
-rebuildAllTagsforaRefContact(vContactSeqNum,vToday);
+if (contactType == "Individual")
+    rebuildAllTagsforaRefContact(vContactSeqNum,vToday);
 
 if (debug.indexOf("**ERROR") > 0)
 {

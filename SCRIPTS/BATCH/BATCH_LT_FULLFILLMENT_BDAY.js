@@ -79,7 +79,7 @@ var currentUserID = currentUser == null ? "ADMIN" : currentUser.getUserID().toSt
 var capId = null;
 var debug;
 var vEffDate;
-var fvRunProcess = "LIFETIME_LASTRUNDATE_BDAY";
+var vRunProcess = "LIFETIME_LASTRUNDATE_BDAY";
 
 logDebug("Start of Job");
 
@@ -151,7 +151,8 @@ function checkBatch() {
 function getAllRefsToProcess() {
     var opRefContacts = aa.util.newHashMap();
     var fvLastRunDate = getLastRunDate();
-    var fvRunDate = getRunDates(fvLastRunDate);
+    var fvReferDt = new Date(getStringOfDate(fvLastRunDate));
+    var fvRunDate = getRunDates(fvReferDt);
 
     fvStartDate = fvRunDate.StartDate;
     fvEndDate = fvRunDate.EndDate;
@@ -171,7 +172,7 @@ function getAllRefsToProcess() {
 }
 
 function getLastRunDate() {
-   return new Date(lookup("DEC_CONFIG", fvRunProcess).toString());
+   return new Date(lookup("DEC_CONFIG", vRunProcess).toString());
 }
 
 function getRunDates(ipLastRunDate) {
@@ -372,5 +373,13 @@ function showErrors(ipErrors) {
 }
 
 function updateLastRunDate() {
-    editLookup("DEC_CONFIG", fvRunProcess,(new Date()).toString());
+    editLookup("DEC_CONFIG", vRunProcess,getStringOfDate(new Date()));
+}
+
+function getStringOfDate(ipDate) {
+    var fvMonth = ipDate.getMonth() + 1;
+    var fvDay = ipDate.getDate();
+    var fvYear = ipDate.getFullYear();
+    var fvString = fvMonth.toString() + "/" + fvDay.toString() + "/" + fvYear.toString();
+    return fvString;
 }

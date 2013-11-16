@@ -300,25 +300,33 @@ function getExistingTags(ipRefContact,ipExpDate,ipEligibleTags) {
 function createNewTags(ipRefContact,ipStartDate,ipExpDate,ipEligibleTags) {
     var opErrors = null;
     var fvTotalTags = parseInt(ipEligibleTags.get("TOTAL"), 10);
+
     if (fvTotalTags == 0)
-        return;
-    var fvParentApp = createParentTagApp(ipRefContact,ipStartDate,ipExpDate);
-    if (fvParentApp)
-    {
-        logDebug("New Application Created: " + fvParentApp.getCustomID());
-        var fvTagArray = ipEligibleTags.entrySet().toArray();
-        for (var fvCounter in fvTagArray) {
-            var fvTagObj = fvTagArray[fvCounter];
-            var fvTag = fvTagObj.getKey();
-            if (fvTag == "TOTAL")
-                continue;
-            logDebug("Tag: " + fvTag);
-            var fvTagQty = parseInt(fvTagObj.getValue(), 10);
-            for (var fvTagCounter = 0; fvTagCounter < fvTagQty; fvTagCounter++) {
-                createNewTag(fvParentApp,ipStartDate,ipExpDate,fvTag,fvTagCounter);
+        return opErrors;
+    var fvParentApp = null;
+    
+    var fvTagArray = ipEligibleTags.entrySet().toArray();
+    for (var fvCounter in fvTagArray) {
+        var fvTagObj = fvTagArray[fvCounter];
+        var fvTag = fvTagObj.getKey();
+        if (fvTag == "TOTAL")
+            continue;
+        logDebug("Tag: " + fvTag);
+        var fvTagQty = parseInt(fvTagObj.getValue(), 10);
+        if (fvTagQty > 0) {
+            if (!fvParentApp) {
+                fvParentApp = createParentTagApp(ipRefContact,ipStartDate,ipExpDate);
+                if (fvParentApp)
+                    logDebug("New Application Created: " + fvParentApp.getCustomID());
+            }
+            if (fvParentApp) {
+                for (var fvTagCounter = 0; fvTagCounter < fvTagQty; fvTagCounter++) {
+                    createNewTag(fvParentApp,ipStartDate,ipExpDate,fvTag,fvTagCounter);
+                }
             }
         }
     }
+    
     return opErrors;
 }
 
