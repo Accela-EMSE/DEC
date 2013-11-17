@@ -9,9 +9,11 @@
 /*------------------------------------------------------------------------------------------------------/
 | START: TEST PARAMETERS
 /------------------------------------------------------------------------------------------------------*/
+/*
 aa.env.setValue("emailAddress", "");
 aa.env.setValue("LookAheadDays", 21);
 aa.env.setValue("showDebug", "Y");
+*/
 /*------------------------------------------------------------------------------------------------------/
 | END: TEST PARAMETERS
 /------------------------------------------------------------------------------------------------------*/
@@ -46,7 +48,7 @@ function logDebug(x) { aa.print(x); }
 | START: BATCH PARAMETERS
 /------------------------------------------------------------------------------------------------------*/
 var emailAddress = getParam("emailAddress"); 				// email to send report
-var vLookAheadDays = getParam("LookAheadDays");     // LookAhead Days From Report Manager
+var vLookAheadDays = parseInt(getParam("LookAheadDays"),10);     // LookAhead Days From Report Manager
 /*------------------------------------------------------------------------------------------------------/
 | END: BATCH PARAMETERS
 /------------------------------------------------------------------------------------------------------*/
@@ -108,7 +110,7 @@ function mainProcess() {
     try {
         var fvSuccess = checkBatch();
         if (!fvSuccess) {
-			logDebug("failing due to return value from checkBatch");
+			logDebug("Failing due to return value from checkBatch");
 			return false;
 			}
 
@@ -118,7 +120,7 @@ function mainProcess() {
         var fvErrors = runProcessRecords(fvRefs);
         if (fvErrors) {
             showErrors(fvErrors);
-			logDebug("failing due to " + fvErrors.length + " errors");
+			logDebug("Failing due to " + fvErrors.length + " errors");
             return false;
         }
         updateLastRunDate();
@@ -151,14 +153,19 @@ function checkBatch() {
 function getAllRefsToProcess() {
     var opRefContacts = aa.util.newHashMap();
     var fvLastRunDate = getLastRunDate();
+    logDebug("Last Run Date: " + fvLastRunDate);
     var fvReferDt = new Date(getStringOfDate(fvLastRunDate));
+    logDebug("Refer Date: " + fvReferDt);
     var fvRunDate = getRunDates(fvReferDt);
-
     fvStartDate = fvRunDate.StartDate;
     fvEndDate = fvRunDate.EndDate;
+    logDebug("Start Date: " + fvStartDate);
+    logDebug("End Date: " + fvEndDate);
     vEffDate = fvEndDate;
     fvStartYear = fvRunDate.StartYear;
     fvEndYear = fvRunDate.EndYear;
+    logDebug("Start Year: " + fvStartYear);
+    logDebug("End Year: " + fvEndYear);
 
     for (var fvYearCounter = fvStartYear; fvYearCounter <= fvEndYear; fvYearCounter++) {
         var fvProcDtStart = new Date(fvYearCounter, fvStartDate.getMonth(), fvStartDate.getDate());
@@ -187,10 +194,10 @@ function getRunDates(ipLastRunDate) {
 /* FUNCTION TO GET ALL REF CONTACTS FOR A RECORD TYPE, FOR A STATUS WITH A BIRTHDATE.*/
 function getRefContactsByRecTypeByStatusByDOB(ipGroup,ipType,ipSubType,ipCategory,ipStatus,ipBDate,ipEndBDate,ipRefContacts) {
     
-	logDebug("getRefContactsByRecTypeByStatusByDOB(" + ipGroup + "," + ipType + "," + ipSubType + "," + ipCategory + "," + ipStatus + "," + ipBDate + "," + ipEndBDate + "," + ipRefContacts);
+	logDebug("getRefContactsByRecTypeByStatusByDOB(" + ipGroup + "," + ipType + "," + ipSubType + "," + ipCategory + "," + ipStatus + "," + ipBDate + "," + ipEndBDate);
 	var fvFind = false;
-    var fvEmptyCm = aa.cap.getCapModel().getOutput();
-    if ((ipGroup != null && ipGroup != "") ||
+      var fvEmptyCm = aa.cap.getCapModel().getOutput();
+      if ((ipGroup != null && ipGroup != "") ||
         (ipType != null && ipType != "") ||
         (ipSubType != null && ipSubType != "") ||
         (ipCategory != null && ipCategory != "")) {
@@ -314,6 +321,10 @@ function shouldContinue(ipContact,ipStartDate,ipEndDate) {
 }
 
 function processNewAdded(ipStartDt,ipEndDt,ipStartYear,ipEndYear,ipRefContacts) {
+    logDebug("New Add Start Date: " + ipStartDt);
+    logDebug("New Add End Date: " + ipEndDt);
+    logDebug("New Add Start Year: " + ipStartYear);
+    logDebug("New Add End Year: " + ipEndYear);
     var opRefContacts = ipRefContacts;
     for (var fvYearCounter = ipStartYear; fvYearCounter <= ipEndYear; fvYearCounter++) {
         var fvProcDtStart = new Date(fvYearCounter, ipStartDt.getMonth(), ipStartDt.getDate());
