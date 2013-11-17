@@ -181,18 +181,9 @@ function SetLTFullfillmentLogic() {
     }
     var ffConitions = new COND_FULLFILLMENT();
     var ffCondArray = new Array();
-    ffCondArray.push(ffConitions.Condition_DailyInternetSales);
-    ffCondArray.push(ffConitions.Condition_DailyCallCenterSales);
-    //ffCondArray.push(ffConitions.Condition_NeedHuntingEd);
-    //ffCondArray.push(ffConitions.Condition_VerifyAgedIn);
     ffCondArray.push(ffConitions.Condition_AutoGenAppl);
 
     var recordTypeArray = new Array();
-    /*recordTypeArray.push("Licenses/Lifetime/Fishing/Fishing License");
-    recordTypeArray.push("Licenses/Lifetime/Hunting/BowHunting License");
-    recordTypeArray.push("Licenses/Lifetime/Hunting/Small & Big Game");
-    recordTypeArray.push("Licenses/Lifetime/Hunting/Sportsman");
-    recordTypeArray.push("Licenses/Lifetime/Trapping/Trapping License");*/
     recordTypeArray.push("Licenses/Annual/Application/NA");
 
     for (var yy in recordTypeArray) {
@@ -210,8 +201,6 @@ function SetLTFullfillmentLogic() {
         emptyCm.setCapStatus("Approved");
 
         for (var ff in ffCondArray) {
-            if (ats == "Licenses/Annual/Application/NA" &&
-                ffCondArray[ff] != ffConitions.Condition_AutoGenAppl) continue;
             var emCondm = ffConitions.getConditionByFullfillmentType(ffCondArray[ff]);
             emCondm.setConditionStatus("Applied");
             emCondm.setConditionStatusType("Applied");
