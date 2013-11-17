@@ -23,9 +23,13 @@ function rebuildAllTagsforaRefContact(ipRefContact,ipEffDate) {
     var fvExpDate = fvSeason.EndDate;
     var fvAge = getRefContactAgeAsOnDate(ipRefContact,ipEffDate);
     var fvSpEd = getSpEd(ipRefContact);
+    logDebug("Education: " + fvSpEd);
     var fvLifeLic = getLifetimeLicenses(ipRefContact);
+    logDebug("Lifetime Licenses: " + fvLifeLic);
     var fvEligibleTags = calculateEligTags(fvLifeLic,fvSpEd,fvAge);
+    logDebug("Eligible Tags: " + fvEligibleTags);
     var fvExistTags = getExistingTags(ipRefContact,fvExpDate,fvEligibleTags);
+    logDebug("Existing Tags: " + fvExistTags);
     var opErrors = createNewTags(ipRefContact,fvStartDate,fvExpDate,fvExistTags);
     return opErrors;
 }
@@ -181,7 +185,7 @@ function calculateEligTags(ipLifeLic,ipSpEd,ipAge) {
         var fvTags = "";
         if (fvLicType == "Bowhunting" && ipSpEd.containsKey("Hunter Ed") && ipSpEd.containsKey("Bowhunter Ed (IBEP)")) {
             if (ipAge >= 12 && ipAge < 16)
-                fvTags = "Privilege Panel,Back,Either Sex,DMP Deer";
+                fvTags = "Privilege Panel,Back,Either Sex";
             else if (ipAge >= 16)
                 fvTags = "Privilege Panel,Either Sex";
         }
@@ -193,13 +197,13 @@ function calculateEligTags(ipLifeLic,ipSpEd,ipAge) {
             if (ipAge >= 12 && ipAge < 14)
                 fvTags = "Privilege Panel,Back";
             else if (ipAge >= 14)
-                fvTags = "Privilege Panel,Back,Deer,Bear,DMP Deer";
+                fvTags = "Privilege Panel,Back,Deer,Bear";
         }
         if (fvLicType == "Sportsman" && ipSpEd.containsKey("Hunter Ed")) {
             if (ipAge >= 12 && ipAge < 14)
                 fvTags = "Privilege Panel,Back,Turkey";
             else if (ipAge >= 14)
-                fvTags = "Privilege Panel,Back,Turkey,Deer,Bear,DMP Deer";
+                fvTags = "Privilege Panel,Back,Turkey,Deer,Bear";
         }
         if (fvLicType == "Trapping License" && ipSpEd.containsKey("Trapper Ed")) {
             fvTags = "Privilege Panel";
@@ -216,6 +220,8 @@ function calculateEligTags(ipLifeLic,ipSpEd,ipAge) {
         var fvTagsArr = fvTags.split(",");
         for (var fvTagCounter in fvTagsArr) {
             var fvTag = fvTagsArr[fvTagCounter];
+            if (fvTag == null || fvTag == "")
+                continue;
             if (fvTag == "Turkey") {
                 if (!opAllTags.containsKey("Fall Turkey")) {
                     opAllTags.put("Fall Turkey",2);
@@ -253,18 +259,15 @@ function getExistingTags(ipRefContact,ipExpDate,ipEligibleTags) {
     var fvTotalTags = parseInt(ipEligibleTags.get("TOTAL"), 10);
     if (fvTotalTags == 0)
         return ipEligibleTags;
-    var fvPeopleQry = aa.people.getPeople(ipRefContact);
-    if (!fvPeopleQry.getSuccess())
-        return ipEligibleTags;
-    var fvPeople = fvPeopleQry.getOutput();
-    var fvPeopleScript = new com.accela.aa.emse.dom.PeopleScriptModel(fvPeople);
-    var fvCapsQry = aa.people.getCapIDsByRefContact(fvPeopleScript);
-    if (!fvCapsQry.getSuccess())
-        return ipEligibleTags;
-    var fvCaps = fvCapsQry.getOutput();
+
+    var fvPeople = aa.people.createPeopleModel().getOutput().getPeopleModel();
+    var fvCcb = aa.proxyInvoker.newInstance("com.accela.aa.aamain.people.CapContactDAOOracle").getOutput();
+    fvPeople.setServiceProviderCode(aa.getServiceProviderCode());
+    fvPeople.setContactSeqNumber(ipRefContact);
+ 
+    var fvCaps = fvCcb.getCapContactsByRefContactModel(fvPeople).toArray();
     for (var fvCounter in fvCaps) {
-        var fvCap = fvCaps[fvCounter];
-        var fvCapID = aa.cap.getCapID(fvCap.ID1,fvCap.ID2,fvCap.ID3).getOutput();
+        var fvCapID = aa.cap.getCapID(fvCaps[fvCounter].getCapID().getID1(), fvCaps[fvCounter].getCapID().getID2(), fvCaps[fvCounter].getCapID().getID3()).getOutput();
         var fvCapM = aa.cap.getCap(fvCapID).getOutput();
         var fvCapType = fvCapM.getCapType();
         if (fvCapType.getGroup() != "Licenses" || fvCapType.getType() != "Tag" || (fvCapType.getSubType() != "Hunting" && fvCapType.getSubType() != "Document"))
@@ -300,7 +303,7 @@ function getExistingTags(ipRefContact,ipExpDate,ipEligibleTags) {
 function createNewTags(ipRefContact,ipStartDate,ipExpDate,ipEligibleTags) {
     var opErrors = null;
     var fvTotalTags = parseInt(ipEligibleTags.get("TOTAL"), 10);
-
+    logDebug("No. of Tags to be created: " + fvTotalTags);
     if (fvTotalTags == 0)
         return opErrors;
     var fvParentApp = null;
@@ -376,8 +379,6 @@ function createNewTag(ipParentApp,ipStartDate,ipExpDate,ipTag,ipTagCntr) {
         fvTagType = "19";
     if (fvCategory == "Deer")
         fvTagType = "3";
-    if (fvCategory == "DMP Deer")
-        fvTagType = "4";
     if (fvCategory == "Bear")
         fvTagType = "2";
     if (fvCategory == "Privilege Panel")
