@@ -188,11 +188,11 @@ function SetLTFullfillmentLogic() {
     ffCondArray.push(ffConitions.Condition_AutoGenAppl);
 
     var recordTypeArray = new Array();
-    recordTypeArray.push("Licenses/Lifetime/Fishing/Fishing License");
+    /*recordTypeArray.push("Licenses/Lifetime/Fishing/Fishing License");
     recordTypeArray.push("Licenses/Lifetime/Hunting/BowHunting License");
     recordTypeArray.push("Licenses/Lifetime/Hunting/Small & Big Game");
     recordTypeArray.push("Licenses/Lifetime/Hunting/Sportsman");
-    recordTypeArray.push("Licenses/Lifetime/Trapping/Trapping License");
+    recordTypeArray.push("Licenses/Lifetime/Trapping/Trapping License");*/
     recordTypeArray.push("Licenses/Annual/Application/NA");
 
     for (var yy in recordTypeArray) {
