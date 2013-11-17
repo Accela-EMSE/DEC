@@ -21,7 +21,7 @@ aa.env.setValue("showDebug", "Y");
 | START: USER CONFIGURABLE PARAMETERS
 /------------------------------------------------------------------------------------------------------*/
 var emailText = "";
-var maxSeconds = 4.5 * 60; 	    // number of seconds allowed for batch processing, usually < 5*60
+var maxSeconds = 50000; 	    // number of seconds allowed for batch processing, usually < 5*60
 var message = "";
 var br = "<br>";
 /*------------------------------------------------------------------------------------------------------/
