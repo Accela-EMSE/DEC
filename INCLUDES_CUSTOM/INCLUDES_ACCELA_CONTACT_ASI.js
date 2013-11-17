@@ -327,6 +327,7 @@ function getTableValueAttributesByName(templateGroups, subGroupName, fieldName) 
 function getTemplateValueByFormArrays(templateModel) {
     logDebug("ENTER: getTemplateValueByFormArrays");
 
+	if (!templateModel) return new Array();
     var templateGroups = templateModel.getTemplateForms();
     var gArray = new Array();
     if (!(templateGroups == null || templateGroups.size() == 0)) {
