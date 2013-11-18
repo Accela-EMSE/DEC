@@ -2351,8 +2351,10 @@ function getContactCondutions(peopleSequenceNumber) {
 		r.statusType = thisCond.getConditionStatusType();
         if (thisCond.getEffectDate() != null) {
             r.effiectDate = new Date(thisCond.getEffectDate().getYear(), thisCond.getEffectDate().getMonth() - 1, thisCond.getEffectDate().getDayOfMonth());
-            r.expireDate = new Date(thisCond.getExpireDate().getYear(), thisCond.getExpireDate().getMonth() - 1, thisCond.getExpireDate().getDayOfMonth());
         }
+        if (thisCond.getExpireDate() != null) {
+            r.expireDate = new Date(thisCond.getExpireDate().getYear(), thisCond.getExpireDate().getMonth() - 1, thisCond.getExpireDate().getDayOfMonth());
+	}
 
         var langCond = aa.condition.getCondition(thisCond, lang).getOutput();
 
