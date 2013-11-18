@@ -23,7 +23,6 @@ aa.env.setValue("TimeOut", 270);
 | START: USER CONFIGURABLE PARAMETERS
 /------------------------------------------------------------------------------------------------------*/
 var emailText = "";
-var maxSeconds = parseInt(getParam("TimeOut"),10); 	    // number of seconds allowed for batch processing, usually < 270
 var message = "";
 var br = "<br>";
 /*------------------------------------------------------------------------------------------------------/
@@ -52,6 +51,7 @@ function logDebug(x) { aa.print(x); }
 var emailAddress = getParam("emailAddress"); 				// email to send report
 var vLookAheadDays = parseInt(getParam("LookAheadDays"),10);     // LookAhead Days From Report Manager
 var vRecordLimit = parseInt(getParam("RecordLimit"),10);     // Max. No. of Records to be Processed.
+var maxSeconds = parseInt(getParam("TimeOut"),10); 	    // number of seconds allowed for batch processing, usually < 270
 /*------------------------------------------------------------------------------------------------------/
 | END: BATCH PARAMETERS
 /------------------------------------------------------------------------------------------------------*/
