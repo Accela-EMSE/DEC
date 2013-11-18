@@ -3161,6 +3161,7 @@ function capSet(desiredSetId)
         this.comment = theSet.getSetComment();
 		this.model = theSet.getSetHeaderModel();
 		this.statusComment = theSet.getSetStatusComment();
+		this.type = theSet.getRecordSetType();
 
         var memberResult = aa.set.getCAPSetMembersByPK(this.id);
 
