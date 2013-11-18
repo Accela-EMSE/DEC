@@ -13,6 +13,8 @@
 aa.env.setValue("emailAddress", "");
 aa.env.setValue("LookAheadDays", 21);
 aa.env.setValue("showDebug", "Y");
+aa.env.setValue("RecordLimit", 0);
+aa.env.setValue("TimeOut", 270);
 */
 /*------------------------------------------------------------------------------------------------------/
 | END: TEST PARAMETERS
@@ -21,7 +23,7 @@ aa.env.setValue("showDebug", "Y");
 | START: USER CONFIGURABLE PARAMETERS
 /------------------------------------------------------------------------------------------------------*/
 var emailText = "";
-var maxSeconds = 50000; 	    // number of seconds allowed for batch processing, usually < 5*60
+var maxSeconds = parseInt(getParam("TimeOut"),10); 	    // number of seconds allowed for batch processing, usually < 270
 var message = "";
 var br = "<br>";
 /*------------------------------------------------------------------------------------------------------/
@@ -49,6 +51,7 @@ function logDebug(x) { aa.print(x); }
 /------------------------------------------------------------------------------------------------------*/
 var emailAddress = getParam("emailAddress"); 				// email to send report
 var vLookAheadDays = parseInt(getParam("LookAheadDays"),10);     // LookAhead Days From Report Manager
+var vRecordLimit = parseInt(getParam("RecordLimit"),10);     // Max. No. of Records to be Processed.
 /*------------------------------------------------------------------------------------------------------/
 | END: BATCH PARAMETERS
 /------------------------------------------------------------------------------------------------------*/
@@ -56,7 +59,6 @@ var vLookAheadDays = parseInt(getParam("LookAheadDays"),10);     // LookAhead Da
 | START: Variable Definitions
 /------------------------------------------------------------------------------------------------------*/
 var servProvCode = aa.getServiceProviderCode();
-var showDebug = 3;
 var showDebug = isNull(aa.env.getValue("showDebug"), "N") == "Y";
 var batchJobID = 0;
 var batchJobName = "";
@@ -74,14 +76,13 @@ vToday.setMinutes(0);
 vToday.setSeconds(0);
 var isPartialSuccess = false;
 var timeExpired = false;
-var sysDate = aa.date.getCurrentDate();
 var sysDateMMDDYYYY = dateFormatted(sysDate.getMonth(), sysDate.getDayOfMonth(), sysDate.getYear(), "");
-var currentUser = aa.person.getCurrentUser().getOutput();
 var currentUserID = currentUser == null ? "ADMIN" : currentUser.getUserID().toString()
 var capId = null;
 var debug;
 var vEffDate;
 var vRunProcess = "LIFETIME_LASTRUNDATE_BDAY";
+var vScriptRtnMsg = "";
 
 logDebug("Start of Job");
 
@@ -90,7 +91,10 @@ logDebug("End of Job: Elapsed Time : " + elapsed() + " Seconds");
 if (isSuccess) {
     aa.env.setValue("ScriptReturnCode", "0");
     if (isPartialSuccess) {
-        aa.env.setValue("ScriptReturnMessage", "A script timeout has caused partial completion of this process.  Please re-run.");
+        var vSRM = "A script timeout has caused partial completion of this process.  Please re-run.";
+        if (vScriptRtnMsg != "")
+            vSRM = vScriptRtnMsg;
+        aa.env.setValue("ScriptReturnMessage", vSRM);
         aa.eventLog.createEventLog("Batch Job run partial successful.", "Batch Process", batchJobName, sysDate, sysDate, batchJobDesc, batchJobResult, batchJobID);
     } else {
         aa.env.setValue("ScriptReturnMessage", "Batch Job run successfully." + debug);
@@ -123,7 +127,8 @@ function mainProcess() {
 			logDebug("Failing due to " + fvErrors.length + " errors");
             return false;
         }
-        updateLastRunDate();
+        if (!isPartialSuccess)
+            updateLastRunDate();
 
         logDebug("****** End logic ******");
 
@@ -259,7 +264,9 @@ function getRefContactsByRecTypeByStatusByDOB(ipGroup,ipType,ipSubType,ipCategor
         if (fvCaps) {
             opRefContacts = ipRefContacts;
             for (var fvCount1 in fvCaps) {
-                if (elapsed() > maxSeconds) // only continue if time hasn't expired
+                if (vRecordLimit > 0 && opRefContacts.keySet().toArray().length >= vRecordLimit)
+                    break;
+                if (maxSeconds > 0 && elapsed() > maxSeconds) // only continue if time hasn't expired
                 {
                     isPartialSuccess = true;
                     showDebug = true;
@@ -275,7 +282,7 @@ function getRefContactsByRecTypeByStatusByDOB(ipGroup,ipType,ipSubType,ipCategor
                     if (fvContactQry.getSuccess()) {
                         var fvContacts = fvContactQry.getOutput();
                         for (var fvCount2 in fvContacts) {
-                            if (elapsed() > maxSeconds) // only continue if time hasn't expired
+                            if (maxSeconds > 0 && elapsed() > maxSeconds) // only continue if time hasn't expired
                             {
                                 isPartialSuccess = true;
                                 showDebug = true;
@@ -346,7 +353,15 @@ function runProcessRecords(ipRefs) {
         }
         else {
             for (var fvCounter in fvRefContacts) {
-                if (elapsed() > maxSeconds) // only continue if time hasn't expired
+                if (vRecordLimit > 0 && fvCounter >= vRecordLimit)
+                {
+                    isPartialSuccess = true;
+                    showDebug = true;
+                    logDebug("Script has processed maximum no. of records which caused partial completion of this process.  Please re-run.  " + fvCounter + " records processed, " + vRecordLimit + " allowed.");
+                    vScriptRtnMsg = "Script has processed maximum no. of records which caused partial completion of this process.  Please re-run.";
+                    break;
+                }
+                if (maxSeconds > 0 && elapsed() > maxSeconds) // only continue if time hasn't expired
                 {
                     isPartialSuccess = true;
                     showDebug = true;
