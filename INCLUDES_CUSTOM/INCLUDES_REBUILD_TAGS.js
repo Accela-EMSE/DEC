@@ -157,13 +157,36 @@ function getLifetimeLicenses(ipRefContact) {
     var fvCcb = aa.proxyInvoker.newInstance("com.accela.aa.aamain.people.CapContactDAOOracle").getOutput();
     fvPeople.setServiceProviderCode(aa.getServiceProviderCode());
     fvPeople.setContactSeqNumber(ipRefContact);
- 
-    var fvCaps = fvCcb.getCapContactsByRefContactModel(fvPeople).toArray();
+    
+    var fvCapsQry = fvCcb.getCapContactsByRefContactModel(fvPeople);
+    if (!fvCapsQry)
+        return opLL;
+    var fvCaps = fvCapsQry.toArray();
+    if (!fvCaps)
+        return opLL;
 
     for (var fvCounter in fvCaps) {
-        var fvCapID = aa.cap.getCapID(fvCaps[fvCounter].getCapID().getID1(), fvCaps[fvCounter].getCapID().getID2(), fvCaps[fvCounter].getCapID().getID3()).getOutput();
-        var fvCapM = aa.cap.getCap(fvCapID).getOutput();
+        var fvCap = fvCaps[fvCounter];
+        if (!fvCap)
+            continue;
+        var fvCapIDTmp = fvCap.getCapID();
+        if (!fvCapIDTmp)
+            continue;
+        var fvCapIDQry = aa.cap.getCapID(fvCapIDTmp.getID1(), fvCapIDTmp.getID2(), fvCapIDTmp.getID3());
+        if (!fvCapIDQry || !fvCapIDQry.getSuccess())
+            continue;
+        var fvCapID = fvCapIDQry.getOutput();
+        if(!fvCapID)
+            continue;
+        var fvCapMQry = aa.cap.getCap(fvCapID);
+        if (!fvCapMQry || !fvCapMQry.getSuccess())
+            continue;
+        var fvCapM = fvCapMQry.getOutput();
+        if (!fvCapM)
+            continue;
         var fvCapType = fvCapM.getCapType();
+        if (!fvCapType)
+            continue; 
 
         if (fvCapType.getGroup() != "Licenses" || fvCapType.getType() != "Lifetime")
            continue;
@@ -265,11 +288,34 @@ function getExistingTags(ipRefContact,ipExpDate,ipEligibleTags) {
     fvPeople.setServiceProviderCode(aa.getServiceProviderCode());
     fvPeople.setContactSeqNumber(ipRefContact);
  
-    var fvCaps = fvCcb.getCapContactsByRefContactModel(fvPeople).toArray();
+    var fvCapsQry = fvCcb.getCapContactsByRefContactModel(fvPeople);
+    if (!fvCapsQry)
+        return ipEligibleTags;
+    var fvCaps = fvCapsQry.toArray();
+    if (!fvCaps)
+        return ipEligibleTags;
     for (var fvCounter in fvCaps) {
-        var fvCapID = aa.cap.getCapID(fvCaps[fvCounter].getCapID().getID1(), fvCaps[fvCounter].getCapID().getID2(), fvCaps[fvCounter].getCapID().getID3()).getOutput();
-        var fvCapM = aa.cap.getCap(fvCapID).getOutput();
+        var fvCap = fvCaps[fvCounter];
+        if (!fvCap)
+            continue;
+        var fvCapIDTmp = fvCap.getCapID();
+        if (!fvCapIDTmp)
+            continue;
+        var fvCapIDQry = aa.cap.getCapID(fvCapIDTmp.getID1(), fvCapIDTmp.getID2(), fvCapIDTmp.getID3());
+        if (!fvCapIDQry || !fvCapIDQry.getSuccess())
+            continue;
+        var fvCapID = fvCapIDQry.getOutput();
+        if(!fvCapID)
+            continue;
+        var fvCapMQry = aa.cap.getCap(fvCapID);
+        if (!fvCapMQry || !fvCapMQry.getSuccess())
+            continue;
+        var fvCapM = fvCapMQry.getOutput();
+        if (!fvCapM)
+            continue;
         var fvCapType = fvCapM.getCapType();
+        if (!fvCapType)
+            continue;
         if (fvCapType.getGroup() != "Licenses" || fvCapType.getType() != "Tag" || (fvCapType.getSubType() != "Hunting" && fvCapType.getSubType() != "Document"))
            continue;
         if (fvCapM.getCapStatus() != "Active")
@@ -280,7 +326,14 @@ function getExistingTags(ipRefContact,ipExpDate,ipEligibleTags) {
         var fvExp = fvExpQry.getOutput();
         if (!fvExp)
             continue;
-        var fvExpDtStr = fvExp.getExpDateString();
+        var fvExpDtStr = "";
+        var fvTryError = null;
+        try {
+            fvExpDtStr = fvExp.getExpDateString();
+        }
+        catch (fvTryError) {
+            fvExpDtStr = "09-30-2014";
+        }
         var fvExpDtArr = fvExpDtStr.split("-");
         fvExpDtStr = fvExpDtArr[1] + "/" + fvExpDtArr[2] + "/" + fvExpDtArr[0];
         var fvExpDt = new Date(fvExpDtStr);
