@@ -2079,6 +2079,10 @@ function GetDocsToVoidSale(peopleSequenceNumber) {
     var CC = new contactObj(null);
     CC.refSeqNumber = peopleSequenceNumber;
 
+    // get the agent's info
+    var agentObj = new USEROBJ(publicUserID);
+    
+    
     var applicationToChechArray = new Array();
     applicationToChechArray.push('Licenses/Annual/Application/NA');
     applicationToChechArray.push('Licenses/Sales/Reprint/Documents');
@@ -2103,10 +2107,12 @@ function GetDocsToVoidSale(peopleSequenceNumber) {
                         var ata = appTypeString.split("/");
 
                         if (exists(appTypeString, validVoidableFilterArray)) {
-                            var newActiveTag = new ACTIVE_ITEM(childCapId, itemCap, appTypeString);
-                            if (newActiveTag.isActive()) {
-                                availableDocsToVoidItems.push(newActiveTag);
-                            }
+				if (doesRefContactExistOnRecord(agentObj.authAgentPeopleSequenceNumber, childCapId)) {
+                            		var newActiveTag = new ACTIVE_ITEM(childCapId, itemCap, appTypeString);
+                            		if (newActiveTag.isActive()) {
+                                		availableDocsToVoidItems.push(newActiveTag);
+					}
+				}
                         }
                     }
                 }
@@ -2116,7 +2122,22 @@ function GetDocsToVoidSale(peopleSequenceNumber) {
     logDebug("EXIT: GetDocsToVoidSale");
 
     return availableDocsToVoidItems;
+}	
+
+
+function doesRefContactExistOnRecord(refSeqNum, itemCap) {
+
+	conArr = getContactObjs(itemCap);
+	if (conArr && conArr.length > 0) {
+		for (conArrIndex in conArr) {
+			thisCon = conArr[conArrIndex];
+			if (thisCon.refSeqNumber.equals(refSeqNum)) 
+				return true;
+		}
+	}
+	return false;
 }
+
 function GetDocsToVoidsAsitTableArray(availableDocsToVoidItems) {
     logDebug("ENTER: GetDocsToVoidsAsitTableArray");
 
