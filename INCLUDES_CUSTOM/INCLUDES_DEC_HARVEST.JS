@@ -2193,6 +2193,18 @@ function VoidsSales() {
             var ata = appTypeString.split("/");
 
             voidRec(itemCapId);
+
+	    
+	    // find privilege panel - it is a child of this records parent application
+	    logDebug("Marking privilege panel");
+	    pId = getParent(itemCapId);
+	    if (appMatch("Licenses/Annual/Application/NA", pId) ) {
+		    childArr = getChildren("Licenses/Tag/Document/Privilege Panel", pId);
+		    if (childArr != null && childArr.length > 0) {
+			    ppCapId = childArr[0];
+		    	    voidPrivilegePanel(ppCapId, itemCapId);
+		    }
+	    }
 	    var associatedTagArray = getTagsAssociatedToLicense(appTypeString);
 	    for (var tIndex in associatedTagArray) {
 		tagID = associatedTagArray[tIndex];
@@ -2299,4 +2311,31 @@ function voidRec(itemCapId) {
         closeTaskForRec("Report Game Harvest", "", "", "", "", itemCapId);
         closeTaskForRec("Revocation", "", "", "", "", itemCapId);
         closeTaskForRec("Suspension", "", "", "", "", itemCapId);
+}
+
+
+function voidPrivilegePanel(ppCapId, parentCapId) {
+
+	logDebug("ENTER: voidPrivilege Panel " + ppCapId.getCustomID());
+	updateAppStatus("Returnable", "Returnable", ppCapId);
+	// now create a new one, 
+	newPPId = createChildForDec("Licenses", "Tag", "Document", "Privilege Panel", "", parentCapId);
+	copyASIFields(ppCapId, newPPId);
+	updateAppStatus("Active", "Active", newPPId);
+	activateTaskForRec("Report Game Harvest", "", newPPId);
+        activateTaskForRec("Void Document", "", newPPId);
+        activateTaskForRec("Revocation", "", newPPId);
+        activateTaskForRec("Suspension", "", newPPId);	
+        copyConditions(ppCapId, newPPId);
+
+	//copy the expiration information
+	oldLicObj = new licenseObject(null, ppCapId);
+	if (oldLicObj && oldLicObj != null) {
+		setLicExpirationStatus(newPPId, "Active");
+		oldExpDate = oldLicObj.b1ExpDate;
+		setLicExpirationDate(newPPId,null,oldExpDate);
+	} 
+	var newDecDocId = GenerateDocumentNumber(newPPId.getCustomID());
+        updateDocumentNumber(newDecDocId, newPPId);
+	logDebug("EXIT: voidPrivilege Panel");
 }
