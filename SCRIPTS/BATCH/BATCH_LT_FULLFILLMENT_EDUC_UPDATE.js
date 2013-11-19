@@ -1,5 +1,5 @@
 /*------------------------------------------------------------------------------------------------------/
-| Program:  BATCH_LT_FULLFILLMENT_EDUC_UPDATTE.js  Trigger: Batch
+| Program:  BATCH_LT_FULLFILLMENT_EDUC_UPDATE.js  Trigger: Batch
 | Event   : N/A
 | Usage   : Batch job (Daily)
 | Agency  : DEC
@@ -209,19 +209,31 @@ function getRefContactsByRecTypeByCondition(ipGroup,ipType,ipSubType,ipCategory,
                                 timeExpired = true;
                                 break;
                             }
-                            var fvContactType = fvContacts[fvCount2].getPeople().contactType;
-                            if (fvContactType != "Individual")
+                            var fvCapContact = fvContacts[fvCount2];
+                            var fvContact = fvCapContact.getCapContactModel();
+                            var fvRefContactNumber = fvContact.refContactNumber;
+                            if (!fvRefContactNumber || fvRefContactNumber == "")
                                 continue;
-                            var fvContact = fvContacts[fvCount2].getCapContactModel();
+                            var fvRefContactQry = aa.people.getPeople(fvRefContactNumber);
+                            if (!fvRefContactQry || !fvRefContactQry.getSuccess())
+                                continue;
+                            var fvRefContact = fvRefContactQry.getOutput();
+                            if (!fvRefContact)
+                                continue;
+                            if (fvRefContact.contactType != "Individual")
+                                continue;
+                            if (fvRefContact.getDeceasedDate())
+                                continue;
+                            
                             var fvCapList = "";
-                            if (opRefContacts.containsKey(fvContact.refContactNumber)) {
-                                fvCapList = opRefContacts.get(fvContact.refContactNumber).toString();
+                            if (opRefContacts.containsKey(fvRefContactNumber)) {
+                                fvCapList = opRefContacts.get(fvRefContactNumber).toString();
                                 fvCapList = fvCapList + "," + fvCapID.getCustomID();
-                                opRefContacts.remove(fvContact.refContactNumber);
+                                opRefContacts.remove(fvRefContactNumber);
                             }
                             else
                                 fvCapList = fvCapID.getCustomID();
-                            opRefContacts.put(fvContact.refContactNumber,fvCapList);
+                            opRefContacts.put(fvRefContactNumber,fvCapList);
                         }
                     }
                 }
@@ -251,11 +263,13 @@ function runProcessRecords(ipRefs) {
                     break;
                 }
                 var fvRefContact = fvRefContacts[fvCounter];
-                var fvError = rebuildRefTags(fvRefContact);
-                if (fvError) {
+                var fvErrors = rebuildRefTags(fvRefContact);
+                if (fvErrors) {
                     if (!opErrors)
                         opErrors = new Array();
-                    opErrors.push(fvError);
+                    for (var fvErrCount in fvErrors)
+                        opErrors.push(fvErrors[fvErrCount]);
+                    continue;
                 }
                 removeConditionFromCaps(fvRefContact,ipRefs);
             }

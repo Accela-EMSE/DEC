@@ -17,6 +17,26 @@
 function rebuildAllTagsforaRefContact(ipRefContact,ipEffDate) {
     opErrors = null;
     logDebug("Ref Contact: " + ipRefContact);
+    var fvContactQry = aa.people.getPeople(ipRefContact);
+    if (!fvContactQry || !fvContactQry.getSuccess()) {
+        opErrors = createError(opErrors,"Contact not Found: " + ipRefContact);
+        return opErrors;
+    }
+    var fvContact = fvContactQry.getOutput();
+    if (!fvContact) {
+        opErrors = createError(opErrors,"Contact not Found: " + ipRefContact);
+        return opErrors;
+    }
+    if (fvContact.contactType != "Individual")
+    {
+        opErrors = createError(opErrors,"Contact " + ipRefContact + " is not an Individual.");
+        return opErrors;
+    }
+    if (fvContact.getDeceasedDate())
+    {
+        opErrors = createError(opErrors,"Contact " + ipRefContact + " has Deceased Date.");
+        return opErrors;
+    }
     var fvProcessYear = getProcessYear(ipEffDate);
     var fvSeason =  getSeasonDates(fvProcessYear);
     var fvStartDate = fvSeason.StartDate;
@@ -477,4 +497,12 @@ function lookupDesc(ipStdChoice,ipDesc) {
         }
     }
     return null;
+}
+
+function createError(ipErrors,ipErrMsg) {
+    opErrors = ipErrors;
+    if (!opErrors)
+        opErrors = new Array();
+    opErrors.push(ipErrMsg);
+    return opErrors;
 }

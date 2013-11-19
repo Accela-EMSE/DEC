@@ -10,9 +10,9 @@
 | START: TEST PARAMETERS
 /------------------------------------------------------------------------------------------------------*/
 //aa.env.setValue("setPrefix", "LT");
-//aa.env.setValue("emailAddress", "saxthelm@accela.com");
+//aa.env.setValue("emailAddress", "laxmikant@gcomsoft.com");
 //aa.env.setValue("showDebug", "Y");
-//aa.env.setValue("ReportName", "1 - ApplicationType");
+//aa.env.setValue("ReportName", "License Tags");
 /*------------------------------------------------------------------------------------------------------/
 | END: TEST PARAMETERS
 /------------------------------------------------------------------------------------------------------*/
@@ -77,9 +77,7 @@ var sysDate = aa.date.getCurrentDate();
 var sysDateMMDDYYYY = dateFormatted(sysDate.getMonth(), sysDate.getDayOfMonth(), sysDate.getYear(), "");
 var currentUser = aa.person.getCurrentUser().getOutput();
 var currentUserID = currentUser == null ? "ADMIN" : currentUser.getUserID().toString()
-//var AInfo = new Array();
 var capId = null;
-//var useAppSpecificGroupName = false; // Use Group name when populating App Specific Info Values
 var CONST_RECORDS_PER_SET = 50;
 
 logDebug("Start of Job");
@@ -94,7 +92,7 @@ if (isSuccess) {
     }
     else {
         aa.env.setValue("ScriptReturnMessage", "Batch Job run successfully.");
-        aa.eventLog.createEventLog("Batch Job run successfully.", "Batch Process", batchJobName, sysDate, sysDate, batchJobDesc, batchJobResult, batchJobID);
+        aa.eventLog.createEventLog("Batch Job run successfully.", "Batch Process", batchJobName, sysDate, sysDate, batchJobDesc, batchJobResult, batchJobID);        
     }
 }
 else {
@@ -102,7 +100,7 @@ else {
     aa.env.setValue("ScriptReturnMessage", "Batch Job failed: " + emailText);
 }
 
-if (emailAddress.length)
+if (emailAddress.length > 0)
     aa.sendMail("noreply@accela.com", emailAddress, "", batchJobName + " Results", emailText);
 /*------------------------------------------------------------------------------------------------------/
 | END: MAIN LOGIC
@@ -147,7 +145,7 @@ function SetLTFullfillmentLogic() {
     var isValid = true;
     if (reportName == '') {
         showDebug = true;
-        logDebug("Reporname parameter is not blank. ");
+        logDebug("ReportName parameter is not blank. ");
         isValid = false;
     }
     if (setPrefix == '') {
@@ -166,9 +164,11 @@ function SetLTFullfillmentLogic() {
     //Set Comments: Initialized, Processing, Successfully processed
     //Set Status: Initialized, Pending, Completed
     var setResult;
+	var id;
     if (counter == 0 && setPrefix.length > 0) {
         setResult = createFullfillmentSet(setPrefix);
-        updateSetStatus(setResult.setID, setResult.setID, "Processing", "Pending", "Pending");
+		id = setResult.setID;
+        updateSetStatusX(setResult.setID, setResult.setID, "FULLFILLMENT", "Processing", "Pending", "Pending");
         uniqueCapIdArray = aa.util.newHashMap();
         var settprocess = new capSet(setResult.setID);
         var vSetMembers = settprocess.members;
@@ -181,6 +181,7 @@ function SetLTFullfillmentLogic() {
     }
     var ffConitions = new COND_FULLFILLMENT();
     var ffCondArray = new Array();
+    logDebug(ffConitions.Condition_AutoGenAppl);
     ffCondArray.push(ffConitions.Condition_AutoGenAppl);
 
     var recordTypeArray = new Array();
@@ -212,37 +213,30 @@ function SetLTFullfillmentLogic() {
                 if (res.getSuccess()) {
                     var vCapList = res.getOutput();
                     for (thisCap in vCapList) {
-                        if (elapsed() > maxSeconds) // only continue if time hasn't expired
-                        {
-                            isPartialSuccess = true;
-                            showDebug = true;
-                            logDebug("A script timeout has caused partial completion of this process.  Please re-run.  " + elapsed() + " seconds elapsed, " + maxSeconds + " allowed.");
-                            timeExpired = true;
-                            break;
-                        }
-
                         recId = vCapList[thisCap].getCapID();
+
                         if (!uniqueCapIdArray.containsKey(recId)) {
-                            uniqueCapIdArray.put(recId, recId);
                             var recca = String(recId).split("-");
                             var itemCapId = aa.cap.getCapID(recca[0], recca[1], recca[2]).getOutput();
                             var itemCap = aa.cap.getCap(itemCapId).getOutput();
+                            var fvMailStop = getMailStop(itemCapId);
+                            if (fvMailStop)
+                                continue;
+                            uniqueCapIdArray.put(recId, recId);
                             altId = itemCapId.getCustomID();
-                            var reportFileName = GenerateReport(itemCapId, altId);
+                            generateReport(altId);
                             if (setPrefix.length > 0) {
-                                addCapSetMember(itemCapId, setResult);
+                                addCapSetMemberX(itemCapId, setResult);
                             }
                             counter++;
                         }
                         editCapConditionStatus("Fulfillment", ffCondArray[ff], "Verified", "Not Applied", "", itemCapId);
                         removeFullfillmentCapCondition(itemCapId, ffCondArray[ff]);
                         if (counter >= CONST_RECORDS_PER_SET && setPrefix.length > 0) {
-                            (!isPartialSuccess)
-                            {
-                                updateSetStatus(setResult.setID, setResult.setID, "Successfully processed", "Ready For Fullfillment", "Ready For Fullfillment");
-
+                            if (!isPartialSuccess) {
+                                updateSetStatusX(setResult.setID, setResult.setID, "FULLFILLMENT", "Successfully processed", "Ready For Fullfillment", "Ready For Fullfillment");
                                 setResult = createFullfillmentSet(setPrefix);
-                                updateSetStatus(setResult.setID, setResult.setID, "Processing", "Pending", "Pending");
+                                updateSetStatusX(setResult.setID, setResult.setID, "FULLFILLMENT", "Processing", "Pending", "Pending");
                                 uniqueCapIdArray = aa.util.newHashMap();
                             }
                             counter = 0;
@@ -253,11 +247,8 @@ function SetLTFullfillmentLogic() {
         }
     }
 
-    if (setPrefix.length > 0) {
-        (!isPartialSuccess)
-        {
-            updateSetStatus(setResult.setID, setResult.setID, "Successfully processed", "Ready For Fullfillment", "Ready For Fullfillment");
-        }
+    if (!isPartialSuccess) {
+        updateSetStatusX(setResult.setID, setResult.setID, "FULLFILLMENT", "Successfully processed", "Ready For Fullfillment", "Ready For Fullfillment");
     }
 
     return true;
@@ -270,19 +261,88 @@ function createFullfillmentSet(recordType) {
     var setStatus = "Initialized";
     var setComment = "Initialized";
     var setStatusComment = "Initialized";
-    return createSetbylogic(id, name, setType, setComment, setStatus, setStatusComment)
+    return createSetbylogic(id, name, setType, setComment, setStatus, setStatusComment);
 }
 
-// Generate Report.
-function GenerateReport(itemCapId, altID) {
-    var reportFileName = null;
-    var repService = new ReportHelper(servProvCode, reportName);
-    repService.ReportUser = currentUser == null ? "ADMIN" : currentUser.getUserID().toString()
-    repService.CapID = itemCapId;
-    repService.altID = altID;
-    repService.isEDMS = true;
-    if (repService.ExecuteReport()) {
-        reportFileName = repService.ReportFileName;
+function addCapSetMemberX(itemCapId, setResult) {
+    try {
+		logDebug("inside addCapSetMemberX");
+        var memberCapID = itemCapId;
+		logDebug("ID: " + memberCapID);
+        var addResult = aa.set.addCapSetMember(setResult.getSetID(), memberCapID);
+		logDebug("Add set result: " + addResult.getSuccess());
     }
-    return reportFileName;
+    catch (err) {
+        logDebug("Exception in addCapSetMember:" + err.message);
+    }
+}
+
+function updateSetStatusX(setName, setDescription, setType, comment, setStatus, setStatusComment) {
+    try {
+        var setTest = new capSet(setName, setDescription);
+        setTest.status = setStatus;  // update the set header status
+        setTest.comment = comment;   // changed the set comment
+        setTest.statusComment = setStatusComment; // change the set status comment
+		setTest.type = setType;
+        setTest.update();  // commit changes to the set
+    }
+    catch (err) {
+        logDebug("Exception in updateSetStatus:" + err.message);
+    }
+}
+
+function generateReport(itemCap) {
+	var parameters = aa.util.newHashMap();
+	parameters.put("PARENT", itemCap);
+	
+	report = aa.reportManager.getReportInfoModelByName(reportName);
+	report = report.getOutput();
+	report.setCapId(itemCap);
+	report.setModule("Licenses");
+	report.setReportParameters(parameters); 
+
+	var checkPermission = aa.reportManager.hasPermission(reportName,"admin");
+	logDebug("Permission for report: " + checkPermission.getOutput().booleanValue());
+
+	if (checkPermission.getOutput().booleanValue()) {
+        logDebug("User has permission"); 
+		var reportResult = aa.reportManager.getReportResult(report);
+		if (reportResult) {
+			reportResult = reportResult.getOutput();
+			logDebug("Report result: " + reportResult);
+			reportFile = aa.reportManager.storeReportToDisk(reportResult);
+			reportFile = reportFile.getOutput();
+			logDebug("Report File: " + reportFile);
+		}
+	}
+}
+
+function getMailStop(ipCapID) {
+    var opMailStop = false;
+    var fvCapContactQry = aa.people.getCapContactByCapID(ipCapID);
+    if (fvCapContactQry.getSuccess()) {
+        var fvCapContacts = fvCapContactQry.getOutput();
+        
+        for (var fvCounter1 in fvCapContacts) {
+            var fvCapContact = fvCapContacts[fvCounter1];
+            var fvContact = fvCapContact.getCapContactModel();
+            var fvRefContactNumber = fvContact.refContactNumber;
+            if (!fvRefContactNumber || fvRefContactNumber == "")
+                continue;
+            var fvRefContactQry = aa.people.getPeople(fvRefContactNumber);
+            if (!fvRefContactQry || !fvRefContactQry.getSuccess())
+                continue;
+            var fvRefContact = fvRefContactQry.getOutput();
+            if (!fvRefContact)
+                continue;
+            if (fvRefContact.contactType != "Individual")
+                continue;
+            var fvThisStopMail = (fvRefContact.template.templateForms.toArray()[0].subgroups.toArray()[0].fields.get(6).checklistComment == "Y");
+            if (fvThisStopMail) {
+                opMailStop = true;
+                break;
+            }
+        }
+    }
+    return opMailStop;
 }
