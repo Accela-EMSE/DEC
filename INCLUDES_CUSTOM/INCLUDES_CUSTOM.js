@@ -4701,6 +4701,8 @@ function addASITable4ACAPageFlow(destinationTableGroupModel,tableName,tableValue
   	}
     
 function createEducUpdCond(ipPeopleModel) {
+    if (!checkActiveIndividual(capId))
+        return;
     var fvSubGroupName = "SPORTSMAN EDUCATION";
     var fvFieldName = "Sportsman Education Type";
     var fvAppSpecificTableScript = aa.appSpecificTableScript.getAppSpecificTableModel(capId, fvSubGroupName).getOutput();
@@ -4791,4 +4793,32 @@ function createEducUpdCond(ipPeopleModel) {
     var fvCondFulfill = new COND_FULLFILLMENT();
     if (fvMismatch && !appHasCondition("Fulfillment","Applied",fvCondFulfill.Condition_EducRefContUpd,null))
         addFullfillmentCondition(capId, fvCondFulfill.Condition_EducRefContUpd);
+}
+
+function checkActiveIndividual(ipCapID) {
+    var opActiveIndividual = false;
+    var fvCapContactQry = aa.people.getCapContactByCapID(ipCapID);
+    if (fvCapContactQry.getSuccess()) {
+        var fvCapContacts = fvCapContactQry.getOutput();
+        for (var fvCounter1 in fvCapContacts) {
+            var fvCapContact = fvCapContacts[fvCounter1];
+            var fvContact = fvCapContact.getCapContactModel();
+            var fvRefContactNumber = fvContact.refContactNumber;
+            if (!fvRefContactNumber || fvRefContactNumber == "")
+                continue;
+            var fvRefContactQry = aa.people.getPeople(fvRefContactNumber);
+            if (!fvRefContactQry || !fvRefContactQry.getSuccess())
+                continue;
+            var fvRefContact = fvRefContactQry.getOutput();
+            if (!fvRefContact)
+                continue;
+            if (fvRefContact.contactType != "Individual")
+                continue;
+            if (fvRefContact.getDeceasedDate())
+                continue;
+            opActiveIndividual = true;
+            break;
+        }
+    }
+    return opActiveIndividual;
 }
