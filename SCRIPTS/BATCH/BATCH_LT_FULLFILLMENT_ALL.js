@@ -189,14 +189,6 @@ function getRefContactsByRecTypeByStatus(ipGroup,ipType,ipSubType,ipCategory,ipS
         if (fvCaps) {
             opRefContacts = ipRefContacts;
             for (var fvCount1 in fvCaps) {
-                if (elapsed() > maxSeconds) // only continue if time hasn't expired
-                {
-                    isPartialSuccess = true;
-                    showDebug = true;
-                    logDebug("A script timeout has caused partial completion of this process.  Please re-run.  " + elapsed() + " seconds elapsed, " + maxSeconds + " allowed.");
-                    timeExpired = true;
-                    break;
-                }
                 var fvCap = fvCaps[fvCount1];
                 var fvCapQry = aa.cap.getCapID(fvCap.ID1,fvCap.ID2,fvCap.ID3);
                 if (fvCapQry.getSuccess()) {
@@ -205,22 +197,24 @@ function getRefContactsByRecTypeByStatus(ipGroup,ipType,ipSubType,ipCategory,ipS
                     if (fvContactQry.getSuccess()) {
                         var fvContacts = fvContactQry.getOutput();
                         for (var fvCount2 in fvContacts) {
-                            if (elapsed() > maxSeconds) // only continue if time hasn't expired
-                            {
-                                isPartialSuccess = true;
-                                showDebug = true;
-                                logDebug("A script timeout has caused partial completion of this process.  Please re-run.  " + elapsed() + " seconds elapsed, " + maxSeconds + " allowed.");
-                                timeExpired = true;
-                                break;
-                            }
-                            var fvContactType = fvContacts[fvCount2].getPeople().contactType;
-                            if (fvContactType != "Individual")
+                            var fvCapContact = fvContacts[fvCount2];
+                            var fvContact = fvCapContact.getCapContactModel();
+                            var fvRefContactNumber = fvContact.refContactNumber;
+                            if (!fvRefContactNumber || fvRefContactNumber == "")
                                 continue;
-                            var fvContact = fvContacts[fvCount2].getCapContactModel();
-                            
-                            if (!opRefContacts.containsKey(fvContact.refContactNumber)) {
-                                if (fvContact.refContactNumber)
-                                    opRefContacts.put(fvContact.refContactNumber,fvContact.refContactNumber);
+                            var fvRefContactQry = aa.people.getPeople(fvRefContactNumber);
+                            if (!fvRefContactQry || !fvRefContactQry.getSuccess())
+                                continue;
+                            var fvRefContact = fvRefContactQry.getOutput();
+                            if (!fvRefContact)
+                                continue;
+                            if (fvRefContact.contactType != "Individual")
+                                continue;
+                            if (fvRefContact.getDeceasedDate())
+                                continue;
+                            if (!opRefContacts.containsKey(fvRefContactNumber)) {
+                                if (fvRefContactNumber)
+                                    opRefContacts.put(fvRefContactNumber,fvRefContactNumber);
                             }
                         }
                     }
@@ -242,14 +236,6 @@ function runProcessRecords(ipRefs) {
         }
         else {
             for (var fvCounter in fvRefContacts) {
-                if (elapsed() > maxSeconds) // only continue if time hasn't expired
-                {
-                    isPartialSuccess = true;
-                    showDebug = true;
-                    logDebug("A script timeout has caused partial completion of this process.  Please re-run.  " + elapsed() + " seconds elapsed, " + maxSeconds + " allowed.");
-                    timeExpired = true;
-                    break;
-                }
                 var fvRefContact = fvRefContacts[fvCounter];
                 var fvError = rebuildRefTags(fvRefContact);
                 if (fvError) {

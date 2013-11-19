@@ -290,18 +290,30 @@ function getRefContactsByRecTypeByStatusByDOB(ipGroup,ipType,ipSubType,ipCategor
                                 timeExpired = true;
                                 break;
                             }
-                            var fvContactType = fvContacts[fvCount2].getPeople().contactType;
-                            if (fvContactType != "Individual")
+                            var fvCapContact = fvContacts[fvCount2];
+                            var fvContact = fvCapContact.getCapContactModel();
+                            var fvRefContactNumber = fvContact.refContactNumber;
+                            if (!fvRefContactNumber || fvRefContactNumber == "")
                                 continue;
-                            var fvContact = fvContacts[fvCount2].getCapContactModel();
+                            var fvRefContactQry = aa.people.getPeople(fvRefContactNumber);
+                            if (!fvRefContactQry || !fvRefContactQry.getSuccess())
+                                continue;
+                            var fvRefContact = fvRefContactQry.getOutput();
+                            if (!fvRefContact)
+                                continue;
+                            if (fvRefContact.contactType != "Individual")
+                                continue;
+                            if (fvRefContact.getDeceasedDate())
+                                continue;
+                            
                             if (fvFileDate != null && fvEndFileDate != null) {
                                 var fvContinue = shouldContinue(fvContact,fvFileDate,fvEndFileDate);
                                 if (fvContinue)
                                     continue;
                             }
-                            if (!opRefContacts.containsKey(fvContact.refContactNumber))
-                                if (fvContact.refContactNumber)
-                                    opRefContacts.put(fvContact.refContactNumber,fvContact.refContactNumber);
+                            if (!opRefContacts.containsKey(fvRefContactNumber))
+                                if (fvRefContactNumber)
+                                    opRefContacts.put(fvRefContactNumber,fvRefContactNumber);
                         }
                     }
                 }
@@ -370,11 +382,13 @@ function runProcessRecords(ipRefs) {
                     break;
                 }
                 var fvRefContact = fvRefContacts[fvCounter];
-                var fvError = rebuildRefTags(fvRefContact);
-                if (fvError) {
+                var fvErrors = rebuildRefTags(fvRefContact);
+                if (fvErrors) {
                     if (!opErrors)
                         opErrors = new Array();
-                    opErrors.push(fvError);
+                    for (var fvErrCount in fvErrors)
+                        opErrors.push(fvErrors[fvErrCount]);
+                    continue;
                 }
             }
         }

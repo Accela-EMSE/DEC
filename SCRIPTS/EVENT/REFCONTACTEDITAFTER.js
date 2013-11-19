@@ -58,7 +58,7 @@ var debug = "";
 var showDebug = false;
 var showMessage = false;
 
-if (contactType == "Individual")
+if (contactType == "Individual" && !vRefContact.getDeceasedDate())
     rebuildAllTagsforaRefContact(vContactSeqNum,vToday);
 
 if (debug.indexOf("**ERROR") > 0)
