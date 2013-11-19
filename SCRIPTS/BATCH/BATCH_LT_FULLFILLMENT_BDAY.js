@@ -257,7 +257,7 @@ function getRefContactsByRecTypeByStatusByDOB(ipGroup,ipType,ipSubType,ipCategor
         fvFind = true;
     }
     if (!fvFind)
-        return false;
+        return ipRefContacts;
     var fvResult = aa.cap.getCapIDListByCapModel(fvEmptyCm);
     if (fvResult) {
         var fvCaps = fvResult.getOutput();
@@ -321,7 +321,7 @@ function getRefContactsByRecTypeByStatusByDOB(ipGroup,ipType,ipSubType,ipCategor
             return opRefContacts;
         }
     }
-    return false;
+    return ipRefContacts;
 }
 
 function shouldContinue(ipContact,ipStartDate,ipEndDate) {
