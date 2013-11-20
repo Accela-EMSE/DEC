@@ -2270,11 +2270,11 @@ function isRevocation(RrevocationType, contactCondArray) {
         var r = contactCondArray[conCond];
         if (r.description == RrevocationType && r.type == 'Revocation') {
             if (r.statusType == "Applied") {
-				if ((!r.effiectDate || now >= r.effiectDate) && (!r.expireDate || now <= r.expireDate)) {
+				//if ((!r.effiectDate || now >= r.effiectDate) && (!r.expireDate || now <= r.expireDate)) {		//based on customer request ...Raj
 					isRevoked = true;
 					break;
 					}
-				}
+				//}
 			}
         }
     return isRevoked;
@@ -2285,10 +2285,12 @@ function isSuspension(contactCondArray) {
     for (var conCond in contactCondArray) {
         var r = contactCondArray[conCond];
         if (r.description == "Suspension of Privileges" && r.type == 'Suspension') {
-            //if (now >= r.effiectDate && now <= r.expireDate) {
-            isSuspension = true;
-            break;
-            //}
+			if (r.statusType == "Applied") {																	//based on customer request ...Raj
+				//if (now >= r.effiectDate && now <= r.expireDate) {											
+				isSuspension = true;
+				break;
+				//}
+			}
         }
     }
     return isSuspension;
