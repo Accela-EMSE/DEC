@@ -212,6 +212,8 @@ function verifyWmuConfiguration(year, wmu, drawtype, choiceNum, drawResult) {
     var searchCapId = GenerateAltId(AA_Configuration, year, wmu, drawtype);
     var cnfgCapId = getCapId(searchCapId);
     var cnfgAinfo = new Array();
+	logDebug("verifyWmuConfiguration(" + year + "," + wmu + "," + drawtype + "," + choiceNum + ")");
+	logDebug("verifyWmuConfiguration: searching for wmu config record " + searchCapId + " and found " + cnfgCapId); 
     if (cnfgCapId != null) {
         loadAppSpecific(cnfgAinfo, cnfgCapId);
         logGlobals(cnfgAinfo);
@@ -226,9 +228,13 @@ function verifyWmuConfiguration(year, wmu, drawtype, choiceNum, drawResult) {
         var now = new Date();
         var StatusApplicableTo = cnfgAinfo["Status Applicable To"];
 
+		logDebug("verifyWmuConfiguration: wmuStatus == 'Open' : " + (wmuStatus == 'Open'));
+		logDebug("verifyWmuConfiguration: StatusApplicableTo == 'Both' || StatusApplicableTo == 'WMU Choice " + drawResult.ChoiceNum + "' : " + (StatusApplicableTo == "Both" || StatusApplicableTo == 'WMU Choice ' + drawResult.ChoiceNum));
+		logDebug("verifyWmuConfiguration: (now >= openDt && now <= closeDt) : " + (now >= openDt && now <= closeDt));
+		logDebug("verifyWmuConfiguration: prmitTarget > 0 : " + (prmitTarget > 0));
         if (wmuStatus == 'Open') {
             if (StatusApplicableTo == "Both" || StatusApplicableTo == 'WMU Choice ' + drawResult.ChoiceNum) {
-                if ((now >= openDt && closeDt <= now)) {
+                if ((now >= openDt && now <= closeDt)) {
                     if (prmitTarget > 0) {
                         drawResult.Selected = true;
                         prmitTarget--;
