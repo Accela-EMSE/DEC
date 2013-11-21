@@ -2082,6 +2082,59 @@ function isNull(pTestValue, pNewValue) {
 
 function getActiveHoldings(peopleSequenceNumber, year) {
     var availableActiveItems = new Array();
+	var validActiveholdingsArray = getActiveholdingsFilterArray();
+	if(year && year !== undefined) {
+		var sql = "SELECT A.SERV_PROV_CODE,A.B1_PER_ID1,A.B1_PER_ID2,A.B1_PER_ID3,A.B1_PER_GROUP, A.B1_PER_TYPE, A.B1_PER_SUB_TYPE, A.B1_PER_CATEGORY,E.EXPIRATION_DATE  FROM B1PERMIT A ";
+			sql +="INNER JOIN B3CONTACT D ON A.SERV_PROV_CODE = D.SERV_PROV_CODE AND A.B1_PER_ID1 = D.B1_PER_ID1 AND A.B1_PER_ID2 = D.B1_PER_ID2 AND A.B1_PER_ID3 = D.B1_PER_ID3 ";
+			sql +="INNER JOIN BCHCKBOX B ON A.serv_prov_code = B.serv_prov_code and A.b1_per_id1 = B.b1_per_id1 and A.b1_per_id2 = B.b1_per_id2 and A.b1_per_id3 = B.b1_per_id3 ";
+			sql +="LEFT JOIN B1_EXPIRATION E ON A.SERV_PROV_CODE= E.SERV_PROV_CODE AND A.B1_PER_ID1 = E.B1_PER_ID1 AND A.B1_PER_ID2 =E.B1_PER_ID2 AND A.B1_PER_ID3 = E.B1_PER_ID3 ";
+			sql +="WHERE A.SERV_PROV_CODE = '" + aa.getServiceProviderCode() + "' ";
+			sql +="AND D.G1_CONTACT_NBR = " + peopleSequenceNumber + " ";
+			sql +="AND A.REC_STATUS='A' AND D.REC_STATUS='A' AND A.B1_MODULE_NAME ='Licenses' ";
+			sql +="AND (A.B1_APPL_STATUS = 'Approved' OR  A.B1_APPL_STATUS = 'Active') ";
+			sql +="AND B.B1_CHECKBOX_DESC = 'Year' ";
+			sql +="AND B.B1_CHECKBOX_GROUP = 'APPLICATION' ";
+			sql +="AND B1_CHECKLIST_COMMENT = " + year + " ";
+			sql +="AND E.REC_STATUS='A' ";
+			sql +="AND (E.EXPIRATION_DATE is NULL OR E.EXPIRATION_DATE > SYSDATE) ";
+		}
+	else {
+		var sql = "SELECT A.SERV_PROV_CODE,A.B1_PER_ID1,A.B1_PER_ID2,A.B1_PER_ID3,A.B1_PER_GROUP, A.B1_PER_TYPE, A.B1_PER_SUB_TYPE, A.B1_PER_CATEGORY,E.EXPIRATION_DATE  FROM B1PERMIT A ";
+			sql +="INNER JOIN B3CONTACT D ON A.SERV_PROV_CODE = D.SERV_PROV_CODE AND A.B1_PER_ID1 = D.B1_PER_ID1 AND A.B1_PER_ID2 = D.B1_PER_ID2 AND A.B1_PER_ID3 = D.B1_PER_ID3 ";
+			sql +="LEFT JOIN B1_EXPIRATION E ON A.SERV_PROV_CODE= E.SERV_PROV_CODE AND A.B1_PER_ID1 = E.B1_PER_ID1 AND A.B1_PER_ID2 =E.B1_PER_ID2 AND A.B1_PER_ID3 = E.B1_PER_ID3 ";
+			sql+=	"WHERE A.SERV_PROV_CODE = '" + aa.getServiceProviderCode() + "' ";
+			sql+=	"AND D.g1_contact_nbr = " + peopleSequenceNumber + " ";
+			sql+=	"AND A.rec_status = 'A' AND D.rec_status = 'A' AND A.b1_module_name = 'Licenses' ";
+			sql+=	"AND ( A.b1_appl_status = 'Approved' OR A.b1_appl_status = 'Active' ) ";
+			sql+=	"AND E.rec_status = 'A' ";
+			sql+=	"AND ( E.expiration_date IS NULL ";
+			sql+=	"OR E.expiration_date > SYSDATE ) ";
+		}
+		
+	var initialContext = aa.proxyInvoker.newInstance("javax.naming.InitialContext", null).getOutput(); 
+	var ds = initialContext.lookup("java:/AA"); 
+	var conn = ds.getConnection(); 
+
+	var sStmt = conn.prepareStatement(sql); 
+	var rSet = sStmt.executeQuery(); 
+
+	while (rSet.next()) {
+		var capIdModel = aa.cap.getCapID(rSet.getString("B1_PER_ID1"),rSet.getString("B1_PER_ID2"),rSet.getString("B1_PER_ID3")).getOutput();	
+		var itemCap = aa.cap.getCapBasicInfo(capIdModel).getOutput();	
+		var itemCapId = itemCap.getCapID();
+		appTypeResult = itemCap.getCapType();
+		appTypeString = appTypeResult.toString();
+		if (exists(appTypeString, validActiveholdingsArray)) {
+			var newActiveTag = new ACTIVE_ITEM(itemCapId, itemCap, appTypeString);
+			availableActiveItems.push(newActiveTag);
+			}
+		}
+
+    return availableActiveItems;
+}
+
+function getActiveHoldingsOldVersion(peopleSequenceNumber, year) {
+    var availableActiveItems = new Array();
     var validActiveholdingsArray = getActiveholdingsFilterArray();
 
     var CC = new contactObj(null);
