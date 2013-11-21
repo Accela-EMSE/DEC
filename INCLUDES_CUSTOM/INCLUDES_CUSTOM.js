@@ -4305,7 +4305,7 @@ function afterApplicationPrintFail(itemCapId, numberOfTries) {
         return;
     }
 
-    var appSpecInfoResult = aa.appSpecificInfo.editSingleAppSpecific(itemCap, "A_numberOfTries", numberOfTries + "", null);
+    var appSpecInfoResult = aa.appSpecificInfo.editSingleAppSpecific(itemCapId, "A_numberOfTries", numberOfTries + "", null);
 
     for (y in capArray) {
         var childCapId = capArray[y];
