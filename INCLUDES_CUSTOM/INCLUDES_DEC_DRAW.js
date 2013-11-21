@@ -290,17 +290,19 @@ function DrawResult_OBJ(sWmu, sDrawType, sChoiceNum, nPreferencePoints, bLandown
     };
 
     this.SetPreferencePointsAfter = function () {
-        if (this.ChoiceNum == '1') {
-            if (this.Selected) {
-                this.PreferencePoints = 0;
-                this.RemainingPreferencePoints = this.PreferencePoints;
-            }
-            else {
-                this.PreferencePoints--;
-                this.RemainingPreferencePoints = this.PreferencePoints;
-                this.GivenPreferencePoints++;
-            }
-        }
+        if (this.DrawType != DRAW_FCFS) {
+			if (this.ChoiceNum == '1') {
+				if (this.Selected) {
+					this.PreferencePoints = 0;
+					this.RemainingPreferencePoints = this.PreferencePoints;
+				}
+				else {
+					this.PreferencePoints--;
+					this.RemainingPreferencePoints = this.PreferencePoints;
+					this.GivenPreferencePoints++;
+				}
+			}
+		}
     }
 }
 function verifyC1(drwParam) {
