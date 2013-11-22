@@ -56,7 +56,6 @@ var reportDetail = aa.env.getValue("ReportDetailModel");
 
 //defind reprint log ASIT name.
 var rePrintLogTableName = "REPRINT LOG";
-
 var maxReprintTimes = 0;
 
 if(reportDetail)
@@ -72,39 +71,60 @@ aa.debug("REPORTRUNBEFOREINACA","reportInfo = " + reportInfo);
 if(reportInfo)
 {
 	var reportParameters = reportInfo.getReportParameters();
+	var callerId = reportInfo.getCallerId();
+	aa.debug("REPORTRUNBEFOREINACA","callerId = " + callerId);
+	var agentId = getAgentID(callerId);
+	aa.debug("REPORTRUNBEFOREINACA","agentId = " + agentId);
+	var reportName = reportDetail.getReportName();
+	aa.debug("REPORTRUNBEFOREINACA","reportName = " + reportName);
 	var edmsEntityModel = reportInfo.getEDMSEntityIdModel();
 	aa.debug("REPORTRUNBEFOREINACA","edmsEntityModel = " + edmsEntityModel);
 
-	if(edmsEntityModel)
-	{
-		// build cap id model
-	    capIDModel = getCapIdBycapIDString(edmsEntityModel.getCapId());
-		aa.debug("REPORTRUNBEFOREINACA","capIDModel = " + capIDModel);
-		if(capIDModel)
-		{
-			var result = aa.appSpecificTableScript.getAppSpecificTableModel(capIDModel,rePrintLogTableName);
-			if(result.getSuccess())
-			{
-				var asit = result.getOutput().getAppSpecificTableModel();
-				if(asit.getTableField() != null && asit.getTableField().size()>0)
-				{		
-				  // because we insert one row into reprint log table every print, 
-				  // so the print times should be the record numbers in print log table.
-					var rePrintTimes = asit.getTableField().size()/asit.getColumns().size();
-					aa.debug("REPORTRUNBEFOREINACA","rePrintTimes = " + rePrintTimes);
+	if (reportName == "WEBANS" && agentId) {
 
-					afterApplicationPrintFailDebug(capIDModel, parseInt(rePrintTimes));
-					var appSpecInfoResult = aa.appSpecificInfo.editSingleAppSpecific(capIDModel, "A_numberOfTries", rePrintTimes, null);
-
-					// if already used all the reprint times, return error message and code.
-					if (parseInt(rePrintTimes) + 1 > maxReprintTimes) {
-					    aa.env.setValue("ScriptReturnMessage", "You can't reprint!");
-					    aa.env.setValue("ScriptReturnCode", "-1");
-					} 			
-				}
+		var rs = aa.wsConsumer.consume("http://stginfweb.elicensing.ny.gov/NYSELS-DEC-ANSREGWS/services/ReANS?wsdl", "regANS", ["DEC_ACH", agentId]);
+		if (rs.getSuccess()) { 
+			var resp = rs.getOutput(); 
+			aa.debug("REPORTRUNBEFOREINACA","resp[0] = " + resp[0]);
 			}
-		}	
-	}	 
+		else	{
+			aa.debug("REPORTRUNBEFOREINACA","web service call failed: " + rs.getErrorMessage());
+			}
+
+	if (reportName == "License Tags") {
+		if(edmsEntityModel)
+		{
+			// build cap id model
+			capIDModel = getCapIdBycapIDString(edmsEntityModel.getCapId());
+			aa.debug("REPORTRUNBEFOREINACA","capIDModel = " + capIDModel);
+			if(capIDModel)
+			{
+				var result = aa.appSpecificTableScript.getAppSpecificTableModel(capIDModel,rePrintLogTableName);
+				if(result.getSuccess())
+				{
+					var asit = result.getOutput().getAppSpecificTableModel();
+					if(asit.getTableField() != null && asit.getTableField().size()>0)
+					{		
+					  // because we insert one row into reprint log table every print, 
+					  // so the print times should be the record numbers in print log table.
+						var rePrintTimes = asit.getTableField().size()/asit.getColumns().size();
+						aa.debug("REPORTRUNBEFOREINACA","rePrintTimes = " + rePrintTimes);
+
+						// commenting out for now see 13ACC-12217
+						//
+						//afterApplicationPrintFailDebug(capIDModel, parseInt(rePrintTimes));
+						var appSpecInfoResult = aa.appSpecificInfo.editSingleAppSpecific(capIDModel, "A_numberOfTries", rePrintTimes, null);
+
+						// if already used all the reprint times, return error message and code.
+						if (parseInt(rePrintTimes) + 1 > maxReprintTimes) {
+							aa.env.setValue("ScriptReturnMessage", "You can't reprint!");
+							aa.env.setValue("ScriptReturnCode", "-1");
+						} 			
+					}
+				}
+			}	
+		}	 
+	}
 }
 
 
@@ -227,3 +247,18 @@ function afterApplicationPrintFailDebug(itemCapId, numberOfTries) {
     }
 }
 
+function getAgentID(userId) {
+    var agentId = null;
+
+    var uObj = new USEROBJ();
+    uObj.userId = userId;
+    uObj.userModel = uObj.getUserModel();
+    uObj.setUserModelAttributes();
+
+    var salesAgentInfoArray = getAgentInfo(uObj.publicUserID, uObj);
+    if (salesAgentInfoArray != null) {
+        agentId = salesAgentInfoArray["Agent Id"];
+    }
+
+    return agentId;
+}
