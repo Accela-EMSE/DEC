@@ -1833,12 +1833,15 @@ function upgradeLifetimeLic() {
         //balanceDue == 0 ^ 
         closeTask("Issuance", "Approved", "", "");
 
+		var upgradeStatusDocArray = new Array();
+		
         var voidSelectedItems = new Array();
         if ((typeof (LICENSESTOUPGRADE) == "object")) {
             for (y in LICENSESTOUPGRADE) {
                 var isSelected = (LICENSESTOUPGRADE[y]["Select"] == 'Yes' || LICENSESTOUPGRADE[y]["Select"] == 'Y');
                 if (isSelected) {
                     voidSelectedItems.push(LICENSESTOUPGRADE[y]["Document ID"]);
+					upgradeStatusDocArray.push(LICENSESTOUPGRADE[y]["Document ID"]);
                 }
             }
         }
@@ -1864,13 +1867,20 @@ function upgradeLifetimeLic() {
 				}
 			}
 			
-        //(Void slected Lifetime liceses)
+        //(Void selected Lifetime licenses).  Update status to Void, or Upgraded (for License record being upgraded)
         for (var y in voidSelectedItems) {
             frm.RemoveActiveHoldingsbyDocId(voidSelectedItems[y]);
             itemCapId = getCapId(voidSelectedItems[y]);
 			logDebug("upgradeLifetimeLic voiding cap Id " + itemCapId);
-            updateAppStatus("Void", "Void", itemCapId);
-            closeTaskForRec("Void Document", "Void", "", "", "", itemCapId);
+            
+			//When Upgrading, the License Record itself should have a status of "Upgraded", everything else is Voided.
+			if(exists(voidSelectedItems[y], upgradeStatusDocArray))
+				updateAppStatus("Upgraded", "Upgraded", itemCapId);
+			else
+				updateAppStatus("Void", "Void", itemCapId);
+            
+			
+			closeTaskForRec("Void Document", "Void", "", "", "", itemCapId);
             closeTaskForRec("Report Game Harvest", "", "", "", "", itemCapId);
             closeTaskForRec("Revocation", "", "", "", "", itemCapId);
             closeTaskForRec("Suspension", "", "", "", "", itemCapId);
