@@ -78,8 +78,8 @@ function addEnforcementCondition(contSeqNum, cType, cDesc, effFromDt, expDate, c
 
 					newCondition.setConditionStatusType("Applied");
                     newCondition.setIssuedByUser(systemUserObj);
-                    newCondition.setIssuedDate(javautilDate);
-
+                   // newCondition.setIssuedDate(javautilDate);   - The applied date has to on or before effective date....Raj
+					newCondition.setIssuedDate(aa.util.parseDate(effFromDt));
                     newCondition.setEffectDate(aa.util.parseDate(effFromDt));
                     newCondition.setExpireDate(aa.util.parseDate(expDate));
 
