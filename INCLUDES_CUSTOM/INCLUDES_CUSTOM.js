@@ -2392,12 +2392,16 @@ function condMatchObjEx() {
     this.effiectDate = null;
     this.expireDate = null;
 }
-function attachAgent(uObj) {
-    if (uObj.authAgentPeopleSequenceNumber != null) {
+function attachAgent(uObj) //Add optional capId param for Record to attach to
+{
+    var itemCap = capId;
+    if (arguments.length > 1) itemCap = arguments[1]; // use cap ID specified in args
+	
+	if (uObj.authAgentPeopleSequenceNumber != null) {
         var pmpeople = getOutput(aa.people.getPeople(uObj.authAgentPeopleSequenceNumber), "");
 
         //Create Cap Contact 
-        var result = aa.people.createCapContactWithRefPeopleModel(capId, pmpeople);
+        var result = aa.people.createCapContactWithRefPeopleModel(itemCap, pmpeople);
         if (result.getSuccess()) {
             logDebug("Contact successfully added to CAP.");
         } else {
