@@ -782,6 +782,7 @@ function ReprintDocuments() {
         //balanceDue == 0 ^ 
         closeTask("Issuance", "Approved", "", "");
 
+		//Get the current DEC AGENT Public User as object and attach to the new record
         var uObj = new USEROBJ(publicUserID);
         salesAgentInfoArray = getAgentInfo(publicUserID, uObj);
         attachAgent(uObj);
@@ -812,7 +813,7 @@ function ReprintDocuments() {
             var itemcap = aa.cap.getCap(itemCapId).getOutput();
             appTypeString = itemcap.getCapType().toString();
             var ata = appTypeString.split("/");
-            var contactTypeToAttach = ""; //Balnk - All
+            var contactTypeToAttach = "Individual"; //Copy the Individual only as the DEC Agent may have changed and needs to be updated with current.
 
             var newLicId = createChildForDec(ata[0], ata[1], ata[2], ata[3], null, itemCapId, contactTypeToAttach);
             newLicIdString = newLicId.getCustomID();
@@ -838,6 +839,9 @@ function ReprintDocuments() {
 			logDebug("DEBUG: Function Call copyConditions()");
             copyConditions(newLicId, itemCapId);
 
+			//Attach the current DEC AGENT
+			attachAgent(uObj);
+			
             if (!matches(itemcap.getSpecialText(),null,"",undefined))
                 editAppName(itemcap.getSpecialText(), newLicId);
 
