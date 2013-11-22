@@ -840,7 +840,7 @@ function ReprintDocuments() {
             copyConditions(newLicId, itemCapId);
 
 			//Attach the current DEC AGENT
-			attachAgent(uObj);
+			attachAgent(uObj, newLicId);
 			
             if (!matches(itemcap.getSpecialText(),null,"",undefined))
                 editAppName(itemcap.getSpecialText(), newLicId);
