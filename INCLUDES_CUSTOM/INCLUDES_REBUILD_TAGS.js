@@ -27,13 +27,11 @@ function rebuildAllTagsforaRefContact(ipRefContact,ipEffDate) {
         opErrors = createError(opErrors,"Contact not Found: " + ipRefContact);
         return opErrors;
     }
-    if (fvContact.contactType != "Individual")
-    {
+    if (fvContact.contactType != "Individual") {
         opErrors = createError(opErrors,"Contact " + ipRefContact + " is not an Individual.");
         return opErrors;
     }
-    if (fvContact.getDeceasedDate())
-    {
+    if (fvContact.getDeceasedDate()) {
         opErrors = createError(opErrors,"Contact " + ipRefContact + " has Deceased Date.");
         return opErrors;
     }
@@ -72,8 +70,7 @@ function getSeasonDates(ipProcessYear) {
     var fvStartDt = new Date(fvStartStr);
     var fvEndStr = fvDateArr[1] + "/" + ipProcessYear;
     var fvEndDt = new Date(fvEndStr);
-    if (fvEndDt.getTime() < fvStartDt.getTime())
-    {
+    if (fvEndDt.getTime() < fvStartDt.getTime()) {
         ipProcessYear++;
         var fvEndStr = fvDateArr[1] + "/" + ipProcessYear;
         var fvEndDt = new Date(fvEndStr);
@@ -427,9 +424,22 @@ function createParentTagApp(ipRefContact,ipStartDate,ipExpDate) {
         setLicExpirationDate(newId, "", ipExpDate);
 
         var fvPeople = aa.people.getPeople(ipRefContact).getOutput();
+
+        // Set the contact address
+        var fvCASearchModel = aa.address.createContactAddressModel().getOutput();
+        fvCASearchModel.setEntityID(parseInt(ipRefContact,10));
+        fvCASearchModel.setEntityType("CONTACT");
+        var fvCAResult = aa.address.getContactAddressList(fvCASearchModel.getContactAddressModel()).getOutput();
+        if (fvCAResult != null)	{
+            var fvCAList = aa.util.newArrayList();
+            for(var fvCnt in fvCAResult) {
+                fvCAList.add(fvCAResult[fvCnt].getContactAddressModel());
+            }
+            fvPeople.setContactAddressList(fvCAList);
+        }
         aa.people.createCapContactWithRefPeopleModel(newId,fvPeople);
         updateAppStatus("Approved","Auto-Gen",newId);
-        
+
         var fvCondFulfill = new COND_FULLFILLMENT();
         addFullfillmentCondition(newId, fvCondFulfill.Condition_AutoGenAppl);
         return newId;
@@ -470,8 +480,7 @@ function createNewTag(ipParentApp,ipStartDate,ipExpDate,ipTag,ipTagCntr) {
     }
     fvAppName = lookup("TAG_TYPE",fvTagType);
     var newLicId = issueSubLicense(fvGroup, fvType, fvSubType, fvCategory, "Active", ipParentApp);
-    if (newLicId)
-    {
+    if (newLicId) {
         logDebug("New Tag Created: " + newLicId.getCustomID());
         editAppName(fvAppName, newLicId);
         editFileDate(newLicId, ipStartDate);
