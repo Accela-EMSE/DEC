@@ -1225,7 +1225,7 @@ function GetASITDelimitedString(tableName, tablevalue) {
 function copyContactAppSpecificToRecordAppSpecific() {
     logDebug("ENTER: copyContactAppSpecificToRecordAppSpecific");
 
-    var isNotValidToProceed = MSG_NO_AGENT_SALES;
+    var isNotValidToProceed = MSG_SUSPENSION;
 
     var xArray = getApplicantArrayEx();
     var peopleSequenceNumber = null;
@@ -1326,7 +1326,15 @@ function copyContactAppSpecificToRecordAppSpecific() {
         break;
     }
 	
-	
+	if (!isAgentAbleToSell(publicUserID)) {
+		if (isNotValidToProceed) {
+			isNotValidToProceed += MSG_NO_AGENT_SALES;
+			}
+		else {
+			isNotValidToProceed = MSG_NO_AGENT_SALES;
+			}
+		}
+		
 	// Defect 13354
 	var isMultipleAddresses = false;
     var capContact = cap.getApplicantModel();
