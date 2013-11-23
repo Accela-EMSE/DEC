@@ -869,11 +869,13 @@ function ReprintDocuments() {
                 logDebug("Could not link applications" + result.getErrorMessage());
             }
 
-            updateTagStatus("Void", "Void", itemCapId);
             closeTaskForRec("Void Document", "Void", "", "", "", itemCapId);
             closeTaskForRec("Report Game Harvest", "", "", "", "", itemCapId);
             closeTaskForRec("Revocation", "", "", "", "", itemCapId);
             closeTaskForRec("Suspension", "", "", "", "", itemCapId);
+			
+			//Update Status after Workflow as Workflow Updates can change status.
+			updateTagStatus("Replaced", "Replaced", itemCapId);
         }
 
         distributeFeesForReprint(capId, arryTag, arryLic, salesAgentInfoArray);
