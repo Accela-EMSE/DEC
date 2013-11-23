@@ -1841,6 +1841,8 @@ function upgradeLifetimeLic() {
                 var isSelected = (LICENSESTOUPGRADE[y]["Select"] == 'Yes' || LICENSESTOUPGRADE[y]["Select"] == 'Y');
                 if (isSelected) {
                     voidSelectedItems.push(LICENSESTOUPGRADE[y]["Document ID"]);
+					
+					logDebug("Adding " + LICENSESTOUPGRADE[y]["Document ID"] + " to the upgradeStatusDocArray.  This document should not get a status of Voided.");
 					upgradeStatusDocArray.push(LICENSESTOUPGRADE[y]["Document ID"]);
                 }
             }
@@ -1871,19 +1873,30 @@ function upgradeLifetimeLic() {
         for (var y in voidSelectedItems) {
             frm.RemoveActiveHoldingsbyDocId(voidSelectedItems[y]);
             itemCapId = getCapId(voidSelectedItems[y]);
-			logDebug("upgradeLifetimeLic voiding cap Id " + itemCapId);
-            
-			//When Upgrading, the License Record itself should have a status of "Upgraded", everything else is Voided.
-			if(exists(voidSelectedItems[y], upgradeStatusDocArray))
-				updateAppStatus("Upgraded", "Upgraded", itemCapId);
-			else
-				updateAppStatus("Void", "Void", itemCapId);
-            
+			itemCap = aa.cap.getCap(itemCapId).getOutput();
+			itemAppTypeResult = itemCap.getCapType();
+			itemAppTypeString = itemAppTypeResult.toString();
 			
+			
+			logDebug("upgradeLifetimeLic voiding Record Id " + itemAppTypeString);
+            
 			closeTaskForRec("Void Document", "Void", "", "", "", itemCapId);
             closeTaskForRec("Report Game Harvest", "", "", "", "", itemCapId);
             closeTaskForRec("Revocation", "", "", "", "", itemCapId);
             closeTaskForRec("Suspension", "", "", "", "", itemCapId);
+			
+			// UPDATE WORKFLOW FIRST (above). THEN REC STATUS.  This is to make sure that workflow does not
+			//    modify the intended Record Status
+			
+			//When Upgrading, the License Record itself should have a status of "Upgraded", everything else is Voided.
+			logDebug("Check the upgradeStatusDocArray for voidSelectedItems[y]: " + voidSelectedItems[y]);
+			if(exists(voidSelectedItems[y], upgradeStatusDocArray)) // || itemAppTypeString.indexOf("Lifetime") >=0
+			{
+				updateAppStatus("Upgraded", "Upgraded", itemCapId);
+			}
+			else
+				updateAppStatus("Void", "Void", itemCapId);
+			
         }
 
         var returningDocArray = new Array();
