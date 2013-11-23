@@ -290,7 +290,7 @@ function DrawResult_OBJ(sWmu, sDrawType, sChoiceNum, nPreferencePoints, bLandown
     };
 
     this.SetPreferencePointsAfter = function () {
-        if (this.DrawType != DRAW_FCFS) {
+        if (this.DrawType == DRAW_INSTANT) {
 			if (this.ChoiceNum == '1') {
 				if (this.Selected) {
 					this.PreferencePoints = 0;
