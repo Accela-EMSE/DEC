@@ -4906,6 +4906,9 @@ function processProfileUpdate() {
 			}
 
 		// address change
+		
+		var capContactAdd = [];
+		var peopleAdd = [];
 		var caSearchModel = aa.address.createContactAddressModel().getOutput();
 		caSearchModel.setEntityID(parseInt(c.refSeqNumber));
 		caSearchModel.setEntityType("CONTACT");
