@@ -4907,9 +4907,15 @@ function processProfileUpdate() {
 }
 
 function nameChanged(p1,p2) {
-	if (!p1.getFirstName().toUpperCase().equals(p2.getFirstName().toUpperCase())) return true;
-	if (!p1.getLastName().toUpperCase().equals(p2.getLastName().toUpperCase())) return true;
-	if (!p1.getMiddleName().toUpperCase().equals(p2.getMiddleName().toUpperCase())) return true;
+	if (testNameDifferent(p1.getFirstName(),p2.getFirstName())) return true;
+	if (testNameDifferent(p1.getLastName(),p2.getLastName())) return true;
+	if (testNameDifferent(p1.getMiddleName(),p2.getMiddleName())) return true;
+	return false;
+	}
+	
+function testNameDifferent(a,b) {
+	if ((!a && b) || (a && !b)) return true;
+	if (a && b && !a.toUpperCase().equals(b.toUpperCase())) return true;
 	return false;
 	}
 	
