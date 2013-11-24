@@ -4892,3 +4892,24 @@ function checkActiveIndividual(ipCapID) {
     }
     return opActiveIndividual;
 }
+
+function processProfileUpdate() {
+	var c = getContactObj(capId,"Individual");
+	if (c && c.refSeqNumber) {
+		var p = aa.people.getPeople(c.refSeqNumber).getOutput();
+		logDebug("people is " + p);
+
+		if (nameChanged(c.people,p)) {
+			c.addAKA(p.getFirstName(),p.getMiddleName(),p.getLastName(),"",new Date(),null);
+			logDebug("Name Amendment: added AKA on ref contact " + c.refSeqNumber);
+			}
+		}
+}
+
+function nameChanged(p1,p2) {
+	if (!p1.getFirstName().toUpperCase().equals(p2.getFirstName().toUpperCase())) return true;
+	if (!p1.getLastName().toUpperCase().equals(p2.getLastName().toUpperCase())) return true;
+	if (!p1.getMiddleName().toUpperCase().equals(p2.getMiddleName().toUpperCase())) return true;
+	return false;
+	}
+	
