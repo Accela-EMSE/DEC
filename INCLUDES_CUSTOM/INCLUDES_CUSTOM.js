@@ -4899,10 +4899,37 @@ function processProfileUpdate() {
 		var p = aa.people.getPeople(c.refSeqNumber).getOutput();
 		logDebug("people is " + p);
 
+		// name change
 		if (nameChanged(c.people,p)) {
 			c.addAKA(p.getFirstName(),p.getMiddleName(),p.getLastName(),"",new Date(),null);
 			logDebug("Name Amendment: added AKA on ref contact " + c.refSeqNumber);
 			}
+
+		// address change
+		var caSearchModel = aa.address.createContactAddressModel().getOutput();
+		caSearchModel.setEntityID(parseInt(c.refSeqNumber));
+		caSearchModel.setEntityType("CONTACT");
+		var pa = aa.address.getContactAddressList(caSearchModel.getContactAddressModel()).getOutput();
+	
+		for (var i in c.addresses)  { capContactAdd.push("" + c.addresses[i].getAddressID()); logDebug("ccontact adress : " + c.addresses[i].getAddressID()); }
+		
+		for (var i in pa) {peopleAdd.push("" + pa[i].getAddressID()); logDebug("people adress : " + pa[i].getAddressID()); }
+			
+		var diff = peopleAdd.filter(function(n) {return capContactAdd.indexOf(n) == -1});
+		
+		for (var i in diff) {
+			for (var j in pa) {
+				if (String(pa[j].getAddressID()).equals(diff[i])) {
+					var theAdd = pa[j];
+						logDebug("disabling address " + theAdd);
+						//deactivate address on the reference contact
+						theAdd.setAuditStatus("I");
+						theAdd.setExpirationDate(aa.date.getCurrentDate());
+						var cam = theAdd.getContactAddressModel();
+						var editResult = aa.address.editContactAddress(cam);
+						}
+					}
+				}
 		}
 }
 
