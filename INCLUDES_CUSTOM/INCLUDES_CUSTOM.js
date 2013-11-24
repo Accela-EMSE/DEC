@@ -3086,10 +3086,61 @@ function contactObj(ccsm) {
 		return true;
 
 		}
+
+		this.addAKA = function(firstName,middleName,lastName,fullName,startDate,endDate) {
+			if (!this.refSeqNumber) {
+				logDebug("contactObj: Cannot add AKA name for non-reference contact");
+				return false;
+				}
+				
+			var aka = aa.proxyInvoker.newInstance("com.accela.aa.aamain.people.PeopleAKABusiness").getOutput();
+			var args = new Array();
+			var akaModel = aa.proxyInvoker.newInstance("com.accela.orm.model.contact.PeopleAKAModel",args).getOutput();
+			var auditModel = aa.proxyInvoker.newInstance("com.accela.orm.model.common.AuditModel",args).getOutput();
+
+			var a = aka.getPeopleAKAListByContactNbr(aa.getServiceProviderCode(),String(this.refSeqNumber));
+			akaModel.setServiceProviderCode(aa.getServiceProviderCode());
+			akaModel.setContactNumber(parseInt(this.refSeqNumber));
+			akaModel.setFirstName(firstName);
+			akaModel.setMiddleName(middleName);
+			akaModel.setLastName(lastName);
+			akaModel.setFullName(fullName);
+			akaModel.setStartDate(startDate);
+			akaModel.setEndDate(endDate);
+			auditModel.setAuditDate(new Date());
+			auditModel.setAuditStatus("A");
+			auditModel.setAuditID("ADMIN");
+			akaModel.setAuditModel(auditModel);
+			a.add(akaModel);
+
+			aka.saveModels(aa.getServiceProviderCode(), this.refSeqNumber, a);
+			}
+
+		this.removeAKA = function(firstName,middleName,lastName) {
+			if (!this.refSeqNumber) {
+				logDebug("contactObj: Cannot remove AKA name for non-reference contact");
+				return false;
+				}
 			
+			var removed = false;
+			var aka = aa.proxyInvoker.newInstance("com.accela.aa.aamain.people.PeopleAKABusiness").getOutput();
+			var l = aka.getPeopleAKAListByContactNbr(aa.getServiceProviderCode(),String(this.refSeqNumber));
+			
+            var i = l.iterator();
+            while (i.hasNext()) {
+                var thisAKA = i.next();
+				if ((!thisAKA.getFirstName() || thisAKA.getFirstName().equals(firstName)) && (!thisAKA.getMiddleName() || thisAKA.getMiddleName().equals(middleName)) && (!thisAKA.getLastName() || thisAKA.getLastName().equals(lastName))) {
+					i.remove();
+					logDebug("contactObj: removed AKA Name : " + firstName + " " + middleName + " " + lastName);
+					removed = true;
+					}
+				}	
+					
+			if (removed)
+				aka.saveModels(aa.getServiceProviderCode(), this.refSeqNumber, l);
+			}
+		
     this.getCaps = function () { // option record type filter
-
-
         if (this.refSeqNumber) {
             //aa.print("ref seq : " + this.refSeqNumber);   - Raj 10/31/2013
             var capTypes = null;
