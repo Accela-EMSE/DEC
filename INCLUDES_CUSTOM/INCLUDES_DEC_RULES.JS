@@ -2652,6 +2652,7 @@ function getActiveholdingsFilterArray() {
     validRecTypeArray.push(AA52_TAG_BACK);
     validRecTypeArray.push(AA53_TAG_DMP_DEER);
     validRecTypeArray.push(AA54_TAG_PRIV_PANEL);
+	validRecTypeArray.push(AA55_JUNIOR_HUNTING_TAGS);	
 
     return validRecTypeArray;
 
@@ -2903,6 +2904,7 @@ function getReprintFilterArray() {
     validRecTypeArray.push(AA51_TAG_FALL_TURKEY_TAG);
     validRecTypeArray.push(AA52_TAG_BACK);
     validRecTypeArray.push(AA53_TAG_DMP_DEER);
+	validRecTypeArray.push(AA55_JUNIOR_HUNTING_TAGS);
     //Do not allow Privilege Panels to be reprinted
 	//validRecTypeArray.push(AA54_TAG_PRIV_PANEL);
 
