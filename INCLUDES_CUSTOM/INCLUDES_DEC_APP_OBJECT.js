@@ -591,7 +591,8 @@ function form_OBJECT(identity) {
         ruleParams.Year = this.Year;
         ruleParams.AgedIn = this.AgedIn;
         ruleParams.NeedHuntEd = this.NeedHuntEd;
-        ruleParams.HasJtHuntTagsItem = this.licObjARRAY[this.licensesNameArray[LIC01_JUNIOR_HUNTING_TAGS]].IsSelected;
+		//RV-11/25/13 - I'm not sure below does what it's intended to do.  It doesn't check Active Holdings, it checks the selected option on the form.
+		ruleParams.HasJtHuntTagsItem = this.licObjARRAY[this.licensesNameArray[LIC01_JUNIOR_HUNTING_TAGS]].IsSelected;
         ruleParams.HasBowPriv = this.HasBowPriv;
         ruleParams.HasMuzzPriv = this.HasMuzzPriv;
         ruleParams.EitherOrAntler = this.EitherOrAntler;
