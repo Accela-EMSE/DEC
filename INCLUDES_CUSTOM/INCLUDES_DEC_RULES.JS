@@ -599,7 +599,7 @@ function SetVesrionSalesItems2012() {
     emptyArray.push(new SalesItemProp(LIC12_LIFETIME_SMALL_AND_BIG_GAME, AA12_LIFETIME_SMALL_AND_BIG_GAME, FEE_LIFETM_SMALLBIG_GAME_SCHDL, "1", "getAllFeeCodeByRuleFor_LIFETM_SBGM", "isRuleForSelectable_LIFETM_SBGM", null, "getIncl_LIFETM_SBGM", "getTag_LIFETM_SBGM", true, false, true));
     emptyArray.push(new SalesItemProp(LIC13_LIFETIME_SPORTSMAN, AA13_LIFETIME_SPORTSMAN, FEE_LIFETIME_SPORTSMAN_SCHDL, "1", "getAllFeeCodeByRuleFor_LIFETM_SPRT", "isRuleForSelectable_LIFETM_SPRT", null, "getIncl_LIFETM_SPRT", "getTag_LIFETM_SPRT", true, false, true));
     emptyArray.push(new SalesItemProp(LIC14_LIFETIME_TRAPPING, AA14_LIFETIME_TRAPPING, FEE_LIFETIME_TRAPPING_SCHDL, "1", "getAllFeeCodeByRuleFor_LIFETM_TRAP", "isRuleForSelectable_LIFETM_TRAP", null, "getIncl_LIFETM_TRAP", null, false, true, false));
-    emptyArray.push(new SalesItemProp(LIC45_LIFETIME_INSCRIPTION, AA45_LIFETIME_INSCRIPTION, FEE_LIFETIME_INSCRIPTION_SCHDL, "1", "getAllFeeCodeByRuleFor_LIFETM_INSCRIPTION", "isRuleForSelectable_LIFETM_INSCRIPTION", "getPrereq_LIFETM_INSCRIPTION", null, null, false, false, false));
+    emptyArray.push(new SalesItemProp(LIC45_LIFETIME_INSCRIPTION, AA45_LIFETIME_INSCRIPTION, FEE_LIFETIME_INSCRIPTION_SCHDL, "1", "getAllFeeCodeByRuleFor_LIFETM_INSCRIPTION", "isRuleForSelectable_LIFETM_INSCRIPTION", "getPrereq_LIFETM_INSCRIPTION", null, null, true, true, true));
 
     emptyArray.push(new SalesItemProp(LIC32_NONRESIDENT_BEAR_TAG, AA32_NONRESIDENT_BEAR_TAG, FEE_TAG_BEAR_SCHDL, "1", "getAllFeeCodeByRuleFor_NONRESIDENT_BEAR_TAG", "isRuleForSelectable_NONRESIDENT_BEAR_TAG", "getPrereq_NONRESIDENT_BEAR_TAG", null, "getTag_NONRESIDENT_BEAR_TAG", true, false, false));
 
@@ -609,9 +609,9 @@ function SetVesrionSalesItems2012() {
     emptyArray.push(new SalesItemProp(LIC19_TRAIL_SUPPORTER_PATCH, AA19_TRAIL_SUPPORTER_PATCH, FEE_OTHER_SL_TRAILSUPP_SCHDL, "1", "getAllFeeCodeByRuleFor_OTHER_SALE_TRAIL_SUPPORTER_PATCH_SCHDL", "isRuleForSelectable_OTHER_SALE_TRAIL_SUPPORTER_PATCH_SCHDL", null, null, null, false, false, false));
     emptyArray.push(new SalesItemProp(LIC20_CONSERVATIONIST_MAGAZINE, AA20_CONSERVATIONIST_MAGAZINE, FEE_OTHER_SL_CONSRVMGZNE_SCHDL, "1", "getAllFeeCodeByRuleFor_OTHER_SALE_CONSERVATION_MAGAZINE", "isRuleForSelectable_OTHER_SALE_CONSERVATION_MAGAZINE", null, null, null, false, false, false));
     emptyArray.push(new SalesItemProp(LIC21_CONSERVATION_PATRON, AA21_CONSERVATION_PATRON, FEE_OTHER_SL_CONSERVPTRN_SCHDL, "1", "getAllFeeCodeByRuleFor_OTHER_SALE_CONSERVATION_PATRON_SCHDL", "isRuleForSelectable_OTHER_SALE_CONSERVATION_PATRON_SCHDL", null, null, null, false, false, false));
-    emptyArray.push(new SalesItemProp(LIC43_LIFETIME_CARD_REPLACE, AA43_LIFETIME_CARD_REPLACE, FEE_OTHER_SL_LFTMCRDREP_SCHDL, "1", "getAllFeeCodeByRuleFor_LIFETIME_CARD_REPLACE", "isRuleForSelectable_LIFETIME_CARD_REPLACE", null, null, null, false, false, false));
+    emptyArray.push(new SalesItemProp(LIC43_LIFETIME_CARD_REPLACE, AA43_LIFETIME_CARD_REPLACE, FEE_OTHER_SL_LFTMCRDREP_SCHDL, "1", "getAllFeeCodeByRuleFor_LIFETIME_CARD_REPLACE", "isRuleForSelectable_LIFETIME_CARD_REPLACE", null, null, null, true, true, true));
 //    emptyArray.push(new SalesItemProp(LIC44_SPORTSMAN_ED_CERTIFICATION, AA44_SPORTSMAN_ED_CERTIFICATION, FEE_OTHER_SL_SPORTEDCERT_SCHDL, "1", "getAllFeeCodeByRuleFor_SPORTSMAN_ED_CERTIFICATION", "isRuleForSelectable_SPORTSMAN_ED_CERTIFICATION", null, null, null, false, false, false));		// See below...Raj
-    emptyArray.push(new SalesItemProp(LIC44_SPORTSMAN_ED_CERTIFICATION, AA44_SPORTSMAN_ED_CERTIFICATION, FEE_OTHER_SL_SPORTEDCERT_SCHDL, "1", "getAllFeeCodeByRuleFor_SPORTSMAN_ED_CERTIFICATION", "isRuleForSelectable_SPORTSMAN_ED_CERTIFICATION", null, null, null, true, false, true));		
+    emptyArray.push(new SalesItemProp(LIC44_SPORTSMAN_ED_CERTIFICATION, AA44_SPORTSMAN_ED_CERTIFICATION, FEE_OTHER_SL_SPORTEDCERT_SCHDL, "1", "getAllFeeCodeByRuleFor_SPORTSMAN_ED_CERTIFICATION", "isRuleForSelectable_SPORTSMAN_ED_CERTIFICATION", null, null, null, true, true, true));		
     return emptyArray;
 }
 function SetVesrionSalesItems2014() {
@@ -637,7 +637,7 @@ function SetVesrionSalesItems2014() {
     emptyArray.push(new SalesItemProp(LIC12_LIFETIME_SMALL_AND_BIG_GAME, AA12_LIFETIME_SMALL_AND_BIG_GAME, FEE_LIFETM_SMALLBIG_GAME_SCHDL, "1", "getAllFeeCodeByRuleFor_LIFETM_SBGM", "isRuleForSelectable_LIFETM_SBGM", null, "getIncl_LIFETM_SBGM", "getTag_LIFETM_SBGM", true, false, true));
     emptyArray.push(new SalesItemProp(LIC13_LIFETIME_SPORTSMAN, AA13_LIFETIME_SPORTSMAN, FEE_LIFETIME_SPORTSMAN_SCHDL, "1", "getAllFeeCodeByRuleFor_LIFETM_SPRT", "isRuleForSelectable_LIFETM_SPRT", null, "getIncl_LIFETM_SPRT", "getTag_LIFETM_SPRT", true, false, true));
     emptyArray.push(new SalesItemProp(LIC14_LIFETIME_TRAPPING, AA14_LIFETIME_TRAPPING, FEE_LIFETIME_TRAPPING_SCHDL, "1", "getAllFeeCodeByRuleFor_LIFETM_TRAP", "isRuleForSelectable_LIFETM_TRAP", null, "getIncl_LIFETM_TRAP", null, false, true, false));
-    emptyArray.push(new SalesItemProp(LIC45_LIFETIME_INSCRIPTION, AA45_LIFETIME_INSCRIPTION, FEE_LIFETIME_INSCRIPTION_SCHDL, "1", "getAllFeeCodeByRuleFor_LIFETM_INSCRIPTION", "isRuleForSelectable_LIFETM_INSCRIPTION", "getPrereq_LIFETM_INSCRIPTION", null, null, false, false, false));
+    emptyArray.push(new SalesItemProp(LIC45_LIFETIME_INSCRIPTION, AA45_LIFETIME_INSCRIPTION, FEE_LIFETIME_INSCRIPTION_SCHDL, "1", "getAllFeeCodeByRuleFor_LIFETM_INSCRIPTION", "isRuleForSelectable_LIFETM_INSCRIPTION", "getPrereq_LIFETM_INSCRIPTION", null, null, true, true, true));
 
     emptyArray.push(new SalesItemProp(LIC16_HABITAT_ACCESS_STAMP, AA16_HABITAT_ACCESS_STAMP, FEE_OTHER_SL_HABITATACES_SCHDL, "1", "getAllFeeCodeByRuleFor_OTHER_SALE_HABITAT_ACCESS_SCHDL", "isRuleForSelectable_OTHER_SALE_HABITAT_ACCESS_SCHDL", null, null, null, false, false, false));
     emptyArray.push(new SalesItemProp(LIC17_VENISON_DONATION, AA17_VENISON_DONATION, FEE_OTHER_SL_VENISONDNTN_SCHDL, "1", "getAllFeeCodeByRuleFor_OTHER_SALE_VENISON_DONATION_SCHDL", "isRuleForSelectable_OTHER_SALE_VENISON_DONATION_SCHDL", null, null, null, false, false, false));
@@ -646,8 +646,8 @@ function SetVesrionSalesItems2014() {
     emptyArray.push(new SalesItemProp(LIC20_CONSERVATIONIST_MAGAZINE, AA20_CONSERVATIONIST_MAGAZINE, FEE_OTHER_SL_CONSRVMGZNE_SCHDL, "1", "getAllFeeCodeByRuleFor_OTHER_SALE_CONSERVATION_MAGAZINE", "isRuleForSelectable_OTHER_SALE_CONSERVATION_MAGAZINE", null, null, null, false, false, false));
     // JHS 10/10/2013 CP not in 2014 fees per defect 2075
 	//emptyArray.push(new SalesItemProp(LIC21_CONSERVATION_PATRON, AA21_CONSERVATION_PATRON, FEE_OTHER_SL_CONSERVPTRN_SCHDL, "1", "getAllFeeCodeByRuleFor_OTHER_SALE_CONSERVATION_PATRON_SCHDL", "isRuleForSelectable_OTHER_SALE_CONSERVATION_PATRON_SCHDL", null, null, null, false, false, false));
-    emptyArray.push(new SalesItemProp(LIC43_LIFETIME_CARD_REPLACE, AA43_LIFETIME_CARD_REPLACE, FEE_OTHER_SL_LFTMCRDREP_SCHDL, "1", "getAllFeeCodeByRuleFor_LIFETIME_CARD_REPLACE", "isRuleForSelectable_LIFETIME_CARD_REPLACE", null, null, null, false, false, false));
-    emptyArray.push(new SalesItemProp(LIC44_SPORTSMAN_ED_CERTIFICATION, AA44_SPORTSMAN_ED_CERTIFICATION, FEE_OTHER_SL_SPORTEDCERT_SCHDL, "1", "getAllFeeCodeByRuleFor_SPORTSMAN_ED_CERTIFICATION", "isRuleForSelectable_SPORTSMAN_ED_CERTIFICATION", null, null, null, false, false, false));
+    emptyArray.push(new SalesItemProp(LIC43_LIFETIME_CARD_REPLACE, AA43_LIFETIME_CARD_REPLACE, FEE_OTHER_SL_LFTMCRDREP_SCHDL, "1", "getAllFeeCodeByRuleFor_LIFETIME_CARD_REPLACE", "isRuleForSelectable_LIFETIME_CARD_REPLACE", null, null, null, true, true, true));
+    emptyArray.push(new SalesItemProp(LIC44_SPORTSMAN_ED_CERTIFICATION, AA44_SPORTSMAN_ED_CERTIFICATION, FEE_OTHER_SL_SPORTEDCERT_SCHDL, "1", "getAllFeeCodeByRuleFor_SPORTSMAN_ED_CERTIFICATION", "isRuleForSelectable_SPORTSMAN_ED_CERTIFICATION", null, null, null, true, true, true));
 
     return emptyArray;
 }
@@ -1654,6 +1654,7 @@ function isRuleForSelectable_TRAPPER_SUPER_SPORTSMAN(ruleParams) {
 }
 function isRuleForSelectable_LIFETIME_CARD_REPLACE(ruleParams) {
     var isSelectable = (ruleParams.HasLifetimelic());
+	
     return isSelectable;
 }
 function isRuleForSelectable_SPORTSMAN_ED_CERTIFICATION(ruleParams) {
@@ -1838,7 +1839,7 @@ function getPrereq_ANNUAL_DMP_2014(ruleParams) {
 			arryPrereq.push(LIC30_NONRES_MUZZLELOADING);
 			arryPrereq.push(LIC37_SMALL_AND_BIG_GAME);
 			arryPrereq.push(LIC12_LIFETIME_SMALL_AND_BIG_GAME);
-			arryPrereq.push(LIC33_NONRESIDENT_BIG_GAME);
+			arryPrereq.push(LIC33_NONRESIDENT_BIG_GAME);F
 			arryPrereq.push(LIC34_NONRESIDENT_BOWHUNTING);
 			arryPrereq.push(LIC40_SUPER_SPORTSMAN);
 			arryPrereq.push(LIC13_LIFETIME_SPORTSMAN);
