@@ -107,7 +107,7 @@ var AA51_TAG_FALL_TURKEY_TAG = "Licenses/Tag/Hunting/Fall Turkey";
 var AA52_TAG_BACK = "Licenses/Tag/Hunting/Back";
 var AA53_TAG_DMP_DEER = "Licenses/Tag/Hunting/DMP Deer";
 var AA54_TAG_PRIV_PANEL = "Licenses/Tag/Document/Privilege Panel";
-// RV 11/25 - TESTING - var AA55_JUNIOR_HUNTING_TAGS = "Licenses/Annual/Hunting/Junior Big Game Tags";
+var AA55_JUNIOR_HUNTING_TAGS = "Licenses/Annual/Hunting/Junior Big Game Tags";
 
 //Tag Type: STANDARD CHOICE: TAG_TYPE
 var TAG_TYPE_1_BACK_TAG = 1;
@@ -569,9 +569,8 @@ function SetVesrionSalesItems2012() {
     emptyArray.push(new SalesItemProp(LIC27_CONSERVATION_LEGACY, AA27_CONSERVATION_LEGACY, FEE_ANL_CONSERV_LEGACY_SCHDL, "1", "getAllFeeCodeByRuleFor_CONSERVATION_LEGACY", "isRuleForSelectable_CONSERVATION_LEGACY", null, "getIncl_CONSERVATION_LEGACY", "getTag_CONSERVATION_LEGACY", true, false, true));
     emptyArray.push(new SalesItemProp(LIC28_JUNIOR_BOWHUNTING, AA28_JUNIOR_BOWHUNTING, FEE_ANL_JUNIOR_BOWHUNT_SCHDL, "1", "getAllFeeCodeByRuleFor_JUNIOR_BOWHUNTING", "isRuleForSelectable_JUNIOR_BOWHUNTING", null, null, "getTag_JUNIOR_BOWHUNTING", true, false, false));
     emptyArray.push(new SalesItemProp(LIC29_JUNIOR_HUNTING, AA29_JUNIOR_HUNTING, FEE_ANL_JUNIOR_HUNTING_SCHDL, "1", "getAllFeeCodeByRuleFor_JUNIOR_HUNTING", "isRuleForSelectable_JUNIOR_HUNTING", null, null, "getTag_JUNIOR_HUNTING", true, false, false));
-    // RV 11/25 - TESTING (original line below, no rec type) - emptyArray.push(new SalesItemProp(LIC01_JUNIOR_HUNTING_TAGS, AA55_JUNIOR_HUNTING_TAGS, FEE_ANL_JUNIOR_HUNT_TAG_SCHDL, "1", "getAllFeeCodeByRuleFor_JUNIOR_HUNT_TAGS", "isRuleForSelectable_JUNIOR_HUNT_TAGS", null, null, "getTag_JUNIOR_HUNT_TAGS", true, false, false));
-	emptyArray.push(new SalesItemProp(LIC01_JUNIOR_HUNTING_TAGS, "", FEE_ANL_JUNIOR_HUNT_TAG_SCHDL, "1", "getAllFeeCodeByRuleFor_JUNIOR_HUNT_TAGS", "isRuleForSelectable_JUNIOR_HUNT_TAGS", null, null, "getTag_JUNIOR_HUNT_TAGS", true, false, false));
-    emptyArray.push(new SalesItemProp(LIC33_NONRESIDENT_BIG_GAME, AA33_NONRESIDENT_BIG_GAME, FEE_ANL_NONRES_BIGGAME_SCHDL, "1", "getAllFeeCodeByRuleFor_NONRESIDENT_BIG_GAME", "isRuleForSelectable_NONRESIDENT_BIG_GAME", null, null, "getTag_NONRESIDENT_BIG_GAME", true, false, true));
+    emptyArray.push(new SalesItemProp(LIC01_JUNIOR_HUNTING_TAGS, AA55_JUNIOR_HUNTING_TAGS, FEE_ANL_JUNIOR_HUNT_TAG_SCHDL, "1", "getAllFeeCodeByRuleFor_JUNIOR_HUNT_TAGS", "isRuleForSelectable_JUNIOR_HUNT_TAGS", null, null, "getTag_JUNIOR_HUNT_TAGS", true, false, false));
+	emptyArray.push(new SalesItemProp(LIC33_NONRESIDENT_BIG_GAME, AA33_NONRESIDENT_BIG_GAME, FEE_ANL_NONRES_BIGGAME_SCHDL, "1", "getAllFeeCodeByRuleFor_NONRESIDENT_BIG_GAME", "isRuleForSelectable_NONRESIDENT_BIG_GAME", null, null, "getTag_NONRESIDENT_BIG_GAME", true, false, true));
     emptyArray.push(new SalesItemProp(LIC34_NONRESIDENT_BOWHUNTING, AA34_NONRESIDENT_BOWHUNTING, FEE_ANL_NONRES_BOWHUNT_SCHDL, "1", "getAllFeeCodeByRuleFor_NONRESIDENT_BOWHUNTING", "isRuleForSelectable_NONRESIDENT_BOWHUNTING", null, null, "getTag_NONRESIDENT_BOWHUNTING", true, false, false));
     emptyArray.push(new SalesItemProp(LIC35_NONRESIDENT_SMALL_GAME, AA35_NONRESIDENT_SMALL_GAME, FEE_ANL_NONRES_SMALLGAME_SCHDL, "1", "getAllFeeCodeByRuleFor_NONRESIDENT_SMALL_GAME", "isRuleForSelectable_NONRESIDENT_SMALL_GAME", null, "getIncl_NONRESIDENT_SMALL_GAME", "getTag_NONRESIDENT_SMALL_GAME", true, false, false));
     //Added fnprerequisiteArray to NONRES_MUZZLELOADING
@@ -621,9 +620,9 @@ function SetVesrionSalesItems2014() {
     emptyArray.push(new SalesItemProp(LIC06_HUNTING_LICENSE, AA06_HUNTING_LICENSE, FEE_ANNUAL_HUNTING_SCHDL, "1", "getAllFeeCodeByRuleFor_ANNUAL_HUNT", "isRuleForSelectable_ANNUAL_HUNT", null, null, "getTag_ANNUAL_HUNT", true, false, false));
     emptyArray.push(new SalesItemProp(LIC04_BOWHUNTING_PRIVILEGE, AA04_BOWHUNTING_PRIVILEGE, FEE_ANNUAL_BOWHUNTING_SCHDL, "2", "getAllFeeCodeByRuleFor_ANNUAL_BOWH_2014", "isRuleForSelectable_ANNUAL_BOWH_2014", "getPrereq_ANNUAL_BOWH_2014", null, "getTag_ANNUAL_BOWH_2014", true, false, false));
     emptyArray.push(new SalesItemProp(LIC07_MUZZLELOADING_PRIVILEGE, AA07_MUZZLELOADING_PRIVILEGE, FEE_ANNUAL_MUZZLELOADING_SCHDL, "2", "getAllFeeCodeByRuleFor_ANNUAL_MUZZ_2014", "isRuleForSelectable_ANNUAL_MUZZ_2014", "getPrereq_ANNUAL_MUZZ_2014", null, "getTag_ANNUAL_MUZZ_2014", true, false, false));
-    // RV 11/25 - TESTING (original line below, no rec type)emptyArray.push(new SalesItemProp(LIC01_JUNIOR_HUNTING_TAGS, AA55_JUNIOR_HUNTING_TAGS, FEE_ANL_JUNIOR_HUNT_TAG_SCHDL, "1", "getAllFeeCodeByRuleFor_JUNIOR_HUNT_TAGS", "isRuleForSelectable_JUNIOR_HUNT_TAGS", null, null, "getTag_JUNIOR_HUNT_TAGS", true, false, false));
-	emptyArray.push(new SalesItemProp(LIC01_JUNIOR_HUNTING_TAGS, "", FEE_ANL_JUNIOR_HUNT_TAG_SCHDL, "1", "getAllFeeCodeByRuleFor_JUNIOR_HUNT_TAGS", "isRuleForSelectable_JUNIOR_HUNT_TAGS", null, null, "getTag_JUNIOR_HUNT_TAGS", true, false, false));
-    emptyArray.push(new SalesItemProp(LIC08_TURKEY_PERMIT, AA08_TURKEY_PERMIT, FEE_ANNUAL_TURKEY_PERMIT_SCHDL, "2", "getAllFeeCodeByRuleFor_ANNUAL_TRKY_2014", "isRuleForSelectable_ANNUAL_TRKY_2014", "getPrereq_ANNUAL_TRKY_2014", null, "getTag_ANNUAL_TRKY_2014", true, false, false));
+	//RV - 11/25 - Original code had no record type (param 2). I'm not sure the sales item below is currently being used.  When testing for season beginning Oct 2013 -, the logic was being called from the 2012 version() salesItemProp() above.
+	emptyArray.push(new SalesItemProp(LIC01_JUNIOR_HUNTING_TAGS, AA55_JUNIOR_HUNTING_TAGS, FEE_ANL_JUNIOR_HUNT_TAG_SCHDL, "1", "getAllFeeCodeByRuleFor_JUNIOR_HUNT_TAGS", "isRuleForSelectable_JUNIOR_HUNT_TAGS", null, null, "getTag_JUNIOR_HUNT_TAGS", true, false, false));
+	emptyArray.push(new SalesItemProp(LIC08_TURKEY_PERMIT, AA08_TURKEY_PERMIT, FEE_ANNUAL_TURKEY_PERMIT_SCHDL, "2", "getAllFeeCodeByRuleFor_ANNUAL_TRKY_2014", "isRuleForSelectable_ANNUAL_TRKY_2014", "getPrereq_ANNUAL_TRKY_2014", null, "getTag_ANNUAL_TRKY_2014", true, false, false));
     emptyArray.push(new SalesItemProp(LIC05_DEER_MANAGEMENT_PERMIT, AA05_DEER_MANAGEMENT_PERMIT, FEE_ANNUAL_DMP_SCHDL, "1", "getAllFeeCodeByRuleFor_ANNUAL_DMP", "isRuleForSelectable_ANNUAL_DMP_2014", "getPrereq_ANNUAL_DMP_2014", null, "getTag_ANNUAL_DMP_2014", true, false, false));
     emptyArray.push(new SalesItemProp(LIC15_TRAPPING_LICENSE, AA15_TRAPPING_LICENSE, FEE_ANNUAL_TRAPPING_SCHDL, "2", "getAllFeeCodeByRuleFor_ANNUAL_TRAP_2014", "isRuleForSelectable_ANNUAL_TRAP_2014", null, null, null, false, true, false));
 
@@ -1598,7 +1597,7 @@ function isRuleForSelectable_JUNIOR_HUNTING(ruleParams) {
 }
 function isRuleForSelectable_JUNIOR_HUNT_TAGS(ruleParams) {
     //Priya
-    var isSelectable = (ruleParams.Age >= 14 && ruleParams.Age <= 15 && ruleParams.HasHuntEd && ruleParams.HasJrHuntLic() && (ruleParams.AgedIn || ruleParams.NeedHuntEd));
+    var isSelectable = (ruleParams.Age >= 14 && ruleParams.Age <= 15 && ruleParams.HasHuntEd && ruleParams.HasJrHuntLic() && !hasJuniorTagItems(ruleParams.ActiveHoldingsInfo)); //RV - 11/25 - These conditions did not allow Junior Tags to display ..  && (ruleParams.AgedIn || ruleParams.NeedHuntEd)
     return isSelectable;
 }
 function isRuleForSelectable_NONRES_MUZZLELOADING(ruleParams) {
@@ -2215,7 +2214,11 @@ function getTag_JUNIOR_HUNT_TAGS(ruleParams) {
     var rp = ruleParams;
     var arryTags = new Array();
     arryTags.push(TAG_TYPE_1_BACK_TAG);
-    //TODO
+    
+	//RV - 11/25 - Add the appropriate tags for Aged In Junior Hunter (13 turned 14 during season)
+	arryTags.push(TAG_TYPE_3_REG_SEASON_DEER);
+    arryTags.push(TAG_TYPE_2_BEAR_TAG);
+		
     return arryTags;
 }
 function getTag_NONRESIDENT_TURKEY(ruleParams) {
@@ -2654,7 +2657,8 @@ function getActiveholdingsFilterArray() {
     validRecTypeArray.push(AA52_TAG_BACK);
     validRecTypeArray.push(AA53_TAG_DMP_DEER);
     validRecTypeArray.push(AA54_TAG_PRIV_PANEL);
-// RV 11/25 - TESTING -	validRecTypeArray.push(AA55_JUNIOR_HUNTING_TAGS);	
+    //11/25/2013 - RV - Place Junior Hunting Tags in Active holdings(?)
+	validRecTypeArray.push(AA55_JUNIOR_HUNTING_TAGS);	
 
     return validRecTypeArray;
 
@@ -2733,6 +2737,22 @@ function hasWmuDefinedItems(activeHoldingsInfo) {
     validRecArray.push(AA12_LIFETIME_SMALL_AND_BIG_GAME);
     validRecArray.push(AA13_LIFETIME_SPORTSMAN);
     validRecArray.push(AA39_SPORTSMAN);
+
+    for (var idx = 0; idx < activeHoldingsInfo.length; idx++) {
+        if (exists(activeHoldingsInfo[idx].RecordType, validRecArray)) {
+            isExist = true;
+            break;
+        }
+    }
+
+    return isExist;
+}
+function hasJuniorTagItems(activeHoldingsInfo) {
+    //Used to determine if Junior Tags are allowed to be purchased (can't purchase twice)
+	var isExist = false;
+
+    var validRecArray = Array();
+    validRecArray.push(AA55_JUNIOR_HUNTING_TAGS);
 
     for (var idx = 0; idx < activeHoldingsInfo.length; idx++) {
         if (exists(activeHoldingsInfo[idx].RecordType, validRecArray)) {
