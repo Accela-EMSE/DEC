@@ -1204,7 +1204,7 @@ function isValidReprintDocuments(pStep) {
     try {
         if (pStep == 'Step1') {
             if (!isValidUserForReprintDocuments()) {
-                retMsg += 'This user is not authorized to upgrade Lifetime Licenses.';				// ...Raj   JIRA-15711
+                retMsg += 'This user is not authorized to Replace Documents.';				// ...Raj   JIRA-15711
                 retMsg += '<Br />';
             }
         }
@@ -2043,7 +2043,7 @@ function isValidVoidSales(pStep) {
     //ACA ONSUBMIT BEFORE VDSLSTEP1
     if (pStep == 'Step1') {
         if (!isValidUserForVoidSales()) {
-            retMsg += 'This user is not authorized to void sales.';		//...Raj    JIRA-15711
+            retMsg += 'This user is not authorized to Void Sales.';		//...Raj    JIRA-15711
             retMsg += '<Br />';
         } else {
             /*
