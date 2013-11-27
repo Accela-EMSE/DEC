@@ -105,7 +105,7 @@ function isValidHarvestinfo(pStep) {
         //Calller ACA ONSUBMIT BEFORE CARCASSTAG
         if (pStep == 'Step1') {
             if (!isValidUserForGameHarvest()) {
-                retMsg += 'Not authorize user to report game harvest.';
+                retMsg += 'This user is not authorized to report game harvest.';			//...Raj  JIRA-15711
                 retMsg += '<Br />';
             } else {
                 if (isNull(strHarvestType, '') == '') {
@@ -1204,7 +1204,7 @@ function isValidReprintDocuments(pStep) {
     try {
         if (pStep == 'Step1') {
             if (!isValidUserForReprintDocuments()) {
-                retMsg += 'This user is not authorized to upgrade Lifetime Licenses.';
+                retMsg += 'This user is not authorized to upgrade Lifetime Licenses.';				// ...Raj   JIRA-15711
                 retMsg += '<Br />';
             }
         }
@@ -1349,7 +1349,7 @@ function loadUpgradeLic() {
     var retMsg = '';
     try {
         if (!isValidUserForUpgradeLic()) {
-            retMsg += 'Not authorize user to do Upgarde Lifetime Licenses.';
+            retMsg += 'This user is not authorized to Upgarde Lifetime Licenses.';					//...Raj  JIRA-15711
             retMsg += '<Br />';
         } else {
             retMsg += copyCntASIToRecASIforReprint();
@@ -1452,7 +1452,7 @@ function isValidLicesesToupgrad(pStep) {
     //Calller ACA ONSUBMIT BEFORE UGRDSTEP1
     if (pStep == 'Step1') {
         if (!isValidUserForUpgradeLic()) {
-            retMsg += 'Not authorize user to do Upgarde Lifetime Licenses.';
+            retMsg += 'This usser is not authorized to Upgarde Lifetime Licenses.';				//...Raj		JIRA-15711
             retMsg += '<Br />';
         } else {
 
@@ -2043,7 +2043,7 @@ function isValidVoidSales(pStep) {
     //ACA ONSUBMIT BEFORE VDSLSTEP1
     if (pStep == 'Step1') {
         if (!isValidUserForVoidSales()) {
-            retMsg += 'Not authorize user to void sales.';
+            retMsg += 'This user is not authorized to void sales.';		//...Raj    JIRA-15711
             retMsg += '<Br />';
         } else {
             /*
