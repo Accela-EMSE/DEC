@@ -1452,7 +1452,7 @@ function isValidLicesesToupgrad(pStep) {
     //Calller ACA ONSUBMIT BEFORE UGRDSTEP1
     if (pStep == 'Step1') {
         if (!isValidUserForUpgradeLic()) {
-            retMsg += 'This usser is not authorized to Upgarde Lifetime Licenses.';				//...Raj		JIRA-15711
+            retMsg += 'This user is not authorized to Upgarde Lifetime Licenses.';				//...Raj		JIRA-15711
             retMsg += '<Br />';
         } else {
 
