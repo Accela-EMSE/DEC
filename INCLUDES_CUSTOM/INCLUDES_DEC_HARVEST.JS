@@ -2114,7 +2114,8 @@ function GetDocsToVoidSale(peopleSequenceNumber) {
     
     var applicationToChechArray = new Array();
     applicationToChechArray.push('Licenses/Annual/Application/NA');
-    applicationToChechArray.push('Licenses/Sales/Reprint/Documents');
+    //11/27/2013 - Reprinted Documents should not be voidable
+	//applicationToChechArray.push('Licenses/Sales/Reprint/Documents');
     applicationToChechArray.push('Licenses/Sales/Upgrade/Lifetime');
 
     for (var aRec in applicationToChechArray) {
