@@ -1227,6 +1227,17 @@ function GetASITDelimitedString(tableName, tablevalue) {
 
 function copyContactAppSpecificToRecordAppSpecific() {
     logDebug("ENTER: copyContactAppSpecificToRecordAppSpecific");
+    
+    if (publicUser) {
+        var s_publicUserResult = aa.publicUser.getPublicUserByPUser(publicUserID); 
+        if (s_publicUserResult.getSuccess()) {
+            var pUserObj = s_publicUserResult.getOutput();
+
+            if (pUserObj.getAccountType() == "CITIZEN") {
+                MSG_SUSPENSION = "Customer privileges are suspended and licenses are not available for purchase. This issue can only be resolved by contacting DEC Law Enforcement during business hours at 518-402-8821.";
+            }
+        }
+    }
 
     var isNotValidToProceed = MSG_SUSPENSION;
 
