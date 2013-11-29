@@ -982,6 +982,9 @@ function SetformForSelectedLics(frm) {
     frm.SetSelected(LIC43_LIFETIME_CARD_REPLACE, (AInfo["Lifetime Card Replace"] == "CHECKED"),1);
     frm.SetSelected(LIC44_SPORTSMAN_ED_CERTIFICATION, (AInfo["Sportsman Ed Certification"] == "CHECKED"),1);
     frm.SetSelected(LIC45_LIFETIME_INSCRIPTION, (AInfo["Lifetime Inscription"] == "CHECKED"),1);
+	frm.SetSelected(LIC56_TAG_DRIV_LIC_IMM, (AInfo["Add Lifetime to Driver License Re-Issue Immediately"] == "CHECKED"),1);
+	frm.SetSelected(LIC57_TAG_DRIV_LIC_REN, (AInfo["Add Lifetime to Driver License on Renewal"] == "CHECKED"),1);
+	//frm.SetSelected(LIC55_TAG_DRIV_LIC, (AInfo["Add Lifetime to Driver License"] == "CHECKED"),1);
 
 // adding these after the main set in order to set the tag pre-requisites properly  JHS 11/7/2013  issue 14045
 
