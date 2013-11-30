@@ -1,4 +1,4 @@
-var myCapId = "13TMP-003846"
+var myCapId = "13TMP-004322"
 var myUserId = "PUBLICUSER94336"
 var startDate = new Date();
 var startTime = startDate.getTime();			// Start timer
@@ -39,7 +39,7 @@ catch(err) {
 
 logDebug("ENDEND - 13TMP-003846 attempt 1");
 
-
+/*
 
    var f = frm;
 
@@ -134,7 +134,7 @@ logDebug("ENDEND - 13TMP-003846 attempt 1");
 
 	logDebug("fj = " + JSON.stringify(fj));
 
-	
+*/
 
 // end user code
 aa.env.setValue("ScriptReturnCode", "1"); 	aa.env.setValue("ScriptReturnMessage", debug)
