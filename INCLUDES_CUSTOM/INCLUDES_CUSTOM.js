@@ -4202,7 +4202,9 @@ function isValidUserForUpgradeLic(userId) {
             var isNative_American_Agency = (salesAgentInfoArray["Agent Group"] == "Native American Agency");
             var isRetail = (salesAgentInfoArray["Agent Group"] == "Retail");
 			
-			 isvalid = isNYSDEC_HQ || isCampsite || isMunicipality || isNYSDEC_Regional_Office || isRetail;		//...Raj  JIRA - 15823
+			isvalid = true;   //Set to true regardless of the type of Agency.. JIRA - 15666
+
+            //isvalid = isNYSDEC_HQ;
         }
     }
     return isvalid;
@@ -4232,7 +4234,7 @@ function isValidUserForReprintDocuments(userId) {
             var isNative_American_Agency = (salesAgentInfoArray["Agent Group"] == "Native American Agency");
             var isRetail = (salesAgentInfoArray["Agent Group"] == "Retail");
 
-            isvalid =  isNYSDEC_HQ || isCampsite || isMunicipality || isNYSDEC_Regional_Office || isRetail;;    //...Raj  JIRA - 15823
+            isvalid = !isCallcenter;
         }
     }
     return isvalid;
@@ -4262,7 +4264,7 @@ function isValidUserForVoidSales(userId) {
             var isNative_American_Agency = (salesAgentInfoArray["Agent Group"] == "Native American Agency");
             var isRetail = (salesAgentInfoArray["Agent Group"] == "Retail");
 
-            isvalid = isNYSDEC_HQ || isCallcenter || isCampsite || isMunicipality || isNYSDEC_Regional_Office || isRetail;       //...Raj  JIRA - 15823
+            isvalid = isNYSDEC_HQ || isCallcenter || isCampsite || isMunicipality || isNYSDEC_Regional_Office || isNative_American_Agency || isRetail;
         }
     }
     return isvalid;
