@@ -51,12 +51,22 @@ function getScriptText(vScriptName) {
 | END Includes
 /------------------------------------------------------------------------------------------------------*/
 
+var params = aa.env.getParamValues();
+var keys =  params.keys();
+var key = null;
+while(keys.hasMoreElements())
+{
+ key = keys.nextElement();
+ eval("var " + key + " = aa.env.getValue(\"" + key + "\");");
+ aa.debug("REPORTRUNBEFOREINACA","Loaded Env Variable: " + key + " = " + aa.env.getValue(key));
+}
+
 var reportInfo = aa.env.getValue("ReportInfoModel");
 var reportDetail = aa.env.getValue("ReportDetailModel");
 
 //defind reprint log ASIT name.
 var rePrintLogTableName = "REPRINT LOG";
-var maxReprintTimes = 0;
+var maxReprintTimes = 10;
 
 if (reportDetail) {
 	// get max reprint time from report configuration.
@@ -71,7 +81,7 @@ if (reportInfo) {
 	var reportParameters = reportInfo.getReportParameters();
 	var callerId = reportInfo.getCallerId();
 	aa.debug("REPORTRUNBEFOREINACA", "callerId = " + callerId);
-	var agentId = getAgentID(callerId);
+	var agentId = getAgentID(aa.publicUser.getPublicUser(parseInt(callerId.replace("PUBLICUSER",""))).getOutput().getUserID());
 	aa.debug("REPORTRUNBEFOREINACA", "agentId = " + agentId);
 	var reportName = reportDetail.getReportName();
 	aa.debug("REPORTRUNBEFOREINACA", "reportName = " + reportName);
@@ -105,7 +115,7 @@ if (reportInfo) {
 
 						// commenting out for now see 13ACC-12217
 						//
-						//afterApplicationPrintFailDebug(capIDModel, parseInt(rePrintTimes));
+						afterApplicationPrintFailDebug(capIDModel, parseInt(rePrintTimes));
 						var appSpecInfoResult = aa.appSpecificInfo.editSingleAppSpecific(capIDModel, "A_numberOfTries", rePrintTimes, null);
 
 						// if already used all the reprint times, return error message and code.
@@ -165,7 +175,7 @@ function afterApplicationPrintFailDebug(itemCapId, numberOfTries) {
 		var currcap = aa.cap.getCap(childCapId).getOutput();
 		appTypeString = currcap.getCapType().toString();
 		var ata = appTypeString.split("/");
-		aa.debug("afterApplicationPrintFailDebug", "ata = " + ata);
+		aa.debug("afterApplicationPrintFailDebug", "appTypeString = " + appTypeString);
 
 		aa.debug("afterApplicationPrintFailDebug", "isVoidAll = " + isVoidAll);
 		aa.debug("afterApplicationPrintFailDebug", "currcap.getCapStatus() = " + currcap.getCapStatus());

@@ -65,6 +65,10 @@
     color:#0066CC;
     font-weight: normal;
 }
+/*-- Fee Note --*/
+#ctl00_PlaceHolderMain_per_feeItemList_textl_totalFeeNote{ 
+	display:none;
+}
 /*-- trust account --*/
 /*
 #ctl00_PlaceHolderMain_Payment_TrustAccount_divTrustAccountDetail{
@@ -72,8 +76,8 @@
 }
 */
 /*-- Contact ASI and ASIT --*/
-#ctl00_PlaceHolderMain_Applicant_genericTemplate_Template23603C2F_parentGrid{
-    display: none;
+#ctl00_PlaceHolderMain_Applicant_genericTemplate_Template23603C2F_parentGrid{*/
+    /*display: none;
 }
 /*-- ASIT caption --*/
 /*
