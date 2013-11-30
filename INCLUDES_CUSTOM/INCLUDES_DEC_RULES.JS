@@ -393,9 +393,9 @@ var AJHT_1_RES = "AJHT_1_RES"
 var AJHT_2_NORES = "AJHT_2_NORES"
 
 // Lifetime Driver License
-var FEE_LIFETIME_DRIV_LIC_SCHDL = "FEE_OTHER_SL_LIFETIME_DRIV_LIC_SCHDL";
-var FEE_LIFETIME_DRIV_LIC_IMMED = "OS1_DRIV_LIC";
-var FEE_LIFETIME_DRIV_LIC_RENEW = "OS2_DRIV_LIC";
+var FEE_LIFETIME_DRIV_LIC_SCHDL = "FEE_LIFETM_DL_IMM_OPTIN";
+var FEE_LIFETIME_DRIV_LIC_IMMED = "FEE_DL_1";
+var FEE_LIFETIME_DRIV_LIC_RENEW = "FEE_DL_2";
 
 var arryfishingGroup = new Array();
 arryfishingGroup.push(LIC02_MARINE_REGISTRY);
@@ -3292,4 +3292,4 @@ function getRevokTrapRecTypeArray() {
 
     return validRecTypeArray;
 }
-}
+
