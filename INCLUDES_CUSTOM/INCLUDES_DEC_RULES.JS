@@ -52,6 +52,9 @@ var LIC51_TAG_FALL_TURKEY_TAG = "Fall Turkey Tag";
 var LIC52_TAG_BACK = "Back Tag";
 var LIC53_TAG_DMP_DEER = "DMP Deer Tag";
 var LIC54_TAG_PRIV_PANEL = "Privilage Panel";
+//var LIC55_TAG_DRIV_LIC = "Add Lifetime to Driver License";
+var LIC56_TAG_DRIV_LIC_IMM = "Add Lifetime to Driver License Re-Issue Immediately";
+var LIC57_TAG_DRIV_LIC_REN = "Add Lifetime to Driver License on Renewal";
 
 var AA01_FISHING_LICENSE = "Licenses/Annual/Fishing/NA"; //Obsolete: Merge to freshWaterFishing
 var AA02_MARINE_REGISTRY = "Licenses/Annual/Fishing/Marine Registry";
@@ -107,7 +110,9 @@ var AA51_TAG_FALL_TURKEY_TAG = "Licenses/Tag/Hunting/Fall Turkey";
 var AA52_TAG_BACK = "Licenses/Tag/Hunting/Back";
 var AA53_TAG_DMP_DEER = "Licenses/Tag/Hunting/DMP Deer";
 var AA54_TAG_PRIV_PANEL = "Licenses/Tag/Document/Privilege Panel";
-var AA55_JUNIOR_HUNTING_TAGS = "Licenses/Annual/Hunting/Junior Big Game Tags";
+var AA55_TAG_DRIV_LIC_IMM = "Licenses/Tag/Document/Driver License Immediate";
+var AA56_TAG_DRIV_LIC_REN = "Licenses/Tag/Document/Driver License Renewal";
+var AA57_JUNIOR_HUNTING_TAGS = "Licenses/Annual/Hunting/Junior Big Game Tags";
 
 //Tag Type: STANDARD CHOICE: TAG_TYPE
 var TAG_TYPE_1_BACK_TAG = 1;
@@ -126,6 +131,8 @@ var TAG_TYPE_20_ANTLERLESS_DEER_TAG = 20;
 var TAG_TYPE_22_SPORTSMAN_EDU_CERTIFICATE = 22;
 var TAG_TYPE_23_HABITAT_ACCESS_STAMP = 23;
 var TAG_TYPE_24_PRIV_PANEL = 24;
+var TAG_TYPE_25_DRIV_LIC_IMM = 25;
+var TAG_TYPE_26_DRIV_LIC_REN = 26;
 
 //Military disabled persons will only be charged one $5 fee per license year for the their base licenses (trap, hunt, fish) whether they purchase one or all three.
 //Fee item code
@@ -385,6 +392,11 @@ var FEE_ANL_JUNIOR_HUNT_TAG_SCHDL = "FEE_ANL_JUNIOR_HUNT_TAG_SCHDL";
 var AJHT_1_RES = "AJHT_1_RES"
 var AJHT_2_NORES = "AJHT_2_NORES"
 
+// Lifetime Driver License
+var FEE_LIFETIME_DRIV_LIC_SCHDL = "FEE_OTHER_SL_LIFETIME_DRIV_LIC_SCHDL";
+var FEE_LIFETIME_DRIV_LIC_IMMED = "OS1_DRIV_LIC";
+var FEE_LIFETIME_DRIV_LIC_RENEW = "OS2_DRIV_LIC";
+
 var arryfishingGroup = new Array();
 arryfishingGroup.push(LIC02_MARINE_REGISTRY);
 arryfishingGroup.push(LIC03_ONE_DAY_FISHING_LICENSE);
@@ -507,7 +519,9 @@ function GetAllSalesItemsNames() {
     RecordTypeArray[RecordTypeArray.length] = LIC43_LIFETIME_CARD_REPLACE;
     RecordTypeArray[RecordTypeArray.length] = LIC44_SPORTSMAN_ED_CERTIFICATION;
     RecordTypeArray[RecordTypeArray.length] = LIC45_LIFETIME_INSCRIPTION;
-
+	//RecordTypeArray[RecordTypeArray.length] = LIC55_TAG_DRIV_LIC;
+	RecordTypeArray[RecordTypeArray.length] = LIC56_TAG_DRIV_LIC_IMM;
+	RecordTypeArray[RecordTypeArray.length] = LIC57_TAG_DRIV_LIC_REN;
     return RecordTypeArray;
 }
 
@@ -569,7 +583,9 @@ function SetVesrionSalesItems2012() {
     emptyArray.push(new SalesItemProp(LIC27_CONSERVATION_LEGACY, AA27_CONSERVATION_LEGACY, FEE_ANL_CONSERV_LEGACY_SCHDL, "1", "getAllFeeCodeByRuleFor_CONSERVATION_LEGACY", "isRuleForSelectable_CONSERVATION_LEGACY", null, "getIncl_CONSERVATION_LEGACY", "getTag_CONSERVATION_LEGACY", true, false, true));
     emptyArray.push(new SalesItemProp(LIC28_JUNIOR_BOWHUNTING, AA28_JUNIOR_BOWHUNTING, FEE_ANL_JUNIOR_BOWHUNT_SCHDL, "1", "getAllFeeCodeByRuleFor_JUNIOR_BOWHUNTING", "isRuleForSelectable_JUNIOR_BOWHUNTING", null, null, "getTag_JUNIOR_BOWHUNTING", true, false, false));
     emptyArray.push(new SalesItemProp(LIC29_JUNIOR_HUNTING, AA29_JUNIOR_HUNTING, FEE_ANL_JUNIOR_HUNTING_SCHDL, "1", "getAllFeeCodeByRuleFor_JUNIOR_HUNTING", "isRuleForSelectable_JUNIOR_HUNTING", null, null, "getTag_JUNIOR_HUNTING", true, false, false));
-    emptyArray.push(new SalesItemProp(LIC01_JUNIOR_HUNTING_TAGS, AA55_JUNIOR_HUNTING_TAGS, FEE_ANL_JUNIOR_HUNT_TAG_SCHDL, "1", "getAllFeeCodeByRuleFor_JUNIOR_HUNT_TAGS", "isRuleForSelectable_JUNIOR_HUNT_TAGS", null, null, "getTag_JUNIOR_HUNT_TAGS", true, false, false));
+    emptyArray.push(new SalesItemProp(LIC01_JUNIOR_HUNTING_TAGS, "", FEE_ANL_JUNIOR_HUNT_TAG_SCHDL, "1", "getAllFeeCodeByRuleFor_JUNIOR_HUNT_TAGS", "isRuleForSelectable_JUNIOR_HUNT_TAGS", null, null, "getTag_JUNIOR_HUNT_TAGS", true, false, false));
+    emptyArray.push(new SalesItemProp(LIC33_NONRESIDENT_BIG_GAME, AA33_NONRESIDENT_BIG_GAME, FEE_ANL_NONRES_BIGGAME_SCHDL, "1", "getAllFeeCodeByRuleFor_NONRESIDENT_BIG_GAME", "isRuleForSelectable_NONRESIDENT_BIG_GAME", null, null, "getTag_NONRESIDENT_BIG_GAME", true, false, true));
+    emptyArray.push(new SalesItemProp(LIC01_JUNIOR_HUNTING_TAGS, AA57_JUNIOR_HUNTING_TAGS, FEE_ANL_JUNIOR_HUNT_TAG_SCHDL, "1", "getAllFeeCodeByRuleFor_JUNIOR_HUNT_TAGS", "isRuleForSelectable_JUNIOR_HUNT_TAGS", null, null, "getTag_JUNIOR_HUNT_TAGS", true, false, false));
 	emptyArray.push(new SalesItemProp(LIC33_NONRESIDENT_BIG_GAME, AA33_NONRESIDENT_BIG_GAME, FEE_ANL_NONRES_BIGGAME_SCHDL, "1", "getAllFeeCodeByRuleFor_NONRESIDENT_BIG_GAME", "isRuleForSelectable_NONRESIDENT_BIG_GAME", null, null, "getTag_NONRESIDENT_BIG_GAME", true, false, true));
     emptyArray.push(new SalesItemProp(LIC34_NONRESIDENT_BOWHUNTING, AA34_NONRESIDENT_BOWHUNTING, FEE_ANL_NONRES_BOWHUNT_SCHDL, "1", "getAllFeeCodeByRuleFor_NONRESIDENT_BOWHUNTING", "isRuleForSelectable_NONRESIDENT_BOWHUNTING", null, null, "getTag_NONRESIDENT_BOWHUNTING", true, false, false));
     emptyArray.push(new SalesItemProp(LIC35_NONRESIDENT_SMALL_GAME, AA35_NONRESIDENT_SMALL_GAME, FEE_ANL_NONRES_SMALLGAME_SCHDL, "1", "getAllFeeCodeByRuleFor_NONRESIDENT_SMALL_GAME", "isRuleForSelectable_NONRESIDENT_SMALL_GAME", null, "getIncl_NONRESIDENT_SMALL_GAME", "getTag_NONRESIDENT_SMALL_GAME", true, false, false));
@@ -599,7 +615,9 @@ function SetVesrionSalesItems2012() {
     emptyArray.push(new SalesItemProp(LIC12_LIFETIME_SMALL_AND_BIG_GAME, AA12_LIFETIME_SMALL_AND_BIG_GAME, FEE_LIFETM_SMALLBIG_GAME_SCHDL, "1", "getAllFeeCodeByRuleFor_LIFETM_SBGM", "isRuleForSelectable_LIFETM_SBGM", null, "getIncl_LIFETM_SBGM", "getTag_LIFETM_SBGM", true, false, true));
     emptyArray.push(new SalesItemProp(LIC13_LIFETIME_SPORTSMAN, AA13_LIFETIME_SPORTSMAN, FEE_LIFETIME_SPORTSMAN_SCHDL, "1", "getAllFeeCodeByRuleFor_LIFETM_SPRT", "isRuleForSelectable_LIFETM_SPRT", null, "getIncl_LIFETM_SPRT", "getTag_LIFETM_SPRT", true, false, true));
     emptyArray.push(new SalesItemProp(LIC14_LIFETIME_TRAPPING, AA14_LIFETIME_TRAPPING, FEE_LIFETIME_TRAPPING_SCHDL, "1", "getAllFeeCodeByRuleFor_LIFETM_TRAP", "isRuleForSelectable_LIFETM_TRAP", null, "getIncl_LIFETM_TRAP", null, false, true, false));
-    emptyArray.push(new SalesItemProp(LIC45_LIFETIME_INSCRIPTION, AA45_LIFETIME_INSCRIPTION, FEE_LIFETIME_INSCRIPTION_SCHDL, "1", "getAllFeeCodeByRuleFor_LIFETM_INSCRIPTION", "isRuleForSelectable_LIFETM_INSCRIPTION", "getPrereq_LIFETM_INSCRIPTION", null, null, true, true, true));
+    emptyArray.push(new SalesItemProp(LIC45_LIFETIME_INSCRIPTION, AA45_LIFETIME_INSCRIPTION, FEE_LIFETIME_INSCRIPTION_SCHDL, "1", "getAllFeeCodeByRuleFor_LIFETM_INSCRIPTION", "isRuleForSelectable_LIFETM_INSCRIPTION", "getPrereq_LIFETM_INSCRIPTION", null, null, false, false, false));
+    emptyArray.push(new SalesItemProp(LIC56_TAG_DRIV_LIC_IMM, AA55_TAG_DRIV_LIC_IMM, FEE_LIFETIME_DRIV_LIC_SCHDL, "1", "getAllFeeCodeByRuleFor_DRIV_LIC_IMM", "isRuleForSelectable_DRIV_LIC", "getPrereq_DRIV_LIC", null, null, false, false, false));
+	emptyArray.push(new SalesItemProp(LIC57_TAG_DRIV_LIC_REN, AA55_TAG_DRIV_LIC_IMM, FEE_LIFETIME_DRIV_LIC_SCHDL, "1", "getAllFeeCodeByRuleFor_DRIV_LIC_REN", "isRuleForSelectable_DRIV_LIC", "getPrereq_DRIV_LIC", null, null, false, false, false));
 
     emptyArray.push(new SalesItemProp(LIC32_NONRESIDENT_BEAR_TAG, AA32_NONRESIDENT_BEAR_TAG, FEE_TAG_BEAR_SCHDL, "1", "getAllFeeCodeByRuleFor_NONRESIDENT_BEAR_TAG", "isRuleForSelectable_NONRESIDENT_BEAR_TAG", "getPrereq_NONRESIDENT_BEAR_TAG", null, "getTag_NONRESIDENT_BEAR_TAG", true, false, false));
 
@@ -609,9 +627,9 @@ function SetVesrionSalesItems2012() {
     emptyArray.push(new SalesItemProp(LIC19_TRAIL_SUPPORTER_PATCH, AA19_TRAIL_SUPPORTER_PATCH, FEE_OTHER_SL_TRAILSUPP_SCHDL, "1", "getAllFeeCodeByRuleFor_OTHER_SALE_TRAIL_SUPPORTER_PATCH_SCHDL", "isRuleForSelectable_OTHER_SALE_TRAIL_SUPPORTER_PATCH_SCHDL", null, null, null, false, false, false));
     emptyArray.push(new SalesItemProp(LIC20_CONSERVATIONIST_MAGAZINE, AA20_CONSERVATIONIST_MAGAZINE, FEE_OTHER_SL_CONSRVMGZNE_SCHDL, "1", "getAllFeeCodeByRuleFor_OTHER_SALE_CONSERVATION_MAGAZINE", "isRuleForSelectable_OTHER_SALE_CONSERVATION_MAGAZINE", null, null, null, false, false, false));
     emptyArray.push(new SalesItemProp(LIC21_CONSERVATION_PATRON, AA21_CONSERVATION_PATRON, FEE_OTHER_SL_CONSERVPTRN_SCHDL, "1", "getAllFeeCodeByRuleFor_OTHER_SALE_CONSERVATION_PATRON_SCHDL", "isRuleForSelectable_OTHER_SALE_CONSERVATION_PATRON_SCHDL", null, null, null, false, false, false));
-    emptyArray.push(new SalesItemProp(LIC43_LIFETIME_CARD_REPLACE, AA43_LIFETIME_CARD_REPLACE, FEE_OTHER_SL_LFTMCRDREP_SCHDL, "1", "getAllFeeCodeByRuleFor_LIFETIME_CARD_REPLACE", "isRuleForSelectable_LIFETIME_CARD_REPLACE", null, null, null, true, true, true));
+    emptyArray.push(new SalesItemProp(LIC43_LIFETIME_CARD_REPLACE, AA43_LIFETIME_CARD_REPLACE, FEE_OTHER_SL_LFTMCRDREP_SCHDL, "1", "getAllFeeCodeByRuleFor_LIFETIME_CARD_REPLACE", "isRuleForSelectable_LIFETIME_CARD_REPLACE", null, null, null, false, false, false));
 //    emptyArray.push(new SalesItemProp(LIC44_SPORTSMAN_ED_CERTIFICATION, AA44_SPORTSMAN_ED_CERTIFICATION, FEE_OTHER_SL_SPORTEDCERT_SCHDL, "1", "getAllFeeCodeByRuleFor_SPORTSMAN_ED_CERTIFICATION", "isRuleForSelectable_SPORTSMAN_ED_CERTIFICATION", null, null, null, false, false, false));		// See below...Raj
-    emptyArray.push(new SalesItemProp(LIC44_SPORTSMAN_ED_CERTIFICATION, AA44_SPORTSMAN_ED_CERTIFICATION, FEE_OTHER_SL_SPORTEDCERT_SCHDL, "1", "getAllFeeCodeByRuleFor_SPORTSMAN_ED_CERTIFICATION", "isRuleForSelectable_SPORTSMAN_ED_CERTIFICATION", null, null, null, true, true, true));		
+    emptyArray.push(new SalesItemProp(LIC44_SPORTSMAN_ED_CERTIFICATION, AA44_SPORTSMAN_ED_CERTIFICATION, FEE_OTHER_SL_SPORTEDCERT_SCHDL, "1", "getAllFeeCodeByRuleFor_SPORTSMAN_ED_CERTIFICATION", "isRuleForSelectable_SPORTSMAN_ED_CERTIFICATION", null, null, null, true, false, true));		
     return emptyArray;
 }
 function SetVesrionSalesItems2014() {
@@ -620,6 +638,8 @@ function SetVesrionSalesItems2014() {
     emptyArray.push(new SalesItemProp(LIC06_HUNTING_LICENSE, AA06_HUNTING_LICENSE, FEE_ANNUAL_HUNTING_SCHDL, "1", "getAllFeeCodeByRuleFor_ANNUAL_HUNT", "isRuleForSelectable_ANNUAL_HUNT", null, null, "getTag_ANNUAL_HUNT", true, false, false));
     emptyArray.push(new SalesItemProp(LIC04_BOWHUNTING_PRIVILEGE, AA04_BOWHUNTING_PRIVILEGE, FEE_ANNUAL_BOWHUNTING_SCHDL, "2", "getAllFeeCodeByRuleFor_ANNUAL_BOWH_2014", "isRuleForSelectable_ANNUAL_BOWH_2014", "getPrereq_ANNUAL_BOWH_2014", null, "getTag_ANNUAL_BOWH_2014", true, false, false));
     emptyArray.push(new SalesItemProp(LIC07_MUZZLELOADING_PRIVILEGE, AA07_MUZZLELOADING_PRIVILEGE, FEE_ANNUAL_MUZZLELOADING_SCHDL, "2", "getAllFeeCodeByRuleFor_ANNUAL_MUZZ_2014", "isRuleForSelectable_ANNUAL_MUZZ_2014", "getPrereq_ANNUAL_MUZZ_2014", null, "getTag_ANNUAL_MUZZ_2014", true, false, false));
+    emptyArray.push(new SalesItemProp(LIC01_JUNIOR_HUNTING_TAGS, "", FEE_ANL_JUNIOR_HUNT_TAG_SCHDL, "1", "getAllFeeCodeByRuleFor_JUNIOR_HUNT_TAGS", "isRuleForSelectable_JUNIOR_HUNT_TAGS", null, null, "getTag_JUNIOR_HUNT_TAGS", true, false, false));
+    emptyArray.push(new SalesItemProp(LIC08_TURKEY_PERMIT, AA08_TURKEY_PERMIT, FEE_ANNUAL_TURKEY_PERMIT_SCHDL, "2", "getAllFeeCodeByRuleFor_ANNUAL_TRKY_2014", "isRuleForSelectable_ANNUAL_TRKY_2014", "getPrereq_ANNUAL_TRKY_2014", null, "getTag_ANNUAL_TRKY_2014", true, false, false));
 	//RV - 11/25 - Original code had no record type (param 2). I'm not sure the sales item below is currently being used.  When testing for season beginning Oct 2013 -, the logic was being called from the 2012 version() salesItemProp() above.
 	emptyArray.push(new SalesItemProp(LIC01_JUNIOR_HUNTING_TAGS, AA55_JUNIOR_HUNTING_TAGS, FEE_ANL_JUNIOR_HUNT_TAG_SCHDL, "1", "getAllFeeCodeByRuleFor_JUNIOR_HUNT_TAGS", "isRuleForSelectable_JUNIOR_HUNT_TAGS", null, null, "getTag_JUNIOR_HUNT_TAGS", true, false, false));
 	emptyArray.push(new SalesItemProp(LIC08_TURKEY_PERMIT, AA08_TURKEY_PERMIT, FEE_ANNUAL_TURKEY_PERMIT_SCHDL, "2", "getAllFeeCodeByRuleFor_ANNUAL_TRKY_2014", "isRuleForSelectable_ANNUAL_TRKY_2014", "getPrereq_ANNUAL_TRKY_2014", null, "getTag_ANNUAL_TRKY_2014", true, false, false));
@@ -637,7 +657,9 @@ function SetVesrionSalesItems2014() {
     emptyArray.push(new SalesItemProp(LIC12_LIFETIME_SMALL_AND_BIG_GAME, AA12_LIFETIME_SMALL_AND_BIG_GAME, FEE_LIFETM_SMALLBIG_GAME_SCHDL, "1", "getAllFeeCodeByRuleFor_LIFETM_SBGM", "isRuleForSelectable_LIFETM_SBGM", null, "getIncl_LIFETM_SBGM", "getTag_LIFETM_SBGM", true, false, true));
     emptyArray.push(new SalesItemProp(LIC13_LIFETIME_SPORTSMAN, AA13_LIFETIME_SPORTSMAN, FEE_LIFETIME_SPORTSMAN_SCHDL, "1", "getAllFeeCodeByRuleFor_LIFETM_SPRT", "isRuleForSelectable_LIFETM_SPRT", null, "getIncl_LIFETM_SPRT", "getTag_LIFETM_SPRT", true, false, true));
     emptyArray.push(new SalesItemProp(LIC14_LIFETIME_TRAPPING, AA14_LIFETIME_TRAPPING, FEE_LIFETIME_TRAPPING_SCHDL, "1", "getAllFeeCodeByRuleFor_LIFETM_TRAP", "isRuleForSelectable_LIFETM_TRAP", null, "getIncl_LIFETM_TRAP", null, false, true, false));
-    emptyArray.push(new SalesItemProp(LIC45_LIFETIME_INSCRIPTION, AA45_LIFETIME_INSCRIPTION, FEE_LIFETIME_INSCRIPTION_SCHDL, "1", "getAllFeeCodeByRuleFor_LIFETM_INSCRIPTION", "isRuleForSelectable_LIFETM_INSCRIPTION", "getPrereq_LIFETM_INSCRIPTION", null, null, true, true, true));
+    emptyArray.push(new SalesItemProp(LIC45_LIFETIME_INSCRIPTION, AA45_LIFETIME_INSCRIPTION, FEE_LIFETIME_INSCRIPTION_SCHDL, "1", "getAllFeeCodeByRuleFor_LIFETM_INSCRIPTION", "isRuleForSelectable_LIFETM_INSCRIPTION", "getPrereq_LIFETM_INSCRIPTION", null, null, false, false, false));
+	emptyArray.push(new SalesItemProp(LIC56_TAG_DRIV_LIC_IMM, AA55_TAG_DRIV_LIC_IMM, FEE_LIFETIME_DRIV_LIC_SCHDL, "1", "getAllFeeCodeByRuleFor_DRIV_LIC_IMM", "isRuleForSelectable_DRIV_LIC", "getPrereq_DRIV_LIC", null, null, false, false, false));
+	emptyArray.push(new SalesItemProp(LIC57_TAG_DRIV_LIC_REN, AA55_TAG_DRIV_LIC_IMM, FEE_LIFETIME_DRIV_LIC_SCHDL, "1", "getAllFeeCodeByRuleFor_DRIV_LIC_REN", "isRuleForSelectable_DRIV_LIC", "getPrereq_DRIV_LIC", null, null, false, false, false));
 
     emptyArray.push(new SalesItemProp(LIC16_HABITAT_ACCESS_STAMP, AA16_HABITAT_ACCESS_STAMP, FEE_OTHER_SL_HABITATACES_SCHDL, "1", "getAllFeeCodeByRuleFor_OTHER_SALE_HABITAT_ACCESS_SCHDL", "isRuleForSelectable_OTHER_SALE_HABITAT_ACCESS_SCHDL", null, null, null, false, false, false));
     emptyArray.push(new SalesItemProp(LIC17_VENISON_DONATION, AA17_VENISON_DONATION, FEE_OTHER_SL_VENISONDNTN_SCHDL, "1", "getAllFeeCodeByRuleFor_OTHER_SALE_VENISON_DONATION_SCHDL", "isRuleForSelectable_OTHER_SALE_VENISON_DONATION_SCHDL", null, null, null, false, false, false));
@@ -646,6 +668,8 @@ function SetVesrionSalesItems2014() {
     emptyArray.push(new SalesItemProp(LIC20_CONSERVATIONIST_MAGAZINE, AA20_CONSERVATIONIST_MAGAZINE, FEE_OTHER_SL_CONSRVMGZNE_SCHDL, "1", "getAllFeeCodeByRuleFor_OTHER_SALE_CONSERVATION_MAGAZINE", "isRuleForSelectable_OTHER_SALE_CONSERVATION_MAGAZINE", null, null, null, false, false, false));
     // JHS 10/10/2013 CP not in 2014 fees per defect 2075
 	//emptyArray.push(new SalesItemProp(LIC21_CONSERVATION_PATRON, AA21_CONSERVATION_PATRON, FEE_OTHER_SL_CONSERVPTRN_SCHDL, "1", "getAllFeeCodeByRuleFor_OTHER_SALE_CONSERVATION_PATRON_SCHDL", "isRuleForSelectable_OTHER_SALE_CONSERVATION_PATRON_SCHDL", null, null, null, false, false, false));
+    emptyArray.push(new SalesItemProp(LIC43_LIFETIME_CARD_REPLACE, AA43_LIFETIME_CARD_REPLACE, FEE_OTHER_SL_LFTMCRDREP_SCHDL, "1", "getAllFeeCodeByRuleFor_LIFETIME_CARD_REPLACE", "isRuleForSelectable_LIFETIME_CARD_REPLACE", null, null, null, false, false, false));
+    emptyArray.push(new SalesItemProp(LIC44_SPORTSMAN_ED_CERTIFICATION, AA44_SPORTSMAN_ED_CERTIFICATION, FEE_OTHER_SL_SPORTEDCERT_SCHDL, "1", "getAllFeeCodeByRuleFor_SPORTSMAN_ED_CERTIFICATION", "isRuleForSelectable_SPORTSMAN_ED_CERTIFICATION", null, null, null, false, false, false));
     emptyArray.push(new SalesItemProp(LIC43_LIFETIME_CARD_REPLACE, AA43_LIFETIME_CARD_REPLACE, FEE_OTHER_SL_LFTMCRDREP_SCHDL, "1", "getAllFeeCodeByRuleFor_LIFETIME_CARD_REPLACE", "isRuleForSelectable_LIFETIME_CARD_REPLACE", null, null, null, true, true, true));
     emptyArray.push(new SalesItemProp(LIC44_SPORTSMAN_ED_CERTIFICATION, AA44_SPORTSMAN_ED_CERTIFICATION, FEE_OTHER_SL_SPORTEDCERT_SCHDL, "1", "getAllFeeCodeByRuleFor_SPORTSMAN_ED_CERTIFICATION", "isRuleForSelectable_SPORTSMAN_ED_CERTIFICATION", null, null, null, true, true, true));
 
@@ -1047,6 +1071,21 @@ function getAllFeeCodeByRuleFor_LIFETM_INSCRIPTION(ruleParams, feeSched) {
     if (feeItemCodes.length == 0) { feeItemCodes.push(new FeeCodeProp(LTL_1_RES, "000")); }
     return feeItemCodes;
 }
+
+function getAllFeeCodeByRuleFor_DRIV_LIC_IMM(ruleParams, feeSched) {
+    var feeItemCodes = new Array();
+    var rp = ruleParams;
+    feeItemCodes.push(new FeeCodeProp(FEE_LIFETIME_DRIV_LIC_IMMED, "000")); 
+   return feeItemCodes;
+}
+
+function getAllFeeCodeByRuleFor_DRIV_LIC_REN(ruleParams, feeSched) {
+    var feeItemCodes = new Array();
+    var rp = ruleParams;
+    feeItemCodes.push(new FeeCodeProp(FEE_LIFETIME_DRIV_LIC_RENEW, "000")); 
+   return feeItemCodes;
+}
+
 function getAllFeeCodeByRuleFor_LIFETM_FISH(ruleParams, feeSched) {
     var feeItemCodes = new Array();
     var rp = ruleParams;
@@ -1529,6 +1568,7 @@ function isRuleForSelectable_LIFETM_SPRT(ruleParams) {
     return isSelectable;
 }
 function isRuleForSelectable_LIFETM_SBGM(ruleParams) {
+    var isSelectable = (ruleParams.IsNyResiDent && ruleParams.Age < 70);
     var isSelectable = (ruleParams.IsNyResiDent && ruleParams.Age < 70 && ruleParams.Age > 12);
     return isSelectable;
 }
@@ -1597,6 +1637,7 @@ function isRuleForSelectable_JUNIOR_HUNTING(ruleParams) {
 }
 function isRuleForSelectable_JUNIOR_HUNT_TAGS(ruleParams) {
     //Priya
+    var isSelectable = (ruleParams.Age >= 14 && ruleParams.Age <= 15 && ruleParams.HasHuntEd && ruleParams.HasJrHuntLic() && (ruleParams.AgedIn || ruleParams.NeedHuntEd));
     var isSelectable = (ruleParams.Age >= 14 && ruleParams.Age <= 15 && ruleParams.HasHuntEd && ruleParams.HasJrHuntLic() && !hasJuniorTagItems(ruleParams.ActiveHoldingsInfo)); //RV - 11/25 - These conditions did not allow Junior Tags to display ..  && (ruleParams.AgedIn || ruleParams.NeedHuntEd)
     return isSelectable;
 }
@@ -1685,6 +1726,11 @@ function isRuleForSelectable_OTHER_SALE_VENISON_DONATION_SCHDL(ruleParams) {
     var isSelectable = true;
     return isSelectable;
 }
+
+function isRuleForSelectable_DRIV_LIC(ruleParams) {
+    var isSelectable = true;
+    return isSelectable;
+}
 //////////////
 function checkRuletoCreateTag(ruleParams, tagProp, dictTags) {
     var isOkToCreate = true;
@@ -1749,6 +1795,12 @@ function checkRuletoCreateTag(ruleParams, tagProp, dictTags) {
         //No need to generate new record since record will use to generate report
         isOkToCreate = false;
     }
+	if (tagProp.TagType == TAG_TYPE_25_DRIV_LIC_IMM) {
+        isOkToCreate = !ruleParams.isTagInActiveHodings(tagProp.RecordType, tagProp.TagType);
+    }
+	if (tagProp.TagType == TAG_TYPE_26_DRIV_LIC_REN) {
+        isOkToCreate = !ruleParams.isTagInActiveHodings(tagProp.RecordType, tagProp.TagType);
+    }
     return isOkToCreate;
 }
 function isFallTurkeySeasonOver(year) {
@@ -1785,6 +1837,21 @@ function getPrereq_ANNUAL_TRKY_2012(ruleParams) {
     }
     return arryPrereq;
 }
+
+function getPrereq_DRIV_LIC(ruleParams) {
+    var arryPrereq = null;
+    if (isRuleForSelectable_DRIV_LIC(ruleParams)) {
+        arryPrereq = new Array();
+		arryPrereq.push(LIC09_LIFETIME_BOWHUNTING);
+		arryPrereq.push(LIC10_LIFETIME_FISHING);
+		arryPrereq.push(LIC11_LIFETIME_MUZZLELOADING);
+		arryPrereq.push(LIC12_LIFETIME_SMALL_AND_BIG_GAME);
+		arryPrereq.push(LIC13_LIFETIME_SPORTSMAN);
+		arryPrereq.push(LIC14_LIFETIME_TRAPPING);
+    }
+    return arryPrereq;
+}
+
 function getPrereq_ANNUAL_TRKY_2014(ruleParams) {
     var arryPrereq = null;
     if (isRuleForSelectable_ANNUAL_TRKY_2014(ruleParams)) {
@@ -1839,6 +1906,7 @@ function getPrereq_ANNUAL_DMP_2014(ruleParams) {
 			arryPrereq.push(LIC30_NONRES_MUZZLELOADING);
 			arryPrereq.push(LIC37_SMALL_AND_BIG_GAME);
 			arryPrereq.push(LIC12_LIFETIME_SMALL_AND_BIG_GAME);
+			arryPrereq.push(LIC33_NONRESIDENT_BIG_GAME);
 			arryPrereq.push(LIC33_NONRESIDENT_BIG_GAME);F
 			arryPrereq.push(LIC34_NONRESIDENT_BOWHUNTING);
 			arryPrereq.push(LIC40_SUPER_SPORTSMAN);
@@ -2176,6 +2244,8 @@ tagsMap.put(TAG_TYPE_15_SPRING_TURKEY_TAG_2, new TagProp(LIC50_TAG_SPRING_TURKEY
 tagsMap.put(TAG_TYPE_16_SPRING_TURKEY_TAG_1, new TagProp(LIC50_TAG_SPRING_TURKEY_TAG, AA50_TAG_SPRING_TURKEY_TAG, "", TAG_TYPE_16_SPRING_TURKEY_TAG_1, 1));
 tagsMap.put(TAG_TYPE_19_DEER_OF_EITHER_SEX_TAG, new TagProp(LIC48_TAG_BOW_MUZZ_EITHER_SEX, AA48_TAG_BOW_MUZZ_EITHER_SEX, "", TAG_TYPE_19_DEER_OF_EITHER_SEX_TAG, 1));
 tagsMap.put(TAG_TYPE_20_ANTLERLESS_DEER_TAG, new TagProp(LIC49_TAG_BOW_MUZZ_ANTLERLESS, AA49_TAG_BOW_MUZZ_ANTLERLESS, "", TAG_TYPE_20_ANTLERLESS_DEER_TAG, 1));
+tagsMap.put(TAG_TYPE_25_DRIV_LIC_IMM, new TagProp(LIC56_TAG_DRIV_LIC_IMM, AA55_TAG_DRIV_LIC_IMM, "", TAG_TYPE_25_DRIV_LIC_IMM, 1));
+tagsMap.put(TAG_TYPE_26_DRIV_LIC_REN, new TagProp(LIC57_TAG_DRIV_LIC_REN, AA56_TAG_DRIV_LIC_REN, "", TAG_TYPE_26_DRIV_LIC_REN, 1));
 
 function getTag_ANNUAL_TRKY_2012(ruleParams) {
     var rp = ruleParams;
@@ -2215,6 +2285,7 @@ function getTag_JUNIOR_HUNT_TAGS(ruleParams) {
     var rp = ruleParams;
     var arryTags = new Array();
     arryTags.push(TAG_TYPE_1_BACK_TAG);
+    //TODO
     
 	//RV - 11/25 - Add the appropriate tags for Aged In Junior Hunter (13 turned 14 during season)
 	arryTags.push(TAG_TYPE_3_REG_SEASON_DEER);
@@ -2658,8 +2729,10 @@ function getActiveholdingsFilterArray() {
     validRecTypeArray.push(AA52_TAG_BACK);
     validRecTypeArray.push(AA53_TAG_DMP_DEER);
     validRecTypeArray.push(AA54_TAG_PRIV_PANEL);
+	validRecTypeArray.push(AA55_TAG_DRIV_LIC_IMM);
+    validRecTypeArray.push(AA56_TAG_DRIV_LIC_REN);
     //11/25/2013 - RV - Place Junior Hunting Tags in Active holdings(?)
-	validRecTypeArray.push(AA55_JUNIOR_HUNTING_TAGS);	
+	validRecTypeArray.push(AA57_JUNIOR_HUNTING_TAGS);	
 
     return validRecTypeArray;
 
@@ -2927,7 +3000,8 @@ function getReprintFilterArray() {
     validRecTypeArray.push(AA51_TAG_FALL_TURKEY_TAG);
     validRecTypeArray.push(AA52_TAG_BACK);
     validRecTypeArray.push(AA53_TAG_DMP_DEER);
-// RV 11/25 - TESTING -	validRecTypeArray.push(AA55_JUNIOR_HUNTING_TAGS);
+    validRecTypeArray.push(AA54_TAG_PRIV_PANEL);
+// RV 11/25 - TESTING -	validRecTypeArray.push(AA57_JUNIOR_HUNTING_TAGS);
     //Do not allow Privilege Panels to be reprinted
 	//validRecTypeArray.push(AA54_TAG_PRIV_PANEL);
 
@@ -3217,4 +3291,5 @@ function getRevokTrapRecTypeArray() {
     validRecTypeArray.push(AA42_TRAPPER_SUPER_SPORTSMAN); //TODO
 
     return validRecTypeArray;
+}
 }
