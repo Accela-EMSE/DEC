@@ -1229,13 +1229,18 @@ function copyContactAppSpecificToRecordAppSpecific() {
     logDebug("ENTER: copyContactAppSpecificToRecordAppSpecific");
     
     if (publicUser) {
-        var s_publicUserResult = aa.publicUser.getPublicUserByPUser(publicUserID); 
-        if (s_publicUserResult.getSuccess()) {
-            var pUserObj = s_publicUserResult.getOutput();
-
-            if (pUserObj.getAccountType() == "CITIZEN") {
-                MSG_SUSPENSION = "Customer privileges are suspended and licenses are not available for purchase. This issue can only be resolved by contacting DEC Law Enforcement during business hours at 518-402-8821.";
-            }
+        
+        var publicUserID = "" + aa.env.getValue("CurrentUserID");
+    
+        if (publicUserID.length > 0) {
+            var pUserSeqNum = aa.util.parseLong(publicUserID.substr(10,publicUserID.length-1));
+            var s_publicUserResult = aa.publicUser.getPublicUser(pUserSeqNum); 
+            if (s_publicUserResult.getSuccess()) {
+                var pUserObj = s_publicUserResult.getOutput();
+                if (pUserObj.getAccountType() == "CITIZEN") {
+                    MSG_SUSPENSION = "Customer privileges are suspended and licenses are not available for purchase. This issue can only be resolved by contacting DEC Law Enforcement during business hours at 518-402-8821.";
+                }
+            }           
         }
     }
 
