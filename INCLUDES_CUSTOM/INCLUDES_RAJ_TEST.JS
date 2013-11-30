@@ -375,6 +375,16 @@ function revokeRecord(itemCap) {
     closeTaskForRec("Suspension", "", "", "", "", itemCap);
 }
 
+function suspendRecord(itemCap) {
+    //Update Status
+    updateTagStatus("Suspended", "Suspended", itemCap);
+
+    closeTaskForRec("Report Game Harvest", "", "", "", "", itemCap);
+    closeTaskForRec("Void Document", "", "", "", "", itemCap);
+    closeTaskForRec("Revocation", "", "", "", "", itemCap);
+    closeTaskForRec("Suspension", "Suspended", "", "", "", itemCap);
+}
+
 function createEnforcemrntCondition() {
     var isRevokeFishing = (AInfo["Revoke Fishing"] == "CHECKED");
     var isRevokeHunting = (AInfo["Revoke Hunting"] == "CHECKED");
@@ -455,5 +465,18 @@ function revokeActiveHoldings() {
                 }
             }
         }
+    }
+}
+
+function suspendActiveHoldings() {
+    var peopleSequenceNumber = findRefContactForCap("Individual");
+
+    var validRecArray;
+    var itemCap;
+    var availableActiveItems = getActiveHoldingsForRovkation(peopleSequenceNumber);
+    for (var tidx in availableActiveItems) {
+        var tObj = availableActiveItems[tidx];
+        itemCap = getCapIdBycapIDString(tObj.itemCapId + "");
+        suspendRecord(itemCap);
     }
 }
