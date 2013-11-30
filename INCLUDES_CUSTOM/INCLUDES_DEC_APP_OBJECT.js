@@ -1471,6 +1471,9 @@ function form_OBJECT(identity) {
         this.SetExprFieldName(LIC43_LIFETIME_CARD_REPLACE, "ASI::OTHER SALES::Lifetime Card Replace");
         this.SetExprFieldName(LIC44_SPORTSMAN_ED_CERTIFICATION, "ASI::OTHER SALES::Sportsman Ed Certification");
         this.SetExprFieldName(LIC45_LIFETIME_INSCRIPTION, "ASI::LIFETIME LICENSES::Lifetime Inscription");
+		//this.SetExprFieldName(LIC55_TAG_DRIV_LIC, "ASI::LIFETIME LICENSES::Add Lifetime to Driver License");
+		this.SetExprFieldName(LIC56_TAG_DRIV_LIC_IMM, "ASI::LIFETIME LICENSES::Add Lifetime to Driver License Re-Issue Immediately");
+		this.SetExprFieldName(LIC57_TAG_DRIV_LIC_REN, "ASI::LIFETIME LICENSES::Add Lifetime to Driver License on Renewal");
     }
 
     this.Init();
