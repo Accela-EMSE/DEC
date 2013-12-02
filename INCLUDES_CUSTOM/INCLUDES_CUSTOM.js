@@ -448,14 +448,20 @@ function editContactPeopleTemplateAttribute(peopleSequenceNumber, pAttributeName
 }
 function copyCapASIT(peopleModel, groupName, subGroupName) {
     var appSpecificTableScript = aa.appSpecificTableScript.getAppSpecificTableModel(capId, subGroupName).getOutput();
-    var appSpecificTable = appSpecificTableScript.getAppSpecificTableModel();
-    var tableFields = appSpecificTable.getTableFields();
-    //var groupName = appSpecificTable.getGroupName();
-    //Contact ASIT subGroupName is equal to cap ASIT subGroupName
+	
+	if (appSpecificTableScript) {
+		var appSpecificTable = appSpecificTableScript.getAppSpecificTableModel();
+		var tableFields = appSpecificTable.getTableFields();
+		//var groupName = appSpecificTable.getGroupName();
+		//Contact ASIT subGroupName is equal to cap ASIT subGroupName
 
-    if (tableFields.size() > 0) {
-        copyCapASITtoContactASITTableRow(peopleModel.getTemplate(), subGroupName, groupName, tableFields);
-    }
+		if (tableFields.size() > 0) {
+			copyCapASITtoContactASITTableRow(peopleModel.getTemplate(), subGroupName, groupName, tableFields);
+		}
+	}
+	else {
+		logDebug("copyCapASIT: Can't copy table " + subGroupName + " because it doesn't exist on the record");
+		}
 }
 function CreateTags(tagsArray, ruleParams, decCode, fullfilmentCondition) {
     logDebug("ENTER: CreateTags");
