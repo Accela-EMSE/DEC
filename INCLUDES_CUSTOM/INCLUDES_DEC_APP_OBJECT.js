@@ -128,6 +128,11 @@ function form_OBJECT(identity) {
     this.IsNativeAmerican = "";
     this.PreferencePoints = new Number();
     this.PreferencePoints = 0;
+	
+	// DRIVER LICENSE
+	
+	this.DriverLicenseState =  "";
+	this.DriverLicenseNumber = "";
 
     //MILITARY ACTIVE SERVICE STATUS
     this.IsMilitaryServiceman = "";
@@ -596,8 +601,11 @@ function form_OBJECT(identity) {
         ruleParams.HasBowPriv = this.HasBowPriv;
         ruleParams.HasMuzzPriv = this.HasMuzzPriv;
         ruleParams.EitherOrAntler = this.EitherOrAntler;
+		ruleParams.hasValidNYDriverLicense = (this.DriverLicenseState.toUpperCase().equals("NY") && this.DriverLicenseNumber.length() > 0) 
+	
         return ruleParams;
     }
+	
     this.setLoginUserType = function () {
         var isvalid = false;
         var uObj;
@@ -974,6 +982,11 @@ function form_OBJECT(identity) {
         sbArray.push(this.GetSportsmanEducationStr());
         scArray.push("GetActiveHoldingsInfoStr : ");
         sbArray.push(this.GetActiveHoldingsInfoStr());
+        scArray.push("DriverLicenseState : ");
+        sbArray.push(this.DriverLicenseState());
+        scArray.push("DriverLicenseNumber : ");
+        sbArray.push(this.DriverLicenseNumber());
+
 
         for (var c in sbArray) {
             result += scArray[c];
@@ -1749,7 +1762,8 @@ function rulePARAMS(identity) {
     this.EitherOrAntler = 2; //1:None; 6=2|4:E; 14=2|4|8:A;
     this.HasBowPriv = false;
     this.HasMuzzPriv = false;
-
+	this.hasValidNYDriverLicense = false;
+		
     this.SetEitherOrAntler = function (eEitherOrAntler) {
         //eEitherOrAntler=4:E; eEitherOrAntler=8:A;
         this.EitherOrAntler = this.EitherOrAntler | eEitherOrAntler;
@@ -1850,7 +1864,10 @@ function rulePARAMS(identity) {
         sbArray.push(this.HasBowPriv);
         scArray.push("HasMuzzPriv: ");
         sbArray.push(this.HasMuzzPriv);
-
+        scArray.push("HasMuzzPriv: ");
+        sbArray.push(this.HasMuzzPriv);
+		scArray.push("HasMuzzPriv: ");
+        sbArray.push(this.HasMuzzPriv);
         for (var c in sbArray) {
             result += scArray[c];
             result += sbArray[c];

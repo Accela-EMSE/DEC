@@ -897,6 +897,8 @@ function SetformForSelectedLics(frm) {
     frm.Quantity_Habitat_Stamp = AInfo["Quantity Habitat/Access Stamp"];
     frm.Inscription = AInfo["Inscription"];
     frm.IsPermanentDisabled = AInfo["Permanent Disability"];
+	frm.DriverLicenseState =  AInfo["A_Driver_License_State"];
+	frm.DriverLicenseNumber =  AInfo["A_Driver_License_Number"];
 
     //ASIT info
     frm.ClearLandOwnerInfo();
@@ -1259,7 +1261,9 @@ function copyContactAppSpecificToRecordAppSpecific() {
         editAppSpecific4ACA("A_email", thisContact["email"]);
         editAppSpecific4ACA("A_birthDate", formatMMDDYYYY(thisContact["birthDate"]));
 		editAppSpecific4ACA("A_IsNYResident", thisContact["Are You New York Resident?"]);
-
+        editAppSpecific4ACA("A_Driver_License_State", thisContact["driverLicenseState"]);
+        editAppSpecific4ACA("A_Driver_License_Number",thisContact["driverLicenseNbr"]);
+		
         var strAnnual = null;
         var strPrev = null;
         var strLand = null;

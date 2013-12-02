@@ -1721,8 +1721,7 @@ function isRuleForSelectable_OTHER_SALE_VENISON_DONATION_SCHDL(ruleParams) {
 }
 
 function isRuleForSelectable_DRIV_LIC(ruleParams) {
-    var isSelectable = true;
-    return isSelectable;
+    return ruleParams.hasValidNYDriverLicense;
 }
 //////////////
 function checkRuletoCreateTag(ruleParams, tagProp, dictTags) {
