@@ -55,8 +55,93 @@ var sysDateMMDDYYYY = dateFormatted(sysDate.getMonth(), sysDate.getDayOfMonth(),
 var currentUserID = currentUser == null ? "ADMIN" : currentUser.getUserID().toString();
 var debug = "";
 
-var showDebug = false;
-var showMessage = false;
+var showDebug = true;
+var showMessage = true;
+
+var currDate = new Date();
+var contactType = vRefContact.contactType;
+
+var aka = aa.proxyInvoker.newInstance("com.accela.aa.aamain.people.PeopleAKABusiness").getOutput();
+var a = aka.getPeopleAKAListByContactNbr(aa.getServiceProviderCode(), vContactSeqNum);
+var array = a.toArray();
+var arrayLen = array.length; 
+logDebug("No of rows in also known as: " + array.length);
+var flag = 0;
+
+var index = 0;
+
+//Code for updating "also known as" info
+if(contactType == "Individual" || contactType == "Clerk" || contactType == "DEC Agent")
+{	
+	for(i in array)
+	{
+		logDebug("Contact details: " + array[i].firstName + "  " + array[i].lastName);
+		if(array[i].endDate ==null)
+		{
+			if(array[i].firstName != vRefContact.firstName || array[i].lastName != vRefContact.lastName)
+			{
+				flag = 1;
+			}
+			else if(array[i].middleName && vRefContact.middleName)
+			{
+				if(array[i].middleName != vRefContact.middleName)
+				{
+					flag = 1
+				}
+			}
+			else if((array[i].middleName && !vRefContact.middleName) || (!array[i].middleName && vRefContact.middleName))
+			{
+				flag = 1;
+			}
+		
+			if(flag == 1)
+			{
+				array[i].endDate = currDate;
+				index = i;
+				break;
+			}
+		} 
+	}
+	
+	if(flag == 1 || arrayLen == 0)
+	{	
+		var args = new Array();
+		var akaModel = aa.proxyInvoker.newInstance("com.accela.orm.model.contact.PeopleAKAModel",args).getOutput();
+		var auditModel = aa.proxyInvoker.newInstance("com.accela.orm.model.common.AuditModel",args).getOutput();
+
+		akaModel.setServiceProviderCode(aa.getServiceProviderCode());
+		akaModel.setContactNumber(parseInt(vContactSeqNum));
+		//if(vRefContact.firstName)
+		{
+			akaModel.setFirstName(vRefContact.firstName);
+		}
+		
+		//if(vRefContact.middleName)
+		{
+			akaModel.setMiddleName(vRefContact.middleName);
+		}
+		
+		//if(vRefContact.lastName)
+		{
+			akaModel.setLastName(vRefContact.lastName);
+		}
+		
+		//if(vRefContact.firstName && vRefContact.lastName)
+		{
+			var fullName = vRefContact.firstName + " " + vRefContact.lastName;
+			akaModel.setFullName(fullName);
+		}
+		
+		akaModel.setStartDate(new Date());
+		//akaModel.setEndDate(endDate);
+		auditModel.setAuditDate(new Date());
+		auditModel.setAuditStatus("A");
+		auditModel.setAuditID("ADMIN");
+		akaModel.setAuditModel(auditModel);
+		a.add(akaModel);
+		aka.saveModels(aa.getServiceProviderCode(), vContactSeqNum, a);
+	}
+}
 
 if (contactType == "Individual" && !vRefContact.getDeceasedDate())
     rebuildAllTagsforaRefContact(vContactSeqNum,vToday);
