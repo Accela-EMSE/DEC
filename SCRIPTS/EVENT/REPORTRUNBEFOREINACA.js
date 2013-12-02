@@ -252,11 +252,6 @@ function getAgentID(userId) {
 	uObj.userId = userId;
 	uObj.userModel = uObj.getUserModel();
 	uObj.setUserModelAttributes();
-
-	var salesAgentInfoArray = getAgentInfo(uObj.publicUserID, uObj);
-	if (salesAgentInfoArray != null) {
-		agentId = salesAgentInfoArray["Agent Id"];
-	}
-
-	return agentId;
+	return uObj.getAuthAgentPeopleSeqNum();
+	
 }
