@@ -482,6 +482,8 @@ function createNewTag(ipParentApp,ipStartDate,ipExpDate,ipTag,ipTagCntr) {
     var newLicId = issueSubLicense(fvGroup, fvType, fvSubType, fvCategory, "Active", ipParentApp);
     if (newLicId) {
         logDebug("New Tag Created: " + newLicId.getCustomID());
+		var newDecDocId = GenerateDocumentNumber(newLicId.getCustomID(),"9998");
+        updateDocumentNumber(newDecDocId, newLicId);
         editAppName(fvAppName, newLicId);
         editFileDate(newLicId, ipStartDate);
         setLicExpirationDate(newLicId, "", ipExpDate);
