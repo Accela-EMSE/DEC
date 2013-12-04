@@ -3698,8 +3698,11 @@ function verifyNotMilitaryAndDisabled() {
 		for (var y in ANNUALDISABILITY) rowNum++;
 		
     var MilitaryServiceman = (AInfo["Military Serviceman"] == "Yes");
-    if (MilitaryServiceman && rowNum > 0) {
-        retMsg += "Please choose either military service or military disability, but not both.";
+	var PermanentDisability = (AInfo["Permanent Disability"] == "Yes");
+	var HasAnnualDisability = (rowNum > 0);
+	
+    if ((MilitaryServiceman?1:0)+(PermanentDisability?1:0)+(HasAnnualDisability?1:0) > 1) {
+        retMsg += "Please choose only one of Military Service, Permanent Disability, or Annual Disability.";
         retMsg += "<Br />";
     }
     return retMsg;
