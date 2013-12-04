@@ -601,7 +601,8 @@ function form_OBJECT(identity) {
         ruleParams.HasBowPriv = this.HasBowPriv;
         ruleParams.HasMuzzPriv = this.HasMuzzPriv;
         ruleParams.EitherOrAntler = this.EitherOrAntler;
-		ruleParams.hasValidNYDriverLicense = (isNull(this.DriverLicenseState,'').toUpperCase().equals("NY") && this.DriverLicenseNumber.length() > 0)
+		ruleParams.hasValidNYDriverLicense = (isNull(this.DriverLicenseState,'').toUpperCase().equals("NY") && isNull(this.DriverLicenseNumber,'').length > 0)
+
 			
         return ruleParams;
     }
