@@ -485,6 +485,7 @@ function CreateTags(tagsArray, ruleParams, decCode, fullfilmentCondition) {
 			logDebug("CreateTags: Tag item " + tagProp.RecordType);
             if (tagProp != null) {
                 logDebug("NOT NULL TAG PROP");
+				logDebug("CreateTags:  dictTags.Lookup(" + tagProp.TagType + ") = " + dictTags.Lookup(tagProp.TagType));
                 if (dictTags.Lookup(tagProp.TagType) == null) {
                     var isOkToCreate = checkRuletoCreateTag(ruleParams, tagProp, dictTags); 
                     logDebug("isOkToCreate: " + isOkToCreate);
