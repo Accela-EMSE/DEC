@@ -482,7 +482,7 @@ function CreateTags(tagsArray, ruleParams, decCode, fullfilmentCondition) {
 
         for (var item in tagsArray) {
             var tagProp = tagsArray[item];
-			logDebug("CreateTags: Tag item " + tagProp);
+			logDebug("CreateTags: Tag item " + tagProp.RecordType);
             if (tagProp != null) {
                 logDebug("NOT NULL TAG PROP");
                 if (dictTags.Lookup(tagProp.TagType) == null) {
