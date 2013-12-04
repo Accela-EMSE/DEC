@@ -486,7 +486,8 @@ function CreateTags(tagsArray, ruleParams, decCode, fullfilmentCondition) {
             if (tagProp != null) {
                 logDebug("NOT NULL TAG PROP");
 				logDebug("CreateTags:  dictTags.Lookup(" + tagProp.TagType + ") = " + dictTags.Lookup(tagProp.TagType));
-                if (dictTags.Lookup(tagProp.TagType) == null) {
+				// JHS 12/4/2013 defect 16941:  we can have more than one DMP added at a time
+                if (tagProp.TagType == TAG_TYPE_4_DMP_DEER_TAG || dictTags.Lookup(tagProp.TagType) == null) {
                     var isOkToCreate = checkRuletoCreateTag(ruleParams, tagProp, dictTags); 
                     logDebug("isOkToCreate: " + isOkToCreate);
                     if (isOkToCreate) {
