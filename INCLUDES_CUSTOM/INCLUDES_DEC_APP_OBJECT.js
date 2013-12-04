@@ -723,13 +723,10 @@ function form_OBJECT(identity) {
                     this.licObjARRAY[idx].IsActive = isActive;
                     
                     //Defect 16668 - always make 1 and 7 day fishing licenses selectable.
-                    if (matches(this.licObjARRAY[idx].Identity,LIC03_ONE_DAY_FISHING_LICENSE,LIC26_SEVEN_DAY_FISHING_LICENSE))
-                        this.licObjARRAY[idx].IsSelectable = (isActive && isSelectable && isValidUser && !isInCombo && !isRevoked);
+                    if (matches(this.licObjARRAY[idx].Identity,LIC03_ONE_DAY_FISHING_LICENSE,LIC26_SEVEN_DAY_FISHING_LICENSE,LIC24_NONRESIDENT_1_DAY_FISHING,LIC25_NONRESIDENT_7_DAY_FISHING))
+                      this.licObjARRAY[idx].IsSelectable = (isActive && isSelectable && isValidUser && !isInCombo && !isRevoked);
                     else
                         this.licObjARRAY[idx].IsSelectable = (isActive && isSelectable && isValidUser && !isInCombo && !isInActiveHoldings && !isRevoked);
-                    
-
-                    
                 }
             }
 
