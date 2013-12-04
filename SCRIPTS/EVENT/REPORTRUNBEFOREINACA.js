@@ -120,7 +120,7 @@ if (reportInfo) {
 
 						// if already used all the reprint times, return error message and code.
 						if (parseInt(rePrintTimes) + 1 > maxReprintTimes) {
-							aa.env.setValue("ScriptReturnMessage", "You have reached the maximum times you can reprint.  Please select the reason it did not print below.");
+							aa.env.setValue("ScriptReturnMessage", "You can no longer reprint.");
 							aa.env.setValue("ScriptReturnCode", "-1");
 						}
 					}
