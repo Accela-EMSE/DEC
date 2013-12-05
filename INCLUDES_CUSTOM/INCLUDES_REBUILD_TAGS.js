@@ -2,7 +2,7 @@
 | Program : INCLUDES_REBUILD_TAGS.js
 | Event   : N/A
 |
-| Usage   : Custom Script Include.  Insert custom EMSE Function below and they will be 
+| Usage   : Custom Script Include.  Insert custom EMSE Function below and they will be
 |           available to all master scripts
 |
 | Notes   : 10/15/2013,     Laxmikant Bondre (LBONDRE).
@@ -35,6 +35,11 @@ function rebuildAllTagsforaRefContact(ipRefContact,ipEffDate) {
         opErrors = createError(opErrors,"Contact " + ipRefContact + " has Deceased Date.");
         return opErrors;
     }
+    var fvEnforcements = getEnforcements(ipRefContact);
+    if (fvEnforcements.suspension) {
+        opErrors = createError(opErrors,"Contact " + ipRefContact + " has Suspension of Privileges.");
+        return opErrors;
+	}
     var fvProcessYear = getProcessYear(ipEffDate);
     var fvSeason =  getSeasonDates(fvProcessYear);
     var fvStartDate = fvSeason.StartDate;
@@ -44,7 +49,7 @@ function rebuildAllTagsforaRefContact(ipRefContact,ipEffDate) {
     logDebug("Education: " + fvSpEd);
     var fvLifeLic = getLifetimeLicenses(ipRefContact);
     logDebug("Lifetime Licenses: " + fvLifeLic);
-    var fvEligibleTags = calculateEligTags(fvLifeLic,fvSpEd,fvAge);
+    var fvEligibleTags = calculateEligTags(fvLifeLic,fvSpEd,fvAge,fvEnforcements);
     logDebug("Eligible Tags: " + fvEligibleTags);
     var fvExistTags = getExistingTags(ipRefContact,fvExpDate,fvEligibleTags);
     logDebug("Existing Tags: " + fvExistTags);
@@ -107,7 +112,7 @@ function getCompletedAge(ipBirthDate,ipEffDate) {
     ipEffDate.setHours(0);
     ipEffDate.setMinutes(0);
     ipEffDate.setSeconds(0);
-       
+
     var fvEffBirthDate = ipBirthDate;
     fvEffBirthDate.setFullYear(ipEffDate.getFullYear());
     if (fvEffBirthDate.getTime() > ipEffDate.getTime())
@@ -119,9 +124,9 @@ function getSpEd(ipRefContact) {
     var fvSubGroupName = "SPORTSMAN EDUCATION";
     var fvFieldNameType = "Sportsman Education Type";
     var fvFieldNameRevoked = "Revoked";
-       
+
     var fvPeopleModel = aa.people.getPeople(ipRefContact).getOutput();
-    
+
     var fvSpEdArray = aa.util.newHashMap();
     if (fvPeopleModel) {
         var fvTemplate = fvPeopleModel.getTemplate();
@@ -174,7 +179,7 @@ function getLifetimeLicenses(ipRefContact) {
     var fvCcb = aa.proxyInvoker.newInstance("com.accela.aa.aamain.people.CapContactDAOOracle").getOutput();
     fvPeople.setServiceProviderCode(aa.getServiceProviderCode());
     fvPeople.setContactSeqNumber(ipRefContact);
-    
+
     var fvCapsQry = fvCcb.getCapContactsByRefContactModel(fvPeople);
     if (!fvCapsQry)
         return opLL;
@@ -203,7 +208,7 @@ function getLifetimeLicenses(ipRefContact) {
             continue;
         var fvCapType = fvCapM.getCapType();
         if (!fvCapType)
-            continue; 
+            continue;
 
         if (fvCapType.getGroup() != "Licenses" || fvCapType.getType() != "Lifetime")
            continue;
@@ -216,36 +221,36 @@ function getLifetimeLicenses(ipRefContact) {
     return opLL;
 }
 
-function calculateEligTags(ipLifeLic,ipSpEd,ipAge) {
+function calculateEligTags(ipLifeLic,ipSpEd,ipAge,ipEnforcements) {
     var fvLLs = ipLifeLic.entrySet().toArray();
     for (var fvCounter in fvLLs) {
         var fvLL = fvLLs[fvCounter];
-         
+
         var fvLicType = fvLL.getKey();
         var fvTags = "";
-        if (fvLicType == "Bowhunting" && ipSpEd.containsKey("Hunter Ed") && ipSpEd.containsKey("Bowhunter Ed (IBEP)")) {
+        if (fvLicType == "Bowhunting" && ipSpEd.containsKey("Hunter Ed") && ipSpEd.containsKey("Bowhunter Ed (IBEP)") && !ipEnforcements.revocationHunting) {
             if (ipAge >= 12 && ipAge < 16)
                 fvTags = "Privilege Panel,Back,Either Sex";
             else if (ipAge >= 16)
                 fvTags = "Privilege Panel,Either Sex";
         }
-        if (fvLicType == "Muzzleloading" && ipSpEd.containsKey("Hunter Ed")) {
+        if (fvLicType == "Muzzleloading" && ipSpEd.containsKey("Hunter Ed") && !ipEnforcements.revocationHunting) {
             if (ipAge >= 14)
                 fvTags = "Privilege Panel,Either Sex";
         }
-        if (fvLicType == "Small & Big Game" && ipSpEd.containsKey("Hunter Ed")) {
+        if (fvLicType == "Small & Big Game" && ipSpEd.containsKey("Hunter Ed") && !ipEnforcements.revocationHunting) {
             if (ipAge >= 12 && ipAge < 14)
                 fvTags = "Privilege Panel,Back";
             else if (ipAge >= 14)
                 fvTags = "Privilege Panel,Back,Deer,Bear";
         }
-        if (fvLicType == "Sportsman" && ipSpEd.containsKey("Hunter Ed")) {
+        if (fvLicType == "Sportsman" && ipSpEd.containsKey("Hunter Ed") && !ipEnforcements.revocationHunting) {
             if (ipAge >= 12 && ipAge < 14)
                 fvTags = "Privilege Panel,Back,Turkey";
             else if (ipAge >= 14)
                 fvTags = "Privilege Panel,Back,Turkey,Deer,Bear";
         }
-        if (fvLicType == "Trapping License" && ipSpEd.containsKey("Trapper Ed")) {
+        if (fvLicType == "Trapping License" && ipSpEd.containsKey("Trapper Ed") && !ipEnforcements.revocationTrapping) {
             fvTags = "Privilege Panel";
         }
         ipLifeLic.put(fvLicType,fvTags);
@@ -288,7 +293,7 @@ function calculateEligTags(ipLifeLic,ipSpEd,ipAge) {
             if (!opAllTags.containsKey(fvTag)) {
                 opAllTags.put(fvTag,1);
                 fvTotalTags++;
-            }            
+            }
         }
     }
     opAllTags.put("TOTAL",fvTotalTags);
@@ -304,7 +309,7 @@ function getExistingTags(ipRefContact,ipExpDate,ipEligibleTags) {
     var fvCcb = aa.proxyInvoker.newInstance("com.accela.aa.aamain.people.CapContactDAOOracle").getOutput();
     fvPeople.setServiceProviderCode(aa.getServiceProviderCode());
     fvPeople.setContactSeqNumber(ipRefContact);
- 
+
     var fvCapsQry = fvCcb.getCapContactsByRefContactModel(fvPeople);
     if (!fvCapsQry)
         return ipEligibleTags;
@@ -377,7 +382,7 @@ function createNewTags(ipRefContact,ipStartDate,ipExpDate,ipEligibleTags) {
     if (fvTotalTags == 0)
         return opErrors;
     var fvParentApp = null;
-    
+
     var fvTagArray = ipEligibleTags.entrySet().toArray();
     for (var fvCounter in fvTagArray) {
         var fvTagObj = fvTagArray[fvCounter];
@@ -399,7 +404,7 @@ function createNewTags(ipRefContact,ipStartDate,ipExpDate,ipEligibleTags) {
             }
         }
     }
-    
+
     return opErrors;
 }
 
@@ -491,17 +496,17 @@ function createNewTag(ipParentApp,ipStartDate,ipExpDate,ipTag,ipTagCntr) {
         editAppSpecific("Year",ipStartDate.getFullYear().toString(),newLicId);
         fvYearDesc = lookupDesc("LICENSE_FILING_YEAR_Desc",ipStartDate.getFullYear().toString());
         editAppSpecific("Year Description",fvYearDesc,newLicId);
-		
+
 		return newLicId;
     }
 }
 
 function lookupDesc(ipStdChoice,ipDesc) {
     var fvBizDomScriptResult = aa.bizDomain.getBizDomain(ipStdChoice);
-    
+
     if (fvBizDomScriptResult.getSuccess()) {
         var fvBizDomScriptArray = fvBizDomScriptResult.getOutput().toArray();
-        
+
         for (var fvCntr in fvBizDomScriptArray) {
             if (fvBizDomScriptArray[fvCntr].getDescription() == ipDesc)
                 return fvBizDomScriptArray[fvCntr].getBizdomainValue();
@@ -516,4 +521,30 @@ function createError(ipErrors,ipErrMsg) {
         opErrors = new Array();
     opErrors.push(ipErrMsg);
     return opErrors;
+}
+
+function getEnforcements(ipRefContact) {
+	var opEnforcements = new Array();
+	opEnforcements["suspension"] = false;
+	opEnforcements["revocationHunting"] = false;
+	opEnforcements["revocationTrapping"] = false;
+
+	var fvContactConditionsQry = aa.commonCondition.getCommonConditions("CONTACT",parseInt(ipRefContact,10));
+	if (fvContactConditionsQry) {
+		var fvContactConditions = fvContactConditionsQry.getOutput();
+		if (fvContactConditions) {
+			for (fvCounter in fvContactConditions) {
+				var fvContactCondition = fvContactConditions[fvCounter];
+				if (fvContactCondition.getConditionGroup() == "Enforcement" && fvContactCondition.getConditionStatusType() == "Applied") {
+					if (fvContactCondition.getConditionType() == "Suspension" && fvContactCondition.getConditionDescription() == "Suspension of Privileges")
+						opEnforcements["suspension"] = true;
+				    if (fvContactCondition.getConditionType() == "Revocation" && fvContactCondition.getConditionDescription() == "Hunting Revocation")
+						opEnforcements["revocationHunting"] = true;
+					if (fvContactCondition.getConditionType() == "Revocation" && fvContactCondition.getConditionDescription() == "Trapping Revocation")
+						opEnforcements["revocationTrapping"] = true;
+				}
+			}
+		}
+	}
+	return opEnforcements;
 }
