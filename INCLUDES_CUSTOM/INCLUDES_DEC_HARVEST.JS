@@ -2232,7 +2232,7 @@ function VoidsSales() {
 		    childArr = getChildren("Licenses/Tag/Document/Privilege Panel", pId);
 		    if (childArr != null && childArr.length > 0) {
 			    ppCapId = childArr[0];
-		    	    voidPrivilegePanel(ppCapId, itemCapId);
+		    	    voidPrivilegePanel(ppCapId, pId);
 		    }
 	    }
 	    var associatedTagArray = getTagsAssociatedToLicense(appTypeString);
