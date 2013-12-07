@@ -1949,6 +1949,14 @@ function upgradeLifetimeLic() {
             }
         }
 
+		
+		// JIRA issue 16667 get the fee for the upgrade record
+		var feeResult=aa.fee.getFeeItems(capId).getOutput();
+		var feesTotal = 0;
+		for (var ff in feeObjArr) {
+			feesTotal += feeObjArr[ff].getFee(); 
+			}
+							
         //Get Fees
         var newfd = new FeeDef();
         var feeArr = frm.getAllFeeToAdd();
@@ -1956,8 +1964,9 @@ function upgradeLifetimeLic() {
             newfd.feeschedule = feeArr[item].feeschedule;
             newfd.version = feeArr[item].version;
             newfd.feeCode = feeArr[item].feeCode;
-            newfd.formula = feeArr[item].formula;
-            newfd.feeUnit = feeArr[item].feeUnit;
+			// JIRA issue 16667.   fees are defaulting to normal values.   Need up update to the amount calculated on the record.
+            newfd.formula = feeArr[item].formula = feesTotal;
+            newfd.feeUnit = feeArr[item].feeUnit = 1;
             newfd.feeDesc = feeArr[item].feeDesc;
             newfd.comments = feeArr[item].comments;
             newfd.Code3commission = feeArr[item].Code3commission;
