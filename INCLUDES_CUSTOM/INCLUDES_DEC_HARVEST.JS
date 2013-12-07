@@ -2375,6 +2375,7 @@ function voidPrivilegePanel(ppCapId, parentCapId) {
 	logDebug("EXIT: voidPrivilege Panel");
 }
 
+/*
 function VoidInternal() {
     logDebug("ENTER: VoidsSales");
 
@@ -2427,3 +2428,4 @@ function VoidInternal() {
     }
     logDebug("EXIT: VoidsSales");
 }
+*/
