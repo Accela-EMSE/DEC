@@ -2205,11 +2205,15 @@ function VoidsSales() {
     try {
         var y;
         var selDocToVoid = new Array();
+		var selDocToMove = new Array();
         if ((typeof (VOIDDOCUMENTS) == "object")) {
             for (y in VOIDDOCUMENTS) {
                 if (VOIDDOCUMENTS[y]["Select"] == 'Yes') {
                     selDocToVoid.push(VOIDDOCUMENTS[y]["Document ID"]);
                 }
+				else {
+					selDocToMove.push(VOIDDOCUMENTS[y]["Document ID"]);
+				}
             }
         }
 
@@ -2219,7 +2223,13 @@ function VoidsSales() {
         var uObj = new USEROBJ(publicUserID);
         salesAgentInfoArray = getAgentInfo(publicUserID, uObj);
         attachAgent(uObj);
-
+		
+		// JIRA 17116, associate the rest of licenses to the void so they will print on PP
+        for (y in selDocToMove) {
+            var itemCapId = getCapId(selDocToMove[y]);
+			var result = aa.cap.createAppHierarchy(capId, itemCapId);
+			}
+		
         for (y in selDocToVoid) {
             var itemCapId = getCapId(selDocToVoid[y]);
             var itemcap = aa.cap.getCap(itemCapId).getOutput();
