@@ -1872,6 +1872,7 @@ function upgradeLifetimeLic() {
 			itemAppTypeString = itemAppTypeResult.toString();
 			
 			// Add upgrading agent JIRA 16667
+			logDebug("Attempting to set Upgrading Agent ASI to " + salesAgentInfoArray["Agent Id"] + " on Record " + itemCapId.getCustomID());
 			editAppSpecific("Upgrading Agent", salesAgentInfoArray["Agent Id"], itemCapId);
 			
 			logDebug("upgradeLifetimeLic voiding Record Id " + itemAppTypeString);
@@ -2371,7 +2372,11 @@ function voidPrivilegePanel(ppCapId, parentCapId) {
 		setLicExpirationDate(newPPId,null,oldExpDate);
 	} 
 	var newDecDocId = GenerateDocumentNumber(newPPId.getCustomID());
-        updateDocumentNumber(newDecDocId, newPPId);
+    updateDocumentNumber(newDecDocId, newPPId);
+	
+	// JIRA 17116 add new PP to the void 
+	var result = aa.cap.createAppHierarchy(capId, newPPId);
+		
 	logDebug("EXIT: voidPrivilege Panel");
 }
 
