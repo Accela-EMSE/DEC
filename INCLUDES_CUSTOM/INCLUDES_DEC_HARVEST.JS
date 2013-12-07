@@ -1953,9 +1953,10 @@ function upgradeLifetimeLic() {
 		// JIRA issue 16667 get the fee for the upgrade record
 		var feeResult=aa.fee.getFeeItems(capId).getOutput();
 		var feesTotal = 0;
-		for (var ff in feeObjArr) {
-			feesTotal += feeObjArr[ff].getFee(); 
+		for (var ff in feeResult) {
+			feesTotal += feeResult[ff].getFee(); 
 			}
+		logDebug("Fee Total for the upgrade is " + feesTotal);
 							
         //Get Fees
         var newfd = new FeeDef();
@@ -2399,10 +2400,9 @@ function voidPrivilegePanel(ppCapId, parentCapId) {
 	logDebug("EXIT: voidPrivilege Panel");
 }
 
-/*
-function VoidInternal() {
-    logDebug("ENTER: VoidsSales");
 
+function voidInternal() {
+    logDebug("ENTER: VoidInternal");
     try {
 		var xArray = getApplicantArrayEx();
 		var peopleSequenceNumber = null;
@@ -2415,41 +2415,32 @@ function VoidInternal() {
 			break;
 		}
 
-		var availableDocsToVoidItems = GetDocsToVoidSale(decCustId);
-		// availableDocsToVoidItems.itemCapId
-
-        closeTask("Issuance", "Approved", "", "");
-
-  
 	    // find privilege panel - it is a child of this records parent application
-	    logDebug("Marking privilege panel");
-	    pId = getParent(itemCapId);
+	    logDebug("VoidInternal: Re-creating privilege panel");
+	    pId = getParent(capId);
 	    if (appMatch("Licenses/Annual/Application/NA", pId) ) {
 		    childArr = getChildren("Licenses/Tag/Document/Privilege Panel", pId);
 		    if (childArr != null && childArr.length > 0) {
 			    ppCapId = childArr[0];
 		    	    voidPrivilegePanel(ppCapId, pId);
-		    }
-	    }
-	    var associatedTagArray = getTagsAssociatedToLicense(appTypeString);
-	    for (var tIndex in associatedTagArray) {
-		tagID = associatedTagArray[tIndex];
-		tagCapId = getTagRecordID(tagID);
-		if (tagCapId != null) 
-			voidRec(tagCapId);
-	    }
-            var result = aa.cap.createAppHierarchy(capId, itemCapId);
-            if (result.getSuccess()) {
-                logDebug("Parent application successfully linked");
-            }
-            else {
-                logDebug("Could not link applications" + result.getErrorMessage());
-            }
-        }
-    }
+				}
+			
+			var associatedTagArray = getTagsAssociatedToLicense(appTypeString);
+			for (var tIndex in associatedTagArray) {
+				var tagID = associatedTagArray[tIndex];
+				var tagProp = tagsMap.get(tagID);
+				logDebug("VoidInternal: looking for " + tagProp.RecordType + " to void");
+				childArr = getChildren(tagProp.RecordType, pId);
+				for (var thisChild in childArr) {
+					logDebug("VoidInternal: found " + childArr[thisChild].getCustomID() + " to void");
+					voidRec(childArr[thisChild]);
+					}
+				}
+			}
+		}
     catch (err) {
-        logDebug("Exception in VoidsSales:" + err.message);
+        logDebug("Exception in VoidInternal:" + err.message);
     }
-    logDebug("EXIT: VoidsSales");
+    logDebug("EXIT: VoidInternal");
+
 }
-*/
