@@ -1859,18 +1859,10 @@ function upgradeLifetimeLic() {
 			break;
 			}
 		
-		if (peopleSequenceNumber) {
-			var CC = new contactObj(null);
-			CC.refSeqNumber = peopleSequenceNumber;
-			logDebug("upgradeLifetimeLic peopleseqnumber = " + frm.peopleSequenceNumber);
-			var ppPanel = CC.getCaps(AA54_TAG_PRIV_PANEL);
-					
-			for (var y in ppPanel) {
-				voidSelectedItems.push(ppPanel[y].getCustomID());
-				logDebug("upgradeLifetimeLic found Priv Panel to Void " + ppPanel[y].getCustomID());
-				}
-			}
-			
+        var uObj = new USEROBJ(publicUserID);
+        salesAgentInfoArray = getAgentInfo(publicUserID, uObj);
+        attachAgent(uObj);
+		
         //(Void selected Lifetime licenses).  Update status to Void, or Upgraded (for License record being upgraded)
         for (var y in voidSelectedItems) {
             frm.RemoveActiveHoldingsbyDocId(voidSelectedItems[y]);
@@ -1879,6 +1871,8 @@ function upgradeLifetimeLic() {
 			itemAppTypeResult = itemCap.getCapType();
 			itemAppTypeString = itemAppTypeResult.toString();
 			
+			// Add upgrading agent JIRA 16667
+			editAppSpecific("Upgrading Agent", salesAgentInfoArray["Agent Id"], itemCapId);
 			
 			logDebug("upgradeLifetimeLic voiding Record Id " + itemAppTypeString);
             
@@ -1919,16 +1913,23 @@ function upgradeLifetimeLic() {
             }
         }
 
+		if (peopleSequenceNumber) {
+			var CC = new contactObj(null);
+			CC.refSeqNumber = peopleSequenceNumber;
+			logDebug("upgradeLifetimeLic peopleseqnumber = " + frm.peopleSequenceNumber);
+			var ppPanel = CC.getCaps(AA54_TAG_PRIV_PANEL);
+					
+			for (var y in ppPanel) {
+				returningDocArray.push(ppPanel[y].getCustomID());
+				logDebug("upgradeLifetimeLic found Priv Panel to Returnable " + ppPanel[y].getCustomID());
+				}
+			}
+					
         //(returning => make it returnable)
         for (y in returningDocArray) {
             itemCapId = getCapId(returningDocArray[y]);
             updateAppStatus("Returnable", "Returnable", itemCapId);
         }
-
-
-        var uObj = new USEROBJ(publicUserID);
-        salesAgentInfoArray = getAgentInfo(publicUserID, uObj);
-        attachAgent(uObj);
 
         //Mark Fullfillment
         var fullfillCond = '';
@@ -2013,6 +2014,7 @@ function upgradeLifetimeLic() {
                     //maintain array for later actions
                     arryTargetCapAttrib.push(new TargetCAPAttrib(newLicId, newfd));
 
+					/* turn off per Rocky on 12/6/2013 Defect 16667
                     //connect With main Upgraded
                     for (y in notusedDocArray) {
                         itemCapId = getCapId(notusedDocArray[y]);
@@ -2025,6 +2027,7 @@ function upgradeLifetimeLic() {
                         }
 
                     }
+					*/
                 }
             }
         }
@@ -2346,6 +2349,8 @@ function voidRec(itemCapId) {
 
 function voidPrivilegePanel(ppCapId, parentCapId) {
 
+// TODO:   Add the void sales record as a parent to the new priv panel
+
 	logDebug("ENTER: voidPrivilege Panel " + ppCapId.getCustomID());
 	updateAppStatus("Returnable", "Returnable", ppCapId);
 	// now create a new one, 
@@ -2368,4 +2373,57 @@ function voidPrivilegePanel(ppCapId, parentCapId) {
 	var newDecDocId = GenerateDocumentNumber(newPPId.getCustomID());
         updateDocumentNumber(newDecDocId, newPPId);
 	logDebug("EXIT: voidPrivilege Panel");
+}
+
+function VoidInternal() {
+    logDebug("ENTER: VoidsSales");
+
+    try {
+		var xArray = getApplicantArrayEx();
+		var peopleSequenceNumber = null;
+		var decCustId;
+
+		for (ca in xArray) {
+			var thisContact = xArray[ca];
+			peopleSequenceNumber = thisContact["refcontactSeqNumber"]
+			decCustId = thisContact["passportNumber"];
+			break;
+		}
+
+		var availableDocsToVoidItems = GetDocsToVoidSale(decCustId);
+		// availableDocsToVoidItems.itemCapId
+
+        closeTask("Issuance", "Approved", "", "");
+
+  
+	    // find privilege panel - it is a child of this records parent application
+	    logDebug("Marking privilege panel");
+	    pId = getParent(itemCapId);
+	    if (appMatch("Licenses/Annual/Application/NA", pId) ) {
+		    childArr = getChildren("Licenses/Tag/Document/Privilege Panel", pId);
+		    if (childArr != null && childArr.length > 0) {
+			    ppCapId = childArr[0];
+		    	    voidPrivilegePanel(ppCapId, pId);
+		    }
+	    }
+	    var associatedTagArray = getTagsAssociatedToLicense(appTypeString);
+	    for (var tIndex in associatedTagArray) {
+		tagID = associatedTagArray[tIndex];
+		tagCapId = getTagRecordID(tagID);
+		if (tagCapId != null) 
+			voidRec(tagCapId);
+	    }
+            var result = aa.cap.createAppHierarchy(capId, itemCapId);
+            if (result.getSuccess()) {
+                logDebug("Parent application successfully linked");
+            }
+            else {
+                logDebug("Could not link applications" + result.getErrorMessage());
+            }
+        }
+    }
+    catch (err) {
+        logDebug("Exception in VoidsSales:" + err.message);
+    }
+    logDebug("EXIT: VoidsSales");
 }
