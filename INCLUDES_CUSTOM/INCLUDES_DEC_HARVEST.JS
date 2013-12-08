@@ -877,6 +877,17 @@ function ReprintDocuments() {
 			//Update Status after Workflow as Workflow Updates can change status.
 			updateTagStatus("Replaced", "Replaced", itemCapId);
         }
+		
+		// find privilege panel - it is a child of this records parent application
+	    logDebug("ReprintDocuments: Re-creating privilege panel");
+	    var pId = getParent(capId);
+	    if (appMatch("Licenses/Annual/Application/NA", pId) ) {
+		    childArr = getChildren("Licenses/Tag/Document/Privilege Panel", pId);
+		    if (childArr != null && childArr.length > 0) {
+			    var ppCapId = childArr[0];
+		    	voidPrivilegePanel(ppCapId, pId);
+				}
+			}
 
         distributeFeesForReprint(capId, arryTag, arryLic, salesAgentInfoArray);
     }
