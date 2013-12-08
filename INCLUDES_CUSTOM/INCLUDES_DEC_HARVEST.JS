@@ -2445,6 +2445,8 @@ function voidInternal() {
 				for (var thisChild in childArr) {
 					logDebug("VoidInternal: found " + childArr[thisChild].getCustomID() + " to void");
 					voidRec(childArr[thisChild]);
+					// manually set the record status since workflow may change it
+					updateAppStatus("Void", "Void", childArr[thisChild]);
 					}
 				}
 			}
