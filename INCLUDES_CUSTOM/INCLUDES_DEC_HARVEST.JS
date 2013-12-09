@@ -2438,6 +2438,8 @@ function voidInternal() {
 		    if (childArr != null && childArr.length > 0) {
 			    ppCapId = childArr[0];
 		    	    voidPrivilegePanel(ppCapId, pId);
+					//manually set the priv panel status since workflow may change it
+					updateAppStatus("Void", "Void", ppCapId);
 				}
 			
 			var associatedTagArray = getTagsAssociatedToLicense(appTypeString);
