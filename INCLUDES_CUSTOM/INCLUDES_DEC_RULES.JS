@@ -615,7 +615,7 @@ function SetVesrionSalesItems2012() {
     emptyArray.push(new SalesItemProp(LIC14_LIFETIME_TRAPPING, AA14_LIFETIME_TRAPPING, FEE_LIFETIME_TRAPPING_SCHDL, "1", "getAllFeeCodeByRuleFor_LIFETM_TRAP", "isRuleForSelectable_LIFETM_TRAP", null, "getIncl_LIFETM_TRAP", null, false, true, false));
     emptyArray.push(new SalesItemProp(LIC45_LIFETIME_INSCRIPTION, AA45_LIFETIME_INSCRIPTION, FEE_LIFETIME_INSCRIPTION_SCHDL, "1", "getAllFeeCodeByRuleFor_LIFETM_INSCRIPTION", "isRuleForSelectable_LIFETM_INSCRIPTION", "getPrereq_LIFETM_INSCRIPTION", null, null, false, false, false));
     emptyArray.push(new SalesItemProp(LIC56_TAG_DRIV_LIC_IMM, AA55_TAG_DRIV_LIC_IMM, FEE_LIFETIME_DRIV_LIC_SCHDL, "1", "getAllFeeCodeByRuleFor_DRIV_LIC_IMM", "isRuleForSelectable_DRIV_LIC", "getPrereq_DRIV_LIC", null, null, false, false, false));
-	emptyArray.push(new SalesItemProp(LIC57_TAG_DRIV_LIC_REN, AA55_TAG_DRIV_LIC_REN, FEE_LIFETIME_DRIV_LIC_SCHDL, "1", "getAllFeeCodeByRuleFor_DRIV_LIC_REN", "isRuleForSelectable_DRIV_LIC", "getPrereq_DRIV_LIC", null, null, false, false, false));
+	emptyArray.push(new SalesItemProp(LIC57_TAG_DRIV_LIC_REN, AA56_TAG_DRIV_LIC_REN, FEE_LIFETIME_DRIV_LIC_SCHDL, "1", "getAllFeeCodeByRuleFor_DRIV_LIC_REN", "isRuleForSelectable_DRIV_LIC", "getPrereq_DRIV_LIC", null, null, false, false, false));
 
     emptyArray.push(new SalesItemProp(LIC32_NONRESIDENT_BEAR_TAG, AA32_NONRESIDENT_BEAR_TAG, FEE_TAG_BEAR_SCHDL, "1", "getAllFeeCodeByRuleFor_NONRESIDENT_BEAR_TAG", "isRuleForSelectable_NONRESIDENT_BEAR_TAG", "getPrereq_NONRESIDENT_BEAR_TAG", null, "getTag_NONRESIDENT_BEAR_TAG", true, false, false));
 
