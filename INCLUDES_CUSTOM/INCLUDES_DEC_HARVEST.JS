@@ -2225,6 +2225,7 @@ function VoidsSales() {
 
     try {
         var y;
+		var itemCapId;
         var selDocToVoid = new Array();
 		var selDocToMove = new Array();
         if ((typeof (VOIDDOCUMENTS) == "object")) {
@@ -2252,39 +2253,42 @@ function VoidsSales() {
 			}
 		
         for (y in selDocToVoid) {
-            var itemCapId = getCapId(selDocToVoid[y]);
+            itemCapId = getCapId(selDocToVoid[y]);
             var itemcap = aa.cap.getCap(itemCapId).getOutput();
             appTypeString = itemcap.getCapType().toString();
             var ata = appTypeString.split("/");
 
             voidRec(itemCapId);
 
-	    
-	    // find privilege panel - it is a child of this records parent application
+
+			var associatedTagArray = getTagsAssociatedToLicense(appTypeString);
+			for (var tIndex in associatedTagArray) {
+			tagID = associatedTagArray[tIndex];
+			tagCapId = getTagRecordID(tagID);
+			if (tagCapId != null) 
+				voidRec(tagCapId);
+			}
+				var result = aa.cap.createAppHierarchy(capId, itemCapId);
+				if (result.getSuccess()) {
+					logDebug("Parent application successfully linked");
+				}
+				else {
+					logDebug("Could not link applications" + result.getErrorMessage());
+				}
+			}
+			
+	    // find privilege panel - it is a child of the last records parent application
 	    logDebug("Marking privilege panel");
-	    pId = getParent(itemCapId);
-	    if (appMatch("Licenses/Annual/Application/NA", pId) ) {
-		    childArr = getChildren("Licenses/Tag/Document/Privilege Panel", pId);
-		    if (childArr != null && childArr.length > 0) {
-			    ppCapId = childArr[0];
-		    	    voidPrivilegePanel(ppCapId, pId);
-		    }
+		if (itemCapId) {
+			pId = getParent(itemCapId);
+			if (appMatch("Licenses/Annual/Application/NA", pId) ) {
+				childArr = getChildren("Licenses/Tag/Document/Privilege Panel", pId);
+				if (childArr != null && childArr.length > 0) {
+					ppCapId = childArr[0];
+						voidPrivilegePanel(ppCapId, pId);
+				}
+			}
 	    }
-	    var associatedTagArray = getTagsAssociatedToLicense(appTypeString);
-	    for (var tIndex in associatedTagArray) {
-		tagID = associatedTagArray[tIndex];
-		tagCapId = getTagRecordID(tagID);
-		if (tagCapId != null) 
-			voidRec(tagCapId);
-	    }
-            var result = aa.cap.createAppHierarchy(capId, itemCapId);
-            if (result.getSuccess()) {
-                logDebug("Parent application successfully linked");
-            }
-            else {
-                logDebug("Could not link applications" + result.getErrorMessage());
-            }
-        }
     }
     catch (err) {
         logDebug("Exception in VoidsSales:" + err.message);
