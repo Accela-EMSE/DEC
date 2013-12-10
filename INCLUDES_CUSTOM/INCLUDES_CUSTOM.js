@@ -4982,3 +4982,37 @@ function testNameDifferent(a,b) {
 	return false;
 	}
 	
+function getTempCapIdFromASB() {
+	var arrayList = aa.util.newArrayList();
+	arrayList = aa.env.getValue("ContactList");
+	var cArray = new Array();
+	var count
+	var capContactArray = arrayList.toArray();
+	if (capContactArray) {
+        for (var yy in capContactArray) {
+                cArray.push(new contactObj(capContactArray[yy]));
+        }
+    }
+    
+    logDebug("getContactObj returned" + cArray.length + " contactObj(s)");
+	
+	for (x in cArray) {
+		thisContact = cArray[x];
+		if (theContact.refSeqNumber) {
+			var conCaps = new Array();
+			conCaps = theContact.getCaps(appTypeArray[0] + "/" + appTypeArray[1] + "/" + appTypeArray[2] + "/" + appTypeArray[3]);
+
+			if (conCaps.length > 0) {
+				
+				for (var z in conCaps) {
+					var conCap = aa.cap.getCap(conCaps[z]).getOutput();
+					var conCapId = conCaps[z];
+					if (!conCap.isCompleteCap())
+						return conCapId;
+						}
+					}
+				}
+			}
+		}
+
+	
