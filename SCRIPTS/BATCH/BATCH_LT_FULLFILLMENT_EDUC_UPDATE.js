@@ -9,8 +9,8 @@
 /*------------------------------------------------------------------------------------------------------/
 | START: TEST PARAMETERS
 /------------------------------------------------------------------------------------------------------*/
-//aa.env.setValue("emailAddress", "saxthelm@accela.com");
-//aa.env.setValue("showDebug", "Y");
+aa.env.setValue("emailAddress", "jschomp@accela.com");
+aa.env.setValue("showDebug", "Y");
 /*------------------------------------------------------------------------------------------------------/
 | END: TEST PARAMETERS
 /------------------------------------------------------------------------------------------------------*/
@@ -28,8 +28,9 @@ var br = "<br>";
 | BEGIN Includes
 /------------------------------------------------------------------------------------------------------*/
 SCRIPT_VERSION = 2.0
-eval(getScriptText("INCLUDES_BATCH"));
+
 eval(getScriptText("INCLUDES_ACCELA_FUNCTIONS"));
+eval(getScriptText("INCLUDES_BATCH"));
 eval(getScriptText("INCLUDES_CUSTOM"));
 eval(getScriptText("INCLUDES_REBUILD_TAGS"));
 
@@ -139,10 +140,14 @@ function checkBatch() {
 
 function getAllRefsToProcess() {
     var opRefContacts = aa.util.newHashMap();
+	var opCombined = aa.util.newHashMap();
+	
     var fvConitions = new COND_FULLFILLMENT();
     
-    opRefContacts = getRefContactsByRecTypeByCondition("Licenses","Annual","Application","NA",fvConitions.Condition_EducRefContUpd,opRefContacts);
-    return opRefContacts;
+	opRefContacts = getRefContactsByRecTypeByCondition("Licenses","Annual","Application","NA",fvConitions.Condition_EducRefContUpd,opRefContacts);
+	opCombined =    getRefContactsByRecTypeByCondition("Licenses","Other","Sportsmen","Profile",fvConitions.Condition_EducRefContUpd,opRefContacts);
+
+    return opCombined;
 }
 
 /* FUNCTION TO GET ALL REF CONTACTS FOR A RECORD TYPE, FOR A STATUS WITH A BIRTHDATE.*/
@@ -229,10 +234,12 @@ function getRefContactsByRecTypeByCondition(ipGroup,ipType,ipSubType,ipCategory,
                             if (opRefContacts.containsKey(fvRefContactNumber)) {
                                 fvCapList = opRefContacts.get(fvRefContactNumber).toString();
                                 fvCapList = fvCapList + "," + fvCapID.getCustomID();
+								logDebug("Removing " + fvRefContactNumber + " based on record " + fvCapID.getCustomID());
                                 opRefContacts.remove(fvRefContactNumber);
                             }
                             else
                                 fvCapList = fvCapID.getCustomID();
+								logDebug("Adding " + fvRefContactNumber + " based on record " + fvCapID.getCustomID());
                             opRefContacts.put(fvRefContactNumber,fvCapList);
                         }
                     }
@@ -290,7 +297,7 @@ function rebuildRefTags(ipRefContact) {
 function showErrors(ipErrors) {
     for (var fvCount in ipErrors) {
         var fvError = ipErrors[fvCount];
-        logDebug(fvError);
+        logDebug("Error " + fvError);
     }
 }
 
