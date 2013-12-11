@@ -3252,6 +3252,12 @@ function getRevokHuntRecTypeArray() {
     validRecTypeArray.push(AA52_TAG_BACK);
     validRecTypeArray.push(AA53_TAG_DMP_DEER);
     validRecTypeArray.push(AA54_TAG_PRIV_PANEL);
+	
+// JIRA-16742
+	validRecTypeArray.push (LIC09_LIFETIME_BOWHUNTING);
+	validRecTypeArray.push (LIC11_LIFETIME_MUZZLELOADING);
+	validRecTypeArray.push (LIC12_LIFETIME_SMALL_AND_BIG_GAME);
+	validRecTypeArray.push (LIC13_LIFETIME_SPORTSMAN);
 
     return validRecTypeArray;
 }
@@ -3266,6 +3272,9 @@ function getRevokFishRecTypeArray() {
     validRecTypeArray.push(AA24_NONRESIDENT_1_DAY_FISHING);
     validRecTypeArray.push(AA25_NONRESIDENT_7_DAY_FISHING);
     validRecTypeArray.push(AA26_SEVEN_DAY_FISHING_LICENSE);
+	
+// JIRA-16742
+	validRecTypeArray.push (LIC10_LIFETIME_FISHING);
 
     return validRecTypeArray;
 }
@@ -3276,6 +3285,9 @@ function getRevokTrapRecTypeArray() {
     validRecTypeArray.push(AA15_TRAPPING_LICENSE);
     validRecTypeArray.push(AA41_NONRESIDENT_TRAPPING);
     validRecTypeArray.push(AA42_TRAPPER_SUPER_SPORTSMAN); //TODO
+
+// JIRA-16742
+	validRecTypeArray.push (LIC14_LIFETIME_TRAPPING);
 
     return validRecTypeArray;
 }
