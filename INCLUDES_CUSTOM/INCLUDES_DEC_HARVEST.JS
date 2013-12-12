@@ -2245,7 +2245,7 @@ function VoidsSales() {
         var uObj = new USEROBJ(publicUserID);
         salesAgentInfoArray = getAgentInfo(publicUserID, uObj);
         attachAgent(uObj);
-		
+
 		// JIRA 17116, associate the rest of licenses to the void so they will print on PP
         for (y in selDocToMove) {
             var itemCapId = getCapId(selDocToMove[y]);
@@ -2263,33 +2263,42 @@ function VoidsSales() {
 
 			var associatedTagArray = getTagsAssociatedToLicense(appTypeString);
 			for (var tIndex in associatedTagArray) {
-			tagID = associatedTagArray[tIndex];
-			tagCapId = getTagRecordID(tagID);
-			if (tagCapId != null) 
-				voidRec(tagCapId);
-			}
-				var result = aa.cap.createAppHierarchy(capId, itemCapId);
-				if (result.getSuccess()) {
-					logDebug("Parent application successfully linked");
-				}
-				else {
-					logDebug("Could not link applications" + result.getErrorMessage());
+				tagID = associatedTagArray[tIndex];
+				tagCapId = getTagRecordID(tagID);
+				if (tagCapId != null) {
+					voidRec(tagCapId);
+					}
 				}
 			}
 			
-	    // find privilege panel - it is a child of the last records parent application
+		// find privilege panel - it is a child of the last records parent application
 	    logDebug("Marking privilege panel");
+		logDebug("itemCapId is " + itemCapId.getCustomID());
 		if (itemCapId) {
 			pId = getParent(itemCapId);
 			if (appMatch("Licenses/Annual/Application/NA", pId) ) {
+				logDebug("parent record is  " + pId.getCustomID());
 				childArr = getChildren("Licenses/Tag/Document/Privilege Panel", pId);
+				logDebug("child array is  " + childArr.length);
 				if (childArr != null && childArr.length > 0) {
 					ppCapId = childArr[0];
 						voidPrivilegePanel(ppCapId, pId);
 				}
 			}
 	    }
-    }
+		
+	for (y in selDocToVoid) {
+			
+			var result = aa.cap.createAppHierarchy(capId, itemCapId);
+			if (result.getSuccess()) {
+				logDebug("Parent application successfully linked");
+			}
+			else {
+				logDebug("Could not link applications" + result.getErrorMessage());
+			}
+		}
+	}
+
     catch (err) {
         logDebug("Exception in VoidsSales:" + err.message);
     }
