@@ -1375,15 +1375,15 @@
 		if (capContact) {
 		
 				if (capContact.getRefContactNumber()) {
-					var passport = aa.people.getPeople(capContact.getRefContactNumber()).getOutput().getPassportNumber();
-					var newpassport = cap.getApplicantModel().getPeople().getPassportNumber();
+					var passport = isNull(aa.people.getPeople(capContact.getRefContactNumber()).getOutput().getPassportNumber(),null);
+					var newpassport = isNull(cap.getApplicantModel().getPeople().getPassportNumber(),null);
 					
 					if ((passport && !newpassport) || (!passport && newpassport) || (passport && newpassport && passport != newpassport)) {
 						if (isNotValidToProceed) {
 							isNotValidToProceed += MSG_DEC_ID_EDITED;
 							}
 						else {
-							isNotValidToProceed = MSG_DEC_ID_EDITED;
+							isNotValidToProceed = MSG_DEC_ID_EDITED + " (" + passport + ") v. (" + newpassport + ")";
 							}
 						}
 					}
