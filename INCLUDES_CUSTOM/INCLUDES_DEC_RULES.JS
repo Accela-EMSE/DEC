@@ -1562,7 +1562,8 @@ function isRuleForSelectable_LIFETM_SPRT(ruleParams) {
     return isSelectable;
 }
 function isRuleForSelectable_LIFETM_SBGM(ruleParams) {
-    var isSelectable = (ruleParams.IsNyResiDent && ruleParams.Age < 70 && ruleParams.Age > 12);
+    var isSelectable = (ruleParams.IsNyResiDent && ruleParams.Age < 70); //JIRA: 17391
+
     return isSelectable;
 }
 function isRuleForSelectable_LIFETM_BOWH(ruleParams) {
