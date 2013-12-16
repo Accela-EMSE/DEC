@@ -37,7 +37,8 @@ var CONTACT_LINK = '<a href="/nyssupp/Report/ReportParameter.aspx?module=License
 //var MSG_SUSPENSION = 'License to buy privileges are suspended. Please contact DEC Sales. ' + CONTACT_LINK;  		//...Raj  JIRA 16753  [Change of message] see below 
 var MSG_SUSPENSION = 'License purchases are not available to the customer. This issue can only be resolved by contacting DEC during business hours at 518-402-8821. ' + CONTACT_LINK;
 var MSG_NO_AGENT_SALES = 'Sales privileges are suspended. Please contact DEC. ' + CONTACT_LINK;
-var MSG_TOO_MANY_ADDR = 'Please enter only one address of each type.'
+var MSG_TOO_MANY_ADDR = 'Please enter only one address of each type.';
+var MSG_DEC_ID_EDITED = 'DEC ID Can Not be Edited.';
 
 //Override function - added/updated debug statements
 function copyFees(sourceCapId,targetCapId)
@@ -1372,6 +1373,16 @@ function copyContactAppSpecificToRecordAppSpecific() {
 	var isMultipleAddresses = false;
     var capContact = cap.getApplicantModel();
     if (capContact) {
+	
+			if (capContact.getRefContactNumber()) {
+				var passport = aa.people.getPeople(capContact.getRefContactNumber()).getOutput().getPassportNumber();
+				var newpassport = cap.getApplicantModel().getPeople().getPassportNumber();
+				
+				if ((passport && !newpassport) || (!passport && newpassport) || (passport && newpassport && passport != newpassport) {
+					isNotValidToProceed += MSG_DEC_ID_EDITED;
+				}
+				
+				
             pmcal = capContact.getPeople().getContactAddressList();
             if (pmcal) {
                 var addresses = pmcal.toArray();
