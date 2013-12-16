@@ -855,10 +855,16 @@ function ReprintDocuments() {
 			
             updateDocumentNumber(newDecDocId, newLicId);
 
-            if (ata[1] == 'Tag') {
-                arryTag.push(newLicId);
+           if (ata[1] == 'Tag') {
+				//JIRA: 17128
+				if (!appMatch("Licenses/Tag/Hunting/Back", pId) ) {
+					arryTag.push(newLicId);
+				}
             } else {
-                arryLic.push(newLicId);
+				//JIRA: 17128
+				if (!appMatch("Licenses/Annual/Fishing/Marine Registry", pId) ) {
+					arryLic.push(newLicId);
+				}
             }
 
             var result = aa.cap.createAppHierarchy(capId, newLicId);
@@ -1005,8 +1011,10 @@ function distributeFeesForReprint(sourceCapId, arryTag, arryLic, pSalesAgentInfo
         perLicAmt = (Math.round(perLicAmt * 100) / 100);
     }
     if (arryTag.length && amtFeeRplc2 > 0) {
-        perTagAmt = (amtFeeRplc2 / arryTag.length)
-        perTagAmt = (Math.round(perTagAmt * 100) / 100);
+        //JIRA: 17343
+		//perTagAmt = (amtFeeRplc2 / arryTag.length)
+        //perTagAmt = (Math.round(perTagAmt * 100) / 100);
+		perTagAmt = amtFeeRplc2;
     }
 
     var unapplied = paymentGetNotAppliedTot()
@@ -1203,6 +1211,8 @@ function distributeFeesForReprint(sourceCapId, arryTag, arryLic, pSalesAgentInfo
 
             }
         }
+        //JIRA: 17343
+        break;
     }
 
     //logDebug("Elapsed Time: " + elapsed());
