@@ -44,24 +44,24 @@ function loadHarvestInfo() {
 }
 //code started
 function isValidDays(inputValue) {
-	var isValid = true;
-	var retMsg = '';
-	if (inputValue != null || inputValue != '') {
-		//var DaysPattern = /^([1-9]|[1][0-9]|[2][0-9]|[3][0-9]|[4][0-5])?$|^45$/;
-		
-		//isValid = DaysPattern.test(inputValue);
-		if (parseInt(inputValue) < 45) {
-			retMsg += "Please enter a value of 45 or less.";
-			retMsg += '<Br />';
-			return retMsg;
-		}
-		/*
-		if (isValid) {
+    var isValid = true;
+    var retMsg = '';
+    if (inputValue != null || inputValue != '') {
+        //var DaysPattern = /^([1-9]|[1][0-9]|[2][0-9]|[3][0-9]|[4][0-5])?$|^45$/;
 
-			//return retMsg;
-		}*/
-	}
-	return retMsg;
+        //isValid = DaysPattern.test(inputValue);
+        if (parseInt(inputValue) < 45) {
+            retMsg += "Please enter a value of 45 or less.";
+            retMsg += '<Br />';
+            return retMsg;
+        }
+        /*
+        if (isValid) {
+
+        //return retMsg;
+        }*/
+    }
+    return retMsg;
 }
 //code ended
 
@@ -69,20 +69,19 @@ function isValidDays(inputValue) {
 function verifyDate() {
     var retMsg = ''
     var isValid = true;
-			certDate = AInfo["Date of Kill"];
-            var diff = dateDiff(new Date(), new Date(certDate));
-            if (diff > 0) {
-                retMsg += ("Date cannot be after today's date.");
-                retMsg += '<Br />';
-            }
-			var asiValDate = new Date(certDate);
-			var cDate = new Date();
-			cDate .setFullYear(cDate .getFullYear()-1);
-			if(asiValDate <= cDate)
-			{
-			retMsg += ("Date is incorrect.");
-			retMsg += '<Br />';
-			}
+    certDate = AInfo["Date of Kill"];
+    var diff = dateDiff(new Date(), new Date(certDate));
+    if (diff > 0) {
+        retMsg += ("Date cannot be after today's date.");
+        retMsg += '<Br />';
+    }
+    var asiValDate = new Date(certDate);
+    var cDate = new Date();
+    cDate.setFullYear(cDate.getFullYear() - 1);
+    if (asiValDate <= cDate) {
+        retMsg += ("Date is incorrect.");
+        retMsg += '<Br />';
+    }
     return retMsg;
 }
 //code ended
@@ -105,7 +104,7 @@ function isValidHarvestinfo(pStep) {
         //Calller ACA ONSUBMIT BEFORE CARCASSTAG
         if (pStep == 'Step1') {
             if (!isValidUserForGameHarvest()) {
-                retMsg += 'This user is not authorized to report game harvest.';			//...Raj  JIRA-15711
+                retMsg += 'This user is not authorized to report game harvest.'; 		//...Raj  JIRA-15711
                 retMsg += '<Br />';
             } else {
                 if (isNull(strHarvestType, '') == '') {
@@ -782,7 +781,7 @@ function ReprintDocuments() {
         //balanceDue == 0 ^ 
         closeTask("Issuance", "Approved", "", "");
 
-		//Get the current DEC AGENT Public User as object and attach to the new record
+        //Get the current DEC AGENT Public User as object and attach to the new record
         var uObj = new USEROBJ(publicUserID);
         salesAgentInfoArray = getAgentInfo(publicUserID, uObj);
         attachAgent(uObj);
@@ -827,44 +826,44 @@ function ReprintDocuments() {
             activateTaskForRec("Suspension", "", newLicId);
 
             //copyAddresses(itemCapId, newLicId);
-			
+
             logDebug("DEBUG: Function Call copyASITables()");
             copyASITables(itemCapId, newLicId);
-			logDebug("DEBUG: Function Call copyASIFields()");
+            logDebug("DEBUG: Function Call copyASIFields()");
             copyASIFields(itemCapId, newLicId);
-			logDebug("DEBUG: Function Call copyCalcVal()");
+            logDebug("DEBUG: Function Call copyCalcVal()");
             copyCalcVal(itemCapId, newLicId);
-			//logDebug("DEBUG: Function Call copyFees()");
+            //logDebug("DEBUG: Function Call copyFees()");
             //copyFees(itemCapId, newLicId); 10/31/2013 - This causes an error in ACA at the point that addFee() is called.
-			logDebug("DEBUG: Function Call copyConditions()");
+            logDebug("DEBUG: Function Call copyConditions()");
             copyConditions(newLicId, itemCapId);
 
-			//Attach the current DEC AGENT
-			attachAgent(uObj, newLicId);
-			
-            if (!matches(itemcap.getSpecialText(),null,"",undefined))
+            //Attach the current DEC AGENT
+            attachAgent(uObj, newLicId);
+
+            if (!matches(itemcap.getSpecialText(), null, "", undefined))
                 editAppName(itemcap.getSpecialText(), newLicId);
 
-            var licExpObj = new licenseObject(itemCapId.getCustomID(),itemCapId);
-            if (!matches(licExpObj.b1ExpDate,null,"",undefined))
+            var licExpObj = new licenseObject(itemCapId.getCustomID(), itemCapId);
+            if (!matches(licExpObj.b1ExpDate, null, "", undefined))
                 setLicExpirationDate(newLicId, "", licExpObj.b1ExpDate);
 
-			logDebug("DEBUG: Generate a new document number ...");
+            logDebug("DEBUG: Generate a new document number ...");
             var newDecDocId = GenerateDocumentNumber(newLicId.getCustomID());
-			logDebug("DEBUG: New Document Number Generated: " + newDecDocId);
-			
+            logDebug("DEBUG: New Document Number Generated: " + newDecDocId);
+
             updateDocumentNumber(newDecDocId, newLicId);
 
-           if (ata[1] == 'Tag') {
-				//JIRA: 17128
-				if (!appMatch("Licenses/Tag/Hunting/Back", pId) ) {
-					arryTag.push(newLicId);
-				}
+            if (ata[1] == 'Tag') {
+                //JIRA: 17128
+                if (appTypeString != AA52_TAG_BACK) {
+                    arryTag.push(newLicId);
+                }
             } else {
-				//JIRA: 17128
-				if (!appMatch("Licenses/Annual/Fishing/Marine Registry", pId) ) {
-					arryLic.push(newLicId);
-				}
+                //JIRA: 17128
+                if (appTypeString != AA02_MARINE_REGISTRY) {
+                    arryLic.push(newLicId);
+                }
             }
 
             var result = aa.cap.createAppHierarchy(capId, newLicId);
@@ -879,21 +878,21 @@ function ReprintDocuments() {
             closeTaskForRec("Report Game Harvest", "", "", "", "", itemCapId);
             closeTaskForRec("Revocation", "", "", "", "", itemCapId);
             closeTaskForRec("Suspension", "", "", "", "", itemCapId);
-			
-			//Update Status after Workflow as Workflow Updates can change status.
-			updateTagStatus("Replaced", "Replaced", itemCapId);
+
+            //Update Status after Workflow as Workflow Updates can change status.
+            updateTagStatus("Replaced", "Replaced", itemCapId);
         }
-		
-		// find privilege panel - it is a child of this records parent application
-	    logDebug("ReprintDocuments: Re-creating privilege panel");
-	    var pId = getParent(capId);
-	    if (appMatch("Licenses/Annual/Application/NA", pId) ) {
-		    childArr = getChildren("Licenses/Tag/Document/Privilege Panel", pId);
-		    if (childArr != null && childArr.length > 0) {
-			    var ppCapId = childArr[0];
-		    	voidPrivilegePanel(ppCapId, pId);
-				}
-			}
+
+        // find privilege panel - it is a child of this records parent application
+        logDebug("ReprintDocuments: Re-creating privilege panel");
+        var pId = getParent(capId);
+        if (appMatch("Licenses/Annual/Application/NA", pId)) {
+            childArr = getChildren("Licenses/Tag/Document/Privilege Panel", pId);
+            if (childArr != null && childArr.length > 0) {
+                var ppCapId = childArr[0];
+                voidPrivilegePanel(ppCapId, pId);
+            }
+        }
 
         distributeFeesForReprint(capId, arryTag, arryLic, salesAgentInfoArray);
     }
@@ -1012,9 +1011,9 @@ function distributeFeesForReprint(sourceCapId, arryTag, arryLic, pSalesAgentInfo
     }
     if (arryTag.length && amtFeeRplc2 > 0) {
         //JIRA: 17343
-		//perTagAmt = (amtFeeRplc2 / arryTag.length)
+        //perTagAmt = (amtFeeRplc2 / arryTag.length)
         //perTagAmt = (Math.round(perTagAmt * 100) / 100);
-		perTagAmt = amtFeeRplc2;
+        perTagAmt = amtFeeRplc2;
     }
 
     var unapplied = paymentGetNotAppliedTot()
@@ -1225,7 +1224,7 @@ function isValidReprintDocuments(pStep) {
     try {
         if (pStep == 'Step1') {
             if (!isValidUserForReprintDocuments()) {
-                retMsg += 'This user is not authorized to Replace Documents.';				// ...Raj   JIRA-15711
+                retMsg += 'This user is not authorized to Replace Documents.'; 			// ...Raj   JIRA-15711
                 retMsg += '<Br />';
             }
         }
@@ -1236,7 +1235,7 @@ function isValidReprintDocuments(pStep) {
                 for (var y in ACTIVEDOCUMENTS) {
                     if (ACTIVEDOCUMENTS[y]["Select"] == 'Yes') {
                         selDocToPrint.push(ACTIVEDOCUMENTS[y]["Document ID"]);
-						break; //Optimization.  If we find a doc, stop looping.  We are only checking that at least one doc is Select[ed].
+                        break; //Optimization.  If we find a doc, stop looping.  We are only checking that at least one doc is Select[ed].
                     }
                 }
             }
@@ -1268,17 +1267,17 @@ function addRepritFees() {
             }
         }
     }
-	
-	logDebug("INFO: Found " + selDocToPrint.length + " docs to be reprinted.");
+
+    logDebug("INFO: Found " + selDocToPrint.length + " docs to be reprinted.");
 
     var arryTag = new Array();
     var arryLic = new Array();
 
-	//Variables used to determine if replacement fees should NOT be assessed
-	var bReplaceBackTag = false;
-	var bReplaceMarineRegistry = false;
-	var bBypassReplacementFee = false;
-	
+    //Variables used to determine if replacement fees should NOT be assessed
+    var bReplaceBackTag = false;
+    var bReplaceMarineRegistry = false;
+    var bBypassReplacementFee = false;
+
     for (y in selDocToPrint) {
         var itemCapId = getCapId(selDocToPrint[y]);
         var itemcap = aa.cap.getCap(itemCapId).getOutput();
@@ -1287,47 +1286,42 @@ function addRepritFees() {
 
         if (ata[1] == 'Tag') {
             arryTag.push(itemCapId);
-			logDebug("doc added to arryTag");
+            logDebug("doc added to arryTag");
         } else {
             arryLic.push(itemCapId);
-			logDebug("doc added to arryLic");
+            logDebug("doc added to arryLic");
         }
-	
-		//11/8/2013 - If ONLY one or both of the following Documents types are being replaced, there is no Fee Assessed.
-		if(appTypeString == 'Licenses/Tag/Hunting/Back') bReplaceBackTag = true;
-		if(appTypeString == 'Licenses/Annual/Fishing/Marine Registry') bReplaceMarineRegistry = true;
+
+        //11/8/2013 - If ONLY one or both of the following Documents types are being replaced, there is no Fee Assessed.
+        if (appTypeString == 'Licenses/Tag/Hunting/Back') bReplaceBackTag = true;
+        if (appTypeString == 'Licenses/Annual/Fishing/Marine Registry') bReplaceMarineRegistry = true;
     }
 
-	//If there is a single back tag being replaced with a) no other licenses or b) a single marine registry license only
-	if(bReplaceBackTag && arryTag.length == 1 && ((!bReplaceMarineRegistry && arryLic.length == 0) ||(bReplaceMarineRegistry && arryLic.length == 1)))
-	{
-		bBypassReplacementFee = true;
-	}
-	//If there is a single marine registry license being replaced with a) no other tags or b) a single Back Tag only
-	if(bReplaceMarineRegistry && arryLic.length == 1 && ((!bReplaceBackTag && arryTag.length ==0) || (bReplaceBackTag && arryTag.length == 1)))
-	{
-		bBypassReplacementFee = true;
-	}
-		
-	
-	//Bypass Replacement Fees for Back Tag and/or Marine Registry?
-	if(!bBypassReplacementFee)
-	{
-		//Assess Fees		
-		if (arryTag.length > 0) 
-		{
-			logDebug("DEBUG: Assessing the Tag Fee: FEE_RPLC_2");
-			addFeeWithVersion("FEE_RPLC_2", "FEE_REPRINT_FEE_SCHDL", 1, "FINAL", 1, "N"); //11/8/2013 - Currently $10.00	
-		}
-		if (arryLic.length > 0) 
-		{        
-			logDebug("DEBUG: Assessing the Fee: FEE_RPLC_1");
-			addFeeWithVersion("FEE_RPLC_1", "FEE_REPRINT_FEE_SCHDL", 1, "FINAL", 1, "N"); //11/8/2013 - Currently $5.00
-		}
-	}
-	else
-		logDebug("Do not assess a Replacement Fee for Back Tag and/or Marine Registry.");
-    
+    //If there is a single back tag being replaced with a) no other licenses or b) a single marine registry license only
+    if (bReplaceBackTag && arryTag.length == 1 && ((!bReplaceMarineRegistry && arryLic.length == 0) || (bReplaceMarineRegistry && arryLic.length == 1))) {
+        bBypassReplacementFee = true;
+    }
+    //If there is a single marine registry license being replaced with a) no other tags or b) a single Back Tag only
+    if (bReplaceMarineRegistry && arryLic.length == 1 && ((!bReplaceBackTag && arryTag.length == 0) || (bReplaceBackTag && arryTag.length == 1))) {
+        bBypassReplacementFee = true;
+    }
+
+
+    //Bypass Replacement Fees for Back Tag and/or Marine Registry?
+    if (!bBypassReplacementFee) {
+        //Assess Fees		
+        if (arryTag.length > 0) {
+            logDebug("DEBUG: Assessing the Tag Fee: FEE_RPLC_2");
+            addFeeWithVersion("FEE_RPLC_2", "FEE_REPRINT_FEE_SCHDL", 1, "FINAL", 1, "N"); //11/8/2013 - Currently $10.00	
+        }
+        if (arryLic.length > 0) {
+            logDebug("DEBUG: Assessing the Fee: FEE_RPLC_1");
+            addFeeWithVersion("FEE_RPLC_1", "FEE_REPRINT_FEE_SCHDL", 1, "FINAL", 1, "N"); //11/8/2013 - Currently $5.00
+        }
+    }
+    else
+        logDebug("Do not assess a Replacement Fee for Back Tag and/or Marine Registry.");
+
 
     logDebug("EXIT: addRepritFees");
 }
@@ -1370,7 +1364,7 @@ function loadUpgradeLic() {
     var retMsg = '';
     try {
         if (!isValidUserForUpgradeLic()) {
-            retMsg += 'This user is not authorized to Upgarde Lifetime Licenses.';					//...Raj  JIRA-15711
+            retMsg += 'This user is not authorized to Upgarde Lifetime Licenses.'; 				//...Raj  JIRA-15711
             retMsg += '<Br />';
         } else {
             retMsg += copyCntASIToRecASIforReprint();
@@ -1473,7 +1467,7 @@ function isValidLicesesToupgrad(pStep) {
     //Calller ACA ONSUBMIT BEFORE UGRDSTEP1
     if (pStep == 'Step1') {
         if (!isValidUserForUpgradeLic()) {
-            retMsg += 'This user is not authorized to Upgrade Lifetime Licenses.';				//...Raj		JIRA-15711
+            retMsg += 'This user is not authorized to Upgrade Lifetime Licenses.'; 			//...Raj		JIRA-15711
             retMsg += '<Br />';
         } else {
 
@@ -1552,10 +1546,10 @@ function GetTagsForUpgradeLic(peopleSequenceNumber) {
     var availableActiveItems = new Array();
 
     var validActiveholdingsArray = getActiveholdingsFilterArray();
-//    var validActiveholdingsArray = new Array();
- //   for (var t in arryTags_LTSmallAndBigGame) {
-  //      validActiveholdingsArray.push(arryTags_LTSmallAndBigGame[t].RecordType);
-   // }
+    //    var validActiveholdingsArray = new Array();
+    //   for (var t in arryTags_LTSmallAndBigGame) {
+    //      validActiveholdingsArray.push(arryTags_LTSmallAndBigGame[t].RecordType);
+    // }
 
     var CC = new contactObj(null);
     CC.refSeqNumber = peopleSequenceNumber;
@@ -1566,9 +1560,9 @@ function GetTagsForUpgradeLic(peopleSequenceNumber) {
         var itemCap = aa.cap.getCap(itemCapId).getOutput();
         appTypeResult = itemCap.getCapType();
         appTypeString = appTypeResult.toString();
-		if (appTypeString.equals(AA52_TAG_BACK)) {
-			continue;   // defect 15006
-			}
+        if (appTypeString.equals(AA52_TAG_BACK)) {
+            continue;   // defect 15006
+        }
         if (exists(appTypeString, validActiveholdingsArray)) {
             var newActiveTag = new ACTIVE_ITEM(itemCapId, itemCap, appTypeString);
             if (newActiveTag.isActiveForUpgrade()) {
@@ -1696,7 +1690,7 @@ function copyCntASIToRecASIforReprint() {
                 var fieldArray = subGroupArray[subGroupName];
                 if (subGroupName == "ADDITIONAL INFO") {
                     editAppSpecific4ACA("A_IsNYResident", fieldArray["Are You New York Resident?"]);
-                    editAppSpecific4ACA("A_Preference_Points", isNull(fieldArray["Preference Points"],'0'));
+                    editAppSpecific4ACA("A_Preference_Points", isNull(fieldArray["Preference Points"], '0'));
                     editAppSpecific4ACA("A_Parent_Driver_License_Number", fieldArray["Parent Driver License Number"]);
                     editAppSpecific4ACA("A_NY_Resident_Proof_Document", fieldArray["NY Resident Proof Document"]);
                     continue;
@@ -1820,7 +1814,7 @@ function getFormObjectForUpgrade(isGetActiveHoldings) {
         //var lic = new License_OBJ();
         var lic = f.licObjARRAY[idx];
         if (lic.Identity == LIC13_LIFETIME_SPORTSMAN) {
-            f.SetSelected(lic.Identity, true,1);
+            f.SetSelected(lic.Identity, true, 1);
             var isActive = false;
             isActive = f.IsActiveItem(lic.Identity);
             f.SetItemFeeSched(lic.Identity);
@@ -1856,65 +1850,65 @@ function upgradeLifetimeLic() {
         //balanceDue == 0 ^ 
         closeTask("Issuance", "Approved", "", "");
 
-		var upgradeStatusDocArray = new Array();
-		
+        var upgradeStatusDocArray = new Array();
+
         var voidSelectedItems = new Array();
         if ((typeof (LICENSESTOUPGRADE) == "object")) {
             for (y in LICENSESTOUPGRADE) {
                 var isSelected = (LICENSESTOUPGRADE[y]["Select"] == 'Yes' || LICENSESTOUPGRADE[y]["Select"] == 'Y');
                 if (isSelected) {
                     voidSelectedItems.push(LICENSESTOUPGRADE[y]["Document ID"]);
-					
-					logDebug("Adding " + LICENSESTOUPGRADE[y]["Document ID"] + " to the upgradeStatusDocArray.  This document should not get a status of Voided.");
-					upgradeStatusDocArray.push(LICENSESTOUPGRADE[y]["Document ID"]);
+
+                    logDebug("Adding " + LICENSESTOUPGRADE[y]["Document ID"] + " to the upgradeStatusDocArray.  This document should not get a status of Voided.");
+                    upgradeStatusDocArray.push(LICENSESTOUPGRADE[y]["Document ID"]);
                 }
             }
         }
 
-		// void the privilege panel issue 13656
-		var xArray = getApplicantArrayEx();
-		var peopleSequenceNumber = null;
-		for (ca in xArray) {
-			var thisContact = xArray[ca];
-			peopleSequenceNumber = thisContact["refcontactSeqNumber"]
-			break;
-			}
-		
+        // void the privilege panel issue 13656
+        var xArray = getApplicantArrayEx();
+        var peopleSequenceNumber = null;
+        for (ca in xArray) {
+            var thisContact = xArray[ca];
+            peopleSequenceNumber = thisContact["refcontactSeqNumber"]
+            break;
+        }
+
         var uObj = new USEROBJ(publicUserID);
         salesAgentInfoArray = getAgentInfo(publicUserID, uObj);
         attachAgent(uObj);
-		
+
         //(Void selected Lifetime licenses).  Update status to Void, or Upgraded (for License record being upgraded)
         for (var y in voidSelectedItems) {
             frm.RemoveActiveHoldingsbyDocId(voidSelectedItems[y]);
             itemCapId = getCapId(voidSelectedItems[y]);
-			itemCap = aa.cap.getCap(itemCapId).getOutput();
-			itemAppTypeResult = itemCap.getCapType();
-			itemAppTypeString = itemAppTypeResult.toString();
-			
-			// Add upgrading agent JIRA 16667
-			logDebug("Attempting to set Upgrading Agent ASI to " + salesAgentInfoArray["Agent Id"] + " on Record " + itemCapId.getCustomID());
-			editAppSpecific("Upgrading Agent", salesAgentInfoArray["Agent Id"], itemCapId);
-			
-			logDebug("upgradeLifetimeLic voiding Record Id " + itemAppTypeString);
-            
-			closeTaskForRec("Void Document", "Void", "", "", "", itemCapId);
+            itemCap = aa.cap.getCap(itemCapId).getOutput();
+            itemAppTypeResult = itemCap.getCapType();
+            itemAppTypeString = itemAppTypeResult.toString();
+
+            // Add upgrading agent JIRA 16667
+            logDebug("Attempting to set Upgrading Agent ASI to " + salesAgentInfoArray["Agent Id"] + " on Record " + itemCapId.getCustomID());
+            editAppSpecific("Upgrading Agent", salesAgentInfoArray["Agent Id"], itemCapId);
+
+            logDebug("upgradeLifetimeLic voiding Record Id " + itemAppTypeString);
+
+            closeTaskForRec("Void Document", "Void", "", "", "", itemCapId);
             closeTaskForRec("Report Game Harvest", "", "", "", "", itemCapId);
             closeTaskForRec("Revocation", "", "", "", "", itemCapId);
             closeTaskForRec("Suspension", "", "", "", "", itemCapId);
-			
-			// UPDATE WORKFLOW FIRST (above). THEN REC STATUS.  This is to make sure that workflow does not
-			//    modify the intended Record Status
-			
-			//When Upgrading, the License Record itself should have a status of "Upgraded", everything else is Voided.
-			logDebug("Check the upgradeStatusDocArray for voidSelectedItems[y]: " + voidSelectedItems[y]);
-			if(exists(voidSelectedItems[y], upgradeStatusDocArray)) // || itemAppTypeString.indexOf("Lifetime") >=0
-			{
-				updateAppStatus("Upgraded", "Upgraded", itemCapId);
-			}
-			else
-				updateAppStatus("Void", "Void", itemCapId);
-			
+
+            // UPDATE WORKFLOW FIRST (above). THEN REC STATUS.  This is to make sure that workflow does not
+            //    modify the intended Record Status
+
+            //When Upgrading, the License Record itself should have a status of "Upgraded", everything else is Voided.
+            logDebug("Check the upgradeStatusDocArray for voidSelectedItems[y]: " + voidSelectedItems[y]);
+            if (exists(voidSelectedItems[y], upgradeStatusDocArray)) // || itemAppTypeString.indexOf("Lifetime") >=0
+            {
+                updateAppStatus("Upgraded", "Upgraded", itemCapId);
+            }
+            else
+                updateAppStatus("Void", "Void", itemCapId);
+
         }
 
         var returningDocArray = new Array();
@@ -1935,18 +1929,18 @@ function upgradeLifetimeLic() {
             }
         }
 
-		if (peopleSequenceNumber) {
-			var CC = new contactObj(null);
-			CC.refSeqNumber = peopleSequenceNumber;
-			logDebug("upgradeLifetimeLic peopleseqnumber = " + frm.peopleSequenceNumber);
-			var ppPanel = CC.getCaps(AA54_TAG_PRIV_PANEL);
-					
-			for (var y in ppPanel) {
-				returningDocArray.push(ppPanel[y].getCustomID());
-				logDebug("upgradeLifetimeLic found Priv Panel to Returnable " + ppPanel[y].getCustomID());
-				}
-			}
-					
+        if (peopleSequenceNumber) {
+            var CC = new contactObj(null);
+            CC.refSeqNumber = peopleSequenceNumber;
+            logDebug("upgradeLifetimeLic peopleseqnumber = " + frm.peopleSequenceNumber);
+            var ppPanel = CC.getCaps(AA54_TAG_PRIV_PANEL);
+
+            for (var y in ppPanel) {
+                returningDocArray.push(ppPanel[y].getCustomID());
+                logDebug("upgradeLifetimeLic found Priv Panel to Returnable " + ppPanel[y].getCustomID());
+            }
+        }
+
         //(returning => make it returnable)
         for (y in returningDocArray) {
             itemCapId = getCapId(returningDocArray[y]);
@@ -1970,15 +1964,15 @@ function upgradeLifetimeLic() {
             }
         }
 
-		
-		// JIRA issue 16667 get the fee for the upgrade record
-		var feeResult=aa.fee.getFeeItems(capId).getOutput();
-		var feesTotal = 0;
-		for (var ff in feeResult) {
-			feesTotal += feeResult[ff].getFee(); 
-			}
-		logDebug("Fee Total for the upgrade is " + feesTotal);
-							
+
+        // JIRA issue 16667 get the fee for the upgrade record
+        var feeResult = aa.fee.getFeeItems(capId).getOutput();
+        var feesTotal = 0;
+        for (var ff in feeResult) {
+            feesTotal += feeResult[ff].getFee();
+        }
+        logDebug("Fee Total for the upgrade is " + feesTotal);
+
         //Get Fees
         var newfd = new FeeDef();
         var feeArr = frm.getAllFeeToAdd();
@@ -1986,7 +1980,7 @@ function upgradeLifetimeLic() {
             newfd.feeschedule = feeArr[item].feeschedule;
             newfd.version = feeArr[item].version;
             newfd.feeCode = feeArr[item].feeCode;
-			// JIRA issue 16667.   fees are defaulting to normal values.   Need up update to the amount calculated on the record.
+            // JIRA issue 16667.   fees are defaulting to normal values.   Need up update to the amount calculated on the record.
             newfd.formula = feeArr[item].formula = feesTotal;
             newfd.feeUnit = feeArr[item].feeUnit = 1;
             newfd.feeDesc = feeArr[item].feeDesc;
@@ -2013,7 +2007,7 @@ function upgradeLifetimeLic() {
                     var effectiveDt;
                     var seasonPeriod = GetDateRange(DEC_CONFIG, LICENSE_SEASON, syear);
                     var diff = dateDiff(new Date(), seasonPeriod[0])
-					setLicExpirationDate(newLicId, dateAdd(null,0));	// defect 13656
+                    setLicExpirationDate(newLicId, dateAdd(null, 0)); // defect 13656
                     if (diff > 0) {
                         AInfo["CODE.Effective Date"] = jsDateToMMDDYYYY(seasonPeriod[0]);
                         editFileDate(newLicId, seasonPeriod[0]);
@@ -2023,22 +2017,22 @@ function upgradeLifetimeLic() {
                     }
 
                     setSalesItemASI(newLicId, oLic.RecordType, oLic.DecCode, oLic.feeUnit, null, null);
-					
-					var TagsArray = null;
+
+                    var TagsArray = null;
                     if (isNull(oLic.FNTagsArray, '') != '') {
-						eval("TagsArray = " + oLic.FNTagsArray + "(ruleParams);");
+                        eval("TagsArray = " + oLic.FNTagsArray + "(ruleParams);");
                     }
-					
-                    oLic.TagsArray = TagsArray;					
-					var tagPropArray = new Array()
+
+                    oLic.TagsArray = TagsArray;
+                    var tagPropArray = new Array()
                     for (var t in oLic.TagsArray) {
-						var tagProp = tagsMap.get(oLic.TagsArray[t]);
+                        var tagProp = tagsMap.get(oLic.TagsArray[t]);
                         tagPropArray.push(tagProp);
                     }
-					
+
                     CreateTags(tagPropArray, ruleParams, oLic.DecCode, "");
-					// added priv panel defect 13656
-					createPrivilagePanel(ruleParams);
+                    // added priv panel defect 13656
+                    createPrivilagePanel(ruleParams);
 
                     var newDecDocId = GenerateDocumentNumber(newLicId.getCustomID());
                     updateDocumentNumber(newDecDocId, newLicId);
@@ -2046,20 +2040,20 @@ function upgradeLifetimeLic() {
                     //maintain array for later actions
                     arryTargetCapAttrib.push(new TargetCAPAttrib(newLicId, newfd));
 
-					/* turn off per Rocky on 12/6/2013 Defect 16667
+                    /* turn off per Rocky on 12/6/2013 Defect 16667
                     //connect With main Upgraded
                     for (y in notusedDocArray) {
-                        itemCapId = getCapId(notusedDocArray[y]);
-                        var result = aa.cap.createAppHierarchy(capId, itemCapId);
-                        if (result.getSuccess()) {
-                            logDebug("Successfully linked");
-                        }
-                        else {
-                            logDebug("Could not link DMP" + result.getErrorMessage());
-                        }
+                    itemCapId = getCapId(notusedDocArray[y]);
+                    var result = aa.cap.createAppHierarchy(capId, itemCapId);
+                    if (result.getSuccess()) {
+                    logDebug("Successfully linked");
+                    }
+                    else {
+                    logDebug("Could not link DMP" + result.getErrorMessage());
+                    }
 
                     }
-					*/
+                    */
                 }
             }
         }
@@ -2078,7 +2072,7 @@ function isValidVoidSales(pStep) {
     //ACA ONSUBMIT BEFORE VDSLSTEP1
     if (pStep == 'Step1') {
         if (!isValidUserForVoidSales()) {
-            retMsg += 'This user is not authorized to Void Sales.';		//...Raj    JIRA-15711
+            retMsg += 'This user is not authorized to Void Sales.'; 	//...Raj    JIRA-15711
             retMsg += '<Br />';
         } else {
             /*
@@ -2145,12 +2139,12 @@ function GetDocsToVoidSale(peopleSequenceNumber) {
 
     // get the agent's info
     var agentObj = new USEROBJ(publicUserID);
-    
-    
+
+
     var applicationToChechArray = new Array();
     applicationToChechArray.push('Licenses/Annual/Application/NA');
     //11/27/2013 - Reprinted Documents should not be voidable
-	//applicationToChechArray.push('Licenses/Sales/Reprint/Documents');
+    //applicationToChechArray.push('Licenses/Sales/Reprint/Documents');
     applicationToChechArray.push('Licenses/Sales/Upgrade/Lifetime');
 
     for (var aRec in applicationToChechArray) {
@@ -2172,12 +2166,12 @@ function GetDocsToVoidSale(peopleSequenceNumber) {
                         var ata = appTypeString.split("/");
 
                         if (exists(appTypeString, validVoidableFilterArray)) {
-				if (doesRefContactExistOnRecord(agentObj.authAgentPeopleSequenceNumber, childCapId)) {
-                            		var newActiveTag = new ACTIVE_ITEM(childCapId, itemCap, appTypeString);
-                            		if (newActiveTag.isActive()) {
-                                		availableDocsToVoidItems.push(newActiveTag);
-					}
-				}
+                            if (doesRefContactExistOnRecord(agentObj.authAgentPeopleSequenceNumber, childCapId)) {
+                                var newActiveTag = new ACTIVE_ITEM(childCapId, itemCap, appTypeString);
+                                if (newActiveTag.isActive()) {
+                                    availableDocsToVoidItems.push(newActiveTag);
+                                }
+                            }
                         }
                     }
                 }
@@ -2187,20 +2181,20 @@ function GetDocsToVoidSale(peopleSequenceNumber) {
     logDebug("EXIT: GetDocsToVoidSale");
 
     return availableDocsToVoidItems;
-}	
+}
 
 
 function doesRefContactExistOnRecord(refSeqNum, itemCap) {
 
-	conArr = getContactObjs(itemCap);
-	if (conArr && conArr.length > 0) {
-		for (conArrIndex in conArr) {
-			thisCon = conArr[conArrIndex];
-			if (thisCon.refSeqNumber.equals(refSeqNum)) 
-				return true;
-		}
-	}
-	return false;
+    conArr = getContactObjs(itemCap);
+    if (conArr && conArr.length > 0) {
+        for (conArrIndex in conArr) {
+            thisCon = conArr[conArrIndex];
+            if (thisCon.refSeqNumber.equals(refSeqNum))
+                return true;
+        }
+    }
+    return false;
 }
 
 function GetDocsToVoidsAsitTableArray(availableDocsToVoidItems) {
@@ -2235,17 +2229,17 @@ function VoidsSales() {
 
     try {
         var y;
-		var itemCapId;
+        var itemCapId;
         var selDocToVoid = new Array();
-		var selDocToMove = new Array();
+        var selDocToMove = new Array();
         if ((typeof (VOIDDOCUMENTS) == "object")) {
             for (y in VOIDDOCUMENTS) {
                 if (VOIDDOCUMENTS[y]["Select"] == 'Yes') {
                     selDocToVoid.push(VOIDDOCUMENTS[y]["Document ID"]);
                 }
-				else {
-					selDocToMove.push(VOIDDOCUMENTS[y]["Document ID"]);
-				}
+                else {
+                    selDocToMove.push(VOIDDOCUMENTS[y]["Document ID"]);
+                }
             }
         }
 
@@ -2256,12 +2250,12 @@ function VoidsSales() {
         salesAgentInfoArray = getAgentInfo(publicUserID, uObj);
         attachAgent(uObj);
 
-		// JIRA 17116, associate the rest of licenses to the void so they will print on PP
+        // JIRA 17116, associate the rest of licenses to the void so they will print on PP
         for (y in selDocToMove) {
             var itemCapId = getCapId(selDocToMove[y]);
-			var result = aa.cap.createAppHierarchy(capId, itemCapId);
-			}
-		
+            var result = aa.cap.createAppHierarchy(capId, itemCapId);
+        }
+
         for (y in selDocToVoid) {
             itemCapId = getCapId(selDocToVoid[y]);
             var itemcap = aa.cap.getCap(itemCapId).getOutput();
@@ -2271,43 +2265,43 @@ function VoidsSales() {
             voidRec(itemCapId);
 
 
-			var associatedTagArray = getTagsAssociatedToLicense(appTypeString);
-			for (var tIndex in associatedTagArray) {
-				tagID = associatedTagArray[tIndex];
-				tagCapId = getTagRecordID(tagID);
-				if (tagCapId != null) {
-					voidRec(tagCapId);
-					}
-				}
-			}
-			
-		// find privilege panel - it is a child of the last records parent application
-	    logDebug("Marking privilege panel");
-		logDebug("itemCapId is " + itemCapId.getCustomID());
-		if (itemCapId) {
-			pId = getParent(itemCapId);
-			if (appMatch("Licenses/Annual/Application/NA", pId) ) {
-				logDebug("parent record is  " + pId.getCustomID());
-				childArr = getChildren("Licenses/Tag/Document/Privilege Panel", pId);
-				logDebug("child array is  " + childArr.length);
-				if (childArr != null && childArr.length > 0) {
-					ppCapId = childArr[0];
-						voidPrivilegePanel(ppCapId, pId);
-				}
-			}
-	    }
-		
-	for (y in selDocToVoid) {
-			
-			var result = aa.cap.createAppHierarchy(capId, itemCapId);
-			if (result.getSuccess()) {
-				logDebug("Parent application successfully linked");
-			}
-			else {
-				logDebug("Could not link applications" + result.getErrorMessage());
-			}
-		}
-	}
+            var associatedTagArray = getTagsAssociatedToLicense(appTypeString);
+            for (var tIndex in associatedTagArray) {
+                tagID = associatedTagArray[tIndex];
+                tagCapId = getTagRecordID(tagID);
+                if (tagCapId != null) {
+                    voidRec(tagCapId);
+                }
+            }
+        }
+
+        // find privilege panel - it is a child of the last records parent application
+        logDebug("Marking privilege panel");
+        logDebug("itemCapId is " + itemCapId.getCustomID());
+        if (itemCapId) {
+            pId = getParent(itemCapId);
+            if (appMatch("Licenses/Annual/Application/NA", pId)) {
+                logDebug("parent record is  " + pId.getCustomID());
+                childArr = getChildren("Licenses/Tag/Document/Privilege Panel", pId);
+                logDebug("child array is  " + childArr.length);
+                if (childArr != null && childArr.length > 0) {
+                    ppCapId = childArr[0];
+                    voidPrivilegePanel(ppCapId, pId);
+                }
+            }
+        }
+
+        for (y in selDocToVoid) {
+
+            var result = aa.cap.createAppHierarchy(capId, itemCapId);
+            if (result.getSuccess()) {
+                logDebug("Parent application successfully linked");
+            }
+            else {
+                logDebug("Could not link applications" + result.getErrorMessage());
+            }
+        }
+    }
 
     catch (err) {
         logDebug("Exception in VoidsSales:" + err.message);
@@ -2316,169 +2310,168 @@ function VoidsSales() {
 }
 
 function getTagsAssociatedToLicense(licAppType) {
-	associatedTagArray = null;
-	switch ("" + licAppType) {
-		case AA04_BOWHUNTING_PRIVILEGE:
-		case AA07_MUZZLELOADING_PRIVILEGE:
-		case AA30_NONRES_MUZZLELOADING:
-		case AA34_NONRESIDENT_BOWHUNTING:
-			associateTagArray = new Array();
- 			associatedTagArray.push(TAG_TYPE_1_BACK_TAG);
-        		associatedTagArray.push(TAG_TYPE_19_DEER_OF_EITHER_SEX_TAG);
-        		associatedTagArray.push(TAG_TYPE_20_ANTLERLESS_DEER_TAG);
-			break;
-		case AA08_TURKEY_PERMIT:
-			associatedTagArray = getTag_ANNUAL_TRKY_2014();
-			break;
-		case AA27_CONSERVATION_LEGACY:
-			associatedTagArray = getTag_CONSERVATION_LEGACY();
-			break;
-		case AA29_JUNIOR_HUNTING:
-			associateTagArray = new Array();
-			associatedTagArray.push(TAG_TYPE_1_BACK_TAG);
-        		associatedTagArray.push(TAG_TYPE_3_REG_SEASON_DEER);
-        		associatedTagArray.push(TAG_TYPE_2_BEAR_TAG);
-			break;
-		case AA31_NONRES_SUPER_SPORTSMAN:
-			associatedTagArray = getTag_NONRES_SUPER_SPORTSMAN();
-			break;
-		case AA32_NONRESIDENT_BEAR_TAG:
-			associatedTagArray = getTag_NONRESIDENT_BEAR_TAG();
-			break;
-		case AA33_NONRESIDENT_BIG_GAME:
-			associatedTagArray = getTag_NONRES_BIG_GAME();
-			break;
-		case AA35_NONRESIDENT_SMALL_GAME:
-			associatedTagArray = getTag_NONRES_SMALL_GAME();
-			break;
-		case AA36_NONRESIDENT_TURKEY:
-			associatedTagArray = getTag_NONRESIDENT_TURKEY();
-			break;
-		case AA37_SMALL_AND_BIG_GAME:
-			associatedTagArray = getTag_SMALL_AND_BIG_GAME();
-			break;
-		case AA38_SMALL_GAME:
-			associatedTagArray = getTag_SMALL_GAME();
-			break;
-		case AA39_SPORTSMAN:
-			associatedTagArray = getTag_SPORTSMAN();
-			break;
-		case AA40_SUPER_SPORTSMAN:
-			associatedTagArray = getTag_SUPER_SPORTSMAN();
-			break;
-		case AA42_TRAPPER_SUPER_SPORTSMAN:
-			associatedTagArray = getTag_TRAPPER_SUPER_SPORTSMAN();
-			break;
-		default:
-			break;
-	}
-	return associatedTagArray;
+    associatedTagArray = null;
+    switch ("" + licAppType) {
+        case AA04_BOWHUNTING_PRIVILEGE:
+        case AA07_MUZZLELOADING_PRIVILEGE:
+        case AA30_NONRES_MUZZLELOADING:
+        case AA34_NONRESIDENT_BOWHUNTING:
+            associateTagArray = new Array();
+            associatedTagArray.push(TAG_TYPE_1_BACK_TAG);
+            associatedTagArray.push(TAG_TYPE_19_DEER_OF_EITHER_SEX_TAG);
+            associatedTagArray.push(TAG_TYPE_20_ANTLERLESS_DEER_TAG);
+            break;
+        case AA08_TURKEY_PERMIT:
+            associatedTagArray = getTag_ANNUAL_TRKY_2014();
+            break;
+        case AA27_CONSERVATION_LEGACY:
+            associatedTagArray = getTag_CONSERVATION_LEGACY();
+            break;
+        case AA29_JUNIOR_HUNTING:
+            associateTagArray = new Array();
+            associatedTagArray.push(TAG_TYPE_1_BACK_TAG);
+            associatedTagArray.push(TAG_TYPE_3_REG_SEASON_DEER);
+            associatedTagArray.push(TAG_TYPE_2_BEAR_TAG);
+            break;
+        case AA31_NONRES_SUPER_SPORTSMAN:
+            associatedTagArray = getTag_NONRES_SUPER_SPORTSMAN();
+            break;
+        case AA32_NONRESIDENT_BEAR_TAG:
+            associatedTagArray = getTag_NONRESIDENT_BEAR_TAG();
+            break;
+        case AA33_NONRESIDENT_BIG_GAME:
+            associatedTagArray = getTag_NONRES_BIG_GAME();
+            break;
+        case AA35_NONRESIDENT_SMALL_GAME:
+            associatedTagArray = getTag_NONRES_SMALL_GAME();
+            break;
+        case AA36_NONRESIDENT_TURKEY:
+            associatedTagArray = getTag_NONRESIDENT_TURKEY();
+            break;
+        case AA37_SMALL_AND_BIG_GAME:
+            associatedTagArray = getTag_SMALL_AND_BIG_GAME();
+            break;
+        case AA38_SMALL_GAME:
+            associatedTagArray = getTag_SMALL_GAME();
+            break;
+        case AA39_SPORTSMAN:
+            associatedTagArray = getTag_SPORTSMAN();
+            break;
+        case AA40_SUPER_SPORTSMAN:
+            associatedTagArray = getTag_SUPER_SPORTSMAN();
+            break;
+        case AA42_TRAPPER_SUPER_SPORTSMAN:
+            associatedTagArray = getTag_TRAPPER_SUPER_SPORTSMAN();
+            break;
+        default:
+            break;
+    }
+    return associatedTagArray;
 }
 
 function getTagRecordID(tagID) {
 
-	tagType = lookup("TAG_TYPE", tagID);
-        if ((typeof (VOIDDOCUMENTS) == "object")) {
-            for (vdi in VOIDDOCUMENTS) {
-		tagDesc = ""  + VOIDDOCUMENTS[vdi]["Description"];
-		if (tagDesc.indexOf(tagType) >= 0) {
-			tagRecordNumber = VOIDDOCUMENTS[vdi]["Document ID"];
-			tagCapId = getCapId(tagRecordNumber);
-			return tagCapId;
-                }
+    tagType = lookup("TAG_TYPE", tagID);
+    if ((typeof (VOIDDOCUMENTS) == "object")) {
+        for (vdi in VOIDDOCUMENTS) {
+            tagDesc = "" + VOIDDOCUMENTS[vdi]["Description"];
+            if (tagDesc.indexOf(tagType) >= 0) {
+                tagRecordNumber = VOIDDOCUMENTS[vdi]["Document ID"];
+                tagCapId = getCapId(tagRecordNumber);
+                return tagCapId;
             }
-	}
-	return null;
+        }
+    }
+    return null;
 }
 
 function voidRec(itemCapId) {
-  	//Update Status
-        updateTagStatus("Void", "Void", itemCapId);
-        //updateTask("Void Document", "Void", "", "", "", itemCapId);
-        closeTaskForRec("Void Document", "Void", "", "", "", itemCapId);
-        closeTaskForRec("Report Game Harvest", "", "", "", "", itemCapId);
-        closeTaskForRec("Revocation", "", "", "", "", itemCapId);
-        closeTaskForRec("Suspension", "", "", "", "", itemCapId);
+    //Update Status
+    updateTagStatus("Void", "Void", itemCapId);
+    //updateTask("Void Document", "Void", "", "", "", itemCapId);
+    closeTaskForRec("Void Document", "Void", "", "", "", itemCapId);
+    closeTaskForRec("Report Game Harvest", "", "", "", "", itemCapId);
+    closeTaskForRec("Revocation", "", "", "", "", itemCapId);
+    closeTaskForRec("Suspension", "", "", "", "", itemCapId);
 }
 
 
 function voidPrivilegePanel(ppCapId, parentCapId) {
 
-// TODO:   Add the void sales record as a parent to the new priv panel
+    // TODO:   Add the void sales record as a parent to the new priv panel
 
-	logDebug("ENTER: voidPrivilege Panel " + ppCapId.getCustomID());
-	updateAppStatus("Returnable", "Returnable", ppCapId);
-	// now create a new one, 
-	newPPId = createChildForDec("Licenses", "Tag", "Document", "Privilege Panel", "", parentCapId);
-	copyASIFields(ppCapId, newPPId);
-	updateAppStatus("Active", "Active", newPPId);
-	activateTaskForRec("Report Game Harvest", "", newPPId);
-        activateTaskForRec("Void Document", "", newPPId);
-        activateTaskForRec("Revocation", "", newPPId);
-        activateTaskForRec("Suspension", "", newPPId);	
-        copyConditions(ppCapId, newPPId);
+    logDebug("ENTER: voidPrivilege Panel " + ppCapId.getCustomID());
+    updateAppStatus("Returnable", "Returnable", ppCapId);
+    // now create a new one, 
+    newPPId = createChildForDec("Licenses", "Tag", "Document", "Privilege Panel", "", parentCapId);
+    copyASIFields(ppCapId, newPPId);
+    updateAppStatus("Active", "Active", newPPId);
+    activateTaskForRec("Report Game Harvest", "", newPPId);
+    activateTaskForRec("Void Document", "", newPPId);
+    activateTaskForRec("Revocation", "", newPPId);
+    activateTaskForRec("Suspension", "", newPPId);
+    copyConditions(ppCapId, newPPId);
 
-	//copy the expiration information
-	oldLicObj = new licenseObject(null, ppCapId);
-	if (oldLicObj && oldLicObj != null) {
-		setLicExpirationStatus(newPPId, "Active");
-		oldExpDate = oldLicObj.b1ExpDate;
-		setLicExpirationDate(newPPId,null,oldExpDate);
-	} 
-	var newDecDocId = GenerateDocumentNumber(newPPId.getCustomID());
+    //copy the expiration information
+    oldLicObj = new licenseObject(null, ppCapId);
+    if (oldLicObj && oldLicObj != null) {
+        setLicExpirationStatus(newPPId, "Active");
+        oldExpDate = oldLicObj.b1ExpDate;
+        setLicExpirationDate(newPPId, null, oldExpDate);
+    }
+    var newDecDocId = GenerateDocumentNumber(newPPId.getCustomID());
     updateDocumentNumber(newDecDocId, newPPId);
-	
-	// JIRA 17116 add new PP to the void 
-	var result = aa.cap.createAppHierarchy(capId, newPPId);
-		
-	logDebug("EXIT: voidPrivilege Panel");
+
+    // JIRA 17116 add new PP to the void 
+    var result = aa.cap.createAppHierarchy(capId, newPPId);
+
+    logDebug("EXIT: voidPrivilege Panel");
 }
 
 
 function voidInternal() {
     logDebug("ENTER: VoidInternal");
     try {
-		var xArray = getApplicantArrayEx();
-		var peopleSequenceNumber = null;
-		var decCustId;
+        var xArray = getApplicantArrayEx();
+        var peopleSequenceNumber = null;
+        var decCustId;
 
-		for (ca in xArray) {
-			var thisContact = xArray[ca];
-			peopleSequenceNumber = thisContact["refcontactSeqNumber"]
-			decCustId = thisContact["passportNumber"];
-			break;
-		}
+        for (ca in xArray) {
+            var thisContact = xArray[ca];
+            peopleSequenceNumber = thisContact["refcontactSeqNumber"]
+            decCustId = thisContact["passportNumber"];
+            break;
+        }
 
-	    // find privilege panel - it is a child of this records parent application
-	    logDebug("VoidInternal: Re-creating privilege panel");
-	    pId = getParent(capId);
-	    if (appMatch("Licenses/Annual/Application/NA", pId) ) {
-		    childArr = getChildren("Licenses/Tag/Document/Privilege Panel", pId);
-		    if (childArr != null && childArr.length > 0) {
-			    ppCapId = childArr[0];
-		    	    voidPrivilegePanel(ppCapId, pId);
-					//manually set the priv panel status since workflow may change it
-					updateAppStatus("Void", "Void", ppCapId);
-				}
-			
-			var associatedTagArray = getTagsAssociatedToLicense(appTypeString);
-			for (var tIndex in associatedTagArray) {
-				var tagID = associatedTagArray[tIndex];
-				var tagProp = tagsMap.get(tagID);
-				logDebug("VoidInternal: looking for " + tagProp.RecordType + " to void");
-				childArr = getChildren(tagProp.RecordType, pId);
-				for (var thisChild in childArr) {
-					logDebug("VoidInternal: found " + childArr[thisChild].getCustomID() + " to void");
-					voidRec(childArr[thisChild]);
-					// manually set the record status since workflow may change it
-					updateAppStatus("Void", "Void", childArr[thisChild]);
-					}
-				}
-			}
-		}
+        // find privilege panel - it is a child of this records parent application
+        logDebug("VoidInternal: Re-creating privilege panel");
+        pId = getParent(capId);
+        if (appMatch("Licenses/Annual/Application/NA", pId)) {
+            childArr = getChildren("Licenses/Tag/Document/Privilege Panel", pId);
+            if (childArr != null && childArr.length > 0) {
+                ppCapId = childArr[0];
+                voidPrivilegePanel(ppCapId, pId);
+                //manually set the priv panel status since workflow may change it
+                updateAppStatus("Void", "Void", ppCapId);
+            }
+
+            var associatedTagArray = getTagsAssociatedToLicense(appTypeString);
+            for (var tIndex in associatedTagArray) {
+                var tagID = associatedTagArray[tIndex];
+                var tagProp = tagsMap.get(tagID);
+                logDebug("VoidInternal: looking for " + tagProp.RecordType + " to void");
+                childArr = getChildren(tagProp.RecordType, pId);
+                for (var thisChild in childArr) {
+                    logDebug("VoidInternal: found " + childArr[thisChild].getCustomID() + " to void");
+                    voidRec(childArr[thisChild]);
+                    // manually set the record status since workflow may change it
+                    updateAppStatus("Void", "Void", childArr[thisChild]);
+                }
+            }
+        }
+    }
     catch (err) {
         logDebug("Exception in VoidInternal:" + err.message);
     }
     logDebug("EXIT: VoidInternal");
-
 }
