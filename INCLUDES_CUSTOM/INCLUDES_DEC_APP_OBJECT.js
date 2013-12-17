@@ -772,7 +772,7 @@ function form_OBJECT(identity) {
         }
         
         var msgNotQual = "The items are not available for selection because the customer is not qualified or they are already in current holdings.\n"
-        var msgRevoked = "This set of privileges have been revoked and are not available for purchase. ";
+        var msgRevoked = this.isPublicUser ? "This set of privileges have been revoked and are not available for purchase.\n" : "This set of privileges are not available for purchase.\n";
         var msgDEC = this.isPublicUser ? "This issue can only be resolved by contacting DEC Law Enforcement during business hours at 518-402-8821.\n" : "Instruct the customer that the only way to resolve this is to contact DEC during business hours at 518-402-8821.\n";
                 //Msg changed per Law Enforcement...Raj  
         if (this.CountHunterGroup == 0) {
