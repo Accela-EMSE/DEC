@@ -2292,7 +2292,8 @@ function VoidsSales() {
             var result = aa.cap.createAppHierarchy(capId, itemCapId);
         }
 		
-		
+		/*
+		// comment out JIRA 17233, returnable documents should not be added to the void record.
         for (y in selDocToVoid) {
 
             var result = aa.cap.createAppHierarchy(capId, itemCapId);
@@ -2303,6 +2304,7 @@ function VoidsSales() {
                 logDebug("Could not link applications" + result.getErrorMessage());
             }
         }
+		*/
     }
 
     catch (err) {
