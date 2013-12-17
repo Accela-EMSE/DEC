@@ -900,12 +900,12 @@ function getAllFeeCodeByRuleFor_ANNUAL_TRKY_2014(ruleParams, feeSched) {
     //Annual Turkey Permit fee for Non-Resident having age  12+
     if (!rp.IsNyResiDent && rp.Age >= 12) { feeItemCodes.push(new FeeCodeProp(ATP_2_NORES, "000")); }
 
-    if (rp.IsNyResiDent && rp.Age >= 12 && rp.IsDisableForYear) {
-        //Military disabled persons will only be charged one $5 fee per license year for the their base licenses (trap, hunt, fish) whether they purchase one or all three.
-        if (hasBaseLicMilitaryDisable(rp.ActiveHoldingsInfo)) {
-            feeItemCodes.push(new FeeCodeProp(RESMD_FREE, "000"));
-        }
-    }
+ //   if (rp.IsNyResiDent && rp.Age >= 12 && rp.IsDisableForYear) {
+ //       //Military disabled persons will only be charged one $5 fee per license year for the their base licenses (trap, hunt, fish) whether they purchase one or all three.
+ //       if (hasBaseLicMilitaryDisable(rp.ActiveHoldingsInfo)) {
+ //           feeItemCodes.push(new FeeCodeProp(RESMD_FREE, "000"));
+ //       }
+ //   }
 
     if (feeItemCodes.length == 0) { feeItemCodes.push(new FeeCodeProp(ATP_2_NORES, "000")); }
     return feeItemCodes;
@@ -919,12 +919,12 @@ function getAllFeeCodeByRuleFor_ANNUAL_TRKY_2012(ruleParams, feeSched) {
     //Annual Turkey Permit fee for Non-Resident having age  12+
     if (!rp.IsNyResiDent && rp.Age >= 12) { feeItemCodes.push(new FeeCodeProp(ATP_1_RES, "000")); }
 
-    if (rp.IsNyResiDent && rp.Age >= 12 && rp.IsDisableForYear) {
-        //Military disabled persons will only be charged one $5 fee per license year for the their base licenses (trap, hunt, fish) whether they purchase one or all three.
-        if (hasBaseLicMilitaryDisable(rp.ActiveHoldingsInfo)) {
-            feeItemCodes.push(new FeeCodeProp(RESMD_FREE, "000"));
-        }
-    }
+//    if (rp.IsNyResiDent && rp.Age >= 12 && rp.IsDisableForYear) {
+//        //Military disabled persons will only be charged one $5 fee per license year for the their base licenses (trap, hunt, fish) whether they purchase one or all three.
+//        if (hasBaseLicMilitaryDisable(rp.ActiveHoldingsInfo)) {
+//            feeItemCodes.push(new FeeCodeProp(RESMD_FREE, "000"));
+//        }
+//    }
 
     if (feeItemCodes.length == 0) { feeItemCodes.push(new FeeCodeProp(ATP_2_NORES, "000")); }
     return feeItemCodes;
