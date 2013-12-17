@@ -2250,12 +2250,6 @@ function VoidsSales() {
         salesAgentInfoArray = getAgentInfo(publicUserID, uObj);
         attachAgent(uObj);
 
-        // JIRA 17116, associate the rest of licenses to the void so they will print on PP
-        for (y in selDocToMove) {
-            var itemCapId = getCapId(selDocToMove[y]);
-            var result = aa.cap.createAppHierarchy(capId, itemCapId);
-        }
-
         for (y in selDocToVoid) {
             itemCapId = getCapId(selDocToVoid[y]);
             var itemcap = aa.cap.getCap(itemCapId).getOutput();
@@ -2291,6 +2285,14 @@ function VoidsSales() {
             }
         }
 
+		// JIRA 17116, associate the rest of licenses to the void so they will print on PP
+		// JIRA 17233, move this section after the privilege panel void, parent record was getting confused.
+        for (y in selDocToMove) {
+            var itemCapId = getCapId(selDocToMove[y]);
+            var result = aa.cap.createAppHierarchy(capId, itemCapId);
+        }
+		
+		
         for (y in selDocToVoid) {
 
             var result = aa.cap.createAppHierarchy(capId, itemCapId);
