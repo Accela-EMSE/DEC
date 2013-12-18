@@ -222,6 +222,7 @@ function SetDailyFullfillmentLogic() {
                 if (res.getSuccess()) {
                     var vCapList = res.getOutput();
                     for (thisCap in vCapList) {
+					    logDebug("Processing Cap ID: " + recId);
                         if (elapsed() > maxSeconds) // only continue if time hasn't expired
                         {
                             isPartialSuccess = true;
@@ -232,7 +233,7 @@ function SetDailyFullfillmentLogic() {
                         }
 
                         recId = vCapList[thisCap].getCapID();
-                        aa.print("Processing Cap ID: " + recId);
+
                         var conditions = aa.capCondition.getCapConditions(recId);
                         var generateReportFlag = 0;
                         if (conditions.getSuccess()) {
@@ -257,8 +258,8 @@ function SetDailyFullfillmentLogic() {
                                 logDebug("Custom ID for report: " + altId);
                                 //appTypeResult = itemCap.getCapType();
                                 //appTypeString = appTypeResult.toString();
-                                generateReport(altId);
-                                //aa.print("Report file: " + reportFileName);
+                                generateReport(itemCapId); 
+                                //logDebug("Report file: " + reportFileName);
                                 if (setPrefix.length > 0) {
                                     addCapSetMemberX(itemCapId, setResult);
                                 }
@@ -349,14 +350,14 @@ reportFileName = repService.ReportFileName;
 return reportFileName;
 }*/
 
-function generateReport(itemCap) {
+function generateReport(itemCapId) {
     var parameters = aa.util.newHashMap();
-    parameters.put("PARENT", itemCap);
+    parameters.put("PARENT", itemCapId.getCustomID());
 
-    report = aa.reportManager.getReportInfoModelByName(reportName);
+    var report = aa.reportManager.getReportInfoModelByName(reportName);
     report = report.getOutput();
     //aa.print(report);
-    report.setCapId(itemCap);
+    report.setCapId(itemCapId);
     report.setModule("Licenses");
     report.setReportParameters(parameters);
 
