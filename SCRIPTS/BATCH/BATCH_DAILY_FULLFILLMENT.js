@@ -357,17 +357,19 @@ function generateReport(itemCapId) {
     var report = aa.reportManager.getReportInfoModelByName(reportName);
     report = report.getOutput();
     //aa.print(report);
-    report.setCapId(itemCapId);
+    report.setCapId(itemCapId.toString());
     report.setModule("Licenses");
     report.setReportParameters(parameters);
-
+	// set the alt-id as that's what the EDMS is using.
+	report.getEDMSEntityIdModel().setAltId(itemCapId.getCustomID());
     var checkPermission = aa.reportManager.hasPermission(reportName, "admin");
     logDebug("Permission for report: " + checkPermission.getOutput().booleanValue());
 
     if (checkPermission.getOutput().booleanValue()) {
         logDebug("User has permission");
         var reportResult = aa.reportManager.getReportResult(report);
-        if (reportResult) {
+		// not needed as the report is set up for EDMS
+        if (false) {
             reportResult = reportResult.getOutput();
             logDebug("Report result: " + reportResult);
             reportFile = aa.reportManager.storeReportToDisk(reportResult);
