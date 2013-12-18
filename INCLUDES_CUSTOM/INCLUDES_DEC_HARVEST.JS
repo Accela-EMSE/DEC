@@ -1048,6 +1048,8 @@ function distributeFeesForReprint(sourceCapId, arryTag, arryLic, pSalesAgentInfo
 
         createInvoice(targetfeeSeq_L, targetpaymentPeriod_L, targetCapId);
 
+        balanceDue = amtCommission + amtAgentCharge;
+
         //No need to check in dec case
         //balanceDue = parseFloat(parseFloat(targetfd.feeUnit) * parseFloat(targetfd.formula));
         //        if (unapplied < balanceDue) {
@@ -1144,7 +1146,9 @@ function distributeFeesForReprint(sourceCapId, arryTag, arryLic, pSalesAgentInfo
         }
 
         createInvoice(targetfeeSeq_L, targetpaymentPeriod_L, targetCapId);
-
+		
+        balanceDue = amtCommission + amtAgentCharge;
+		
         //No need to check in dec case
         //balanceDue = parseFloat(parseFloat(targetfd.feeUnit) * parseFloat(targetfd.formula));
         //        if (unapplied < balanceDue) {
@@ -1285,31 +1289,36 @@ function addRepritFees() {
         var ata = appTypeString.split("/");
 
         if (ata[1] == 'Tag') {
-            arryTag.push(itemCapId);
-            logDebug("doc added to arryTag");
+            if (appTypeString != 'Licenses/Tag/Hunting/Back') {
+                arryTag.push(itemCapId);
+                logDebug("doc added to arryTag");
+            }
         } else {
-            arryLic.push(itemCapId);
-            logDebug("doc added to arryLic");
+            if (appTypeString != 'Licenses/Annual/Fishing/Marine Registry') {
+                arryLic.push(itemCapId);
+                logDebug("doc added to arryLic");
+            }
         }
 
         //11/8/2013 - If ONLY one or both of the following Documents types are being replaced, there is no Fee Assessed.
-        if (appTypeString == 'Licenses/Tag/Hunting/Back') bReplaceBackTag = true;
-        if (appTypeString == 'Licenses/Annual/Fishing/Marine Registry') bReplaceMarineRegistry = true;
+        //if (appTypeString == 'Licenses/Tag/Hunting/Back') bReplaceBackTag = true;
+        //if (appTypeString == 'Licenses/Annual/Fishing/Marine Registry') bReplaceMarineRegistry = true;
     }
 
     //If there is a single back tag being replaced with a) no other licenses or b) a single marine registry license only
-    if (bReplaceBackTag && arryTag.length == 1 && ((!bReplaceMarineRegistry && arryLic.length == 0) || (bReplaceMarineRegistry && arryLic.length == 1))) {
-        bBypassReplacementFee = true;
-    }
+    //if (bReplaceBackTag && arryTag.length == 1 && ((!bReplaceMarineRegistry && arryLic.length == 0) || (bReplaceMarineRegistry && arryLic.length == 1))) {
+    //    bBypassReplacementFee = true;
+    //}
     //If there is a single marine registry license being replaced with a) no other tags or b) a single Back Tag only
-    if (bReplaceMarineRegistry && arryLic.length == 1 && ((!bReplaceBackTag && arryTag.length == 0) || (bReplaceBackTag && arryTag.length == 1))) {
-        bBypassReplacementFee = true;
-    }
+    //if (bReplaceMarineRegistry && arryLic.length == 1 && ((!bReplaceBackTag && arryTag.length == 0) || (bReplaceBackTag && arryTag.length == 1))) {
+    //    bBypassReplacementFee = true;
+    //}
 
 
     //Bypass Replacement Fees for Back Tag and/or Marine Registry?
-    if (!bBypassReplacementFee) {
-        //Assess Fees		
+    //if (!bBypassReplacementFee) {
+	if(arryTag.length > 0 || arryLic.length > 0){
+        //Assess Fees
         if (arryTag.length > 0) {
             logDebug("DEBUG: Assessing the Tag Fee: FEE_RPLC_2");
             addFeeWithVersion("FEE_RPLC_2", "FEE_REPRINT_FEE_SCHDL", 1, "FINAL", 1, "N"); //11/8/2013 - Currently $10.00	
