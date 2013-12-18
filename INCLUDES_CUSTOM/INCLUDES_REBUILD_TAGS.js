@@ -49,7 +49,7 @@ function rebuildAllTagsforaRefContact(ipRefContact,ipEffDate) {
     logDebug("Education: " + fvSpEd);
     var fvLifeLic = getLifetimeLicenses(ipRefContact);
     logDebug("Lifetime Licenses: " + fvLifeLic);
-    var fvEligibleTags = calculateEligTags(fvLifeLic,fvSpEd,fvAge,fvEnforcements);
+    var fvEligibleTags = calculateEligTags(fvLifeLic,fvSpEd,fvAge,fvEnforcements,fvProcessYear);
     logDebug("Eligible Tags: " + fvEligibleTags);
     var fvExistTags = getExistingTags(ipRefContact,fvExpDate,fvEligibleTags);
     logDebug("Existing Tags: " + fvExistTags);
@@ -221,7 +221,7 @@ function getLifetimeLicenses(ipRefContact) {
     return opLL;
 }
 
-function calculateEligTags(ipLifeLic,ipSpEd,ipAge,ipEnforcements) {
+function calculateEligTags(ipLifeLic,ipSpEd,ipAge,ipEnforcements,spProcessYear) {
     var fvLLs = ipLifeLic.entrySet().toArray();
     for (var fvCounter in fvLLs) {
         var fvLL = fvLLs[fvCounter];
@@ -268,14 +268,18 @@ function calculateEligTags(ipLifeLic,ipSpEd,ipAge,ipEnforcements) {
             if (fvTag == null || fvTag == "")
                 continue;
             if (fvTag == "Turkey") {
-                if (!opAllTags.containsKey("Fall Turkey")) {
-                    opAllTags.put("Fall Turkey",2);
-                    fvTotalTags = fvTotalTags + 2;
-                }
-                if (!opAllTags.containsKey("Spring Turkey")) {
-                    opAllTags.put("Spring Turkey",2);
-                    fvTotalTags = fvTotalTags + 2;
-                }
+				if (isFallTurkeySeasonOver(spProcessYear)) {
+					if (!opAllTags.containsKey("Fall Turkey")) {
+						opAllTags.put("Fall Turkey",2);
+						fvTotalTags = fvTotalTags + 2;
+					}
+				}
+				if (isSpringTurkeySeasonOver(spProcessYear)) {
+					if (!opAllTags.containsKey("Spring Turkey")) {
+						opAllTags.put("Spring Turkey",2);
+						fvTotalTags = fvTotalTags + 2;
+					}
+				}
             }
             else
             if (fvTag == "Either Sex") {
