@@ -1978,8 +1978,19 @@ function distributeFeesAndPayments(sourceCapId, arryTargetCapAttrib, pSalesAgent
 
         var amtAgentCharge = parseFloat(parseFloat(targetfd.feeUnit) * parseFloat(targetfd.formula));
         var cmnsPerc = GetCommissionByUser(targetfd.Code3commission + "", pSalesAgentInfoArray);
+
         if (cmnsPerc > 0) {
-            var amtCommission = cmnsPerc == 0 ? 0 : (cmnsPerc * amtAgentCharge) / 100;
+            //JIRA: 17343. Changed comission calculation. Calculate per unit commision then add it.
+            var amtCommission = 0;
+            if (parseFloat(targetfd.feeUnit) > 1) {
+                var amtPerUnitCommission = cmnsPerc == 0 ? 0 : (cmnsPerc * parseFloat(targetfd.formula)) / 100;
+                amtPerUnitCommission = (Math.round(amtPerUnitCommission * 100) / 100);
+                amtCommission = (amtPerUnitCommission * parseFloat(targetfd.feeUnit));
+                amtAgentCharge = parseFloat(parseFloat(targetfd.feeUnit) * parseFloat(targetfd.formula));
+            } else {
+                amtCommission = cmnsPerc == 0 ? 0 : (cmnsPerc * amtAgentCharge) / 100;
+            }
+
             amtCommission = (Math.round(amtCommission * 100) / 100);
             amtAgentCharge -= amtCommission;
             feeSeqAndPeriodArray = addFeeWithVersionAndReturnfeeSeq("AGENT_CHARGE", targetfd.feeschedule, targetfd.version, "FINAL", amtAgentCharge, "Y", targetCapId)
