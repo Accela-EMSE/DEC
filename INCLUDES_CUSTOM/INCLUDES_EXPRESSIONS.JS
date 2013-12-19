@@ -126,21 +126,28 @@ function isValidSsn(ssn) {
     return isValid;
 }
 
-//Not in use
 function isValidEmail(inputvalue) {
     var isValid = true;
     if (inputvalue != null && inputvalue != '') {
-        var pattern = /^([a-zA-Z0-9_.-])+@([a-zA-Z0-9_.-])+\.([a-zA-Z])+([a-zA-Z])+/;
+        var pattern = /^([0-9a-zA-Z]([-.\w]*[0-9a-zA-Z])*@([0-9a-zA-Z][-\w]*[0-9a-zA-Z]\.)+[a-zA-Z]{2,9})$/;
         isValid = (pattern.test(inputvalue));
     }
     return isValid;
 }
 
-//Not in use
 function isValidPhoneNumber(inputvalue) {
     var isValid = true;
     if (inputvalue != null && inputvalue != '') {
-        var pattern = /^[(]{0,1}[0-9]{3}[)]{0,1}[-\s\.]{0,1}[0-9]{3}[-\s\.]{0,1}[0-9]{4}$/;
+        var pattern = /^[01]?[- .]?(\([2-9]\d{2}\)|[2-9]\d{2})[- .]?\d{3}[- .]?\d{4}$/;
+        isValid = (pattern.test(inputvalue));
+    }
+    return isValid;
+}
+
+function isValidZip(inputvalue) {
+    var isValid = true;
+    if (inputvalue != null && inputvalue != '') {
+        var pattern = /^\d{5}$|^\d{5}-\d{4}$/;
         isValid = (pattern.test(inputvalue));
     }
     return isValid;
