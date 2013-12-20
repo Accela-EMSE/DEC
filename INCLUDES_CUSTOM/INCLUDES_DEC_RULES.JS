@@ -2884,12 +2884,14 @@ function getVoidableFilterArray() {
     validRecTypeArray.push(AA06_HUNTING_LICENSE);
     validRecTypeArray.push(AA07_MUZZLELOADING_PRIVILEGE);
     validRecTypeArray.push(AA08_TURKEY_PERMIT);
-    validRecTypeArray.push(AA09_LIFETIME_BOWHUNTING);
-    validRecTypeArray.push(AA10_LIFETIME_FISHING);
-    validRecTypeArray.push(AA11_LIFETIME_MUZZLELOADING);
-    validRecTypeArray.push(AA12_LIFETIME_SMALL_AND_BIG_GAME);
-    validRecTypeArray.push(AA13_LIFETIME_SPORTSMAN);
-    validRecTypeArray.push(AA14_LIFETIME_TRAPPING);
+	//JIRA: 15710
+	//validRecTypeArray.push(AA09_LIFETIME_BOWHUNTING);
+    //validRecTypeArray.push(AA10_LIFETIME_FISHING);
+    //validRecTypeArray.push(AA11_LIFETIME_MUZZLELOADING);
+    //validRecTypeArray.push(AA12_LIFETIME_SMALL_AND_BIG_GAME);
+    //validRecTypeArray.push(AA13_LIFETIME_SPORTSMAN);
+    //validRecTypeArray.push(AA14_LIFETIME_TRAPPING);
+	//---
     validRecTypeArray.push(AA15_TRAPPING_LICENSE);
     //validRecTypeArray.push(AA16_HABITAT_ACCESS_STAMP);
     //validRecTypeArray.push(AA17_VENISON_DONATION);
