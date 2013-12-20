@@ -1146,9 +1146,9 @@ function distributeFeesForReprint(sourceCapId, arryTag, arryLic, pSalesAgentInfo
         }
 
         createInvoice(targetfeeSeq_L, targetpaymentPeriod_L, targetCapId);
-		
+
         balanceDue = amtCommission + amtAgentCharge;
-		
+
         //No need to check in dec case
         //balanceDue = parseFloat(parseFloat(targetfd.feeUnit) * parseFloat(targetfd.formula));
         //        if (unapplied < balanceDue) {
@@ -1317,7 +1317,7 @@ function addRepritFees() {
 
     //Bypass Replacement Fees for Back Tag and/or Marine Registry?
     //if (!bBypassReplacementFee) {
-	if(arryTag.length > 0 || arryLic.length > 0){
+    if (arryTag.length > 0 || arryLic.length > 0) {
         //Assess Fees
         if (arryTag.length > 0) {
             logDebug("DEBUG: Assessing the Tag Fee: FEE_RPLC_2");
@@ -2141,8 +2141,26 @@ function loadDocumentToVoid() {
 function GetDocsToVoidSale(peopleSequenceNumber) {
     logDebug("ENTER: GetDocsToVoidSale");
     var availableDocsToVoidItems = new Array();
-    var validVoidableFilterArray = getVoidableFilterArray();
 
+	//JIRA: 15710
+    var uObj = new USEROBJ(publicUserID);
+    var agentInfoArray = getAgentInfo(publicUserID, uObj);
+    var isNYSDEC_HQ = (agentInfoArray["Agent Group"] == "NYSDEC HQ");
+
+    var voidableFilterArray = getVoidableFilterArray();
+
+    var lifetimeArray = new Array();
+    if (isNYSDEC_HQ) {
+        lifetimeArray.push(AA09_LIFETIME_BOWHUNTING);
+        lifetimeArray.push(AA10_LIFETIME_FISHING);
+        lifetimeArray.push(AA11_LIFETIME_MUZZLELOADING);
+        lifetimeArray.push(AA12_LIFETIME_SMALL_AND_BIG_GAME);
+        lifetimeArray.push(AA13_LIFETIME_SPORTSMAN);
+		lifetimeArray.push(AA14_LIFETIME_TRAPPING);
+    }
+    var validVoidableFilterArray = arrayUnique(voidableFilterArray.concat(lifetimeArray));
+	//---
+	
     var CC = new contactObj(null);
     CC.refSeqNumber = peopleSequenceNumber;
 
@@ -2294,26 +2312,26 @@ function VoidsSales() {
             }
         }
 
-		// JIRA 17116, associate the rest of licenses to the void so they will print on PP
-		// JIRA 17233, move this section after the privilege panel void, parent record was getting confused.
+        // JIRA 17116, associate the rest of licenses to the void so they will print on PP
+        // JIRA 17233, move this section after the privilege panel void, parent record was getting confused.
         for (y in selDocToMove) {
             var itemCapId = getCapId(selDocToMove[y]);
             var result = aa.cap.createAppHierarchy(capId, itemCapId);
         }
-		
-		/*
-		// comment out JIRA 17233, returnable documents should not be added to the void record.
+
+        /*
+        // comment out JIRA 17233, returnable documents should not be added to the void record.
         for (y in selDocToVoid) {
 
-            var result = aa.cap.createAppHierarchy(capId, itemCapId);
-            if (result.getSuccess()) {
-                logDebug("Parent application successfully linked");
-            }
-            else {
-                logDebug("Could not link applications" + result.getErrorMessage());
-            }
+        var result = aa.cap.createAppHierarchy(capId, itemCapId);
+        if (result.getSuccess()) {
+        logDebug("Parent application successfully linked");
         }
-		*/
+        else {
+        logDebug("Could not link applications" + result.getErrorMessage());
+        }
+        }
+        */
     }
 
     catch (err) {
