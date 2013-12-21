@@ -2119,7 +2119,7 @@ function getActiveHoldings(peopleSequenceNumber, year) {
             sql +="AND (A.B1_APPL_STATUS = 'Approved' OR  A.B1_APPL_STATUS = 'Active') ";
             sql +="AND B.B1_CHECKBOX_DESC = 'Year' ";
             sql +="AND B.B1_CHECKBOX_GROUP = 'APPLICATION' ";
-            sql +="AND B1_CHECKLIST_COMMENT = " + year + " ";
+            sql +="AND B1_CHECKLIST_COMMENT <= " + year + " ";
             sql +="AND E.REC_STATUS='A' ";
             sql +="AND (E.EXPIRATION_DATE is NULL OR E.EXPIRATION_DATE > SYSDATE) ";
         }
