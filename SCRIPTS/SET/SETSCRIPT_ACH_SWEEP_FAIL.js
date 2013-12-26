@@ -96,6 +96,8 @@ if (set.statusComment && !set.status.equals("Sweep Failed")) { // we can only do
 		var counter = 0;
 
 		if (rSet.next()) {
+			logDebug("Here is the ACH Record ID : " + rSet.getString("B1_ALT_ID"));
+			logDebug("Here is the Set ID " + SetID);
 			var achId = aa.cap.getCapID(rSet.getString("B1_ALT_ID")).getOutput();
 			var achTable = loadASITable("SET_STATUS", achId);
 			var lastSwept = null;
