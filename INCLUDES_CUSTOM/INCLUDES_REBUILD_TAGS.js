@@ -413,6 +413,7 @@ function createNewTags(ipRefContact,ipStartDate,ipExpDate,ipEligibleTags) {
 }
 
 function createParentTagApp(ipRefContact,ipStartDate,ipExpDate) {
+	logDebug("In createParentTagApp " +ipRefContact + ", " + ipStartDate + ", " + ipExpDate);
     var fvGroup = "Licenses";
     var fvType = "Annual";
     var fvSubType = "Application";
@@ -420,6 +421,7 @@ function createParentTagApp(ipRefContact,ipStartDate,ipExpDate) {
     var fvDesc = "Buy Sporting License(s)";
     var fvAppCreateResult = aa.cap.createApp(fvGroup, fvType, fvSubType, fvCategory, fvDesc);
     if (fvAppCreateResult.getSuccess()) {
+		logDebug("created record " + fvGroup + ", " + fvType+ ", " + fvSubType+ ", " + fvCategory+ ", " + fvDesc);
         var newId = fvAppCreateResult.getOutput();
         // create Detail Record
         capModel = aa.cap.newCapScriptModel().getOutput();
@@ -442,11 +444,17 @@ function createParentTagApp(ipRefContact,ipStartDate,ipExpDate) {
         if (fvCAResult != null)	{
             var fvCAList = aa.util.newArrayList();
             for(var fvCnt in fvCAResult) {
+				logDebug("copying contact address #" + fvCnt);
                 fvCAList.add(fvCAResult[fvCnt].getContactAddressModel());
             }
             fvPeople.setContactAddressList(fvCAList);
         }
-        aa.people.createCapContactWithRefPeopleModel(newId,fvPeople);
+		else {
+				logDebug("NO CONTACT ADDRESS ON REF CONTACT");
+		}
+
+        var createResult = aa.people.createCapContactWithRefPeopleModel(newId,fvPeople);
+		logDebug("create capcontact successful? " + createResult.getSuccess() + " error : " + createResult.getErrorMessage());
         updateAppStatus("Approved","Auto-Gen",newId);
 
         var fvCondFulfill = new COND_FULLFILLMENT();
