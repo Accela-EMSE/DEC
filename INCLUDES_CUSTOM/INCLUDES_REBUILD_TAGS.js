@@ -53,7 +53,7 @@ function rebuildAllTagsforaRefContact(ipRefContact,ipEffDate) {
     logDebug("Eligible Tags: " + fvEligibleTags);
     var fvExistTags = getExistingTags(ipRefContact,fvExpDate,fvEligibleTags);
     logDebug("Existing Tags: " + fvExistTags);
-    var opErrors = createNewTags(ipRefContact,fvStartDate,fvExpDate,fvExistTags);
+    var opErrors = createNewTags(ipRefContact,fvStartDate,fvExpDate,fvEligibleTags);
     return opErrors;
 }
 
