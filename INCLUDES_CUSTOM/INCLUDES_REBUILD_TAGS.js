@@ -440,12 +440,15 @@ function createParentTagApp(ipRefContact,ipStartDate,ipExpDate) {
         var fvCASearchModel = aa.address.createContactAddressModel().getOutput();
         fvCASearchModel.setEntityID(parseInt(ipRefContact,10));
         fvCASearchModel.setEntityType("CONTACT");
-        var fvCAResult = aa.address.getContactAddressList(fvCASearchModel.getContactAddressModel()).getOutput();
-        if (fvCAResult != null)	{
+        var fvCAResult = aa.address.getContactAddressList(fvCASearchModel.getContactAddressModel());
+		var fvCAOutput = fvCAResult.getOutput();
+		logDebug("getContactAddressList success? " + fvCAResult.getSuccess() + ", error: " + fvCAResult.getErrorMessage());
+		
+        if (fvCAOutput != null)	{
             var fvCAList = aa.util.newArrayList();
-            for(var fvCnt in fvCAResult) {
+            for(var fvCnt in fvCAOutput) {
 				logDebug("copying contact address #" + fvCnt);
-                fvCAList.add(fvCAResult[fvCnt].getContactAddressModel());
+                fvCAList.add(fvCAOutput[fvCnt].getContactAddressModel());
             }
             fvPeople.setContactAddressList(fvCAList);
         }
