@@ -77,12 +77,13 @@ expression.setReturn(oQtyConsrvPatron);
 
 if (!isYesConsrvMagz && !isYesConsrvPatron) {
     oIsGiftOuter.value = null;
-} else if (oIsGiftOuter.value == null) {
+} 
+if (oIsGiftOuter.value == null) {
     oIsGiftOuter.value = "No";
 }
 //oIsGiftOuter.readOnly = (!isYesConsrvMagz && !isYesConsrvPatron);
 //oIsGiftOuter.hidden = (!isYesConsrvMagz && !isYesConsrvPatron);
-oIsGiftOuter.hidden = (!isYesConsrvMagz);
+oIsGiftOuter.hidden = (!isYesConsrvPatron && !isYesConsrvMagz);
 expression.setReturn(oIsGiftOuter);
 
 enabledisableMagazineSubScriber();
