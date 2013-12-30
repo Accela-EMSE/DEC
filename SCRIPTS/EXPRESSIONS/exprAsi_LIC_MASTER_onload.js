@@ -99,6 +99,8 @@ var aRevokedHunting = expression.getValue("ASI::INTERNAL USE::A_Revoked_Hunting"
 var aRevokedTrapping = expression.getValue("ASI::INTERNAL USE::A_Revoked_Trapping");
 var aRevokedFishing = expression.getValue("ASI::INTERNAL USE::A_Revoked_Fishing");
 var aPermanentDisability = expression.getValue("ASI::APPEARANCE::Permanent Disability");
+var aDriverLicenseState = expression.getValue("ASI::INTERNAL USE::A_Driver_License_State");
+var aDriverLicenseNumber = expression.getValue("ASI::INTERNAL USE::A_Driver_License_Number");
 var vUserID = expression.getValue("$$userID$$");
 var sUserIdEB = vUserID.getValue();
 
@@ -125,6 +127,8 @@ f.Quantity_Conservationist_Magazine = aQuantity_Conservationist_Magazine.value
 f.Quantity_Habitat_Stamp = aQuantity_Habitat_Stamp.value
 f.IsPermanentDisabled = aPermanentDisability.value;
 f.SetActiveHoldingsInfo(aActiveHoldings.value);
+f.DriverLicenseState = aDriverLicenseState.value;
+f.DriverLicenseNumber = aDriverLicenseNumber.value;
 f.SetEnforcementAttrib(aSuspended.value, aRevokedHunting.value, aRevokedTrapping.value, aRevokedFishing.value);
 f.SetFulfillmentAttrib(aAgedIn.value, aNeedHuntEd.value);
 f.FromACA = aIsFromACA.value;
@@ -222,6 +226,7 @@ myLicObj[myLicObj.length] = expression.getValue("ASI::LIFETIME LICENSES::Lifetim
 myLicObj[myLicObj.length] = expression.getValue("ASI::LIFETIME LICENSES::Add Lifetime to Driver License");
 myLicObj[myLicObj.length] = expression.getValue("ASI::LIFETIME LICENSES::Add Lifetime to Driver License Re-Issue Immediately");
 myLicObj[myLicObj.length] = expression.getValue("ASI::LIFETIME LICENSES::Add Lifetime to Driver License on Renewal");
+
 ////
 
 //
@@ -451,9 +456,10 @@ else if (isYesConsrvMagz && oQtyConsrvMagz.value == '') {
 }
 expression.setReturn(oQtyConsrvMagz);
 
-oQtyConsrvPatron.required = isYesConsrvPatron;
-//oQtyConsrvPatron.readOnly = !isYesConsrvPatron;
-oQtyConsrvPatron.hidden = !isYesConsrvPatron;
+//oQtyConsrvPatron.required = isYesConsrvPatron;
+//oQtyConsrvPatron.hidden = !isYesConsrvPatron;
+oQtyConsrvPatron.required = false;
+oQtyConsrvPatron.hidden = true;
 if (!isYesConsrvPatron) {
     oQtyConsrvPatron.value = '';
 }
