@@ -76,12 +76,13 @@ expression.setReturn(oQtyConsrvMagz);
 
 if (!isYesConsrvMagz && !isYesConsrvPatron) {
     oIsGiftOuter.value = null;
-} else if (oIsGiftOuter.value == null) {
+} 
+if (oIsGiftOuter.value == null) {
     oIsGiftOuter.value = "No";
 }
 //oIsGiftOuter.readOnly = (!isYesConsrvMagz && !isYesConsrvPatron);
 //oIsGiftOuter.hidden = (!isYesConsrvMagz && !isYesConsrvPatron);
-oIsGiftOuter.hidden = (!isYesConsrvMagz);
+oIsGiftOuter.hidden = (!isYesConsrvMagz && !isYesConsrvPatron);
 expression.setReturn(oIsGiftOuter);
 
 enabledisableMagazineSubScriber();
@@ -223,4 +224,3 @@ myLicObj[myLicObj.length] = expression.getValue("ASI::OTHER SALES::Lifetime Card
 myLicObj[myLicObj.length] = expression.getValue("ASI::OTHER SALES::Sportsman Ed Certification");
 myLicObj[myLicObj.length] = expression.getValue("ASI::LIFETIME LICENSES::Lifetime Inscription");
 ////
-
