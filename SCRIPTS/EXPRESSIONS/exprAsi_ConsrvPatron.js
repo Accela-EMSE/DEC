@@ -63,9 +63,10 @@ var oIsGiftOuter = expression.getValue("ASI::MAGAZINE SUBSCRIBER::Is magzine sub
 var isYesConsrvMagz = ((oConsrvMagz.value != null && (oConsrvMagz.value.equalsIgnoreCase('YES') || oConsrvMagz.value.equalsIgnoreCase('Y') || oConsrvMagz.value.equalsIgnoreCase('CHECKED') || oConsrvMagz.value.equalsIgnoreCase('SELECTED') || oConsrvMagz.value.equalsIgnoreCase('TRUE') || oConsrvMagz.value.equalsIgnoreCase('ON'))));
 var isYesConsrvPatron = ((oConsrvPatron.value != null && (oConsrvPatron.value.equalsIgnoreCase('YES') || oConsrvPatron.value.equalsIgnoreCase('Y') || oConsrvPatron.value.equalsIgnoreCase('CHECKED') || oConsrvPatron.value.equalsIgnoreCase('SELECTED') || oConsrvPatron.value.equalsIgnoreCase('TRUE') || oConsrvPatron.value.equalsIgnoreCase('ON'))));
 
-oQtyConsrvPatron.required = isYesConsrvPatron;
-//oQtyConsrvPatron.readOnly = !isYesConsrvPatron;
-oQtyConsrvPatron.hidden = !isYesConsrvPatron;
+//oQtyConsrvPatron.required = isYesConsrvPatron;
+//oQtyConsrvPatron.hidden = !isYesConsrvPatron;
+oQtyConsrvPatron.required = false;
+oQtyConsrvPatron.hidden = true;
 if (!isYesConsrvPatron) {
     oQtyConsrvPatron.value = '';
 }
@@ -223,4 +224,3 @@ myLicObj[myLicObj.length] = expression.getValue("ASI::OTHER SALES::Lifetime Card
 myLicObj[myLicObj.length] = expression.getValue("ASI::OTHER SALES::Sportsman Ed Certification");
 myLicObj[myLicObj.length] = expression.getValue("ASI::LIFETIME LICENSES::Lifetime Inscription");
 ////
-
