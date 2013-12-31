@@ -75,6 +75,8 @@ var aQuantity_Habitat_Stamp = expression.getValue("ASI::OTHER SALES::Quantity Ha
 var vUserID = expression.getValue("$$userID$$");
 var sUserIdEB = vUserID.getValue();
 
+var returnArray = getPublicUserInfo(sUserIdEB);
+
 //Init 
 var f = new form_OBJECT(GS2_EXPR, OPTZ_TYPE_ALLFEES);
 f.Year = "OTHERSALE";
@@ -86,6 +88,7 @@ f.Quantity_Conservationist_Magazine = aQuantity_Conservationist_Magazine.value
 f.Quantity_Habitat_Stamp = aQuantity_Habitat_Stamp.value
 f.FromACA = "Yes";
 f.UserIdEB = sUserIdEB;
+f.IsNyResiDent = returnArray["Are You New York Resident?"];
 
 f.SetOtherSaleExcludes();
 
