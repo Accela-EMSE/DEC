@@ -2521,6 +2521,7 @@ function attachAgent(uObj) //Add optional capId param for Record to attach to
             logDebug("**ERROR: Failed to get Contact Nbr: " + result.getErrorMessage());
         }
     } else {
+		//JIRA - 18414
         var peopleSequenceNumber = null;
         var businessName = "Individual Sale";
         var contactType = "DEC Agent";
@@ -2540,6 +2541,7 @@ function attachAgent(uObj) //Add optional capId param for Record to attach to
                 logDebug("**ERROR: Failed to get Contact Nbr: " + result.getErrorMessage());
             }
         }
+		////
     }
 }
 function attachedContacts() {
@@ -5203,6 +5205,7 @@ function createComboSubLicense(ats, ruleParams, newfd) {
 
     return newLicId;
 }
+//JIRA - 18414
 function getAgentByBusinessName(contactType, businessName) {
     var peopResult = null;
     var vError = null;
