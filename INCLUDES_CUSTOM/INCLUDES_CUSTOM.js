@@ -103,9 +103,13 @@ function getScriptText(vScriptName) {
     var emseScript = emseBiz.getScriptByPK(aa.getServiceProviderCode(), vScriptName, "ADMIN");
     return emseScript.getScriptText() + "";
 }
-function TargetCAPAttrib(targetCapId, targetFeeInfo) {
+function TargetCAPAttrib(targetCapId, targetFeeInfo, isForceComboCharge) {
     this.targetCapId = targetCapId;
     this.targetFeeInfo = targetFeeInfo;
+    this.isForceComboCharge = isForceComboCharge;
+    if (this.isForceComboCharge == null) {
+        this.isForceComboCharge = false;
+    }
 }
 function NewLicDef(fldname, val) {
     this.FieldName = fldname;
@@ -678,9 +682,19 @@ function issueSelectedSalesItems(frm) {
                             }
                         }
                     }
+                    //JIRA - 18274
+                    if (ats == AA27_CONSERVATION_LEGACY) {
+                        newfd.formula = 5.28;
+                        newfd.Code3commission = getComboComission(newfd.Code3commission, 100);
+                    }
+                    if (ats == AA21_CONSERVATION_PATRON) {
+                        newfd.formula = 0.66;
+                        newfd.Code3commission = getComboComission(newfd.Code3commission, 100);
+                    }
+                    //
+
                     oLic.DecCode = GetItemCode(newfd.Code3commission + "");
                     oLic.CodeDescription = GetItemCodedesc(oLic.DecCode);
-
 
                     //Get Tgs
                     var TagsArray = null;
@@ -778,6 +792,11 @@ function issueSelectedSalesItems(frm) {
                     }
                     else if (ata[1] == "Other") {
                         AInfo["CODE.Effective Date"] = jsDateToMMDDYYYY(new Date());
+                        //JIRA-18322
+                        editFileDate(newLicId, new Date());
+                        clacFromDt = dateAdd(convertDate(seasonPeriod[1]), 0);
+                        setLicExpirationDate(newLicId, "", clacFromDt);
+                        //
                     }
                     else if (ata[1] == "Lifetime") {
                         setLicExpirationDate(newLicId, dateAdd(null, 0));
@@ -824,6 +843,31 @@ function issueSelectedSalesItems(frm) {
                         var arraytmp = arrayUnique(arryAccumTags.concat(oLic.TagsArray));
                         arryAccumTags = arraytmp;
                     }
+
+                    //JIRA - 18274
+                    if (ats == AA27_CONSERVATION_LEGACY) {
+                        //Habitat Stamp	 79.85 out of 96.00
+                        var superSportArray = createComboSuperSportsman(ruleParams, 1, 79.85);
+                        arryTargetCapAttrib.push(new TargetCAPAttrib(superSportArray[0], superSportArray[1], true));
+
+                        //Habitat Stamp	 4.72 out of 96.00
+                        var habitatArray = createComboHabitatStamp(ruleParams, 1, 4.72);
+                        arryTargetCapAttrib.push(new TargetCAPAttrib(habitatArray[0], habitatArray[1], true));
+
+                        //Conservationist 6.62 out of 96.00
+                        var conservationistArray = createComboConservationist(ruleParams, 1, 6.15);
+                        arryTargetCapAttrib.push(new TargetCAPAttrib(conservationistArray[0], conservationistArray[1], true));
+                    }
+                    if (ats == AA21_CONSERVATION_PATRON) {
+                        //Habitat Stamp	 4.72 out of 12.00
+                        var habitatArray = createComboHabitatStamp(ruleParams, oLic.feeUnit, 4.72);
+                        arryTargetCapAttrib.push(new TargetCAPAttrib(habitatArray[0], habitatArray[1], true));
+
+                        //Conservationist 6.62 out of 12.00
+                        var conservationistArray = createComboConservationist(ruleParams, oLic.feeUnit, 6.62);
+                        arryTargetCapAttrib.push(new TargetCAPAttrib(conservationistArray[0], conservationistArray[1], true));
+                    }
+                    //
                 }
             }
         }
@@ -1967,10 +2011,10 @@ function distributeFeesAndPayments(sourceCapId, arryTargetCapAttrib, pSalesAgent
     logDebug("Step 3: transfer the funds from Source to each Target cap");
 
     var unapplied = paymentGetNotAppliedTot()
-
     for (var item in arryTargetCapAttrib) {
         var targetCapId = arryTargetCapAttrib[item].targetCapId;
         var targetfd = arryTargetCapAttrib[item].targetFeeInfo;
+        var isForceComboCharge = arryTargetCapAttrib[item].isForceComboCharge;
 
         var targetfeeSeq_L = new Array();    // invoicing fees
         var targetpaymentPeriod_L = new Array();   // invoicing pay period
@@ -1979,7 +2023,7 @@ function distributeFeesAndPayments(sourceCapId, arryTargetCapAttrib, pSalesAgent
         var amtAgentCharge = parseFloat(parseFloat(targetfd.feeUnit) * parseFloat(targetfd.formula));
         var cmnsPerc = GetCommissionByUser(targetfd.Code3commission + "", pSalesAgentInfoArray);
 
-        if (cmnsPerc > 0) {
+        if (cmnsPerc > 0 || isForceComboCharge) {
             //JIRA: 17343. Changed comission calculation. Calculate per unit commision then add it.
             var amtCommission = 0;
             if (parseFloat(targetfd.feeUnit) > 1) {
@@ -2006,6 +2050,7 @@ function distributeFeesAndPayments(sourceCapId, arryTargetCapAttrib, pSalesAgent
             targetfeeSeq_L.push(feeSeqAndPeriodArray[0]);
             targetpaymentPeriod_L.push(feeSeqAndPeriodArray[1]);
         }
+
         createInvoice(targetfeeSeq_L, targetpaymentPeriod_L, targetCapId);
 
         balanceDue = parseFloat(parseFloat(targetfd.feeUnit) * parseFloat(targetfd.formula));
@@ -2471,6 +2516,26 @@ function attachAgent(uObj) //Add optional capId param for Record to attach to
             logDebug("Contact successfully added to CAP.");
         } else {
             logDebug("**ERROR: Failed to get Contact Nbr: " + result.getErrorMessage());
+        }
+    } else {
+        var peopleSequenceNumber = null;
+        var businessName = "Individual Sale";
+        var contactType = "DEC Agent";
+        var resultPeopleArray = getAgentByBusinessName(contactType, businessName);
+        for (var cp in resultPeopleArray) {
+            peopleSequenceNumber = resultPeopleArray[cp].getContactSeqNumber();
+            break;
+        }
+        if (peopleSequenceNumber != null) {
+            var pmpeople = getOutput(aa.people.getPeople(peopleSequenceNumber), "");
+
+            //Create Cap Contact 
+            var result = aa.people.createCapContactWithRefPeopleModel(itemCap, pmpeople);
+            if (result.getSuccess()) {
+                logDebug("Contact successfully added to CAP.");
+            } else {
+                logDebug("**ERROR: Failed to get Contact Nbr: " + result.getErrorMessage());
+            }
         }
     }
 }
@@ -5032,4 +5097,131 @@ function getTempCapIdFromASB() {
             }
         }
     }
+}
+function getComboComission(commissionCode, commPerc) {
+    var delimStr = commissionCode + "";
+
+    var acc = delimStr.split("|");
+    acc[2] = commPerc;
+    acc[3] = commPerc;
+
+    delimStr = acc.join("|");
+    return delimStr;
+}
+function createComboSuperSportsman(ruleParams, feeUnit, amtToSplit) {
+    var ats = AA40_SUPER_SPORTSMAN;
+
+    var newfd = getFeeCodeByRule(ruleParams, FEE_ANL_SUPER_SPORTSMAN_SCHDL, "1", "getAllFeeCodeByRuleFor_SUPER_SPORTSMAN");
+    newfd.version = "1";
+    newfd.formula = amtToSplit;
+    newfd.feeUnit = feeUnit;
+    newfd.Code3commission = getComboComission(newfd.Code3commission, 0);
+
+    var newLicId = createComboSubLicense(ats, ruleParams, newfd);
+
+    var infoArray = new Array();
+    infoArray.push(newLicId);
+    infoArray.push(newfd);
+
+    return infoArray;
+}
+function createComboHabitatStamp(ruleParams, feeUnit, amtToSplit) {
+    var ats = AA16_HABITAT_ACCESS_STAMP;
+
+    var newfd = getFeeCodeByRule(ruleParams, FEE_OTHER_SL_HABITATACES_SCHDL, "1", "getAllFeeCodeByRuleFor_OTHER_SALE_HABITAT_ACCESS_SCHDL");
+    newfd.version = "1";
+    newfd.formula = amtToSplit;
+    newfd.feeUnit = feeUnit;
+    newfd.Code3commission = getComboComission(newfd.Code3commission, 0);
+
+    var newLicId = createComboSubLicense(ats, ruleParams, newfd);
+
+    var infoArray = new Array();
+    infoArray.push(newLicId);
+    infoArray.push(newfd);
+
+    return infoArray;
+}
+function createComboConservationist(ruleParams, feeUnit, amtToSplit) {
+    var ats = AA20_CONSERVATIONIST_MAGAZINE;
+
+    var newfd = getFeeCodeByRule(ruleParams, FEE_OTHER_SL_CONSRVMGZNE_SCHDL, "1", "getAllFeeCodeByRuleFor_OTHER_SALE_CONSERVATION_MAGAZINE");
+    newfd.version = "1";
+    newfd.formula = amtToSplit;
+    newfd.feeUnit = feeUnit;
+    newfd.Code3commission = getComboComission(newfd.Code3commission, 0);
+
+    var newLicId = createComboSubLicense(ats, ruleParams, newfd);
+
+    var infoArray = new Array();
+    infoArray.push(newLicId);
+    infoArray.push(newfd);
+
+    return infoArray;
+}
+function createComboSubLicense(ats, ruleParams, newfd) {
+    var seasonPeriod = GetDateRange(DEC_CONFIG, LICENSE_SEASON, frm.Year);
+    var diff = dateDiff(new Date(), seasonPeriod[0]);
+
+    var ata = ats.split("/");
+    var decCode = GetItemCode(newfd.Code3commission + "");
+    var codeDescription = GetItemCodedesc(decCode);
+    var feeUnit = newfd.feeUnit;
+
+    var newLicId = issueSubLicense(ata[0], ata[1], ata[2], ata[3], "Active");
+    editAppName(codeDescription, newLicId);
+
+    var effectiveDt;
+    var clacFromDt;
+    if (ata[1] == "Other") {
+        AInfo["CODE.Effective Date"] = jsDateToMMDDYYYY(new Date());
+        //JIRA-18322
+        editFileDate(newLicId, new Date());
+        clacFromDt = dateAdd(convertDate(seasonPeriod[1]), 0);
+        setLicExpirationDate(newLicId, "", clacFromDt);
+        //
+    } else {
+        if (diff > 0) {
+            AInfo["CODE.Effective Date"] = jsDateToMMDDYYYY(seasonPeriod[0]);
+            editFileDate(newLicId, seasonPeriod[0]);
+            clacFromDt = dateAdd(convertDate(seasonPeriod[1]), 0);
+            setLicExpirationDate(newLicId, "", clacFromDt);
+        } else {
+            AInfo["CODE.Effective Date"] = jsDateToMMDDYYYY(new Date());
+            editFileDate(newLicId, new Date());
+            clacFromDt = dateAdd(convertDate(seasonPeriod[1]), 0);
+            setLicExpirationDate(newLicId, "", clacFromDt);
+        }
+    }
+
+    setSalesItemASI(newLicId, ats, decCode, feeUnit, null, null);
+    var newDecDocId = GenerateDocumentNumber(newLicId.getCustomID());
+    updateDocumentNumber(newDecDocId, newLicId);
+
+    return newLicId;
+}
+function getAgentByBusinessName(contactType, businessName) {
+    var peopResult = null;
+    var vError = null;
+
+    try {
+        var qryPeople = aa.people.createPeopleModel().getOutput().getPeopleModel();
+        qryPeople.setBusinessName(businessName)
+        qryPeople.setContactType(contactType);
+        qryPeople.setAuditStatus("A");
+        qryPeople.setServiceProviderCode(aa.getServiceProviderCode());
+
+        var r = aa.people.getPeopleByPeopleModel(qryPeople);
+        if (r.getSuccess()) {
+            peopResult = r.getOutput();
+            if (peopResult.length == 0) {
+                logDebug("Searched for REF contact, no matches found, returing null");
+                peopResult = null
+            }
+        }
+    }
+    catch (vError) {
+        logDebug("Runtime error occurred: " + vError);
+    }
+    return peopResult;
 }
