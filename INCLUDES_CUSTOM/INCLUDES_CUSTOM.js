@@ -5228,3 +5228,39 @@ function getAgentByBusinessName(contactType, businessName) {
     }
     return peopResult;
 }
+function getPublicUserInfo(userId) {
+    var returnArray = new Array();
+
+    var uObj;
+    if (arguments.length > 0) {
+        uObj = new USEROBJ();
+        uObj.userId = userId;
+        uObj.userModel = uObj.getUserModel();
+        uObj.setUserModelAttributes();
+    } else {
+        uObj = new USEROBJ(publicUserID);
+    }
+
+    if (uObj.acctType == 'CITIZEN') {
+        var salesAgentInfoArray = getAgentInfo(uObj.publicUserID, uObj);
+        returnArray = getCntAsiInfoByPeopleSeqNum(uObj.peopleSequenceNumber);
+    }
+
+    return returnArray;
+}
+
+function getCntAsiInfoByPeopleSeqNum(peopleSequenceNumber) {
+    var returnArray = new Array();
+
+    var peopleModel = getOutput(aa.people.getPeople(peopleSequenceNumber), "");
+    var subGroupArray = getTemplateValueByFormArrays(peopleModel.getTemplate(), null, null);
+    //GetAllASI(subGroupArray);
+    for (var subGroupName in subGroupArray) {
+        var fieldArray = subGroupArray[subGroupName];
+        for (var fld in fieldArray) {
+            returnArray[fld] = fieldArray[fld];
+        }
+    }
+    return returnArray;
+}
+
