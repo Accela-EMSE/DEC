@@ -837,8 +837,11 @@ function issueSelectedSalesItems(frm) {
                     updateDocumentNumber(newDecDocId, newLicId);
 
                     //maintain array for later actions
-                    arryTargetCapAttrib.push(new TargetCAPAttrib(newLicId, newfd));
-
+                    if (ats == AA21_CONSERVATION_PATRON || ats == AA27_CONSERVATION_LEGACY) {
+                        arryTargetCapAttrib.push(new TargetCAPAttrib(newLicId, newfd, true));
+                    } else {
+                        arryTargetCapAttrib.push(new TargetCAPAttrib(newLicId, newfd));
+                    }
                     if (oLic.TagsArray != null) {
                         var arraytmp = arrayUnique(arryAccumTags.concat(oLic.TagsArray));
                         arryAccumTags = arraytmp;
