@@ -592,7 +592,7 @@ function form_OBJECT(identity) {
         ruleParams.HasTrapEd = this.HasTrapEd();
         ruleParams.HasNYSSportEd = this.HasNYSSportEd();
         ruleParams.ActiveHoldingsInfo = this.ActiveHoldingsInfo;
-        ruleParams.currDrawType = getDrawTypeByPeriod(now.getFullYear());
+        ruleParams.currDrawType = getDrawTypeByPeriod(this.Year);
         ruleParams.Year = this.Year;
         ruleParams.AgedIn = this.AgedIn;
         ruleParams.NeedHuntEd = this.NeedHuntEd;
@@ -673,7 +673,6 @@ function form_OBJECT(identity) {
                     //if (this.optmzType == OPTZ_TYPE_ALLFEES || (this.optmzType == OPTZ_TYPE_SELECTED_FEES && this.licObjARRAY[idx].IsSelected) || this.optmzType == OPTZ_TYPE_CTRC) {
                     var ofd = getFeeCodeByRule(ruleParams, this.licObjARRAY[idx].feeschedule, this.licObjARRAY[idx].feeversion, this.licObjARRAY[idx].FNfeeRule);
                     //eval("var feeItemCodes = " + this.licObjARRAY[idx].FNfeeRule + "(ruleParams, " + this.licObjARRAY[idx].feeschedule + " );");
-
                     if (ofd != null) {
                         this.licObjARRAY[idx].feecode = ofd.feeCode;
                         this.licObjARRAY[idx].feeDesc = ofd.feeDesc;
@@ -1216,7 +1215,8 @@ function form_OBJECT(identity) {
         return retMsg;
     }
     this.isAfterSwitchDate = function () {
-        return this.isAfterSwitchDateFlag;
+		//JIRA: 17503
+        return isAfterSwitchDate();
     }
     this.SetItemFeeSched = function (psRef, ruleParams) {
         for (var item in this.VersionItems) {
