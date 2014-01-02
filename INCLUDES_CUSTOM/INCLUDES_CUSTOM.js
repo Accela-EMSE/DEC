@@ -33,7 +33,7 @@ var dictTags = null;
 var peopTemplateAttribute = aa.util.newHashMap();
 var salesAgentInfoArray = null;
 var hmfulfilmmentCond = aa.util.newHashMap();
-var CONTACT_LINK = '<a href="/nyssupp/Report/ReportParameter.aspx?module=Licenses&reportID=3987&reportType=LINK_REPORT_LIST" target=_blank>Print Contact DEC Tag </a>';
+var CONTACT_LINK = '<a href="/dec/Report/ReportParameter.aspx?module=Licenses&reportID=4023&reportType=LINK_REPORT_LIST" target=_blank>Print Contact DEC Tag </a>';
 //var MSG_SUSPENSION = 'License to buy privileges are suspended. Please contact DEC Sales. ' + CONTACT_LINK;  		//...Raj  JIRA 16753  [Change of message] see below 
 var MSG_SUSPENSION = 'License purchases are not available to the customer. This issue can only be resolved by contacting DEC during business hours at 518-402-8821. ' + CONTACT_LINK;
 var MSG_NO_AGENT_SALES = 'Sales privileges are suspended. Please contact DEC. ' + CONTACT_LINK;
