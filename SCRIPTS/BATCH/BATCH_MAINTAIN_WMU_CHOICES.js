@@ -137,8 +137,12 @@ function MaintainWMUchoices() {
     //var seasonPeriod = GetLicenseSeasonPeriod();
     var now = new Date();
     var currYear = now.getFullYear();
-
-    var currDrawtype = getDrawTypeByPeriod(currYear);
+    var month = now.getMonth() + 1;
+	
+	var retArray = GetDateRangeForWMU("DEC_CONFIG", "OVERLAP_SEASON", currYear, month)
+    currYear = (retArray[0]).getFullYear();
+	
+	var currDrawtype = getDrawTypeByPeriod(currYear);
 
     var strControl = "WMU";
     var bizDomScriptResult = aa.bizDomain.getBizDomain(strControl);
@@ -207,4 +211,48 @@ function changeWmuStatus(year, wmu, drawtype, choiceNum) {
     }
 
     updateWMUChoiceStatus(wmu, choiceNum, keepActive);
+}
+function GetDateRangeForWMU(stdChoice, sValue, year, month) {
+    var returnPeriod = new Array();
+    var desc = GetLookupVal(stdChoice, sValue);
+    if (sValue != null && sValue != "") {
+        if (desc != "") {
+            var monthArray = new Array();
+            var atmp = desc.toString().split("|");
+            var isChangeByDay = false;
+            if (atmp.length > 1) {
+                isChangeByDay = (atmp[1] == "Monday");
+            }
+            monthArray = atmp[0].toString().split("-");
+            //monthArray = desc.toString().split("-");
+
+            if (monthArray.length != 2) {
+                logDebug("**ERROR :DEC_CONFIG >> " + sValue + " is not set up properly");
+            } else {
+                for (var p = 0; p < monthArray.length; p++) {
+                    var op = monthArray[p].toString().split("/");
+                    if (p == 0) {
+                        if (parseInt(op[0], 10) > month) {
+                            year--;
+                        }
+                    }
+                    var dt = new Date(year, op[0] - 1, op[1]);
+
+                    if (p != 0) {
+                        if (returnPeriod.length > 0) {
+                            if ((returnPeriod[returnPeriod.length - 1]) && dt.getTime() < (returnPeriod[returnPeriod.length - 1]).getTime()) {
+                                dt = new Date((parseInt(year) + 1), op[0] - 1, op[1]);
+                            }
+                        }
+                    }
+                    returnPeriod[returnPeriod.length] = dt;
+                }
+            }
+
+            if (isChangeByDay && returnPeriod.length == 2) {
+                returnPeriod[0] = getMonday(returnPeriod[0]);
+            }
+        }
+    }
+    return returnPeriod;
 }
