@@ -1353,7 +1353,8 @@ function getHarvestPeriod(harvestType) {
 
         var now = new Date();
         var year = now.getFullYear()
-        retArray = GetDateRange("DEC_CONFIG", ssStdChoiceValue, year)
+        var month = now.getMonth() + 1;
+        retArray = GetDateRangeForHarvest("DEC_CONFIG", ssStdChoiceValue, year, month)
     }
     return retArray;
 }
@@ -2142,7 +2143,7 @@ function GetDocsToVoidSale(peopleSequenceNumber) {
     logDebug("ENTER: GetDocsToVoidSale");
     var availableDocsToVoidItems = new Array();
 
-	//JIRA: 15710
+    //JIRA: 15710
     var uObj = new USEROBJ(publicUserID);
     var agentInfoArray = getAgentInfo(publicUserID, uObj);
     var isNYSDEC_HQ = (agentInfoArray["Agent Group"] == "NYSDEC HQ");
@@ -2156,11 +2157,11 @@ function GetDocsToVoidSale(peopleSequenceNumber) {
         lifetimeArray.push(AA11_LIFETIME_MUZZLELOADING);
         lifetimeArray.push(AA12_LIFETIME_SMALL_AND_BIG_GAME);
         lifetimeArray.push(AA13_LIFETIME_SPORTSMAN);
-		lifetimeArray.push(AA14_LIFETIME_TRAPPING);
+        lifetimeArray.push(AA14_LIFETIME_TRAPPING);
     }
     var validVoidableFilterArray = arrayUnique(voidableFilterArray.concat(lifetimeArray));
-	//---
-	
+    //---
+
     var CC = new contactObj(null);
     CC.refSeqNumber = peopleSequenceNumber;
 
@@ -2505,4 +2506,48 @@ function voidInternal() {
         logDebug("Exception in VoidInternal:" + err.message);
     }
     logDebug("EXIT: VoidInternal");
+}
+function GetDateRangeForHarvest(stdChoice, sValue, year, month) {
+    var returnPeriod = new Array();
+    var desc = GetLookupVal(stdChoice, sValue);
+    if (sValue != null && sValue != "") {
+        if (desc != "") {
+            var monthArray = new Array();
+            var atmp = desc.toString().split("|");
+            var isChangeByDay = false;
+            if (atmp.length > 1) {
+                isChangeByDay = (atmp[1] == "Monday");
+            }
+            monthArray = atmp[0].toString().split("-");
+            //monthArray = desc.toString().split("-");
+
+            if (monthArray.length != 2) {
+                logDebug("**ERROR :DEC_CONFIG >> " + sValue + " is not set up properly");
+            } else {
+                for (var p = 0; p < monthArray.length; p++) {
+                    var op = monthArray[p].toString().split("/");
+                    if (p == 0) {
+                        if (parseInt(op[0], 10) > month) {
+                            year--;
+                        }
+                    }
+                    var dt = new Date(year, op[0] - 1, op[1]);
+
+                    if (p != 0) {
+                        if (returnPeriod.length > 0) {
+                            if ((returnPeriod[returnPeriod.length - 1]) && dt.getTime() < (returnPeriod[returnPeriod.length - 1]).getTime()) {
+                                dt = new Date((parseInt(year) + 1), op[0] - 1, op[1]);
+                            }
+                        }
+                    }
+                    returnPeriod[returnPeriod.length] = dt;
+                }
+            }
+
+            if (isChangeByDay && returnPeriod.length == 2) {
+                returnPeriod[0] = getMonday(returnPeriod[0]);
+            }
+        }
+    }
+    return returnPeriod;
 }
