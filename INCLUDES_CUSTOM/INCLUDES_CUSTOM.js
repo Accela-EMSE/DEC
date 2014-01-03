@@ -769,26 +769,35 @@ function issueSelectedSalesItems(frm) {
                         clacFromDt = dateAdd(convertDate(effectiveDt), -1);
                         setLicExpirationDate(newLicId, clacFromDt);
                     } else if (ats == AA23_NONRES_FRESHWATER_FISHING || ats == AA22_FRESHWATER_FISHING) {
-                        effectiveDt = AInfo["Effective Date Fishing"];
+                        //JIRA: 21268
+                        if (frm.isAfterSwitchDate()) {
+                            effectiveDt = AInfo["Effective Date Fishing"];
+                            editFileDate(newLicId, effectiveDt);
+                            AInfo["CODE.Effective Date"] = effectiveDt;
+                            clacFromDt = dateAdd(convertDate(effectiveDt), -1);
+                            setLicExpirationDate(newLicId, clacFromDt);
+                        } else {
+                            if (diff > 0) {
+                                AInfo["CODE.Effective Date"] = jsDateToMMDDYYYY(seasonPeriod[0]);
+                                editFileDate(newLicId, seasonPeriod[0]);
+                                clacFromDt = dateAdd(convertDate(seasonPeriod[1]), 0);
+                                setLicExpirationDate(newLicId, "", clacFromDt);
+                            } else {
+                                AInfo["CODE.Effective Date"] = jsDateToMMDDYYYY(new Date());
+                                editFileDate(newLicId, new Date());
+                                clacFromDt = dateAdd(convertDate(seasonPeriod[1]), 0);
+                                setLicExpirationDate(newLicId, "", clacFromDt);
+                            }
+                        }
+                        //
+                    } else if (ats == AA02_MARINE_REGISTRY) {
+                        //JIRA: 21269
+                        effectiveDt = AInfo["Effective Date Marine"];
                         editFileDate(newLicId, effectiveDt);
                         AInfo["CODE.Effective Date"] = effectiveDt;
                         clacFromDt = dateAdd(convertDate(effectiveDt), -1);
                         setLicExpirationDate(newLicId, clacFromDt);
-                    } else if (ats == AA02_MARINE_REGISTRY) {
-                        effectiveDt = AInfo["Effective Date Marine"];
-                        if (diff > 0) {
-                            AInfo["CODE.Effective Date"] = jsDateToMMDDYYYY(seasonPeriod[0]);
-                            editFileDate(newLicId, seasonPeriod[0]);
-                            //clacFromDt = dateAdd(convertDate(seasonPeriod[1]), 0);
-                            clacFromDt = dateAdd(effectiveDt, 0);
-                            setLicExpirationDate(newLicId, clacFromDt);
-                        } else {
-                            AInfo["CODE.Effective Date"] = "01/01/" + frm.Year;
-                            editFileDate(newLicId, new Date());
-                            //clacFromDt = dateAdd(convertDate(seasonPeriod[1]), 0);
-                            clacFromDt = dateAdd(effectiveDt, 0);
-                            setLicExpirationDate(newLicId, clacFromDt);
-                        }
+                        //
                     }
                     else if (ata[1] == "Other") {
                         AInfo["CODE.Effective Date"] = jsDateToMMDDYYYY(new Date());
@@ -2521,7 +2530,7 @@ function attachAgent(uObj) //Add optional capId param for Record to attach to
             logDebug("**ERROR: Failed to get Contact Nbr: " + result.getErrorMessage());
         }
     } else {
-		//JIRA - 18414
+        //JIRA - 18414
         var peopleSequenceNumber = null;
         var businessName = "Individual Sale";
         var contactType = "DEC Agent";
@@ -2541,7 +2550,7 @@ function attachAgent(uObj) //Add optional capId param for Record to attach to
                 logDebug("**ERROR: Failed to get Contact Nbr: " + result.getErrorMessage());
             }
         }
-		////
+        ////
     }
 }
 function attachedContacts() {
