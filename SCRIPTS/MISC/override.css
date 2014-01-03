@@ -76,8 +76,8 @@
 }
 */
 /*-- Contact ASI and ASIT --*/
-#ctl00_PlaceHolderMain_Applicant_genericTemplate_Template23603C2F_parentGrid{*/
-    /*display: none;
+#ctl00_PlaceHolderMain_Applicant_genericTemplate_Template23603C2F_parentGrid{
+    display: none;
 }
 /*-- ASIT caption --*/
 /*
@@ -103,3 +103,10 @@
 
 /*  hide the edit account to prevent changing password after account creation */
 #ctl00_PlaceHolderMain_btnEditAccount { display:none; }
+
+/* hide the view details link in the fees tab when reviewing  a license */
+#detail {display:none;} 
+
+/* hide the collections link */
+#ctl00_HeaderNavigation_lblMyCollection { display:none; } 
+#ctl00_HeaderNavigation_collectionSplit { display:none; } 
