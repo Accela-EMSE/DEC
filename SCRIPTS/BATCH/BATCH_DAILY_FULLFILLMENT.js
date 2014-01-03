@@ -211,6 +211,7 @@ function SetDailyFullfillmentLogic() {
         emptyCm.setCapStatus("Approved");
 
         for (var ff in ffCondArray) {
+            var isDailyInternetSales = (ffCondArray[ff] == ffConitions.Condition_DailyInternetSales);
             var emCondm = ffConitions.getConditionByFullfillmentType(ffCondArray[ff]);
             emCondm.setConditionStatus("Applied");
             emCondm.setConditionStatusType("Applied");
@@ -248,23 +249,55 @@ function SetDailyFullfillmentLogic() {
                             }
                         }
                         if (generateReportFlag == 0) {
-                            if (!uniqueCapIdArray.containsKey(recId)) {
-                                uniqueCapIdArray.put(recId, recId);
-                                var recca = String(recId).split("-");
-                                var itemCapId = aa.cap.getCapID(recca[0], recca[1], recca[2]).getOutput();
-                                //aa.print("Cap ID: " + itemCapId);
-                                var itemCap = aa.cap.getCap(itemCapId).getOutput();
-                                altId = itemCapId.getCustomID();
-                                logDebug("Custom ID for report: " + altId);
-                                //appTypeResult = itemCap.getCapType();
-                                //appTypeString = appTypeResult.toString();
-                                generateReport(itemCapId); 
-                                //logDebug("Report file: " + reportFileName);
-                                if (setPrefix.length > 0) {
-                                    addCapSetMemberX(itemCapId, setResult);
-                                }
-                                counter++;
-                            }
+                            var counterOtherThanFish = 1;
+							if (isDailyInternetSales) {
+                                counterOtherThanFish = 0;
+                                var searchAppTypeString = "Licenses/*/*/*";
+                                var capArray = getChildren(searchAppTypeString, recId);
+                                if (capArray != null) {
+									for (y in capArray) {
+                                        var childCapId = capArray[y];
+                                        var currcap = aa.cap.getCap(childCapId).getOutput();
+                                        appTypeString = currcap.getCapType().toString();
+										
+										var validArray = new Array();
+										validArray.push(AA01_FISHING_LICENSE);
+										validArray.push(AA03_ONE_DAY_FISHING_LICENSE);
+										validArray.push(AA22_FRESHWATER_FISHING);
+										validArray.push(AA23_NONRES_FRESHWATER_FISHING);
+										validArray.push(AA24_NONRESIDENT_1_DAY_FISHING);
+										validArray.push(AA25_NONRESIDENT_7_DAY_FISHING);
+										validArray.push(AA26_SEVEN_DAY_FISHING_LICENSE);
+										validArray.push(AA02_MARINE_REGISTRY);
+										validArray.push(AA54_TAG_PRIV_PANEL);
+
+										if (!exists(appTypeString, validArray)) {
+											counterOtherThanFish++;
+											break;
+										}
+									}
+								}
+							}
+							
+							if (!uniqueCapIdArray.containsKey(recId)) {
+								uniqueCapIdArray.put(recId, recId);
+								var recca = String(recId).split("-");
+								var itemCapId = aa.cap.getCapID(recca[0], recca[1], recca[2]).getOutput();
+								//aa.print("Cap ID: " + itemCapId);
+								var itemCap = aa.cap.getCap(itemCapId).getOutput();
+								altId = itemCapId.getCustomID();
+								if(counterOtherThanFish > 0) {
+									logDebug("Custom ID for report: " + altId);
+									//appTypeResult = itemCap.getCapType();
+									//appTypeString = appTypeResult.toString();
+									generateReport(itemCapId); 
+									//logDebug("Report file: " + reportFileName);
+									if (setPrefix.length > 0) {
+										addCapSetMemberX(itemCapId, setResult);
+									}
+									counter++;
+								}
+							}
 
                             editCapConditionStatus("Fulfillment", ffCondArray[ff], "Verified", "Not Applied", "", itemCapId);
                             removeFullfillmentCapCondition(itemCapId, ffCondArray[ff]);
