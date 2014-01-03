@@ -173,15 +173,16 @@ if (f.isAfterSwitchDate()) {
     oFishEffDt.required = !(!isFreshWtrFishLic && !isNonFreshWtrFishLic);
     //oFishEffDt.readOnly = !isFreshWtrFishLic && !isNonFreshWtrFishLic;
     oFishEffDt.hidden = !isFreshWtrFishLic && !isNonFreshWtrFishLic;
-    if (!isFreshWtrFishLic && !isNonFreshWtrFishLic) {
-        oFishEffDt.value = '';
-    }
-    expression.setReturn(oFishEffDt);
 }
 else {
-    oFishEffDt.value = expression.getValue("$$today$$").value;
-    expression.setReturn(oFishEffDt);
+    //oFishEffDt.value = expression.getValue("$$today$$").value;
+	oFishEffDt.value = '';
+	oFishEffDt.hidden = true;
 }
+if (!isFreshWtrFishLic && !isNonFreshWtrFishLic) {
+	oFishEffDt.value = '';
+}
+expression.setReturn(oFishEffDt);
 ////
 
 var isFish1Day = ((oFish1Day.value != null && (oFish1Day.value.equalsIgnoreCase('YES') || oFish1Day.value.equalsIgnoreCase('Y') || oFish1Day.value.equalsIgnoreCase('CHECKED') || oFish1Day.value.equalsIgnoreCase('SELECTED') || oFish1Day.value.equalsIgnoreCase('TRUE') || oFish1Day.value.equalsIgnoreCase('ON'))));

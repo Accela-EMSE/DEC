@@ -143,15 +143,17 @@ var isMarineReg = ((oMarineReg.value != null && (oMarineReg.value.equalsIgnoreCa
 
 if (f.isAfterSwitchDate()) {
     oMarineEffDt.required = isMarineReg;
-    //oMarineEffDt.readOnly = !isMarineReg;
-    oMarineEffDt.hidden = !isMarineReg;
-    if (!isMarineReg) {
-        oMarineEffDt.value = '';
-    }
-    expression.setReturn(oMarineEffDt);
+	oMarineEffDt.hidden = !isMarineReg;
 }
  else {
-     oMarineEffDt.value = "01/01/" + f.Year;
-     expression.setReturn(oMarineEffDt);
- }
+	var now = new Date();
+	var currYear = now.getFullYear();
+	var sYear = parseInt(currYear, 10) > parseInt(f.Year, 10) ? currYear.toString() : f.Year;
+    oMarineEffDt.value = "01/01/" + sYear;
+	oMarineEffDt.hidden = true;
+}
+if (!isMarineReg) {
+	oMarineEffDt.value = '';
+}
+expression.setReturn(oMarineEffDt);
 ////

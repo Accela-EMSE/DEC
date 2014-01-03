@@ -384,9 +384,12 @@ var isNonFreshWtrFishLic = ((oNonFreshWtrFishLic.value != null && (oNonFreshWtrF
 
 var oFishEffDt = expression.getValue("ASI::FISHING LICENSES::Effective Date Fishing");
 
-oFishEffDt.required = !(!isFreshWtrFishLic && !isNonFreshWtrFishLic);
-//oFishEffDt.readOnly = !isFreshWtrFishLic && !isNonFreshWtrFishLic;
-oFishEffDt.hidden = !isFreshWtrFishLic && !isNonFreshWtrFishLic;
+if (f.isAfterSwitchDate()) {
+	oFishEffDt.hidden = !isFreshWtrFishLic && !isNonFreshWtrFishLic;
+	oFishEffDt.required = !(!isFreshWtrFishLic && !isNonFreshWtrFishLic);
+} else {
+	oFishEffDt.hidden = true;
+}
 if (!isFreshWtrFishLic && !isNonFreshWtrFishLic) {
     oFishEffDt.value = '';
 }
@@ -426,11 +429,15 @@ var oMarineReg = expression.getValue("ASI::FISHING LICENSES::Marine Registry");
 var oMarineEffDt = expression.getValue("ASI::FISHING LICENSES::Effective Date Marine");
 var isMarineReg = ((oMarineReg.value != null && (oMarineReg.value.equalsIgnoreCase('YES') || oMarineReg.value.equalsIgnoreCase('Y') || oMarineReg.value.equalsIgnoreCase('CHECKED') || oMarineReg.value.equalsIgnoreCase('SELECTED') || oMarineReg.value.equalsIgnoreCase('TRUE') || oMarineReg.value.equalsIgnoreCase('ON'))));
 
-oMarineEffDt.required = isMarineReg;
-//oMarineEffDt.readOnly = !isMarineReg;
-oMarineEffDt.hidden = !isMarineReg;
+
+if (f.isAfterSwitchDate()) {
+	oMarineEffDt.hidden = !isMarineReg;
+	oMarineEffDt.required = isMarineReg;
+} else {
+	oMarineEffDt.hidden = true;
+}
 if (!isMarineReg) {
-    oMarineEffDt.value = '';
+	oMarineEffDt.value = '';
 }
 expression.setReturn(oMarineEffDt);
 ////
