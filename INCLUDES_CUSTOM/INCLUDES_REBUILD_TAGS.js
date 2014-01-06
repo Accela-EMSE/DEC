@@ -344,7 +344,7 @@ function getExistingTags(ipRefContact,ipExpDate,ipEligibleTags) {
             continue;
         if (fvCapType.getGroup() != "Licenses" || fvCapType.getType() != "Tag" || (fvCapType.getSubType() != "Hunting" && fvCapType.getSubType() != "Document"))
            continue;
-        if (fvCapM.getCapStatus() != "Active" || fvCapM.getCapStatus() != "Reported")
+        if (!(fvCapM.getCapStatus() == "Active" || fvCapM.getCapStatus() == "Reported"))
            continue;
         var fvExpQry = aa.expiration.getLicensesByCapID(fvCapID);
         if (!fvExpQry || !fvExpQry.getSuccess())
