@@ -37,7 +37,7 @@ function loadHarvestInfo() {
         }
     }
     catch (err) {
-        ("**ERROR in loadHarvestInfo:" + err.message);
+        logDebug("**ERROR in loadHarvestInfo:" + err.message);
     }
     logDebug("EXIT: loadHarvestInfo");
     return true;
@@ -111,7 +111,7 @@ function isValidHarvestinfo(pStep) {
                     retMsg += 'Please select Harvest Type.';
                     retMsg += '<Br />';
                 } else if (!isValidHarvestSeasonByType(strHarvestType)) {
-                    retMsg += 'Selected harvest type is not avialble to report.';
+                    retMsg += 'Selected harvest type is not available to report.';
                     retMsg += '<Br />';
                 } else {
                     if (isNull(dob, '') == '') {
@@ -468,7 +468,78 @@ function AVAILABLE_TAGS_OBJ(sYear, sTagId, sDesc, sStatus) {
     this.Description = sDesc;
     this.Status = sStatus;
 }
+//JIRA-18390
 function GetTagsForHarvestReport(peopleSequenceNumber, isDeer, isBear, isFallTurkey, isSpringTurkey, isConsignedDMPtag) {
+    //Get All Tags which are approved and not reported for last 2 years for a customer
+    var availableTags = new Array();
+    var validTagTypeArray = new Array();     //   record types
+
+    ats = "Licenses/Tag/Hunting/*";
+    if (isConsignedDMPtag) {
+        ats = AA53_TAG_DMP_DEER;
+        validTagTypeArray.push(ats);
+    } else if (isBear) {
+        ats = AA47_TAG_BEAR;
+        validTagTypeArray.push(ats);
+    } else if (isDeer) {
+        ats = "Licenses/Tag/Hunting/*";
+        validTagTypeArray.push(AA49_TAG_BOW_MUZZ_ANTLERLESS);
+        validTagTypeArray.push(AA48_TAG_BOW_MUZZ_EITHER_SEX);
+        validTagTypeArray.push(AA46_TAG_REG_SEASON_DEER);
+        validTagTypeArray.push(AA53_TAG_DMP_DEER);
+    } else if (isFallTurkey) {
+        ats = AA51_TAG_FALL_TURKEY_TAG;
+        validTagTypeArray.push(ats);
+    } else if (isSpringTurkey) {
+        ats = AA50_TAG_SPRING_TURKEY_TAG;
+        validTagTypeArray.push(ats);
+    }
+
+    var year = getYearToProcess(new Date());
+    var sql = "SELECT A.SERV_PROV_CODE,A.B1_PER_ID1,A.B1_PER_ID2,A.B1_PER_ID3,A.B1_PER_GROUP, A.B1_PER_TYPE, A.B1_PER_SUB_TYPE, A.B1_PER_CATEGORY,E.EXPIRATION_DATE ";
+    sql += "FROM B1PERMIT A ";
+    sql += "INNER JOIN B3CONTACT D ON A.SERV_PROV_CODE = D.SERV_PROV_CODE AND A.B1_PER_ID1 = D.B1_PER_ID1 AND A.B1_PER_ID2 = D.B1_PER_ID2 AND A.B1_PER_ID3 = D.B1_PER_ID3 ";
+    sql += "INNER JOIN BCHCKBOX B ON A.serv_prov_code = B.serv_prov_code and A.b1_per_id1 = B.b1_per_id1 and A.b1_per_id2 = B.b1_per_id2 and A.b1_per_id3 = B.b1_per_id3 ";
+    sql += "LEFT JOIN B1_EXPIRATION E ON A.SERV_PROV_CODE= E.SERV_PROV_CODE AND A.B1_PER_ID1 = E.B1_PER_ID1 AND A.B1_PER_ID2 =E.B1_PER_ID2 AND A.B1_PER_ID3 = E.B1_PER_ID3 ";
+    sql += "WHERE A.SERV_PROV_CODE = '" + aa.getServiceProviderCode() + "' ";
+    sql += "AND D.G1_CONTACT_NBR = " + peopleSequenceNumber + " ";
+    sql += "AND A.REC_STATUS='A' AND D.REC_STATUS='A' AND A.B1_MODULE_NAME ='Licenses' ";
+    sql += "AND B.B1_CHECKBOX_DESC = 'Year' ";
+    sql += "AND B.B1_CHECKBOX_GROUP = 'APPLICATION' ";
+    sql += "AND B1_CHECKLIST_COMMENT >= " + (parseInt(year, 10) - 1) + " ";
+    sql += "AND E.REC_STATUS='A' ";
+    sql += "AND A.b1_per_group = 'Licenses' ";
+    sql += "AND A.b1_per_type = 'Tag' ";
+    sql += "AND A.b1_per_sub_type = 'Hunting' ";
+
+    var initialContext = aa.proxyInvoker.newInstance("javax.naming.InitialContext", null).getOutput();
+    var ds = initialContext.lookup("java:/AA");
+    var conn = ds.getConnection();
+
+    var sStmt = conn.prepareStatement(sql);
+    var rSet = sStmt.executeQuery();
+
+
+    while (rSet.next()) {
+        var capIdModel = aa.cap.getCapID(rSet.getString("B1_PER_ID1"), rSet.getString("B1_PER_ID2"), rSet.getString("B1_PER_ID3")).getOutput();
+        var itemCap = aa.cap.getCapBasicInfo(capIdModel).getOutput();
+        var itemCapId = itemCap.getCapID();
+        appTypeResult = itemCap.getCapType();
+        appTypeString = appTypeResult.toString();
+        if (exists(appTypeString, validTagTypeArray)) {
+            var tagAltID = itemCapId.getCustomID();
+            var tagStatus = itemCap.getCapStatus();
+            var tagSpecialText = itemCap.getSpecialText();
+            var tagAinfo = new Array();
+            loadAppSpecific(tagAinfo, itemCapId);
+            var neAvailTag = new AVAILABLE_TAGS_OBJ(tagAinfo["Year"], tagAltID, tagSpecialText, tagStatus);
+            availableTags.push(neAvailTag);
+        }
+    }
+
+    return availableTags;
+}
+function GetTagsForHarvestReportOld(peopleSequenceNumber, isDeer, isBear, isFallTurkey, isSpringTurkey, isConsignedDMPtag) {
     //Get All Tags which are approved and not reported for last 2 years for a customer
     var validTagTypeArray = new Array();     //   record types
 
@@ -2550,4 +2621,15 @@ function GetDateRangeForHarvest(stdChoice, sValue, year, month) {
         }
     }
     return returnPeriod;
+}
+
+function getYearToProcess(ipEffDate) {
+    var fvDateRange = lookup("DEC_CONFIG", "LICENSE_SEASON");
+    var fvDateArr = fvDateRange.split("-");
+    opYear = ipEffDate.getFullYear();
+    var fvStartStr = fvDateArr[0] + "/" + opYear.toString();
+    var fvStartDt = new Date(fvStartStr);
+    if (ipEffDate.getTime() < fvStartDt.getTime())
+        opYear--;
+    return opYear;
 }
