@@ -531,8 +531,13 @@ function GetTagsForHarvestReport(peopleSequenceNumber, isDeer, isBear, isFallTur
             var tagStatus = itemCap.getCapStatus();
             var tagSpecialText = itemCap.getSpecialText();
             var tagAinfo = new Array();
+			useAppSpecificGroupName = true;
             loadAppSpecific(tagAinfo, itemCapId);
-            var neAvailTag = new AVAILABLE_TAGS_OBJ(tagAinfo["Year"], tagAltID, tagSpecialText, tagStatus);
+            var sWmu = isNull(tagAinfo["WMU INFORMATION.WMU"], '');
+            if (sWmu != '') {
+                sWmu = ' - ' + sWmu;
+            }
+            var neAvailTag = new AVAILABLE_TAGS_OBJ(tagAinfo["BASIC INFORMATION.Year"], tagAltID, tagSpecialText + sWmu, tagStatus);
             availableTags.push(neAvailTag);
         }
     }
