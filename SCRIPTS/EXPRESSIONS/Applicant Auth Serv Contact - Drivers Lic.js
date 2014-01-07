@@ -14,7 +14,7 @@
 | 12/04/2013 : 1.0 : DQ Initial
 |
 /------------------------------------------------------------------------------------------------------*/
-var dmvWsURL = "https://wsc.dmv.state.ny.us/sst/runtime.asvc/com.actional.intermediary.CIDVerif";
+var dmvWsURL = "https://wsc.dmv.state.ny.us/sst/runtime.asvc/com.actional.intermediary.CIDVerif__Test_";
 var dmvUserID = "deccidvb"
 var dmvUserPwd = "853ID1yg"
 
