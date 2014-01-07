@@ -41,12 +41,15 @@ if (!isValidUser) {
     otIsconsignedDMP.readOnly = true;
     expression.setReturn(otIsconsignedDMP);
 } else {
+	var isAgent = false;
     if (vUserID.getValue() != 'anonymous') {
         if (!isAuthAgentLogin(vUserID.getValue())) {
             otDecId.value = getDecId(vUserID.getValue());
             otDecId.readOnly = true;
             expression.setReturn(otDecId);
-        }
+        }else {
+			isAgent = true;
+		}
     }
 
     var carcassTagId = osCarcassTagId.value;
@@ -238,12 +241,8 @@ if (!isValidUser) {
     }
 
     var ooReportingChannnel = expression.getValue("ASI::OTHER INFORMATION::Reporting Channel");
-    var isAgent = false;
-    if (agentId != null) {
-        isAgent = true;
-    }
-    ooReportingChannnel.hidden = !isAgent;
-    //ooReportingChannnel.readOnly = !isAgent;
+    //ooReportingChannnel.hidden = !isAgent;
+    ooReportingChannnel.readOnly = !isAgent;
     ooReportingChannnel.required = isAgent;
     if (isAgent) {
         ooReportingChannnel.value = '';
