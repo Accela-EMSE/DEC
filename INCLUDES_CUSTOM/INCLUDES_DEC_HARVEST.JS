@@ -350,7 +350,7 @@ function TAGOBJ(tagId) {
         if (isConsignedDMPtagOnly) {
             return (this.appTypeString == AA53_TAG_DMP_DEER);
         }
-        return (this.appTypeString == AA46_TAG_REG_SEASON_DEER || this.appTypeString == AA53_TAG_DMP_DEER);
+        return (this.appTypeString == AA46_TAG_REG_SEASON_DEER || this.appTypeString == AA53_TAG_DMP_DEER || this.appTypeString == AA48_TAG_BOW_MUZZ_EITHER_SEX || this.appTypeString == AA49_TAG_BOW_MUZZ_ANTLERLESS);
     }
     this.isFallTurkeyRecordtype = function () {
         return (this.appTypeString == AA51_TAG_FALL_TURKEY_TAG);
