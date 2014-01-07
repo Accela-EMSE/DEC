@@ -499,14 +499,11 @@ function GetTagsForHarvestReport(peopleSequenceNumber, isDeer, isBear, isFallTur
     var sql = "SELECT A.SERV_PROV_CODE,A.B1_PER_ID1,A.B1_PER_ID2,A.B1_PER_ID3,A.B1_PER_GROUP, A.B1_PER_TYPE, A.B1_PER_SUB_TYPE, A.B1_PER_CATEGORY,E.EXPIRATION_DATE ";
     sql += "FROM B1PERMIT A ";
     sql += "INNER JOIN B3CONTACT D ON A.SERV_PROV_CODE = D.SERV_PROV_CODE AND A.B1_PER_ID1 = D.B1_PER_ID1 AND A.B1_PER_ID2 = D.B1_PER_ID2 AND A.B1_PER_ID3 = D.B1_PER_ID3 ";
-    sql += "INNER JOIN BCHCKBOX B ON A.serv_prov_code = B.serv_prov_code and A.b1_per_id1 = B.b1_per_id1 and A.b1_per_id2 = B.b1_per_id2 and A.b1_per_id3 = B.b1_per_id3 ";
     sql += "LEFT JOIN B1_EXPIRATION E ON A.SERV_PROV_CODE= E.SERV_PROV_CODE AND A.B1_PER_ID1 = E.B1_PER_ID1 AND A.B1_PER_ID2 =E.B1_PER_ID2 AND A.B1_PER_ID3 = E.B1_PER_ID3 ";
     sql += "WHERE A.SERV_PROV_CODE = '" + aa.getServiceProviderCode() + "' ";
     sql += "AND D.G1_CONTACT_NBR = " + peopleSequenceNumber + " ";
     sql += "AND A.REC_STATUS='A' AND D.REC_STATUS='A' AND A.B1_MODULE_NAME ='Licenses' ";
-    sql += "AND B.B1_CHECKBOX_DESC = 'Year' ";
-    sql += "AND B.B1_CHECKBOX_GROUP = 'APPLICATION' ";
-    sql += "AND B1_CHECKLIST_COMMENT >= " + (parseInt(year, 10) - 1) + " ";
+    sql += "AND (E.EXPIRATION_DATE is NULL OR E.EXPIRATION_DATE > SYSDATE - 7) ";
     sql += "AND E.REC_STATUS='A' ";
     sql += "AND A.b1_per_group = 'Licenses' ";
     sql += "AND A.b1_per_type = 'Tag' ";
