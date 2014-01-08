@@ -519,9 +519,9 @@ function GetAllSalesItemsNames() {
     RecordTypeArray[RecordTypeArray.length] = LIC43_LIFETIME_CARD_REPLACE;
     RecordTypeArray[RecordTypeArray.length] = LIC44_SPORTSMAN_ED_CERTIFICATION;
     RecordTypeArray[RecordTypeArray.length] = LIC45_LIFETIME_INSCRIPTION;
-	//RecordTypeArray[RecordTypeArray.length] = LIC55_TAG_DRIV_LIC;
-	RecordTypeArray[RecordTypeArray.length] = LIC56_TAG_DRIV_LIC_IMM;
-	RecordTypeArray[RecordTypeArray.length] = LIC57_TAG_DRIV_LIC_REN;
+    //RecordTypeArray[RecordTypeArray.length] = LIC55_TAG_DRIV_LIC;
+    RecordTypeArray[RecordTypeArray.length] = LIC56_TAG_DRIV_LIC_IMM;
+    RecordTypeArray[RecordTypeArray.length] = LIC57_TAG_DRIV_LIC_REN;
     return RecordTypeArray;
 }
 
@@ -575,7 +575,7 @@ function SetVesrionSalesItemsOtherSale() {
 }
 function SetVesrionSalesItems2012() {
     var emptyArray = new Array();
-	// identity, recordType, feeSched, feeVersion, fnFeeRule, fnIsSelectableRule, fnprereqisiteArray, fnIncludesArray, fntagsArray, verifyRevokedHunting, verifyRevokedTrapping, verifyRevokedFishing) 
+    // identity, recordType, feeSched, feeVersion, fnFeeRule, fnIsSelectableRule, fnprereqisiteArray, fnIncludesArray, fntagsArray, verifyRevokedHunting, verifyRevokedTrapping, verifyRevokedFishing) 
     emptyArray.push(new SalesItemProp(LIC08_TURKEY_PERMIT, AA08_TURKEY_PERMIT, FEE_ANNUAL_TURKEY_PERMIT_SCHDL, "1", "getAllFeeCodeByRuleFor_ANNUAL_TRKY_2012", "isRuleForSelectable_ANNUAL_TRKY_2012", "getPrereq_ANNUAL_TRKY_2012", null, "getTag_ANNUAL_TRKY_2012", true, false, false));
     emptyArray.push(new SalesItemProp(LIC07_MUZZLELOADING_PRIVILEGE, AA07_MUZZLELOADING_PRIVILEGE, FEE_ANNUAL_MUZZLELOADING_SCHDL, "1", "getAllFeeCodeByRuleFor_ANNUAL_MUZZ_2012", "isRuleForSelectable_ANNUAL_MUZZ_2012", "getPrereq_ANNUAL_MUZZ_2012", null, "getTag_ANNUAL_MUZZ_2012", true, false, false));
     emptyArray.push(new SalesItemProp(LIC05_DEER_MANAGEMENT_PERMIT, AA05_DEER_MANAGEMENT_PERMIT, FEE_ANNUAL_DMP_SCHDL, "1", "getAllFeeCodeByRuleFor_ANNUAL_DMP", "isRuleForSelectable_ANNUAL_DMP_2012", "getPrereq_ANNUAL_DMP_2012", null, "getTag_ANNUAL_DMP_2012", true, false, false));
@@ -584,7 +584,7 @@ function SetVesrionSalesItems2012() {
     emptyArray.push(new SalesItemProp(LIC28_JUNIOR_BOWHUNTING, AA28_JUNIOR_BOWHUNTING, FEE_ANL_JUNIOR_BOWHUNT_SCHDL, "1", "getAllFeeCodeByRuleFor_JUNIOR_BOWHUNTING", "isRuleForSelectable_JUNIOR_BOWHUNTING", null, null, "getTag_JUNIOR_BOWHUNTING", true, false, false));
     emptyArray.push(new SalesItemProp(LIC29_JUNIOR_HUNTING, AA29_JUNIOR_HUNTING, FEE_ANL_JUNIOR_HUNTING_SCHDL, "1", "getAllFeeCodeByRuleFor_JUNIOR_HUNTING", "isRuleForSelectable_JUNIOR_HUNTING", null, null, "getTag_JUNIOR_HUNTING", true, false, false));
     emptyArray.push(new SalesItemProp(LIC01_JUNIOR_HUNTING_TAGS, AA57_JUNIOR_HUNTING_TAGS, FEE_ANL_JUNIOR_HUNT_TAG_SCHDL, "1", "getAllFeeCodeByRuleFor_JUNIOR_HUNT_TAGS", "isRuleForSelectable_JUNIOR_HUNT_TAGS", null, null, "getTag_JUNIOR_HUNT_TAGS", true, false, false));
-	emptyArray.push(new SalesItemProp(LIC33_NONRESIDENT_BIG_GAME, AA33_NONRESIDENT_BIG_GAME, FEE_ANL_NONRES_BIGGAME_SCHDL, "1", "getAllFeeCodeByRuleFor_NONRESIDENT_BIG_GAME", "isRuleForSelectable_NONRESIDENT_BIG_GAME", null, null, "getTag_NONRESIDENT_BIG_GAME", true, false, true));
+    emptyArray.push(new SalesItemProp(LIC33_NONRESIDENT_BIG_GAME, AA33_NONRESIDENT_BIG_GAME, FEE_ANL_NONRES_BIGGAME_SCHDL, "1", "getAllFeeCodeByRuleFor_NONRESIDENT_BIG_GAME", "isRuleForSelectable_NONRESIDENT_BIG_GAME", null, null, "getTag_NONRESIDENT_BIG_GAME", true, false, true));
     emptyArray.push(new SalesItemProp(LIC34_NONRESIDENT_BOWHUNTING, AA34_NONRESIDENT_BOWHUNTING, FEE_ANL_NONRES_BOWHUNT_SCHDL, "1", "getAllFeeCodeByRuleFor_NONRESIDENT_BOWHUNTING", "isRuleForSelectable_NONRESIDENT_BOWHUNTING", null, null, "getTag_NONRESIDENT_BOWHUNTING", true, false, false));
     emptyArray.push(new SalesItemProp(LIC35_NONRESIDENT_SMALL_GAME, AA35_NONRESIDENT_SMALL_GAME, FEE_ANL_NONRES_SMALLGAME_SCHDL, "1", "getAllFeeCodeByRuleFor_NONRESIDENT_SMALL_GAME", "isRuleForSelectable_NONRESIDENT_SMALL_GAME", null, "getIncl_NONRESIDENT_SMALL_GAME", "getTag_NONRESIDENT_SMALL_GAME", true, false, false));
     //Added fnprerequisiteArray to NONRES_MUZZLELOADING
@@ -615,7 +615,7 @@ function SetVesrionSalesItems2012() {
     emptyArray.push(new SalesItemProp(LIC14_LIFETIME_TRAPPING, AA14_LIFETIME_TRAPPING, FEE_LIFETIME_TRAPPING_SCHDL, "1", "getAllFeeCodeByRuleFor_LIFETM_TRAP", "isRuleForSelectable_LIFETM_TRAP", null, "getIncl_LIFETM_TRAP", null, false, true, false));
     emptyArray.push(new SalesItemProp(LIC45_LIFETIME_INSCRIPTION, AA45_LIFETIME_INSCRIPTION, FEE_LIFETIME_INSCRIPTION_SCHDL, "1", "getAllFeeCodeByRuleFor_LIFETM_INSCRIPTION", "isRuleForSelectable_LIFETM_INSCRIPTION", "getPrereq_LIFETM_INSCRIPTION", null, null, false, false, false));
     emptyArray.push(new SalesItemProp(LIC56_TAG_DRIV_LIC_IMM, AA55_TAG_DRIV_LIC_IMM, FEE_LIFETIME_DRIV_LIC_SCHDL, "1", "getAllFeeCodeByRuleFor_DRIV_LIC_IMM", "isRuleForSelectable_DRIV_LIC", "getPrereq_DRIV_LIC", null, null, false, false, false));
-	emptyArray.push(new SalesItemProp(LIC57_TAG_DRIV_LIC_REN, AA56_TAG_DRIV_LIC_REN, FEE_LIFETIME_DRIV_LIC_SCHDL, "1", "getAllFeeCodeByRuleFor_DRIV_LIC_REN", "isRuleForSelectable_DRIV_LIC", "getPrereq_DRIV_LIC", null, null, false, false, false));
+    emptyArray.push(new SalesItemProp(LIC57_TAG_DRIV_LIC_REN, AA56_TAG_DRIV_LIC_REN, FEE_LIFETIME_DRIV_LIC_SCHDL, "1", "getAllFeeCodeByRuleFor_DRIV_LIC_REN", "isRuleForSelectable_DRIV_LIC", "getPrereq_DRIV_LIC", null, null, false, false, false));
 
     emptyArray.push(new SalesItemProp(LIC32_NONRESIDENT_BEAR_TAG, AA32_NONRESIDENT_BEAR_TAG, FEE_TAG_BEAR_SCHDL, "1", "getAllFeeCodeByRuleFor_NONRESIDENT_BEAR_TAG", "isRuleForSelectable_NONRESIDENT_BEAR_TAG", "getPrereq_NONRESIDENT_BEAR_TAG", null, "getTag_NONRESIDENT_BEAR_TAG", true, false, false));
 
@@ -626,8 +626,8 @@ function SetVesrionSalesItems2012() {
     emptyArray.push(new SalesItemProp(LIC20_CONSERVATIONIST_MAGAZINE, AA20_CONSERVATIONIST_MAGAZINE, FEE_OTHER_SL_CONSRVMGZNE_SCHDL, "1", "getAllFeeCodeByRuleFor_OTHER_SALE_CONSERVATION_MAGAZINE", "isRuleForSelectable_OTHER_SALE_CONSERVATION_MAGAZINE", null, null, null, false, false, false));
     emptyArray.push(new SalesItemProp(LIC21_CONSERVATION_PATRON, AA21_CONSERVATION_PATRON, FEE_OTHER_SL_CONSERVPTRN_SCHDL, "1", "getAllFeeCodeByRuleFor_OTHER_SALE_CONSERVATION_PATRON_SCHDL", "isRuleForSelectable_OTHER_SALE_CONSERVATION_PATRON_SCHDL", null, null, null, false, false, false));
     emptyArray.push(new SalesItemProp(LIC43_LIFETIME_CARD_REPLACE, AA43_LIFETIME_CARD_REPLACE, FEE_OTHER_SL_LFTMCRDREP_SCHDL, "1", "getAllFeeCodeByRuleFor_LIFETIME_CARD_REPLACE", "isRuleForSelectable_LIFETIME_CARD_REPLACE", null, null, null, false, false, false));
-//    emptyArray.push(new SalesItemProp(LIC44_SPORTSMAN_ED_CERTIFICATION, AA44_SPORTSMAN_ED_CERTIFICATION, FEE_OTHER_SL_SPORTEDCERT_SCHDL, "1", "getAllFeeCodeByRuleFor_SPORTSMAN_ED_CERTIFICATION", "isRuleForSelectable_SPORTSMAN_ED_CERTIFICATION", null, null, null, false, false, false));		// See below...Raj
-    emptyArray.push(new SalesItemProp(LIC44_SPORTSMAN_ED_CERTIFICATION, AA44_SPORTSMAN_ED_CERTIFICATION, FEE_OTHER_SL_SPORTEDCERT_SCHDL, "1", "getAllFeeCodeByRuleFor_SPORTSMAN_ED_CERTIFICATION", "isRuleForSelectable_SPORTSMAN_ED_CERTIFICATION", null, null, null, true, false, true));		
+    //    emptyArray.push(new SalesItemProp(LIC44_SPORTSMAN_ED_CERTIFICATION, AA44_SPORTSMAN_ED_CERTIFICATION, FEE_OTHER_SL_SPORTEDCERT_SCHDL, "1", "getAllFeeCodeByRuleFor_SPORTSMAN_ED_CERTIFICATION", "isRuleForSelectable_SPORTSMAN_ED_CERTIFICATION", null, null, null, false, false, false));		// See below...Raj
+    emptyArray.push(new SalesItemProp(LIC44_SPORTSMAN_ED_CERTIFICATION, AA44_SPORTSMAN_ED_CERTIFICATION, FEE_OTHER_SL_SPORTEDCERT_SCHDL, "1", "getAllFeeCodeByRuleFor_SPORTSMAN_ED_CERTIFICATION", "isRuleForSelectable_SPORTSMAN_ED_CERTIFICATION", null, null, null, true, false, true));
     return emptyArray;
 }
 function SetVesrionSalesItems2014() {
@@ -636,9 +636,9 @@ function SetVesrionSalesItems2014() {
     emptyArray.push(new SalesItemProp(LIC06_HUNTING_LICENSE, AA06_HUNTING_LICENSE, FEE_ANNUAL_HUNTING_SCHDL, "1", "getAllFeeCodeByRuleFor_ANNUAL_HUNT", "isRuleForSelectable_ANNUAL_HUNT", null, null, "getTag_ANNUAL_HUNT", true, false, false));
     emptyArray.push(new SalesItemProp(LIC04_BOWHUNTING_PRIVILEGE, AA04_BOWHUNTING_PRIVILEGE, FEE_ANNUAL_BOWHUNTING_SCHDL, "2", "getAllFeeCodeByRuleFor_ANNUAL_BOWH_2014", "isRuleForSelectable_ANNUAL_BOWH_2014", "getPrereq_ANNUAL_BOWH_2014", null, "getTag_ANNUAL_BOWH_2014", true, false, false));
     emptyArray.push(new SalesItemProp(LIC07_MUZZLELOADING_PRIVILEGE, AA07_MUZZLELOADING_PRIVILEGE, FEE_ANNUAL_MUZZLELOADING_SCHDL, "2", "getAllFeeCodeByRuleFor_ANNUAL_MUZZ_2014", "isRuleForSelectable_ANNUAL_MUZZ_2014", "getPrereq_ANNUAL_MUZZ_2014", null, "getTag_ANNUAL_MUZZ_2014", true, false, false));
-	//RV - 11/25 - Original code had no record type (param 2). I'm not sure the sales item below is currently being used.  When testing for season beginning Oct 2013 -, the logic was being called from the 2012 version() salesItemProp() above.
-	emptyArray.push(new SalesItemProp(LIC01_JUNIOR_HUNTING_TAGS, AA57_JUNIOR_HUNTING_TAGS, FEE_ANL_JUNIOR_HUNT_TAG_SCHDL, "1", "getAllFeeCodeByRuleFor_JUNIOR_HUNT_TAGS", "isRuleForSelectable_JUNIOR_HUNT_TAGS", null, null, "getTag_JUNIOR_HUNT_TAGS", true, false, false));
-	emptyArray.push(new SalesItemProp(LIC08_TURKEY_PERMIT, AA08_TURKEY_PERMIT, FEE_ANNUAL_TURKEY_PERMIT_SCHDL, "2", "getAllFeeCodeByRuleFor_ANNUAL_TRKY_2014", "isRuleForSelectable_ANNUAL_TRKY_2014", "getPrereq_ANNUAL_TRKY_2014", null, "getTag_ANNUAL_TRKY_2014", true, false, false));
+    //RV - 11/25 - Original code had no record type (param 2). I'm not sure the sales item below is currently being used.  When testing for season beginning Oct 2013 -, the logic was being called from the 2012 version() salesItemProp() above.
+    emptyArray.push(new SalesItemProp(LIC01_JUNIOR_HUNTING_TAGS, AA57_JUNIOR_HUNTING_TAGS, FEE_ANL_JUNIOR_HUNT_TAG_SCHDL, "1", "getAllFeeCodeByRuleFor_JUNIOR_HUNT_TAGS", "isRuleForSelectable_JUNIOR_HUNT_TAGS", null, null, "getTag_JUNIOR_HUNT_TAGS", true, false, false));
+    emptyArray.push(new SalesItemProp(LIC08_TURKEY_PERMIT, AA08_TURKEY_PERMIT, FEE_ANNUAL_TURKEY_PERMIT_SCHDL, "2", "getAllFeeCodeByRuleFor_ANNUAL_TRKY_2014", "isRuleForSelectable_ANNUAL_TRKY_2014", "getPrereq_ANNUAL_TRKY_2014", null, "getTag_ANNUAL_TRKY_2014", true, false, false));
     emptyArray.push(new SalesItemProp(LIC05_DEER_MANAGEMENT_PERMIT, AA05_DEER_MANAGEMENT_PERMIT, FEE_ANNUAL_DMP_SCHDL, "1", "getAllFeeCodeByRuleFor_ANNUAL_DMP", "isRuleForSelectable_ANNUAL_DMP_2014", "getPrereq_ANNUAL_DMP_2014", null, "getTag_ANNUAL_DMP_2014", true, false, false));
     emptyArray.push(new SalesItemProp(LIC15_TRAPPING_LICENSE, AA15_TRAPPING_LICENSE, FEE_ANNUAL_TRAPPING_SCHDL, "2", "getAllFeeCodeByRuleFor_ANNUAL_TRAP_2014", "isRuleForSelectable_ANNUAL_TRAP_2014", null, null, null, false, true, false));
 
@@ -654,8 +654,8 @@ function SetVesrionSalesItems2014() {
     emptyArray.push(new SalesItemProp(LIC13_LIFETIME_SPORTSMAN, AA13_LIFETIME_SPORTSMAN, FEE_LIFETIME_SPORTSMAN_SCHDL, "1", "getAllFeeCodeByRuleFor_LIFETM_SPRT", "isRuleForSelectable_LIFETM_SPRT", null, "getIncl_LIFETM_SPRT", "getTag_LIFETM_SPRT", true, false, true));
     emptyArray.push(new SalesItemProp(LIC14_LIFETIME_TRAPPING, AA14_LIFETIME_TRAPPING, FEE_LIFETIME_TRAPPING_SCHDL, "1", "getAllFeeCodeByRuleFor_LIFETM_TRAP", "isRuleForSelectable_LIFETM_TRAP", null, "getIncl_LIFETM_TRAP", null, false, true, false));
     emptyArray.push(new SalesItemProp(LIC45_LIFETIME_INSCRIPTION, AA45_LIFETIME_INSCRIPTION, FEE_LIFETIME_INSCRIPTION_SCHDL, "1", "getAllFeeCodeByRuleFor_LIFETM_INSCRIPTION", "isRuleForSelectable_LIFETM_INSCRIPTION", "getPrereq_LIFETM_INSCRIPTION", null, null, false, false, false));
-	emptyArray.push(new SalesItemProp(LIC56_TAG_DRIV_LIC_IMM, AA55_TAG_DRIV_LIC_IMM, FEE_LIFETIME_DRIV_LIC_SCHDL, "1", "getAllFeeCodeByRuleFor_DRIV_LIC_IMM", "isRuleForSelectable_DRIV_LIC", "getPrereq_DRIV_LIC", null, null, false, false, false));
-	emptyArray.push(new SalesItemProp(LIC57_TAG_DRIV_LIC_REN, AA56_TAG_DRIV_LIC_REN, FEE_LIFETIME_DRIV_LIC_SCHDL, "1", "getAllFeeCodeByRuleFor_DRIV_LIC_REN", "isRuleForSelectable_DRIV_LIC", "getPrereq_DRIV_LIC", null, null, false, false, false));
+    emptyArray.push(new SalesItemProp(LIC56_TAG_DRIV_LIC_IMM, AA55_TAG_DRIV_LIC_IMM, FEE_LIFETIME_DRIV_LIC_SCHDL, "1", "getAllFeeCodeByRuleFor_DRIV_LIC_IMM", "isRuleForSelectable_DRIV_LIC", "getPrereq_DRIV_LIC", null, null, false, false, false));
+    emptyArray.push(new SalesItemProp(LIC57_TAG_DRIV_LIC_REN, AA56_TAG_DRIV_LIC_REN, FEE_LIFETIME_DRIV_LIC_SCHDL, "1", "getAllFeeCodeByRuleFor_DRIV_LIC_REN", "isRuleForSelectable_DRIV_LIC", "getPrereq_DRIV_LIC", null, null, false, false, false));
 
     emptyArray.push(new SalesItemProp(LIC16_HABITAT_ACCESS_STAMP, AA16_HABITAT_ACCESS_STAMP, FEE_OTHER_SL_HABITATACES_SCHDL, "1", "getAllFeeCodeByRuleFor_OTHER_SALE_HABITAT_ACCESS_SCHDL", "isRuleForSelectable_OTHER_SALE_HABITAT_ACCESS_SCHDL", null, null, null, false, false, false));
     emptyArray.push(new SalesItemProp(LIC17_VENISON_DONATION, AA17_VENISON_DONATION, FEE_OTHER_SL_VENISONDNTN_SCHDL, "1", "getAllFeeCodeByRuleFor_OTHER_SALE_VENISON_DONATION_SCHDL", "isRuleForSelectable_OTHER_SALE_VENISON_DONATION_SCHDL", null, null, null, false, false, false));
@@ -663,7 +663,7 @@ function SetVesrionSalesItems2014() {
     emptyArray.push(new SalesItemProp(LIC19_TRAIL_SUPPORTER_PATCH, AA19_TRAIL_SUPPORTER_PATCH, FEE_OTHER_SL_TRAILSUPP_SCHDL, "1", "getAllFeeCodeByRuleFor_OTHER_SALE_TRAIL_SUPPORTER_PATCH_SCHDL", "isRuleForSelectable_OTHER_SALE_TRAIL_SUPPORTER_PATCH_SCHDL", null, null, null, false, false, false));
     emptyArray.push(new SalesItemProp(LIC20_CONSERVATIONIST_MAGAZINE, AA20_CONSERVATIONIST_MAGAZINE, FEE_OTHER_SL_CONSRVMGZNE_SCHDL, "1", "getAllFeeCodeByRuleFor_OTHER_SALE_CONSERVATION_MAGAZINE", "isRuleForSelectable_OTHER_SALE_CONSERVATION_MAGAZINE", null, null, null, false, false, false));
     // JHS 10/10/2013 CP not in 2014 fees per defect 2075
-	//emptyArray.push(new SalesItemProp(LIC21_CONSERVATION_PATRON, AA21_CONSERVATION_PATRON, FEE_OTHER_SL_CONSERVPTRN_SCHDL, "1", "getAllFeeCodeByRuleFor_OTHER_SALE_CONSERVATION_PATRON_SCHDL", "isRuleForSelectable_OTHER_SALE_CONSERVATION_PATRON_SCHDL", null, null, null, false, false, false));
+    //emptyArray.push(new SalesItemProp(LIC21_CONSERVATION_PATRON, AA21_CONSERVATION_PATRON, FEE_OTHER_SL_CONSERVPTRN_SCHDL, "1", "getAllFeeCodeByRuleFor_OTHER_SALE_CONSERVATION_PATRON_SCHDL", "isRuleForSelectable_OTHER_SALE_CONSERVATION_PATRON_SCHDL", null, null, null, false, false, false));
     emptyArray.push(new SalesItemProp(LIC43_LIFETIME_CARD_REPLACE, AA43_LIFETIME_CARD_REPLACE, FEE_OTHER_SL_LFTMCRDREP_SCHDL, "1", "getAllFeeCodeByRuleFor_LIFETIME_CARD_REPLACE", "isRuleForSelectable_LIFETIME_CARD_REPLACE", null, null, null, true, true, true));
     emptyArray.push(new SalesItemProp(LIC44_SPORTSMAN_ED_CERTIFICATION, AA44_SPORTSMAN_ED_CERTIFICATION, FEE_OTHER_SL_SPORTEDCERT_SCHDL, "1", "getAllFeeCodeByRuleFor_SPORTSMAN_ED_CERTIFICATION", "isRuleForSelectable_SPORTSMAN_ED_CERTIFICATION", null, null, null, true, true, true));
 
@@ -900,12 +900,12 @@ function getAllFeeCodeByRuleFor_ANNUAL_TRKY_2014(ruleParams, feeSched) {
     //Annual Turkey Permit fee for Non-Resident having age  12+
     if (!rp.IsNyResiDent && rp.Age >= 12) { feeItemCodes.push(new FeeCodeProp(ATP_2_NORES, "000")); }
 
- //   if (rp.IsNyResiDent && rp.Age >= 12 && rp.IsDisableForYear) {
- //       //Military disabled persons will only be charged one $5 fee per license year for the their base licenses (trap, hunt, fish) whether they purchase one or all three.
- //       if (hasBaseLicMilitaryDisable(rp.ActiveHoldingsInfo)) {
- //           feeItemCodes.push(new FeeCodeProp(RESMD_FREE, "000"));
- //       }
- //   }
+    //   if (rp.IsNyResiDent && rp.Age >= 12 && rp.IsDisableForYear) {
+    //       //Military disabled persons will only be charged one $5 fee per license year for the their base licenses (trap, hunt, fish) whether they purchase one or all three.
+    //       if (hasBaseLicMilitaryDisable(rp.ActiveHoldingsInfo)) {
+    //           feeItemCodes.push(new FeeCodeProp(RESMD_FREE, "000"));
+    //       }
+    //   }
 
     if (feeItemCodes.length == 0) { feeItemCodes.push(new FeeCodeProp(ATP_2_NORES, "000")); }
     return feeItemCodes;
@@ -919,12 +919,12 @@ function getAllFeeCodeByRuleFor_ANNUAL_TRKY_2012(ruleParams, feeSched) {
     //Annual Turkey Permit fee for Non-Resident having age  12+
     if (!rp.IsNyResiDent && rp.Age >= 12) { feeItemCodes.push(new FeeCodeProp(ATP_1_RES, "000")); }
 
-//    if (rp.IsNyResiDent && rp.Age >= 12 && rp.IsDisableForYear) {
-//        //Military disabled persons will only be charged one $5 fee per license year for the their base licenses (trap, hunt, fish) whether they purchase one or all three.
-//        if (hasBaseLicMilitaryDisable(rp.ActiveHoldingsInfo)) {
-//            feeItemCodes.push(new FeeCodeProp(RESMD_FREE, "000"));
-//        }
-//    }
+    //    if (rp.IsNyResiDent && rp.Age >= 12 && rp.IsDisableForYear) {
+    //        //Military disabled persons will only be charged one $5 fee per license year for the their base licenses (trap, hunt, fish) whether they purchase one or all three.
+    //        if (hasBaseLicMilitaryDisable(rp.ActiveHoldingsInfo)) {
+    //            feeItemCodes.push(new FeeCodeProp(RESMD_FREE, "000"));
+    //        }
+    //    }
 
     if (feeItemCodes.length == 0) { feeItemCodes.push(new FeeCodeProp(ATP_2_NORES, "000")); }
     return feeItemCodes;
@@ -1069,15 +1069,15 @@ function getAllFeeCodeByRuleFor_LIFETM_INSCRIPTION(ruleParams, feeSched) {
 function getAllFeeCodeByRuleFor_DRIV_LIC_IMM(ruleParams, feeSched) {
     var feeItemCodes = new Array();
     var rp = ruleParams;
-    feeItemCodes.push(new FeeCodeProp(FEE_LIFETIME_DRIV_LIC_IMMED, "000")); 
-   return feeItemCodes;
+    feeItemCodes.push(new FeeCodeProp(FEE_LIFETIME_DRIV_LIC_IMMED, "000"));
+    return feeItemCodes;
 }
 
 function getAllFeeCodeByRuleFor_DRIV_LIC_REN(ruleParams, feeSched) {
     var feeItemCodes = new Array();
     var rp = ruleParams;
-    feeItemCodes.push(new FeeCodeProp(FEE_LIFETIME_DRIV_LIC_RENEW, "000")); 
-   return feeItemCodes;
+    feeItemCodes.push(new FeeCodeProp(FEE_LIFETIME_DRIV_LIC_RENEW, "000"));
+    return feeItemCodes;
 }
 
 function getAllFeeCodeByRuleFor_LIFETM_FISH(ruleParams, feeSched) {
@@ -1194,9 +1194,9 @@ function getAllFeeCodeByRuleFor_JUNIOR_BOWHUNTING(ruleParams, feeSched) {
     if (rp.IsNyResiDent && rp.Age >= 12 && rp.Age <= 15) { feeItemCodes.push(new FeeCodeProp(AJBH_1_RES, "000")); }
     //Annual Junior Bowhunting: NYS Resident Native American having age 12-15
     if (rp.IsNyResiDent && rp.Age >= 12 && rp.Age <= 15 && rp.IsNativeAmerican) { feeItemCodes.push(new FeeCodeProp(AJBH_2_RESNA, "000")); }
-	//Annual Junior Bowhunting: Non Resident having age 12-15 - Adding for Defect 8363
+    //Annual Junior Bowhunting: Non Resident having age 12-15 - Adding for Defect 8363
     if (!rp.IsNyResiDent && rp.Age >= 12 && rp.Age <= 15) { feeItemCodes.push(new FeeCodeProp(ANBH_2_NORES, "000")); }
-    
+
     if (feeItemCodes.length == 0) { feeItemCodes.push(new FeeCodeProp(AJBH_1_RES, "000")); }
     return feeItemCodes;
 }
@@ -1443,12 +1443,12 @@ function getAllFeeCodeByRuleFor_OTHER_SALE_CONSERVATION_PATRON_SCHDL(ruleParams,
     var feeItemCodes = new Array();
     var rp = ruleParams;
 
-	if (rp.IsNyResiDent) {
-		feeItemCodes.push(new FeeCodeProp(OS1_CNPATRN, "000"));
-		}
-	else {
-		feeItemCodes.push(new FeeCodeProp(OS2_CP_NORES, "000"));
-		}
+    if (rp.IsNyResiDent) {
+        feeItemCodes.push(new FeeCodeProp(OS1_CNPATRN, "000"));
+    }
+    else {
+        feeItemCodes.push(new FeeCodeProp(OS2_CP_NORES, "000"));
+    }
 
     //if (feeItemCodes.length == 0) { feeItemCodes.push(new FeeCodeProp(OS1_CNPATRN, "000")); }
     return feeItemCodes;
@@ -1457,12 +1457,12 @@ function getAllFeeCodeByRuleFor_OTHER_SALE_HABITAT_ACCESS_SCHDL(ruleParams, feeS
     var feeItemCodes = new Array();
     var rp = ruleParams;
 
-	if (rp.IsNyResiDent) {
-		feeItemCodes.push(new FeeCodeProp(OS1_HABITAT, "000"));
-		}
-	else {
-		feeItemCodes.push(new FeeCodeProp(OS2_NORES, "000"));
-		}
+    if (rp.IsNyResiDent) {
+        feeItemCodes.push(new FeeCodeProp(OS1_HABITAT, "000"));
+    }
+    else {
+        feeItemCodes.push(new FeeCodeProp(OS2_NORES, "000"));
+    }
 
     //if (feeItemCodes.length == 0) { feeItemCodes.push(new FeeCodeProp(OS1_HABITAT, "000")); }
     return feeItemCodes;
@@ -1471,14 +1471,14 @@ function getAllFeeCodeByRuleFor_OTHER_SALE_TRAIL_SUPPORTER_PATCH_SCHDL(ruleParam
     var feeItemCodes = new Array();
     var rp = ruleParams;
 
-	if (rp.IsNyResiDent) {
-		feeItemCodes.push(new FeeCodeProp(OS1_TRLPATCH, "000"));
-		}
-	else {
-		feeItemCodes.push(new FeeCodeProp(OS2_TP_NORES, "000"));
-		}	
-	
-		//if (feeItemCodes.length == 0) { feeItemCodes.push(new FeeCodeProp(OS1_TRLPATCH, "000")); }
+    if (rp.IsNyResiDent) {
+        feeItemCodes.push(new FeeCodeProp(OS1_TRLPATCH, "000"));
+    }
+    else {
+        feeItemCodes.push(new FeeCodeProp(OS2_TP_NORES, "000"));
+    }
+
+    //if (feeItemCodes.length == 0) { feeItemCodes.push(new FeeCodeProp(OS1_TRLPATCH, "000")); }
     return feeItemCodes;
 }
 function getAllFeeCodeByRuleFor_OTHER_SALE_VENISON_DONATION_SCHDL(ruleParams, feeSched) {
@@ -1687,7 +1687,7 @@ function isRuleForSelectable_TRAPPER_SUPER_SPORTSMAN(ruleParams) {
 }
 function isRuleForSelectable_LIFETIME_CARD_REPLACE(ruleParams) {
     var isSelectable = (ruleParams.HasLifetimelic());
-	
+
     return isSelectable;
 }
 function isRuleForSelectable_SPORTSMAN_ED_CERTIFICATION(ruleParams) {
@@ -1786,10 +1786,10 @@ function checkRuletoCreateTag(ruleParams, tagProp, dictTags) {
         //No need to generate new record since record will use to generate report
         isOkToCreate = false;
     }
-	if (tagProp.TagType == TAG_TYPE_25_DRIV_LIC_IMM) {
+    if (tagProp.TagType == TAG_TYPE_25_DRIV_LIC_IMM) {
         isOkToCreate = !ruleParams.isTagInActiveHodings(tagProp.RecordType, tagProp.TagType);
     }
-	if (tagProp.TagType == TAG_TYPE_26_DRIV_LIC_REN) {
+    if (tagProp.TagType == TAG_TYPE_26_DRIV_LIC_REN) {
         isOkToCreate = !ruleParams.isTagInActiveHodings(tagProp.RecordType, tagProp.TagType);
     }
     return isOkToCreate;
@@ -1833,12 +1833,12 @@ function getPrereq_DRIV_LIC(ruleParams) {
     var arryPrereq = null;
     if (isRuleForSelectable_DRIV_LIC(ruleParams)) {
         arryPrereq = new Array();
-		arryPrereq.push(LIC09_LIFETIME_BOWHUNTING);
-		arryPrereq.push(LIC10_LIFETIME_FISHING);
-		arryPrereq.push(LIC11_LIFETIME_MUZZLELOADING);
-		arryPrereq.push(LIC12_LIFETIME_SMALL_AND_BIG_GAME);
-		arryPrereq.push(LIC13_LIFETIME_SPORTSMAN);
-		arryPrereq.push(LIC14_LIFETIME_TRAPPING);
+        arryPrereq.push(LIC09_LIFETIME_BOWHUNTING);
+        arryPrereq.push(LIC10_LIFETIME_FISHING);
+        arryPrereq.push(LIC11_LIFETIME_MUZZLELOADING);
+        arryPrereq.push(LIC12_LIFETIME_SMALL_AND_BIG_GAME);
+        arryPrereq.push(LIC13_LIFETIME_SPORTSMAN);
+        arryPrereq.push(LIC14_LIFETIME_TRAPPING);
     }
     return arryPrereq;
 }
@@ -1875,37 +1875,37 @@ function getPrereq_ANNUAL_DMP_2014(ruleParams) {
     var arryPrereq = null;
     if (isRuleForSelectable_ANNUAL_DMP_2014(ruleParams)) {
         arryPrereq = new Array();
-		
-		// JHS 10/14/13 DMP rules defect
-		
-		if (rp.Age >= 12 && rp.Age <= 13) {
-				if (rp.HasHuntEd && rp.HasBowHunt) {
-					arryPrereq.push(LIC04_BOWHUNTING_PRIVILEGE);
-					arryPrereq.push(LIC28_JUNIOR_BOWHUNTING);
-					arryPrereq.push(LIC09_LIFETIME_BOWHUNTING);
-					}
-				}
-		else if (rp.Age >= 14 && rp.Age <= 15) {
-				if (rp.HasHuntEd) {
-					arryPrereq.push(LIC29_JUNIOR_HUNTING);
-					arryPrereq.push(LIC12_LIFETIME_SMALL_AND_BIG_GAME);
-					arryPrereq.push(LIC13_LIFETIME_SPORTSMAN);
-				}
-			}
-		else if (rp.Age > 16) {
-			arryPrereq.push(LIC06_HUNTING_LICENSE);
-			arryPrereq.push(LIC30_NONRES_MUZZLELOADING);
-			arryPrereq.push(LIC37_SMALL_AND_BIG_GAME);
-			arryPrereq.push(LIC12_LIFETIME_SMALL_AND_BIG_GAME);
-			arryPrereq.push(LIC33_NONRESIDENT_BIG_GAME);
-			arryPrereq.push(LIC34_NONRESIDENT_BOWHUNTING);
-			arryPrereq.push(LIC40_SUPER_SPORTSMAN);
-			arryPrereq.push(LIC13_LIFETIME_SPORTSMAN);
-			arryPrereq.push(LIC39_SPORTSMAN);
-			arryPrereq.push(LIC42_TRAPPER_SUPER_SPORTSMAN);
-			arryPrereq.push(LIC31_NONRES_SUPER_SPORTSMAN);
-			arryPrereq.push(LIC27_CONSERVATION_LEGACY);
-			}
+
+        // JHS 10/14/13 DMP rules defect
+
+        if (rp.Age >= 12 && rp.Age <= 13) {
+            if (rp.HasHuntEd && rp.HasBowHunt) {
+                arryPrereq.push(LIC04_BOWHUNTING_PRIVILEGE);
+                arryPrereq.push(LIC28_JUNIOR_BOWHUNTING);
+                arryPrereq.push(LIC09_LIFETIME_BOWHUNTING);
+            }
+        }
+        else if (rp.Age >= 14 && rp.Age <= 15) {
+            if (rp.HasHuntEd) {
+                arryPrereq.push(LIC29_JUNIOR_HUNTING);
+                arryPrereq.push(LIC12_LIFETIME_SMALL_AND_BIG_GAME);
+                arryPrereq.push(LIC13_LIFETIME_SPORTSMAN);
+            }
+        }
+        else if (rp.Age > 16) {
+            arryPrereq.push(LIC06_HUNTING_LICENSE);
+            arryPrereq.push(LIC30_NONRES_MUZZLELOADING);
+            arryPrereq.push(LIC37_SMALL_AND_BIG_GAME);
+            arryPrereq.push(LIC12_LIFETIME_SMALL_AND_BIG_GAME);
+            arryPrereq.push(LIC33_NONRESIDENT_BIG_GAME);
+            arryPrereq.push(LIC34_NONRESIDENT_BOWHUNTING);
+            arryPrereq.push(LIC40_SUPER_SPORTSMAN);
+            arryPrereq.push(LIC13_LIFETIME_SPORTSMAN);
+            arryPrereq.push(LIC39_SPORTSMAN);
+            arryPrereq.push(LIC42_TRAPPER_SUPER_SPORTSMAN);
+            arryPrereq.push(LIC31_NONRES_SUPER_SPORTSMAN);
+            arryPrereq.push(LIC27_CONSERVATION_LEGACY);
+        }
     }
     return arryPrereq;
 }
@@ -1915,37 +1915,37 @@ function getPrereq_ANNUAL_DMP_2012(ruleParams) {
     var arryPrereq = null;
     if (isRuleForSelectable_ANNUAL_DMP_2014(ruleParams)) {
         arryPrereq = new Array();
-		
-		// JHS 10/14/13 DMP rules defect
-		
 
-		if (rp.Age >= 12 && rp.Age <= 13) {
-				if (rp.HasHuntEd && rp.HasBowHunt) {
-					arryPrereq.push(LIC04_BOWHUNTING_PRIVILEGE);
-					arryPrereq.push(LIC28_JUNIOR_BOWHUNTING);
-					arryPrereq.push(LIC09_LIFETIME_BOWHUNTING);
-					}
-				}
-		else if (rp.Age >= 14 && rp.Age <= 15) {
-				if (rp.HasHuntEd) {
-					arryPrereq.push(LIC29_JUNIOR_HUNTING);
-					arryPrereq.push(LIC12_LIFETIME_SMALL_AND_BIG_GAME);
-					arryPrereq.push(LIC13_LIFETIME_SPORTSMAN);
-				}
-			}
-		else if (rp.Age > 16) {
-			arryPrereq.push(LIC30_NONRES_MUZZLELOADING);
-			arryPrereq.push(LIC37_SMALL_AND_BIG_GAME);
-			arryPrereq.push(LIC12_LIFETIME_SMALL_AND_BIG_GAME);
-			arryPrereq.push(LIC33_NONRESIDENT_BIG_GAME);
-			arryPrereq.push(LIC34_NONRESIDENT_BOWHUNTING);
-			arryPrereq.push(LIC40_SUPER_SPORTSMAN);
-			arryPrereq.push(LIC13_LIFETIME_SPORTSMAN);
-			arryPrereq.push(LIC39_SPORTSMAN);
-			arryPrereq.push(LIC42_TRAPPER_SUPER_SPORTSMAN);
-			arryPrereq.push(LIC31_NONRES_SUPER_SPORTSMAN);
-			arryPrereq.push(LIC27_CONSERVATION_LEGACY);
-			}
+        // JHS 10/14/13 DMP rules defect
+
+
+        if (rp.Age >= 12 && rp.Age <= 13) {
+            if (rp.HasHuntEd && rp.HasBowHunt) {
+                arryPrereq.push(LIC04_BOWHUNTING_PRIVILEGE);
+                arryPrereq.push(LIC28_JUNIOR_BOWHUNTING);
+                arryPrereq.push(LIC09_LIFETIME_BOWHUNTING);
+            }
+        }
+        else if (rp.Age >= 14 && rp.Age <= 15) {
+            if (rp.HasHuntEd) {
+                arryPrereq.push(LIC29_JUNIOR_HUNTING);
+                arryPrereq.push(LIC12_LIFETIME_SMALL_AND_BIG_GAME);
+                arryPrereq.push(LIC13_LIFETIME_SPORTSMAN);
+            }
+        }
+        else if (rp.Age > 16) {
+            arryPrereq.push(LIC30_NONRES_MUZZLELOADING);
+            arryPrereq.push(LIC37_SMALL_AND_BIG_GAME);
+            arryPrereq.push(LIC12_LIFETIME_SMALL_AND_BIG_GAME);
+            arryPrereq.push(LIC33_NONRESIDENT_BIG_GAME);
+            arryPrereq.push(LIC34_NONRESIDENT_BOWHUNTING);
+            arryPrereq.push(LIC40_SUPER_SPORTSMAN);
+            arryPrereq.push(LIC13_LIFETIME_SPORTSMAN);
+            arryPrereq.push(LIC39_SPORTSMAN);
+            arryPrereq.push(LIC42_TRAPPER_SUPER_SPORTSMAN);
+            arryPrereq.push(LIC31_NONRES_SUPER_SPORTSMAN);
+            arryPrereq.push(LIC27_CONSERVATION_LEGACY);
+        }
     }
     return arryPrereq;
 }
@@ -2153,7 +2153,7 @@ function getIncl_LIFETM_FISH(ruleParams) {
     arryInc.push(LIC22_FRESHWATER_FISHING);
     arryInc.push(LIC26_SEVEN_DAY_FISHING_LICENSE);
     arryInc.push(LIC13_LIFETIME_SPORTSMAN);
-	arryInc.push(LIC12_LIFETIME_SMALL_AND_BIG_GAME);
+    arryInc.push(LIC12_LIFETIME_SMALL_AND_BIG_GAME);
     return arryInc;
 }
 
@@ -2275,11 +2275,11 @@ function getTag_JUNIOR_HUNT_TAGS(ruleParams) {
     var rp = ruleParams;
     var arryTags = new Array();
     arryTags.push(TAG_TYPE_1_BACK_TAG);
-    
-	//RV - 11/25 - Add the appropriate tags for Aged In Junior Hunter (13 turned 14 during season)
-	arryTags.push(TAG_TYPE_3_REG_SEASON_DEER);
+
+    //RV - 11/25 - Add the appropriate tags for Aged In Junior Hunter (13 turned 14 during season)
+    arryTags.push(TAG_TYPE_3_REG_SEASON_DEER);
     arryTags.push(TAG_TYPE_2_BEAR_TAG);
-		
+
     return arryTags;
 }
 function getTag_NONRESIDENT_TURKEY(ruleParams) {
@@ -2341,29 +2341,29 @@ function getTag_NONRES_MUZZLELOADING(ruleParams) {
 
 /*
 function getTag_LIFETM_MUZZ(ruleParams) {
-    var rp = ruleParams;
-    var arryTags = new Array();
-    if (rp.Age >= 13 && rp.HasHuntEd) {
-        arryTags.push(TAG_TYPE_1_BACK_TAG);
-        if ((rp.EitherOrAntler & 4) == 0) {
-            arryTags.push(TAG_TYPE_19_DEER_OF_EITHER_SEX_TAG);
-        } else if ((rp.EitherOrAntler & 8) == 0) {
-            arryTags.push(TAG_TYPE_20_ANTLERLESS_DEER_TAG);
-        }
-    } else {
-        var cndFul = new COND_FULLFILLMENT();
-        if (rp.Age < 12) {
-            if (!hmfulfilmmentCond.containsKey(cndFul.Condition_VerifyAgedIn)) {
-                hmfulfilmmentCond.put(cndFul.Condition_VerifyAgedIn, cndFul.Condition_VerifyAgedIn);
-            }
-        }
-        if (!rp.HasHuntEd) {
-            if (!hmfulfilmmentCond.containsKey(cndFul.Condition_NeedHuntingEd)) {
-                hmfulfilmmentCond.put(cndFul.Condition_VerifyAgedIn, cndFul.Condition_VerifyAgedIn);
-            }
-        }
-    }
-    return arryTags;
+var rp = ruleParams;
+var arryTags = new Array();
+if (rp.Age >= 13 && rp.HasHuntEd) {
+arryTags.push(TAG_TYPE_1_BACK_TAG);
+if ((rp.EitherOrAntler & 4) == 0) {
+arryTags.push(TAG_TYPE_19_DEER_OF_EITHER_SEX_TAG);
+} else if ((rp.EitherOrAntler & 8) == 0) {
+arryTags.push(TAG_TYPE_20_ANTLERLESS_DEER_TAG);
+}
+} else {
+var cndFul = new COND_FULLFILLMENT();
+if (rp.Age < 12) {
+if (!hmfulfilmmentCond.containsKey(cndFul.Condition_VerifyAgedIn)) {
+hmfulfilmmentCond.put(cndFul.Condition_VerifyAgedIn, cndFul.Condition_VerifyAgedIn);
+}
+}
+if (!rp.HasHuntEd) {
+if (!hmfulfilmmentCond.containsKey(cndFul.Condition_NeedHuntingEd)) {
+hmfulfilmmentCond.put(cndFul.Condition_VerifyAgedIn, cndFul.Condition_VerifyAgedIn);
+}
+}
+}
+return arryTags;
 }
 */
 function getTag_LIFETM_MUZZ(ruleParams) {
@@ -2373,27 +2373,27 @@ function getTag_LIFETM_MUZZ(ruleParams) {
 
     if (rp.Age >= 12 && rp.HasHuntEd) {
         arryTags.push(TAG_TYPE_1_BACK_TAG);
-		}
-        
-	if (rp.Age >= 14 && rp.HasHuntEd) {
-		if ((rp.EitherOrAntler & 4) == 0) {
-				arryTags.push(TAG_TYPE_19_DEER_OF_EITHER_SEX_TAG);
-			} else if ((rp.EitherOrAntler & 8) == 0) {
-				arryTags.push(TAG_TYPE_20_ANTLERLESS_DEER_TAG);
-			}
-		} 
+    }
 
-	if (rp.Age < 12) {
-            if (!hmfulfilmmentCond.containsKey(cndFul.Condition_VerifyAgedIn)) {
-                hmfulfilmmentCond.put(cndFul.Condition_VerifyAgedIn, cndFul.Condition_VerifyAgedIn);
-            }
+    if (rp.Age >= 14 && rp.HasHuntEd) {
+        if ((rp.EitherOrAntler & 4) == 0) {
+            arryTags.push(TAG_TYPE_19_DEER_OF_EITHER_SEX_TAG);
+        } else if ((rp.EitherOrAntler & 8) == 0) {
+            arryTags.push(TAG_TYPE_20_ANTLERLESS_DEER_TAG);
         }
-        
-	if (!rp.HasHuntEd) {
-            if (!hmfulfilmmentCond.containsKey(cndFul.Condition_NeedHuntingEd)) {
-                hmfulfilmmentCond.put(cndFul.Condition_NeedHuntingEd, cndFul.Condition_NeedHuntingEd);
-            }
+    }
+
+    if (rp.Age < 12) {
+        if (!hmfulfilmmentCond.containsKey(cndFul.Condition_VerifyAgedIn)) {
+            hmfulfilmmentCond.put(cndFul.Condition_VerifyAgedIn, cndFul.Condition_VerifyAgedIn);
         }
+    }
+
+    if (!rp.HasHuntEd) {
+        if (!hmfulfilmmentCond.containsKey(cndFul.Condition_NeedHuntingEd)) {
+            hmfulfilmmentCond.put(cndFul.Condition_NeedHuntingEd, cndFul.Condition_NeedHuntingEd);
+        }
+    }
 
     return arryTags;
 }
@@ -2600,7 +2600,7 @@ function getTag_TRAPPER_SUPER_SPORTSMAN(ruleParams) {
     arryTags.push(TAG_TYPE_3_REG_SEASON_DEER);
     arryTags.push(TAG_TYPE_2_BEAR_TAG);
     arryTags.push(TAG_TYPE_19_DEER_OF_EITHER_SEX_TAG);
-//	arryTags.push(TAG_TYPE_20_ANTLERLESS_DEER_TAG);  - Raj Koul 11/05/2014
+    //	arryTags.push(TAG_TYPE_20_ANTLERLESS_DEER_TAG);  - Raj Koul 11/05/2014
     arryTags.push(TAG_TYPE_16_SPRING_TURKEY_TAG_1);
     arryTags.push(TAG_TYPE_15_SPRING_TURKEY_TAG_2);
     arryTags.push(TAG_TYPE_14_FALL_TURKEY_STATEWIDE);
@@ -2650,12 +2650,12 @@ function getTag_ANNUAL_HUNT(ruleParams) {
         arryTags.push(TAG_TYPE_3_REG_SEASON_DEER);
         arryTags.push(TAG_TYPE_2_BEAR_TAG);
     }
-	
-	if (!rp.IsNyResiDent && rp.Age >= 14) {
-	    arryTags.push(TAG_TYPE_3_REG_SEASON_DEER);
+
+    if (!rp.IsNyResiDent && rp.Age >= 14) {
+        arryTags.push(TAG_TYPE_3_REG_SEASON_DEER);
         arryTags.push(TAG_TYPE_2_BEAR_TAG);
-	}
-	
+    }
+
     return arryTags;
 }
 ///
@@ -2718,10 +2718,10 @@ function getActiveholdingsFilterArray() {
     validRecTypeArray.push(AA52_TAG_BACK);
     validRecTypeArray.push(AA53_TAG_DMP_DEER);
     validRecTypeArray.push(AA54_TAG_PRIV_PANEL);
-	validRecTypeArray.push(AA55_TAG_DRIV_LIC_IMM);
+    validRecTypeArray.push(AA55_TAG_DRIV_LIC_IMM);
     validRecTypeArray.push(AA56_TAG_DRIV_LIC_REN);
     //11/25/2013 - RV - Place Junior Hunting Tags in Active holdings(?)
-	validRecTypeArray.push(AA57_JUNIOR_HUNTING_TAGS);	
+    validRecTypeArray.push(AA57_JUNIOR_HUNTING_TAGS);
 
     return validRecTypeArray;
 
@@ -2775,10 +2775,18 @@ function hasBaseDMP(activeHoldingsInfo) {
             if (activeHoldingsInfo[idx].RecordType == AA05_DEER_MANAGEMENT_PERMIT) {
                 if (isNull(itemCapString, '') != '') {
                     var itemCapId = getCapId(itemCapString);
-                    var itemAinfo = new Array();
-                    loadAppSpecific(itemAinfo, itemCapId);
-                    isExist = (itemAinfo["Draw Type"] == "INSTANT");
-                    aa.print(isExist);
+					//JIRA - 41760
+                    loadASITables(itemCapId);
+                    if (typeof (DRAWRESULT) == "object") {
+                        for (y in DRAWRESULT) {
+                            var drawType = DRAWRESULT[y]["DRAW TYPE"];
+                            if (drawType == "INSTANT") {
+                                isExist = true;
+                                break;
+                            }
+                        }
+                    }
+					//
                 }
             } else if (activeHoldingsInfo[idx].RecordType == AA13_LIFETIME_SPORTSMAN) {
                 isExist = (dateDiff(convertDate("10/1/2009"), convertDate(activeHoldingsInfo[idx].FromDate)) <= 0);
@@ -2812,7 +2820,7 @@ function hasWmuDefinedItems(activeHoldingsInfo) {
 }
 function hasJuniorTagItems(activeHoldingsInfo) {
     //Used to determine if Junior Tags are allowed to be purchased (can't purchase twice)
-	var isExist = false;
+    var isExist = false;
 
     var validRecArray = Array();
     validRecArray.push(AA57_JUNIOR_HUNTING_TAGS);
@@ -2830,13 +2838,13 @@ function differBySwitch(year) {
     var differYear = year;
 
     var strSwitchDate = lookup("DEC_CONFIG", "SWITCH_DATE");
-    
+
     /*
     var strSwitchDateOverride = lookup("SWITCH_DATE_OVERRIDE",publicUserID);
 
     if (strSwitchDateOverride != undefined)
-    		strSwitchDate = strSwitchDateOverride;    	
-	*/
+    strSwitchDate = strSwitchDateOverride;    	
+    */
     if (isNull(strSwitchDate, '') != '') {
         var seasonPeriod = GetDateRange(DEC_CONFIG, LICENSE_SEASON, year);
 
@@ -2851,26 +2859,26 @@ function differBySwitch(year) {
     return differYear;
 }
 function isAfterSwitchDate() {
-	
-    if (!"not set".equals(isAfterSwitchDateFlag)) {  
-		return isAfterSwitchDateFlag; // use cached value
-		}
-		
-	var retVal = true;
-	
+
+    if (!"not set".equals(isAfterSwitchDateFlag)) {
+        return isAfterSwitchDateFlag; // use cached value
+    }
+
+    var retVal = true;
+
     var strSwitchDate = lookup("DEC_CONFIG", "SWITCH_DATE");
     /*
     var strSwitchDateOverride = lookup("SWITCH_DATE_OVERRIDE",publicUserID);
 
     if (strSwitchDateOverride != undefined)
-    		strSwitchDate = strSwitchDateOverride;  
-	*/
+    strSwitchDate = strSwitchDateOverride;  
+    */
     if (isNull(strSwitchDate, '') != '') {
         var switchDate = new Date(strSwitchDate);
         var diff = dateDiff(switchDate, new Date());
         retVal = (diff >= 0);
     }
-	isAfterSwitchDateFlag = retVal;
+    isAfterSwitchDateFlag = retVal;
     return retVal;
 }
 function getVoidableFilterArray() {
@@ -2884,14 +2892,14 @@ function getVoidableFilterArray() {
     validRecTypeArray.push(AA06_HUNTING_LICENSE);
     validRecTypeArray.push(AA07_MUZZLELOADING_PRIVILEGE);
     validRecTypeArray.push(AA08_TURKEY_PERMIT);
-	//JIRA: 15710
-	//validRecTypeArray.push(AA09_LIFETIME_BOWHUNTING);
+    //JIRA: 15710
+    //validRecTypeArray.push(AA09_LIFETIME_BOWHUNTING);
     //validRecTypeArray.push(AA10_LIFETIME_FISHING);
     //validRecTypeArray.push(AA11_LIFETIME_MUZZLELOADING);
     //validRecTypeArray.push(AA12_LIFETIME_SMALL_AND_BIG_GAME);
     //validRecTypeArray.push(AA13_LIFETIME_SPORTSMAN);
     //validRecTypeArray.push(AA14_LIFETIME_TRAPPING);
-	//---
+    //---
     validRecTypeArray.push(AA15_TRAPPING_LICENSE);
     //validRecTypeArray.push(AA16_HABITAT_ACCESS_STAMP);
     //validRecTypeArray.push(AA17_VENISON_DONATION);
@@ -2991,9 +2999,9 @@ function getReprintFilterArray() {
     validRecTypeArray.push(AA51_TAG_FALL_TURKEY_TAG);
     validRecTypeArray.push(AA52_TAG_BACK);
     validRecTypeArray.push(AA53_TAG_DMP_DEER);
-// RV 11/25 - TESTING -	validRecTypeArray.push(AA57_JUNIOR_HUNTING_TAGS);
+    // RV 11/25 - TESTING -	validRecTypeArray.push(AA57_JUNIOR_HUNTING_TAGS);
     //Do not allow Privilege Panels to be reprinted
-	//validRecTypeArray.push(AA54_TAG_PRIV_PANEL);
+    //validRecTypeArray.push(AA54_TAG_PRIV_PANEL);
 
     return validRecTypeArray;
 }
@@ -3141,10 +3149,10 @@ function COND_IBP() {
             return this.GetQryForSetforIBPChoice();
         }
         /*
-		if (fullfillmentType == this.Condition_SetforIBPChoice_2) {
-            return this.GetQryForSetforIBPChoice_2();
+        if (fullfillmentType == this.Condition_SetforIBPChoice_2) {
+        return this.GetQryForSetforIBPChoice_2();
         }
-		*/
+        */
         if (fullfillmentType == this.Condition_WMUChoice_1) {
             return this.GetQryForWMUChoice_1();
         }
@@ -3169,18 +3177,18 @@ function COND_IBP() {
         return emCondm;
     }
 
-	/*
+    /*
     this.GetQryForSetforIBPChoice_2 = function () {
-        var emCondm = aa.proxyInvoker.newInstance("com.accela.aa.aamain.cap.CapConditionModel").getOutput();
-        emCondm.setServiceProviderCode(aa.getServiceProviderCode());
-        emCondm.setConditionGroup(this.ConditionGroup);
-        emCondm.setConditionType(this.ConditionGroup);
-        emCondm.setConditionDescription(this.Condition_SetforIBPChoice_2);
+    var emCondm = aa.proxyInvoker.newInstance("com.accela.aa.aamain.cap.CapConditionModel").getOutput();
+    emCondm.setServiceProviderCode(aa.getServiceProviderCode());
+    emCondm.setConditionGroup(this.ConditionGroup);
+    emCondm.setConditionType(this.ConditionGroup);
+    emCondm.setConditionDescription(this.Condition_SetforIBPChoice_2);
 
-        return emCondm;
+    return emCondm;
     }
-	*/
-	
+    */
+
     this.GetQryForWMUChoice_1 = function () {
         var emCondm = aa.proxyInvoker.newInstance("com.accela.aa.aamain.cap.CapConditionModel").getOutput();
         emCondm.setServiceProviderCode(aa.getServiceProviderCode());
@@ -3255,12 +3263,12 @@ function getRevokHuntRecTypeArray() {
     validRecTypeArray.push(AA52_TAG_BACK);
     validRecTypeArray.push(AA53_TAG_DMP_DEER);
     validRecTypeArray.push(AA54_TAG_PRIV_PANEL);
-	
-// JIRA-16742
-	validRecTypeArray.push (AA09_LIFETIME_BOWHUNTING);
-	validRecTypeArray.push (AA11_LIFETIME_MUZZLELOADING);
-	validRecTypeArray.push (AA12_LIFETIME_SMALL_AND_BIG_GAME);
-	validRecTypeArray.push (AA13_LIFETIME_SPORTSMAN);
+
+    // JIRA-16742
+    validRecTypeArray.push(AA09_LIFETIME_BOWHUNTING);
+    validRecTypeArray.push(AA11_LIFETIME_MUZZLELOADING);
+    validRecTypeArray.push(AA12_LIFETIME_SMALL_AND_BIG_GAME);
+    validRecTypeArray.push(AA13_LIFETIME_SPORTSMAN);
 
     return validRecTypeArray;
 }
@@ -3275,10 +3283,10 @@ function getRevokFishRecTypeArray() {
     validRecTypeArray.push(AA24_NONRESIDENT_1_DAY_FISHING);
     validRecTypeArray.push(AA25_NONRESIDENT_7_DAY_FISHING);
     validRecTypeArray.push(AA26_SEVEN_DAY_FISHING_LICENSE);
-	validRecTypeArray.push(AA54_TAG_PRIV_PANEL);
-	
-// JIRA-16742
-	validRecTypeArray.push (AA10_LIFETIME_FISHING);
+    validRecTypeArray.push(AA54_TAG_PRIV_PANEL);
+
+    // JIRA-16742
+    validRecTypeArray.push(AA10_LIFETIME_FISHING);
 
     return validRecTypeArray;
 }
@@ -3289,10 +3297,10 @@ function getRevokTrapRecTypeArray() {
     validRecTypeArray.push(AA15_TRAPPING_LICENSE);
     validRecTypeArray.push(AA41_NONRESIDENT_TRAPPING);
     validRecTypeArray.push(AA42_TRAPPER_SUPER_SPORTSMAN); //TODO
-	validRecTypeArray.push(AA54_TAG_PRIV_PANEL);
+    validRecTypeArray.push(AA54_TAG_PRIV_PANEL);
 
-// JIRA-16742
-	validRecTypeArray.push (AA14_LIFETIME_TRAPPING);
+    // JIRA-16742
+    validRecTypeArray.push(AA14_LIFETIME_TRAPPING);
 
     return validRecTypeArray;
 }
