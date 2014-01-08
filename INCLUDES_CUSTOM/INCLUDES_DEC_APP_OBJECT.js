@@ -128,11 +128,11 @@ function form_OBJECT(identity) {
     this.IsNativeAmerican = "";
     this.PreferencePoints = new Number();
     this.PreferencePoints = 0;
-	
-	// DRIVER LICENSE
-	
-	this.DriverLicenseState =  "";
-	this.DriverLicenseNumber = "";
+
+    // DRIVER LICENSE
+
+    this.DriverLicenseState = "";
+    this.DriverLicenseNumber = "";
 
     //MILITARY ACTIVE SERVICE STATUS
     this.IsMilitaryServiceman = "";
@@ -551,7 +551,7 @@ function form_OBJECT(identity) {
     this.SetMessage = function (licIdentity, message) {
         this.licObjARRAY[this.licensesNameArray[licIdentity]].Message += message;
     }
-    this.SetSelected = function (licIdentity, bIsSelected,sortOrder) {
+    this.SetSelected = function (licIdentity, bIsSelected, sortOrder) {
         this.licObjARRAY[this.licensesNameArray[licIdentity]].IsSelected = bIsSelected;
         this.licObjARRAY[this.licensesNameArray[licIdentity]].sortOrder = sortOrder;
     }
@@ -601,10 +601,10 @@ function form_OBJECT(identity) {
         ruleParams.HasBowPriv = this.HasBowPriv;
         ruleParams.HasMuzzPriv = this.HasMuzzPriv;
         ruleParams.EitherOrAntler = this.EitherOrAntler;
-		ruleParams.hasValidNYDriverLicense = String(isNull(this.DriverLicenseState,'')).toUpperCase().equals("NY") && String(isNull(this.DriverLicenseNumber,'')).length > 0;
+        ruleParams.hasValidNYDriverLicense = String(isNull(this.DriverLicenseState, '')).toUpperCase().equals("NY") && String(isNull(this.DriverLicenseNumber, '')).length > 0;
         return ruleParams;
     }
-	
+
     this.setLoginUserType = function () {
         var isvalid = false;
         var uObj;
@@ -719,10 +719,10 @@ function form_OBJECT(identity) {
                     this.licObjARRAY[idx].isRevoked = isRevoked;
 
                     this.licObjARRAY[idx].IsActive = isActive;
-                    
+
                     //Defect 16668 - always make 1 and 7 day fishing licenses selectable.
-                    if (matches(this.licObjARRAY[idx].Identity,LIC03_ONE_DAY_FISHING_LICENSE,LIC26_SEVEN_DAY_FISHING_LICENSE,LIC24_NONRESIDENT_1_DAY_FISHING,LIC25_NONRESIDENT_7_DAY_FISHING))
-                      this.licObjARRAY[idx].IsSelectable = (isActive && isSelectable && isValidUser && !isInCombo && !isRevoked);
+                    if (matches(this.licObjARRAY[idx].Identity, LIC03_ONE_DAY_FISHING_LICENSE, LIC26_SEVEN_DAY_FISHING_LICENSE, LIC24_NONRESIDENT_1_DAY_FISHING, LIC25_NONRESIDENT_7_DAY_FISHING))
+                        this.licObjARRAY[idx].IsSelectable = (isActive && isSelectable && isValidUser && !isInCombo && !isRevoked);
                     else
                         this.licObjARRAY[idx].IsSelectable = (isActive && isSelectable && isValidUser && !isInCombo && !isInActiveHoldings && !isRevoked);
                 }
@@ -769,11 +769,11 @@ function form_OBJECT(identity) {
             }
             //if (idx == 42) break;
         }
-        
+
         var msgNotQual = "The items are not available for selection because the customer is not qualified or they are already in current holdings.\n"
         var msgRevoked = this.isPublicUser ? "This set of privileges have been revoked and are not available for purchase.\n" : "This set of privileges are not available for purchase.\n";
         var msgDEC = this.isPublicUser ? "This issue can only be resolved by contacting DEC Law Enforcement during business hours at 518-402-8821.\n" : "Instruct the customer that the only way to resolve this is to contact DEC during business hours at 518-402-8821.\n";
-                //Msg changed per Law Enforcement...Raj  
+        //Msg changed per Law Enforcement...Raj  
         if (this.CountHunterGroup == 0) {
             this.MessageHunter = msgNotQual;
         }
@@ -1215,7 +1215,7 @@ function form_OBJECT(identity) {
         return retMsg;
     }
     this.isAfterSwitchDate = function () {
-		//JIRA: 17503
+        //JIRA: 17503
         return isAfterSwitchDate();
     }
     this.SetItemFeeSched = function (psRef, ruleParams) {
@@ -1329,6 +1329,27 @@ function form_OBJECT(identity) {
                                 if (!isExist) {
                                     isExist = ((dateDiff(new Date(), convertDate(this.ActiveHoldingsInfo[idx].ToDate))) > 0);
                                 }
+								//JIRA - 41760
+                                if (psRef == LIC05_DEER_MANAGEMENT_PERMIT && isExist && this.ActiveHoldingsInfo[idx].RecordType == AA05_DEER_MANAGEMENT_PERMIT) {
+                                    var foundDrawType = false;
+                                    var searchId = this.ActiveHoldingsInfo[idx].Tag_or_DocumentID;
+                                    var dmpCapId = getCapId(searchId);
+                                    if (dmpCapId) {
+                                        var dmpCap = aa.cap.getCap(dmpCapId).getOutput();
+                                        loadASITables(dmpCapId);
+                                        if (typeof (DRAWRESULT) == "object") {
+                                            for (y in DRAWRESULT) {
+                                                var drawType = DRAWRESULT[y]["DRAW TYPE"];
+                                                if (drawType == this.currDrawType) {
+                                                    foundDrawType = true;
+                                                    break;
+                                                }
+                                            }
+                                        }
+                                    }
+                                    isExist = foundDrawType;
+                                }
+								//
                                 break;
                             }
                         }
@@ -1537,7 +1558,7 @@ function License_OBJ(identity, active) {
     this.isHasPrereq = false;
     this.isSelectableByFee = false;
     this.isAfterSwitchDateFlag = isAfterSwitchDate();
-    
+
     this.toString = function (fromAca) {
         var result = '';
         var lf = fromAca == "Yes" ? '<br />' : ', ';
@@ -1758,8 +1779,8 @@ function rulePARAMS(identity) {
     this.EitherOrAntler = 2; //1:None; 6=2|4:E; 14=2|4|8:A;
     this.HasBowPriv = false;
     this.HasMuzzPriv = false;
-	this.hasValidNYDriverLicense = false;
-		
+    this.hasValidNYDriverLicense = false;
+
     this.SetEitherOrAntler = function (eEitherOrAntler) {
         //eEitherOrAntler=4:E; eEitherOrAntler=8:A;
         this.EitherOrAntler = this.EitherOrAntler | eEitherOrAntler;
@@ -1862,7 +1883,7 @@ function rulePARAMS(identity) {
         sbArray.push(this.HasMuzzPriv);
         scArray.push("HasMuzzPriv: ");
         sbArray.push(this.HasMuzzPriv);
-		scArray.push("HasMuzzPriv: ");
+        scArray.push("HasMuzzPriv: ");
         sbArray.push(this.HasMuzzPriv);
         for (var c in sbArray) {
             result += scArray[c];
@@ -2108,52 +2129,52 @@ function isNull(pTestValue, pNewValue) {
 function getActiveHoldings(peopleSequenceNumber, year) {
     var availableActiveItems = new Array();
     var validActiveholdingsArray = getActiveholdingsFilterArray();
-    if(year && year !== undefined) {
+    if (year && year !== undefined) {
         var sql = "SELECT A.SERV_PROV_CODE,A.B1_PER_ID1,A.B1_PER_ID2,A.B1_PER_ID3,A.B1_PER_GROUP, A.B1_PER_TYPE, A.B1_PER_SUB_TYPE, A.B1_PER_CATEGORY,E.EXPIRATION_DATE  FROM B1PERMIT A ";
-            sql +="INNER JOIN B3CONTACT D ON A.SERV_PROV_CODE = D.SERV_PROV_CODE AND A.B1_PER_ID1 = D.B1_PER_ID1 AND A.B1_PER_ID2 = D.B1_PER_ID2 AND A.B1_PER_ID3 = D.B1_PER_ID3 ";
-            sql +="INNER JOIN BCHCKBOX B ON A.serv_prov_code = B.serv_prov_code and A.b1_per_id1 = B.b1_per_id1 and A.b1_per_id2 = B.b1_per_id2 and A.b1_per_id3 = B.b1_per_id3 ";
-            sql +="LEFT JOIN B1_EXPIRATION E ON A.SERV_PROV_CODE= E.SERV_PROV_CODE AND A.B1_PER_ID1 = E.B1_PER_ID1 AND A.B1_PER_ID2 =E.B1_PER_ID2 AND A.B1_PER_ID3 = E.B1_PER_ID3 ";
-            sql +="WHERE A.SERV_PROV_CODE = '" + aa.getServiceProviderCode() + "' ";
-            sql +="AND D.G1_CONTACT_NBR = " + peopleSequenceNumber + " ";
-            sql +="AND A.REC_STATUS='A' AND D.REC_STATUS='A' AND A.B1_MODULE_NAME ='Licenses' ";
-            sql +="AND (A.B1_APPL_STATUS = 'Approved' OR  A.B1_APPL_STATUS = 'Active') ";
-            sql +="AND B.B1_CHECKBOX_DESC = 'Year' ";
-            sql +="AND B.B1_CHECKBOX_GROUP = 'APPLICATION' ";
-            sql +="AND B1_CHECKLIST_COMMENT <= " + year + " ";
-            sql +="AND E.REC_STATUS='A' ";
-            sql +="AND (E.EXPIRATION_DATE is NULL OR E.EXPIRATION_DATE > SYSDATE) ";
-        }
+        sql += "INNER JOIN B3CONTACT D ON A.SERV_PROV_CODE = D.SERV_PROV_CODE AND A.B1_PER_ID1 = D.B1_PER_ID1 AND A.B1_PER_ID2 = D.B1_PER_ID2 AND A.B1_PER_ID3 = D.B1_PER_ID3 ";
+        sql += "INNER JOIN BCHCKBOX B ON A.serv_prov_code = B.serv_prov_code and A.b1_per_id1 = B.b1_per_id1 and A.b1_per_id2 = B.b1_per_id2 and A.b1_per_id3 = B.b1_per_id3 ";
+        sql += "LEFT JOIN B1_EXPIRATION E ON A.SERV_PROV_CODE= E.SERV_PROV_CODE AND A.B1_PER_ID1 = E.B1_PER_ID1 AND A.B1_PER_ID2 =E.B1_PER_ID2 AND A.B1_PER_ID3 = E.B1_PER_ID3 ";
+        sql += "WHERE A.SERV_PROV_CODE = '" + aa.getServiceProviderCode() + "' ";
+        sql += "AND D.G1_CONTACT_NBR = " + peopleSequenceNumber + " ";
+        sql += "AND A.REC_STATUS='A' AND D.REC_STATUS='A' AND A.B1_MODULE_NAME ='Licenses' ";
+        sql += "AND (A.B1_APPL_STATUS = 'Approved' OR  A.B1_APPL_STATUS = 'Active') ";
+        sql += "AND B.B1_CHECKBOX_DESC = 'Year' ";
+        sql += "AND B.B1_CHECKBOX_GROUP = 'APPLICATION' ";
+        sql += "AND B1_CHECKLIST_COMMENT <= " + year + " ";
+        sql += "AND E.REC_STATUS='A' ";
+        sql += "AND (E.EXPIRATION_DATE is NULL OR E.EXPIRATION_DATE > SYSDATE) ";
+    }
     else {
         var sql = "SELECT A.SERV_PROV_CODE,A.B1_PER_ID1,A.B1_PER_ID2,A.B1_PER_ID3,A.B1_PER_GROUP, A.B1_PER_TYPE, A.B1_PER_SUB_TYPE, A.B1_PER_CATEGORY,E.EXPIRATION_DATE  FROM B1PERMIT A ";
-            sql +="INNER JOIN B3CONTACT D ON A.SERV_PROV_CODE = D.SERV_PROV_CODE AND A.B1_PER_ID1 = D.B1_PER_ID1 AND A.B1_PER_ID2 = D.B1_PER_ID2 AND A.B1_PER_ID3 = D.B1_PER_ID3 ";
-            sql +="LEFT JOIN B1_EXPIRATION E ON A.SERV_PROV_CODE= E.SERV_PROV_CODE AND A.B1_PER_ID1 = E.B1_PER_ID1 AND A.B1_PER_ID2 =E.B1_PER_ID2 AND A.B1_PER_ID3 = E.B1_PER_ID3 ";
-            sql+=   "WHERE A.SERV_PROV_CODE = '" + aa.getServiceProviderCode() + "' ";
-            sql+=   "AND D.g1_contact_nbr = " + peopleSequenceNumber + " ";
-            sql+=   "AND A.rec_status = 'A' AND D.rec_status = 'A' AND A.b1_module_name = 'Licenses' ";
-            sql+=   "AND ( A.b1_appl_status = 'Approved' OR A.b1_appl_status = 'Active' ) ";
-            sql+=   "AND E.rec_status = 'A' ";
-            sql+=   "AND ( E.expiration_date IS NULL ";
-            sql+=   "OR E.expiration_date > SYSDATE ) ";
-        }
-        
-    var initialContext = aa.proxyInvoker.newInstance("javax.naming.InitialContext", null).getOutput(); 
-    var ds = initialContext.lookup("java:/AA"); 
-    var conn = ds.getConnection(); 
+        sql += "INNER JOIN B3CONTACT D ON A.SERV_PROV_CODE = D.SERV_PROV_CODE AND A.B1_PER_ID1 = D.B1_PER_ID1 AND A.B1_PER_ID2 = D.B1_PER_ID2 AND A.B1_PER_ID3 = D.B1_PER_ID3 ";
+        sql += "LEFT JOIN B1_EXPIRATION E ON A.SERV_PROV_CODE= E.SERV_PROV_CODE AND A.B1_PER_ID1 = E.B1_PER_ID1 AND A.B1_PER_ID2 =E.B1_PER_ID2 AND A.B1_PER_ID3 = E.B1_PER_ID3 ";
+        sql += "WHERE A.SERV_PROV_CODE = '" + aa.getServiceProviderCode() + "' ";
+        sql += "AND D.g1_contact_nbr = " + peopleSequenceNumber + " ";
+        sql += "AND A.rec_status = 'A' AND D.rec_status = 'A' AND A.b1_module_name = 'Licenses' ";
+        sql += "AND ( A.b1_appl_status = 'Approved' OR A.b1_appl_status = 'Active' ) ";
+        sql += "AND E.rec_status = 'A' ";
+        sql += "AND ( E.expiration_date IS NULL ";
+        sql += "OR E.expiration_date > SYSDATE ) ";
+    }
 
-    var sStmt = conn.prepareStatement(sql); 
-    var rSet = sStmt.executeQuery(); 
+    var initialContext = aa.proxyInvoker.newInstance("javax.naming.InitialContext", null).getOutput();
+    var ds = initialContext.lookup("java:/AA");
+    var conn = ds.getConnection();
+
+    var sStmt = conn.prepareStatement(sql);
+    var rSet = sStmt.executeQuery();
 
     while (rSet.next()) {
-        var capIdModel = aa.cap.getCapID(rSet.getString("B1_PER_ID1"),rSet.getString("B1_PER_ID2"),rSet.getString("B1_PER_ID3")).getOutput();   
-        var itemCap = aa.cap.getCapBasicInfo(capIdModel).getOutput();   
+        var capIdModel = aa.cap.getCapID(rSet.getString("B1_PER_ID1"), rSet.getString("B1_PER_ID2"), rSet.getString("B1_PER_ID3")).getOutput();
+        var itemCap = aa.cap.getCapBasicInfo(capIdModel).getOutput();
         var itemCapId = itemCap.getCapID();
         appTypeResult = itemCap.getCapType();
         appTypeString = appTypeResult.toString();
         if (exists(appTypeString, validActiveholdingsArray)) {
             var newActiveTag = new ACTIVE_ITEM(itemCapId, itemCap, appTypeString);
             availableActiveItems.push(newActiveTag);
-            }
         }
+    }
 
     return availableActiveItems;
 }
@@ -2167,7 +2188,7 @@ function getActiveHoldingsOldVersion(peopleSequenceNumber, year) {
     var allContactCaps = CC.getCaps("Licenses/*/*/*");
 
     for (var ccp in allContactCaps) {
-        
+
         //Seth - updating per engineering feedback to improve performance 11/1/2013
         var itemCapId = allContactCaps[ccp];
         //var itemCap = aa.cap.getCap(itemCapId).getOutput();
@@ -2176,7 +2197,7 @@ function getActiveHoldingsOldVersion(peopleSequenceNumber, year) {
         appTypeString = String(appTypeResult);
 
         if (exists(appTypeString, validActiveholdingsArray)) {
-            
+
             //Seth - updating per engineering feedback to improve performance 11/1/2013
             var itemCap = aa.cap.getCap(itemCapId).getOutput();
             var newActiveTag = new ACTIVE_ITEM(itemCapId, itemCap, appTypeString);
