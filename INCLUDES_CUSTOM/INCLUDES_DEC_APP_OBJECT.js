@@ -978,9 +978,9 @@ function form_OBJECT(identity) {
         scArray.push("GetActiveHoldingsInfoStr : ");
         sbArray.push(this.GetActiveHoldingsInfoStr());
         scArray.push("DriverLicenseState : ");
-        sbArray.push(this.DriverLicenseState());
+        sbArray.push(this.DriverLicenseState);
         scArray.push("DriverLicenseNumber : ");
-        sbArray.push(this.DriverLicenseNumber());
+        sbArray.push(this.DriverLicenseNumber);
 
 
         for (var c in sbArray) {
