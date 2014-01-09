@@ -528,7 +528,7 @@ function GetTagsForHarvestReport(peopleSequenceNumber, isDeer, isBear, isFallTur
             var tagStatus = itemCap.getCapStatus();
             var tagSpecialText = itemCap.getSpecialText();
             var tagAinfo = new Array();
-			useAppSpecificGroupName = true;
+            useAppSpecificGroupName = true;
             loadAppSpecific(tagAinfo, itemCapId);
             var sWmu = isNull(tagAinfo["WMU INFORMATION.WMU"], '');
             if (sWmu != '') {
@@ -879,7 +879,8 @@ function ReprintDocuments() {
         var arryTargetCapAttrib = new Array();
         var arryTag = new Array();
         var arryLic = new Array();
-
+        var newRPP = null;
+        var parentMap = aa.util.newHashMap();
         for (y in selDocToPrint) {
             var itemCapId = getCapId(selDocToPrint[y]);
             var itemcap = aa.cap.getCap(itemCapId).getOutput();
@@ -954,16 +955,59 @@ function ReprintDocuments() {
 
             //Update Status after Workflow as Workflow Updates can change status.
             updateTagStatus("Replaced", "Replaced", itemCapId);
+
+            // find privilege panel - it is a child of this records parent application
+            logDebug("ReprintDocuments: Re-creating privilege panel");
+            var pId = getParent(itemCapId);
+            if (!parentMap.containsKey(pId)) {
+                parentMap.put(pId, pId);
+            }
+            if (appMatch("Licenses/Annual/Application/NA", pId) || appMatch("Licenses/Sales/Reprint/Documents", pId)) {
+                childArr = getChildren("Licenses/Tag/Document/Privilege Panel", pId);
+                if (childArr != null && childArr.length > 0) {
+                    var ppCapId = childArr[0];
+                    if (newRPP == null) {
+                        newRPP = reprintPrivilegePanel(ppCapId);
+                    }
+                }
+            }
         }
 
-        // find privilege panel - it is a child of this records parent application
-        logDebug("ReprintDocuments: Re-creating privilege panel");
-        var pId = getParent(capId);
-        if (appMatch("Licenses/Annual/Application/NA", pId)) {
-            childArr = getChildren("Licenses/Tag/Document/Privilege Panel", pId);
-            if (childArr != null && childArr.length > 0) {
-                var ppCapId = childArr[0];
-                voidPrivilegePanel(ppCapId, pId);
+        //In case: Migrated record replace
+        if (newRPP == null) {
+            newRPP = reprintPrivilegePanel(null);
+        }
+        //
+		
+        logDebug("VOID Parent Panel of replaced item if not other active record with panel");
+        if (parentMap != null || parentMap.size() > 0) {
+            var aKeys = parentMap.keySet().toArray();
+            for (var i = 0; i < aKeys.length; i++) {
+                var foundActiveChild = false;
+                var ppnl = null;
+                var searchAppTypeString = "Licenses/*/*/*";
+                var capArray = getChildren(searchAppTypeString, aKeys[i]);
+                if (capArray != null) {
+                    for (y in capArray) {
+                        var childCapId = capArray[y];
+                        var currcap = aa.cap.getCap(childCapId).getOutput();
+                        appTypeString = currcap.getCapType().toString();
+                        var status = currcap.getCapStatus();
+
+                        if (status == 'Active' || status == 'Reported') {
+                            if (appTypeString == AA54_TAG_PRIV_PANEL) {
+                                ppnl = currcap;
+                            } else {
+                                foundActiveChild = true;
+                                break;
+                            }
+                        }
+                    }
+                }
+                if (!foundActiveChild && ppnl != null) {
+					//TODO: Discuss all scenarios to void the lost panel
+                    //logDebug("VOID");
+                }
             }
         }
 
@@ -2634,4 +2678,56 @@ function getYearToProcess(ipEffDate) {
     if (ipEffDate.getTime() < fvStartDt.getTime())
         opYear--;
     return opYear;
+}
+
+function reprintPrivilegePanel(ppCapId) {
+    logDebug("ENTER: reprintPrivilegePanel Panel ");
+    //updateAppStatus("Returnable", "Returnable", ppCapId);
+    // now create a new one, 
+    var newPPId = createChildForDec("Licenses", "Tag", "Document", "Privilege Panel", "", capId);
+    if (ppCapId != null) {
+        copyASIFields(ppCapId, newPPId);
+    }
+    updateAppStatus("Active", "Active", newPPId);
+    activateTaskForRec("Report Game Harvest", "", newPPId);
+    activateTaskForRec("Void Document", "", newPPId);
+    activateTaskForRec("Revocation", "", newPPId);
+    activateTaskForRec("Suspension", "", newPPId);
+    //copyConditions(ppCapId, newPPId);
+
+    //copy the expiration information
+    if (ppCapId != null) {
+        oldLicObj = new licenseObject(null, ppCapId);
+        if (oldLicObj && oldLicObj != null) {
+            setLicExpirationStatus(newPPId, "Active");
+            oldExpDate = oldLicObj.b1ExpDate;
+            setLicExpirationDate(newPPId, null, oldExpDate);
+        }
+    } else {
+        setLicExpirationStatus(newPPId, "Active");
+
+        var seasonPeriod = GetDateRange(DEC_CONFIG, LICENSE_SEASON, AInfo["License Year"]);
+        var diff = dateDiff(new Date(), seasonPeriod[0]);
+        var effectiveDt;
+        var clacFromDt;
+        if (diff > 0) {
+            AInfo["Effective Date"] = jsDateToMMDDYYYY(seasonPeriod[0]);
+            editFileDate(newPPId, seasonPeriod[0]);
+            clacFromDt = dateAdd(convertDate(seasonPeriod[1]), 0);
+            setLicExpirationDate(newPPId, "", clacFromDt);
+        } else {
+            AInfo["Effective Date"] = jsDateToMMDDYYYY(new Date());
+            editFileDate(newPPId, new Date());
+            clacFromDt = dateAdd(convertDate(seasonPeriod[1]), 0);
+            setLicExpirationDate(newPPId, "", clacFromDt);
+        }
+        AInfo["CODE.TAG_TYPE"] = TAG_TYPE_24_PRIV_PANEL;
+        setSalesItemASI(newPPId, AA54_TAG_PRIV_PANEL, TAG_TYPE_24_PRIV_PANEL, 1, null, null);
+    }
+    var newDecDocId = GenerateDocumentNumber(newPPId.getCustomID());
+    updateDocumentNumber(newDecDocId, newPPId);
+
+    logDebug("EXIT: reprintPrivilegePanel Panel");
+
+    return newPPId;
 }
