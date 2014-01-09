@@ -4045,6 +4045,8 @@ function verifyAnySalesSelect() {
     isChecked = isChecked || (AInfo["Lifetime Card Replace"] == "CHECKED");
     isChecked = isChecked || (AInfo["Sportsman Ed Certification"] == "CHECKED");
     isChecked = isChecked || (AInfo["Lifetime Inscription"] == "CHECKED");
+    isChecked = isChecked || (AInfo["Add Lifetime to Driver License Re-Issue Immediately"] == "CHECKED");
+    isChecked = isChecked || (AInfo["Add Lifetime to Driver License on Renewal"] == "CHECKED");
 
     if (!isChecked) {
         retMsg += "Please select sales item.";
