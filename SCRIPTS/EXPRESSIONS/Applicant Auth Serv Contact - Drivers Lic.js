@@ -45,32 +45,41 @@ if (String(dlState.value).length > 0 && dlState.value.toUpperCase().equals("NY")
 	var yyyymmdd = dt.getFullYear() + ("00" + String(dt.getMonth() + 1)).slice(-2) + String("00" + dt.getDate()).slice(-2);
 
 	var pattern = /^\d{4}((0\d)|(1[012]))(([012]\d)|3[01])$/ ;
-
-	if (pattern.test(yyyymmdd)) {
+	var vLicNbr = String(dl.value).replace(/\D/g,'');
+	
+	if (!pattern.test(yyyymmdd)) {
+		form.blockSubmit = true;
+		dlDOB.message = "Required for Driver License Verification";
+		dl.message = "";
+		}
+	else if (String(vLicNbr).length != 9) {
+		form.blockSubmit = true;
+		dl.message = "Must contain exactly 9 digits";
+		dlDOB.message = "";
+		}
+	else if (!checkDMV(vLicNbr)) {
+		form.blockSubmit = true;
+		dl.message = "Invalid License Number";
+		dlDOB.message = "";
+		}
+	else {
 		var vOut = CIDVerify(dmvUserID,dmvUserPwd,dl.value,searchLast,yyyymmdd);
 		
 		if( !vOut.valid ){
 			form.blockSubmit = true;
 			dl.message = vOut.messages; //"Drivers License Validation Failed";
+			dlDOB.message = ""
 		}
 		else{
 			dl.message = "";
+			dlDOB.message = "";
 		}
-		
+	}
+	
 	expression.setReturn(dl);
 	expression.setReturn(form);
-	dlDOB.message = "";
 	expression.setReturn(dlDOB);
-	
 
-	}
-	else {
-		form.blockSubmit = true;
-		dlDOB.message = "Required for Driver License Verification";
-		dl.message = "";
-		expression.setReturn(dlDOB);
-		expression.setReturn(form);
-		}
 }
 
 
@@ -196,4 +205,31 @@ function CIDValidObj(){
 	this.valid = true;
 	this.messages = ""
 return this;
+}
+
+function checkDMV(input) {
+    var multipliers = [4 , 3 , 2 , 6 , 5 , 4 , 3 , 2] ; 
+
+    var sum = 0;
+    // Iterate each character in the input string.
+    for(var i = 0; i < 8; i++) {
+        // Get the index position of the next multiplier, using modulus.
+        var multiplierIndex = (i % multipliers.length);
+        var multiplier = multipliers[multiplierIndex];
+        var char = input[i];
+        // Check if char is a digit or a character.
+        // If it is a character, get the appropriate int value.
+        if(isNaN(char)) {
+            // Not a number, so get the correct value.
+        } else {
+            // Add to the sum.
+            sum += char * multiplier;   
+        }
+    }
+    // Return the remainder.
+    var checkDigit = sum % 10;
+	var lastDigit = input[8];
+	
+	if (checkDigit != lastDigit) return false;
+	else return true;
 }
