@@ -5353,7 +5353,7 @@ function copyMailAddToContactForPU() {
 							compactAddress.setState(fvCAOutput[i].getState());
 							compactAddress.setZip(fvCAOutput[i].getZip());
 							refCon.setCompactAddress(compactAddress);
-							var editContactResult = aa.people.editPeople(refCon);
+							var editContactResult = aa.people.editPeopleWithAttribute(refCon,refCon.getAttributes());;
 							}
 						}
 					}
