@@ -5329,59 +5329,73 @@ function loadAppSpecific4ACA(thisArr) {
 
 function copyMailAddToContactForPU() {
 
-	var publicUser = aa.env.getValue("PublicUserModel");//get publicusermodel
-	var publicUserBusiness = aa.proxyInvoker.newInstance("com.accela.v360.publicuser.PublicUserBusiness").getOutput();
+    var publicUser = aa.env.getValue("PublicUserModel"); //get publicusermodel
+    var publicUserBusiness = aa.proxyInvoker.newInstance("com.accela.v360.publicuser.PublicUserBusiness").getOutput();
 
-	var pUserSeqNumber = publicUser.getUserSeqNum();
-	//var pUserSeqNumber = 94415;
+    var pUserSeqNumber = publicUser.getUserSeqNum();
+    //var pUserSeqNumber = 94415;
 
-	try {
-		if (pUserSeqNumber) {
-			var refCon = getRefConByPublicUserSeq(pUserSeqNumber);
-			if (refCon) {
-				var fvCASearchModel = aa.address.createContactAddressModel().getOutput();
-				fvCASearchModel.setEntityID(parseInt(refCon.getContactSeqNumber(),10));
-				fvCASearchModel.setEntityType("CONTACT");
-				var fvCAResult = aa.address.getContactAddressList(fvCASearchModel.getContactAddressModel());
-				var fvCAOutput = fvCAResult.getOutput();
-				if (fvCAOutput) {
-					for (var i in fvCAOutput) {
-						if (fvCAOutput[i].addressType == "Mailing") {
-							var compactAddress = refCon.getCompactAddress();
-							compactAddress.setAddressLine1(fvCAOutput[i].getAddressLine1());
-							compactAddress.setAddressLine2(fvCAOutput[i].getAddressLine2());
-							compactAddress.setAddressLine3(fvCAOutput[i].getAddressLine3());
-							compactAddress.setCity(fvCAOutput[i].getCity());
-							compactAddress.setState(fvCAOutput[i].getState());
-							compactAddress.setZip(fvCAOutput[i].getZip());
-							refCon.setCompactAddress(compactAddress);
-							var editContactResult = aa.people.editPeopleWithAttribute(refCon,refCon.getAttributes());;
-							}
-						}
-					}
-				} 
-			}			
-		}
-	catch (err) {
-		logDebug("An error occured in copyMailAddToContactForPU : " + err);
-	}
+    try {
+        if (pUserSeqNumber) {
+            var refCon = getRefConByPublicUserSeq(pUserSeqNumber);
+
+            if (refCon) {
+                var peopleModel = getOutput(aa.people.getPeople(peopleSequenceNumber), "");
+                var tmpl = peopleModel.getTemplate();
+
+                var fvCASearchModel = aa.address.createContactAddressModel().getOutput();
+                fvCASearchModel.setEntityID(parseInt(refCon.getContactSeqNumber(), 10));
+                fvCASearchModel.setEntityType("CONTACT");
+                var fvCAResult = aa.address.getContactAddressList(fvCASearchModel.getContactAddressModel());
+                var fvCAOutput = fvCAResult.getOutput();
+                if (fvCAOutput) {
+                    for (var i in fvCAOutput) {
+                        if (fvCAOutput[i].addressType == "Mailing") {
+                            var compactAddress = refCon.getCompactAddress();
+                            compactAddress.setAddressLine1(fvCAOutput[i].getAddressLine1());
+                            compactAddress.setAddressLine2(fvCAOutput[i].getAddressLine2());
+                            compactAddress.setAddressLine3(fvCAOutput[i].getAddressLine3());
+                            compactAddress.setCity(fvCAOutput[i].getCity());
+                            compactAddress.setState(fvCAOutput[i].getState());
+                            compactAddress.setZip(fvCAOutput[i].getZip());
+                            refCon.setCompactAddress(compactAddress);
+                            var editContactResult = aa.people.editPeopleWithAttribute(refCon, refCon.getAttributes()); ;
+                        }
+                    }
+					
+                    peopleModel = getOutput(aa.people.getPeople(peopleSequenceNumber), "");
+                    if (peopleModel.getTemplate() == null) {
+                        if (tmpl != null) {
+                            var e = tmpl.getEntityPKModel();
+                            e.setEntitySeq1(peopleSequenceNumber * 1);
+                            tmpl.setEntityPKModel(e);
+                            peopleModel.setTemplate(tmpl);
+                        }
+                    }
+                }
+            }
+        }
+    }
+    catch (err) {
+        logDebug("An error occured in copyMailAddToContactForPU : " + err);
+    }
 }
 
 function getRefConByPublicUserSeq(pSeqNum) {
-	
-	var publicUserSeq = pSeqNum; //Public user sequence number
-	var userSeqList = aa.util.newArrayList();
-	userSeqList.add(aa.util.parseLong(publicUserSeq));
-	var contactPeopleBiz = aa.proxyInvoker.newInstance("com.accela.pa.people.ContractorPeopleBusiness").getOutput()
-	var contactors = contactPeopleBiz.getContractorPeopleListByUserSeqNBR(aa.getServiceProviderCode(),userSeqList,true);
-	
-	if (contactors) {
-		if (contactors.size() > 0) {
-			if (contactors.get(0)) {
-				return contactors.get(0);
-			}
-		}
-	}
+
+    var publicUserSeq = pSeqNum; //Public user sequence number
+    var userSeqList = aa.util.newArrayList();
+    userSeqList.add(aa.util.parseLong(publicUserSeq));
+    var contactPeopleBiz = aa.proxyInvoker.newInstance("com.accela.pa.people.ContractorPeopleBusiness").getOutput()
+    var contactors = contactPeopleBiz.getContractorPeopleListByUserSeqNBR(aa.getServiceProviderCode(), userSeqList, true);
+
+    if (contactors) {
+        if (contactors.size() > 0) {
+            if (contactors.get(0)) {
+                return contactors.get(0);
+            }
+        }
+    }
 }
 
 
