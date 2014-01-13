@@ -5340,11 +5340,12 @@ function copyMailAddToContactForPU() {
             var refCon = getRefConByPublicUserSeq(pUserSeqNumber);
 
             if (refCon) {
+				var peopleSequenceNumber = refCon.getContactSeqNumber()
                 var peopleModel = getOutput(aa.people.getPeople(peopleSequenceNumber), "");
                 var tmpl = peopleModel.getTemplate();
 
                 var fvCASearchModel = aa.address.createContactAddressModel().getOutput();
-                fvCASearchModel.setEntityID(parseInt(refCon.getContactSeqNumber(), 10));
+                fvCASearchModel.setEntityID(parseInt(peopleSequenceNumber, 10));
                 fvCASearchModel.setEntityType("CONTACT");
                 var fvCAResult = aa.address.getContactAddressList(fvCASearchModel.getContactAddressModel());
                 var fvCAOutput = fvCAResult.getOutput();
