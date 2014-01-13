@@ -5371,6 +5371,8 @@ function copyMailAddToContactForPU() {
                             e.setEntitySeq1(peopleSequenceNumber * 1);
                             tmpl.setEntityPKModel(e);
                             peopleModel.setTemplate(tmpl);
+							
+							aa.people.editPeople(peopleModel);
                         }
                     }
                 }
