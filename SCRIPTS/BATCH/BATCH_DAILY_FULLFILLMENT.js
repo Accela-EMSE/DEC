@@ -10,7 +10,7 @@
 | START: TEST PARAMETERS
 /------------------------------------------------------------------------------------------------------*/
 //aa.env.setValue("setPrefix", "DAILY");
-//aa.env.setValue("emailAddress", "");
+//aa.env.setValue("emailAddress", "lalit@gcomsoft.com");
 //aa.env.setValue("showDebug", "Y");
 //aa.env.setValue("reportName", "License Tags");
 /*------------------------------------------------------------------------------------------------------/
@@ -223,16 +223,17 @@ function SetDailyFullfillmentLogic() {
                 if (res.getSuccess()) {
                     var vCapList = res.getOutput();
                     for (thisCap in vCapList) {
-					    logDebug("Processing Cap ID: " + recId);
+                        logDebug("Processing Cap ID: " + recId);
+                        /*
                         if (elapsed() > maxSeconds) // only continue if time hasn't expired
                         {
-                            isPartialSuccess = true;
-                            showDebug = true;
-                            logDebug("A script timeout has caused partial completion of this process.  Please re-run.  " + elapsed() + " seconds elapsed, " + maxSeconds + " allowed.");
-                            timeExpired = true;
-                            break;
+                        isPartialSuccess = true;
+                        showDebug = true;
+                        logDebug("A script timeout has caused partial completion of this process.  Please re-run.  " + elapsed() + " seconds elapsed, " + maxSeconds + " allowed.");
+                        timeExpired = true;
+                        break;
                         }
-
+                        */
                         recId = vCapList[thisCap].getCapID();
 
                         var conditions = aa.capCondition.getCapConditions(recId);
@@ -250,54 +251,63 @@ function SetDailyFullfillmentLogic() {
                         }
                         if (generateReportFlag == 0) {
                             var counterOtherThanFish = 1;
-							if (isDailyInternetSales) {
+                            if (isDailyInternetSales) {
                                 counterOtherThanFish = 0;
                                 var searchAppTypeString = "Licenses/*/*/*";
                                 var capArray = getChildren(searchAppTypeString, recId);
                                 if (capArray != null) {
-									for (y in capArray) {
+                                    for (y in capArray) {
                                         var childCapId = capArray[y];
                                         var currcap = aa.cap.getCap(childCapId).getOutput();
                                         appTypeString = currcap.getCapType().toString();
-										
-										var validArray = new Array();
-										validArray.push(AA01_FISHING_LICENSE);
-										validArray.push(AA03_ONE_DAY_FISHING_LICENSE);
-										validArray.push(AA22_FRESHWATER_FISHING);
-										validArray.push(AA23_NONRES_FRESHWATER_FISHING);
-										validArray.push(AA24_NONRESIDENT_1_DAY_FISHING);
-										validArray.push(AA25_NONRESIDENT_7_DAY_FISHING);
-										validArray.push(AA26_SEVEN_DAY_FISHING_LICENSE);
-										validArray.push(AA02_MARINE_REGISTRY);
-										validArray.push(AA54_TAG_PRIV_PANEL);
 
-										if (!exists(appTypeString, validArray)) {
-											counterOtherThanFish++;
-											break;
-										}
-									}
-								}
-							}
-							
-							if (!uniqueCapIdArray.containsKey(recId)) {
-								uniqueCapIdArray.put(recId, recId);
-								var recca = String(recId).split("-");
-								var itemCapId = aa.cap.getCapID(recca[0], recca[1], recca[2]).getOutput();
-								//aa.print("Cap ID: " + itemCapId);
-								var itemCap = aa.cap.getCap(itemCapId).getOutput();
-								altId = itemCapId.getCustomID();
-								if(counterOtherThanFish > 0) {
-									logDebug("Custom ID for report: " + altId);
-									//appTypeResult = itemCap.getCapType();
-									//appTypeString = appTypeResult.toString();
-									generateReport(itemCapId); 
-									//logDebug("Report file: " + reportFileName);
-									if (setPrefix.length > 0) {
-										addCapSetMemberX(itemCapId, setResult);
-									}
-									counter++;
-								}
-							}
+                                        var validArray = new Array();
+                                        validArray.push(AA01_FISHING_LICENSE);
+                                        validArray.push(AA03_ONE_DAY_FISHING_LICENSE);
+                                        validArray.push(AA22_FRESHWATER_FISHING);
+                                        validArray.push(AA23_NONRES_FRESHWATER_FISHING);
+                                        validArray.push(AA24_NONRESIDENT_1_DAY_FISHING);
+                                        validArray.push(AA25_NONRESIDENT_7_DAY_FISHING);
+                                        validArray.push(AA26_SEVEN_DAY_FISHING_LICENSE);
+                                        validArray.push(AA02_MARINE_REGISTRY);
+                                        validArray.push(AA54_TAG_PRIV_PANEL);
+                                        validArray.push(AA16_HABITAT_ACCESS_STAMP);
+                                        validArray.push(AA17_VENISON_DONATION);
+                                        validArray.push(AA18_CONSERVATION_FUND);
+                                        validArray.push(AA19_TRAIL_SUPPORTER_PATCH);
+                                        validArray.push(AA20_CONSERVATIONIST_MAGAZINE);
+                                        validArray.push(AA21_CONSERVATION_PATRON);
+                                        validArray.push(AA43_LIFETIME_CARD_REPLACE);
+                                        validArray.push(AA15_TRAPPING_LICENSE);
+                                        validArray.push(AA41_NONRESIDENT_TRAPPING);
+
+                                        if (!exists(appTypeString, validArray)) {
+                                            counterOtherThanFish++;
+                                            break;
+                                        }
+                                    }
+                                }
+                            }
+
+                            if (!uniqueCapIdArray.containsKey(recId)) {
+                                uniqueCapIdArray.put(recId, recId);
+                                var recca = String(recId).split("-");
+                                var itemCapId = aa.cap.getCapID(recca[0], recca[1], recca[2]).getOutput();
+                                //aa.print("Cap ID: " + itemCapId);
+                                var itemCap = aa.cap.getCap(itemCapId).getOutput();
+                                altId = itemCapId.getCustomID();
+                                if (counterOtherThanFish > 0) {
+                                    logDebug("Custom ID for report: " + altId);
+                                    //appTypeResult = itemCap.getCapType();
+                                    //appTypeString = appTypeResult.toString();
+                                    generateReport(itemCapId);
+                                    //logDebug("Report file: " + reportFileName);
+                                    if (setPrefix.length > 0) {
+                                        addCapSetMemberX(itemCapId, setResult);
+                                    }
+                                    counter++;
+                                }
+                            }
 
                             editCapConditionStatus("Fulfillment", ffCondArray[ff], "Verified", "Not Applied", "", itemCapId);
                             removeFullfillmentCapCondition(itemCapId, ffCondArray[ff]);
@@ -319,14 +329,8 @@ function SetDailyFullfillmentLogic() {
         }
     }
 
-    // if (counter >= CONST_RECORDS_PER_SET &&  setPrefix.length > 0) 
-    {
-        (!isPartialSuccess)
-        {
-            logDebug("Updated set status");
-            updateSetStatusX(setResult.setID, setResult.setID, "FULLFILLMENT", "Successfully processed", "Ready For Fullfillment", "Ready For Fullfillment");
-        }
-    }
+    logDebug("Updated set status");
+    updateSetStatusX(setResult.setID, setResult.setID, "FULLFILLMENT", "Successfully processed", "Ready For Fullfillment", "Ready For Fullfillment");
     return true;
 }
 
@@ -393,15 +397,15 @@ function generateReport(itemCapId) {
     report.setCapId(itemCapId.toString());
     report.setModule("Licenses");
     report.setReportParameters(parameters);
-	// set the alt-id as that's what the EDMS is using.
-	report.getEDMSEntityIdModel().setAltId(itemCapId.getCustomID());
+    // set the alt-id as that's what the EDMS is using.
+    report.getEDMSEntityIdModel().setAltId(itemCapId.getCustomID());
     var checkPermission = aa.reportManager.hasPermission(reportName, "admin");
     logDebug("Permission for report: " + checkPermission.getOutput().booleanValue());
 
     if (checkPermission.getOutput().booleanValue()) {
         logDebug("User has permission");
         var reportResult = aa.reportManager.getReportResult(report);
-		// not needed as the report is set up for EDMS
+        // not needed as the report is set up for EDMS
         if (false) {
             reportResult = reportResult.getOutput();
             logDebug("Report result: " + reportResult);
