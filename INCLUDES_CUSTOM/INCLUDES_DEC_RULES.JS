@@ -2652,10 +2652,12 @@ function getTag_ANNUAL_HUNT(ruleParams) {
     var rp = ruleParams;
     var arryTags = new Array();
     arryTags.push(TAG_TYPE_1_BACK_TAG);
-    if (rp.IsNyResiDent && rp.Age >= 12) {
-        arryTags.push(TAG_TYPE_3_REG_SEASON_DEER);
-        arryTags.push(TAG_TYPE_2_BEAR_TAG);
-    }
+    
+	//JIRA - 17422
+	//if (rp.IsNyResiDent && rp.Age >= 12) {
+    //    arryTags.push(TAG_TYPE_3_REG_SEASON_DEER);
+    //    arryTags.push(TAG_TYPE_2_BEAR_TAG);
+    //}
 
     if (!rp.IsNyResiDent && rp.Age >= 14) {
         arryTags.push(TAG_TYPE_3_REG_SEASON_DEER);
