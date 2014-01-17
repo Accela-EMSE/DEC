@@ -301,6 +301,7 @@ var AN7F_1_NORES = "AN7F_1_NORES";
 //Seven Day Fishing License
 var FEE_ANNUAL_7DAY_FISHING_SCHDL = "FEE_ANNUAL_7DAY_FISHING_SCHDL";
 var A7FL_1_RES = "A7FL_1_RES";
+var A7FL_2_NRES = "A7FL_2_NRES";
 
 //Conservation Legacy
 var FEE_ANL_CONSERV_LEGACY_SCHDL = "FEE_ANL_CONSERV_LEGACY_SCHDL";
@@ -644,7 +645,7 @@ function SetVesrionSalesItems2014() {
 
     emptyArray.push(new SalesItemProp(LIC22_FRESHWATER_FISHING, AA22_FRESHWATER_FISHING, FEE_ANL_FRESHWATER_FISH_SCHDL, "2", "getAllFeeCodeByRuleFor_FRESHWATER_FISHING_2014", "isRuleForSelectable_FRESHWATER_FISHING_2014", null, null, null, false, false, true));
     emptyArray.push(new SalesItemProp(LIC03_ONE_DAY_FISHING_LICENSE, AA03_ONE_DAY_FISHING_LICENSE, FEE_ONEDAY_FISH_SCHDL, "2", "getAllFeeCodeByRuleFor_ONEDAY_FISH_2014", "isRuleForSelectable_ONEDAY_FISH_2014", null, null, null, false, false, true));
-    emptyArray.push(new SalesItemProp(LIC26_SEVEN_DAY_FISHING_LICENSE, AA26_SEVEN_DAY_FISHING_LICENSE, FEE_ANNUAL_7DAY_FISHING_SCHDL, "1", "getAllFeeCodeByRuleFor_SEVEN_DAY_FISHING_LICENSE_2014", "isRuleForSelectable_SEVEN_DAY_FISHING_LICENSE_2014", null, null, null, false, false, true));
+    emptyArray.push(new SalesItemProp(LIC26_SEVEN_DAY_FISHING_LICENSE, AA26_SEVEN_DAY_FISHING_LICENSE, FEE_ANNUAL_7DAY_FISHING_SCHDL, "2", "getAllFeeCodeByRuleFor_SEVEN_DAY_FISHING_LICENSE_2014", "isRuleForSelectable_SEVEN_DAY_FISHING_LICENSE_2014", null, null, null, false, false, true));
     emptyArray.push(new SalesItemProp(LIC02_MARINE_REGISTRY, AA02_MARINE_REGISTRY, FEE_ANNUAL_MRIN_REGISTRY_SCHDL, "1", "getAllFeeCodeByRuleFor_ANNUAL_MRIN", "isRuleForSelectable_ANNUAL_MRIN", null, null, null, false, false, false));
 
     emptyArray.push(new SalesItemProp(LIC09_LIFETIME_BOWHUNTING, AA09_LIFETIME_BOWHUNTING, FEE_LIFETIME_BOWHUNTING_SCHDL, "1", "getAllFeeCodeByRuleFor_LIFETM_BOWH", "isRuleForSelectable_LIFETM_BOWH", "getPrereq_LIFETM_BOWH", "getIncl_LIFETM_BOWH", "getTag_LIFETM_BOWH", true, false, false));
@@ -716,6 +717,9 @@ function getAllFeeCodeByRuleFor_FRESHWATER_FISHING_2014(ruleParams, feeSched) {
     //Annual Fishing License fee for Legally Blind having age  16+
     if (rp.IsLegallyBlind) { feeItemCodes.push(new FeeCodeProp(AFF_3_RESLB, "000")); }
 
+    //Annual NonRes Freshwater Fishing: Non-Res having age 16+
+    if (!rp.IsNyResiDent && rp.Age >= 16) { feeItemCodes.push(new FeeCodeProp(AFF_7_NORES, "000")); }
+	
     if (feeItemCodes.length == 0) { feeItemCodes.push(new FeeCodeProp(AFF_7_NORES, "000")); }
     return feeItemCodes;
 }
@@ -1167,7 +1171,10 @@ function getAllFeeCodeByRuleFor_SEVEN_DAY_FISHING_LICENSE_2014(ruleParams, feeSc
     //Annual 7 Day Fishing: NYS Resident having age 16+
     if (rp.IsNyResiDent && rp.Age >= 16) { feeItemCodes.push(new FeeCodeProp(A7FL_1_RES, "000")); }
 
-    if (feeItemCodes.length == 0) { feeItemCodes.push(new FeeCodeProp(A7FL_1_RES, "000")); }
+    //Annual Nonresident 7 Day Fishing: Non-Res having age 16+
+    if (!rp.IsNyResiDent && rp.Age >= 16) { feeItemCodes.push(new FeeCodeProp(A7FL_2_NRES, "000")); }
+
+    if (feeItemCodes.length == 0) { feeItemCodes.push(new FeeCodeProp(A7FL_2_NRES, "000")); }
     return feeItemCodes;
 }
 function getAllFeeCodeByRuleFor_CONSERVATION_LEGACY(ruleParams, feeSched) {
@@ -1495,7 +1502,7 @@ function isRuleForSelectable_ONEDAY_FISH_2012(ruleParams) {
     return isSelectable;
 }
 function isRuleForSelectable_ONEDAY_FISH_2014(ruleParams) {
-    var isSelectable = (ruleParams.IsNyResiDent && ruleParams.Age >= 16 && ruleParams.Age <= 69);
+    var isSelectable = (ruleParams.IsNyResiDent && ruleParams.Age >= 16 && ruleParams.Age <= 69 && !ruleParams.IsMilitaryServiceman);
     isSelectable = isSelectable || (!ruleParams.IsNyResiDent && ruleParams.Age >= 16);
 
     return isSelectable;
@@ -1612,7 +1619,7 @@ function isRuleForSelectable_SEVEN_DAY_FISHING_LICENSE_2012(ruleParams) {
     return isSelectable;
 }
 function isRuleForSelectable_SEVEN_DAY_FISHING_LICENSE_2014(ruleParams) {
-    var isSelectable = (ruleParams.IsNyResiDent && ruleParams.Age >= 16 && ruleParams.Age <= 69);
+    var isSelectable = (ruleParams.IsNyResiDent && ruleParams.Age >= 16 && ruleParams.Age <= 69 && !ruleParams.IsMilitaryServiceman);
     isSelectable = isSelectable || (!ruleParams.IsNyResiDent && ruleParams.Age >= 16);
 
     return isSelectable;
@@ -2650,10 +2657,12 @@ function getTag_ANNUAL_HUNT(ruleParams) {
     arryTags.push(TAG_TYPE_1_BACK_TAG);
     
 	//JIRA - 17422
-	//if (rp.IsNyResiDent && rp.Age >= 12) {
-    //    arryTags.push(TAG_TYPE_3_REG_SEASON_DEER);
-    //    arryTags.push(TAG_TYPE_2_BEAR_TAG);
-    //}
+	if (rp.IsNyResiDent && rp.Age >= 12{
+        arryTags.push(TAG_TYPE_3_REG_SEASON_DEER);
+		if (rp.IsNyResiDent && rp.Age >= 14{
+			arryTags.push(TAG_TYPE_2_BEAR_TAG);
+		}
+    }
 
     if (!rp.IsNyResiDent && rp.Age >= 14) {
         arryTags.push(TAG_TYPE_3_REG_SEASON_DEER);
