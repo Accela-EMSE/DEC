@@ -2647,6 +2647,10 @@ function isValidBuyRecord(pStep) {
         if (msg != '') {
             retMsg += msg;
         }
+        msg = VerifyFeets();
+        if (msg != '') {
+            retMsg += msg;
+        }
         msg = VerifyInches();
         if (msg != '') {
             retMsg += msg;
@@ -3811,6 +3815,21 @@ function isValidIntegerInches(inputvalue) {
         isvalid = (pattern.test(inputvalue));
     }
     return isvalid;
+}
+function VerifyFeets() {
+    var retMsg = ''
+    var inchVal = AInfo["Height"];
+    var isValid = isValidIntegerInches(inchVal);
+
+    if (!isValid) {
+        retMsg = 'Please enter valid integer.';
+    }
+    else {
+        if (inchVal != null && (parseInt(inchVal) < 0)) {
+            retMsg = "Inches must be greater than 0.";
+        }
+    }
+    return retMsg;
 }
 
 function VerifyInches() {
