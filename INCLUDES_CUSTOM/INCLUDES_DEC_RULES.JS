@@ -719,7 +719,7 @@ function getAllFeeCodeByRuleFor_FRESHWATER_FISHING_2014(ruleParams, feeSched) {
 
     //Annual NonRes Freshwater Fishing: Non-Res having age 16+
     if (!rp.IsNyResiDent && rp.Age >= 16) { feeItemCodes.push(new FeeCodeProp(AFF_7_NORES, "000")); }
-	
+
     if (feeItemCodes.length == 0) { feeItemCodes.push(new FeeCodeProp(AFF_7_NORES, "000")); }
     return feeItemCodes;
 }
@@ -1897,7 +1897,7 @@ function getPrereq_ANNUAL_DMP_2014(ruleParams) {
                 arryPrereq.push(LIC29_JUNIOR_HUNTING);
                 arryPrereq.push(LIC12_LIFETIME_SMALL_AND_BIG_GAME);
                 arryPrereq.push(LIC13_LIFETIME_SPORTSMAN);
-				//JIRA - 17470
+                //JIRA - 17470
                 arryPrereq.push(LIC06_HUNTING_LICENSE);
             }
         }
@@ -2655,13 +2655,13 @@ function getTag_ANNUAL_HUNT(ruleParams) {
     var rp = ruleParams;
     var arryTags = new Array();
     arryTags.push(TAG_TYPE_1_BACK_TAG);
-    
-	//JIRA - 17422
-	if (rp.IsNyResiDent && rp.Age >= 12{
+
+    //JIRA - 17422
+    if (rp.IsNyResiDent && rp.Age >= 12) {
         arryTags.push(TAG_TYPE_3_REG_SEASON_DEER);
-		if (rp.IsNyResiDent && rp.Age >= 14{
-			arryTags.push(TAG_TYPE_2_BEAR_TAG);
-		}
+        if (rp.IsNyResiDent && rp.Age >= 14) {
+            arryTags.push(TAG_TYPE_2_BEAR_TAG);
+        }
     }
 
     if (!rp.IsNyResiDent && rp.Age >= 14) {
@@ -2788,7 +2788,7 @@ function hasBaseDMP(activeHoldingsInfo) {
             if (activeHoldingsInfo[idx].RecordType == AA05_DEER_MANAGEMENT_PERMIT) {
                 if (isNull(itemCapString, '') != '') {
                     var itemCapId = getCapId(itemCapString);
-					//JIRA - 41760
+                    //JIRA - 41760
                     loadASITables(itemCapId);
                     if (typeof (DRAWRESULT) == "object") {
                         for (y in DRAWRESULT) {
@@ -2799,7 +2799,7 @@ function hasBaseDMP(activeHoldingsInfo) {
                             }
                         }
                     }
-					//
+                    //
                 }
             } else if (activeHoldingsInfo[idx].RecordType == AA13_LIFETIME_SPORTSMAN) {
                 isExist = (dateDiff(convertDate("10/1/2009"), convertDate(activeHoldingsInfo[idx].FromDate)) <= 0);
