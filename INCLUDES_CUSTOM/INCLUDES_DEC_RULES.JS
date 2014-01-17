@@ -1536,11 +1536,7 @@ function isRuleForSelectable_ANNUAL_DMP_2012(ruleParams) {
     return isSelectable;
 }
 function isRuleForSelectable_ANNUAL_DMP_2014(ruleParams) {
-	//JIRA - 17470
-    var isSelectable = (ruleParams.IsNyResiDent && ruleParams.Age > 13 && ruleParams.HasHuntEd);
-    isSelectable = isSelectable || (ruleParams.IsNyResiDent && ruleParams.Age >= 12 && ruleParams.HasHuntEd && ruleParams.HasBowHunt);
-    isSelectable = isSelectable || (!ruleParams.IsNyResiDent && ruleParams.Age > 13 && ruleParams.HasHuntEd);
-    isSelectable = isSelectable || (!ruleParams.IsNyResiDent && ruleParams.Age >= 12 && ruleParams.HasHuntEd && ruleParams.HasBowHunt);
+    var isSelectable = (ruleParams.Age >= 12 && ruleParams.HasHuntEd);
     return isSelectable;
 }
 
@@ -1898,7 +1894,7 @@ function getPrereq_ANNUAL_DMP_2014(ruleParams) {
                 arryPrereq.push(LIC06_HUNTING_LICENSE);
             }
         }
-        else if (rp.Age > 16) {
+        else if (rp.Age >= 16) {
             arryPrereq.push(LIC06_HUNTING_LICENSE);
             arryPrereq.push(LIC30_NONRES_MUZZLELOADING);
             arryPrereq.push(LIC37_SMALL_AND_BIG_GAME);
@@ -1939,7 +1935,7 @@ function getPrereq_ANNUAL_DMP_2012(ruleParams) {
                 arryPrereq.push(LIC13_LIFETIME_SPORTSMAN);
             }
         }
-        else if (rp.Age > 16) {
+        else if (rp.Age >= 16) {
             arryPrereq.push(LIC30_NONRES_MUZZLELOADING);
             arryPrereq.push(LIC37_SMALL_AND_BIG_GAME);
             arryPrereq.push(LIC12_LIFETIME_SMALL_AND_BIG_GAME);
