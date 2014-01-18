@@ -1418,8 +1418,14 @@ function copyContactAppSpecificToRecordAppSpecific() {
     }
 
 	if (deceasedDate) {
-		isNotValidToProceed += MSG_DECEASED;
-		}
+        if (isNotValidToProceed) {
+            isNotValidToProceed += MSG_DECEASED;
+        }
+        else {
+            isNotValidToProceed = MSG_DECEASED;
+        }
+    }
+	
 	
     if (!isAgentAbleToSell(publicUserID)) {
         if (isNotValidToProceed) {
