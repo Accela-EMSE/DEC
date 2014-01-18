@@ -1339,7 +1339,7 @@ function copyContactAppSpecificToRecordAppSpecific() {
         if (peopleSequenceNumber != null) {
             var peopleModel = getOutput(aa.people.getPeople(peopleSequenceNumber), "");
 
-			deceasedDate = peopleModel.deceasedDate();
+			deceasedDate = peopleModel.getDeceasedDate();
 			
             //Copy All Asi Fields: asumption is identical subgroups are available in cap ASI
             var subGroupArray = getTemplateValueByFormArrays(peopleModel.getTemplate(), null, null);
