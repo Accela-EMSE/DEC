@@ -39,6 +39,7 @@ var MSG_SUSPENSION = 'License purchases are not available to the customer. This 
 var MSG_NO_AGENT_SALES = 'Sales privileges are suspended. Please contact DEC. ' + CONTACT_LINK;
 var MSG_TOO_MANY_ADDR = 'Please enter only one address of each type.';
 var MSG_DEC_ID_EDITED = 'DEC ID Can Not be Edited.';
+var MSG_DECEASED = 'Cannot continue sale, the selected applicant is deceased.';
 
 //Override function - added/updated debug statements
 function copyFees(sourceCapId, targetCapId) {
@@ -1313,6 +1314,8 @@ function copyContactAppSpecificToRecordAppSpecific() {
 
     var xArray = getApplicantArrayEx();
     var peopleSequenceNumber = null;
+	var deceasedDate = null;
+	
     for (ca in xArray) {
         var thisContact = xArray[ca];
         //First One is always Applicant
@@ -1331,11 +1334,13 @@ function copyContactAppSpecificToRecordAppSpecific() {
         var strLand = null;
         var strEduc = null;
 
-        peopleSequenceNumber = thisContact["refcontactSeqNumber"]
+	    peopleSequenceNumber = thisContact["refcontactSeqNumber"]
 
         if (peopleSequenceNumber != null) {
             var peopleModel = getOutput(aa.people.getPeople(peopleSequenceNumber), "");
 
+			deceasedDate = peopleModel.deceasedDate();
+			
             //Copy All Asi Fields: asumption is identical subgroups are available in cap ASI
             var subGroupArray = getTemplateValueByFormArrays(peopleModel.getTemplate(), null, null);
             GetAllASI(subGroupArray);
@@ -1412,6 +1417,10 @@ function copyContactAppSpecificToRecordAppSpecific() {
         break;
     }
 
+	if (deceasedDate) {
+		isNotValidToProceed += MSG_DECEASED;
+		}
+	
     if (!isAgentAbleToSell(publicUserID)) {
         if (isNotValidToProceed) {
             isNotValidToProceed += MSG_NO_AGENT_SALES;
