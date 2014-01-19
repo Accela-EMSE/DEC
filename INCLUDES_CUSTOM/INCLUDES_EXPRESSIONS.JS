@@ -203,6 +203,28 @@ function isAuthAgentLogin(userId) {
     uObj.setUserModelAttributes();
     return (uObj.acctType != 'CITIZEN');
 }
+function isValidUserForPayementInfo(userId) {
+    var isvalid = false;
+
+    var uObj;
+    if (arguments.length > 0) {
+        uObj = new USEROBJ();
+        uObj.userId = userId;
+        uObj.userModel = uObj.getUserModel();
+        uObj.setUserModelAttributes();
+    } else {
+        uObj = new USEROBJ(publicUserID);
+    }
+    isvalid = (uObj.acctType == 'CITIZEN');
+
+    if (!isvalid) {
+        var salesAgentInfoArray = getAgentInfo(uObj.publicUserID, uObj);
+        if (salesAgentInfoArray != null) {
+            isvalid = (salesAgentInfoArray["Agent Group"] == "Call Center" || salesAgentInfoArray["Agent Group"] == "Call Centre");
+        }
+    }
+    return !isvalid;
+}
 function getDecId(userId) {
     var decId = 'xxxxssssx';
     var uObj = new USEROBJ();
