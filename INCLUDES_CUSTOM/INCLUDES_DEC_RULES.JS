@@ -2066,6 +2066,7 @@ function getIncl_CONSERVATION_LEGACY(ruleParams) {
     arryInc.push(LIC39_SPORTSMAN);
     arryInc.push(LIC40_SUPER_SPORTSMAN);
     arryInc.push(LIC42_TRAPPER_SUPER_SPORTSMAN);
+    arryInc.push(LIC06_HUNTING_LICENSE);
 
     return arryInc;
 }
@@ -2089,6 +2090,7 @@ function getIncl_NONRES_SUPER_SPORTSMAN(ruleParams) {
     arryInc.push(LIC36_NONRESIDENT_TURKEY);
     arryInc.push(LIC35_NONRESIDENT_SMALL_GAME);
     arryInc.push(LIC34_NONRESIDENT_BOWHUNTING);
+    arryInc.push(LIC06_HUNTING_LICENSE);
     return arryInc;
 }
 
@@ -2102,6 +2104,7 @@ function getIncl_SPORTSMAN(ruleParams) {
     arryInc.push(LIC27_CONSERVATION_LEGACY);
     arryInc.push(LIC40_SUPER_SPORTSMAN);
     arryInc.push(LIC42_TRAPPER_SUPER_SPORTSMAN);
+    arryInc.push(LIC06_HUNTING_LICENSE);
     return arryInc;
 }
 
@@ -2118,6 +2121,7 @@ function getIncl_SUPER_SPORTSMAN(ruleParams) {
     arryInc.push(LIC07_MUZZLELOADING_PRIVILEGE);
     arryInc.push(LIC08_TURKEY_PERMIT);
     arryInc.push(LIC42_TRAPPER_SUPER_SPORTSMAN);
+    arryInc.push(LIC06_HUNTING_LICENSE);
 
     return arryInc;
 }
@@ -2135,6 +2139,7 @@ function getIncl_TRAPPER_SUPER_SPORTSMAN(ruleParams) {
     arryInc.push(LIC27_CONSERVATION_LEGACY);
     arryInc.push(LIC38_SMALL_GAME);
     arryInc.push(LIC40_SUPER_SPORTSMAN);
+    arryInc.push(LIC06_HUNTING_LICENSE);
     return arryInc;
 }
 function getIncl_FRESHWATER_FISHING_2012(ruleParams) {
