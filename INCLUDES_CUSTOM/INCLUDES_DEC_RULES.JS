@@ -2657,11 +2657,9 @@ function getTag_ANNUAL_HUNT(ruleParams) {
     arryTags.push(TAG_TYPE_1_BACK_TAG);
 
     //JIRA - 17422
-    if (rp.IsNyResiDent && rp.Age >= 12) {
+    if (rp.IsNyResiDent && rp.Age >= 14) {
         arryTags.push(TAG_TYPE_3_REG_SEASON_DEER);
-        if (rp.IsNyResiDent && rp.Age >= 14) {
-            arryTags.push(TAG_TYPE_2_BEAR_TAG);
-        }
+        arryTags.push(TAG_TYPE_2_BEAR_TAG);
     }
 
     if (!rp.IsNyResiDent && rp.Age >= 14) {
