@@ -2512,6 +2512,42 @@ function getTagsAssociatedToLicense(licAppType) {
         case AA42_TRAPPER_SUPER_SPORTSMAN:
             associatedTagArray = getTag_TRAPPER_SUPER_SPORTSMAN();
             break;
+			
+        case AA11_LIFETIME_MUZZLELOADING:
+		    associateTagArray = new Array();
+			associateTagArray.push(TAG_TYPE_1_BACK_TAG);
+            associateTagArray.push(TAG_TYPE_19_DEER_OF_EITHER_SEX_TAG);
+            associateTagArray.push(TAG_TYPE_20_ANTLERLESS_DEER_TAG);
+            break;
+			
+        case AA09_LIFETIME_BOWHUNTING:
+		    associateTagArray = new Array();
+			associateTagArray.push(TAG_TYPE_1_BACK_TAG);
+            associateTagArray.push(TAG_TYPE_19_DEER_OF_EITHER_SEX_TAG);
+            associateTagArray.push(TAG_TYPE_20_ANTLERLESS_DEER_TAG);
+            break;
+			
+        case AA13_LIFETIME_SPORTSMAN:
+		    associateTagArray = new Array();
+			associateTagArray.push(TAG_TYPE_1_BACK_TAG);
+            associateTagArray.push(TAG_TYPE_19_DEER_OF_EITHER_SEX_TAG);
+            //associateTagArray.push(TAG_TYPE_20_ANTLERLESS_DEER_TAG);
+			associateTagArray.push(TAG_TYPE_3_REG_SEASON_DEER);
+			associateTagArray.push(TAG_TYPE_2_BEAR_TAG);
+			associateTagArray.push(TAG_TYPE_19_DEER_OF_EITHER_SEX_TAG);
+			associateTagArray.push(TAG_TYPE_16_SPRING_TURKEY_TAG_1);
+			associateTagArray.push(TAG_TYPE_15_SPRING_TURKEY_TAG_2);
+			associateTagArray.push(TAG_TYPE_14_FALL_TURKEY_STATEWIDE);
+			associateTagArray.push(TAG_TYPE_13_FALL_TURKEY_2_BIRD_AREA);
+            break;
+			
+        case AA12_LIFETIME_SMALL_AND_BIG_GAME:
+		    associateTagArray = new Array();
+			associateTagArray.push(TAG_TYPE_1_BACK_TAG);
+			associateTagArray.push(TAG_TYPE_2_BEAR_TAG);
+			associateTagArray.push(TAG_TYPE_3_REG_SEASON_DEER);
+            break;
+			
         default:
             break;
     }
