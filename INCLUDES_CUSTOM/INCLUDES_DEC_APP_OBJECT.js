@@ -709,7 +709,29 @@ function form_OBJECT(identity) {
                     var isValidUser = true; // this.isValidUser(this.licObjARRAY[idx].Identity);
                     this.licObjARRAY[idx].isValidUser = isValidUser;
 
-                    var isInActiveHoldings = this.isInActiveHoldings(this.licObjARRAY[idx].Identity, "SELECTION");
+                    var isInActiveHoldings = false;
+                    if (this.licObjARRAY[idx].Identity != LIC06_HUNTING_LICENSE) {
+                        isInActiveHoldings = this.isInActiveHoldings(this.licObjARRAY[idx].Identity, "SELECTION");
+                    } else {
+                        isInActiveHoldings = this.isInActiveHoldings(this.licObjARRAY[idx].Identity, "SELECTION");
+                        if (!isInActiveHoldings) {
+                            var eqvArray = new Array();
+                            eqvArray.push(LIC39_SPORTSMAN);
+                            eqvArray.push(LIC40_SUPER_SPORTSMAN);
+                            eqvArray.push(LIC27_CONSERVATION_LEGACY);
+                            eqvArray.push(LIC31_NONRES_SUPER_SPORTSMAN);
+                            eqvArray.push(LIC29_JUNIOR_HUNTING);
+                            eqvArray.push(LIC42_TRAPPER_SUPER_SPORTSMAN);
+
+                            for (var eix in eqvArray) {
+                                isInActiveHoldings = this.isInPastActiveHoldings(eqvArray[eix], "SELECTION");
+                                if (isInActiveHoldings) {
+                                    break;
+                                }
+                            }
+                        }
+                    }
+
                     this.licObjARRAY[idx].isInActiveHoldings = isInActiveHoldings;
 
                     var isInCombo = this.isInCombo(this.licObjARRAY[idx].Identity, ruleParams);
@@ -740,6 +762,9 @@ function form_OBJECT(identity) {
                                 isHasPrereq = this.licObjARRAY[iLdx].IsSelected;
                                 if (!isHasPrereq) {
                                     isHasPrereq = this.isInActiveHoldings(this.licObjARRAY[iLdx].Identity, "PREREQ");
+                                    if (!isHasPrereq) {
+                                        isHasPrereq = this.isInPastActiveHoldings(this.licObjARRAY[iLdx].Identity, "PREREQ");
+                                    }
                                 }
                                 break;
                             }
@@ -1329,7 +1354,7 @@ function form_OBJECT(identity) {
                                 if (!isExist) {
                                     isExist = ((dateDiff(new Date(), convertDate(this.ActiveHoldingsInfo[idx].ToDate))) > 0);
                                 }
-								//JIRA - 41760
+                                //JIRA - 41760
                                 if (psRef == LIC05_DEER_MANAGEMENT_PERMIT && isExist && this.ActiveHoldingsInfo[idx].RecordType == AA05_DEER_MANAGEMENT_PERMIT) {
                                     var foundDrawType = false;
                                     var searchId = this.ActiveHoldingsInfo[idx].Tag_or_DocumentID;
@@ -1349,12 +1374,76 @@ function form_OBJECT(identity) {
                                     }
                                     isExist = foundDrawType;
                                 }
-								//
+                                //
                                 break;
                             }
                         }
                         if (reasonForCheck == "PREREQ") {
                             if (this.ActiveHoldingsInfo[idx].RecordType == this.VersionItems[item].RecordType) {
+                                isExist = (isNull(this.ActiveHoldingsInfo[idx].ToDate, '') == '');
+                                if (!isExist) {
+                                    isExist = ((dateDiff(new Date(), convertDate(this.ActiveHoldingsInfo[idx].ToDate))) > 0);
+                                }
+                                break;
+                            }
+                        }
+                    }
+                }
+                break;
+            }
+        }
+
+        return isExist;
+    }
+    this.isInPastActiveHoldings = function (psRef, reasonForCheck) {
+        var isExist = false;
+        var pastVersionItems = SetVesrionSalesItems2012();
+        for (var item in pastVersionItems) {
+            if (pastVersionItems[item].Identity == psRef) {
+                var isFound = false;
+                if (reasonForCheck == "SELECTION") {
+                    //Verify Recordtype required ActiveHolding Checking to display selection
+                    var validActiveholdingsArray = getActiveholdingsFilterArray();
+                    if (exists(pastVersionItems[item].RecordType, validActiveholdingsArray)) {
+                        isFound = true;
+                    }
+                } else {
+                    isFound = true;
+                }
+                if (isFound) {
+                    for (var idx = 0; idx < this.ActiveHoldingsInfo.length; idx++) {
+                        if (reasonForCheck == "SELECTION") {
+                            if (this.ActiveHoldingsInfo[idx].RecordType == pastVersionItems[item].RecordType) {
+                                isExist = (isNull(this.ActiveHoldingsInfo[idx].ToDate, '') == '');
+                                if (!isExist) {
+                                    isExist = ((dateDiff(new Date(), convertDate(this.ActiveHoldingsInfo[idx].ToDate))) > 0);
+                                }
+                                //JIRA - 41760
+                                if (psRef == LIC05_DEER_MANAGEMENT_PERMIT && isExist && this.ActiveHoldingsInfo[idx].RecordType == AA05_DEER_MANAGEMENT_PERMIT) {
+                                    var foundDrawType = false;
+                                    var searchId = this.ActiveHoldingsInfo[idx].Tag_or_DocumentID;
+                                    var dmpCapId = getCapId(searchId);
+                                    if (dmpCapId) {
+                                        var dmpCap = aa.cap.getCap(dmpCapId).getOutput();
+                                        loadASITables(dmpCapId);
+                                        if (typeof (DRAWRESULT) == "object") {
+                                            for (y in DRAWRESULT) {
+                                                var drawType = DRAWRESULT[y]["DRAW TYPE"];
+                                                if (drawType == this.currDrawType) {
+                                                    foundDrawType = true;
+                                                    break;
+                                                }
+                                            }
+                                        }
+                                    }
+                                    isExist = foundDrawType;
+                                }
+                                //
+                                break;
+                            }
+                        }
+                        if (reasonForCheck == "PREREQ") {
+                            if (this.ActiveHoldingsInfo[idx].RecordType == pastVersionItems[item].RecordType) {
                                 isExist = (isNull(this.ActiveHoldingsInfo[idx].ToDate, '') == '');
                                 if (!isExist) {
                                     isExist = ((dateDiff(new Date(), convertDate(this.ActiveHoldingsInfo[idx].ToDate))) > 0);
