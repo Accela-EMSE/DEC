@@ -639,6 +639,7 @@ function form_OBJECT(identity) {
         this.CountOtherSaleGroup = 0;
         this.currDrawType = getDrawTypeByPeriod(this.Year);
         this.setLoginUserType();
+        var couterhasSaleLicMilitaryDisable = 0;
         //Set Licenses using form appliaction object and BO rule to do various operation in EB and SCRIPTs 
         //e.g Make linsces disabled id prerequiste is not set;
 
@@ -668,6 +669,13 @@ function form_OBJECT(identity) {
             if (isActive) {
                 eval("isSelectable = " + this.licObjARRAY[idx].FNIsSelectableRule + "(ruleParams);");
                 this.setBoMessage(this.licObjARRAY[idx].Identity);
+
+                if (!ruleParams.hasSaleLicMilitaryDisable && this.licObjARRAY[idx].IsSelected) {
+                    if (hasSaleLicMilitaryDisable(this.licObjARRAY[idx].RecordType)) {
+                        couterhasSaleLicMilitaryDisable++;
+                    }
+                    ruleParams.hasSaleLicMilitaryDisable = (couterhasSaleLicMilitaryDisable > 1);
+                }
 
                 if (this.optmzType == OPTZ_TYPE_ALLFEES || (this.optmzType == OPTZ_TYPE_SELECTED_FEES && this.licObjARRAY[idx].IsSelected)) {
                     //if (this.optmzType == OPTZ_TYPE_ALLFEES || (this.optmzType == OPTZ_TYPE_SELECTED_FEES && this.licObjARRAY[idx].IsSelected) || this.optmzType == OPTZ_TYPE_CTRC) {
@@ -1869,6 +1877,7 @@ function rulePARAMS(identity) {
     this.HasBowPriv = false;
     this.HasMuzzPriv = false;
     this.hasValidNYDriverLicense = false;
+    this.hasSaleLicMilitaryDisable = false;
 
     this.SetEitherOrAntler = function (eEitherOrAntler) {
         //eEitherOrAntler=4:E; eEitherOrAntler=8:A;
@@ -2445,4 +2454,3 @@ function exists(eVal, eArray) {
         if (eArray[ii] == eVal) return true;
     return false;
 }
-
