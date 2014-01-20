@@ -961,7 +961,7 @@ function SetformForSelectedLics(frm) {
     frm.Inscription = AInfo["Inscription"];
     frm.IsPermanentDisabled = AInfo["Permanent Disability"];
     frm.DriverLicenseState = AInfo["A_Driver_License_State"];
-    frm.DriverLicenseNumber = AInfo["A_Driver_License_Number"];
+    frm.NonDriverLicenseNumber = AInfo["A_Non_Driver_License_Number"];
 
     //ASIT info
     frm.ClearLandOwnerInfo();
@@ -1214,6 +1214,8 @@ function getApplicantInfoArray(capContactObj) {
     aArray["driverLicenseState"] = capContactObj.getPeople().driverLicenseState;
     aArray["deceasedDate"] = capContactObj.getPeople().deceasedDate;
     aArray["passportNumber"] = capContactObj.getPeople().passportNumber;
+	aArray["stateIDNbr"] = capContactObj.getPeople().getStateIDNbr();
+	
 
     var pa;
     if (arguments.length == 1 && !cap.isCompleteCap() && controlString != "ApplicationSubmitAfter" && controlString != "ConvertToRealCapAfter") // using capModel to get contacts
@@ -1328,6 +1330,7 @@ function copyContactAppSpecificToRecordAppSpecific() {
         editAppSpecific4ACA("A_IsNYResident", thisContact["Are You New York Resident?"]);
         editAppSpecific4ACA("A_Driver_License_State", thisContact["driverLicenseState"]);
         editAppSpecific4ACA("A_Driver_License_Number", thisContact["driverLicenseNbr"]);
+		editAppSpecific4ACA(" A_Non_Driver_License_Number", thisContact["stateIDNbr"]);
 
         var strAnnual = null;
         var strPrev = null;

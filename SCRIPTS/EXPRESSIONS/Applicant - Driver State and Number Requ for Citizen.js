@@ -40,39 +40,39 @@ var dlNbr=expression.getValue("APPLICANT::applicant*driverLicenseNbr");
 var userIdString = userId.getValue();
 var s_publicUserResult = aa.publicUser.getPublicUserByUserId(userIdString);
 
-dlState.required = false;
-
 if (s_publicUserResult.getSuccess()) {
 	var pUserObj = s_publicUserResult.getOutput();
 
 	if (pUserObj.getAccountType() == "CITIZEN") {
-		dlState.required = true;
+		isCitizen = true;
 	}
 }	
 
+if (isCitizen) {
+	var msg = "";
+	dd = diffDate(oToday.getValue(), bDate.getValue());
+	if (dd > 0)
+		msg = "Birth Date cannot be in the future";
+	if (dd < -36524)
+		msg = "Birth Date cannot be more than 100 years into the past";
+	bDate.message = msg;
+	if (msg != "")
+		bDate.value = ""
+			expression.setReturn(bDate);
+	dlState.required = false;
+			
+	if (bDate.getValue() && getAGE(bDate.getValue()) < 16) {
+		dlParent.required = true;
+		dlNbr.required = false;
+	} else {
+		dlParent.required = false;
+		dlNbr.required = true;
+	}
 
-var msg = "";
-dd = diffDate(oToday.getValue(), bDate.getValue());
-if (dd > 0)
-	msg = "Birth Date cannot be in the future";
-if (dd < -36524)
-	msg = "Birth Date cannot be more than 100 years into the past";
-bDate.message = msg;
-if (msg != "")
-	bDate.value = ""
-		expression.setReturn(bDate);
-
-if (bDate.getValue() && getAGE(bDate.getValue) < 16) {
-	dlParent.required = true;
-	dlNbr.required = false;
-} else {
-	dlParent.required = false;
-	dlNbr.required = true;
+	expression.setReturn(dlParent);
+	expression.setReturn(dlNbr);
+	expression.setReturn(dlState);
 }
-expression.setReturn(dlParent);
-expression.setReturn(dlNbr);
-expression.setReturn(dlState);
-
 
 
 
