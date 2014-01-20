@@ -1330,7 +1330,7 @@ function copyContactAppSpecificToRecordAppSpecific() {
         editAppSpecific4ACA("A_IsNYResident", thisContact["Are You New York Resident?"]);
         editAppSpecific4ACA("A_Driver_License_State", thisContact["driverLicenseState"]);
         editAppSpecific4ACA("A_Driver_License_Number", thisContact["driverLicenseNbr"]);
-		editAppSpecific4ACA(" A_Non_Driver_License_Number", thisContact["stateIDNbr"]);
+		editAppSpecific4ACA("A_Non_Driver_License_Number", thisContact["stateIDNbr"]);
 
         var strAnnual = null;
         var strPrev = null;
