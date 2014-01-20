@@ -1217,7 +1217,6 @@ function form_OBJECT(identity) {
                         retMsg = "Already has fishing license valid from " + fromDate + " to " + toDate;
                         break;
                     }
-                    retMsg += '<br />';
                 }
             }
         }
