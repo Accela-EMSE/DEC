@@ -2784,7 +2784,8 @@ function validateFishingdates() {
                 retMsg += "<Br />";
             } else {
                 if (f.isAfterSwitchDate()) {
-                    msg = f.isActiveFishingLic(isNull(AInfo["Effective Date Marine"], ''), '');
+					//JIRA-44556
+                    msg = f.isActiveMarine(isNull(AInfo["Effective Date Marine"], ''), '');
                     if (msg != '') {
                         retMsg += msg;
                         retMsg += "<Br />";
