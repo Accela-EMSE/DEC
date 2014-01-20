@@ -2764,6 +2764,15 @@ function getBaseLicMilitaryDisable() {
 
     return validRecTypeArray;
 }
+function getSaleLicMilitaryDisable() {
+    var validRecTypeArray = new Array();     //   record types
+
+    validRecTypeArray.push(AA01_FISHING_LICENSE);
+    validRecTypeArray.push(AA06_HUNTING_LICENSE);
+    validRecTypeArray.push(AA15_TRAPPING_LICENSE);
+
+    return validRecTypeArray;
+}
 function hasBaseLicMilitaryDisable(activeHoldingsInfo) {
     var isExist = false;
     //Verify Recordtype required ActiveHolding Checking to display selection
@@ -2780,7 +2789,7 @@ function hasBaseLicMilitaryDisable(activeHoldingsInfo) {
 //JIRA - 44607
 function hasSaleLicMilitaryDisable(recordType) {
     var isExist = false;
-    var validBaseLicArray = getBaseLicMilitaryDisable();
+    var validBaseLicArray = getSaleLicMilitaryDisable();
     if (exists(recordType, validBaseLicArray)) {
         isExist = true;
     }
