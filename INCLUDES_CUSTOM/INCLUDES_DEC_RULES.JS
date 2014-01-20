@@ -1730,7 +1730,7 @@ function isRuleForSelectable_OTHER_SALE_VENISON_DONATION_SCHDL(ruleParams) {
 }
 
 function isRuleForSelectable_DRIV_LIC(ruleParams) {
-    return ruleParams.hasValidNYDriverLicense || ruleParams.hasValidNYNonDriverLicense || ;
+    return (ruleParams.hasValidNYDriverLicense || ruleParams.hasValidNYNonDriverLicense) ;
 }
 //////////////
 function checkRuletoCreateTag(ruleParams, tagProp, dictTags) {
