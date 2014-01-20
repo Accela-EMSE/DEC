@@ -1214,7 +1214,7 @@ function getApplicantInfoArray(capContactObj) {
     aArray["driverLicenseState"] = capContactObj.getPeople().driverLicenseState;
     aArray["deceasedDate"] = capContactObj.getPeople().deceasedDate;
     aArray["passportNumber"] = capContactObj.getPeople().passportNumber;
-	aArray["stateIDNbr"] = capContactObj.getPeople().getStateIDNbr();
+	aArray["stateIDNbr"] = capContactObj.getPeople().stateIDNbr;
 	
 
     var pa;
