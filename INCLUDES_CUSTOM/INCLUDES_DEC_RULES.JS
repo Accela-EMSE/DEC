@@ -706,7 +706,7 @@ function getAllFeeCodeByRuleFor_FRESHWATER_FISHING_2014(ruleParams, feeSched) {
     if (rp.IsNyResiDent && rp.Age >= 16 && rp.IsDisableForYear) {
         feeItemCodes.push(new FeeCodeProp(AFF_5_RESMD, "000"));
         //Military disabled persons will only be charged one $5 fee per license year for the their base licenses (trap, hunt, fish) whether they purchase one or all three.
-        if (hasBaseLicMilitaryDisable(rp.ActiveHoldingsInfo)) {
+        if (rp.hasSaleLicMilitaryDisable || hasBaseLicMilitaryDisable(rp.ActiveHoldingsInfo)) {
             feeItemCodes.push(new FeeCodeProp(RESMD_FREE, "000"));
         }
     }
@@ -753,7 +753,7 @@ function getAllFeeCodeByRuleFor_ANNUAL_HUNT(ruleParams, feeSched) {
     if (rp.IsNyResiDent && rp.Age >= 16 && rp.IsDisableForYear) {
         feeItemCodes.push(new FeeCodeProp(AHL_6_RESMD, "000"));
         //Military disabled persons will only be charged one $5 fee per license year for the their base licenses (trap, hunt, fish) whether they purchase one or all three.
-        if (hasBaseLicMilitaryDisable(rp.ActiveHoldingsInfo)) {
+        if (rp.hasSaleLicMilitaryDisable || hasBaseLicMilitaryDisable(rp.ActiveHoldingsInfo)) {
             feeItemCodes.push(new FeeCodeProp(RESMD_FREE, "000"));
         }
     }
@@ -781,7 +781,7 @@ function getAllFeeCodeByRuleFor_ANNUAL_BOWH_2012(ruleParams, feeSched) {
     if (rp.IsNyResiDent && rp.Age >= 16 && rp.IsDisableForYear) {
         feeItemCodes.push(new FeeCodeProp(ABHP_6_RESMD, "000"));
         //Military disabled persons will only be charged one $5 fee per license year for the their base licenses (trap, hunt, fish) whether they purchase one or all three.
-        if (hasBaseLicMilitaryDisable(rp.ActiveHoldingsInfo)) {
+        if (rp.hasSaleLicMilitaryDisable || hasBaseLicMilitaryDisable(rp.ActiveHoldingsInfo)) {
             feeItemCodes.push(new FeeCodeProp(RESMD_FREE, "000"));
         }
     }
@@ -809,7 +809,7 @@ function getAllFeeCodeByRuleFor_ANNUAL_BOWH_2014(ruleParams, feeSched) {
     if (rp.IsNyResiDent && rp.Age >= 16 && rp.IsDisableForYear) {
         feeItemCodes.push(new FeeCodeProp(ABHP_6_RESMD, "000"));
         //Military disabled persons will only be charged one $5 fee per license year for the their base licenses (trap, hunt, fish) whether they purchase one or all three.
-        if (hasBaseLicMilitaryDisable(rp.ActiveHoldingsInfo)) {
+        if (rp.hasSaleLicMilitaryDisable || hasBaseLicMilitaryDisable(rp.ActiveHoldingsInfo)) {
             feeItemCodes.push(new FeeCodeProp(RESMD_FREE, "000"));
         }
     }
@@ -831,7 +831,7 @@ function getAllFeeCodeByRuleFor_ANNUAL_MUZZ_2012(ruleParams, feeSched) {
     if (rp.IsNyResiDent && rp.Age >= 14 && rp.IsDisableForYear) {
         feeItemCodes.push(new FeeCodeProp(AMP_6_RESMD, "000"));
         //Military disabled persons will only be charged one $5 fee per license year for the their base licenses (trap, hunt, fish) whether they purchase one or all three.
-        if (hasBaseLicMilitaryDisable(rp.ActiveHoldingsInfo)) {
+        if (rp.hasSaleLicMilitaryDisable || hasBaseLicMilitaryDisable(rp.ActiveHoldingsInfo)) {
             feeItemCodes.push(new FeeCodeProp(RESMD_FREE, "000"));
         }
     }
@@ -855,7 +855,7 @@ function getAllFeeCodeByRuleFor_ANNUAL_MUZZ_2014(ruleParams, feeSched) {
     if (rp.IsNyResiDent && rp.Age >= 14 && rp.IsDisableForYear) {
         feeItemCodes.push(new FeeCodeProp(AMP_6_RESMD, "000"));
         //Military disabled persons will only be charged one $5 fee per license year for the their base licenses (trap, hunt, fish) whether they purchase one or all three.
-        if (hasBaseLicMilitaryDisable(rp.ActiveHoldingsInfo)) {
+        if (rp.hasSaleLicMilitaryDisable || hasBaseLicMilitaryDisable(rp.ActiveHoldingsInfo)) {
             feeItemCodes.push(new FeeCodeProp(RESMD_FREE, "000"));
         }
     }
@@ -906,7 +906,7 @@ function getAllFeeCodeByRuleFor_ANNUAL_TRKY_2014(ruleParams, feeSched) {
 
     //   if (rp.IsNyResiDent && rp.Age >= 12 && rp.IsDisableForYear) {
     //       //Military disabled persons will only be charged one $5 fee per license year for the their base licenses (trap, hunt, fish) whether they purchase one or all three.
-    //       if (hasBaseLicMilitaryDisable(rp.ActiveHoldingsInfo)) {
+    //       if (rp.hasSaleLicMilitaryDisable || hasBaseLicMilitaryDisable(rp.ActiveHoldingsInfo)) {
     //           feeItemCodes.push(new FeeCodeProp(RESMD_FREE, "000"));
     //       }
     //   }
@@ -925,7 +925,7 @@ function getAllFeeCodeByRuleFor_ANNUAL_TRKY_2012(ruleParams, feeSched) {
 
     //    if (rp.IsNyResiDent && rp.Age >= 12 && rp.IsDisableForYear) {
     //        //Military disabled persons will only be charged one $5 fee per license year for the their base licenses (trap, hunt, fish) whether they purchase one or all three.
-    //        if (hasBaseLicMilitaryDisable(rp.ActiveHoldingsInfo)) {
+    //        if (rp.hasSaleLicMilitaryDisable || hasBaseLicMilitaryDisable(rp.ActiveHoldingsInfo)) {
     //            feeItemCodes.push(new FeeCodeProp(RESMD_FREE, "000"));
     //        }
     //    }
@@ -949,7 +949,7 @@ function getAllFeeCodeByRuleFor_ANNUAL_TRAP_2012(ruleParams, feeSched) {
     if (rp.Age >= 16 && rp.IsNyResiDent && rp.IsDisableForYear) {
         feeItemCodes.push(new FeeCodeProp(ATL_5_MD, "000"));
         //Military disabled persons will only be charged one $5 fee per license year for the their base licenses (trap, hunt, fish) whether they purchase one or all three.
-        if (hasBaseLicMilitaryDisable(rp.ActiveHoldingsInfo)) {
+        if (rp.hasSaleLicMilitaryDisable || hasBaseLicMilitaryDisable(rp.ActiveHoldingsInfo)) {
             feeItemCodes.push(new FeeCodeProp(RESMD_FREE, "000"));
         }
     }
@@ -978,7 +978,7 @@ function getAllFeeCodeByRuleFor_ANNUAL_TRAP_2014(ruleParams, feeSched) {
     if (rp.Age >= 16 && rp.IsNyResiDent && rp.IsDisableForYear) {
         feeItemCodes.push(new FeeCodeProp(ATL_5_MD, "000"));
         //Military disabled persons will only be charged one $5 fee per license year for the their base licenses (trap, hunt, fish) whether they purchase one or all three.
-        if (hasBaseLicMilitaryDisable(rp.ActiveHoldingsInfo)) {
+        if (rp.hasSaleLicMilitaryDisable || hasBaseLicMilitaryDisable(rp.ActiveHoldingsInfo)) {
             feeItemCodes.push(new FeeCodeProp(RESMD_FREE, "000"));
         }
     }
@@ -1114,7 +1114,7 @@ function getAllFeeCodeByRuleFor_FRESHWATER_FISHING_2012(ruleParams, feeSched) {
     if (rp.IsNyResiDent && rp.Age >= 16 && rp.IsDisableForYear) {
         feeItemCodes.push(new FeeCodeProp(AFF_5_RESMD, "000"));
         //Military disabled persons will only be charged one $5 fee per license year for the their base licenses (trap, hunt, fish) whether they purchase one or all three.
-        if (hasBaseLicMilitaryDisable(rp.ActiveHoldingsInfo)) {
+        if (rp.hasSaleLicMilitaryDisable || hasBaseLicMilitaryDisable(rp.ActiveHoldingsInfo)) {
             feeItemCodes.push(new FeeCodeProp(RESMD_FREE, "000"));
         }
     }
@@ -1186,7 +1186,7 @@ function getAllFeeCodeByRuleFor_CONSERVATION_LEGACY(ruleParams, feeSched) {
 
     if (rp.IsNyResiDent && rp.IsDisableForYear) {
         //Military disabled persons will only be charged one $5 fee per license year for the their base licenses (trap, hunt, fish) whether they purchase one or all three.
-        if (hasBaseLicMilitaryDisable(rp.ActiveHoldingsInfo)) {
+        if (rp.hasSaleLicMilitaryDisable || hasBaseLicMilitaryDisable(rp.ActiveHoldingsInfo)) {
             feeItemCodes.push(new FeeCodeProp(RESMD_FREE, "000"));
         }
     }
@@ -1322,7 +1322,7 @@ function getAllFeeCodeByRuleFor_SMALL_AND_BIG_GAME(ruleParams, feeSched) {
     if (rp.IsNyResiDent && rp.Age >= 16 && rp.IsMilitaryServiceman) { feeItemCodes.push(new FeeCodeProp(ASBG_2_RSPRN, "000")); }
     if (rp.IsNyResiDent && rp.Age >= 16 && rp.IsDisableForYear) {
         //Military disabled persons will only be charged one $5 fee per license year for the their base licenses (trap, hunt, fish) whether they purchase one or all three.
-        if (hasBaseLicMilitaryDisable(rp.ActiveHoldingsInfo)) {
+        if (rp.hasSaleLicMilitaryDisable || hasBaseLicMilitaryDisable(rp.ActiveHoldingsInfo)) {
             feeItemCodes.push(new FeeCodeProp(RESMD_FREE, "000"));
         }
     }
@@ -1338,7 +1338,7 @@ function getAllFeeCodeByRuleFor_SMALL_GAME(ruleParams, feeSched) {
     if (rp.IsNyResiDent && rp.Age >= 16 && rp.Age <= 69) { feeItemCodes.push(new FeeCodeProp(ASGM_1_RES, "000")); }
     if (rp.IsNyResiDent && rp.Age >= 16 && rp.IsDisableForYear) {
         //Military disabled persons will only be charged one $5 fee per license year for the their base licenses (trap, hunt, fish) whether they purchase one or all three.
-        if (hasBaseLicMilitaryDisable(rp.ActiveHoldingsInfo)) {
+        if (rp.hasSaleLicMilitaryDisable || hasBaseLicMilitaryDisable(rp.ActiveHoldingsInfo)) {
             feeItemCodes.push(new FeeCodeProp(RESMD_FREE, "000"));
         }
     }
@@ -1360,7 +1360,7 @@ function getAllFeeCodeByRuleFor_SPORTSMAN(ruleParams, feeSched) {
     if (rp.IsNyResiDent && rp.Age >= 16 && (rp.IsDisableForYear || rp.IsPermanentDisabled)) {
         feeItemCodes.push(new FeeCodeProp(ASP_4_RESMD, "000"));
         //Military disabled persons will only be charged one $5 fee per license year for the their base licenses (trap, hunt, fish) whether they purchase one or all three.
-        if (hasBaseLicMilitaryDisable(rp.ActiveHoldingsInfo)) {
+        if (rp.hasSaleLicMilitaryDisable || hasBaseLicMilitaryDisable(rp.ActiveHoldingsInfo)) {
             feeItemCodes.push(new FeeCodeProp(RESMD_FREE, "000"));
         }
     }
@@ -1376,7 +1376,7 @@ function getAllFeeCodeByRuleFor_SUPER_SPORTSMAN(ruleParams, feeSched) {
     if (rp.IsNyResiDent && rp.Age >= 16 && rp.Age <= 69) { feeItemCodes.push(new FeeCodeProp(ASSP_1_RES, "000")); }
     if (rp.IsNyResiDent && rp.Age >= 16 && rp.IsDisableForYear) {
         //Military disabled persons will only be charged one $5 fee per license year for the their base licenses (trap, hunt, fish) whether they purchase one or all three.
-        if (hasBaseLicMilitaryDisable(rp.ActiveHoldingsInfo)) {
+        if (rp.hasSaleLicMilitaryDisable || hasBaseLicMilitaryDisable(rp.ActiveHoldingsInfo)) {
             feeItemCodes.push(new FeeCodeProp(RESMD_FREE, "000"));
         }
     }
@@ -1402,7 +1402,7 @@ function getAllFeeCodeByRuleFor_TRAPPER_SUPER_SPORTSMAN(ruleParams, feeSched) {
     if (rp.IsNyResiDent && rp.Age >= 16 && rp.Age <= 69) { feeItemCodes.push(new FeeCodeProp(ATSS_1_RES, "000")); }
     if (rp.IsNyResiDent && rp.Age >= 16 && rp.IsDisableForYear) {
         //Military disabled persons will only be charged one $5 fee per license year for the their base licenses (trap, hunt, fish) whether they purchase one or all three.
-        if (hasBaseLicMilitaryDisable(rp.ActiveHoldingsInfo)) {
+        if (rp.hasSaleLicMilitaryDisable || hasBaseLicMilitaryDisable(rp.ActiveHoldingsInfo)) {
             feeItemCodes.push(new FeeCodeProp(RESMD_FREE, "000"));
         }
     }
@@ -2777,15 +2777,10 @@ function hasBaseLicMilitaryDisable(activeHoldingsInfo) {
 //JIRA - 44607
 function hasSaleLicMilitaryDisable(recordType) {
     var isExist = false;
-    //Verify Recordtype required ActiveHolding Checking to display selection
     var validBaseLicArray = getBaseLicMilitaryDisable();
-    for (var idx = 0; idx < activeHoldingsInfo.length; idx++) {
-        if (exists(recordType, validBaseLicArray)) {
-            isExist = true;
-            break;
-        }
+    if (exists(recordType, validBaseLicArray)) {
+        isExist = true;
     }
-
     return isExist;
 }
 function hasBaseDMP(activeHoldingsInfo) {
@@ -3334,4 +3329,3 @@ function getRevokTrapRecTypeArray() {
 
     return validRecTypeArray;
 }
-
