@@ -2774,6 +2774,20 @@ function hasBaseLicMilitaryDisable(activeHoldingsInfo) {
 
     return isExist;
 }
+//JIRA - 44607
+function hasSaleLicMilitaryDisable(recordType) {
+    var isExist = false;
+    //Verify Recordtype required ActiveHolding Checking to display selection
+    var validBaseLicArray = getBaseLicMilitaryDisable();
+    for (var idx = 0; idx < activeHoldingsInfo.length; idx++) {
+        if (exists(recordType, validBaseLicArray)) {
+            isExist = true;
+            break;
+        }
+    }
+
+    return isExist;
+}
 function hasBaseDMP(activeHoldingsInfo) {
     var isExist = false;
     //Verify Recordtype required ActiveHolding Checking to display selection
