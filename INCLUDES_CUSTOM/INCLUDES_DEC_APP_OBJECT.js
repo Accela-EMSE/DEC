@@ -133,7 +133,8 @@ function form_OBJECT(identity) {
 
     this.DriverLicenseState = "";
     this.DriverLicenseNumber = "";
-
+	this.NonDriverLicenseNumber = "";
+	
     //MILITARY ACTIVE SERVICE STATUS
     this.IsMilitaryServiceman = "";
 
@@ -602,6 +603,7 @@ function form_OBJECT(identity) {
         ruleParams.HasMuzzPriv = this.HasMuzzPriv;
         ruleParams.EitherOrAntler = this.EitherOrAntler;
         ruleParams.hasValidNYDriverLicense = String(isNull(this.DriverLicenseState, '')).toUpperCase().equals("NY") && String(isNull(this.DriverLicenseNumber, '')).length > 0;
+		ruleParams.hasValidNYNonDriverLicense = String(isNull(this.DriverLicenseState, '')).toUpperCase().equals("NY") && String(isNull(this.NonDriverLicenseNumber, '')).length > 0;
         return ruleParams;
     }
 

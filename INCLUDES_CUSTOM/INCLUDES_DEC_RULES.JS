@@ -397,6 +397,7 @@ var AJHT_2_NORES = "AJHT_2_NORES"
 var FEE_LIFETIME_DRIV_LIC_SCHDL = "FEE_LIFETM_DL_IMM_OPTIN";
 var FEE_LIFETIME_DRIV_LIC_IMMED = "FEE_DL_1";
 var FEE_LIFETIME_DRIV_LIC_RENEW = "FEE_DL_2";
+var FEE_LIFETIME_DRIV_LIC_IMM_NON = "FEE_DL_3";
 
 var arryfishingGroup = new Array();
 arryfishingGroup.push(LIC02_MARINE_REGISTRY);
@@ -1073,7 +1074,9 @@ function getAllFeeCodeByRuleFor_LIFETM_INSCRIPTION(ruleParams, feeSched) {
 function getAllFeeCodeByRuleFor_DRIV_LIC_IMM(ruleParams, feeSched) {
     var feeItemCodes = new Array();
     var rp = ruleParams;
-    feeItemCodes.push(new FeeCodeProp(FEE_LIFETIME_DRIV_LIC_IMMED, "000"));
+	if (rp.hasValidNYDriverLicense) {	feeItemCodes.push(new FeeCodeProp(FEE_LIFETIME_DRIV_LIC_IMMED, "000")); }
+	else if (rp.hasValidNYNonDriverLicense) { feeItemCodes.push(new FeeCodeProp(FEE_LIFETIME_DRIV_LIC_IMM_NON, "000")); }
+	
     return feeItemCodes;
 }
 
@@ -1727,7 +1730,7 @@ function isRuleForSelectable_OTHER_SALE_VENISON_DONATION_SCHDL(ruleParams) {
 }
 
 function isRuleForSelectable_DRIV_LIC(ruleParams) {
-    return ruleParams.hasValidNYDriverLicense;
+    return ruleParams.hasValidNYDriverLicense || ruleParams.hasValidNYNonDriverLicense || ;
 }
 //////////////
 function checkRuletoCreateTag(ruleParams, tagProp, dictTags) {
