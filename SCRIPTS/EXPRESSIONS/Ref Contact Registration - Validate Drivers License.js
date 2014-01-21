@@ -18,17 +18,16 @@ var dmvWsURL = "https://wsc.dmv.state.ny.us/sst/runtime.asvc/com.actional.interm
 var dmvUserID = "deccidvb"
 var dmvUserPwd = "853ID1yg"
 var valueToValidate = null;
+
 var msg = "";
 var servProvCode=expression.getValue("$$servProvCode$$").value;
+var dl = expression.getValue("REFCONTACT::driverLicenseNbr");
+var nonDL = expression.getValue("REFCONTACT::stateIDNbr");
+var dlState =expression.getValue("REFCONTACT::driverLicenseState");
+var dlLast = expression.getValue("REFCONTACT::lastName");
+var dlDOB = expression.getValue("REFCONTACT::birthDate");
 
-var servProvCode=expression.getValue("$$servProvCode$$").value;
-var dl = expression.getValue("CUSTOMER::driverLicenseNbr");
-var nonDL =expression.getValue("CUSTOMER::stateIDNbr");
-var dlState =expression.getValue("CUSTOMER::driverLicenseState");
-var dlLast = expression.getValue("CUSTOMER::lastName");
-var dlDOB = expression.getValue("CUSTOMER::birthDate");
-
-var form = expression.getValue("CUSTOMER::FORM");
+var form = expression.getValue("REFCONTACT::FORM");
 
 var returnMessage = "";
 // get the EMSE biz object
