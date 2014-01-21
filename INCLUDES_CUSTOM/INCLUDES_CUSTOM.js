@@ -288,12 +288,12 @@ function copyLicASI(newCap, newAInfo) {
                     ignore = true;
                     break;
                 }
-            if (ignore)
-                continue;
-        }
-        editAppSpecific(newAInfo[item].FieldName, newAInfo[item].Value, newCap);
+        if (ignore)
+            continue;
     }
-    logDebug("EXIT: copyLicASI");
+    editAppSpecific(newAInfo[item].FieldName, newAInfo[item].Value, newCap);
+}
+logDebug("EXIT: copyLicASI");
 }
 function updateContacts() {
     logDebug("ENTER: updateContacts");
@@ -1214,8 +1214,8 @@ function getApplicantInfoArray(capContactObj) {
     aArray["driverLicenseState"] = capContactObj.getPeople().driverLicenseState;
     aArray["deceasedDate"] = capContactObj.getPeople().deceasedDate;
     aArray["passportNumber"] = capContactObj.getPeople().passportNumber;
-	aArray["stateIDNbr"] = capContactObj.getPeople().stateIDNbr;
-	
+    aArray["stateIDNbr"] = capContactObj.getPeople().stateIDNbr;
+
 
     var pa;
     if (arguments.length == 1 && !cap.isCompleteCap() && controlString != "ApplicationSubmitAfter" && controlString != "ConvertToRealCapAfter") // using capModel to get contacts
@@ -1316,8 +1316,8 @@ function copyContactAppSpecificToRecordAppSpecific() {
 
     var xArray = getApplicantArrayEx();
     var peopleSequenceNumber = null;
-	var deceasedDate = null;
-	
+    var deceasedDate = null;
+
     for (ca in xArray) {
         var thisContact = xArray[ca];
         //First One is always Applicant
@@ -1330,20 +1330,20 @@ function copyContactAppSpecificToRecordAppSpecific() {
         editAppSpecific4ACA("A_IsNYResident", thisContact["Are You New York Resident?"]);
         editAppSpecific4ACA("A_Driver_License_State", thisContact["driverLicenseState"]);
         editAppSpecific4ACA("A_Driver_License_Number", thisContact["driverLicenseNbr"]);
-		editAppSpecific4ACA("A_Non_Driver_License_Number", thisContact["stateIDNbr"]);
+        editAppSpecific4ACA("A_Non_Driver_License_Number", thisContact["stateIDNbr"]);
 
         var strAnnual = null;
         var strPrev = null;
         var strLand = null;
         var strEduc = null;
 
-	    peopleSequenceNumber = thisContact["refcontactSeqNumber"]
+        peopleSequenceNumber = thisContact["refcontactSeqNumber"]
 
         if (peopleSequenceNumber != null) {
             var peopleModel = getOutput(aa.people.getPeople(peopleSequenceNumber), "");
 
-			deceasedDate = peopleModel.getDeceasedDate();
-			
+            deceasedDate = peopleModel.getDeceasedDate();
+
             //Copy All Asi Fields: asumption is identical subgroups are available in cap ASI
             var subGroupArray = getTemplateValueByFormArrays(peopleModel.getTemplate(), null, null);
             GetAllASI(subGroupArray);
@@ -1420,7 +1420,7 @@ function copyContactAppSpecificToRecordAppSpecific() {
         break;
     }
 
-	if (deceasedDate) {
+    if (deceasedDate) {
         if (isNotValidToProceed) {
             isNotValidToProceed += MSG_DECEASED;
         }
@@ -1428,8 +1428,8 @@ function copyContactAppSpecificToRecordAppSpecific() {
             isNotValidToProceed = MSG_DECEASED;
         }
     }
-	
-	
+
+
     if (!isAgentAbleToSell(publicUserID)) {
         if (isNotValidToProceed) {
             isNotValidToProceed += MSG_NO_AGENT_SALES;
@@ -2728,6 +2728,8 @@ function isValidBuyRecord(pStep) {
     return retMsg;
     logDebug("EXIT: isValidBuyRecord");
 }
+
+
 function validateFishingdates() {
     var retMsg = '';
     var msg = '';
@@ -2780,6 +2782,13 @@ function validateFishingdates() {
             }
         }
     }
+	//JIRA-44417
+	msg = f.fishdateMap()
+	if (msg != '') {
+		retMsg += msg;
+		retMsg += "<Br />";
+	}
+					
     if (isNull(AInfo["Effective Date Marine"], '') != '') {
         if (f.isAfterSwitchDate()) {
             if (dateDiff(AInfo["Effective Date Marine"], new Date()) >= 1) {
@@ -2787,7 +2796,7 @@ function validateFishingdates() {
                 retMsg += "<Br />";
             } else {
                 if (f.isAfterSwitchDate()) {
-					//JIRA-44556
+                    //JIRA-44556
                     msg = f.isActiveMarine(isNull(AInfo["Effective Date Marine"], ''), '');
                     if (msg != '') {
                         retMsg += msg;
@@ -5378,7 +5387,7 @@ function copyMailAddToContactForPU() {
             var refCon = getRefConByPublicUserSeq(pUserSeqNumber);
 
             if (refCon) {
-				var peopleSequenceNumber = refCon.getContactSeqNumber()
+                var peopleSequenceNumber = refCon.getContactSeqNumber()
                 var peopleModel = getOutput(aa.people.getPeople(peopleSequenceNumber), "");
                 var tmpl = peopleModel.getTemplate();
 
@@ -5401,7 +5410,7 @@ function copyMailAddToContactForPU() {
                             var editContactResult = aa.people.editPeopleWithAttribute(refCon, refCon.getAttributes()); ;
                         }
                     }
-					
+
                     peopleModel = getOutput(aa.people.getPeople(peopleSequenceNumber), "");
                     if (peopleModel.getTemplate() == null) {
                         if (tmpl != null) {
@@ -5409,8 +5418,8 @@ function copyMailAddToContactForPU() {
                             e.setEntitySeq1(peopleSequenceNumber * 1);
                             tmpl.setEntityPKModel(e);
                             peopleModel.setTemplate(tmpl);
-							
-							aa.people.editPeople(peopleModel);
+
+                            aa.people.editPeople(peopleModel);
                         }
                     }
                 }
@@ -5438,5 +5447,3 @@ function getRefConByPublicUserSeq(pSeqNum) {
         }
     }
 }
-
-
