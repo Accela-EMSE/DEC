@@ -19,10 +19,11 @@ var dmvUserID = "deccidvb"
 var dmvUserPwd = "853ID1yg"
 
 var msg = "";
-var servProvCode=expression.getValue("$$servProvCode$$").value;
+var valueToValidate = null;
 
 var servProvCode=expression.getValue("$$servProvCode$$").value;
 var dl = expression.getValue("APPLICANT::applicant*driverLicenseNbr");
+var nonDL = expression.getValue("APPLICANT::applicant*stateIDNbr");
 var dlState =expression.getValue("APPLICANT::applicant*driverLicenseState");
 var dlLast = expression.getValue("APPLICANT::applicant*lastName");
 var dlDOB = expression.getValue("APPLICANT::applicant*birthDate");
@@ -33,7 +34,15 @@ var returnMessage = "";
 // get the EMSE biz object
 var aa = expression.getScriptRoot();
 
+if (String(dlState.value).length > 0 && dlState.value.toUpperCase().equals("NY") && String(nonDL.value).length > 0) {
+	valueToValidate = nonDL;
+	}
+
 if (String(dlState.value).length > 0 && dlState.value.toUpperCase().equals("NY") && String(dl.value).length > 0) {
+	valueToValidate = dl;
+	}
+	
+if (valueToValidate) {
 
 	form.blockSubmit = false;
 	
@@ -47,17 +56,17 @@ if (String(dlState.value).length > 0 && dlState.value.toUpperCase().equals("NY")
 	var pattern = /^\d{4}((0\d)|(1[012]))(([012]\d)|3[01])$/ ;
 
 	if (pattern.test(yyyymmdd)) {
-		var vOut = CIDVerify(dmvUserID,dmvUserPwd,dl.value,searchLast,yyyymmdd);
+		var vOut = CIDVerify(dmvUserID,dmvUserPwd,valueToValidate.value,searchLast,yyyymmdd);
 		
 		if( !vOut.valid ){
 			form.blockSubmit = true;
-			dl.message = vOut.messages; //"Drivers License Validation Failed";
+			valueToValidate.message = vOut.messages; //"Drivers License Validation Failed";
 		}
 		else{
-			dl.message = "";
+			valueToValidate.message = "";
 		}
 		
-	expression.setReturn(dl);
+	expression.setReturn(valueToValidate);
 	expression.setReturn(form);
 	dlDOB.message = "";
 	expression.setReturn(dlDOB);
