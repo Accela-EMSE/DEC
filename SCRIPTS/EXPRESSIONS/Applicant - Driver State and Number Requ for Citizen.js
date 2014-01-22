@@ -31,11 +31,13 @@ var servProvCode = expression.getValue("$$servProvCode$$").value;
 var userId=expression.getValue("$$userID$$");
 var oToday = expression.getValue("$$today$$");
 var isCitizen = false;
-
+var isNonDriver = false;
 var bDate = expression.getValue("APPLICANT::applicant*birthDate");
 var dlParent = expression.getValue("APPLICANTTPLFORM::CNT_MASTER::ADDITIONAL INFO::Parent Driver License Number");
 var dlState=expression.getValue("APPLICANT::applicant*driverLicenseState");
 var dlNbr=expression.getValue("APPLICANT::applicant*driverLicenseNbr");
+var stateIDNbr=expression.getValue("APPLICANT::applicant*stateIDNbr");
+var resProofDocument=expression.getValue("APPLICANTTPLFORM::CNT_MASTER::ADDITIONAL INFO::NY Resident Proof Document");
 
 var userIdString = userId.getValue();
 var s_publicUserResult = aa.publicUser.getPublicUserByUserId(userIdString);
@@ -47,6 +49,11 @@ if (s_publicUserResult.getSuccess()) {
 		isCitizen = true;
 	}
 }	
+
+var resProofDocumentString = resProofDocument.getValue();
+if ("NY".equals(dlState.getValue()) && "Non-Driver ID".equals(resProofDocumentString,"Non-Driver ID")) {
+	isNonDriver = true;
+	}
 
 if (isCitizen) {
 	var msg = "";
@@ -61,17 +68,30 @@ if (isCitizen) {
 			expression.setReturn(bDate);
 	dlState.required = false;
 			
-	if (bDate.getValue() && getAGE(bDate.getValue()) < 16) {
+	if (bDate.getValue() && getAGE(bDate.getValue()) < 16) {			// under 16
 		dlParent.required = true;
 		dlNbr.required = false;
-	} else {
+		stateIdNbr.required = false;
+	} else if (bDate.getValue() && getAGE(bDate.getValue()) > 18) {     // over 18
 		dlParent.required = false;
 		dlNbr.required = true;
+		stateIDNbr.required = false;
+		}
+	else if (isNonDriver) {												// 16-18, use the proof dropdown to determine
+		dlParent.required = false;
+		dlNbr.required = false;
+		stateIDNbr.required = true;
+		}
+	else {
+		dlParent.required = false;
+		dlNbr.required = true;
+		stateIDNbr.required = false;
 	}
 
 	expression.setReturn(dlParent);
 	expression.setReturn(dlNbr);
 	expression.setReturn(dlState);
+	expression.setReturn(stateIDNbr);
 }
 
 
