@@ -1189,11 +1189,21 @@ function form_OBJECT(identity) {
     this.fishdateMap = function () {
         var retMsg = '';
         var afdateKeys = this.fdateMap.keySet().toArray();
-        for (var i = 0; i < afdateKeys.length; i++) {
-            if (afdateKeys[i] == '') {
-                //TODO
-            }
-        }
+        //for (var i = 0; i < afdateKeys.length-1; i++) {
+        //	var rng1 = this.fdateMap.get(afdateKeys[i]);
+        //	var rng2 = this.fdateMap.get(afdateKeys[i+1]);
+        //	retMsg += rng1.StartDT;  
+        //	retMsg += " - ";  
+        //	retMsg += rng1.EndDT;  
+        //	retMsg += " - ";  
+        //	retMsg += rng2.StartDT;  
+        //	retMsg += " - ";  
+        //	retMsg += rng2.EndDT;  
+        //	if ((rng1.StartDT >= rng2.StartDT && rng1.StartDT <= rng2.EndDT) || (rng1.EndDT >= rng2.StartDT && rng1.EndDT <= rng2.EndDT)) {
+        //		retMsg = "Selected fishing licenses have overlap effective date period.";
+        //		break;
+        //	}
+        //}
 
         return retMsg;
     }
@@ -1232,7 +1242,6 @@ function form_OBJECT(identity) {
                         expDT = new Date(dateAdd(new Date(effectiveDtStr), 7));
                         fDateRange.EndDT = expDT;
                     }
-
                     this.fdateMap.put((fishLicType == '' ? 'Fish' : fishLicType), fDateRange);
 
                     if ((openDT >= fromDT && openDT <= toDT) || (expDT >= fromDT && expDT <= toDT)) {
@@ -1240,6 +1249,20 @@ function form_OBJECT(identity) {
                         break;
                     }
                 }
+            } else {
+                var openDT = new Date(effectiveDtStr);
+                var expDT = new Date(dateAdd(new Date(effectiveDtStr), 365));
+                var fDateRange = new DateRange(openDT, expDT);
+
+                if (fishLicType == "1 Day") {
+                    expDT = new Date(dateAdd(new Date(effectiveDtStr), 1));
+                    fDateRange.EndDT = expDT;
+                }
+                else if (fishLicType == "7 Day") {
+                    expDT = new Date(dateAdd(new Date(effectiveDtStr), 7));
+                    fDateRange.EndDT = expDT;
+                }
+                this.fdateMap.put((fishLicType == '' ? 'Fish' : fishLicType), fDateRange);
             }
         }
         return retMsg;
