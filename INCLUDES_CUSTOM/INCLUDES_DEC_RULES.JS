@@ -2682,9 +2682,7 @@ function getActiveholdingsFilterArray() {
     var validRecTypeArray = new Array();     //   record types
 
     validRecTypeArray.push(AA01_FISHING_LICENSE);
-    if (!isAfterSwitchDate()) {
-        validRecTypeArray.push(AA02_MARINE_REGISTRY);
-    }
+    validRecTypeArray.push(AA02_MARINE_REGISTRY);
     validRecTypeArray.push(AA03_ONE_DAY_FISHING_LICENSE);
     validRecTypeArray.push(AA04_BOWHUNTING_PRIVILEGE);
     validRecTypeArray.push(AA05_DEER_MANAGEMENT_PERMIT);
