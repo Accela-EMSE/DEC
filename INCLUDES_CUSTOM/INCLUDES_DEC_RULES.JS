@@ -1074,9 +1074,9 @@ function getAllFeeCodeByRuleFor_LIFETM_INSCRIPTION(ruleParams, feeSched) {
 function getAllFeeCodeByRuleFor_DRIV_LIC_IMM(ruleParams, feeSched) {
     var feeItemCodes = new Array();
     var rp = ruleParams;
-	if (rp.hasValidNYDriverLicense) {	feeItemCodes.push(new FeeCodeProp(FEE_LIFETIME_DRIV_LIC_IMMED, "000")); }
-	else if (rp.hasValidNYNonDriverLicense) { feeItemCodes.push(new FeeCodeProp(FEE_LIFETIME_DRIV_LIC_IMM_NON, "000")); }
-	
+    if (rp.hasValidNYDriverLicense) { feeItemCodes.push(new FeeCodeProp(FEE_LIFETIME_DRIV_LIC_IMMED, "000")); }
+    else if (rp.hasValidNYNonDriverLicense) { feeItemCodes.push(new FeeCodeProp(FEE_LIFETIME_DRIV_LIC_IMM_NON, "000")); }
+
     return feeItemCodes;
 }
 
@@ -1730,7 +1730,7 @@ function isRuleForSelectable_OTHER_SALE_VENISON_DONATION_SCHDL(ruleParams) {
 }
 
 function isRuleForSelectable_DRIV_LIC(ruleParams) {
-    return (ruleParams.hasValidNYDriverLicense || ruleParams.hasValidNYNonDriverLicense) ;
+    return (ruleParams.hasValidNYDriverLicense || ruleParams.hasValidNYNonDriverLicense);
 }
 //////////////
 function checkRuletoCreateTag(ruleParams, tagProp, dictTags) {
@@ -3336,6 +3336,21 @@ function getRevokTrapRecTypeArray() {
 
     // JIRA-16742
     validRecTypeArray.push(AA14_LIFETIME_TRAPPING);
+
+    return validRecTypeArray;
+}
+//JIRA-44605
+function get60dayFishRecTypeArray() {
+    var validRecTypeArray = new Array();
+
+    validRecTypeArray.push(AA02_MARINE_REGISTRY);
+    validRecTypeArray.push(AA01_FISHING_LICENSE);
+    validRecTypeArray.push(AA03_ONE_DAY_FISHING_LICENSE);
+    validRecTypeArray.push(AA22_FRESHWATER_FISHING);
+    validRecTypeArray.push(AA23_NONRES_FRESHWATER_FISHING);
+    validRecTypeArray.push(AA24_NONRESIDENT_1_DAY_FISHING);
+    validRecTypeArray.push(AA25_NONRESIDENT_7_DAY_FISHING);
+    validRecTypeArray.push(AA26_SEVEN_DAY_FISHING_LICENSE);
 
     return validRecTypeArray;
 }
