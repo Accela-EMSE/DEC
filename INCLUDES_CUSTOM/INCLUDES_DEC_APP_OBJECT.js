@@ -747,6 +747,9 @@ function form_OBJECT(identity) {
                     this.licObjARRAY[idx].isInActiveHoldings = isInActiveHoldings;
 
                     var isInCombo = this.isInCombo(this.licObjARRAY[idx].Identity, ruleParams);
+                    if (!isInCombo) {
+                        isInCombo = this.isInPastCombo(this.licObjARRAY[idx].Identity, ruleParams);
+                    }
                     this.licObjARRAY[idx].isInCombo = isInCombo;
 
                     var isRevoked = this.isRevoked(this.licObjARRAY[idx].Identity);
@@ -1519,6 +1522,36 @@ function form_OBJECT(identity) {
                 for (var item in this.VersionItems) {
                     if (this.VersionItems[item].Identity == this.licObjARRAY[x].Identity) {
                         var sfnIncludesArray = this.VersionItems[item].FNIncludesArray;
+                        var IncludesArray = null;
+                        if (isNull(sfnIncludesArray, '') != '') {
+                            eval("IncludesArray = " + sfnIncludesArray + "(ruleParams);");
+                        }
+
+                        if (IncludesArray != null) {
+                            var arrayRecs = IncludesArray;
+                            for (var jdx = 0; jdx < arrayRecs.length; jdx++) {
+                                if (arrayRecs[jdx] == psRef) {
+                                    retVal = true;
+                                    break;
+                                }
+                            }
+                        }
+                        break;
+                    }
+                }
+            }
+        }
+        return retVal;
+    }
+    this.isInPastCombo = function (psRef, ruleParams) {
+        var retVal = false;
+
+        for (var x = 0; x < this.licObjARRAY.length; x++) {
+            if (this.licObjARRAY[x].IsSelected || this.isInPastActiveHoldings(this.licObjARRAY[x].Identity, "SELECTION")) {
+                var pastVersionItems = SetVesrionSalesItems2012();
+                for (var item in pastVersionItems) {
+                    if (pastVersionItems[item].Identity == this.licObjARRAY[x].Identity) {
+                        var sfnIncludesArray = pastVersionItems[item].FNIncludesArray;
                         var IncludesArray = null;
                         if (isNull(sfnIncludesArray, '') != '') {
                             eval("IncludesArray = " + sfnIncludesArray + "(ruleParams);");
