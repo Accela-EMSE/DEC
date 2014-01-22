@@ -1407,7 +1407,13 @@ function form_OBJECT(identity) {
                             if (this.ActiveHoldingsInfo[idx].RecordType == this.VersionItems[item].RecordType) {
                                 isExist = (isNull(this.ActiveHoldingsInfo[idx].ToDate, '') == '');
                                 if (!isExist) {
-                                    isExist = ((dateDiff(new Date(), convertDate(this.ActiveHoldingsInfo[idx].ToDate))) > 0);
+                                    //JIRA-44605
+                                    var a60dayFishRecArray = get60dayFishRecTypeArray();
+                                    if (exists(this.ActiveHoldingsInfo[idx].RecordType, a60dayFishRecArray)) {
+                                        isExist = ((dateDiff(new Date(), convertDate(this.ActiveHoldingsInfo[idx].ToDate))) > 60);
+                                    } else {
+                                        isExist = ((dateDiff(new Date(), convertDate(this.ActiveHoldingsInfo[idx].ToDate))) > 0);
+                                    }
                                 }
                                 //JIRA - 41760
                                 if (psRef == LIC05_DEER_MANAGEMENT_PERMIT && isExist && this.ActiveHoldingsInfo[idx].RecordType == AA05_DEER_MANAGEMENT_PERMIT) {
@@ -1471,7 +1477,13 @@ function form_OBJECT(identity) {
                             if (this.ActiveHoldingsInfo[idx].RecordType == pastVersionItems[item].RecordType) {
                                 isExist = (isNull(this.ActiveHoldingsInfo[idx].ToDate, '') == '');
                                 if (!isExist) {
-                                    isExist = ((dateDiff(new Date(), convertDate(this.ActiveHoldingsInfo[idx].ToDate))) > 0);
+                                    //JIRA-44605
+                                    var a60dayFishRecArray = get60dayFishRecTypeArray();
+                                    if (exists(this.ActiveHoldingsInfo[idx].RecordType, a60dayFishRecArray)) {
+                                        isExist = ((dateDiff(new Date(), convertDate(this.ActiveHoldingsInfo[idx].ToDate))) > 60);
+                                    } else {
+                                        isExist = ((dateDiff(new Date(), convertDate(this.ActiveHoldingsInfo[idx].ToDate))) > 0);
+                                    }
                                 }
                                 //JIRA - 41760
                                 if (psRef == LIC05_DEER_MANAGEMENT_PERMIT && isExist && this.ActiveHoldingsInfo[idx].RecordType == AA05_DEER_MANAGEMENT_PERMIT) {
@@ -1547,7 +1559,7 @@ function form_OBJECT(identity) {
         var retVal = false;
 
         for (var x = 0; x < this.licObjARRAY.length; x++) {
-            if (this.licObjARRAY[x].IsSelected || this.isInPastActiveHoldings(this.licObjARRAY[x].Identity, "SELECTION")) {
+            if (this.isInPastActiveHoldings(this.licObjARRAY[x].Identity, "SELECTION")) {
                 var pastVersionItems = SetVesrionSalesItems2012();
                 for (var item in pastVersionItems) {
                     if (pastVersionItems[item].Identity == this.licObjARRAY[x].Identity) {
