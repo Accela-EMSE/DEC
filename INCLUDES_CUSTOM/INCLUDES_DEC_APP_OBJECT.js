@@ -133,14 +133,16 @@ function form_OBJECT(identity) {
 
     this.DriverLicenseState = "";
     this.DriverLicenseNumber = "";
-	this.NonDriverLicenseNumber = "";
-	
+    this.NonDriverLicenseNumber = "";
+
     //MILITARY ACTIVE SERVICE STATUS
     this.IsMilitaryServiceman = "";
 
     //APPEARANCE
     this.Height = "";
     this.EyeColor = "";
+
+    this.fdateMap = aa.util.newHashMap();
 
     //ANNUAL DISABILITY
     this.AnnualDisablity = new Array();
@@ -603,7 +605,7 @@ function form_OBJECT(identity) {
         ruleParams.HasMuzzPriv = this.HasMuzzPriv;
         ruleParams.EitherOrAntler = this.EitherOrAntler;
         ruleParams.hasValidNYDriverLicense = String(isNull(this.DriverLicenseState, '')).toUpperCase().equals("NY") && String(isNull(this.DriverLicenseNumber, '')).length > 0;
-		ruleParams.hasValidNYNonDriverLicense = String(isNull(this.DriverLicenseState, '')).toUpperCase().equals("NY") && String(isNull(this.NonDriverLicenseNumber, '')).length > 0;
+        ruleParams.hasValidNYNonDriverLicense = String(isNull(this.DriverLicenseState, '')).toUpperCase().equals("NY") && String(isNull(this.NonDriverLicenseNumber, '')).length > 0;
         return ruleParams;
     }
 
@@ -1184,6 +1186,17 @@ function form_OBJECT(identity) {
 
         return arraytmp.join(",");
     }
+    this.fishdateMap = function () {
+        var retMsg = '';
+        var afdateKeys = this.fdateMap.keySet().toArray();
+        for (var i = 0; i < afdateKeys.length; i++) {
+            if (afdateKeys[i] == '') {
+                //TODO
+            }
+        }
+
+        return retMsg;
+    }
     this.isActiveFishingLic = function (effectiveDtStr, fishLicType) {
         var retMsg = '';
         for (var idx = 0; idx < this.ActiveHoldingsInfo.length; idx++) {
@@ -1209,12 +1222,19 @@ function form_OBJECT(identity) {
                     var toDT = new Date(toDate);
                     var openDT = new Date(effectiveDtStr);
                     var expDT = new Date(dateAdd(new Date(effectiveDtStr), 365));
+                    var fDateRange = new DateRange(openDT, expDT);
+
                     if (fishLicType == "1 Day") {
                         expDT = new Date(dateAdd(new Date(effectiveDtStr), 1));
+                        fDateRange.EndDT = expDT;
                     }
                     else if (fishLicType == "7 Day") {
                         expDT = new Date(dateAdd(new Date(effectiveDtStr), 7));
+                        fDateRange.EndDT = expDT;
                     }
+
+                    this.fdateMap.put((fishLicType == '' ? 'Fish' : fishLicType), fDateRange);
+
                     if ((openDT >= fromDT && openDT <= toDT) || (expDT >= fromDT && expDT <= toDT)) {
                         retMsg = "Already has fishing license valid from " + fromDate + " to " + toDate;
                         break;
@@ -2454,4 +2474,8 @@ function exists(eVal, eArray) {
     for (ii in eArray)
         if (eArray[ii] == eVal) return true;
     return false;
+}
+function DateRange(startDt, endDt) {
+    this.StartDT = startDt;
+    this.EndDT = endDt;
 }
