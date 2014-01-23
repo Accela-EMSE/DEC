@@ -587,10 +587,10 @@ function SetVesrionSalesItems2012() {
     emptyArray.push(new SalesItemProp(LIC29_JUNIOR_HUNTING, AA29_JUNIOR_HUNTING, FEE_ANL_JUNIOR_HUNTING_SCHDL, "1", "getAllFeeCodeByRuleFor_JUNIOR_HUNTING", "isRuleForSelectable_JUNIOR_HUNTING", null, null, "getTag_JUNIOR_HUNTING", true, false, false));
     emptyArray.push(new SalesItemProp(LIC01_JUNIOR_HUNTING_TAGS, AA57_JUNIOR_HUNTING_TAGS, FEE_ANL_JUNIOR_HUNT_TAG_SCHDL, "1", "getAllFeeCodeByRuleFor_JUNIOR_HUNT_TAGS", "isRuleForSelectable_JUNIOR_HUNT_TAGS", null, null, "getTag_JUNIOR_HUNT_TAGS", true, false, false));
     emptyArray.push(new SalesItemProp(LIC33_NONRESIDENT_BIG_GAME, AA33_NONRESIDENT_BIG_GAME, FEE_ANL_NONRES_BIGGAME_SCHDL, "1", "getAllFeeCodeByRuleFor_NONRESIDENT_BIG_GAME", "isRuleForSelectable_NONRESIDENT_BIG_GAME", null, null, "getTag_NONRESIDENT_BIG_GAME", true, false, true));
-    emptyArray.push(new SalesItemProp(LIC34_NONRESIDENT_BOWHUNTING, AA34_NONRESIDENT_BOWHUNTING, FEE_ANL_NONRES_BOWHUNT_SCHDL, "1", "getAllFeeCodeByRuleFor_NONRESIDENT_BOWHUNTING", "isRuleForSelectable_NONRESIDENT_BOWHUNTING", null, null, "getTag_NONRESIDENT_BOWHUNTING", true, false, false));
+    emptyArray.push(new SalesItemProp(LIC34_NONRESIDENT_BOWHUNTING, AA34_NONRESIDENT_BOWHUNTING, FEE_ANL_NONRES_BOWHUNT_SCHDL, "1", "getAllFeeCodeByRuleFor_NONRESIDENT_BOWHUNTING", "isRuleForSelectable_NONRESIDENT_BOWHUNTING", null, "getIncl_NONRESIDENT_BOWHUNTING", "getTag_NONRESIDENT_BOWHUNTING", true, false, false));
     emptyArray.push(new SalesItemProp(LIC35_NONRESIDENT_SMALL_GAME, AA35_NONRESIDENT_SMALL_GAME, FEE_ANL_NONRES_SMALLGAME_SCHDL, "1", "getAllFeeCodeByRuleFor_NONRESIDENT_SMALL_GAME", "isRuleForSelectable_NONRESIDENT_SMALL_GAME", null, "getIncl_NONRESIDENT_SMALL_GAME", "getTag_NONRESIDENT_SMALL_GAME", true, false, false));
     //Added fnprerequisiteArray to NONRES_MUZZLELOADING
-    emptyArray.push(new SalesItemProp(LIC30_NONRES_MUZZLELOADING, AA30_NONRES_MUZZLELOADING, FEE_ANL_NONRESMUZZLELOAD_SCHDL, "1", "getAllFeeCodeByRuleFor_NONRES_MUZZLELOADING", "isRuleForSelectable_NONRES_MUZZLELOADING", "getPrereq_NONRES_MUZZLELOADING", null, "getTag_NONRES_MUZZLELOADING", true, false, false));
+    emptyArray.push(new SalesItemProp(LIC30_NONRES_MUZZLELOADING, AA30_NONRES_MUZZLELOADING, FEE_ANL_NONRESMUZZLELOAD_SCHDL, "1", "getAllFeeCodeByRuleFor_NONRES_MUZZLELOADING", "isRuleForSelectable_NONRES_MUZZLELOADING", "getPrereq_NONRES_MUZZLELOADING", "getIncl_NONRES_MUZZLELOADING", "getTag_NONRES_MUZZLELOADING", true, false, false));
     emptyArray.push(new SalesItemProp(LIC31_NONRES_SUPER_SPORTSMAN, AA31_NONRES_SUPER_SPORTSMAN, FEE_ANL_NONRES_SUPSPORTS_SCHDL, "1", "getAllFeeCodeByRuleFor_NONRES_SUPER_SPORTSMAN", "isRuleForSelectable_NONRES_SUPER_SPORTSMAN", null, "getIncl_NONRES_SUPER_SPORTSMAN", "getTag_NONRES_SUPER_SPORTSMAN", true, false, true));
     emptyArray.push(new SalesItemProp(LIC37_SMALL_AND_BIG_GAME, AA37_SMALL_AND_BIG_GAME, FEE_ANL_SMALL_BIG_GAME_SCHDL, "1", "getAllFeeCodeByRuleFor_SMALL_AND_BIG_GAME", "isRuleForSelectable_SMALL_AND_BIG_GAME", null, "getIncl_SMALL_AND_BIG_GAME", "getTag_SMALL_AND_BIG_GAME", true, false, true));
     emptyArray.push(new SalesItemProp(LIC39_SPORTSMAN, AA39_SPORTSMAN, FEE_ANNUAL_SPORTSMAN_SCHDL, "1", "getAllFeeCodeByRuleFor_SPORTSMAN", "isRuleForSelectable_SPORTSMAN", null, "getIncl_SPORTSMAN", "getTag_SPORTSMAN", true, false, true));
@@ -599,7 +599,7 @@ function SetVesrionSalesItems2012() {
     emptyArray.push(new SalesItemProp(LIC41_NONRESIDENT_TRAPPING, AA41_NONRESIDENT_TRAPPING, FEE_ANL_NONRESI_TRAPPING_SCHDL, "1", "getAllFeeCodeByRuleFor_NONRESIDENT_TRAPPING", "isRuleForSelectable_NONRESIDENT_TRAPPING", null, null, null, false, true, false));
     emptyArray.push(new SalesItemProp(LIC42_TRAPPER_SUPER_SPORTSMAN, AA42_TRAPPER_SUPER_SPORTSMAN, FEE_ANL_TRAP_SUPSPORTS_SCHDL, "1", "getAllFeeCodeByRuleFor_TRAPPER_SUPER_SPORTSMAN", "isRuleForSelectable_TRAPPER_SUPER_SPORTSMAN", null, "getIncl_TRAPPER_SUPER_SPORTSMAN", "getTag_TRAPPER_SUPER_SPORTSMAN", true, true, true));
     emptyArray.push(new SalesItemProp(LIC15_TRAPPING_LICENSE, AA15_TRAPPING_LICENSE, FEE_ANNUAL_TRAPPING_SCHDL, "1", "getAllFeeCodeByRuleFor_ANNUAL_TRAP_2012", "isRuleForSelectable_ANNUAL_TRAP_2012", null, null, null, false, true, false));
-    emptyArray.push(new SalesItemProp(LIC36_NONRESIDENT_TURKEY, AA36_NONRESIDENT_TURKEY, FEE_ANL_NONRES_TURKEY_SCHDL, "1", "getAllFeeCodeByRuleFor_NONRESIDENT_TURKEY", "isRuleForSelectable_NONRESIDENT_TURKEY", "getPrereq_NONRESIDENT_TURKEY", null, "getTag_NONRESIDENT_TURKEY", true, false, false));
+    emptyArray.push(new SalesItemProp(LIC36_NONRESIDENT_TURKEY, AA36_NONRESIDENT_TURKEY, FEE_ANL_NONRES_TURKEY_SCHDL, "1", "getAllFeeCodeByRuleFor_NONRESIDENT_TURKEY", "isRuleForSelectable_NONRESIDENT_TURKEY", "getPrereq_NONRESIDENT_TURKEY", "getIncl_NONRESIDENT_TURKEY", "getTag_NONRESIDENT_TURKEY", true, false, false));
 
     emptyArray.push(new SalesItemProp(LIC22_FRESHWATER_FISHING, AA22_FRESHWATER_FISHING, FEE_ANL_FRESHWATER_FISH_SCHDL, "1", "getAllFeeCodeByRuleFor_FRESHWATER_FISHING_2012", "isRuleForSelectable_FRESHWATER_FISHING_2012", null, "getIncl_FRESHWATER_FISHING_2012", null, false, false, true));
     emptyArray.push(new SalesItemProp(LIC24_NONRESIDENT_1_DAY_FISHING, AA24_NONRESIDENT_1_DAY_FISHING, FEE_ANL_NONRES_1DAY_FISH_SCHDL, "1", "getAllFeeCodeByRuleFor_NONRESIDENT_1_DAY_FISHING", "isRuleForSelectable_NONRESIDENT_1_DAY_FISHING", null, null, null, false, false, true));
@@ -2083,6 +2083,12 @@ function getIncl_SMALL_AND_BIG_GAME(ruleParams) {
 
     return arryInc;
 }
+function getIncl_NONRESIDENT_TURKEY(ruleParams) {
+    var arryInc = new Array();
+    arryInc.push(LIC08_TURKEY_PERMIT);
+
+    return arryInc;
+}
 function getIncl_NONRES_SUPER_SPORTSMAN(ruleParams) {
     var arryInc = new Array();
     arryInc.push(LIC33_NONRESIDENT_BIG_GAME);
@@ -2090,10 +2096,16 @@ function getIncl_NONRES_SUPER_SPORTSMAN(ruleParams) {
     arryInc.push(LIC23_NONRES_FRESHWATER_FISHING);
     arryInc.push(LIC25_NONRESIDENT_7_DAY_FISHING);
     arryInc.push(LIC30_NONRES_MUZZLELOADING);
+    arryInc.push(LIC07_MUZZLELOADING_PRIVILEGE);
     arryInc.push(LIC36_NONRESIDENT_TURKEY);
     arryInc.push(LIC35_NONRESIDENT_SMALL_GAME);
     arryInc.push(LIC34_NONRESIDENT_BOWHUNTING);
+    arryInc.push(LIC04_BOWHUNTING_PRIVILEGE);
     arryInc.push(LIC06_HUNTING_LICENSE);
+    arryInc.push(LIC03_ONE_DAY_FISHING_LICENSE);
+    arryInc.push(LIC22_FRESHWATER_FISHING);
+    arryInc.push(LIC26_SEVEN_DAY_FISHING_LICENSE);
+    arryInc.push(LIC08_TURKEY_PERMIT);
     return arryInc;
 }
 
@@ -2229,6 +2241,18 @@ function getIncl_LIFETM_BOWH(ruleParams) {
 function getIncl_LIFETM_TRAP(ruleParams) {
     var arryInc = new Array();
     arryInc.push(LIC15_TRAPPING_LICENSE);
+    return arryInc;
+}
+
+function getIncl_NONRES_MUZZLELOADING() {
+    var arryInc = new Array();
+    arryInc.push(LIC07_MUZZLELOADING_PRIVILEGE);
+    return arryInc;
+}
+
+function getIncl_NONRESIDENT_BOWHUNTING() {
+    var arryInc = new Array();
+    arryInc.push(LIC04_BOWHUNTING_PRIVILEGE);
     return arryInc;
 }
 
