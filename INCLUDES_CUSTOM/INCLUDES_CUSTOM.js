@@ -2725,10 +2725,9 @@ function isValidBuyRecord(pStep) {
 
     logDebug("Message to return to ACA: " + retMsg);
 
-    return retMsg;
     logDebug("EXIT: isValidBuyRecord");
+    return retMsg;
 }
-
 
 function validateFishingdates() {
     var retMsg = '';
@@ -2737,7 +2736,7 @@ function validateFishingdates() {
     var f = new form_OBJECT(GS2_EXPR, OPTZ_TYPE_CTRC);
     f.Year = AInfo["License Year"];
     f.SetActiveHoldingsInfo(AInfo["A_ActiveHoldings"]);
-
+	
     if (isNull(AInfo["Effective Date One Day Fishing"], '') != '') {
         if (dateDiff(AInfo["Effective Date One Day Fishing"], new Date()) >= 1) {
             retMsg += "One Day Fishing Effective Date cannot be prior to today's date.";
