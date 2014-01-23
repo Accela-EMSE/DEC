@@ -2790,6 +2790,7 @@ function getSaleLicMilitaryDisable() {
     var validRecTypeArray = new Array();     //   record types
 
     validRecTypeArray.push(AA01_FISHING_LICENSE);
+    validRecTypeArray.push(AA22_FRESHWATER_FISHING);
     validRecTypeArray.push(AA06_HUNTING_LICENSE);
     validRecTypeArray.push(AA15_TRAPPING_LICENSE);
 
