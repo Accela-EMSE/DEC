@@ -1249,13 +1249,13 @@ function form_OBJECT(identity) {
         }
         if (retMsg == '') {
             var openDT = new Date(effectiveDtStr);
-            var expDT = new Date(dateAdd(new Date(effectiveDtStr), 365));
+            var expDT = new Date(dateAdd(new Date(effectiveDtStr), (365 - 1)));
 
             if (fishLicType == "1 Day") {
-                expDT = new Date(dateAdd(new Date(effectiveDtStr), 1));
+                expDT = new Date(dateAdd(new Date(effectiveDtStr), (1 - 1)));
             }
             else if (fishLicType == "7 Day") {
-                expDT = new Date(dateAdd(new Date(effectiveDtStr), 7));
+                expDT = new Date(dateAdd(new Date(effectiveDtStr), (7 - 1)));
             }
             var fDateRange = new DateRange(openDT, expDT);
             this.fdateMap.put((fishLicType == '' ? 'Fish' : fishLicType), fDateRange);
