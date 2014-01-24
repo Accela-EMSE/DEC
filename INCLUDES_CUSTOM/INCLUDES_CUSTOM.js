@@ -961,6 +961,7 @@ function SetformForSelectedLics(frm) {
     frm.Inscription = AInfo["Inscription"];
     frm.IsPermanentDisabled = AInfo["Permanent Disability"];
     frm.DriverLicenseState = AInfo["A_Driver_License_State"];
+    frm.DriverLicenseNumber = AInfo["A_Driver_License_Number"];
     frm.NonDriverLicenseNumber = AInfo["A_Non_Driver_License_Number"];
 
     //ASIT info
@@ -1063,10 +1064,8 @@ function SetformForSelectedLics(frm) {
     frm.SetSelected(LIC30_NONRES_MUZZLELOADING, (AInfo["NonRes Muzzleloading"] == "CHECKED"), 2);
     frm.SetSelected(LIC34_NONRESIDENT_BOWHUNTING, (AInfo["Nonresident Bowhunting"] == "CHECKED"), 2);
 
-
-
     frm.ExecuteBoRuleEngine();
-
+	
     logDebug("EXIT: SetformForSelectedLics");
 }
 
