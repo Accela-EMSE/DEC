@@ -130,7 +130,6 @@ function form_OBJECT(identity) {
     this.PreferencePoints = 0;
 
     // DRIVER LICENSE
-
     this.DriverLicenseState = "";
     this.DriverLicenseNumber = "";
     this.NonDriverLicenseNumber = "";
@@ -1021,7 +1020,8 @@ function form_OBJECT(identity) {
         sbArray.push(this.DriverLicenseState);
         scArray.push("DriverLicenseNumber : ");
         sbArray.push(this.DriverLicenseNumber);
-
+        scArray.push("NonDriverLicenseNumber : ");
+        sbArray.push(this.NonDriverLicenseNumber);
 
         for (var c in sbArray) {
             result += scArray[c];
