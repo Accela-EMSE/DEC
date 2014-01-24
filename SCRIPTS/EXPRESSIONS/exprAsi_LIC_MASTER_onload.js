@@ -101,6 +101,7 @@ var aRevokedFishing = expression.getValue("ASI::INTERNAL USE::A_Revoked_Fishing"
 var aPermanentDisability = expression.getValue("ASI::APPEARANCE::Permanent Disability");
 var aDriverLicenseState = expression.getValue("ASI::INTERNAL USE::A_Driver_License_State");
 var aDriverLicenseNumber = expression.getValue("ASI::INTERNAL USE::A_Driver_License_Number");
+var aNonDriverLicenseNumber = expression.getValue("ASI::INTERNAL USE::A_Non_Driver_License_Number");
 var vUserID = expression.getValue("$$userID$$");
 var sUserIdEB = vUserID.getValue();
 
@@ -129,6 +130,7 @@ f.IsPermanentDisabled = aPermanentDisability.value;
 f.SetActiveHoldingsInfo(aActiveHoldings.value);
 f.DriverLicenseState = aDriverLicenseState.value;
 f.DriverLicenseNumber = aDriverLicenseNumber.value;
+f.NonDriverLicenseNumber = aNonDriverLicenseNumber.value;
 f.SetEnforcementAttrib(aSuspended.value, aRevokedHunting.value, aRevokedTrapping.value, aRevokedFishing.value);
 f.SetFulfillmentAttrib(aAgedIn.value, aNeedHuntEd.value);
 f.FromACA = aIsFromACA.value;
