@@ -5510,7 +5510,7 @@ function ctrcaForDMVRequest() {
 
 		if (childId) {
 			updateAppStatus("Active", "Active", childId);
-			transferFeesAndPayments(capId, childId);
+			//transferFeesAndPayments(capId, childId);
 		}
 
 	} catch (err) {
