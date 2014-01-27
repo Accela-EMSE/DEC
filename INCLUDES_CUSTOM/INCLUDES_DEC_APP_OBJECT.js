@@ -191,7 +191,8 @@ function form_OBJECT(identity) {
     this.IsDisableForYear = function (year) {
         var retisDisableForYear = false;
         for (var idx = 0; idx < this.AnnualDisablity.length; idx++) {
-            if (this.AnnualDisablity[idx].Year + "" == year + "") {
+			var yearplus1 = parseInt(year, 10) + 1;
+            if ((this.AnnualDisablity[idx].Year + "" == year + "") || (this.AnnualDisablity[idx].Year + "" == yearplus1 + "")) {
                 retisDisableForYear = ((this.AnnualDisablity[idx].FourtyPrcentMilitaryDisabled + "").toLowerCase() == "yes");
                 if (retisDisableForYear) {
                     break;
