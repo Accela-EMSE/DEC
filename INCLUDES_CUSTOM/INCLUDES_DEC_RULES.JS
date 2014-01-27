@@ -1843,12 +1843,16 @@ function getPrereq_DRIV_LIC(ruleParams) {
     var arryPrereq = null;
     if (isRuleForSelectable_DRIV_LIC(ruleParams)) {
         arryPrereq = new Array();
-        arryPrereq.push(LIC09_LIFETIME_BOWHUNTING);
         arryPrereq.push(LIC10_LIFETIME_FISHING);
-        arryPrereq.push(LIC11_LIFETIME_MUZZLELOADING);
-        arryPrereq.push(LIC12_LIFETIME_SMALL_AND_BIG_GAME);
-        arryPrereq.push(LIC13_LIFETIME_SPORTSMAN);
-        arryPrereq.push(LIC14_LIFETIME_TRAPPING);
+        if (ruleParams.HasHuntEd) {
+            arryPrereq.push(LIC09_LIFETIME_BOWHUNTING);
+            arryPrereq.push(LIC11_LIFETIME_MUZZLELOADING);
+            arryPrereq.push(LIC12_LIFETIME_SMALL_AND_BIG_GAME);
+            arryPrereq.push(LIC13_LIFETIME_SPORTSMAN);
+        }
+        if (ruleParams.HasTrapEd) {
+            arryPrereq.push(LIC14_LIFETIME_TRAPPING);
+        }
     }
     return arryPrereq;
 }
