@@ -2997,14 +2997,16 @@ function getVoidableFilterArray() {
     validRecTypeArray.push(AA43_LIFETIME_CARD_REPLACE);
     //validRecTypeArray.push(AA44_SPORTSMAN_ED_CERTIFICATION);
     //validRecTypeArray.push(AA45_LIFETIME_INSCRIPTION);
-    validRecTypeArray.push(AA46_TAG_REG_SEASON_DEER);
-    validRecTypeArray.push(AA47_TAG_BEAR);
-    validRecTypeArray.push(AA48_TAG_BOW_MUZZ_EITHER_SEX);
-    validRecTypeArray.push(AA49_TAG_BOW_MUZZ_ANTLERLESS);
-    validRecTypeArray.push(AA50_TAG_SPRING_TURKEY_TAG);
-    validRecTypeArray.push(AA51_TAG_FALL_TURKEY_TAG);
-    validRecTypeArray.push(AA52_TAG_BACK);
-    //validRecTypeArray.push(AA53_TAG_DMP_DEER);
+    //JIRA-46545
+	//validRecTypeArray.push(AA46_TAG_REG_SEASON_DEER);
+    //validRecTypeArray.push(AA47_TAG_BEAR);
+    //validRecTypeArray.push(AA48_TAG_BOW_MUZZ_EITHER_SEX);
+    //validRecTypeArray.push(AA49_TAG_BOW_MUZZ_ANTLERLESS);
+    //validRecTypeArray.push(AA50_TAG_SPRING_TURKEY_TAG);
+    //validRecTypeArray.push(AA51_TAG_FALL_TURKEY_TAG);
+    //validRecTypeArray.push(AA52_TAG_BACK);
+    
+	//validRecTypeArray.push(AA53_TAG_DMP_DEER);
     //validRecTypeArray.push(AA54_TAG_PRIV_PANEL);
 
     return validRecTypeArray;
