@@ -1844,12 +1844,14 @@ function getPrereq_DRIV_LIC(ruleParams) {
     if (isRuleForSelectable_DRIV_LIC(ruleParams)) {
         arryPrereq = new Array();
         arryPrereq.push(LIC10_LIFETIME_FISHING);
+        arryPrereq.push(LIC13_LIFETIME_SPORTSMAN);
         if (ruleParams.HasHuntEd) {
-            arryPrereq.push(LIC09_LIFETIME_BOWHUNTING);
             arryPrereq.push(LIC11_LIFETIME_MUZZLELOADING);
             arryPrereq.push(LIC12_LIFETIME_SMALL_AND_BIG_GAME);
-            arryPrereq.push(LIC13_LIFETIME_SPORTSMAN);
         }
+        if (ruleParams.HasBowHunt) {
+            arryPrereq.push(LIC09_LIFETIME_BOWHUNTING);
+		}
         if (ruleParams.HasTrapEd) {
             arryPrereq.push(LIC14_LIFETIME_TRAPPING);
         }
