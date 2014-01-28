@@ -371,7 +371,7 @@ function updateContacts() {
         if (AInfo["Military Serviceman"] == "Yes") {
             newAInfo.push(new NewTblDef("Military Serviceman", 'Y', subGroupName));
         }
-        if (AInfo["Native American?"] == "No") {
+        if (AInfo["Military Serviceman"] == "No") {
             newAInfo.push(new NewTblDef("Military Serviceman", 'N', subGroupName));
         }
         newAInfo.push(new NewTblDef("NY Organized Militia", AInfo["NY Organized Militia"], subGroupName));
