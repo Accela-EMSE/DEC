@@ -191,7 +191,7 @@ function form_OBJECT(identity) {
     this.IsDisableForYear = function (year) {
         var retisDisableForYear = false;
         for (var idx = 0; idx < this.AnnualDisablity.length; idx++) {
-			var yearplus1 = parseInt(year, 10) + 1;
+            var yearplus1 = parseInt(year, 10) + 1;
             if ((this.AnnualDisablity[idx].Year + "" == year + "") || (this.AnnualDisablity[idx].Year + "" == yearplus1 + "")) {
                 retisDisableForYear = ((this.AnnualDisablity[idx].FourtyPrcentMilitaryDisabled + "").toLowerCase() == "yes");
                 if (retisDisableForYear) {
@@ -736,7 +736,7 @@ function form_OBJECT(identity) {
                             eqvArray.push(LIC42_TRAPPER_SUPER_SPORTSMAN);
 
                             for (var eix in eqvArray) {
-                                isInActiveHoldings = this.isInPastActiveHoldings(eqvArray[eix], "SELECTION");
+                                isInActiveHoldings = this.isInPastActiveHoldings(eqvArray[eix], "SELECTION", this.licObjARRAY[idx].Identity);
                                 if (isInActiveHoldings) {
                                     break;
                                 }
@@ -776,9 +776,9 @@ function form_OBJECT(identity) {
                             if (prereqstr == this.licObjARRAY[iLdx].Identity && this.licObjARRAY[iLdx].IsActive) {
                                 isHasPrereq = this.licObjARRAY[iLdx].IsSelected;
                                 if (!isHasPrereq) {
-                                    isHasPrereq = this.isInActiveHoldings(this.licObjARRAY[iLdx].Identity, "PREREQ");
+                                    isHasPrereq = this.isInActiveHoldings(this.licObjARRAY[iLdx].Identity, "PREREQ", this.licObjARRAY[iLdx].Identity);
                                     if (!isHasPrereq) {
-                                        isHasPrereq = this.isInPastActiveHoldings(this.licObjARRAY[iLdx].Identity, "PREREQ");
+                                        isHasPrereq = this.isInPastActiveHoldings(this.licObjARRAY[iLdx].Identity, "PREREQ", this.licObjARRAY[iLdx].Identity);
                                     }
                                 }
                                 break;
@@ -1449,7 +1449,7 @@ function form_OBJECT(identity) {
 
         return isExist;
     }
-    this.isInPastActiveHoldings = function (psRef, reasonForCheck) {
+    this.isInPastActiveHoldings = function (psRef, reasonForCheck, psCheckForRef) {
         var isExist = false;
         var pastVersionItems = SetVesrionSalesItems2012();
         for (var item in pastVersionItems) {
@@ -1473,7 +1473,14 @@ function form_OBJECT(identity) {
                                     //JIRA-44605
                                     var a60dayFishRecArray = get60dayFishRecTypeArray();
                                     if (exists(this.ActiveHoldingsInfo[idx].RecordType, a60dayFishRecArray)) {
-                                        isExist = ((dateDiff(new Date(), convertDate(this.ActiveHoldingsInfo[idx].ToDate))) > 60);
+                                        //JIRA-46457
+										if (matches(psCheckForRef, LIC03_ONE_DAY_FISHING_LICENSE, LIC26_SEVEN_DAY_FISHING_LICENSE, LIC24_NONRESIDENT_1_DAY_FISHING, LIC25_NONRESIDENT_7_DAY_FISHING)) {
+                                            var isFromDateinFuture = ((dateDiff(new Date(), convertDate(this.ActiveHoldingsInfo[idx].FromDate))) > 0);
+                                            isExist = !isFromDateinFuture && ((dateDiff(new Date(), convertDate(this.ActiveHoldingsInfo[idx].ToDate))) > 60);
+                                        }
+                                        else {
+                                            isExist = ((dateDiff(new Date(), convertDate(this.ActiveHoldingsInfo[idx].ToDate))) > 60);
+                                        }
                                     } else {
                                         isExist = ((dateDiff(new Date(), convertDate(this.ActiveHoldingsInfo[idx].ToDate))) > 0);
                                     }
@@ -1552,7 +1559,7 @@ function form_OBJECT(identity) {
         var retVal = false;
 
         for (var x = 0; x < this.licObjARRAY.length; x++) {
-            if (this.isInPastActiveHoldings(this.licObjARRAY[x].Identity, "SELECTION")) {
+            if (this.isInPastActiveHoldings(this.licObjARRAY[x].Identity, "SELECTION", psRef)) {
                 var pastVersionItems = SetVesrionSalesItems2012();
                 for (var item in pastVersionItems) {
                     if (pastVersionItems[item].Identity == this.licObjARRAY[x].Identity) {
