@@ -978,7 +978,7 @@ function ReprintDocuments() {
             newRPP = reprintPrivilegePanel(null);
         }
         //
-		
+
         logDebug("VOID Parent Panel of replaced item if not other active record with panel");
         if (parentMap != null || parentMap.size() > 0) {
             var aKeys = parentMap.keySet().toArray();
@@ -1005,7 +1005,7 @@ function ReprintDocuments() {
                     }
                 }
                 if (!foundActiveChild && ppnl != null) {
-					//TODO: Discuss all scenarios to void the lost panel
+                    //TODO: Discuss all scenarios to void the lost panel
                     //logDebug("VOID");
                 }
             }
@@ -2395,6 +2395,7 @@ function VoidsSales() {
         salesAgentInfoArray = getAgentInfo(publicUserID, uObj);
         attachAgent(uObj);
 
+        var arryAccumTags = new Array();
         for (y in selDocToVoid) {
             itemCapId = getCapId(selDocToVoid[y]);
             var itemcap = aa.cap.getCap(itemCapId).getOutput();
@@ -2403,14 +2404,17 @@ function VoidsSales() {
 
             voidRec(itemCapId);
 
-
+            //var associatedTagArray = getTagsAssociatedToLicense(appTypeString);
+            //for (var tIndex in associatedTagArray) {
+            //    tagID = associatedTagArray[tIndex];
+            //    tagCapId = getTagRecordID(tagID);
+            //    if (tagCapId != null) {
+            //        voidRec(tagCapId);
+            //    }
+            //}
             var associatedTagArray = getTagsAssociatedToLicense(appTypeString);
-            for (var tIndex in associatedTagArray) {
-                tagID = associatedTagArray[tIndex];
-                tagCapId = getTagRecordID(tagID);
-                if (tagCapId != null) {
-                    voidRec(tagCapId);
-                }
+            if (associatedTagArray != null) {
+                arryAccumTags = arrayUnique(arryAccumTags.concat(associatedTagArray));
             }
         }
 
@@ -2426,6 +2430,21 @@ function VoidsSales() {
                 if (childArr != null && childArr.length > 0) {
                     ppCapId = childArr[0];
                     voidPrivilegePanel(ppCapId, pId);
+                }
+                for (var tIndex in arryAccumTags) {
+                    var tagProp = tagsMap.get(arryAccumTags[tIndex]);
+                    childArr = getChildren(tagProp.RecordType, pId);
+                    if (childArr != null && childArr.length > 0) {
+                        for (y in childArr) {
+                            var childCapId = childArr[y];
+                            var currcap = aa.cap.getCap(childCapId).getOutput();
+                            appTypeString = currcap.getCapType().toString();
+                            var status = currcap.getCapStatus();
+                            if (status == 'Active') {
+                                voidRec(childCapId);
+                            }
+                        }
+                    }
                 }
             }
         }
@@ -2461,6 +2480,12 @@ function VoidsSales() {
 function getTagsAssociatedToLicense(licAppType) {
     associatedTagArray = null;
     switch ("" + licAppType) {
+        case AA06_HUNTING_LICENSE:
+            associateTagArray = new Array();
+            associatedTagArray.push(TAG_TYPE_1_BACK_TAG);
+            associatedTagArray.push(TAG_TYPE_3_REG_SEASON_DEER);
+            associatedTagArray.push(TAG_TYPE_2_BEAR_TAG);
+            break;
         case AA04_BOWHUNTING_PRIVILEGE:
         case AA07_MUZZLELOADING_PRIVILEGE:
         case AA30_NONRES_MUZZLELOADING:
@@ -2512,42 +2537,42 @@ function getTagsAssociatedToLicense(licAppType) {
         case AA42_TRAPPER_SUPER_SPORTSMAN:
             associatedTagArray = getTag_TRAPPER_SUPER_SPORTSMAN();
             break;
-			
+
         case AA11_LIFETIME_MUZZLELOADING:
-		    associateTagArray = new Array();
-			associateTagArray.push(TAG_TYPE_1_BACK_TAG);
+            associateTagArray = new Array();
+            associateTagArray.push(TAG_TYPE_1_BACK_TAG);
             associateTagArray.push(TAG_TYPE_19_DEER_OF_EITHER_SEX_TAG);
             associateTagArray.push(TAG_TYPE_20_ANTLERLESS_DEER_TAG);
             break;
-			
+
         case AA09_LIFETIME_BOWHUNTING:
-		    associateTagArray = new Array();
-			associateTagArray.push(TAG_TYPE_1_BACK_TAG);
+            associateTagArray = new Array();
+            associateTagArray.push(TAG_TYPE_1_BACK_TAG);
             associateTagArray.push(TAG_TYPE_19_DEER_OF_EITHER_SEX_TAG);
             associateTagArray.push(TAG_TYPE_20_ANTLERLESS_DEER_TAG);
             break;
-			
+
         case AA13_LIFETIME_SPORTSMAN:
-		    associateTagArray = new Array();
-			associateTagArray.push(TAG_TYPE_1_BACK_TAG);
+            associateTagArray = new Array();
+            associateTagArray.push(TAG_TYPE_1_BACK_TAG);
             associateTagArray.push(TAG_TYPE_19_DEER_OF_EITHER_SEX_TAG);
             //associateTagArray.push(TAG_TYPE_20_ANTLERLESS_DEER_TAG);
-			associateTagArray.push(TAG_TYPE_3_REG_SEASON_DEER);
-			associateTagArray.push(TAG_TYPE_2_BEAR_TAG);
-			associateTagArray.push(TAG_TYPE_19_DEER_OF_EITHER_SEX_TAG);
-			associateTagArray.push(TAG_TYPE_16_SPRING_TURKEY_TAG_1);
-			associateTagArray.push(TAG_TYPE_15_SPRING_TURKEY_TAG_2);
-			associateTagArray.push(TAG_TYPE_14_FALL_TURKEY_STATEWIDE);
-			associateTagArray.push(TAG_TYPE_13_FALL_TURKEY_2_BIRD_AREA);
+            associateTagArray.push(TAG_TYPE_3_REG_SEASON_DEER);
+            associateTagArray.push(TAG_TYPE_2_BEAR_TAG);
+            associateTagArray.push(TAG_TYPE_19_DEER_OF_EITHER_SEX_TAG);
+            associateTagArray.push(TAG_TYPE_16_SPRING_TURKEY_TAG_1);
+            associateTagArray.push(TAG_TYPE_15_SPRING_TURKEY_TAG_2);
+            associateTagArray.push(TAG_TYPE_14_FALL_TURKEY_STATEWIDE);
+            associateTagArray.push(TAG_TYPE_13_FALL_TURKEY_2_BIRD_AREA);
             break;
-			
+
         case AA12_LIFETIME_SMALL_AND_BIG_GAME:
-		    associateTagArray = new Array();
-			associateTagArray.push(TAG_TYPE_1_BACK_TAG);
-			associateTagArray.push(TAG_TYPE_2_BEAR_TAG);
-			associateTagArray.push(TAG_TYPE_3_REG_SEASON_DEER);
+            associateTagArray = new Array();
+            associateTagArray.push(TAG_TYPE_1_BACK_TAG);
+            associateTagArray.push(TAG_TYPE_2_BEAR_TAG);
+            associateTagArray.push(TAG_TYPE_3_REG_SEASON_DEER);
             break;
-			
+
         default:
             break;
     }
