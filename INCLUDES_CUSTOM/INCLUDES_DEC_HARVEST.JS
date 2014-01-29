@@ -2481,7 +2481,7 @@ function getTagsAssociatedToLicense(licAppType) {
     associatedTagArray = null;
     switch ("" + licAppType) {
         case AA06_HUNTING_LICENSE:
-            associateTagArray = new Array();
+            associatedTagArray = new Array();
             associatedTagArray.push(TAG_TYPE_1_BACK_TAG);
             associatedTagArray.push(TAG_TYPE_3_REG_SEASON_DEER);
             associatedTagArray.push(TAG_TYPE_2_BEAR_TAG);
