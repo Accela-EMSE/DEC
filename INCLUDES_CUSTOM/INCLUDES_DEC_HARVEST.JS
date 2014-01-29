@@ -2490,7 +2490,7 @@ function getTagsAssociatedToLicense(licAppType) {
         case AA07_MUZZLELOADING_PRIVILEGE:
         case AA30_NONRES_MUZZLELOADING:
         case AA34_NONRESIDENT_BOWHUNTING:
-            associateTagArray = new Array();
+            associatedTagArray = new Array();
             associatedTagArray.push(TAG_TYPE_1_BACK_TAG);
             associatedTagArray.push(TAG_TYPE_19_DEER_OF_EITHER_SEX_TAG);
             associatedTagArray.push(TAG_TYPE_20_ANTLERLESS_DEER_TAG);
@@ -2502,7 +2502,7 @@ function getTagsAssociatedToLicense(licAppType) {
             associatedTagArray = getTag_CONSERVATION_LEGACY();
             break;
         case AA29_JUNIOR_HUNTING:
-            associateTagArray = new Array();
+            associatedTagArray = new Array();
             associatedTagArray.push(TAG_TYPE_1_BACK_TAG);
             associatedTagArray.push(TAG_TYPE_3_REG_SEASON_DEER);
             associatedTagArray.push(TAG_TYPE_2_BEAR_TAG);
