@@ -685,6 +685,7 @@ function form_OBJECT(identity) {
                     //if (this.optmzType == OPTZ_TYPE_ALLFEES || (this.optmzType == OPTZ_TYPE_SELECTED_FEES && this.licObjARRAY[idx].IsSelected) || this.optmzType == OPTZ_TYPE_CTRC) {
                     var ofd = getFeeCodeByRule(ruleParams, this.licObjARRAY[idx].feeschedule, this.licObjARRAY[idx].feeversion, this.licObjARRAY[idx].FNfeeRule);
                     //eval("var feeItemCodes = " + this.licObjARRAY[idx].FNfeeRule + "(ruleParams, " + this.licObjARRAY[idx].feeschedule + " );");
+                    var mstr = '';
                     if (ofd != null) {
                         this.licObjARRAY[idx].feecode = ofd.feeCode;
                         this.licObjARRAY[idx].feeDesc = ofd.feeDesc;
@@ -695,7 +696,6 @@ function form_OBJECT(identity) {
                         this.licObjARRAY[idx].formula = ofd.formula;
                         this.licObjARRAY[idx].feeUnit = this.GetQuantity(lic.Identity);
 
-                        var mstr = '';
                         mstr += this.FromACA == "Yes" ? '<span class="DEC_price">$' : '';
                         mstr += this.licObjARRAY[idx].formula.toString();
                         mstr += ' [';
@@ -704,12 +704,16 @@ function form_OBJECT(identity) {
                         mstr += this.licObjARRAY[idx].CodeDescription;
                         mstr += ']';
                         mstr += this.FromACA == "Yes" ? '</span>' : '';
-                        //this.setBoMessage(this.licObjARRAY[idx].Identity);
                         if (this.licObjARRAY[idx].bomessage != '') {
                             mstr += " ";
                             mstr += this.licObjARRAY[idx].bomessage;
                         }
 
+                        this.SetMessage(this.licObjARRAY[idx].Identity, mstr);
+                    } else {
+                        if (this.licObjARRAY[idx].bomessage != '') {
+                            mstr += this.licObjARRAY[idx].bomessage;
+                        }
                         this.SetMessage(this.licObjARRAY[idx].Identity, mstr);
                     }
                 }
@@ -1474,7 +1478,7 @@ function form_OBJECT(identity) {
                                     var a60dayFishRecArray = get60dayFishRecTypeArray();
                                     if (exists(this.ActiveHoldingsInfo[idx].RecordType, a60dayFishRecArray)) {
                                         //JIRA-46457
-										if (matches(psCheckForRef, LIC03_ONE_DAY_FISHING_LICENSE, LIC26_SEVEN_DAY_FISHING_LICENSE, LIC24_NONRESIDENT_1_DAY_FISHING, LIC25_NONRESIDENT_7_DAY_FISHING)) {
+                                        if (matches(psCheckForRef, LIC03_ONE_DAY_FISHING_LICENSE, LIC26_SEVEN_DAY_FISHING_LICENSE, LIC24_NONRESIDENT_1_DAY_FISHING, LIC25_NONRESIDENT_7_DAY_FISHING)) {
                                             var isFromDateinFuture = ((dateDiff(new Date(), convertDate(this.ActiveHoldingsInfo[idx].FromDate))) > 0);
                                             isExist = !isFromDateinFuture && ((dateDiff(new Date(), convertDate(this.ActiveHoldingsInfo[idx].ToDate))) > 60);
                                         }
@@ -2541,7 +2545,7 @@ function ACTIVE_ITEM(itemCapId, itemCap, recordType) {
 function exists(eVal, eArray) {
     for (ii in eArray)
         if (eArray[ii] == eVal) return true;
-    return false;
+return false;
 }
 function DateRange(startDt, endDt) {
     this.StartDT = startDt;
