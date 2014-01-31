@@ -350,7 +350,11 @@ function processNewAdded(ipStartDt,ipEndDt,ipStartYear,ipEndYear,ipRefContacts) 
         var fvProcDtEnd = new Date(fvYearCounter, ipEndDt.getMonth(), ipEndDt.getDate());
         if (fvProcDtStart.getTime() > fvProcDtEnd.getTime())
             fvProcDtEnd = new Date(fvYearCounter + 1, ipEndDt.getMonth(), ipEndDt.getDate());
-        opRefContacts = getRefContactsByRecTypeByStatusByDOB("Licenses","Lifetime",null,null,"Active",fvProcDtStart,fvProcDtEnd,opRefContacts,fvProcDtStart,fvProcDtEnd);
+		//JIRA-44705
+		//opRefContacts = getRefContactsByRecTypeByStatusByDOB("Licenses","Lifetime",null,null,"Active",fvProcDtStart,fvProcDtEnd,opRefContacts,fvProcDtStart,fvProcDtEnd);
+		var fvRecDtStart = new Date();
+		fvRecDtStart.setDate(ipStartDt.getDate() -1);
+        opRefContacts = getRefContactsByRecTypeByStatusByDOB("Licenses","Lifetime",null,null,"Active",fvProcDtStart,fvProcDtEnd,opRefContacts,fvRecDtStart,ipEndDt);
     }
     return opRefContacts;
 }
