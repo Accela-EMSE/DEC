@@ -363,7 +363,8 @@ function getExistingTags(ipRefContact,ipExpDate,ipEligibleTags) {
         var fvExpDtArr = fvExpDtStr.split("-");
         fvExpDtStr = fvExpDtArr[1] + "/" + fvExpDtArr[2] + "/" + fvExpDtArr[0];
         var fvExpDt = new Date(fvExpDtStr);
-        if (fvExpDt.getTime() != ipExpDate.getTime())
+        //Due to expiration date might different for different for license year
+		if (fvExpDt.getTime() < ipExpDate.getTime())
             continue;
         var fvCategory = fvCapType.getCategory();
         if (ipEligibleTags.containsKey(fvCategory)) {
