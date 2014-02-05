@@ -2165,7 +2165,7 @@ function upgradeLifetimeLic() {
                     updateDocumentNumber(newDecDocId, newLicId);
 
                     //maintain array for later actions
-                    arryTargetCapAttrib.push(new TargetCAPAttrib(newLicId, newfd));
+                    arryTargetCapAttrib.push(new TargetCAPAttrib(newLicId, newfd, true));
 
                     /* turn off per Rocky on 12/6/2013 Defect 16667
                     //connect With main Upgraded
