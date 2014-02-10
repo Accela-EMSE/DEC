@@ -503,7 +503,7 @@ function GetTagsForHarvestReport(peopleSequenceNumber, isDeer, isBear, isFallTur
     sql += "WHERE A.SERV_PROV_CODE = '" + aa.getServiceProviderCode() + "' ";
     sql += "AND D.G1_CONTACT_NBR = " + peopleSequenceNumber + " ";
     sql += "AND A.REC_STATUS='A' AND D.REC_STATUS='A' AND A.B1_MODULE_NAME ='Licenses' ";
-    sql += "AND (E.EXPIRATION_DATE is NULL OR E.EXPIRATION_DATE >= TRUNC(SYSDATE - 7)) ";
+    sql += "AND (E.EXPIRATION_DATE is NULL OR E.EXPIRATION_DATE >= TRUNC(SYSDATE - 30)) ";
     sql += "AND E.REC_STATUS='A' ";
     sql += "AND A.b1_per_group = 'Licenses' ";
     sql += "AND A.b1_per_type = 'Tag' ";
