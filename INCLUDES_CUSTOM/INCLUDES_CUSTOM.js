@@ -678,6 +678,8 @@ function issueSelectedSalesItems(frm) {
                                     newfd.feeDesc = FEESTOTRANSFER[y]["feeDesc"];
                                     newfd.comments = FEESTOTRANSFER[y]["comments"];
                                     newfd.Code3commission = FEESTOTRANSFER[y]["Code3commission"];
+									//JIRA-47359
+									oLic.feeUnit = newfd.feeUnit;
                                     break;
                                 }
                             }
