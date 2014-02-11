@@ -1755,7 +1755,9 @@ function addFeeForUpgrade() {
         //STEP2: Collect Paid fees for selected arrays
         var amtPaid = 0;
         for (y in selectionArray) {
-            var itemCapId = getCapId(selectionArray[y]);
+			//JIRA-47037
+            var parentAltId = getOriginalLTCapId(selectionArray[y])
+            var itemCapId = getCapId(parentAltId);
             var pfResult = aa.finance.getPaymentFeeItems(itemCapId, null);
             if (pfResult.getSuccess()) {
                 var pfObj = pfResult.getOutput();
@@ -1785,6 +1787,46 @@ function addFeeForUpgrade() {
         logDebug("**ERROR in addFeeForUpgrade:" + err.message);
     }
     logDebug("EXIT: addFeeForUpgrade");
+}
+//JIRA-47037
+function getOriginalLTCapId(altId) {
+    var parentAltId = altId;
+
+    var sql = "SELECT PARENTS.B1_ALT_ID FROM B1PERMIT PARENTS";
+    sql += " JOIN XAPP2REF APPREF"
+    sql += " ON PARENTS.SERV_PROV_CODE = APPREF.SERV_PROV_CODE";
+    sql += " AND PARENTS.B1_PER_ID1 = APPREF.B1_MASTER_ID1";
+    sql += " AND PARENTS.B1_PER_ID2 = APPREF.B1_MASTER_ID2";
+    sql += " AND PARENTS.B1_PER_ID3 = APPREF.B1_MASTER_ID3";
+    sql += " JOIN B1PERMIT PERM";
+    sql += " ON APPREF.SERV_PROV_CODE = PERM.SERV_PROV_CODE";
+    sql += " AND APPREF.B1_PER_ID1 = PERM.B1_PER_ID1";
+    sql += " AND APPREF.B1_PER_ID2 = PERM.B1_PER_ID2";
+    sql += " AND APPREF.B1_PER_ID3 = PERM.B1_PER_ID3";
+    sql += " Where PERM.B1_ALT_ID = '" + altId + "'";
+
+    var initialContext = aa.proxyInvoker.newInstance("javax.naming.InitialContext", null).getOutput();
+    var ds = initialContext.lookup("java:/AA");
+    var conn = ds.getConnection();
+
+    var sStmt = conn.prepareStatement(sql);
+    var rSet = sStmt.executeQuery();
+    while (rSet.next()) {
+        var pAltId = rSet.getString("B1_ALT_ID");
+        var itemCapId = getCapId(pAltId);
+        var itemcap = aa.cap.getCap(itemCapId).getOutput();
+        appTypeString = itemcap.getCapType().toString();
+        if (appMatch("Licenses/Sales/Reprint/Documents", itemCapId)) {
+            //Ignore
+        }
+        else if (appMatch("Licenses/Annual/Application/NA", itemCapId)) {
+            return parentAltId;
+        }
+        else {
+            parentAltId = getOriginalLTCapId(pAltId)
+        }
+    }
+    return parentAltId;
 }
 function copyCntASIToRecASIforReprint() {
     logDebug("ENTER: copyCntASIToRecASIforReprint");
@@ -2165,7 +2207,7 @@ function upgradeLifetimeLic() {
                     updateDocumentNumber(newDecDocId, newLicId);
 
                     //maintain array for later actions
-					//JIRA--16667
+                    //JIRA--16667
                     arryTargetCapAttrib.push(new TargetCAPAttrib(newLicId, newfd, true));
 
                     /* turn off per Rocky on 12/6/2013 Defect 16667
