@@ -526,7 +526,6 @@ function GetAllSalesItemsNames() {
     RecordTypeArray[RecordTypeArray.length] = LIC57_TAG_DRIV_LIC_REN;
     return RecordTypeArray;
 }
-
 function SalesItemProp(identity, recordType, feeSched, feeVersion, fnFeeRule, fnIsSelectableRule, fnprereqisiteArray, fnIncludesArray, fntagsArray, verifyRevokedHunting, verifyRevokedTrapping, verifyRevokedFishing) {
     this.Identity = identity;
     this.RecordType = recordType;
@@ -1037,7 +1036,6 @@ function getAllFeeCodeByRuleFor_LIFETM_BOWH(ruleParams, feeSched) {
     if (feeItemCodes.length == 0) { feeItemCodes.push(new FeeCodeProp(LBH_3_RES, "000")); }
     return feeItemCodes;
 }
-
 function getAllFeeCodeByRuleFor_LIFETM_MUZZ(ruleParams, feeSched) {
     var feeItemCodes = new Array();
     var rp = ruleParams;
@@ -1070,7 +1068,6 @@ function getAllFeeCodeByRuleFor_LIFETM_INSCRIPTION(ruleParams, feeSched) {
     if (feeItemCodes.length == 0) { feeItemCodes.push(new FeeCodeProp(LTL_1_RES, "000")); }
     return feeItemCodes;
 }
-
 function getAllFeeCodeByRuleFor_DRIV_LIC_IMM(ruleParams, feeSched) {
     var feeItemCodes = new Array();
     var rp = ruleParams;
@@ -1079,14 +1076,12 @@ function getAllFeeCodeByRuleFor_DRIV_LIC_IMM(ruleParams, feeSched) {
 
     return feeItemCodes;
 }
-
 function getAllFeeCodeByRuleFor_DRIV_LIC_REN(ruleParams, feeSched) {
     var feeItemCodes = new Array();
     var rp = ruleParams;
     feeItemCodes.push(new FeeCodeProp(FEE_LIFETIME_DRIV_LIC_RENEW, "000"));
     return feeItemCodes;
 }
-
 function getAllFeeCodeByRuleFor_LIFETM_FISH(ruleParams, feeSched) {
     var feeItemCodes = new Array();
     var rp = ruleParams;
@@ -1232,7 +1227,6 @@ function getAllFeeCodeByRuleFor_JUNIOR_HUNTING(ruleParams, feeSched) {
     if (feeItemCodes.length == 0) { feeItemCodes.push(new FeeCodeProp(AJH_1_RES, "000")); }
     return feeItemCodes;
 }
-
 function getAllFeeCodeByRuleFor_JUNIOR_HUNT_TAGS(ruleParams, feeSched) {
     var feeItemCodes = new Array();
     var rp = ruleParams;
@@ -1430,7 +1424,6 @@ function getAllFeeCodeByRuleFor_SPORTSMAN_ED_CERTIFICATION(ruleParams, feeSched)
     //if (feeItemCodes.length == 0) { feeItemCodes.push(new FeeCodeProp(OS1_SPRT_ED, "000")); }
     return feeItemCodes;
 }
-
 function getAllFeeCodeByRuleFor_OTHER_SALE_CONSERVATION_FUND(ruleParams, feeSched) {
     var feeItemCodes = new Array();
     var rp = ruleParams;
@@ -1549,7 +1542,6 @@ function isRuleForSelectable_ANNUAL_DMP_2014(ruleParams) {
     var isSelectable = (ruleParams.Age >= 12 && ruleParams.HasHuntEd);
     return isSelectable;
 }
-
 function isRuleForSelectable_ANNUAL_TRKY_2012(ruleParams) {
     var isSelectable = (ruleParams.IsNyResiDent && ruleParams.Age >= 12 && ruleParams.HasHuntEd);
     return isSelectable;
@@ -1728,7 +1720,6 @@ function isRuleForSelectable_OTHER_SALE_VENISON_DONATION_SCHDL(ruleParams) {
     var isSelectable = true;
     return isSelectable;
 }
-
 function isRuleForSelectable_DRIV_LIC(ruleParams) {
     return (ruleParams.hasValidNYDriverLicense || ruleParams.hasValidNYNonDriverLicense);
 }
@@ -1838,7 +1829,6 @@ function getPrereq_ANNUAL_TRKY_2012(ruleParams) {
     }
     return arryPrereq;
 }
-
 function getPrereq_DRIV_LIC(ruleParams) {
     var arryPrereq = null;
     if (isRuleForSelectable_DRIV_LIC(ruleParams)) {
@@ -1858,7 +1848,6 @@ function getPrereq_DRIV_LIC(ruleParams) {
     }
     return arryPrereq;
 }
-
 function getPrereq_ANNUAL_TRKY_2014(ruleParams) {
     var arryPrereq = null;
     if (isRuleForSelectable_ANNUAL_TRKY_2014(ruleParams)) {
@@ -1927,7 +1916,6 @@ function getPrereq_ANNUAL_DMP_2014(ruleParams) {
     }
     return arryPrereq;
 }
-
 function getPrereq_ANNUAL_DMP_2012(ruleParams) {
     var rp = ruleParams;
     var arryPrereq = null;
@@ -1967,7 +1955,6 @@ function getPrereq_ANNUAL_DMP_2012(ruleParams) {
     }
     return arryPrereq;
 }
-
 function getPrereq_ANNUAL_BOWH_2014(ruleParams) {
     var arryPrereq = null;
     if (isRuleForSelectable_ANNUAL_BOWH_2014(ruleParams)) {
@@ -1981,7 +1968,6 @@ function getPrereq_ANNUAL_BOWH_2014(ruleParams) {
     }
     return arryPrereq;
 }
-
 function getPrereq_ANNUAL_BOWH_2012(ruleParams) {
     var rp = ruleParams;
     var arryPrereq = null;
@@ -2021,7 +2007,6 @@ function getPrereq_LIFETM_MUZZ(ruleParams) {
     arryPrereq.push(LIC13_LIFETIME_SPORTSMAN);
     return arryPrereq;
 }
-
 function getPrereq_NONRES_MUZZLELOADING(ruleParams) {
     var arryPrereq = null;
     var rp = ruleParams;
@@ -2051,7 +2036,6 @@ function getPrereq_NONRESIDENT_TURKEY(ruleParams) {
     arryPrereq.push(LIC29_JUNIOR_HUNTING);
     return arryPrereq;
 }
-
 function getPrereq_ANNUAL_MUZZ_2014(ruleParams) {
     var arryPrereq = new Array();
     arryPrereq.push(LIC06_HUNTING_LICENSE);
@@ -2114,7 +2098,6 @@ function getIncl_NONRES_SUPER_SPORTSMAN(ruleParams) {
     arryInc.push(LIC08_TURKEY_PERMIT);
     return arryInc;
 }
-
 function getIncl_SPORTSMAN(ruleParams) {
     var arryInc = new Array();
     arryInc.push(LIC37_SMALL_AND_BIG_GAME);
@@ -2128,7 +2111,6 @@ function getIncl_SPORTSMAN(ruleParams) {
     arryInc.push(LIC06_HUNTING_LICENSE);
     return arryInc;
 }
-
 function getIncl_SUPER_SPORTSMAN(ruleParams) {
     var arryInc = new Array();
     arryInc.push(LIC37_SMALL_AND_BIG_GAME);
@@ -2146,7 +2128,6 @@ function getIncl_SUPER_SPORTSMAN(ruleParams) {
 
     return arryInc;
 }
-
 function getIncl_TRAPPER_SUPER_SPORTSMAN(ruleParams) {
     var arryInc = new Array();
     arryInc.push(LIC37_SMALL_AND_BIG_GAME);
@@ -2172,7 +2153,6 @@ function getIncl_FRESHWATER_FISHING_2012(ruleParams) {
 
     return arryInc;
 }
-
 function getIncl_NONRES_FRESHWATER_FISHING(ruleParams) {
     var arryInc = new Array();
     arryInc.push(LIC03_ONE_DAY_FISHING_LICENSE);
@@ -2181,7 +2161,6 @@ function getIncl_NONRES_FRESHWATER_FISHING(ruleParams) {
     arryInc.push(LIC26_SEVEN_DAY_FISHING_LICENSE);
     return arryInc;
 }
-
 function getIncl_LIFETM_FISH(ruleParams) {
     var arryInc = new Array();
     arryInc.push(LIC03_ONE_DAY_FISHING_LICENSE);
@@ -2191,7 +2170,6 @@ function getIncl_LIFETM_FISH(ruleParams) {
     arryInc.push(LIC12_LIFETIME_SMALL_AND_BIG_GAME);
     return arryInc;
 }
-
 function getIncl_LIFETM_SBGM(ruleParams) {
     var arryInc = new Array();
     arryInc.push(LIC37_SMALL_AND_BIG_GAME);
@@ -2207,7 +2185,6 @@ function getIncl_LIFETM_SBGM(ruleParams) {
     arryInc.push(LIC06_HUNTING_LICENSE);
     return arryInc;
 }
-
 function getIncl_LIFETM_SPRT(ruleParams) {
     var arryInc = new Array();
 
@@ -2226,7 +2203,6 @@ function getIncl_LIFETM_SPRT(ruleParams) {
     arryInc.push(LIC06_HUNTING_LICENSE);
     return arryInc;
 }
-
 function getIncl_LIFETM_MUZZ(ruleParams) {
     var arryInc = new Array();
     arryInc.push(LIC27_CONSERVATION_LEGACY);
@@ -2234,7 +2210,6 @@ function getIncl_LIFETM_MUZZ(ruleParams) {
     arryInc.push(LIC07_MUZZLELOADING_PRIVILEGE);
     return arryInc;
 }
-
 function getIncl_LIFETM_BOWH(ruleParams) {
     var arryInc = new Array();
     arryInc.push(LIC27_CONSERVATION_LEGACY);
@@ -2243,25 +2218,21 @@ function getIncl_LIFETM_BOWH(ruleParams) {
     arryInc.push(LIC04_BOWHUNTING_PRIVILEGE);
     return arryInc;
 }
-
 function getIncl_LIFETM_TRAP(ruleParams) {
     var arryInc = new Array();
     arryInc.push(LIC15_TRAPPING_LICENSE);
     return arryInc;
 }
-
 function getIncl_NONRES_MUZZLELOADING() {
     var arryInc = new Array();
     arryInc.push(LIC07_MUZZLELOADING_PRIVILEGE);
     return arryInc;
 }
-
 function getIncl_NONRESIDENT_BOWHUNTING() {
     var arryInc = new Array();
     arryInc.push(LIC04_BOWHUNTING_PRIVILEGE);
     return arryInc;
 }
-
 function getIncl_NONRESIDENT_SMALL_GAME() {
     var arryInc = new Array();
     arryInc.push(LIC31_NONRES_SUPER_SPORTSMAN);
@@ -2295,7 +2266,6 @@ function getTag_ANNUAL_TRKY_2012(ruleParams) {
 
     return arryTags;
 }
-
 function getTag_JUNIOR_BOWHUNTING(ruleParams) {
     var rp = ruleParams;
     var arryTags = new Array();
@@ -2349,7 +2319,6 @@ function getTag_ANNUAL_TRKY_2014(ruleParams) {
 
     return arryTags;
 }
-
 function getTag_ANNUAL_MUZZ_2012(ruleParams) {
     var rp = ruleParams;
     var arryTags = new Array();
@@ -2361,7 +2330,6 @@ function getTag_ANNUAL_MUZZ_2012(ruleParams) {
     }
     return arryTags;
 }
-
 function getTag_ANNUAL_MUZZ_2014(ruleParams) {
     var rp = ruleParams;
     var arryTags = new Array();
@@ -2373,7 +2341,6 @@ function getTag_ANNUAL_MUZZ_2014(ruleParams) {
     }
     return arryTags;
 }
-
 function getTag_NONRES_MUZZLELOADING(ruleParams) {
     var rp = ruleParams;
     var arryTags = new Array();
@@ -2444,7 +2411,6 @@ function getTag_LIFETM_MUZZ(ruleParams) {
 
     return arryTags;
 }
-
 function getTag_ANNUAL_DMP_2012(ruleParams) {
     var rp = ruleParams;
     var arryTags = new Array();
@@ -2452,7 +2418,6 @@ function getTag_ANNUAL_DMP_2012(ruleParams) {
     arryTags.push(TAG_TYPE_4_DMP_DEER_TAG);
     return arryTags;
 }
-
 function getTag_ANNUAL_DMP_2014(ruleParams) {
     var rp = ruleParams;
     var arryTags = new Array();
@@ -2460,7 +2425,6 @@ function getTag_ANNUAL_DMP_2014(ruleParams) {
     arryTags.push(TAG_TYPE_4_DMP_DEER_TAG);
     return arryTags;
 }
-
 function getTag_ANNUAL_BOWH_2012(ruleParams) {
     var rp = ruleParams;
     var arryTags = new Array();
@@ -2472,7 +2436,6 @@ function getTag_ANNUAL_BOWH_2012(ruleParams) {
     }
     return arryTags;
 }
-
 function getTag_NONRESIDENT_BOWHUNTING(ruleParams) {
     var rp = ruleParams;
     var arryTags = new Array();
@@ -2484,7 +2447,6 @@ function getTag_NONRESIDENT_BOWHUNTING(ruleParams) {
     }
     return arryTags;
 }
-
 function getTag_LIFETM_BOWH(ruleParams) {
     var rp = ruleParams;
     var arryTags = new Array();
@@ -2513,7 +2475,6 @@ function getTag_LIFETM_BOWH(ruleParams) {
     }
     return arryTags;
 }
-
 function getTag_ANNUAL_BOWH_2014(ruleParams) {
     var rp = ruleParams;
     var arryTags = new Array();
@@ -2525,7 +2486,6 @@ function getTag_ANNUAL_BOWH_2014(ruleParams) {
     }
     return arryTags;
 }
-
 function getTag_CONSERVATION_LEGACY(ruleParams) {
     var rp = ruleParams;
     var arryTags = new Array();
@@ -2540,7 +2500,6 @@ function getTag_CONSERVATION_LEGACY(ruleParams) {
     arryTags.push(TAG_TYPE_13_FALL_TURKEY_2_BIRD_AREA);
     return arryTags;
 }
-
 function getTag_NONRESIDENT_BIG_GAME(ruleParams) {
     var rp = ruleParams;
     var arryTags = new Array();
@@ -2548,14 +2507,12 @@ function getTag_NONRESIDENT_BIG_GAME(ruleParams) {
     arryTags.push(TAG_TYPE_3_REG_SEASON_DEER);
     return arryTags;
 }
-
 function getTag_NONRESIDENT_SMALL_GAME(ruleParams) {
     var rp = ruleParams;
     var arryTags = new Array();
     arryTags.push(TAG_TYPE_1_BACK_TAG);
     return arryTags;
 }
-
 function getTag_NONRES_SUPER_SPORTSMAN(ruleParams) {
     var rp = ruleParams;
     var arryTags = new Array();
@@ -2569,7 +2526,6 @@ function getTag_NONRES_SUPER_SPORTSMAN(ruleParams) {
     arryTags.push(TAG_TYPE_13_FALL_TURKEY_2_BIRD_AREA);
     return arryTags;
 }
-
 function getTag_SMALL_AND_BIG_GAME(ruleParams) {
     var rp = ruleParams;
     var arryTags = new Array();
@@ -2578,7 +2534,6 @@ function getTag_SMALL_AND_BIG_GAME(ruleParams) {
     arryTags.push(TAG_TYPE_2_BEAR_TAG);
     return arryTags;
 }
-
 function getTag_SPORTSMAN(ruleParams) {
     var rp = ruleParams;
     var arryTags = new Array();
@@ -2587,7 +2542,6 @@ function getTag_SPORTSMAN(ruleParams) {
     arryTags.push(TAG_TYPE_2_BEAR_TAG);
     return arryTags;
 }
-
 function getTag_LIFETM_SPRT(ruleParams) {
     var rp = ruleParams;
     var arryTags = new Array();
@@ -2617,14 +2571,12 @@ function getTag_LIFETM_SPRT(ruleParams) {
     }
     return arryTags;
 }
-
 function getTag_SMALL_GAME(ruleParams) {
     var rp = ruleParams;
     var arryTags = new Array();
     arryTags.push(TAG_TYPE_1_BACK_TAG);
     return arryTags;
 }
-
 function getTag_SUPER_SPORTSMAN(ruleParams) {
     var rp = ruleParams;
     var arryTags = new Array();
@@ -2639,7 +2591,6 @@ function getTag_SUPER_SPORTSMAN(ruleParams) {
     arryTags.push(TAG_TYPE_13_FALL_TURKEY_2_BIRD_AREA);
     return arryTags;
 }
-
 function getTag_TRAPPER_SUPER_SPORTSMAN(ruleParams) {
     var rp = ruleParams;
     var arryTags = new Array();
@@ -2654,7 +2605,6 @@ function getTag_TRAPPER_SUPER_SPORTSMAN(ruleParams) {
     arryTags.push(TAG_TYPE_13_FALL_TURKEY_2_BIRD_AREA);
     return arryTags;
 }
-
 function getTag_LIFETM_SBGM(ruleParams) {
     var rp = ruleParams;
     var arryTags = new Array();
@@ -2680,7 +2630,6 @@ function getTag_LIFETM_SBGM(ruleParams) {
     }
     return arryTags;
 }
-
 function getTag_NONRESIDENT_BEAR_TAG(ruleParams) {
     var rp = ruleParams;
     var arryTags = new Array();
@@ -2688,7 +2637,6 @@ function getTag_NONRESIDENT_BEAR_TAG(ruleParams) {
     arryTags.push(TAG_TYPE_2_BEAR_TAG);
     return arryTags;
 }
-
 function getTag_ANNUAL_HUNT(ruleParams) {
     var rp = ruleParams;
     var arryTags = new Array();
@@ -2902,9 +2850,10 @@ function hasJuniorTagItems(activeHoldingsInfo) {
 }
 function differBySwitch(year) {
     var differYear = year;
+    return differYear;
 
+	//IMPOROVE: We already after switch date: No need to check
     var strSwitchDate = lookup("DEC_CONFIG", "SWITCH_DATE");
-
     /*
     var strSwitchDateOverride = lookup("SWITCH_DATE_OVERRIDE",publicUserID);
 
@@ -2931,7 +2880,10 @@ function isAfterSwitchDate() {
     }
 
     var retVal = true;
-
+    isAfterSwitchDateFlag = retVal;
+    return retVal;
+	
+	//IMPOROVE: We already after switch date: No need to check
     var strSwitchDate = lookup("DEC_CONFIG", "SWITCH_DATE");
     /*
     var strSwitchDateOverride = lookup("SWITCH_DATE_OVERRIDE",publicUserID);
@@ -3340,7 +3292,6 @@ function getRevokHuntRecTypeArray() {
 
     return validRecTypeArray;
 }
-
 function getRevokFishRecTypeArray() {
     var validRecTypeArray = new Array();     //   record types
 
@@ -3358,7 +3309,6 @@ function getRevokFishRecTypeArray() {
 
     return validRecTypeArray;
 }
-
 function getRevokTrapRecTypeArray() {
     var validRecTypeArray = new Array();     //   record types
 
