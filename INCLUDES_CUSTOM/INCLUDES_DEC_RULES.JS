@@ -1838,9 +1838,9 @@ function getPrereq_DRIV_LIC(ruleParams) {
         if (ruleParams.HasHuntEd) {
             arryPrereq.push(LIC11_LIFETIME_MUZZLELOADING);
             arryPrereq.push(LIC12_LIFETIME_SMALL_AND_BIG_GAME);
-			if (ruleParams.HasBowHunt) {
-				arryPrereq.push(LIC09_LIFETIME_BOWHUNTING);
-			}
+            if (ruleParams.HasBowHunt) {
+                arryPrereq.push(LIC09_LIFETIME_BOWHUNTING);
+            }
         }
         if (ruleParams.HasTrapEd) {
             arryPrereq.push(LIC14_LIFETIME_TRAPPING);
@@ -1860,10 +1860,10 @@ function getPrereq_ANNUAL_TRKY_2014(ruleParams) {
         arryPrereq.push(LIC40_SUPER_SPORTSMAN);
         arryPrereq.push(LIC27_CONSERVATION_LEGACY);
         arryPrereq.push(LIC12_LIFETIME_SMALL_AND_BIG_GAME);
-		//JIRA-47488
-		arryPrereq.push(LIC31_NONRES_SUPER_SPORTSMAN);
-		arryPrereq.push(LIC35_NONRESIDENT_SMALL_GAME);
-	}
+        //JIRA-47488
+        arryPrereq.push(LIC31_NONRES_SUPER_SPORTSMAN);
+        arryPrereq.push(LIC35_NONRESIDENT_SMALL_GAME);
+    }
     return arryPrereq;
 }
 function getPrereq_ANNUAL_MUZZ_2012(ruleParams) {
@@ -1968,6 +1968,9 @@ function getPrereq_ANNUAL_BOWH_2014(ruleParams) {
         arryPrereq.push(LIC42_TRAPPER_SUPER_SPORTSMAN);
         arryPrereq.push(LIC13_LIFETIME_SPORTSMAN);
         arryPrereq.push(LIC39_SPORTSMAN);
+        arryPrereq.push(LIC38_SMALL_GAME);
+        arryPrereq.push(LIC35_NONRESIDENT_SMALL_GAME);
+        arryPrereq.push(LIC33_NONRESIDENT_BIG_GAME);
     }
     return arryPrereq;
 }
@@ -2044,6 +2047,9 @@ function getPrereq_ANNUAL_MUZZ_2014(ruleParams) {
     arryPrereq.push(LIC06_HUNTING_LICENSE);
     arryPrereq.push(LIC12_LIFETIME_SMALL_AND_BIG_GAME);
     arryPrereq.push(LIC13_LIFETIME_SPORTSMAN);
+    arryPrereq.push(LIC38_SMALL_GAME);
+    arryPrereq.push(LIC35_NONRESIDENT_SMALL_GAME);
+    arryPrereq.push(LIC33_NONRESIDENT_BIG_GAME);
     return arryPrereq;
 }
 
@@ -2876,7 +2882,7 @@ function differBySwitch(year) {
     var differYear = year;
     return differYear;
 
-	//IMPOROVE: We already after switch date: No need to check
+    //IMPOROVE: We already after switch date: No need to check
     var strSwitchDate = lookup("DEC_CONFIG", "SWITCH_DATE");
     /*
     var strSwitchDateOverride = lookup("SWITCH_DATE_OVERRIDE",publicUserID);
@@ -2906,8 +2912,8 @@ function isAfterSwitchDate() {
     var retVal = true;
     isAfterSwitchDateFlag = retVal;
     return retVal;
-	
-	//IMPOROVE: We already after switch date: No need to check
+
+    //IMPOROVE: We already after switch date: No need to check
     var strSwitchDate = lookup("DEC_CONFIG", "SWITCH_DATE");
     /*
     var strSwitchDateOverride = lookup("SWITCH_DATE_OVERRIDE",publicUserID);
@@ -2974,15 +2980,15 @@ function getVoidableFilterArray() {
     //validRecTypeArray.push(AA44_SPORTSMAN_ED_CERTIFICATION);
     //validRecTypeArray.push(AA45_LIFETIME_INSCRIPTION);
     //JIRA-46545
-	//validRecTypeArray.push(AA46_TAG_REG_SEASON_DEER);
+    //validRecTypeArray.push(AA46_TAG_REG_SEASON_DEER);
     //validRecTypeArray.push(AA47_TAG_BEAR);
     //validRecTypeArray.push(AA48_TAG_BOW_MUZZ_EITHER_SEX);
     //validRecTypeArray.push(AA49_TAG_BOW_MUZZ_ANTLERLESS);
     //validRecTypeArray.push(AA50_TAG_SPRING_TURKEY_TAG);
     //validRecTypeArray.push(AA51_TAG_FALL_TURKEY_TAG);
     //validRecTypeArray.push(AA52_TAG_BACK);
-    
-	//validRecTypeArray.push(AA53_TAG_DMP_DEER);
+
+    //validRecTypeArray.push(AA53_TAG_DMP_DEER);
     //validRecTypeArray.push(AA54_TAG_PRIV_PANEL);
 
     return validRecTypeArray;
