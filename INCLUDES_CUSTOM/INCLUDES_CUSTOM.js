@@ -678,8 +678,8 @@ function issueSelectedSalesItems(frm) {
                                     newfd.feeDesc = FEESTOTRANSFER[y]["feeDesc"];
                                     newfd.comments = FEESTOTRANSFER[y]["comments"];
                                     newfd.Code3commission = FEESTOTRANSFER[y]["Code3commission"];
-									//JIRA-47359
-									oLic.feeUnit = newfd.feeUnit;
+                                    //JIRA-47359
+                                    oLic.feeUnit = newfd.feeUnit;
                                     break;
                                 }
                             }
@@ -5749,4 +5749,18 @@ function transferFeesAndPayments(sourceCapId, targetCapId) {
 
         }
     }
+}
+//JIRA-47037
+function isValidRecForCreateRef() {
+    var retvalue = true;
+    var recTypeArray = new Array();
+    recTypeArray.push("Licenses/Other/Sportsmen/DMV ID Request");
+
+    for (y in recTypeArray) {
+        if (appMatch(recTypeArray[y])) {
+            retvalue = false;
+            break;
+        }
+    }
+    return retvalue;
 }
