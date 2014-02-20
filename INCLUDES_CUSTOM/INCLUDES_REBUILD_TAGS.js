@@ -14,46 +14,54 @@
 |                           The Status of the Application should be "Approved" and put the Condition "Auto-Generated Applications" on this application.
 /------------------------------------------------------------------------------------------------------*/
 
-function rebuildAllTagsforaRefContact(ipRefContact,ipEffDate) {
+function rebuildAllTagsforaRefContact(ipRefContact, ipEffDate) {
     opErrors = null;
     logDebug("Ref Contact: " + ipRefContact);
     var fvContactQry = aa.people.getPeople(ipRefContact);
     if (!fvContactQry || !fvContactQry.getSuccess()) {
-        opErrors = createError(opErrors,"Contact not Found: " + ipRefContact);
+        opErrors = createError(opErrors, "Contact not Found: " + ipRefContact);
         return opErrors;
     }
     var fvContact = fvContactQry.getOutput();
     if (!fvContact) {
-        opErrors = createError(opErrors,"Contact not Found: " + ipRefContact);
+        opErrors = createError(opErrors, "Contact not Found: " + ipRefContact);
         return opErrors;
     }
     if (fvContact.contactType != "Individual") {
-        opErrors = createError(opErrors,"Contact " + ipRefContact + " is not an Individual.");
+        opErrors = createError(opErrors, "Contact " + ipRefContact + " is not an Individual.");
         return opErrors;
     }
     if (fvContact.getDeceasedDate()) {
-        opErrors = createError(opErrors,"Contact " + ipRefContact + " has Deceased Date.");
+        opErrors = createError(opErrors, "Contact " + ipRefContact + " has Deceased Date.");
         return opErrors;
     }
     var fvEnforcements = getEnforcements(ipRefContact);
     if (fvEnforcements.suspension) {
-        opErrors = createError(opErrors,"Contact " + ipRefContact + " has Suspension of Privileges.");
+        opErrors = createError(opErrors, "Contact " + ipRefContact + " has Suspension of Privileges.");
         return opErrors;
-	}
+    }
+    if (fvContact.getTemplate()) {
+        var fieldArray = getCntAsiInfoByPeopleSeqNum(ipRefContact);
+        if (fieldArray["Stop Mail"] == "Y") {
+            opErrors = createError(opErrors, "Contact " + ipRefContact + " has Stop Mail.");
+            return opErrors;
+        }
+    }
+
     var fvProcessYear = getProcessYear(ipEffDate);
-    var fvSeason =  getSeasonDates(fvProcessYear);
+    var fvSeason = getSeasonDates(fvProcessYear);
     var fvStartDate = fvSeason.StartDate;
     var fvExpDate = fvSeason.EndDate;
-    var fvAge = getRefContactAgeAsOnDate(ipRefContact,ipEffDate);
+    var fvAge = getRefContactAgeAsOnDate(ipRefContact, ipEffDate);
     var fvSpEd = getSpEd(ipRefContact);
     logDebug("Education: " + fvSpEd);
     var fvLifeLic = getLifetimeLicenses(ipRefContact);
     logDebug("Lifetime Licenses: " + fvLifeLic);
-    var fvEligibleTags = calculateEligTags(fvLifeLic,fvSpEd,fvAge,fvEnforcements,fvProcessYear);
+    var fvEligibleTags = calculateEligTags(fvLifeLic, fvSpEd, fvAge, fvEnforcements, fvProcessYear);
     logDebug("Eligible Tags: " + fvEligibleTags);
-    var fvExistTags = getExistingTags(ipRefContact,fvExpDate,fvEligibleTags);
+    var fvExistTags = getExistingTags(ipRefContact, fvExpDate, fvEligibleTags);
     logDebug("Existing Tags: " + fvExistTags);
-    var opErrors = createNewTags(ipRefContact,fvStartDate,fvExpDate,fvExistTags);
+    var opErrors = createNewTags(ipRefContact, fvStartDate, fvExpDate, fvExistTags);
     return opErrors;
 }
 
@@ -86,7 +94,7 @@ function getSeasonDates(ipProcessYear) {
     return opSeason;
 }
 
-function getRefContactAgeAsOnDate(ipRefContact,ipEffDate) {
+function getRefContactAgeAsOnDate(ipRefContact, ipEffDate) {
     var opAge = 0;
     var fvContactQry = aa.people.getPeople(ipRefContact);
     if (fvContactQry.getSuccess()) {
@@ -98,13 +106,13 @@ function getRefContactAgeAsOnDate(ipRefContact,ipEffDate) {
             fvBDtArr = fvBDtStr.split("-");
             fvBDtStr = fvBDtArr[1].toString() + "/" + fvBDtArr[2].toString() + "/" + fvBDtArr[0].toString();
             var fvBirthDate = new Date(fvBDtStr);
-            opAge = getCompletedAge(fvBirthDate,ipEffDate);
+            opAge = getCompletedAge(fvBirthDate, ipEffDate);
         }
     }
     return opAge;
 }
 
-function getCompletedAge(ipBirthDate,ipEffDate) {
+function getCompletedAge(ipBirthDate, ipEffDate) {
     var opAge = ipEffDate.getFullYear() - ipBirthDate.getFullYear();
     ipBirthDate.setHours(0);
     ipBirthDate.setMinutes(0);
@@ -157,10 +165,10 @@ function getSpEd(ipRefContact) {
                                 var fvRow = fvRows.get(fvCounter);
                                 var fvRowValues = fvRow.getValues();
                                 var fvValueRevoked = fvRowValues.get(fvFieldPosRevoked);
-                                if (fvValueRevoked.value == "CHECKED" )
+                                if (fvValueRevoked.value == "CHECKED")
                                     continue;
                                 var fvValueType = fvRowValues.get(fvFieldPosType);
-                                fvSpEdArray.put(fvValueType.value,fvValueType.value);
+                                fvSpEdArray.put(fvValueType.value, fvValueType.value);
                             }
                         }
                     }
@@ -198,7 +206,7 @@ function getLifetimeLicenses(ipRefContact) {
         if (!fvCapIDQry || !fvCapIDQry.getSuccess())
             continue;
         var fvCapID = fvCapIDQry.getOutput();
-        if(!fvCapID)
+        if (!fvCapID)
             continue;
         var fvCapMQry = aa.cap.getCap(fvCapID);
         if (!fvCapMQry || !fvCapMQry.getSuccess())
@@ -211,17 +219,17 @@ function getLifetimeLicenses(ipRefContact) {
             continue;
 
         if (fvCapType.getGroup() != "Licenses" || fvCapType.getType() != "Lifetime")
-           continue;
+            continue;
         if (fvCapType.getSubType() == "Other" || fvCapType.getSubType() == "Fishing")
-           continue;
+            continue;
         if (fvCapM.getCapStatus() != "Active" && fvCapM.getCapStatus() != "Approved")
-           continue;
-        opLL.put(fvCapType.getCategory(),"");
+            continue;
+        opLL.put(fvCapType.getCategory(), "");
     }
     return opLL;
 }
 
-function calculateEligTags(ipLifeLic,ipSpEd,ipAge,ipEnforcements,spProcessYear) {
+function calculateEligTags(ipLifeLic, ipSpEd, ipAge, ipEnforcements, spProcessYear) {
     var fvLLs = ipLifeLic.entrySet().toArray();
     for (var fvCounter in fvLLs) {
         var fvLL = fvLLs[fvCounter];
@@ -253,7 +261,7 @@ function calculateEligTags(ipLifeLic,ipSpEd,ipAge,ipEnforcements,spProcessYear) 
         if (fvLicType == "Trapping License" && ipSpEd.containsKey("Trapper Ed") && !ipEnforcements.revocationTrapping) {
             fvTags = "Privilege Panel";
         }
-        ipLifeLic.put(fvLicType,fvTags);
+        ipLifeLic.put(fvLicType, fvTags);
     }
     var opAllTags = aa.util.newHashMap();
     fvLLs = ipLifeLic.entrySet().toArray();
@@ -268,43 +276,43 @@ function calculateEligTags(ipLifeLic,ipSpEd,ipAge,ipEnforcements,spProcessYear) 
             if (fvTag == null || fvTag == "")
                 continue;
             if (fvTag == "Turkey") {
-				if (isFallTurkeySeasonOver(spProcessYear)) {
-					if (!opAllTags.containsKey("Fall Turkey")) {
-						opAllTags.put("Fall Turkey",2);
-						fvTotalTags = fvTotalTags + 2;
-					}
-				}
-				if (isSpringTurkeySeasonOver(spProcessYear)) {
-					if (!opAllTags.containsKey("Spring Turkey")) {
-						opAllTags.put("Spring Turkey",2);
-						fvTotalTags = fvTotalTags + 2;
-					}
-				}
+                if (isFallTurkeySeasonOver(spProcessYear)) {
+                    if (!opAllTags.containsKey("Fall Turkey")) {
+                        opAllTags.put("Fall Turkey", 2);
+                        fvTotalTags = fvTotalTags + 2;
+                    }
+                }
+                if (isSpringTurkeySeasonOver(spProcessYear)) {
+                    if (!opAllTags.containsKey("Spring Turkey")) {
+                        opAllTags.put("Spring Turkey", 2);
+                        fvTotalTags = fvTotalTags + 2;
+                    }
+                }
             }
             else
-            if (fvTag == "Either Sex") {
-               if (!opAllTags.containsKey("Either Sex")) {
-                   opAllTags.put("Either Sex",1);
-                   fvTotalTags++;
-               }
-               else
-               if (!opAllTags.containsKey("Antlerless")) {
-                   opAllTags.put("Antlerless",1);
-                   fvTotalTags++;
-               }
-            }
-            else
-            if (!opAllTags.containsKey(fvTag)) {
-                opAllTags.put(fvTag,1);
-                fvTotalTags++;
-            }
+                if (fvTag == "Either Sex") {
+                    if (!opAllTags.containsKey("Either Sex")) {
+                        opAllTags.put("Either Sex", 1);
+                        fvTotalTags++;
+                    }
+                    else
+                        if (!opAllTags.containsKey("Antlerless")) {
+                            opAllTags.put("Antlerless", 1);
+                            fvTotalTags++;
+                        }
+                }
+                else
+                    if (!opAllTags.containsKey(fvTag)) {
+                        opAllTags.put(fvTag, 1);
+                        fvTotalTags++;
+                    }
         }
     }
-    opAllTags.put("TOTAL",fvTotalTags);
+    opAllTags.put("TOTAL", fvTotalTags);
     return opAllTags;
 }
 
-function getExistingTags(ipRefContact,ipExpDate,ipEligibleTags) {
+function getExistingTags(ipRefContact, ipExpDate, ipEligibleTags) {
     var fvTotalTags = parseInt(ipEligibleTags.get("TOTAL"), 10);
     if (fvTotalTags == 0)
         return ipEligibleTags;
@@ -331,7 +339,7 @@ function getExistingTags(ipRefContact,ipExpDate,ipEligibleTags) {
         if (!fvCapIDQry || !fvCapIDQry.getSuccess())
             continue;
         var fvCapID = fvCapIDQry.getOutput();
-        if(!fvCapID)
+        if (!fvCapID)
             continue;
         var fvCapMQry = aa.cap.getCap(fvCapID);
         if (!fvCapMQry || !fvCapMQry.getSuccess())
@@ -343,9 +351,9 @@ function getExistingTags(ipRefContact,ipExpDate,ipEligibleTags) {
         if (!fvCapType)
             continue;
         if (fvCapType.getGroup() != "Licenses" || fvCapType.getType() != "Tag" || (fvCapType.getSubType() != "Hunting" && fvCapType.getSubType() != "Document"))
-           continue;
+            continue;
         if (!(fvCapM.getCapStatus() == "Active" || fvCapM.getCapStatus() == "Reported"))
-           continue;
+            continue;
         var fvExpQry = aa.expiration.getLicensesByCapID(fvCapID);
         if (!fvExpQry || !fvExpQry.getSuccess())
             continue;
@@ -364,25 +372,25 @@ function getExistingTags(ipRefContact,ipExpDate,ipEligibleTags) {
         fvExpDtStr = fvExpDtArr[1] + "/" + fvExpDtArr[2] + "/" + fvExpDtArr[0];
         var fvExpDt = new Date(fvExpDtStr);
         //Due to expiration date might different for different for license year
-		if (fvExpDt.getTime() < ipExpDate.getTime())
+        if (fvExpDt.getTime() < ipExpDate.getTime())
             continue;
         var fvCategory = fvCapType.getCategory();
         if (ipEligibleTags.containsKey(fvCategory)) {
-           var fvNoOfTags = parseInt(ipEligibleTags.get(fvCategory), 10);
-           if (fvNoOfTags != 0) {
-               fvNoOfTags--;
-               fvTotalTags--;
-           }
-           ipEligibleTags.put(fvCategory,fvNoOfTags);
+            var fvNoOfTags = parseInt(ipEligibleTags.get(fvCategory), 10);
+            if (fvNoOfTags != 0) {
+                fvNoOfTags--;
+                fvTotalTags--;
+            }
+            ipEligibleTags.put(fvCategory, fvNoOfTags);
         }
     }
-    ipEligibleTags.put("TOTAL",fvTotalTags);
+    ipEligibleTags.put("TOTAL", fvTotalTags);
     return ipEligibleTags;
 }
 
-function createNewTags(ipRefContact,ipStartDate,ipExpDate,ipEligibleTags) {
+function createNewTags(ipRefContact, ipStartDate, ipExpDate, ipEligibleTags) {
     var opErrors = null;
-	var realTagQty = 0;
+    var realTagQty = 0;
     var fvTotalTags = parseInt(ipEligibleTags.get("TOTAL"), 10);
     logDebug("No. of Tags to be created: " + fvTotalTags);
     if (fvTotalTags == 0)
@@ -390,47 +398,47 @@ function createNewTags(ipRefContact,ipStartDate,ipExpDate,ipEligibleTags) {
     var fvParentApp = null;
 
     var fvTagArray = ipEligibleTags.entrySet().toArray();
-	
-	for (var fvCounter in fvTagArray) {
+
+    for (var fvCounter in fvTagArray) {
         var fvTagObj = fvTagArray[fvCounter];
-        var fvTag = fvTagObj.getKey();	
+        var fvTag = fvTagObj.getKey();
         var fvTagQty = parseInt(fvTagObj.getValue(), 10);
-        if (fvTagQty > 0 && fvTag != "TOTAL" && fvTag !="Privilege Panel") {
-			realTagQty++;
-			}
-		}
-	
-	if (realTagQty > 0) {
-		for (var fvCounter in fvTagArray) {
-			var fvTagObj = fvTagArray[fvCounter];
-			var fvTag = fvTagObj.getKey();
-			if (fvTag == "TOTAL")
-				continue;
-			logDebug("Tag: " + fvTag);
-			var fvTagQty = parseInt(fvTagObj.getValue(), 10);
-			if (fvTagQty > 0) {
-				if (!fvParentApp) {
-					fvParentApp = createParentTagApp(ipRefContact,ipStartDate,ipExpDate);
-					if (fvParentApp)
-						logDebug("New Application Created: " + fvParentApp.getCustomID());
-				}
-				if (fvParentApp) {
-					for (var fvTagCounter = 0; fvTagCounter < fvTagQty; fvTagCounter++) {
-						createNewTag(fvParentApp,ipStartDate,ipExpDate,fvTag,fvTagCounter);
-					}
-				}
-			}
-		}
-	}
-	else {
-		logDebug("All tags are present, no records required");
-		}
+        if (fvTagQty > 0 && fvTag != "TOTAL" && fvTag != "Privilege Panel") {
+            realTagQty++;
+        }
+    }
+
+    if (realTagQty > 0) {
+        for (var fvCounter in fvTagArray) {
+            var fvTagObj = fvTagArray[fvCounter];
+            var fvTag = fvTagObj.getKey();
+            if (fvTag == "TOTAL")
+                continue;
+            logDebug("Tag: " + fvTag);
+            var fvTagQty = parseInt(fvTagObj.getValue(), 10);
+            if (fvTagQty > 0) {
+                if (!fvParentApp) {
+                    fvParentApp = createParentTagApp(ipRefContact, ipStartDate, ipExpDate);
+                    if (fvParentApp)
+                        logDebug("New Application Created: " + fvParentApp.getCustomID());
+                }
+                if (fvParentApp) {
+                    for (var fvTagCounter = 0; fvTagCounter < fvTagQty; fvTagCounter++) {
+                        createNewTag(fvParentApp, ipStartDate, ipExpDate, fvTag, fvTagCounter);
+                    }
+                }
+            }
+        }
+    }
+    else {
+        logDebug("All tags are present, no records required");
+    }
 
     return opErrors;
 }
 
-function createParentTagApp(ipRefContact,ipStartDate,ipExpDate) {
-	logDebug("In createParentTagApp " +ipRefContact + ", " + ipStartDate + ", " + ipExpDate);
+function createParentTagApp(ipRefContact, ipStartDate, ipExpDate) {
+    logDebug("In createParentTagApp " + ipRefContact + ", " + ipStartDate + ", " + ipExpDate);
     var fvGroup = "Licenses";
     var fvType = "Annual";
     var fvSubType = "Application";
@@ -438,7 +446,7 @@ function createParentTagApp(ipRefContact,ipStartDate,ipExpDate) {
     var fvDesc = "Buy Sporting License(s)";
     var fvAppCreateResult = aa.cap.createApp(fvGroup, fvType, fvSubType, fvCategory, fvDesc);
     if (fvAppCreateResult.getSuccess()) {
-		logDebug("created record " + fvGroup + ", " + fvType+ ", " + fvSubType+ ", " + fvCategory+ ", " + fvDesc);
+        logDebug("created record " + fvGroup + ", " + fvType + ", " + fvSubType + ", " + fvCategory + ", " + fvDesc);
         var newId = fvAppCreateResult.getOutput();
         // create Detail Record
         capModel = aa.cap.newCapScriptModel().getOutput();
@@ -455,27 +463,27 @@ function createParentTagApp(ipRefContact,ipStartDate,ipExpDate) {
 
         // Set the contact address
         var fvCASearchModel = aa.address.createContactAddressModel().getOutput();
-        fvCASearchModel.setEntityID(parseInt(ipRefContact,10));
+        fvCASearchModel.setEntityID(parseInt(ipRefContact, 10));
         fvCASearchModel.setEntityType("CONTACT");
         var fvCAResult = aa.address.getContactAddressList(fvCASearchModel.getContactAddressModel());
-		var fvCAOutput = fvCAResult.getOutput();
-		logDebug("getContactAddressList success? " + fvCAResult.getSuccess() + ", error: " + fvCAResult.getErrorMessage());
-		
-        if (fvCAOutput != null)	{
+        var fvCAOutput = fvCAResult.getOutput();
+        logDebug("getContactAddressList success? " + fvCAResult.getSuccess() + ", error: " + fvCAResult.getErrorMessage());
+
+        if (fvCAOutput != null) {
             var fvCAList = aa.util.newArrayList();
-            for(var fvCnt in fvCAOutput) {
-				logDebug("copying contact address #" + fvCnt);
+            for (var fvCnt in fvCAOutput) {
+                logDebug("copying contact address #" + fvCnt);
                 fvCAList.add(fvCAOutput[fvCnt].getContactAddressModel());
             }
             fvPeople.setContactAddressList(fvCAList);
         }
-		else {
-				logDebug("NO CONTACT ADDRESS ON REF CONTACT");
-		}
+        else {
+            logDebug("NO CONTACT ADDRESS ON REF CONTACT");
+        }
 
-        var createResult = aa.people.createCapContactWithRefPeopleModel(newId,fvPeople);
-		logDebug("create capcontact successful? " + createResult.getSuccess() + " error : " + createResult.getErrorMessage());
-        updateAppStatus("Approved","Auto-Gen",newId);
+        var createResult = aa.people.createCapContactWithRefPeopleModel(newId, fvPeople);
+        logDebug("create capcontact successful? " + createResult.getSuccess() + " error : " + createResult.getErrorMessage());
+        updateAppStatus("Approved", "Auto-Gen", newId);
 
         var fvCondFulfill = new COND_FULLFILLMENT();
         addFullfillmentCondition(newId, fvCondFulfill.Condition_AutoGenAppl);
@@ -483,7 +491,7 @@ function createParentTagApp(ipRefContact,ipStartDate,ipExpDate) {
     }
 }
 
-function createNewTag(ipParentApp,ipStartDate,ipExpDate,ipTag,ipTagCntr) {
+function createNewTag(ipParentApp, ipStartDate, ipExpDate, ipTag, ipTagCntr) {
     var fvGroup = "Licenses";
     var fvType = "Tag";
     var fvSubType = "Hunting";
@@ -507,33 +515,33 @@ function createNewTag(ipParentApp,ipStartDate,ipExpDate,ipTag,ipTagCntr) {
         if (ipTagCntr == 0)
             fvTagType = "13";
         else
-            fvTagType ="14";
+            fvTagType = "14";
     }
     if (fvCategory == "Spring Turkey") {
         if (ipTagCntr == 0)
             fvTagType = "15";
         else
-            fvTagType ="16";
+            fvTagType = "16";
     }
-    fvAppName = lookup("TAG_TYPE",fvTagType);
+    fvAppName = lookup("TAG_TYPE", fvTagType);
     var newLicId = issueSubLicense(fvGroup, fvType, fvSubType, fvCategory, "Active", ipParentApp);
     if (newLicId) {
         logDebug("New Tag Created: " + newLicId.getCustomID());
-		var newDecDocId = GenerateDocumentNumber(newLicId.getCustomID(),"9998");
+        var newDecDocId = GenerateDocumentNumber(newLicId.getCustomID(), "9998");
         updateDocumentNumber(newDecDocId, newLicId);
         editAppName(fvAppName, newLicId);
         editFileDate(newLicId, ipStartDate);
         setLicExpirationDate(newLicId, "", ipExpDate);
-        editAppSpecific("Tag Type",fvTagType,newLicId);
-        editAppSpecific("Year",ipStartDate.getFullYear().toString(),newLicId);
-        fvYearDesc = lookupDesc("LICENSE_FILING_YEAR_Desc",ipStartDate.getFullYear().toString());
-        editAppSpecific("Year Description",fvYearDesc,newLicId);
+        editAppSpecific("Tag Type", fvTagType, newLicId);
+        editAppSpecific("Year", ipStartDate.getFullYear().toString(), newLicId);
+        fvYearDesc = lookupDesc("LICENSE_FILING_YEAR_Desc", ipStartDate.getFullYear().toString());
+        editAppSpecific("Year Description", fvYearDesc, newLicId);
 
-		return newLicId;
+        return newLicId;
     }
 }
 
-function lookupDesc(ipStdChoice,ipDesc) {
+function lookupDesc(ipStdChoice, ipDesc) {
     var fvBizDomScriptResult = aa.bizDomain.getBizDomain(ipStdChoice);
 
     if (fvBizDomScriptResult.getSuccess()) {
@@ -547,7 +555,7 @@ function lookupDesc(ipStdChoice,ipDesc) {
     return null;
 }
 
-function createError(ipErrors,ipErrMsg) {
+function createError(ipErrors, ipErrMsg) {
     opErrors = ipErrors;
     if (!opErrors)
         opErrors = new Array();
@@ -556,27 +564,27 @@ function createError(ipErrors,ipErrMsg) {
 }
 
 function getEnforcements(ipRefContact) {
-	var opEnforcements = new Array();
-	opEnforcements["suspension"] = false;
-	opEnforcements["revocationHunting"] = false;
-	opEnforcements["revocationTrapping"] = false;
+    var opEnforcements = new Array();
+    opEnforcements["suspension"] = false;
+    opEnforcements["revocationHunting"] = false;
+    opEnforcements["revocationTrapping"] = false;
 
-	var fvContactConditionsQry = aa.commonCondition.getCommonConditions("CONTACT",parseInt(ipRefContact,10));
-	if (fvContactConditionsQry) {
-		var fvContactConditions = fvContactConditionsQry.getOutput();
-		if (fvContactConditions) {
-			for (fvCounter in fvContactConditions) {
-				var fvContactCondition = fvContactConditions[fvCounter];
-				if (fvContactCondition.getConditionGroup() == "Enforcement" && fvContactCondition.getConditionStatusType() == "Applied") {
-					if (fvContactCondition.getConditionType() == "Suspension" && fvContactCondition.getConditionDescription() == "Suspension of Privileges")
-						opEnforcements["suspension"] = true;
-				    if (fvContactCondition.getConditionType() == "Revocation" && fvContactCondition.getConditionDescription() == "Hunting Revocation")
-						opEnforcements["revocationHunting"] = true;
-					if (fvContactCondition.getConditionType() == "Revocation" && fvContactCondition.getConditionDescription() == "Trapping Revocation")
-						opEnforcements["revocationTrapping"] = true;
-				}
-			}
-		}
-	}
-	return opEnforcements;
+    var fvContactConditionsQry = aa.commonCondition.getCommonConditions("CONTACT", parseInt(ipRefContact, 10));
+    if (fvContactConditionsQry) {
+        var fvContactConditions = fvContactConditionsQry.getOutput();
+        if (fvContactConditions) {
+            for (fvCounter in fvContactConditions) {
+                var fvContactCondition = fvContactConditions[fvCounter];
+                if (fvContactCondition.getConditionGroup() == "Enforcement" && fvContactCondition.getConditionStatusType() == "Applied") {
+                    if (fvContactCondition.getConditionType() == "Suspension" && fvContactCondition.getConditionDescription() == "Suspension of Privileges")
+                        opEnforcements["suspension"] = true;
+                    if (fvContactCondition.getConditionType() == "Revocation" && fvContactCondition.getConditionDescription() == "Hunting Revocation")
+                        opEnforcements["revocationHunting"] = true;
+                    if (fvContactCondition.getConditionType() == "Revocation" && fvContactCondition.getConditionDescription() == "Trapping Revocation")
+                        opEnforcements["revocationTrapping"] = true;
+                }
+            }
+        }
+    }
+    return opEnforcements;
 }
