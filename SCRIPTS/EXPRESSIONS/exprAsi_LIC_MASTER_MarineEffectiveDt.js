@@ -23,6 +23,11 @@ var oToday = expression.getValue("$$today$$");
 
 var totalRowCount = expression.getTotalRowCount();
 var msg = diffDate(oToday.getValue(), oEffDt.getValue()) < 0 ? "Effective Date cannot be prior to today's date" : "";
+dd =  diffDate(oToday.getValue(), oEffDt.getValue());
+if (dd > 60) {
+	msg =  "Effective Date cannot be more than 60 days into the future" ;
+	oEffDt.value = "";
+}
 oEffDt.message = msg;
 expression.setReturn(oEffDt);
 
