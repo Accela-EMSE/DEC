@@ -120,7 +120,7 @@ function mainProcess() {
     catch (fvError) {
         logDebug("Runtime error occurred: " + fvError);
         return false;
-    }  
+    }
 }
 
 function checkBatch() {
@@ -139,14 +139,13 @@ function checkBatch() {
 }
 
 function getAllRefsToProcess() {
-	var opRefContacts = getRefContactsByEnforcemetLifted();
+    var opRefContacts = getRefContactsByEnforcemetLifted();
     return opRefContacts;
 }
 
 /* FUNCTION TO GET ALL REF CONTACTS FOR A lifted enforcement for a day.*/
-function getRefContactsByEnforcemetLifted(ipRefContacts)
-{
-	var opRefContacts = aa.util.newHashMap();
+function getRefContactsByEnforcemetLifted(ipRefContacts) {
+    var opRefContacts = aa.util.newHashMap();
     var sql = "SELECT L1_ENTITY_ID FROM L3COMMON_CONDIT ";
     sql += "WHERE L1_CON_STATUS_TYP = 'Not Applied' and REC_DATE >= (trunc(sysdate) -10)";
     var initialContext = aa.proxyInvoker.newInstance("javax.naming.InitialContext", null).getOutput();
@@ -159,17 +158,16 @@ function getRefContactsByEnforcemetLifted(ipRefContacts)
     while (rSet.next()) {
         var fvRefContactNumber = rSet.getString("L1_ENTITY_ID");
 
-		if (opRefContacts.containsKey(fvRefContactNumber)) {
-			logDebug("Already in a list " + fvRefContactNumber + " based on enforcement lifted.");
-		}
-		else
-		{
-			opRefContacts.put(fvRefContactNumber,fvRefContactNumber);
-			logDebug("Adding in a list " + fvRefContactNumber + " based on enforcement lifted.");
-		}
+        if (opRefContacts.containsKey(fvRefContactNumber)) {
+            logDebug("Already in a list " + fvRefContactNumber + " based on enforcement lifted.");
+        }
+        else {
+            opRefContacts.put(fvRefContactNumber, fvRefContactNumber);
+            logDebug("Adding in a list " + fvRefContactNumber + " based on enforcement lifted.");
+        }
     }
 
-	return opRefContacts;
+    return opRefContacts;
 }
 
 function runProcessRecords(ipRefs) {
@@ -177,8 +175,8 @@ function runProcessRecords(ipRefs) {
     if (ipRefs) {
         fvRefContacts = ipRefs.keySet().toArray();
         if (fvRefContacts.length == 0) {
-           opErrors = new Array();
-           opErrors.push("No Reference Contacts to be processed.");
+            opErrors = new Array();
+            opErrors.push("No Reference Contacts to be processed.");
         }
         else {
             for (var fvCounter in fvRefContacts) {
@@ -210,7 +208,7 @@ function runProcessRecords(ipRefs) {
 }
 
 function rebuildRefTags(ipRefContact) {
-    var opErrors = rebuildAllTagsforaRefContact(ipRefContact,vToday);
+    var opErrors = rebuildAllTagsforaRefContact(ipRefContact, vToday);
     return opErrors;
 }
 
