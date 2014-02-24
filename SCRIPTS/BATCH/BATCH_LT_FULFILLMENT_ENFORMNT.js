@@ -11,7 +11,7 @@
 /------------------------------------------------------------------------------------------------------*/
 //aa.env.setValue("emailAddress", "");
 //aa.env.setValue("showDebug", "Y");
-//aa.env.setValue("lookAheadDays", "10");
+//aa.env.setValue("lookBackDays", "10");
 
 /*------------------------------------------------------------------------------------------------------/
 | END: TEST PARAMETERS
@@ -54,7 +54,7 @@ var emailAddress = getParam("emailAddress"); 				// email to send report
 /------------------------------------------------------------------------------------------------------*/
 var servProvCode = aa.getServiceProviderCode();
 var showDebug = isNull(aa.env.getValue("showDebug"), "N") == "Y";
-var lookAheadDays = isNull(aa.env.getValue("lookAheadDays"), "1");   	// Number of days from today
+var lookBackDays = isNull(aa.env.getValue("lookBackDays"), "1");   	// Number of days from today
 var batchJobID = 0;
 var batchJobName = "";
 var batchJobDesc = "";
@@ -83,6 +83,7 @@ logDebug("Start of Job");
 if (!timeExpired) var isSuccess = mainProcess();
 logDebug("End of Job: Elapsed Time : " + elapsed() + " Seconds");
 if (isSuccess) {
+	aa.print("Passed");
     aa.env.setValue("ScriptReturnCode", "0");
     if (isPartialSuccess) {
         aa.env.setValue("ScriptReturnMessage", "A script timeout has caused partial completion of this process.  Please re-run.");
@@ -93,6 +94,7 @@ if (isSuccess) {
     }
 }
 else {
+	aa.print("Failed");
     aa.env.setValue("ScriptReturnCode", "1");
     aa.env.setValue("ScriptReturnMessage", "Batch Job failed: " + emailText);
 }
@@ -149,7 +151,7 @@ function getAllRefsToProcess() {
 function getRefContactsByEnforcemetLifted(ipRefContacts) {
     var opRefContacts = aa.util.newHashMap();
     var sql = "SELECT L1_ENTITY_ID FROM L3COMMON_CONDIT ";
-    sql += "WHERE L1_CON_STATUS_TYP = 'Not Applied' and REC_DATE >= (trunc(sysdate) - " + lookAheadDays + ")";
+    sql += "WHERE L1_CON_STATUS_TYP = 'Not Applied' and REC_DATE >= (trunc(sysdate) - " + lookBackDays + ")";
     var initialContext = aa.proxyInvoker.newInstance("javax.naming.InitialContext", null).getOutput();
     var ds = initialContext.lookup("java:/AA");
     var conn = ds.getConnection();
