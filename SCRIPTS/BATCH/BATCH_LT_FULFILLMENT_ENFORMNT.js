@@ -179,7 +179,7 @@ function runProcessRecords(ipRefs) {
     if (ipRefs) {
         fvRefContacts = ipRefs.keySet().toArray();
         if (fvRefContacts.length == 0) {
-			showDebug = "Y";
+			showDebug = true;
             opErrors = new Array();
             opErrors.push("No Reference Contacts to be processed.");
         }
@@ -206,7 +206,7 @@ function runProcessRecords(ipRefs) {
         }
     }
     else {
-		showDebug = "Y";
+		showDebug = true;
         opErrors = new Array();
         opErrors.push("No Reference Contacts to be processed.");
     }
