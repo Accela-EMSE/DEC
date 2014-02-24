@@ -11,6 +11,8 @@
 /------------------------------------------------------------------------------------------------------*/
 //aa.env.setValue("emailAddress", "");
 //aa.env.setValue("showDebug", "Y");
+//aa.env.setValue("lookAheadDays", "10");
+
 /*------------------------------------------------------------------------------------------------------/
 | END: TEST PARAMETERS
 /------------------------------------------------------------------------------------------------------*/
@@ -52,6 +54,7 @@ var emailAddress = getParam("emailAddress"); 				// email to send report
 /------------------------------------------------------------------------------------------------------*/
 var servProvCode = aa.getServiceProviderCode();
 var showDebug = isNull(aa.env.getValue("showDebug"), "N") == "Y";
+var lookAheadDays = isNull(aa.env.getValue("lookAheadDays"), "1");   	// Number of days from today
 var batchJobID = 0;
 var batchJobName = "";
 var batchJobDesc = "";
@@ -94,7 +97,6 @@ else {
     aa.env.setValue("ScriptReturnMessage", "Batch Job failed: " + emailText);
 }
 
-aa.print(debug);
 if (emailAddress.length)
     aa.sendMail("noreply@accela.com", emailAddress, "", batchJobName + " Results", emailText);
 
@@ -147,7 +149,7 @@ function getAllRefsToProcess() {
 function getRefContactsByEnforcemetLifted(ipRefContacts) {
     var opRefContacts = aa.util.newHashMap();
     var sql = "SELECT L1_ENTITY_ID FROM L3COMMON_CONDIT ";
-    sql += "WHERE L1_CON_STATUS_TYP = 'Not Applied' and REC_DATE >= (trunc(sysdate) -10)";
+    sql += "WHERE L1_CON_STATUS_TYP = 'Not Applied' and REC_DATE >= (trunc(sysdate) - " + lookAheadDays + ")";
     var initialContext = aa.proxyInvoker.newInstance("javax.naming.InitialContext", null).getOutput();
     var ds = initialContext.lookup("java:/AA");
     var conn = ds.getConnection();
