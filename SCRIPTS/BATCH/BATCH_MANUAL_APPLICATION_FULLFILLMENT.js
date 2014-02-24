@@ -9,11 +9,11 @@
 /*------------------------------------------------------------------------------------------------------/
 | START: TEST PARAMETERS
 /------------------------------------------------------------------------------------------------------*/
-aa.env.setValue("setPrefix", "APPLICATIONREPORT");
-aa.env.setValue("emailAddress", "koteswar.potla@gcomsoft.com");
-aa.env.setValue("showDebug", "Y");
-aa.env.setValue("reportName", "License Tags");
-aa.env.setValue("applicationNum","DEC-LS-14000870");
+//aa.env.setValue("setPrefix", "APPLICATIONREPORT");
+//aa.env.setValue("emailAddress", "koteswar.potla@gcomsoft.com");
+//aa.env.setValue("showDebug", "Y");
+//.env.setValue("reportName", "License Tags");
+//aa.env.setValue("applicationNum","DEC-LS-14000828");
 /*------------------------------------------------------------------------------------------------------/
 | END: TEST PARAMETERS
 /------------------------------------------------------------------------------------------------------*/
@@ -161,7 +161,6 @@ function GenerateReportForApplication(){
     //Set Status: Initialized, Pending, Completed
     var setResult;
     var id;	
-	
 	setResult = createFullfillmentSet(setPrefix);
 	id = setResult.setID;
 	updateSetStatusX(setResult.setID, setResult.setID, "FULLFILLMENT", "Processing", "Pending", "Pending");
