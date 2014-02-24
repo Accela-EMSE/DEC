@@ -1,5 +1,5 @@
 /*------------------------------------------------------------------------------------------------------/
-| Program:  BATCH_LT_FULLFILLMENT_ENFORCEMENT.js  Trigger: Batch
+| Program:  BATCH_LT_FULFILLMENT_ENFORMNT.js  Trigger: Batch
 | Event   : N/A
 | Usage   : Batch job (Daily)
 | Agency  : DEC
@@ -179,6 +179,7 @@ function runProcessRecords(ipRefs) {
     if (ipRefs) {
         fvRefContacts = ipRefs.keySet().toArray();
         if (fvRefContacts.length == 0) {
+			showDebug = "Y";
             opErrors = new Array();
             opErrors.push("No Reference Contacts to be processed.");
         }
@@ -205,6 +206,7 @@ function runProcessRecords(ipRefs) {
         }
     }
     else {
+		showDebug = "Y";
         opErrors = new Array();
         opErrors.push("No Reference Contacts to be processed.");
     }
