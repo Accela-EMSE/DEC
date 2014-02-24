@@ -1,5 +1,5 @@
 /*------------------------------------------------------------------------------------------------------/
-| Program:  BATCH_LT_FULLFILLMENT_ENFORCEMENT.js  Trigger: Batch
+| Program:  BATCH_LT_FULFILLMENT_ENFORCEMENT.js  Trigger: Batch
 | Event   : N/A
 | Usage   : Batch job (Daily)
 | Agency  : DEC
