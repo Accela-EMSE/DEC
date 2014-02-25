@@ -228,7 +228,18 @@ myLicObj[myLicObj.length] = expression.getValue("ASI::LIFETIME LICENSES::Lifetim
 myLicObj[myLicObj.length] = expression.getValue("ASI::LIFETIME LICENSES::Add Lifetime to Driver License");
 myLicObj[myLicObj.length] = expression.getValue("ASI::LIFETIME LICENSES::Add Lifetime to Driver License Re-Issue Immediately");
 myLicObj[myLicObj.length] = expression.getValue("ASI::LIFETIME LICENSES::Add Lifetime to Driver License on Renewal");
-
+myLicObj[myLicObj.length] = expression.getValue("ASI::HUNTING LICENSE::3 Year Hunting License");
+myLicObj[myLicObj.length] = expression.getValue("ASI::HUNTING LICENSE::5 Year Hunting License");
+myLicObj[myLicObj.length] = expression.getValue("ASI::HUNTING LICENSE::3 Year Bowhunting Privilege");
+myLicObj[myLicObj.length] = expression.getValue("ASI::HUNTING LICENSE::5 Year Bowhunting Privilege");
+myLicObj[myLicObj.length] = expression.getValue("ASI::HUNTING LICENSE::3 Year Muzzleloading Privilege");
+myLicObj[myLicObj.length] = expression.getValue("ASI::HUNTING LICENSE::5 Year Muzzleloading Privilege");
+myLicObj[myLicObj.length] = expression.getValue("ASI::HUNTING LICENSE::3 Year Trapping License");
+myLicObj[myLicObj.length] = expression.getValue("ASI::HUNTING LICENSE::5 Year Trapping License");
+myLicObj[myLicObj.length] = expression.getValue("ASI::HUNTING LICENSE::3 Year Turkey Permit");
+myLicObj[myLicObj.length] = expression.getValue("ASI::HUNTING LICENSE::5 Year Turkey Permit");
+myLicObj[myLicObj.length] = expression.getValue("ASI::FISHING LICENSES::3 Year Freshwater Fishing");
+myLicObj[myLicObj.length] = expression.getValue("ASI::FISHING LICENSES::5 Year Freshwater Fishing");
 ////
 
 //
