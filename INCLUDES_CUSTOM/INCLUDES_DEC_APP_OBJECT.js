@@ -644,6 +644,13 @@ function form_OBJECT(identity) {
         this.currDrawType = getDrawTypeByPeriod(this.Year);
         this.setLoginUserType();
         var couterhasSaleLicMilitaryDisable = 0;
+
+        var shuntsubheader = "not set";
+        var strapsubheader = "not set";
+        var sbowsubheader = "not set";
+        var smuzzsubheader = "not set";
+        var sdmpsubheader = "not set";
+        var sturkeysubheader = "not set";
         //Set Licenses using form appliaction object and BO rule to do various operation in EB and SCRIPTs 
         //e.g Make linsces disabled id prerequiste is not set;
 
@@ -686,6 +693,53 @@ function form_OBJECT(identity) {
                     var ofd = getFeeCodeByRule(ruleParams, this.licObjARRAY[idx].feeschedule, this.licObjARRAY[idx].feeversion, this.licObjARRAY[idx].FNfeeRule);
                     //eval("var feeItemCodes = " + this.licObjARRAY[idx].FNfeeRule + "(ruleParams, " + this.licObjARRAY[idx].feeschedule + " );");
                     var mstr = '';
+                    //if (this.licObjARRAY[idx].Identity == LIC06_HUNTING_LICENSE || this.licObjARRAY[idx].Identity == LIC07_MUZZLELOADING_PRIVILEGE || this.licObjARRAY[idx].Identity == LIC04_BOWHUNTING_PRIVILEGE || this.licObjARRAY[idx].Identity == LIC15_TRAPPING_LICENSE || this.licObjARRAY[idx].Identity == LIC08_TURKEY_PERMIT) {
+                    if (exists(this.licObjARRAY[idx].Identity, getValidLicForSubHead())) {
+                        var sSunHdrCaption = '';
+                        if (this.licObjARRAY[idx].Identity == LIC06_HUNTING_LICENSE || this.licObjARRAY[idx].Identity == LIC58_HUNTING_LICENSE_3Y || this.licObjARRAY[idx].Identity == LIC59_HUNTING_LICENSE_5Y) {
+                            if ("not set".equals(shuntsubheader)) {
+                                shuntsubheader = 'Hunting Licenses';
+                                sSunHdrCaption += 'Hunting Licenses';
+                            }
+                        }
+                        if (this.licObjARRAY[idx].Identity == LIC07_MUZZLELOADING_PRIVILEGE || this.licObjARRAY[idx].Identity == LIC62_MUZZLELOADING_PRIVILEGE_3Y || this.licObjARRAY[idx].Identity == LIC63_MUZZLELOADING_PRIVILEGE_5Y) {
+                            if ("not set".equals(smuzzsubheader)) {
+                                smuzzsubheader = 'Muzzleloading Privileges';
+                                sSunHdrCaption += 'Muzzleloading Privileges';
+                            }
+                        }
+                        if (this.licObjARRAY[idx].Identity == LIC04_BOWHUNTING_PRIVILEGE || this.licObjARRAY[idx].Identity == LIC60_BOWHUNTING_PRIVILEGE_3Y || this.licObjARRAY[idx].Identity == LIC61_BOWHUNTING_PRIVILEGE_5Y) {
+                            if ("not set".equals(sbowsubheader)) {
+                                sbowsubheader = 'Bowhunting Privileges';
+                                sSunHdrCaption += 'Bowhunting Privileges';
+                            }
+                        }
+                        if (this.licObjARRAY[idx].Identity == LIC15_TRAPPING_LICENSE || this.licObjARRAY[idx].Identity == LIC64_TRAPPING_LICENSE_3Y || this.licObjARRAY[idx].Identity == LIC65_TRAPPING_LICENSE_5Y) {
+                            if ("not set".equals(strapsubheader)) {
+                                strapsubheader = 'Trapping Licenses';
+                                sSunHdrCaption += 'Trapping Licenses';
+                            }
+                        }
+                        if (this.licObjARRAY[idx].Identity == LIC08_TURKEY_PERMIT || this.licObjARRAY[idx].Identity == LIC68_TURKEY_PERMIT_3Y || this.licObjARRAY[idx].Identity == LIC69_TURKEY_PERMIT_5Y) {
+                            if ("not set".equals(sturkeysubheader)) {
+                                sturkeysubheader = 'Turkey Permit';
+                                sSunHdrCaption += 'Turkey Permit';
+                            }
+                        }
+                        if (this.licObjARRAY[idx].Identity == LIC05_DEER_MANAGEMENT_PERMIT) {
+                            if ("not set".equals(sdmpsubheader)) {
+                                sdmpsubheader = 'DMP';
+                                sSunHdrCaption += 'DMP';
+                            }
+                        }
+
+                        if (sSunHdrCaption != '') {
+                            mstr += '<span class="DEC_Item_SubHeader">';
+                            mstr += sSunHdrCaption;
+                            mstr += '</span><br /><br />';
+                        }
+                    }
+
                     if (ofd != null) {
                         this.licObjARRAY[idx].feecode = ofd.feeCode;
                         this.licObjARRAY[idx].feeDesc = ofd.feeDesc;
@@ -695,6 +749,7 @@ function form_OBJECT(identity) {
                         this.licObjARRAY[idx].CodeDescription = GetItemCodedesc(this.licObjARRAY[idx].DecCode);
                         this.licObjARRAY[idx].formula = ofd.formula;
                         this.licObjARRAY[idx].feeUnit = this.GetQuantity(lic.Identity);
+
 
                         mstr += this.FromACA == "Yes" ? '<span class="DEC_price">$' : '';
                         mstr += this.licObjARRAY[idx].formula.toString();
@@ -1369,6 +1424,21 @@ function form_OBJECT(identity) {
         this.SetExprFieldName(LIC43_LIFETIME_CARD_REPLACE, "ASI::OTHER SALES::Lifetime Card Replace");
         this.SetExprFieldName(LIC44_SPORTSMAN_ED_CERTIFICATION, "ASI::OTHER SALES::Sportsman Ed Certification");
         this.SetExprFieldName(LIC45_LIFETIME_INSCRIPTION, "");
+        //this.SetExprFieldName(LIC55_TAG_DRIV_LIC, "");
+        this.SetExprFieldName(LIC56_TAG_DRIV_LIC_IMM, "");
+        this.SetExprFieldName(LIC57_TAG_DRIV_LIC_REN, "");
+        this.SetExprFieldName(LIC58_HUNTING_LICENSE_3Y, "");
+        this.SetExprFieldName(LIC59_HUNTING_LICENSE_5Y, "");
+        this.SetExprFieldName(LIC60_BOWHUNTING_PRIVILEGE_3Y, "");
+        this.SetExprFieldName(LIC61_BOWHUNTING_PRIVILEGE_5Y, "");
+        this.SetExprFieldName(LIC62_MUZZLELOADING_PRIVILEGE_3Y, "");
+        this.SetExprFieldName(LIC63_MUZZLELOADING_PRIVILEGE_5Y, "");
+        this.SetExprFieldName(LIC64_TRAPPING_LICENSE_3Y, "");
+        this.SetExprFieldName(LIC65_TRAPPING_LICENSE_5Y, "");
+        this.SetExprFieldName(LIC66_FRESHWATER_FISHING_3Y, "");
+        this.SetExprFieldName(LIC67_FRESHWATER_FISHING_5Y, "");
+        this.SetExprFieldName(LIC68_TURKEY_PERMIT_3Y, "");
+        this.SetExprFieldName(LIC69_TURKEY_PERMIT_5Y, "");
     }
 
     this.isRevoked = function (psRef) {
@@ -1700,6 +1770,19 @@ function form_OBJECT(identity) {
         //this.SetExprFieldName(LIC55_TAG_DRIV_LIC, "ASI::LIFETIME LICENSES::Add Lifetime to Driver License");
         this.SetExprFieldName(LIC56_TAG_DRIV_LIC_IMM, "ASI::LIFETIME LICENSES::Add Lifetime to Driver License Re-Issue Immediately");
         this.SetExprFieldName(LIC57_TAG_DRIV_LIC_REN, "ASI::LIFETIME LICENSES::Add Lifetime to Driver License on Renewal");
+        this.SetExprFieldName(LIC58_HUNTING_LICENSE_3Y, "ASI::HUNTING LICENSE::3 Year Hunting License");
+        this.SetExprFieldName(LIC59_HUNTING_LICENSE_5Y, "ASI::HUNTING LICENSE::5 Year Hunting License");
+        this.SetExprFieldName(LIC60_BOWHUNTING_PRIVILEGE_3Y, "ASI::HUNTING LICENSE::3 Year Bowhunting Privilege");
+        this.SetExprFieldName(LIC61_BOWHUNTING_PRIVILEGE_5Y, "ASI::HUNTING LICENSE::5 Year Bowhunting Privilege");
+        this.SetExprFieldName(LIC62_MUZZLELOADING_PRIVILEGE_3Y, "ASI::HUNTING LICENSE::3 Year Muzzleloading Privilege");
+        this.SetExprFieldName(LIC63_MUZZLELOADING_PRIVILEGE_5Y, "ASI::HUNTING LICENSE::5 Year Muzzleloading Privilege");
+        this.SetExprFieldName(LIC64_TRAPPING_LICENSE_3Y, "ASI::HUNTING LICENSE::3 Year Trapping License");
+        this.SetExprFieldName(LIC65_TRAPPING_LICENSE_5Y, "ASI::HUNTING LICENSE::5 Year Trapping License");
+        this.SetExprFieldName(LIC66_FRESHWATER_FISHING_3Y, "ASI::FISHING LICENSES::3 Year Freshwater Fishing");
+        this.SetExprFieldName(LIC67_FRESHWATER_FISHING_5Y, "ASI::FISHING LICENSES::5 Year Freshwater Fishing");
+        this.SetExprFieldName(LIC68_TURKEY_PERMIT_3Y, "ASI::HUNTING LICENSE::3 Year Turkey Permit");
+        this.SetExprFieldName(LIC69_TURKEY_PERMIT_5Y, "ASI::HUNTING LICENSE::5 Year Turkey Permit");
+
     }
 
     this.Init();
