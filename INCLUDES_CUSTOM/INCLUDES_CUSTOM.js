@@ -1071,6 +1071,70 @@ function SetformForSelectedLics(frm) {
     logDebug("EXIT: SetformForSelectedLics");
 }
 
+// This function is called inside "ACA ONSUBMIT AFTER SEL TRAP" Standard Choice for Fast Track Trapping Record Type
+function SetTrapformForSelectedLics(frm) {
+    logDebug("ENTER: SetTrapformForSelectedLics");
+	
+	frm.Year = AInfo["License Year"];
+    frm.DOB = AInfo["A_birthDate"];
+    frm.Email = AInfo["A_email"];
+    frm.IsNyResiDent = AInfo["A_IsNYResident"];
+    frm.IsMilitaryServiceman = AInfo["Military Serviceman"];
+    frm.IsNativeAmerican = AInfo["A_IsNativeAmerican"];
+    frm.IsLegallyBlind = AInfo["Legally Blind"];
+    frm.PreferencePoints = AInfo["A_Preference_Points"];
+    frm.SetAnnualDisability(AInfo["A_Annual_Disability"]);
+    frm.SetPriorLicense(AInfo["A_Previous_License"]);
+    frm.SetSportsmanEducation(AInfo["A_Sportsman_Education"]);
+    frm.SetLandOwnerInfo(AInfo["A_Land_Owner_Information"]);
+    frm.SetActiveHoldingsInfo(AInfo["A_ActiveHoldings"]);
+	frm.Inscription = AInfo["Inscription"];
+    frm.IsPermanentDisabled = AInfo["Permanent Disability"];
+    frm.DriverLicenseState = AInfo["A_Driver_License_State"];
+    frm.DriverLicenseNumber = AInfo["A_Driver_License_Number"];
+    frm.NonDriverLicenseNumber = AInfo["A_Non_Driver_License_Number"];
+	
+	frm.SetSelected(LIC15_TRAPPING_LICENSE, (AInfo["Trapping License"] == "CHECKED"), 1);
+	frm.SetSelected(LIC64_TRAPPING_LICENSE_3Y, (AInfo["3 Year Trapping License"] == "CHECKED"), 1);
+	frm.SetSelected(LIC65_TRAPPING_LICENSE_5Y, (AInfo["5 Year Trapping License"] == "CHECKED"), 1);
+	
+	frm.ExecuteBoRuleEngine();
+	
+	logDebug("EXIT: SetTrapformForSelectedLics");
+}
+
+// This function is called inside "ACA ONSUBMIT AFTER SEL FISH" Standard Choice for Fast Track Fishing Record Type
+function SetFishformForSelectedLics(frm) {
+    logDebug("ENTER: SetFishformForSelectedLics");
+	
+	frm.Year = AInfo["License Year"];
+    frm.DOB = AInfo["A_birthDate"];
+    frm.Email = AInfo["A_email"];
+    frm.IsNyResiDent = AInfo["A_IsNYResident"];
+    frm.IsMilitaryServiceman = AInfo["Military Serviceman"];
+    frm.IsNativeAmerican = AInfo["A_IsNativeAmerican"];
+    frm.IsLegallyBlind = AInfo["Legally Blind"];
+    frm.PreferencePoints = AInfo["A_Preference_Points"];
+    frm.SetAnnualDisability(AInfo["A_Annual_Disability"]);
+    frm.SetPriorLicense(AInfo["A_Previous_License"]);
+    frm.SetSportsmanEducation(AInfo["A_Sportsman_Education"]);
+    frm.SetLandOwnerInfo(AInfo["A_Land_Owner_Information"]);
+    frm.SetActiveHoldingsInfo(AInfo["A_ActiveHoldings"]);
+	frm.Inscription = AInfo["Inscription"];
+    frm.IsPermanentDisabled = AInfo["Permanent Disability"];
+    frm.DriverLicenseState = AInfo["A_Driver_License_State"];
+    frm.DriverLicenseNumber = AInfo["A_Driver_License_Number"];
+    frm.NonDriverLicenseNumber = AInfo["A_Non_Driver_License_Number"];
+	
+	frm.SetSelected(LIC22_FRESHWATER_FISHING, (AInfo["Freshwater Fishing"] == "CHECKED"), 1);
+	frm.SetSelected(LIC66_FRESHWATER_FISHING_3Y, (AInfo["3 Year Freshwater Fishing"] == "CHECKED"), 1);
+	frm.SetSelected(LIC67_FRESHWATER_FISHING_5Y, (AInfo["5 Year Freshwater Fishing"] == "CHECKED"), 1);
+	
+	frm.ExecuteBoRuleEngine();
+	
+	logDebug("EXIT: SetFishformForSelectedLics");
+}
+	
 function SetOtherformForSelectedLics(frm) {
     logDebug("ENTER: SetOtherformForSelectedLics");
 
@@ -2729,6 +2793,25 @@ function isValidBuyRecord(pStep) {
     logDebug("EXIT: isValidBuyRecord");
     return retMsg;
 }
+
+// This function is called inside "ACA ONSUBMIT BEFORE SEL TRAP" Standard Choice for Fast Track Trapping Record Type
+function isValidBuyTrapRecord(pStep) {
+    logDebug("ENTER: isValidBuyTrapRecord");
+	var retMsg = '';
+    var msg = '';
+	logDebug("EXIT: isValidBuyTrapRecord");
+    return retMsg;
+}
+
+// This function is called inside "ACA ONSUBMIT BEFORE SEL FISH" Standard Choice for Fast Track Trapping Record Type
+function isValidBuyFishRecord(pStep) {
+    logDebug("ENTER: isValidBuyFishRecord");
+	var retMsg = '';
+    var msg = '';
+	logDebug("EXIT: isValidBuyFishRecord");
+    return retMsg;
+}
+
 
 function validateFishingdates() {
     var retMsg = '';
