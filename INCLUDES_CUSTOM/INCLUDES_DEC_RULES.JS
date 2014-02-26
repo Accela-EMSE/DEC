@@ -125,19 +125,19 @@ var AA54_TAG_PRIV_PANEL = "Licenses/Tag/Document/Privilege Panel";
 var AA55_TAG_DRIV_LIC_IMM = "Licenses/Tag/Document/Driver License Immediate";
 var AA56_TAG_DRIV_LIC_REN = "Licenses/Tag/Document/Driver License Renewal";
 var AA57_JUNIOR_HUNTING_TAGS = "Licenses/Annual/Hunting/Junior Big Game Tags";
-//TODO-KOT
+
 var AA58_HUNTING_LICENSE_3Y = "Licenses/Term/Hunting/3 Year Hunting";
-var AA59_HUNTING_LICENSE_5Y = "LIC59_HUNTING_LICENSE_5Y";
-var AA60_BOWHUNTING_PRIVILEGE_3Y = "LIC60_BOWHUNTING_PRIVILEGE_3Y";
-var AA61_BOWHUNTING_PRIVILEGE_5Y = "LIC61_BOWHUNTING_PRIVILEGE_5Y";
-var AA62_MUZZLELOADING_PRIVILEGE_3Y = "LIC62_MUZZLELOADING_PRIVILEGE_3Y";
-var AA63_MUZZLELOADING_PRIVILEGE_5Y = "LIC63_MUZZLELOADING_PRIVILEGE_5Y";
-var AA64_TRAPPING_LICENSE_3Y = "LIC64_TRAPPING_LICENSE_3Y";
-var AA65_TRAPPING_LICENSE_5Y = "LIC65_TRAPPING_LICENSE_5Y";
-var AA66_FRESHWATER_FISHING_3Y = "LIC66_FRESHWATER_FISHING_3Y";
-var AA67_FRESHWATER_FISHING_5Y = "LIC67_FRESHWATER_FISHING_5Y";
-var AA68_TURKEY_PERMIT_3Y = "LIC68_TURKEY_PERMIT_3Y";
-var AA69_TURKEY_PERMIT_5Y = "LIC69_TURKEY_PERMIT_5Y";
+var AA59_HUNTING_LICENSE_5Y = "Licenses/Term/Hunting/5 Year Hunting";
+var AA60_BOWHUNTING_PRIVILEGE_3Y = "Licenses/Term/Hunting/3 Year Bowhunting Privilege";
+var AA61_BOWHUNTING_PRIVILEGE_5Y = "Licenses/Term/Hunting/5 Year Bowhunting Privilege";
+var AA62_MUZZLELOADING_PRIVILEGE_3Y = "Licenses/Term/Hunting/3 Year Muzzleloading Privilege";
+var AA63_MUZZLELOADING_PRIVILEGE_5Y = "Licenses/Term/Hunting/5 Year Muzzleloading Privilege";
+var AA64_TRAPPING_LICENSE_3Y = "Licenses/Term/Hunting/3 Year Trapping License";
+var AA65_TRAPPING_LICENSE_5Y = "Licenses/Term/Hunting/5 Year Trapping License";
+var AA66_FRESHWATER_FISHING_3Y = "Licenses/Term/Trapping/3 Year Freshwater Fishing";
+var AA67_FRESHWATER_FISHING_5Y = "Licenses/Term/Trapping/5 Year Freshwater Fishing";
+var AA68_TURKEY_PERMIT_3Y = "Licenses/Term/Hunting/3 Year Turkey Permit";
+var AA69_TURKEY_PERMIT_5Y = "Licenses/Term/Hunting/5 Year Turkey Permit";
 
 //Tag Type: STANDARD CHOICE: TAG_TYPE
 var TAG_TYPE_1_BACK_TAG = 1;
@@ -418,10 +418,54 @@ var FEE_ANL_JUNIOR_HUNT_TAG_SCHDL = "FEE_ANL_JUNIOR_HUNT_TAG_SCHDL";
 var AJHT_1_RES = "AJHT_1_RES"
 var AJHT_2_NORES = "AJHT_2_NORES"
 
-//TODO-KOT - Add fee schdules for 3 Year and 5 Year
+//Add fee schdules for 3 Year and 5 Year
 var FEE_3YEAR_HUNTING_SCHDL = "FEE_3YEAR_HUNTING_SCHDL";
 var H3Y_1_RES = "H3Y_1_RES"
 var H3Y_2_NRES = "H3Y_2_NRES"
+
+var FEE_5YEAR_HUNTING_SCHDL="FEE_5YEAR_HUNTING_SCHDL";
+var H5Y_1_RES="H5Y_1_RES";
+var H5Y_2_NRES="H5Y_2_NRES";
+
+var FEE_3YEAR_BOWHUNTING_SCHDL="FEE_3YEAR_BOWHUNTING_SCHDL";
+var B3Y_1_RES="B3Y_1_RES";
+var B3Y_2_NRES="B3Y_2_NRES";
+
+var FEE_5YEAR_BOWHUNTING_SCHDL="FEE_5YEAR_BOWHUNTING_SCHDL";
+var B5Y_1_RES="B5Y_1_RES";
+var B5Y_2_NRES="B5Y_2_NRES";
+
+var FEE_3YEAR_MUZZLELOADING_SCHDL="FEE_3YEAR_MUZZLELOADING_SCHDL";
+var M3Y_1_RES="M3Y_1_RES";
+var M3Y_2_NRES="M3Y_2_NRES";
+
+var FEE_5YEAR_MUZZLELOADING_SCHDL="FEE_5YEAR_MUZZLELOADING_SCHDL";
+var M5Y_1_RES ="M5Y_1_RES";
+var M5Y_2_NRES="M5Y_2_NRES";
+
+var FEE_3YEAR_TURKEY_PERMIT_SCHDL="FEE_3YEAR_TURKEY_PERMIT_SCHDL";
+var TK3Y_1_RES="TK3Y_1_RES";
+var TK3Y_2_NRES="TK3Y_2_NRES";
+
+var FEE_5YEAR_TURKEY_PERMIT_SCHDL="FEE_5YEAR_TURKEY_PERMIT_SCHDL";
+var TK5Y_1_RES="TK5Y_1_RES";
+var TK5Y_2_NRES="TK5Y_2_NRES";
+
+var FEE_3YEAR_TRAPPING_SCHDL="FEE_3YEAR_TRAPPING_SCHDL";
+var TP3Y_1_RES="TP3Y_1_RES";
+var TP3Y_2_NRES="TP3Y_2_NRES";
+
+var FEE_5YEAR_TRAPPING_SCHDL="FEE_5YEAR_TRAPPING_SCHDL";
+var TP5Y_1_RES="TP5Y_1_RES";
+var TP5Y_2_NRES="TP5Y_2_NRES";
+
+var FEE_3YEAR_FISHING_SCHDL="FEE_3YEAR_FISHING_SCHDL";
+var FS3Y_1_RES="FS3Y_1_RES";
+var FS3Y_2_NRES="FS3Y_2_NRES";
+
+var FEE_5YEAR_FISHING_SCHDL="FEE_5YEAR_FISHING_SCHDL";
+var FS5Y_1_RES="FS5Y_1_RES";
+var FS5Y_2_NRES="FS5Y_2_NRES";
 
 // Lifetime Driver License
 var FEE_LIFETIME_DRIV_LIC_SCHDL = "FEE_LIFETM_DL_IMM_OPTIN";
@@ -691,26 +735,26 @@ function SetVesrionSalesItems2014() {
 
     emptyArray.push(new SalesItemProp(LIC06_HUNTING_LICENSE, AA06_HUNTING_LICENSE, FEE_ANNUAL_HUNTING_SCHDL, "1", "getAllFeeCodeByRuleFor_ANNUAL_HUNT", "isRuleForSelectable_ANNUAL_HUNT", null, null, "getTag_ANNUAL_HUNT", true, false, false));
     emptyArray.push(new SalesItemProp(LIC58_HUNTING_LICENSE_3Y, AA58_HUNTING_LICENSE_3Y, FEE_3YEAR_HUNTING_SCHDL, "1", "getAllFeeCodeByRuleFor_3Y_HUNT", "isRuleForSelectable_3Y_HUNT", null, null, "getTag_ANNUAL_HUNT", true, false, false));
-    emptyArray.push(new SalesItemProp(LIC59_HUNTING_LICENSE_5Y, AA06_HUNTING_LICENSE, FEE_ANNUAL_HUNTING_SCHDL, "1", "getAllFeeCodeByRuleFor_5Y_HUNT", "isRuleForSelectable_5Y_HUNT", null, null, "getTag_ANNUAL_HUNT", true, false, false));
+    emptyArray.push(new SalesItemProp(LIC59_HUNTING_LICENSE_5Y, AA59_HUNTING_LICENSE_5Y, FEE_5YEAR_HUNTING_SCHDL, "1", "getAllFeeCodeByRuleFor_5Y_HUNT", "isRuleForSelectable_5Y_HUNT", null, null, "getTag_ANNUAL_HUNT", true, false, false));
     emptyArray.push(new SalesItemProp(LIC04_BOWHUNTING_PRIVILEGE, AA04_BOWHUNTING_PRIVILEGE, FEE_ANNUAL_BOWHUNTING_SCHDL, "2", "getAllFeeCodeByRuleFor_ANNUAL_BOWH_2014", "isRuleForSelectable_ANNUAL_BOWH_2014", "getPrereq_ANNUAL_BOWH_2014", null, "getTag_ANNUAL_BOWH_2014", true, false, false));
-    emptyArray.push(new SalesItemProp(LIC60_BOWHUNTING_PRIVILEGE_3Y, AA04_BOWHUNTING_PRIVILEGE, FEE_ANNUAL_BOWHUNTING_SCHDL, "2", "getAllFeeCodeByRuleFor_3Y_BOWH", "isRuleForSelectable_3Y_BOWH", "getPrereq_3Y_BOWH", null, "getTag_ANNUAL_BOWH_2014", true, false, false));
-    emptyArray.push(new SalesItemProp(LIC61_BOWHUNTING_PRIVILEGE_5Y, AA04_BOWHUNTING_PRIVILEGE, FEE_ANNUAL_BOWHUNTING_SCHDL, "2", "getAllFeeCodeByRuleFor_5Y_BOWH", "isRuleForSelectable_5Y_BOWH", "getPrereq_5Y_BOWH", null, "getTag_ANNUAL_BOWH_2014", true, false, false));
+    emptyArray.push(new SalesItemProp(LIC60_BOWHUNTING_PRIVILEGE_3Y, AA60_BOWHUNTING_PRIVILEGE_3Y, FEE_3YEAR_BOWHUNTING_SCHDL, "1", "getAllFeeCodeByRuleFor_3Y_BOWH", "isRuleForSelectable_3Y_BOWH", "getPrereq_3Y_BOWH", null, "getTag_ANNUAL_BOWH_2014", true, false, false));
+    emptyArray.push(new SalesItemProp(LIC61_BOWHUNTING_PRIVILEGE_5Y, AA61_BOWHUNTING_PRIVILEGE_5Y, FEE_5YEAR_BOWHUNTING_SCHDL, "1", "getAllFeeCodeByRuleFor_5Y_BOWH", "isRuleForSelectable_5Y_BOWH", "getPrereq_5Y_BOWH", null, "getTag_ANNUAL_BOWH_2014", true, false, false));
     emptyArray.push(new SalesItemProp(LIC07_MUZZLELOADING_PRIVILEGE, AA07_MUZZLELOADING_PRIVILEGE, FEE_ANNUAL_MUZZLELOADING_SCHDL, "2", "getAllFeeCodeByRuleFor_ANNUAL_MUZZ_2014", "isRuleForSelectable_ANNUAL_MUZZ_2014", "getPrereq_ANNUAL_MUZZ_2014", null, "getTag_ANNUAL_MUZZ_2014", true, false, false));
-    emptyArray.push(new SalesItemProp(LIC62_MUZZLELOADING_PRIVILEGE_3Y, AA07_MUZZLELOADING_PRIVILEGE, FEE_ANNUAL_MUZZLELOADING_SCHDL, "2", "getAllFeeCodeByRuleFor_3Y_MUZZ", "isRuleForSelectable_3Y_MUZZ", "getPrereq_3Y_MUZZ", null, "getTag_ANNUAL_MUZZ_2014", true, false, false));
-    emptyArray.push(new SalesItemProp(LIC63_MUZZLELOADING_PRIVILEGE_5Y, AA07_MUZZLELOADING_PRIVILEGE, FEE_ANNUAL_MUZZLELOADING_SCHDL, "2", "getAllFeeCodeByRuleFor_5Y_MUZZ", "isRuleForSelectable_5Y_MUZZ", "getPrereq_5Y_MUZZ", null, "getTag_ANNUAL_MUZZ_2014", true, false, false));
+    emptyArray.push(new SalesItemProp(LIC62_MUZZLELOADING_PRIVILEGE_3Y, AA62_MUZZLELOADING_PRIVILEGE_3Y, FEE_3YEAR_MUZZLELOADING_SCHDL, "1", "getAllFeeCodeByRuleFor_3Y_MUZZ", "isRuleForSelectable_3Y_MUZZ", "getPrereq_3Y_MUZZ", null, "getTag_ANNUAL_MUZZ_2014", true, false, false));
+    emptyArray.push(new SalesItemProp(LIC63_MUZZLELOADING_PRIVILEGE_5Y, AA63_MUZZLELOADING_PRIVILEGE_5Y, FEE_5YEAR_MUZZLELOADING_SCHDL, "1", "getAllFeeCodeByRuleFor_5Y_MUZZ", "isRuleForSelectable_5Y_MUZZ", "getPrereq_5Y_MUZZ", null, "getTag_ANNUAL_MUZZ_2014", true, false, false));
     //RV - 11/25 - Original code had no record type (param 2). I'm not sure the sales item below is currently being used.  When testing for season beginning Oct 2013 -, the logic was being called from the 2012 version() salesItemProp() above.
     emptyArray.push(new SalesItemProp(LIC01_JUNIOR_HUNTING_TAGS, AA57_JUNIOR_HUNTING_TAGS, FEE_ANL_JUNIOR_HUNT_TAG_SCHDL, "1", "getAllFeeCodeByRuleFor_JUNIOR_HUNT_TAGS", "isRuleForSelectable_JUNIOR_HUNT_TAGS", null, null, "getTag_JUNIOR_HUNT_TAGS", true, false, false));
     emptyArray.push(new SalesItemProp(LIC08_TURKEY_PERMIT, AA08_TURKEY_PERMIT, FEE_ANNUAL_TURKEY_PERMIT_SCHDL, "2", "getAllFeeCodeByRuleFor_ANNUAL_TRKY_2014", "isRuleForSelectable_ANNUAL_TRKY_2014", "getPrereq_ANNUAL_TRKY_2014", null, "getTag_ANNUAL_TRKY_2014", true, false, false));
-    emptyArray.push(new SalesItemProp(LIC68_TURKEY_PERMIT_3Y, AA08_TURKEY_PERMIT, FEE_ANNUAL_TURKEY_PERMIT_SCHDL, "2", "getAllFeeCodeByRuleFor_3Y_TRKY", "isRuleForSelectable_3Y_TRKY", "getPrereq_3Y_TRKY_2014", null, "getTag_ANNUAL_TRKY_2014", true, false, false));
-    emptyArray.push(new SalesItemProp(LIC69_TURKEY_PERMIT_5Y, AA08_TURKEY_PERMIT, FEE_ANNUAL_TURKEY_PERMIT_SCHDL, "2", "getAllFeeCodeByRuleFor_5Y_TRKY", "isRuleForSelectable_5Y_TRKY", "getPrereq_5Y_TRKY_2014", null, "getTag_ANNUAL_TRKY_2014", true, false, false));
+    emptyArray.push(new SalesItemProp(LIC68_TURKEY_PERMIT_3Y, AA68_TURKEY_PERMIT_3Y, FEE_3YEAR_TURKEY_PERMIT_SCHDL, "1", "getAllFeeCodeByRuleFor_3Y_TRKY", "isRuleForSelectable_3Y_TRKY", "getPrereq_3Y_TRKY_2014", null, "getTag_ANNUAL_TRKY_2014", true, false, false));
+    emptyArray.push(new SalesItemProp(LIC69_TURKEY_PERMIT_5Y, AA69_TURKEY_PERMIT_5Y, FEE_5YEAR_TURKEY_PERMIT_SCHDL, "1", "getAllFeeCodeByRuleFor_5Y_TRKY", "isRuleForSelectable_5Y_TRKY", "getPrereq_5Y_TRKY_2014", null, "getTag_ANNUAL_TRKY_2014", true, false, false));
     emptyArray.push(new SalesItemProp(LIC05_DEER_MANAGEMENT_PERMIT, AA05_DEER_MANAGEMENT_PERMIT, FEE_ANNUAL_DMP_SCHDL, "1", "getAllFeeCodeByRuleFor_ANNUAL_DMP", "isRuleForSelectable_ANNUAL_DMP_2014", "getPrereq_ANNUAL_DMP_2014", null, "getTag_ANNUAL_DMP_2014", true, false, false));
     emptyArray.push(new SalesItemProp(LIC15_TRAPPING_LICENSE, AA15_TRAPPING_LICENSE, FEE_ANNUAL_TRAPPING_SCHDL, "2", "getAllFeeCodeByRuleFor_ANNUAL_TRAP_2014", "isRuleForSelectable_ANNUAL_TRAP_2014", null, null, null, false, true, false));
-    emptyArray.push(new SalesItemProp(LIC64_TRAPPING_LICENSE_3Y, AA15_TRAPPING_LICENSE, FEE_ANNUAL_TRAPPING_SCHDL, "2", "getAllFeeCodeByRuleFor_3Y_TRAP", "isRuleForSelectable_3Y_TRAP", null, null, null, false, true, false));
-    emptyArray.push(new SalesItemProp(LIC65_TRAPPING_LICENSE_5Y, AA15_TRAPPING_LICENSE, FEE_ANNUAL_TRAPPING_SCHDL, "2", "getAllFeeCodeByRuleFor_5Y_TRAP", "isRuleForSelectable_5Y_TRAP", null, null, null, false, true, false));
+    emptyArray.push(new SalesItemProp(LIC64_TRAPPING_LICENSE_3Y, AA64_TRAPPING_LICENSE_3Y, FEE_3YEAR_TRAPPING_SCHDL, "1", "getAllFeeCodeByRuleFor_3Y_TRAP", "isRuleForSelectable_3Y_TRAP", null, null, null, false, true, false));
+    emptyArray.push(new SalesItemProp(LIC65_TRAPPING_LICENSE_5Y, AA65_TRAPPING_LICENSE_5Y, FEE_5YEAR_TRAPPING_SCHDL, "1", "getAllFeeCodeByRuleFor_5Y_TRAP", "isRuleForSelectable_5Y_TRAP", null, null, null, false, true, false));
 
     emptyArray.push(new SalesItemProp(LIC22_FRESHWATER_FISHING, AA22_FRESHWATER_FISHING, FEE_ANL_FRESHWATER_FISH_SCHDL, "2", "getAllFeeCodeByRuleFor_FRESHWATER_FISHING_2014", "isRuleForSelectable_FRESHWATER_FISHING_2014", null, null, null, false, false, true));
-    emptyArray.push(new SalesItemProp(LIC66_FRESHWATER_FISHING_3Y, AA22_FRESHWATER_FISHING, FEE_ANL_FRESHWATER_FISH_SCHDL, "2", "getAllFeeCodeByRuleFor_3Y_FRESHWATER_FISHING", "isRuleForSelectable_3Y_FRESHWATER_FISHING", null, null, null, false, false, true));
-    emptyArray.push(new SalesItemProp(LIC67_FRESHWATER_FISHING_5Y, AA22_FRESHWATER_FISHING, FEE_ANL_FRESHWATER_FISH_SCHDL, "2", "getAllFeeCodeByRuleFor_5Y_FRESHWATER_FISHING", "isRuleForSelectable_5Y_FRESHWATER_FISHING", null, null, null, false, false, true));
+    emptyArray.push(new SalesItemProp(LIC66_FRESHWATER_FISHING_3Y, AA66_FRESHWATER_FISHING_3Y, FEE_3YEAR_FISHING_SCHDL, "1", "getAllFeeCodeByRuleFor_3Y_FRESHWATER_FISHING", "isRuleForSelectable_3Y_FRESHWATER_FISHING", null, null, null, false, false, true));
+    emptyArray.push(new SalesItemProp(LIC67_FRESHWATER_FISHING_5Y, AA67_FRESHWATER_FISHING_5Y, FEE_5YEAR_FISHING_SCHDL, "1", "getAllFeeCodeByRuleFor_5Y_FRESHWATER_FISHING", "isRuleForSelectable_5Y_FRESHWATER_FISHING", null, null, null, false, false, true));
     emptyArray.push(new SalesItemProp(LIC03_ONE_DAY_FISHING_LICENSE, AA03_ONE_DAY_FISHING_LICENSE, FEE_ONEDAY_FISH_SCHDL, "2", "getAllFeeCodeByRuleFor_ONEDAY_FISH_2014", "isRuleForSelectable_ONEDAY_FISH_2014", null, null, null, false, false, true));
     emptyArray.push(new SalesItemProp(LIC26_SEVEN_DAY_FISHING_LICENSE, AA26_SEVEN_DAY_FISHING_LICENSE, FEE_ANNUAL_7DAY_FISHING_SCHDL, "2", "getAllFeeCodeByRuleFor_SEVEN_DAY_FISHING_LICENSE_2014", "isRuleForSelectable_SEVEN_DAY_FISHING_LICENSE_2014", null, null, null, false, false, true));
     emptyArray.push(new SalesItemProp(LIC02_MARINE_REGISTRY, AA02_MARINE_REGISTRY, FEE_ANNUAL_MRIN_REGISTRY_SCHDL, "1", "getAllFeeCodeByRuleFor_ANNUAL_MRIN", "isRuleForSelectable_ANNUAL_MRIN", null, null, null, false, false, false));
