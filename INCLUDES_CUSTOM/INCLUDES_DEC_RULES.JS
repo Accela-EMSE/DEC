@@ -125,6 +125,19 @@ var AA54_TAG_PRIV_PANEL = "Licenses/Tag/Document/Privilege Panel";
 var AA55_TAG_DRIV_LIC_IMM = "Licenses/Tag/Document/Driver License Immediate";
 var AA56_TAG_DRIV_LIC_REN = "Licenses/Tag/Document/Driver License Renewal";
 var AA57_JUNIOR_HUNTING_TAGS = "Licenses/Annual/Hunting/Junior Big Game Tags";
+//TODO-KOT
+var AA58_HUNTING_LICENSE_3Y = "Licenses/Term/Hunting/3 Year Hunting";
+var AA59_HUNTING_LICENSE_5Y = "LIC59_HUNTING_LICENSE_5Y";
+var AA60_BOWHUNTING_PRIVILEGE_3Y = "LIC60_BOWHUNTING_PRIVILEGE_3Y";
+var AA61_BOWHUNTING_PRIVILEGE_5Y = "LIC61_BOWHUNTING_PRIVILEGE_5Y";
+var AA62_MUZZLELOADING_PRIVILEGE_3Y = "LIC62_MUZZLELOADING_PRIVILEGE_3Y";
+var AA63_MUZZLELOADING_PRIVILEGE_5Y = "LIC63_MUZZLELOADING_PRIVILEGE_5Y";
+var AA64_TRAPPING_LICENSE_3Y = "LIC64_TRAPPING_LICENSE_3Y";
+var AA65_TRAPPING_LICENSE_5Y = "LIC65_TRAPPING_LICENSE_5Y";
+var AA66_FRESHWATER_FISHING_3Y = "LIC66_FRESHWATER_FISHING_3Y";
+var AA67_FRESHWATER_FISHING_5Y = "LIC67_FRESHWATER_FISHING_5Y";
+var AA68_TURKEY_PERMIT_3Y = "LIC68_TURKEY_PERMIT_3Y";
+var AA69_TURKEY_PERMIT_5Y = "LIC69_TURKEY_PERMIT_5Y";
 
 //Tag Type: STANDARD CHOICE: TAG_TYPE
 var TAG_TYPE_1_BACK_TAG = 1;
@@ -405,6 +418,11 @@ var FEE_ANL_JUNIOR_HUNT_TAG_SCHDL = "FEE_ANL_JUNIOR_HUNT_TAG_SCHDL";
 var AJHT_1_RES = "AJHT_1_RES"
 var AJHT_2_NORES = "AJHT_2_NORES"
 
+//TODO-KOT - Add fee schdules for 3 Year and 5 Year
+var FEE_3YEAR_HUNTING_SCHDL = "FEE_3YEAR_HUNTING_SCHDL";
+var H3Y_1_RES = "H3Y_1_RES"
+var H3Y_2_NRES = "H3Y_2_NRES"
+
 // Lifetime Driver License
 var FEE_LIFETIME_DRIV_LIC_SCHDL = "FEE_LIFETM_DL_IMM_OPTIN";
 var FEE_LIFETIME_DRIV_LIC_IMMED = "FEE_DL_1";
@@ -672,7 +690,7 @@ function SetVesrionSalesItems2014() {
     var emptyArray = new Array();
 
     emptyArray.push(new SalesItemProp(LIC06_HUNTING_LICENSE, AA06_HUNTING_LICENSE, FEE_ANNUAL_HUNTING_SCHDL, "1", "getAllFeeCodeByRuleFor_ANNUAL_HUNT", "isRuleForSelectable_ANNUAL_HUNT", null, null, "getTag_ANNUAL_HUNT", true, false, false));
-    emptyArray.push(new SalesItemProp(LIC58_HUNTING_LICENSE_3Y, AA06_HUNTING_LICENSE, FEE_ANNUAL_HUNTING_SCHDL, "1", "getAllFeeCodeByRuleFor_3Y_HUNT", "isRuleForSelectable_3Y_HUNT", null, null, "getTag_ANNUAL_HUNT", true, false, false));
+    emptyArray.push(new SalesItemProp(LIC58_HUNTING_LICENSE_3Y, AA58_HUNTING_LICENSE_3Y, FEE_3YEAR_HUNTING_SCHDL, "1", "getAllFeeCodeByRuleFor_3Y_HUNT", "isRuleForSelectable_3Y_HUNT", null, null, "getTag_ANNUAL_HUNT", true, false, false));
     emptyArray.push(new SalesItemProp(LIC59_HUNTING_LICENSE_5Y, AA06_HUNTING_LICENSE, FEE_ANNUAL_HUNTING_SCHDL, "1", "getAllFeeCodeByRuleFor_5Y_HUNT", "isRuleForSelectable_5Y_HUNT", null, null, "getTag_ANNUAL_HUNT", true, false, false));
     emptyArray.push(new SalesItemProp(LIC04_BOWHUNTING_PRIVILEGE, AA04_BOWHUNTING_PRIVILEGE, FEE_ANNUAL_BOWHUNTING_SCHDL, "2", "getAllFeeCodeByRuleFor_ANNUAL_BOWH_2014", "isRuleForSelectable_ANNUAL_BOWH_2014", "getPrereq_ANNUAL_BOWH_2014", null, "getTag_ANNUAL_BOWH_2014", true, false, false));
     emptyArray.push(new SalesItemProp(LIC60_BOWHUNTING_PRIVILEGE_3Y, AA04_BOWHUNTING_PRIVILEGE, FEE_ANNUAL_BOWHUNTING_SCHDL, "2", "getAllFeeCodeByRuleFor_3Y_BOWH", "isRuleForSelectable_3Y_BOWH", "getPrereq_3Y_BOWH", null, "getTag_ANNUAL_BOWH_2014", true, false, false));
