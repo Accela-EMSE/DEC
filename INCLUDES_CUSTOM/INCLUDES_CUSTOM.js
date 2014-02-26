@@ -5847,3 +5847,52 @@ function isValidRecForCreateRef() {
     }
     return retvalue;
 }
+//This function is ACA ONSUBMIT AFTER SEL LIFETIME
+function SetLifeTimeformForSelectedLics(frm) {
+
+	logDebug("ENTER: SetLifeTimeformForSelectedLics");
+		
+	frm.Year = AInfo["License Year"];
+    frm.DOB = AInfo["A_birthDate"];
+    frm.Email = AInfo["A_email"];
+    frm.IsNyResiDent = AInfo["A_IsNYResident"];
+    frm.IsMilitaryServiceman = AInfo["Military Serviceman"];
+    frm.IsNativeAmerican = AInfo["A_IsNativeAmerican"];
+    frm.IsLegallyBlind = AInfo["Legally Blind"];
+    frm.PreferencePoints = AInfo["A_Preference_Points"];
+    frm.SetAnnualDisability(AInfo["A_Annual_Disability"]);
+    frm.SetPriorLicense(AInfo["A_Previous_License"]);
+    frm.SetSportsmanEducation(AInfo["A_Sportsman_Education"]);
+    frm.SetLandOwnerInfo(AInfo["A_Land_Owner_Information"]);
+    frm.SetActiveHoldingsInfo(AInfo["A_ActiveHoldings"]);
+	frm.Inscription = AInfo["Inscription"];
+    frm.IsPermanentDisabled = AInfo["Permanent Disability"];
+    frm.DriverLicenseState = AInfo["A_Driver_License_State"];
+    frm.DriverLicenseNumber = AInfo["A_Driver_License_Number"];
+    frm.NonDriverLicenseNumber = AInfo["A_Non_Driver_License_Number"];
+	
+	frm.SetSelected(LIC10_LIFETIME_FISHING, (AInfo["Lifetime Fishing"] == "CHECKED"), 1);
+    frm.SetSelected(LIC13_LIFETIME_SPORTSMAN, (AInfo["Lifetime Sportsman"] == "CHECKED"), 1);
+	frm.SetSelected(LIC12_LIFETIME_SMALL_AND_BIG_GAME, (AInfo["Lifetime Small & Big Game"] == "CHECKED"), 1);
+    frm.SetSelected(LIC11_LIFETIME_MUZZLELOADING, (AInfo["Lifetime Muzzleloading"] == "CHECKED"), 1);
+	frm.SetSelected(LIC09_LIFETIME_BOWHUNTING, (AInfo["Lifetime Bowhunting"] == "CHECKED"), 1);
+	frm.SetSelected(LIC14_LIFETIME_TRAPPING, (AInfo["Lifetime Trapping"] == "CHECKED"), 1);
+    frm.SetSelected(LIC45_LIFETIME_INSCRIPTION, (AInfo["Lifetime Inscription"] == "CHECKED"), 1);
+	frm.SetSelected(LIC56_TAG_DRIV_LIC_IMM, (AInfo["Add Lifetime to Driver License Re-Issue Immediately"] == "CHECKED"), 1);
+    frm.SetSelected(LIC57_TAG_DRIV_LIC_REN, (AInfo["Add Lifetime to Driver License on Renewal"] == "CHECKED"), 1);
+	
+	frm.ExecuteBoRuleEngine();
+	
+	logDebug("EXIT: SetLifeTimeformForSelectedLics");
+}
+
+function isValidBuyLifeTimeRecord(pStep) {
+	logDebug("ENTER: isValidBuyLifeTimeRecord");
+	 //Called via Pageflow from Standard Choice -> ACA ONSUBMIT BEFORE SALESSELECT
+    if (pStep == 'Step3') {
+        logDebug("pStep = Step1...");        
+     
+    }
+	
+	logDebug("EXIT: isValidBuyLifeTimeRecord");
+}
