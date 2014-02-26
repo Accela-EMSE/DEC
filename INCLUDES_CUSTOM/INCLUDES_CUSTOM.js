@@ -5888,11 +5888,16 @@ function SetLifeTimeformForSelectedLics(frm) {
 
 function isValidBuyLifeTimeRecord(pStep) {
 	logDebug("ENTER: isValidBuyLifeTimeRecord");
+	var retMsg = '';
+    var msg = '';
 	 //Called via Pageflow from Standard Choice -> ACA ONSUBMIT BEFORE SALESSELECT
     if (pStep == 'Step3') {
-        logDebug("pStep = Step1...");        
-     
+        logDebug("pStep = Step1..."); 
+		logDebug("call verifyAny LifeTime SalesSelect()...");
+        msg = ''; //
+        retMsg += msg;		
     }
+    return retMsg;
 	
 	logDebug("EXIT: isValidBuyLifeTimeRecord");
 }
