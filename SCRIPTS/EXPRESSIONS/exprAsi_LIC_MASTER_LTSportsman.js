@@ -8,13 +8,13 @@ eval(getScriptText("INCLUDES_CUSTOM"));
 eval(getScriptText("INCLUDES_EXPRESSIONS"));
 
 function getScriptText(vScriptName) {
-	vScriptName = vScriptName.toUpperCase();
-	var emseBiz = aa.proxyInvoker.newInstance("com.accela.aa.emse.emse.EMSEBusiness").getOutput();
-	var emseScript = emseBiz.getScriptByPK(aa.getServiceProviderCode(), vScriptName, "ADMIN");
-	return emseScript.getScriptText() + "";
+    vScriptName = vScriptName.toUpperCase();
+    var emseBiz = aa.proxyInvoker.newInstance("com.accela.aa.emse.emse.EMSEBusiness").getOutput();
+    var emseScript = emseBiz.getScriptByPK(aa.getServiceProviderCode(), vScriptName, "ADMIN");
+    return emseScript.getScriptText() + "";
 }
 
-//Read Qualifier variables : Assumtion variables are loaded using contact page flow onsubmit
+//Read Qualifier variables : Assumtion variables are loaded using contact page flow onsubmit 
 var aYear = expression.getValue("ASI::GENERAL INFORMATION::License Year");
 var aemail = expression.getValue("ASI::INTERNAL USE::A_email");
 var abirthDate = expression.getValue("ASI::INTERNAL USE::A_birthDate");
@@ -48,7 +48,7 @@ var aNonDriverLicenseNumber = expression.getValue("ASI::INTERNAL USE::A_Non_Driv
 var vUserID = expression.getValue("$$userID$$");
 var sUserIdEB = vUserID.getValue();
 
-//Init
+//Init 
 var f = new form_OBJECT(GS2_EXPR);
 f.Year = aYear.value;
 f.DOB = abirthDate.value;
@@ -63,12 +63,12 @@ f.SetPriorLicense(aPreviousLicense.value);
 f.SetSportsmanEducation(aSportsmanEducation.value);
 f.SetLandOwnerInfo(aLandOwnerInformation.value);
 f.Quantity_Trail_Supporter_Patch = aQuantity_Trail_Supporter_Patch.value
-	f.Quantity_Venison_Donation = aQuantity_Venison_Donation.value
-	f.Quantity_Conservation_Patron = aQuantity_Conservation_Patron.value
-	f.Quantity_Conservation_Fund = aQuantity_Conservation_Fund.value
-	f.Quantity_Conservationist_Magazine = aQuantity_Conservationist_Magazine.value
-	f.Quantity_Habitat_Stamp = aQuantity_Habitat_Stamp.value
-	f.IsPermanentDisabled = aPermanentDisability.value;
+f.Quantity_Venison_Donation = aQuantity_Venison_Donation.value
+f.Quantity_Conservation_Patron = aQuantity_Conservation_Patron.value
+f.Quantity_Conservation_Fund = aQuantity_Conservation_Fund.value
+f.Quantity_Conservationist_Magazine = aQuantity_Conservationist_Magazine.value
+f.Quantity_Habitat_Stamp = aQuantity_Habitat_Stamp.value
+f.IsPermanentDisabled = aPermanentDisability.value;
 f.SetActiveHoldingsInfo(aActiveHoldings.value);
 f.DriverLicenseState = aDriverLicenseState.value;
 f.DriverLicenseNumber = aDriverLicenseNumber.value;
@@ -84,10 +84,10 @@ var exprControlArray = new Array();
 var exprObj;
 var isYesExprObj = false;
 for (var idx = 0; idx < f.licObjARRAY.length; idx++) {
-	exprObj = expression.getValue(f.licObjARRAY[idx].ExprFieldName);
-	isYesExprObj = ((exprObj.value != null && (exprObj.value.equalsIgnoreCase('YES') || exprObj.value.equalsIgnoreCase('Y') || exprObj.value.equalsIgnoreCase('CHECKED') || exprObj.value.equalsIgnoreCase('SELECTED') || exprObj.value.equalsIgnoreCase('TRUE') || exprObj.value.equalsIgnoreCase('ON'))));
-	f.SetSelected(f.licObjARRAY[idx].Identity, isYesExprObj);
-	exprControlArray[exprControlArray.length] = expression.getValue(f.licObjARRAY[idx].ExprFieldName);
+    exprObj = expression.getValue(f.licObjARRAY[idx].ExprFieldName);
+    isYesExprObj = ((exprObj.value != null && (exprObj.value.equalsIgnoreCase('YES') || exprObj.value.equalsIgnoreCase('Y') || exprObj.value.equalsIgnoreCase('CHECKED') || exprObj.value.equalsIgnoreCase('SELECTED') || exprObj.value.equalsIgnoreCase('TRUE') || exprObj.value.equalsIgnoreCase('ON'))));
+    f.SetSelected(f.licObjARRAY[idx].Identity, isYesExprObj);
+    exprControlArray[exprControlArray.length] = expression.getValue(f.licObjARRAY[idx].ExprFieldName);
 }
 ////
 
@@ -98,18 +98,18 @@ f.ExecuteBoRuleEngine();
 
 ////Set Lic availablity using lic array from app object
 for (var idx = 0; idx < f.licObjARRAY.length; idx++) {
-	//var oTemp = new License_OBJ();
-	var oLic = f.licObjARRAY[idx];
+    //var oTemp = new License_OBJ();
+    var oLic = f.licObjARRAY[idx];
 
-	if (f.licObjARRAY[idx].IsSelectable == false || f.licObjARRAY[idx].IsActive == false) {
-		//(exprControlArray[idx]).readOnly = true;
-		(exprControlArray[idx]).value = false;
-		(exprControlArray[idx]).hidden = true;
-	} else {
-		(exprControlArray[idx]).readOnly = f.licObjARRAY[idx].IsDisabled;
-		(exprControlArray[idx]).hidden = false;
-	}
-	expression.setReturn((exprControlArray[idx]));
+    if (f.licObjARRAY[idx].IsSelectable == false || f.licObjARRAY[idx].IsActive == false) {
+        //(exprControlArray[idx]).readOnly = true;
+        (exprControlArray[idx]).value = false;
+        (exprControlArray[idx]).hidden = true;
+    } else {
+        (exprControlArray[idx]).readOnly = f.licObjARRAY[idx].IsDisabled;
+        (exprControlArray[idx]).hidden = false;
+    }
+    expression.setReturn((exprControlArray[idx]));
 }
 ////
 
@@ -163,7 +163,18 @@ myLicObj[myLicObj.length] = expression.getValue("ASI::LIFETIME LICENSES::Lifetim
 myLicObj[myLicObj.length] = expression.getValue("ASI::LIFETIME LICENSES::Add Lifetime to Driver License");
 myLicObj[myLicObj.length] = expression.getValue("ASI::LIFETIME LICENSES::Add Lifetime to Driver License Re-Issue Immediately");
 myLicObj[myLicObj.length] = expression.getValue("ASI::LIFETIME LICENSES::Add Lifetime to Driver License on Renewal");
-
+myLicObj[myLicObj.length] = expression.getValue("ASI::HUNTING LICENSE::3 Year Hunting License");
+myLicObj[myLicObj.length] = expression.getValue("ASI::HUNTING LICENSE::5 Year Hunting License");
+myLicObj[myLicObj.length] = expression.getValue("ASI::HUNTING LICENSE::3 Year Bowhunting Privilege");
+myLicObj[myLicObj.length] = expression.getValue("ASI::HUNTING LICENSE::5 Year Bowhunting Privilege");
+myLicObj[myLicObj.length] = expression.getValue("ASI::HUNTING LICENSE::3 Year Muzzleloading Privilege");
+myLicObj[myLicObj.length] = expression.getValue("ASI::HUNTING LICENSE::5 Year Muzzleloading Privilege");
+myLicObj[myLicObj.length] = expression.getValue("ASI::HUNTING LICENSE::3 Year Trapping License");
+myLicObj[myLicObj.length] = expression.getValue("ASI::HUNTING LICENSE::5 Year Trapping License");
+myLicObj[myLicObj.length] = expression.getValue("ASI::HUNTING LICENSE::3 Year Turkey Permit");
+myLicObj[myLicObj.length] = expression.getValue("ASI::HUNTING LICENSE::5 Year Turkey Permit");
+myLicObj[myLicObj.length] = expression.getValue("ASI::FISHING LICENSES::3 Year Freshwater Fishing");
+myLicObj[myLicObj.length] = expression.getValue("ASI::FISHING LICENSES::5 Year Freshwater Fishing");
 ////
 
 //
@@ -203,7 +214,7 @@ o1DayEffDt.required = !(!isFish1Day && !isNonResFish1Day);
 //o1DayEffDt.readOnly = !isFish1Day && !isNonResFish1Day;
 o1DayEffDt.hidden = !isFish1Day && !isNonResFish1Day;
 if (!isFish1Day && !isNonResFish1Day) {
-	o1DayEffDt.value = '';
+    o1DayEffDt.value = '';
 }
 expression.setReturn(o1DayEffDt);
 ////
@@ -219,7 +230,8 @@ o7DayEffDt.required = !(!isFish7Day && !isNonResFish7Day);
 //o7DayEffDt.readOnly = !isFish7Day && !isNonResFish7Day;
 o7DayEffDt.hidden = !isFish7Day && !isNonResFish7Day;
 if (!isFish7Day && !isNonResFish7Day) {
-	o7DayEffDt.value = '';
+    o7DayEffDt.value = '';
 }
 expression.setReturn(o7DayEffDt);
 ////
+

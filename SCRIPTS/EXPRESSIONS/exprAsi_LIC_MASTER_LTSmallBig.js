@@ -45,7 +45,6 @@ var aPermanentDisability = expression.getValue("ASI::APPEARANCE::Permanent Disab
 var aDriverLicenseState = expression.getValue("ASI::INTERNAL USE::A_Driver_License_State");
 var aDriverLicenseNumber = expression.getValue("ASI::INTERNAL USE::A_Driver_License_Number");
 var aNonDriverLicenseNumber = expression.getValue("ASI::INTERNAL USE::A_Non_Driver_License_Number");
-
 var vUserID = expression.getValue("$$userID$$");
 var sUserIdEB = vUserID.getValue();
 
@@ -164,7 +163,18 @@ myLicObj[myLicObj.length] = expression.getValue("ASI::LIFETIME LICENSES::Lifetim
 myLicObj[myLicObj.length] = expression.getValue("ASI::LIFETIME LICENSES::Add Lifetime to Driver License");
 myLicObj[myLicObj.length] = expression.getValue("ASI::LIFETIME LICENSES::Add Lifetime to Driver License Re-Issue Immediately");
 myLicObj[myLicObj.length] = expression.getValue("ASI::LIFETIME LICENSES::Add Lifetime to Driver License on Renewal");
-
+myLicObj[myLicObj.length] = expression.getValue("ASI::HUNTING LICENSE::3 Year Hunting License");
+myLicObj[myLicObj.length] = expression.getValue("ASI::HUNTING LICENSE::5 Year Hunting License");
+myLicObj[myLicObj.length] = expression.getValue("ASI::HUNTING LICENSE::3 Year Bowhunting Privilege");
+myLicObj[myLicObj.length] = expression.getValue("ASI::HUNTING LICENSE::5 Year Bowhunting Privilege");
+myLicObj[myLicObj.length] = expression.getValue("ASI::HUNTING LICENSE::3 Year Muzzleloading Privilege");
+myLicObj[myLicObj.length] = expression.getValue("ASI::HUNTING LICENSE::5 Year Muzzleloading Privilege");
+myLicObj[myLicObj.length] = expression.getValue("ASI::HUNTING LICENSE::3 Year Trapping License");
+myLicObj[myLicObj.length] = expression.getValue("ASI::HUNTING LICENSE::5 Year Trapping License");
+myLicObj[myLicObj.length] = expression.getValue("ASI::HUNTING LICENSE::3 Year Turkey Permit");
+myLicObj[myLicObj.length] = expression.getValue("ASI::HUNTING LICENSE::5 Year Turkey Permit");
+myLicObj[myLicObj.length] = expression.getValue("ASI::FISHING LICENSES::3 Year Freshwater Fishing");
+myLicObj[myLicObj.length] = expression.getValue("ASI::FISHING LICENSES::5 Year Freshwater Fishing");
 ////
 
 //
