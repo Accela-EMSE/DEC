@@ -6059,6 +6059,18 @@ function isValidBuyHuntRecord(pStep){
         logDebug("call verifyAny Hunting SalesSelect()...");
         msg = verifyAnyHuntSalesSelect(); //
         retMsg += msg;
+
+        logDebug("call verifyDMPinfo()...");
+        msg = verifyDMPinfo();
+        if (msg != '') {
+            retMsg += msg;
+        }
+
+        logDebug("call verifyLandOwnerInfo()...");
+        msg = verifyLandOwnerInfo();
+        if (msg != '') {
+            retMsg += msg;
+        }
     }
     logDebug("EXIT: isValidBuyHuntRecord");
 
