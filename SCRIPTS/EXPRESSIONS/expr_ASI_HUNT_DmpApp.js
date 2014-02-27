@@ -1,0 +1,134 @@
+/////////////////
+var servProvCode = expression.getValue("$$servProvCode$$").value;
+
+var oHuntDmpApp = expression.getValue("ASI::HUNTING LICENSE::Deer Management Permit");
+var isHuntDmpApp = ((oHuntDmpApp.value != null && (oHuntDmpApp.value.equalsIgnoreCase('YES') || oHuntDmpApp.value.equalsIgnoreCase('Y') || oHuntDmpApp.value.equalsIgnoreCase('CHECKED') || oHuntDmpApp.value.equalsIgnoreCase('SELECTED') || oHuntDmpApp.value.equalsIgnoreCase('TRUE') || oHuntDmpApp.value.equalsIgnoreCase('ON'))));
+
+var vPreferencePoints = expression.getValue("ASI::HUNTING LICENSE::Preference Points");
+var oHWmuChoice1 = expression.getValue("ASI::HUNTING LICENSE::WMU Choice 1");
+var oHWmuChoice2 = expression.getValue("ASI::HUNTING LICENSE::WMU Choice 2");
+var oApplyLO1 = expression.getValue("ASI::HUNTING LICENSE::Apply Land Owner for Choice1");
+var oApplyLO2 = expression.getValue("ASI::HUNTING LICENSE::Apply Land Owner for Choice2");
+
+vPreferencePoints.readOnly = true;
+vPreferencePoints.hidden = !isHuntDmpApp;
+expression.setReturn(vPreferencePoints);
+
+oHWmuChoice1.required = isHuntDmpApp;
+//oHWmuChoice1.readOnly = !isHuntDmpApp;
+oHWmuChoice1.hidden = !isHuntDmpApp;
+expression.setReturn(oHWmuChoice1);
+
+oHWmuChoice2.required = isHuntDmpApp;
+//oHWmuChoice2.readOnly = !isHuntDmpApp;
+oHWmuChoice2.hidden = !isHuntDmpApp;
+expression.setReturn(oHWmuChoice2);
+
+//oApplyLO1.readOnly = !isHuntDmpApp;
+oApplyLO1.hidden = !isHuntDmpApp;
+expression.setReturn(oApplyLO1);
+
+//oApplyLO2.readOnly = !isHuntDmpApp;
+oApplyLO2.hidden = !isHuntDmpApp;
+expression.setReturn(oApplyLO2);
+/////////////////
+
+
+var aa = expression.getScriptRoot();
+
+eval(getScriptText("INCLUDES_ACCELA_FUNCTIONS"));
+eval(getScriptText("INCLUDES_CUSTOM"));
+eval(getScriptText("INCLUDES_EXPRESSIONS"));
+
+function getScriptText(vScriptName) {
+    vScriptName = vScriptName.toUpperCase();
+    var emseBiz = aa.proxyInvoker.newInstance("com.accela.aa.emse.emse.EMSEBusiness").getOutput();
+    var emseScript = emseBiz.getScriptByPK(aa.getServiceProviderCode(), vScriptName, "ADMIN");
+    return emseScript.getScriptText() + "";
+}
+
+//Read Qualifier variables : Assumtion variables are loaded using contact page flow onsubmit 
+var aYear = expression.getValue("ASI::GENERAL INFORMATION::License Year");
+var aemail = expression.getValue("ASI::INTERNAL USE::A_email");
+var abirthDate = expression.getValue("ASI::INTERNAL USE::A_birthDate");
+var aIsNYResident = expression.getValue("ASI::INTERNAL USE::A_IsNYResident");
+var aPreferencePoints = expression.getValue("ASI::INTERNAL USE::A_Preference_Points");
+var aPreviousLicense = expression.getValue("ASI::INTERNAL USE::A_Previous_License");
+var aSportsmanEducation = expression.getValue("ASI::INTERNAL USE::A_Sportsman_Education");
+var aLandOwnerInformation = expression.getValue("ASI::INTERNAL USE::A_Land_Owner_Information");
+var aAnnualDisability = expression.getValue("ASI::INTERNAL USE::A_Annual_Disability");
+var aIsNativeAmerican = expression.getValue("ASI::INTERNAL USE::A_IsNativeAmerican");
+var aIsFromACA = expression.getValue("ASI::INTERNAL USE::A_FromACA");
+var aActiveHoldings = expression.getValue("ASI::INTERNAL USE::A_ActiveHoldings");
+var aSuspended = expression.getValue("ASI::INTERNAL USE::A_Suspended");
+var aAgedIn = expression.getValue("ASI::INTERNAL USE::A_AgedIn");
+var aNeedHuntEd = expression.getValue("ASI::INTERNAL USE::A_NeedHuntEd");
+var aRevokedHunting = expression.getValue("ASI::INTERNAL USE::A_Revoked_Hunting");
+var aRevokedTrapping = expression.getValue("ASI::INTERNAL USE::A_Revoked_Trapping");
+var aRevokedFishing = expression.getValue("ASI::INTERNAL USE::A_Revoked_Fishing");
+var aDriverLicenseState = expression.getValue("ASI::INTERNAL USE::A_Driver_License_State");
+var aDriverLicenseNumber = expression.getValue("ASI::INTERNAL USE::A_Driver_License_Number");
+var aNonDriverLicenseNumber = expression.getValue("ASI::INTERNAL USE::A_Non_Driver_License_Number");
+var vUserID = expression.getValue("$$userID$$");
+var sUserIdEB = vUserID.getValue();
+
+
+
+//Init 
+var f = new form_OBJECT(GS2_EXPR);
+f.Year = aYear.value;
+f.DOB = abirthDate.value;
+f.Email = aemail.value;
+f.IsNyResiDent = aIsNYResident.value;
+f.IsNativeAmerican = (aIsNativeAmerican.value);
+f.PreferencePoints = aPreferencePoints.value;
+f.SetAnnualDisability(aAnnualDisability.value);
+f.SetPriorLicense(aPreviousLicense.value);
+f.SetSportsmanEducation(aSportsmanEducation.value);
+f.SetLandOwnerInfo(aLandOwnerInformation.value);
+f.Quantity_Trail_Supporter_Patch = aQuantity_Trail_Supporter_Patch.value
+f.IsPermanentDisabled = aPermanentDisability.value;
+f.SetActiveHoldingsInfo(aActiveHoldings.value);
+f.DriverLicenseState = aDriverLicenseState.value;
+f.DriverLicenseNumber = aDriverLicenseNumber.value;
+f.NonDriverLicenseNumber = aNonDriverLicenseNumber.value;
+f.SetEnforcementAttrib(aSuspended.value, aRevokedHunting.value, aRevokedTrapping.value, aRevokedFishing.value);
+f.SetFulfillmentAttrib(aAgedIn.value, aNeedHuntEd.value);
+f.FromACA = aIsFromACA.value;
+f.UserIdEB = sUserIdEB;
+//
+
+//Set control array and set values for lic
+var exprControlArray = new Array();
+var exprObj;
+var isYesExprObj = false;
+for (var idx = 0; idx < f.licObjARRAY.length; idx++) {
+    exprObj = expression.getValue(f.licObjARRAY[idx].ExprFieldName);
+    isYesExprObj = ((exprObj.value != null && (exprObj.value.equalsIgnoreCase('YES') || exprObj.value.equalsIgnoreCase('Y') || exprObj.value.equalsIgnoreCase('CHECKED') || exprObj.value.equalsIgnoreCase('SELECTED') || exprObj.value.equalsIgnoreCase('TRUE') || exprObj.value.equalsIgnoreCase('ON'))));
+    f.SetSelected(f.licObjARRAY[idx].Identity, isYesExprObj);
+    exprControlArray[exprControlArray.length] = expression.getValue(f.licObjARRAY[idx].ExprFieldName);
+}
+////
+
+//Call rules
+f.ExecuteBoRuleEngine();
+////
+
+//conrol Refeshment to commit applied settings
+var myLicObj = new Array();
+
+myLicObj[myLicObj.length] = expression.getValue("ASI::HUNTING LICENSE::Bowhunting Privilege");
+myLicObj[myLicObj.length] = expression.getValue("ASI::HUNTING LICENSE::Deer Management Permit");
+myLicObj[myLicObj.length] = expression.getValue("ASI::HUNTING LICENSE::Hunting License");
+myLicObj[myLicObj.length] = expression.getValue("ASI::HUNTING LICENSE::Muzzleloading Privilege");
+myLicObj[myLicObj.length] = expression.getValue("ASI::HUNTING LICENSE::Turkey Permit");
+myLicObj[myLicObj.length] = expression.getValue("ASI::HUNTING LICENSE::3 Year Hunting License");
+myLicObj[myLicObj.length] = expression.getValue("ASI::HUNTING LICENSE::5 Year Hunting License");
+myLicObj[myLicObj.length] = expression.getValue("ASI::HUNTING LICENSE::3 Year Bowhunting Privilege");
+myLicObj[myLicObj.length] = expression.getValue("ASI::HUNTING LICENSE::5 Year Bowhunting Privilege");
+myLicObj[myLicObj.length] = expression.getValue("ASI::HUNTING LICENSE::3 Year Muzzleloading Privilege");
+myLicObj[myLicObj.length] = expression.getValue("ASI::HUNTING LICENSE::5 Year Muzzleloading Privilege");
+myLicObj[myLicObj.length] = expression.getValue("ASI::HUNTING LICENSE::3 Year Turkey Permit");
+myLicObj[myLicObj.length] = expression.getValue("ASI::HUNTING LICENSE::5 Year Turkey Permit");
+
+////
