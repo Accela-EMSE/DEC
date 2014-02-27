@@ -423,49 +423,49 @@ var FEE_3YEAR_HUNTING_SCHDL = "FEE_3YEAR_HUNTING_SCHDL";
 var H3Y_1_RES = "H3Y_1_RES"
 var H3Y_2_NRES = "H3Y_2_NRES"
 
-var FEE_5YEAR_HUNTING_SCHDL="FEE_5YEAR_HUNTING_SCHDL";
-var H5Y_1_RES="H5Y_1_RES";
-var H5Y_2_NRES="H5Y_2_NRES";
+var FEE_5YEAR_HUNTING_SCHDL = "FEE_5YEAR_HUNTING_SCHDL";
+var H5Y_1_RES = "H5Y_1_RES";
+var H5Y_2_NRES = "H5Y_2_NRES";
 
-var FEE_3YEAR_BOWHUNTING_SCHDL="FEE_3YEAR_BOWHUNTING_SCHDL";
-var B3Y_1_RES="B3Y_1_RES";
-var B3Y_2_NRES="B3Y_2_NRES";
+var FEE_3YEAR_BOWHUNTING_SCHDL = "FEE_3YEAR_BOWHUNTING_SCHDL";
+var B3Y_1_RES = "B3Y_1_RES";
+var B3Y_2_NRES = "B3Y_2_NRES";
 
-var FEE_5YEAR_BOWHUNTING_SCHDL="FEE_5YEAR_BOWHUNTING_SCHDL";
-var B5Y_1_RES="B5Y_1_RES";
-var B5Y_2_NRES="B5Y_2_NRES";
+var FEE_5YEAR_BOWHUNTING_SCHDL = "FEE_5YEAR_BOWHUNTING_SCHDL";
+var B5Y_1_RES = "B5Y_1_RES";
+var B5Y_2_NRES = "B5Y_2_NRES";
 
-var FEE_3YEAR_MUZZLELOADING_SCHDL="FEE_3YEAR_MUZZLELOADING_SCHDL";
-var M3Y_1_RES="M3Y_1_RES";
-var M3Y_2_NRES="M3Y_2_NRES";
+var FEE_3YEAR_MUZZLELOADING_SCHDL = "FEE_3YEAR_MUZZLELOADING_SCHDL";
+var M3Y_1_RES = "M3Y_1_RES";
+var M3Y_2_NRES = "M3Y_2_NRES";
 
-var FEE_5YEAR_MUZZLELOADING_SCHDL="FEE_5YEAR_MUZZLELOADING_SCHDL";
-var M5Y_1_RES ="M5Y_1_RES";
-var M5Y_2_NRES="M5Y_2_NRES";
+var FEE_5YEAR_MUZZLELOADING_SCHDL = "FEE_5YEAR_MUZZLELOADING_SCHDL";
+var M5Y_1_RES = "M5Y_1_RES";
+var M5Y_2_NRES = "M5Y_2_NRES";
 
-var FEE_3YEAR_TURKEY_PERMIT_SCHDL="FEE_3YEAR_TURKEY_PERMIT_SCHDL";
-var TK3Y_1_RES="TK3Y_1_RES";
-var TK3Y_2_NRES="TK3Y_2_NRES";
+var FEE_3YEAR_TURKEY_PERMIT_SCHDL = "FEE_3YEAR_TURKEY_PERMIT_SCHDL";
+var TK3Y_1_RES = "TK3Y_1_RES";
+var TK3Y_2_NRES = "TK3Y_2_NRES";
 
-var FEE_5YEAR_TURKEY_PERMIT_SCHDL="FEE_5YEAR_TURKEY_PERMIT_SCHDL";
-var TK5Y_1_RES="TK5Y_1_RES";
-var TK5Y_2_NRES="TK5Y_2_NRES";
+var FEE_5YEAR_TURKEY_PERMIT_SCHDL = "FEE_5YEAR_TURKEY_PERMIT_SCHDL";
+var TK5Y_1_RES = "TK5Y_1_RES";
+var TK5Y_2_NRES = "TK5Y_2_NRES";
 
-var FEE_3YEAR_TRAPPING_SCHDL="FEE_3YEAR_TRAPPING_SCHDL";
-var TP3Y_1_RES="TP3Y_1_RES";
-var TP3Y_2_NRES="TP3Y_2_NRES";
+var FEE_3YEAR_TRAPPING_SCHDL = "FEE_3YEAR_TRAPPING_SCHDL";
+var TP3Y_1_RES = "TP3Y_1_RES";
+var TP3Y_2_NRES = "TP3Y_2_NRES";
 
-var FEE_5YEAR_TRAPPING_SCHDL="FEE_5YEAR_TRAPPING_SCHDL";
-var TP5Y_1_RES="TP5Y_1_RES";
-var TP5Y_2_NRES="TP5Y_2_NRES";
+var FEE_5YEAR_TRAPPING_SCHDL = "FEE_5YEAR_TRAPPING_SCHDL";
+var TP5Y_1_RES = "TP5Y_1_RES";
+var TP5Y_2_NRES = "TP5Y_2_NRES";
 
-var FEE_3YEAR_FISHING_SCHDL="FEE_3YEAR_FISHING_SCHDL";
-var FS3Y_1_RES="FS3Y_1_RES";
-var FS3Y_2_NRES="FS3Y_2_NRES";
+var FEE_3YEAR_FISHING_SCHDL = "FEE_3YEAR_FISHING_SCHDL";
+var FS3Y_1_RES = "FS3Y_1_RES";
+var FS3Y_2_NRES = "FS3Y_2_NRES";
 
-var FEE_5YEAR_FISHING_SCHDL="FEE_5YEAR_FISHING_SCHDL";
-var FS5Y_1_RES="FS5Y_1_RES";
-var FS5Y_2_NRES="FS5Y_2_NRES";
+var FEE_5YEAR_FISHING_SCHDL = "FEE_5YEAR_FISHING_SCHDL";
+var FS5Y_1_RES = "FS5Y_1_RES";
+var FS5Y_2_NRES = "FS5Y_2_NRES";
 
 // Lifetime Driver License
 var FEE_LIFETIME_DRIV_LIC_SCHDL = "FEE_LIFETM_DL_IMM_OPTIN";
@@ -1605,343 +1605,147 @@ function getAllFeeCodeByRuleFor_OTHER_SALE_VENISON_DONATION_SCHDL(ruleParams, fe
     return feeItemCodes;
 }
 function getAllFeeCodeByRuleFor_3Y_HUNT(ruleParams, feeSched) {
-    //TODO
     var feeItemCodes = new Array();
     var rp = ruleParams;
 
-    //Annual Hunting License: NYS Res having age 12-13
-    if (rp.IsNyResiDent && rp.Age >= 12 && rp.Age <= 13) { feeItemCodes.push(new FeeCodeProp(AHL_1_RES, "000")); }
-    //Annual Hunting License: Non-Res having age 12-13
-    if (!rp.IsNyResiDent && rp.Age >= 12 && rp.Age <= 15) { feeItemCodes.push(new FeeCodeProp(AHL_2_NORES, "000")); }
-    //Annual Hunting License fee for NYS Resident having age  16-69
-    if (rp.IsNyResiDent && rp.Age >= 16 && rp.Age <= 69) { feeItemCodes.push(new FeeCodeProp(AHL_3_RES, "000")); }
-    //Annual Hunting License fee for Non-Resident having age  16+
-    if (!rp.IsNyResiDent && rp.Age >= 16) { feeItemCodes.push(new FeeCodeProp(AHL_4_NORES, "000")); }
-    //Annual Hunting License fee for NYS Resident having age  70+
-    if (rp.IsNyResiDent && rp.Age >= 70) { feeItemCodes.push(new FeeCodeProp(AHL_5_RES, "000")); }
-    //Annual Hunting License fee for NYS Res Mil. Disabled having age  16+
-    if (rp.IsNyResiDent && rp.Age >= 16 && rp.IsDisableForYear) {
-        feeItemCodes.push(new FeeCodeProp(AHL_6_RESMD, "000"));
-        //Military disabled persons will only be charged one $5 fee per license year for the their base licenses (trap, hunt, fish) whether they purchase one or all three.
-        if (rp.hasSaleLicMilitaryDisable || hasBaseLicMilitaryDisable(rp.ActiveHoldingsInfo)) {
-            feeItemCodes.push(new FeeCodeProp(RESMD_FREE, "000"));
-        }
-    }
-    //Annual Hunting License fee for Native American having age  16+
-    if (rp.IsNyResiDent && rp.Age >= 16 && rp.IsNativeAmerican) { feeItemCodes.push(new FeeCodeProp(AHL_7_NAM, "000")); }
-    //Annual Hunting License fee for Patriot having age  16+
-    if (rp.IsNyResiDent && rp.IsMilitaryServiceman) { feeItemCodes.push(new FeeCodeProp(AHL_8_PATR, "000")); }
-    //Annual Hunting License: NYS Res having age 14-15
-    if (rp.IsNyResiDent && rp.Age >= 14 && rp.Age <= 15) { feeItemCodes.push(new FeeCodeProp(AHL_10_RES, "000")); }
-    //Annual Hunting License: Non-Res having age 14-15
-    if (!rp.IsNyResiDent && rp.Age >= 14 && rp.Age <= 15) { feeItemCodes.push(new FeeCodeProp(AHL_9_NORES, "000")); }
+    //3 Year Hunting: NYS Resident having age 16-69
+    if (rp.IsNyResiDent && rp.Age >= 16 && rp.Age <= 69) { feeItemCodes.push(new FeeCodeProp(H3Y_1_RES, "000")); }
+    //3 Year Hunting: Non-Resident having age 16-69
+    if (!rp.IsNyResiDent && rp.Age >= 16 && rp.Age <= 69) { feeItemCodes.push(new FeeCodeProp(H3Y_2_NRES, "000")); }
 
-    if (feeItemCodes.length == 0) { feeItemCodes.push(new FeeCodeProp(AHL_4_NORES, "000")); }
+    if (feeItemCodes.length == 0) { feeItemCodes.push(new FeeCodeProp(H3Y_2_NRES, "000")); }
     return feeItemCodes;
 }
 function getAllFeeCodeByRuleFor_5Y_HUNT(ruleParams, feeSched) {
-    //TODO
     var feeItemCodes = new Array();
     var rp = ruleParams;
 
-    //Annual Hunting License: NYS Res having age 12-13
-    if (rp.IsNyResiDent && rp.Age >= 12 && rp.Age <= 13) { feeItemCodes.push(new FeeCodeProp(AHL_1_RES, "000")); }
-    //Annual Hunting License: Non-Res having age 12-13
-    if (!rp.IsNyResiDent && rp.Age >= 12 && rp.Age <= 15) { feeItemCodes.push(new FeeCodeProp(AHL_2_NORES, "000")); }
-    //Annual Hunting License fee for NYS Resident having age  16-69
-    if (rp.IsNyResiDent && rp.Age >= 16 && rp.Age <= 69) { feeItemCodes.push(new FeeCodeProp(AHL_3_RES, "000")); }
-    //Annual Hunting License fee for Non-Resident having age  16+
-    if (!rp.IsNyResiDent && rp.Age >= 16) { feeItemCodes.push(new FeeCodeProp(AHL_4_NORES, "000")); }
-    //Annual Hunting License fee for NYS Resident having age  70+
-    if (rp.IsNyResiDent && rp.Age >= 70) { feeItemCodes.push(new FeeCodeProp(AHL_5_RES, "000")); }
-    //Annual Hunting License fee for NYS Res Mil. Disabled having age  16+
-    if (rp.IsNyResiDent && rp.Age >= 16 && rp.IsDisableForYear) {
-        feeItemCodes.push(new FeeCodeProp(AHL_6_RESMD, "000"));
-        //Military disabled persons will only be charged one $5 fee per license year for the their base licenses (trap, hunt, fish) whether they purchase one or all three.
-        if (rp.hasSaleLicMilitaryDisable || hasBaseLicMilitaryDisable(rp.ActiveHoldingsInfo)) {
-            feeItemCodes.push(new FeeCodeProp(RESMD_FREE, "000"));
-        }
-    }
-    //Annual Hunting License fee for Native American having age  16+
-    if (rp.IsNyResiDent && rp.Age >= 16 && rp.IsNativeAmerican) { feeItemCodes.push(new FeeCodeProp(AHL_7_NAM, "000")); }
-    //Annual Hunting License fee for Patriot having age  16+
-    if (rp.IsNyResiDent && rp.IsMilitaryServiceman) { feeItemCodes.push(new FeeCodeProp(AHL_8_PATR, "000")); }
-    //Annual Hunting License: NYS Res having age 14-15
-    if (rp.IsNyResiDent && rp.Age >= 14 && rp.Age <= 15) { feeItemCodes.push(new FeeCodeProp(AHL_10_RES, "000")); }
-    //Annual Hunting License: Non-Res having age 14-15
-    if (!rp.IsNyResiDent && rp.Age >= 14 && rp.Age <= 15) { feeItemCodes.push(new FeeCodeProp(AHL_9_NORES, "000")); }
+    //5 Year Hunting: NYS Resident having age 16-69
+    if (rp.IsNyResiDent && rp.Age >= 16 && rp.Age <= 69) { feeItemCodes.push(new FeeCodeProp(H5Y_1_RES, "000")); }
+    //5 Year Hunting: Non-Resident having age 16-69
+    if (!rp.IsNyResiDent && rp.Age >= 16 && rp.Age <= 69) { feeItemCodes.push(new FeeCodeProp(H5Y_2_NRES, "000")); }
 
-    if (feeItemCodes.length == 0) { feeItemCodes.push(new FeeCodeProp(AHL_4_NORES, "000")); }
+    if (feeItemCodes.length == 0) { feeItemCodes.push(new FeeCodeProp(H5Y_2_NRES, "000")); }
     return feeItemCodes;
 }
 function getAllFeeCodeByRuleFor_3Y_BOWH(ruleParams, feeSched) {
-    //TODO
     var feeItemCodes = new Array();
     var rp = ruleParams;
 
-    //Annual Bowhunting Privilege fee for NYS Res having age  12-15
-    if (rp.IsNyResiDent && rp.Age >= 12 && rp.Age <= 15) { feeItemCodes.push(new FeeCodeProp(ABHP_1_RES, "000")); }
-    //Annual Bowhunting Privilege fee for Non-Res having age  12-15
-    if (!rp.IsNyResiDent && rp.Age >= 12 && rp.Age <= 15) { feeItemCodes.push(new FeeCodeProp(ABHP_2_NORES, "000")); }
-    //Annual Bowhunting Privilege fee for NYS Resident having age  16-69
-    if (rp.IsNyResiDent && rp.Age >= 16 && rp.Age <= 69) { feeItemCodes.push(new FeeCodeProp(ABHP_3_RES, "000")); }
-    //Annual Bowhunting Privilege fee for Non-Resident having age  16+
-    if (!rp.IsNyResiDent && rp.Age >= 16) { feeItemCodes.push(new FeeCodeProp(ABHP_4_NORES, "000")); }
-    //Annual Bowhunting Privilege fee for NYS Resident having age  70+
-    if (rp.IsNyResiDent && rp.Age >= 70) { feeItemCodes.push(new FeeCodeProp(ABHP_5_RES, "000")); }
-    //Annual Bowhunting Privilege fee for NYS Res Mil. Disabled having age  16+
-    if (rp.IsNyResiDent && rp.Age >= 16 && rp.IsDisableForYear) {
-        feeItemCodes.push(new FeeCodeProp(ABHP_6_RESMD, "000"));
-        //Military disabled persons will only be charged one $5 fee per license year for the their base licenses (trap, hunt, fish) whether they purchase one or all three.
-        if (rp.hasSaleLicMilitaryDisable || hasBaseLicMilitaryDisable(rp.ActiveHoldingsInfo)) {
-            feeItemCodes.push(new FeeCodeProp(RESMD_FREE, "000"));
-        }
-    }
-    //Annual Bowhunting Privilege fee for Native American having age  16+
-    if (rp.IsNyResiDent && rp.Age >= 16 && rp.IsNativeAmerican) { feeItemCodes.push(new FeeCodeProp(ABHP_7_NAM, "000")); }
+    //3 Year Bow Hunting: NYS Resident having age 16-69
+    if (rp.IsNyResiDent && rp.Age >= 16 && rp.Age <= 69) { feeItemCodes.push(new FeeCodeProp(B3Y_1_RES, "000")); }
+    //3 Year Bow Hunting: Non-Resident having age 16-69
+    if (!rp.IsNyResiDent && rp.Age >= 16 && rp.Age <= 69) { feeItemCodes.push(new FeeCodeProp(B3Y_2_NRES, "000")); }
 
-    if (feeItemCodes.length == 0) { feeItemCodes.push(new FeeCodeProp(ABHP_4_NORES, "000")); }
+    if (feeItemCodes.length == 0) { feeItemCodes.push(new FeeCodeProp(B3Y_2_NRES, "000")); }
     return feeItemCodes;
 }
 function getAllFeeCodeByRuleFor_5Y_BOWH(ruleParams, feeSched) {
-    //TODO
     var feeItemCodes = new Array();
     var rp = ruleParams;
 
-    //Annual Bowhunting Privilege fee for NYS Res having age  12-15
-    if (rp.IsNyResiDent && rp.Age >= 12 && rp.Age <= 15) { feeItemCodes.push(new FeeCodeProp(ABHP_1_RES, "000")); }
-    //Annual Bowhunting Privilege fee for Non-Res having age  12-15
-    if (!rp.IsNyResiDent && rp.Age >= 12 && rp.Age <= 15) { feeItemCodes.push(new FeeCodeProp(ABHP_2_NORES, "000")); }
-    //Annual Bowhunting Privilege fee for NYS Resident having age  16-69
-    if (rp.IsNyResiDent && rp.Age >= 16 && rp.Age <= 69) { feeItemCodes.push(new FeeCodeProp(ABHP_3_RES, "000")); }
-    //Annual Bowhunting Privilege fee for Non-Resident having age  16+
-    if (!rp.IsNyResiDent && rp.Age >= 16) { feeItemCodes.push(new FeeCodeProp(ABHP_4_NORES, "000")); }
-    //Annual Bowhunting Privilege fee for NYS Resident having age  70+
-    if (rp.IsNyResiDent && rp.Age >= 70) { feeItemCodes.push(new FeeCodeProp(ABHP_5_RES, "000")); }
-    //Annual Bowhunting Privilege fee for NYS Res Mil. Disabled having age  16+
-    if (rp.IsNyResiDent && rp.Age >= 16 && rp.IsDisableForYear) {
-        feeItemCodes.push(new FeeCodeProp(ABHP_6_RESMD, "000"));
-        //Military disabled persons will only be charged one $5 fee per license year for the their base licenses (trap, hunt, fish) whether they purchase one or all three.
-        if (rp.hasSaleLicMilitaryDisable || hasBaseLicMilitaryDisable(rp.ActiveHoldingsInfo)) {
-            feeItemCodes.push(new FeeCodeProp(RESMD_FREE, "000"));
-        }
-    }
-    //Annual Bowhunting Privilege fee for Native American having age  16+
-    if (rp.IsNyResiDent && rp.Age >= 16 && rp.IsNativeAmerican) { feeItemCodes.push(new FeeCodeProp(ABHP_7_NAM, "000")); }
+    //5 Year Bow Hunting: NYS Resident having age 16-69
+    if (rp.IsNyResiDent && rp.Age >= 16 && rp.Age <= 69) { feeItemCodes.push(new FeeCodeProp(B5Y_1_RES, "000")); }
+    //5 Year Bow Hunting: Non-Resident having age 16-69
+    if (!rp.IsNyResiDent && rp.Age >= 16 && rp.Age <= 69) { feeItemCodes.push(new FeeCodeProp(B5Y_2_NRES, "000")); }
 
-    if (feeItemCodes.length == 0) { feeItemCodes.push(new FeeCodeProp(ABHP_4_NORES, "000")); }
+    if (feeItemCodes.length == 0) { feeItemCodes.push(new FeeCodeProp(B5Y_2_NRES, "000")); }
     return feeItemCodes;
 }
 function getAllFeeCodeByRuleFor_3Y_MUZZ(ruleParams, feeSched) {
-    //TODO
     var feeItemCodes = new Array();
     var rp = ruleParams;
 
-    //Annual Muzzleloading Privilege: NYS Resident having age 14-69
-    if (rp.IsNyResiDent && rp.Age >= 14 && rp.Age <= 69) { feeItemCodes.push(new FeeCodeProp(AMP_3_RES, "000")); }
-    //Annual Muzzleloading Privilege: Non-Resident having age 14+
-    if (!rp.IsNyResiDent && rp.Age >= 14) { feeItemCodes.push(new FeeCodeProp(AMP_4_NORES, "000")); }
-    //Annual Muzzleloading Privilege fee for NYS Resident having age  70+
-    if (rp.IsNyResiDent && rp.Age >= 70) { feeItemCodes.push(new FeeCodeProp(AMP_5_RES, "000")); }
-    //Annual Muzzleloading Privilege: NYS Res Mil. Disabled having age 14+
-    if (rp.IsNyResiDent && rp.Age >= 14 && rp.IsDisableForYear) {
-        feeItemCodes.push(new FeeCodeProp(AMP_6_RESMD, "000"));
-        //Military disabled persons will only be charged one $5 fee per license year for the their base licenses (trap, hunt, fish) whether they purchase one or all three.
-        if (rp.hasSaleLicMilitaryDisable || hasBaseLicMilitaryDisable(rp.ActiveHoldingsInfo)) {
-            feeItemCodes.push(new FeeCodeProp(RESMD_FREE, "000"));
-        }
-    }
-    //Annual Muzzleloading Privilege: Native American having age 14+
-    if (rp.IsNyResiDent && rp.Age >= 14 && rp.IsNativeAmerican) { feeItemCodes.push(new FeeCodeProp(AMP_7_NAM, "000")); }
+    //3 Year Muzzleloading Privilege: NYS Resident having age 16-69
+    if (rp.IsNyResiDent && rp.Age >= 16 && rp.Age <= 69) { feeItemCodes.push(new FeeCodeProp(M3Y_1_RES, "000")); }
+    //3 Year Muzzleloading Privilege: Non-Resident having age 16-69
+    if (!rp.IsNyResiDent && rp.Age >= 16 && rp.Age <= 69) { feeItemCodes.push(new FeeCodeProp(M3Y_2_NRES, "000")); }
 
-    if (feeItemCodes.length == 0) { feeItemCodes.push(new FeeCodeProp(AMP_4_NORES, "000")); }
+    if (feeItemCodes.length == 0) { feeItemCodes.push(new FeeCodeProp(M3Y_2_NRES, "000")); }
     return feeItemCodes;
 }
 function getAllFeeCodeByRuleFor_5Y_MUZZ(ruleParams, feeSched) {
-    //TODO
     var feeItemCodes = new Array();
     var rp = ruleParams;
 
-    //Annual Muzzleloading Privilege: NYS Resident having age 14-69
-    if (rp.IsNyResiDent && rp.Age >= 14 && rp.Age <= 69) { feeItemCodes.push(new FeeCodeProp(AMP_3_RES, "000")); }
-    //Annual Muzzleloading Privilege: Non-Resident having age 14+
-    if (!rp.IsNyResiDent && rp.Age >= 14) { feeItemCodes.push(new FeeCodeProp(AMP_4_NORES, "000")); }
-    //Annual Muzzleloading Privilege fee for NYS Resident having age  70+
-    if (rp.IsNyResiDent && rp.Age >= 70) { feeItemCodes.push(new FeeCodeProp(AMP_5_RES, "000")); }
-    //Annual Muzzleloading Privilege: NYS Res Mil. Disabled having age 14+
-    if (rp.IsNyResiDent && rp.Age >= 14 && rp.IsDisableForYear) {
-        feeItemCodes.push(new FeeCodeProp(AMP_6_RESMD, "000"));
-        //Military disabled persons will only be charged one $5 fee per license year for the their base licenses (trap, hunt, fish) whether they purchase one or all three.
-        if (rp.hasSaleLicMilitaryDisable || hasBaseLicMilitaryDisable(rp.ActiveHoldingsInfo)) {
-            feeItemCodes.push(new FeeCodeProp(RESMD_FREE, "000"));
-        }
-    }
-    //Annual Muzzleloading Privilege: Native American having age 14+
-    if (rp.IsNyResiDent && rp.Age >= 14 && rp.IsNativeAmerican) { feeItemCodes.push(new FeeCodeProp(AMP_7_NAM, "000")); }
+    //5 Year Muzzleloading Privilege: NYS Resident having age 16-69 
+    if (rp.IsNyResiDent && rp.Age >= 16 && rp.Age <= 69) { feeItemCodes.push(new FeeCodeProp(M5Y_1_RES, "000")); }
+    //5 Year Muzzleloading Privilege: Non-Resident having age 16-69
+    if (!rp.IsNyResiDent && rp.Age >= 16 && rp.Age <= 69) { feeItemCodes.push(new FeeCodeProp(M5Y_2_NRES, "000")); }
 
-    if (feeItemCodes.length == 0) { feeItemCodes.push(new FeeCodeProp(AMP_4_NORES, "000")); }
+    if (feeItemCodes.length == 0) { feeItemCodes.push(new FeeCodeProp(M5Y_2_NRES, "000")); }
     return feeItemCodes;
 }
 function getAllFeeCodeByRuleFor_3Y_TRKY(ruleParams, feeSched) {
-    //TODO
     var feeItemCodes = new Array();
     var rp = ruleParams;
 
-    //Annual Turkey Permit fee for NYS Resident having age  12+
-    if (rp.IsNyResiDent && rp.Age >= 12) { feeItemCodes.push(new FeeCodeProp(ATP_1_RES, "000")); }
-    //Annual Turkey Permit fee for Non-Resident having age  12+
-    if (!rp.IsNyResiDent && rp.Age >= 12) { feeItemCodes.push(new FeeCodeProp(ATP_2_NORES, "000")); }
+    //3 Year Turkey Permit: NYS Resident having age 16-69
+    if (rp.IsNyResiDent && rp.Age >= 16 && rp.Age <= 69) { feeItemCodes.push(new FeeCodeProp(TK3Y_1_RES, "000")); }
+    //3 Year Turkey Permit: Non-Resident having age 16-69
+    if (!rp.IsNyResiDent && rp.Age >= 16 && rp.Age <= 69) { feeItemCodes.push(new FeeCodeProp(TK3Y_2_NRES, "000")); }
 
-    //   if (rp.IsNyResiDent && rp.Age >= 12 && rp.IsDisableForYear) {
-    //       //Military disabled persons will only be charged one $5 fee per license year for the their base licenses (trap, hunt, fish) whether they purchase one or all three.
-    //       if (rp.hasSaleLicMilitaryDisable || hasBaseLicMilitaryDisable(rp.ActiveHoldingsInfo)) {
-    //           feeItemCodes.push(new FeeCodeProp(RESMD_FREE, "000"));
-    //       }
-    //   }
-
-    if (feeItemCodes.length == 0) { feeItemCodes.push(new FeeCodeProp(ATP_2_NORES, "000")); }
+    if (feeItemCodes.length == 0) { feeItemCodes.push(new FeeCodeProp(TK3Y_2_NRES, "000")); }
     return feeItemCodes;
 }
 function getAllFeeCodeByRuleFor_5Y_TRKY(ruleParams, feeSched) {
-    //TODO
     var feeItemCodes = new Array();
     var rp = ruleParams;
 
-    //Annual Turkey Permit fee for NYS Resident having age  12+
-    if (rp.IsNyResiDent && rp.Age >= 12) { feeItemCodes.push(new FeeCodeProp(ATP_1_RES, "000")); }
-    //Annual Turkey Permit fee for Non-Resident having age  12+
-    if (!rp.IsNyResiDent && rp.Age >= 12) { feeItemCodes.push(new FeeCodeProp(ATP_2_NORES, "000")); }
+    //5 Year Turkey Permit: NYS Resident having age 16-69
+    if (rp.IsNyResiDent && rp.Age >= 16 && rp.Age <= 69) { feeItemCodes.push(new FeeCodeProp(TK5Y_1_RES, "000")); }
+    //5 Year Turkey Permit: Non-Resident having age 16-69
+    if (!rp.IsNyResiDent && rp.Age >= 16 && rp.Age <= 69) { feeItemCodes.push(new FeeCodeProp(TK5Y_2_NRES, "000")); }
 
-    //   if (rp.IsNyResiDent && rp.Age >= 12 && rp.IsDisableForYear) {
-    //       //Military disabled persons will only be charged one $5 fee per license year for the their base licenses (trap, hunt, fish) whether they purchase one or all three.
-    //       if (rp.hasSaleLicMilitaryDisable || hasBaseLicMilitaryDisable(rp.ActiveHoldingsInfo)) {
-    //           feeItemCodes.push(new FeeCodeProp(RESMD_FREE, "000"));
-    //       }
-    //   }
-
-    if (feeItemCodes.length == 0) { feeItemCodes.push(new FeeCodeProp(ATP_2_NORES, "000")); }
+    if (feeItemCodes.length == 0) { feeItemCodes.push(new FeeCodeProp(TK5Y_2_NRES, "000")); }
     return feeItemCodes;
 }
 function getAllFeeCodeByRuleFor_3Y_TRAP(ruleParams, feeSched) {
-    //TODO
     var feeItemCodes = new Array();
     var rp = ruleParams;
 
-    //Annual Trapping License fee for NYS Resident having age  under 16
-    if (rp.IsNyResiDent && rp.Age < 16) { feeItemCodes.push(new FeeCodeProp(ATL_1_RES, "000")); }
-    //Annual Trapping License fee for NYS Resident having age  16-69
-    if (rp.IsNyResiDent && rp.Age >= 16 && rp.Age <= 69) { feeItemCodes.push(new FeeCodeProp(ATL_2_RES, "000")); }
-    //Annual Trapping License fee for NYS Resident having age  70+
-    if (rp.IsNyResiDent && rp.Age >= 70) { feeItemCodes.push(new FeeCodeProp(ATL_3_RES, "000")); }
-    //Annual Trapping License fee for Non-Resident having age  16+
-    if (!rp.IsNyResiDent && rp.Age >= 16) { feeItemCodes.push(new FeeCodeProp(ATL_4_NORES, "000")); }
-    //Annual Trapping License fee for Military Disabled having age  16+
-    if (rp.Age >= 16 && rp.IsNyResiDent && rp.IsDisableForYear) {
-        feeItemCodes.push(new FeeCodeProp(ATL_5_MD, "000"));
-        //Military disabled persons will only be charged one $5 fee per license year for the their base licenses (trap, hunt, fish) whether they purchase one or all three.
-        if (rp.hasSaleLicMilitaryDisable || hasBaseLicMilitaryDisable(rp.ActiveHoldingsInfo)) {
-            feeItemCodes.push(new FeeCodeProp(RESMD_FREE, "000"));
-        }
-    }
-    //Annual Trapping License fee for Patriot having age  16+
-    if (rp.Age >= 16 && rp.IsNyResiDent && rp.IsMilitaryServiceman) { feeItemCodes.push(new FeeCodeProp(ATL_6_PATR, "000")); }
-    //Annual Trapping License for NYS Resident Native American for ANY age
-    if (rp.IsNyResiDent && rp.IsNativeAmerican) { feeItemCodes.push(new FeeCodeProp(ATL_7_RESNA, "000")); }
+    //3 Year Trapping License: NYS Resident having age 16-69
+    if (rp.IsNyResiDent && rp.Age >= 16 && rp.Age <= 69) { feeItemCodes.push(new FeeCodeProp(TP3Y_1_RES, "000")); }
+    //3 Year Trapping License: Non-Resident having age 16-69
+    if (!rp.IsNyResiDent && rp.Age >= 16 && rp.Age <= 69) { feeItemCodes.push(new FeeCodeProp(TP3Y_2_NRES, "000")); }
 
-    if (feeItemCodes.length == 0) { feeItemCodes.push(new FeeCodeProp(ATL_4_NORES, "000")); }
+    if (feeItemCodes.length == 0) { feeItemCodes.push(new FeeCodeProp(TP3Y_2_NRES, "000")); }
     return feeItemCodes;
 }
 function getAllFeeCodeByRuleFor_5Y_TRAP(ruleParams, feeSched) {
-    //TODO
     var feeItemCodes = new Array();
     var rp = ruleParams;
 
-    //Annual Trapping License fee for NYS Resident having age  under 16
-    if (rp.IsNyResiDent && rp.Age < 16) { feeItemCodes.push(new FeeCodeProp(ATL_1_RES, "000")); }
-    //Annual Trapping License fee for NYS Resident having age  16-69
-    if (rp.IsNyResiDent && rp.Age >= 16 && rp.Age <= 69) { feeItemCodes.push(new FeeCodeProp(ATL_2_RES, "000")); }
-    //Annual Trapping License fee for NYS Resident having age  70+
-    if (rp.IsNyResiDent && rp.Age >= 70) { feeItemCodes.push(new FeeCodeProp(ATL_3_RES, "000")); }
-    //Annual Trapping License fee for Non-Resident having age  16+
-    if (!rp.IsNyResiDent && rp.Age >= 16) { feeItemCodes.push(new FeeCodeProp(ATL_4_NORES, "000")); }
-    //Annual Trapping License fee for Military Disabled having age  16+
-    if (rp.Age >= 16 && rp.IsNyResiDent && rp.IsDisableForYear) {
-        feeItemCodes.push(new FeeCodeProp(ATL_5_MD, "000"));
-        //Military disabled persons will only be charged one $5 fee per license year for the their base licenses (trap, hunt, fish) whether they purchase one or all three.
-        if (rp.hasSaleLicMilitaryDisable || hasBaseLicMilitaryDisable(rp.ActiveHoldingsInfo)) {
-            feeItemCodes.push(new FeeCodeProp(RESMD_FREE, "000"));
-        }
-    }
-    //Annual Trapping License fee for Patriot having age  16+
-    if (rp.Age >= 16 && rp.IsNyResiDent && rp.IsMilitaryServiceman) { feeItemCodes.push(new FeeCodeProp(ATL_6_PATR, "000")); }
-    //Annual Trapping License for NYS Resident Native American for ANY age
-    if (rp.IsNyResiDent && rp.IsNativeAmerican) { feeItemCodes.push(new FeeCodeProp(ATL_7_RESNA, "000")); }
+    //5 Year Trapping License: NYS Resident having age 16-69
+    if (rp.IsNyResiDent && rp.Age >= 16 && rp.Age <= 69) { feeItemCodes.push(new FeeCodeProp(TP5Y_1_RES, "000")); }
+    //5 Year Trapping License: NYS Resident having age 16-69
+    if (!rp.IsNyResiDent && rp.Age >= 16 && rp.Age <= 69) { feeItemCodes.push(new FeeCodeProp(TP5Y_2_NRES, "000")); }
 
-    if (feeItemCodes.length == 0) { feeItemCodes.push(new FeeCodeProp(ATL_4_NORES, "000")); }
+    if (feeItemCodes.length == 0) { feeItemCodes.push(new FeeCodeProp(TP5Y_2_NRES, "000")); }
     return feeItemCodes;
 }
 function getAllFeeCodeByRuleFor_3Y_FRESHWATER_FISHING(ruleParams, feeSched) {
-    //TODO
     var feeItemCodes = new Array();
     var rp = ruleParams;
 
-    //Annual Fishing License fee for NYS Resident having age  16-69
-    if (rp.IsNyResiDent && rp.Age >= 16 && rp.Age <= 69) { feeItemCodes.push(new FeeCodeProp(AFF_1_RES, "000")); }
-    //Annual Fishing License fee for NYS Resident having age  70+
-    if (rp.IsNyResiDent && rp.Age >= 70) { feeItemCodes.push(new FeeCodeProp(AFF_2_RES, "000")); }
-    //Annual Fishing License fee for Non-Resident having age  16+
-    if (!rp.IsNyResiDent && rp.Age >= 16) { feeItemCodes.push(new FeeCodeProp(AFF_7_NORES, "000")); }
-    //Annual Fishing License fee for NYS Res Mil. Disabled having age  16+
-    if (rp.IsNyResiDent && rp.Age >= 16 && rp.IsDisableForYear) {
-        feeItemCodes.push(new FeeCodeProp(AFF_5_RESMD, "000"));
-        //Military disabled persons will only be charged one $5 fee per license year for the their base licenses (trap, hunt, fish) whether they purchase one or all three.
-        if (rp.hasSaleLicMilitaryDisable || hasBaseLicMilitaryDisable(rp.ActiveHoldingsInfo)) {
-            feeItemCodes.push(new FeeCodeProp(RESMD_FREE, "000"));
-        }
-    }
-    //Annual Fishing License fee for Patriot having age  16+
-    if (rp.IsNyResiDent && rp.IsMilitaryServiceman) { feeItemCodes.push(new FeeCodeProp(AFF_6_RESPAT, "000")); }
-    //Annual Fishing License fee for Native American having age  16+
-    if (rp.IsNyResiDent && rp.IsNativeAmerican) { feeItemCodes.push(new FeeCodeProp(AFF_4_RESNAM, "000")); }
-    //Annual Fishing License fee for Legally Blind having age  16+
-    if (rp.IsLegallyBlind) { feeItemCodes.push(new FeeCodeProp(AFF_3_RESLB, "000")); }
+    //3 Year Freshwater Fishing: NYS Resident having age 16-69
+    if (rp.IsNyResiDent && rp.Age >= 16 && rp.Age <= 69) { feeItemCodes.push(new FeeCodeProp(FS3Y_1_RES, "000")); }
+    //3 Year Freshwater Fishing: Non-Resident having age 16-69
+    if (!rp.IsNyResiDent && rp.Age >= 16 && rp.Age <= 69) { feeItemCodes.push(new FeeCodeProp(FS3Y_2_NRES, "000")); }
 
-    //Annual NonRes Freshwater Fishing: Non-Res having age 16+
-    if (!rp.IsNyResiDent && rp.Age >= 16) { feeItemCodes.push(new FeeCodeProp(AFF_7_NORES, "000")); }
-
-    if (feeItemCodes.length == 0) { feeItemCodes.push(new FeeCodeProp(AFF_7_NORES, "000")); }
+    if (feeItemCodes.length == 0) { feeItemCodes.push(new FeeCodeProp(FS3Y_2_NRES, "000")); }
     return feeItemCodes;
 }
 function getAllFeeCodeByRuleFor_5Y_FRESHWATER_FISHING(ruleParams, feeSched) {
-    //TODO
     var feeItemCodes = new Array();
     var rp = ruleParams;
 
-    //Annual Fishing License fee for NYS Resident having age  16-69
-    if (rp.IsNyResiDent && rp.Age >= 16 && rp.Age <= 69) { feeItemCodes.push(new FeeCodeProp(AFF_1_RES, "000")); }
-    //Annual Fishing License fee for NYS Resident having age  70+
-    if (rp.IsNyResiDent && rp.Age >= 70) { feeItemCodes.push(new FeeCodeProp(AFF_2_RES, "000")); }
-    //Annual Fishing License fee for Non-Resident having age  16+
-    if (!rp.IsNyResiDent && rp.Age >= 16) { feeItemCodes.push(new FeeCodeProp(AFF_7_NORES, "000")); }
-    //Annual Fishing License fee for NYS Res Mil. Disabled having age  16+
-    if (rp.IsNyResiDent && rp.Age >= 16 && rp.IsDisableForYear) {
-        feeItemCodes.push(new FeeCodeProp(AFF_5_RESMD, "000"));
-        //Military disabled persons will only be charged one $5 fee per license year for the their base licenses (trap, hunt, fish) whether they purchase one or all three.
-        if (rp.hasSaleLicMilitaryDisable || hasBaseLicMilitaryDisable(rp.ActiveHoldingsInfo)) {
-            feeItemCodes.push(new FeeCodeProp(RESMD_FREE, "000"));
-        }
-    }
-    //Annual Fishing License fee for Patriot having age  16+
-    if (rp.IsNyResiDent && rp.IsMilitaryServiceman) { feeItemCodes.push(new FeeCodeProp(AFF_6_RESPAT, "000")); }
-    //Annual Fishing License fee for Native American having age  16+
-    if (rp.IsNyResiDent && rp.IsNativeAmerican) { feeItemCodes.push(new FeeCodeProp(AFF_4_RESNAM, "000")); }
-    //Annual Fishing License fee for Legally Blind having age  16+
-    if (rp.IsLegallyBlind) { feeItemCodes.push(new FeeCodeProp(AFF_3_RESLB, "000")); }
+    //5 Freshwater Fishing: NYS Resident having age 16-69
+    if (rp.IsNyResiDent && rp.Age >= 16 && rp.Age <= 69) { feeItemCodes.push(new FeeCodeProp(FS5Y_1_RES, "000")); }
+    //5 Freshwater Fishing: Non-Resident having age 16-69
+    if (!rp.IsNyResiDent && rp.Age >= 16 && rp.Age <= 69) { feeItemCodes.push(new FeeCodeProp(FS5Y_2_NRES, "000")); }
 
-    //Annual NonRes Freshwater Fishing: Non-Res having age 16+
-    if (!rp.IsNyResiDent && rp.Age >= 16) { feeItemCodes.push(new FeeCodeProp(AFF_7_NORES, "000")); }
-
-    if (feeItemCodes.length == 0) { feeItemCodes.push(new FeeCodeProp(AFF_7_NORES, "000")); }
+    if (feeItemCodes.length == 0) { feeItemCodes.push(new FeeCodeProp(FS5Y_2_NRES, "000")); }
     return feeItemCodes;
 }
 
@@ -2176,65 +1980,87 @@ function isRuleForSelectable_DRIV_LIC(ruleParams) {
     return (ruleParams.hasValidNYDriverLicense || ruleParams.hasValidNYNonDriverLicense);
 }
 function isRuleForSelectable_3Y_HUNT(ruleParams) {
-    //TODO
-    var isSelectable = (ruleParams.Age >= 12 && ruleParams.HasHuntEd);
+    var isSelectable = false;
+    if (!(ruleParams.IsLegallyBlind || ruleParams.IsPermanentDisabled || ruleParams.IsDisableForYear || ruleParams.IsMilitaryServiceman || ruleParams.IsNativeAmerican)) {
+        isSelectable = (ruleParams.Age >= 16 && ruleParams.Age <= 69 && ruleParams.HasHuntEd);
+    }
     return isSelectable;
 }
 function isRuleForSelectable_5Y_HUNT(ruleParams) {
-    //TODO
-    var isSelectable = (ruleParams.Age >= 12 && ruleParams.HasHuntEd);
+    var isSelectable = false;
+    if (!(ruleParams.IsLegallyBlind || ruleParams.IsPermanentDisabled || ruleParams.IsDisableForYear || ruleParams.IsMilitaryServiceman || ruleParams.IsNativeAmerican)) {
+        isSelectable = (ruleParams.Age >= 16 && ruleParams.Age <= 69 && ruleParams.HasHuntEd);
+    }
     return isSelectable;
 }
 function isRuleForSelectable_3Y_BOWH(ruleParams) {
-    //TODO
-    var isSelectable = (ruleParams.Age >= 12 && ruleParams.HasHuntEd && ruleParams.HasBowHunt);
+    var isSelectable = false;
+    if (!(ruleParams.IsLegallyBlind || ruleParams.IsPermanentDisabled || ruleParams.IsDisableForYear || ruleParams.IsMilitaryServiceman || ruleParams.IsNativeAmerican)) {
+        isSelectable = (ruleParams.Age >= 16 && ruleParams.Age <= 69 && ruleParams.HasHuntEd && ruleParams.HasBowHunt);
+    }
     return isSelectable;
 }
 function isRuleForSelectable_5Y_BOWH(ruleParams) {
-    //TODO
-    var isSelectable = (ruleParams.Age >= 12 && ruleParams.HasHuntEd && ruleParams.HasBowHunt);
+    var isSelectable = false;
+    if (!(ruleParams.IsLegallyBlind || ruleParams.IsPermanentDisabled || ruleParams.IsDisableForYear || ruleParams.IsMilitaryServiceman || ruleParams.IsNativeAmerican)) {
+        isSelectable = (ruleParams.Age >= 16 && ruleParams.Age <= 69 && ruleParams.HasHuntEd && ruleParams.HasBowHunt);
+    }
     return isSelectable;
 }
 function isRuleForSelectable_3Y_MUZZ(ruleParams) {
-    //TODO
-    var isSelectable = (ruleParams.Age >= 14 && ruleParams.HasHuntEd);
+    var isSelectable = false;
+    if (!(ruleParams.IsLegallyBlind || ruleParams.IsPermanentDisabled || ruleParams.IsDisableForYear || ruleParams.IsMilitaryServiceman || ruleParams.IsNativeAmerican)) {
+        isSelectable = (ruleParams.Age >= 16 && ruleParams.Age <= 69 && ruleParams.HasHuntEd);
+    }
     return isSelectable;
 }
 function isRuleForSelectable_5Y_MUZZ(ruleParams) {
-    //TODO
-    var isSelectable = (ruleParams.Age >= 14 && ruleParams.HasHuntEd);
+    var isSelectable = false;
+    if (!(ruleParams.IsLegallyBlind || ruleParams.IsPermanentDisabled || ruleParams.IsDisableForYear || ruleParams.IsMilitaryServiceman || ruleParams.IsNativeAmerican)) {
+        isSelectable = (ruleParams.Age >= 16 && ruleParams.Age <= 69 && ruleParams.HasHuntEd);
+    }
     return isSelectable;
 }
 function isRuleForSelectable_3Y_TRKY(ruleParams) {
-    //TODO
-    var isSelectable = (ruleParams.Age >= 12 && ruleParams.HasHuntEd);
+    var isSelectable = false;
+    if (!(ruleParams.IsLegallyBlind || ruleParams.IsPermanentDisabled || ruleParams.IsDisableForYear || ruleParams.IsMilitaryServiceman || ruleParams.IsNativeAmerican)) {
+        isSelectable = (ruleParams.Age >= 16 && ruleParams.Age <= 69 && ruleParams.HasHuntEd);
+    }
     return isSelectable;
 }
 function isRuleForSelectable_5Y_TRKY(ruleParams) {
-    //TODO
-    var isSelectable = (ruleParams.Age >= 12 && ruleParams.HasHuntEd);
+    var isSelectable = false;
+    if (!(ruleParams.IsLegallyBlind || ruleParams.IsPermanentDisabled || ruleParams.IsDisableForYear || ruleParams.IsMilitaryServiceman || ruleParams.IsNativeAmerican)) {
+        isSelectable = (ruleParams.Age >= 16 && ruleParams.Age <= 69 && ruleParams.HasHuntEd);
+    }
     return isSelectable;
 }
 function isRuleForSelectable_3Y_TRAP(ruleParams) {
-    //TODO
-    var isSelectable = (ruleParams.IsNyResiDent && ruleParams.HasTrapEd);
-    isSelectable = isSelectable || (!ruleParams.IsNyResiDent && ruleParams.HasTrapEd);
+    var isSelectable = false;
+    if (!(ruleParams.IsLegallyBlind || ruleParams.IsPermanentDisabled || ruleParams.IsDisableForYear || ruleParams.IsMilitaryServiceman || ruleParams.IsNativeAmerican)) {
+        isSelectable = (ruleParams.Age >= 16 && ruleParams.Age <= 69 && ruleParams.HasTrapEd);
+    }
     return isSelectable;
 }
 function isRuleForSelectable_5Y_TRAP(ruleParams) {
-    //TODO
-    var isSelectable = (ruleParams.IsNyResiDent && ruleParams.HasTrapEd);
-    isSelectable = isSelectable || (!ruleParams.IsNyResiDent && ruleParams.HasTrapEd);
+    var isSelectable = false;
+    if (!(ruleParams.IsLegallyBlind || ruleParams.IsPermanentDisabled || ruleParams.IsDisableForYear || ruleParams.IsMilitaryServiceman || ruleParams.IsNativeAmerican)) {
+        isSelectable = (ruleParams.Age >= 16 && ruleParams.Age <= 69 && ruleParams.HasTrapEd);
+    }
     return isSelectable;
 }
 function isRuleForSelectable_3Y_FRESHWATER_FISHING(ruleParams) {
-    //TODO
-    var isSelectable = (ruleParams.Age >= 16);
+    var isSelectable = false;
+    if (!(ruleParams.IsLegallyBlind || ruleParams.IsPermanentDisabled || ruleParams.IsDisableForYear || ruleParams.IsMilitaryServiceman || ruleParams.IsNativeAmerican)) {
+        isSelectable = (ruleParams.Age >= 16 && ruleParams.Age <= 69);
+    }
     return isSelectable;
 }
 function isRuleForSelectable_5Y_FRESHWATER_FISHING(ruleParams) {
-    //TODO
-    var isSelectable = (ruleParams.Age >= 16);
+    var isSelectable = false;
+    if (!(ruleParams.IsLegallyBlind || ruleParams.IsPermanentDisabled || ruleParams.IsDisableForYear || ruleParams.IsMilitaryServiceman || ruleParams.IsNativeAmerican)) {
+        isSelectable = (ruleParams.Age >= 16 && ruleParams.Age <= 69);
+    }
     return isSelectable;
 }
 //////////////
@@ -3035,34 +2861,6 @@ function getTag_NONRES_MUZZLELOADING(ruleParams) {
     }
     return arryTags;
 }
-
-/*
-function getTag_LIFETM_MUZZ(ruleParams) {
-var rp = ruleParams;
-var arryTags = new Array();
-if (rp.Age >= 13 && rp.HasHuntEd) {
-arryTags.push(TAG_TYPE_1_BACK_TAG);
-if ((rp.EitherOrAntler & 4) == 0) {
-arryTags.push(TAG_TYPE_19_DEER_OF_EITHER_SEX_TAG);
-} else if ((rp.EitherOrAntler & 8) == 0) {
-arryTags.push(TAG_TYPE_20_ANTLERLESS_DEER_TAG);
-}
-} else {
-var cndFul = new COND_FULLFILLMENT();
-if (rp.Age < 12) {
-if (!hmfulfilmmentCond.containsKey(cndFul.Condition_VerifyAgedIn)) {
-hmfulfilmmentCond.put(cndFul.Condition_VerifyAgedIn, cndFul.Condition_VerifyAgedIn);
-}
-}
-if (!rp.HasHuntEd) {
-if (!hmfulfilmmentCond.containsKey(cndFul.Condition_NeedHuntingEd)) {
-hmfulfilmmentCond.put(cndFul.Condition_VerifyAgedIn, cndFul.Condition_VerifyAgedIn);
-}
-}
-}
-return arryTags;
-}
-*/
 function getTag_LIFETM_MUZZ(ruleParams) {
     var rp = ruleParams;
     var arryTags = new Array();
@@ -3400,7 +3198,7 @@ function getActiveholdingsFilterArray() {
     validRecTypeArray.push(AA56_TAG_DRIV_LIC_REN);
     //11/25/2013 - RV - Place Junior Hunting Tags in Active holdings(?)
     validRecTypeArray.push(AA57_JUNIOR_HUNTING_TAGS);
-
+    //TODO
     return validRecTypeArray;
 
 }
@@ -3643,7 +3441,7 @@ function getVoidableFilterArray() {
 
     //validRecTypeArray.push(AA53_TAG_DMP_DEER);
     //validRecTypeArray.push(AA54_TAG_PRIV_PANEL);
-
+    //TODO
     return validRecTypeArray;
 }
 function getReprintFilterArray() {
@@ -3705,7 +3503,7 @@ function getReprintFilterArray() {
     // RV 11/25 - TESTING -	validRecTypeArray.push(AA57_JUNIOR_HUNTING_TAGS);
     //Do not allow Privilege Panels to be reprinted
     //validRecTypeArray.push(AA54_TAG_PRIV_PANEL);
-
+    //TODO
     return validRecTypeArray;
 }
 
@@ -3972,7 +3770,7 @@ function getRevokHuntRecTypeArray() {
     validRecTypeArray.push(AA11_LIFETIME_MUZZLELOADING);
     validRecTypeArray.push(AA12_LIFETIME_SMALL_AND_BIG_GAME);
     validRecTypeArray.push(AA13_LIFETIME_SPORTSMAN);
-
+    //TODO
     return validRecTypeArray;
 }
 function getRevokFishRecTypeArray() {
@@ -3989,7 +3787,7 @@ function getRevokFishRecTypeArray() {
 
     // JIRA-16742
     validRecTypeArray.push(AA10_LIFETIME_FISHING);
-
+    //TODO
     return validRecTypeArray;
 }
 function getRevokTrapRecTypeArray() {
@@ -4002,7 +3800,7 @@ function getRevokTrapRecTypeArray() {
 
     // JIRA-16742
     validRecTypeArray.push(AA14_LIFETIME_TRAPPING);
-
+    //TODO
     return validRecTypeArray;
 }
 //JIRA-44605
@@ -4017,6 +3815,7 @@ function get60dayFishRecTypeArray() {
     validRecTypeArray.push(AA24_NONRESIDENT_1_DAY_FISHING);
     validRecTypeArray.push(AA25_NONRESIDENT_7_DAY_FISHING);
     validRecTypeArray.push(AA26_SEVEN_DAY_FISHING_LICENSE);
+    //TODO
 
     return validRecTypeArray;
 }
