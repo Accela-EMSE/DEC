@@ -6007,3 +6007,62 @@ function verifyAnyFishSalesSelect() {
     return retMsg;
 
 }
+//This function for ACA ONSUBMIT AFTER SEL HUNT 
+function SetHuntformForSelectedLics(frm){
+	logDebug("ENTER: SetHuntformForSelectedLics");
+
+    frm.Year = AInfo["License Year"];
+    frm.DOB = AInfo["A_birthDate"];
+    frm.Email = AInfo["A_email"];
+    frm.IsNyResiDent = AInfo["A_IsNYResident"];
+    frm.IsMilitaryServiceman = AInfo["Military Serviceman"];
+    frm.IsNativeAmerican = AInfo["A_IsNativeAmerican"];
+    frm.IsLegallyBlind = AInfo["Legally Blind"];
+    frm.PreferencePoints = AInfo["A_Preference_Points"];
+    frm.SetAnnualDisability(AInfo["A_Annual_Disability"]);
+    frm.SetPriorLicense(AInfo["A_Previous_License"]);
+    frm.SetSportsmanEducation(AInfo["A_Sportsman_Education"]);
+    frm.SetLandOwnerInfo(AInfo["A_Land_Owner_Information"]);
+    frm.SetActiveHoldingsInfo(AInfo["A_ActiveHoldings"]);
+    frm.Inscription = AInfo["Inscription"];
+    frm.IsPermanentDisabled = AInfo["Permanent Disability"];
+    frm.DriverLicenseState = AInfo["A_Driver_License_State"];
+    frm.DriverLicenseNumber = AInfo["A_Driver_License_Number"];
+    frm.NonDriverLicenseNumber = AInfo["A_Non_Driver_License_Number"];
+	
+	frm.SetSelected(LIC04_BOWHUNTING_PRIVILEGE, (AInfo["Bowhunting Privilege"] == "CHECKED"), 1);
+    frm.SetSelected(LIC60_BOWHUNTING_PRIVILEGE_3Y, (AInfo["3 Year Bowhunting Privilege"] == "CHECKED"), 1);
+    frm.SetSelected(LIC61_BOWHUNTING_PRIVILEGE_5Y, (AInfo["5 Year Bowhunting Privilege"] == "CHECKED"), 1);
+	frm.SetSelected(LIC05_DEER_MANAGEMENT_PERMIT, (AInfo["Deer Management Permit"] == "CHECKED"), 1);
+    frm.SetSelected(LIC06_HUNTING_LICENSE, (AInfo["Hunting License"] == "CHECKED"), 1);
+    frm.SetSelected(LIC58_HUNTING_LICENSE_3Y, (AInfo["3 Year Hunting License"] == "CHECKED"), 1);
+    frm.SetSelected(LIC59_HUNTING_LICENSE_5Y, (AInfo["5 Year Hunting License"] == "CHECKED"), 1);
+    frm.SetSelected(LIC07_MUZZLELOADING_PRIVILEGE, (AInfo["Muzzleloading Privilege"] == "CHECKED"), 1);
+    frm.SetSelected(LIC62_MUZZLELOADING_PRIVILEGE_3Y, (AInfo["3 Year Muzzleloading Privilege"] == "CHECKED"), 1);
+    frm.SetSelected(LIC63_MUZZLELOADING_PRIVILEGE_5Y, (AInfo["5 Year Muzzleloading Privilege"] == "CHECKED"), 1);
+    frm.SetSelected(LIC08_TURKEY_PERMIT, (AInfo["Turkey Permit"] == "CHECKED"), 1);
+    frm.SetSelected(LIC68_TURKEY_PERMIT_3Y, (AInfo["3 Year Turkey Permit"] == "CHECKED"), 1);
+    frm.SetSelected(LIC69_TURKEY_PERMIT_5Y, (AInfo["5 Year Turkey Permit"] == "CHECKED"), 1);
+	
+	frm.ExecuteBoRuleEngine();
+	logDebug("EXIT: SetHuntformForSelectedLics");
+}
+
+//This function for ACA ONSUBMIT BEFORE SEL HUNT 
+function isValidBuyHuntRecord(pStep){
+ logDebug("ENTER: isValidBuyHuntRecord");
+    var retMsg = '';
+    var msg = '';
+    //Called via Pageflow from Standard Choice -> ACA ONSUBMIT BEFORE SALESSELECT
+    if (pStep == 'Step3') {
+        logDebug("pStep = Step1...");
+        logDebug("call verifyAny Hunting SalesSelect()...");
+        msg = verifyAnyHuntSalesSelect(); //
+        retMsg += msg;
+    }
+    logDebug("EXIT: isValidBuyHuntRecord");
+
+    return retMsg;
+
+}
+
