@@ -2027,6 +2027,7 @@ function DecMapper(identity) {
 function rulePARAMS(identity) {
     this.Identity = identity;
     this.Age = new Number(0);
+	this.AgeLookAhead30Days = new Number(0);
     this.Gender = "";
     this.IsNyResiDent = false;
     this.Gender = "";
@@ -2052,6 +2053,9 @@ function rulePARAMS(identity) {
     this.HasMuzzPriv = false;
     this.hasValidNYDriverLicense = false;
     this.hasSaleLicMilitaryDisable = false;
+	this.hasLifetimeFish = "not set";
+	this.hasLifetimeHunt = "not set";
+	this.hasLifetimeTrap = "not set";
 
     this.SetEitherOrAntler = function (eEitherOrAntler) {
         //eEitherOrAntler=4:E; eEitherOrAntler=8:A;
@@ -2097,6 +2101,53 @@ function rulePARAMS(identity) {
             }
         }
         return isValid;
+    }
+    this.HasLifetimeHunt = function () {
+		if (!"not set".equals(this.hasLifetimeHunt)) {
+			return this.hasLifetimeHunt; // use cached value
+		}
+        for (var idx = 0; idx < this.ActiveHoldingsInfo.length; idx++) {
+            var verifyLicArray = new Array();
+			verifyLicArray.push(LIC09_LIFETIME_BOWHUNTING);
+			verifyLicArray.push(LIC11_LIFETIME_MUZZLELOADING);
+			verifyLicArray.push(LIC12_LIFETIME_SMALL_AND_BIG_GAME);
+			verifyLicArray.push(LIC13_LIFETIME_SPORTSMAN);
+            if (exists(this.ActiveHoldingsInfo[idx].RecordType, verifyLicArray)) {
+				this.hasLifetimeHunt = true;
+				break;
+            }
+        }
+        return this.hasLifetimeHunt;
+    }
+    this.HasLifetimeFish = function () {
+		if (!"not set".equals(this.hasLifetimeFish)) {
+			return this.hasLifetimeFish; // use cached value
+		}
+        var isValid = false;
+        for (var idx = 0; idx < this.ActiveHoldingsInfo.length; idx++) {
+            var verifyLicArray = new Array();
+			verifyLicArray.push(LIC10_LIFETIME_FISHING);
+			verifyLicArray.push(LIC13_LIFETIME_SPORTSMAN);
+            if (exists(this.ActiveHoldingsInfo[idx].RecordType, verifyLicArray)) {
+				this.hasLifetimeFish = true;
+				break;
+            }
+        }
+        return this.hasLifetimeFish;
+    }
+    this.HasLifetimeTrap = function () {
+		if (!"not set".equals(this.hasLifetimeTrap)) {
+			return this.hasLifetimeFish; // use cached value
+		}
+        for (var idx = 0; idx < this.ActiveHoldingsInfo.length; idx++) {
+            var verifyLicArray = new Array();
+			verifyLicArray.push(LIC14_LIFETIME_TRAPPING);
+            if (exists(this.ActiveHoldingsInfo[idx].RecordType, verifyLicArray)) {
+				this.hasLifetimeFish = true;
+				break;
+            }
+        }
+        return this.hasLifetimeFish;
     }
     this.toString = function () {
         var result = '';
