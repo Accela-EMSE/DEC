@@ -64,6 +64,8 @@ f.FromACA = aIsFromACA.value;
 f.UserIdEB = sUserIdEB;
 //
 
+f.SetTrapSaleExcludes();
+
 //Set control array and set values for lic
 var exprControlArray = new Array();
 var exprObj;
