@@ -2901,7 +2901,7 @@ function getTag_JUNIOR_HUNTING(ruleParams) {
     var rp = ruleParams;
     var arryTags = new Array();
     arryTags.push(TAG_TYPE_1_BACK_TAG);
-    if (rp.Age >= 14) {
+    if (rp.AgeLookAhead30Days >= 14) {
         arryTags.push(TAG_TYPE_3_REG_SEASON_DEER);
         arryTags.push(TAG_TYPE_2_BEAR_TAG);
     }
@@ -2976,11 +2976,11 @@ function getTag_LIFETM_MUZZ(ruleParams) {
     var arryTags = new Array();
     var cndFul = new COND_FULLFILLMENT();
 
-    if (rp.Age >= 12 && rp.HasHuntEd) {
+    if (rp.AgeLookAhead30Days >= 12 && rp.HasHuntEd) {
         arryTags.push(TAG_TYPE_1_BACK_TAG);
     }
 
-    if (rp.Age >= 14 && rp.HasHuntEd) {
+    if (rp.AgeLookAhead30Days >= 14 && rp.HasHuntEd) {
         if ((rp.EitherOrAntler & 4) == 0) {
             arryTags.push(TAG_TYPE_19_DEER_OF_EITHER_SEX_TAG);
         } else if ((rp.EitherOrAntler & 8) == 0) {
@@ -2988,7 +2988,7 @@ function getTag_LIFETM_MUZZ(ruleParams) {
         }
     }
 
-    if (rp.Age < 12) {
+    if (rp.AgeLookAhead30Days < 12) {
         if (!hmfulfilmmentCond.containsKey(cndFul.Condition_VerifyAgedIn)) {
             hmfulfilmmentCond.put(cndFul.Condition_VerifyAgedIn, cndFul.Condition_VerifyAgedIn);
         }
@@ -3044,7 +3044,7 @@ function getTag_LIFETM_BOWH(ruleParams) {
 
     logDebug(rp.toString());
 
-    if (rp.Age >= 12 && rp.HasHuntEd && rp.HasBowHunt) {
+    if (rp.AgeLookAhead30Days >= 12 && rp.HasHuntEd && rp.HasBowHunt) {
         arryTags.push(TAG_TYPE_1_BACK_TAG);
         if ((rp.EitherOrAntler & 4) == 0) {
             arryTags.push(TAG_TYPE_19_DEER_OF_EITHER_SEX_TAG);
@@ -3053,7 +3053,7 @@ function getTag_LIFETM_BOWH(ruleParams) {
         }
     } else {
         var cndFul = new COND_FULLFILLMENT();
-        if (rp.Age < 12) {
+        if (rp.AgeLookAhead30Days < 12) {
             if (!hmfulfilmmentCond.containsKey(cndFul.Condition_VerifyAgedIn)) {
                 hmfulfilmmentCond.put(cndFul.Condition_VerifyAgedIn, cndFul.Condition_VerifyAgedIn);
             }
@@ -3137,19 +3137,19 @@ function getTag_LIFETM_SPRT(ruleParams) {
     var rp = ruleParams;
     var arryTags = new Array();
 
-    if (rp.Age >= 12 && rp.HasHuntEd) {
+    if (rp.AgeLookAhead30Days >= 12 && rp.HasHuntEd) {
         arryTags.push(TAG_TYPE_1_BACK_TAG);
         arryTags.push(TAG_TYPE_16_SPRING_TURKEY_TAG_1);
         arryTags.push(TAG_TYPE_15_SPRING_TURKEY_TAG_2);
         arryTags.push(TAG_TYPE_14_FALL_TURKEY_STATEWIDE);
         arryTags.push(TAG_TYPE_13_FALL_TURKEY_2_BIRD_AREA);
-        if (rp.Age >= 14) {
+        if (rp.AgeLookAhead30Days >= 14) {
             arryTags.push(TAG_TYPE_3_REG_SEASON_DEER);
             arryTags.push(TAG_TYPE_2_BEAR_TAG);
         }
     } else {
         var cndFul = new COND_FULLFILLMENT();
-        if (rp.Age < 12) {
+        if (rp.AgeLookAhead30Days < 12) {
             if (!hmfulfilmmentCond.containsKey(cndFul.Condition_VerifyAgedIn)) {
                 hmfulfilmmentCond.put(cndFul.Condition_VerifyAgedIn, cndFul.Condition_VerifyAgedIn);
             }
@@ -3200,15 +3200,15 @@ function getTag_LIFETM_SBGM(ruleParams) {
     var rp = ruleParams;
     var arryTags = new Array();
 
-    if (rp.Age >= 12 && rp.HasHuntEd) {
+    if (rp.AgeLookAhead30Days >= 12 && rp.HasHuntEd) {
         arryTags.push(TAG_TYPE_1_BACK_TAG);
     }
-    if (rp.Age >= 14 && rp.HasHuntEd) {
+    if (rp.AgeLookAhead30Days >= 14 && rp.HasHuntEd) {
         arryTags.push(TAG_TYPE_2_BEAR_TAG);
         arryTags.push(TAG_TYPE_3_REG_SEASON_DEER);
     } else {
         var cndFul = new COND_FULLFILLMENT();
-        if (rp.Age < 12) {
+        if (rp.AgeLookAhead30Days < 12) {
             if (!hmfulfilmmentCond.containsKey(cndFul.Condition_VerifyAgedIn)) {
                 hmfulfilmmentCond.put(cndFul.Condition_VerifyAgedIn, cndFul.Condition_VerifyAgedIn);
             }
@@ -3234,12 +3234,12 @@ function getTag_ANNUAL_HUNT(ruleParams) {
     arryTags.push(TAG_TYPE_1_BACK_TAG);
 
     //JIRA - 17422- 44608
-    if (rp.IsNyResiDent && rp.Age >= 14) {
+    if (rp.IsNyResiDent && rp.AgeLookAhead30Days >= 14) {
         arryTags.push(TAG_TYPE_3_REG_SEASON_DEER);
         arryTags.push(TAG_TYPE_2_BEAR_TAG);
     }
 
-    if (!rp.IsNyResiDent && rp.Age >= 14) {
+    if (!rp.IsNyResiDent && rp.AgeLookAhead30Days >= 14) {
         arryTags.push(TAG_TYPE_3_REG_SEASON_DEER);
         arryTags.push(TAG_TYPE_2_BEAR_TAG);
     }
