@@ -68,6 +68,8 @@ f.IsMilitaryServiceman = aIsMilitaryServiceman.value;
 f.IsLegallyBlind = aIsLegallyBlind.value;
 
 //
+//calling Hunt Sale
+f.SetHuntSaleExcludes();
 
 //Set control array and set values for lic
 var exprControlArray = new Array();

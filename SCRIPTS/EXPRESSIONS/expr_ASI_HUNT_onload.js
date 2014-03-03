@@ -64,6 +64,9 @@ f.FromACA = aIsFromACA.value;
 f.UserIdEB = sUserIdEB;
 //
 
+//calling Hunt Sale
+f.SetHuntSaleExcludes();
+
 //Set control array and set values for lic
 var exprControlArray = new Array();
 var exprObj;
