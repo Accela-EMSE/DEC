@@ -5836,7 +5836,7 @@ function isValidBuyLifeTimeRecord(pStep) {
     var retMsg = '';
     var msg = '';
     //Called via Pageflow from Standard Choice -> ACA ONSUBMIT BEFORE SALESSELECT
-    if (pStep == 'Step3') {
+    if (pStep == 'Step1') {
         logDebug("pStep = Step1...");
         logDebug("call verifyAny LifeTime SalesSelect()...");
         msg = verifyAnyLifetimeSalesSelect(); //
@@ -5931,7 +5931,7 @@ function isValidBuyTrapRecord(pStep) {
     var retMsg = '';
     var msg = '';
     //Called via Pageflow from Standard Choice -> ACA ONSUBMIT BEFORE SALESSELECT
-    if (pStep == 'Step3') {
+    if (pStep == 'Step1') {
         logDebug("pStep = Step1...");
         logDebug("call verifyAny LifeTime SalesSelect()...");
         msg = verifyAnyTrapSalesSelect(); //
@@ -5996,7 +5996,7 @@ function SetFishformForSelectedLics(frm) {
 function isValidBuyFishRecord(pStep) {
     logDebug("ENTER: isValidBuyFishRecord");
     var retMsg = '';
-    if (pStep == 'Step3') {
+    if (pStep == 'Step1') {
         logDebug("pStep = Step1...");
         logDebug("call verifyAny LifeTime SalesSelect()...");
         msg = verifyAnyFishSalesSelect(); //
@@ -6074,7 +6074,7 @@ function isValidBuyHuntRecord(pStep) {
     var retMsg = '';
     var msg = '';
     //Called via Pageflow from Standard Choice -> ACA ONSUBMIT BEFORE SALESSELECT
-    if (pStep == 'Step3') {
+    if (pStep == 'Step1') {
         logDebug("pStep = Step1...");
         logDebug("call verifyAny Hunting SalesSelect()...");
         msg = verifyAnyHuntSalesSelect(); //
