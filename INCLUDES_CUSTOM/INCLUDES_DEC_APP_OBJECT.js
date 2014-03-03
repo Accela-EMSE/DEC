@@ -1567,6 +1567,72 @@ function form_OBJECT(identity) {
         this.SetExprFieldName(LIC68_TURKEY_PERMIT_3Y, "");
         this.SetExprFieldName(LIC69_TURKEY_PERMIT_5Y, "");
 	}
+	
+	//Set Hunt function
+	this.SetHuntSaleExcludes = function (psRef) {
+        //Set Expression Control Name for select licenses
+        this.SetExprFieldName(LIC01_JUNIOR_HUNTING_TAGS, "");
+        this.SetExprFieldName(LIC02_MARINE_REGISTRY, "");
+        this.SetExprFieldName(LIC03_ONE_DAY_FISHING_LICENSE, "");
+        this.SetExprFieldName(LIC04_BOWHUNTING_PRIVILEGE, "ASI::HUNTING LICENSE::Bowhunting Privilege");
+        this.SetExprFieldName(LIC05_DEER_MANAGEMENT_PERMIT, "ASI::HUNTING LICENSE::Deer Management Permit");
+        this.SetExprFieldName(LIC06_HUNTING_LICENSE, "ASI::HUNTING LICENSE::Hunting License");
+        this.SetExprFieldName(LIC07_MUZZLELOADING_PRIVILEGE, "ASI::HUNTING LICENSE::Muzzleloading Privilege");
+        this.SetExprFieldName(LIC08_TURKEY_PERMIT, "ASI::HUNTING LICENSE::Turkey Permit");
+        this.SetExprFieldName(LIC09_LIFETIME_BOWHUNTING, "");
+        this.SetExprFieldName(LIC10_LIFETIME_FISHING, "");
+        this.SetExprFieldName(LIC11_LIFETIME_MUZZLELOADING, "");
+        this.SetExprFieldName(LIC12_LIFETIME_SMALL_AND_BIG_GAME, "");
+        this.SetExprFieldName(LIC13_LIFETIME_SPORTSMAN, "");
+        this.SetExprFieldName(LIC14_LIFETIME_TRAPPING, "");
+        this.SetExprFieldName(LIC15_TRAPPING_LICENSE, "");
+        this.SetExprFieldName(LIC16_HABITAT_ACCESS_STAMP, "");
+        this.SetExprFieldName(LIC17_VENISON_DONATION, "");
+        this.SetExprFieldName(LIC18_CONSERVATION_FUND, "");
+        this.SetExprFieldName(LIC19_TRAIL_SUPPORTER_PATCH, "");
+        this.SetExprFieldName(LIC20_CONSERVATIONIST_MAGAZINE, "");
+        this.SetExprFieldName(LIC21_CONSERVATION_PATRON, "");
+        this.SetExprFieldName(LIC22_FRESHWATER_FISHING, "");
+        this.SetExprFieldName(LIC23_NONRES_FRESHWATER_FISHING, "");
+        this.SetExprFieldName(LIC24_NONRESIDENT_1_DAY_FISHING, "");
+        this.SetExprFieldName(LIC25_NONRESIDENT_7_DAY_FISHING, "");
+        this.SetExprFieldName(LIC26_SEVEN_DAY_FISHING_LICENSE, "");
+        this.SetExprFieldName(LIC27_CONSERVATION_LEGACY, "");
+        this.SetExprFieldName(LIC28_JUNIOR_BOWHUNTING, "");
+        this.SetExprFieldName(LIC29_JUNIOR_HUNTING, "");
+        this.SetExprFieldName(LIC30_NONRES_MUZZLELOADING, "");
+        this.SetExprFieldName(LIC31_NONRES_SUPER_SPORTSMAN, "");
+        this.SetExprFieldName(LIC32_NONRESIDENT_BEAR_TAG, "");
+        this.SetExprFieldName(LIC33_NONRESIDENT_BIG_GAME, "");
+        this.SetExprFieldName(LIC34_NONRESIDENT_BOWHUNTING, "");
+        this.SetExprFieldName(LIC35_NONRESIDENT_SMALL_GAME, "");
+        this.SetExprFieldName(LIC36_NONRESIDENT_TURKEY, "");
+        this.SetExprFieldName(LIC37_SMALL_AND_BIG_GAME, "");
+        this.SetExprFieldName(LIC38_SMALL_GAME, "");
+        this.SetExprFieldName(LIC39_SPORTSMAN, "");
+        this.SetExprFieldName(LIC40_SUPER_SPORTSMAN, "");
+        this.SetExprFieldName(LIC41_NONRESIDENT_TRAPPING, "");
+        this.SetExprFieldName(LIC42_TRAPPER_SUPER_SPORTSMAN, "");
+        this.SetExprFieldName(LIC43_LIFETIME_CARD_REPLACE, "");
+        this.SetExprFieldName(LIC44_SPORTSMAN_ED_CERTIFICATION, "");
+        this.SetExprFieldName(LIC45_LIFETIME_INSCRIPTION, "");
+        //this.SetExprFieldName(LIC55_TAG_DRIV_LIC, "ASI::LIFETIME LICENSES::Add Lifetime to Driver License");
+        this.SetExprFieldName(LIC56_TAG_DRIV_LIC_IMM, "");
+        this.SetExprFieldName(LIC57_TAG_DRIV_LIC_REN, "");
+        this.SetExprFieldName(LIC58_HUNTING_LICENSE_3Y, "ASI::HUNTING LICENSE::3 Year Hunting License");
+        this.SetExprFieldName(LIC59_HUNTING_LICENSE_5Y, "ASI::HUNTING LICENSE::5 Year Hunting License");
+        this.SetExprFieldName(LIC60_BOWHUNTING_PRIVILEGE_3Y, "ASI::HUNTING LICENSE::3 Year Bowhunting Privilege");
+        this.SetExprFieldName(LIC61_BOWHUNTING_PRIVILEGE_5Y, "ASI::HUNTING LICENSE::5 Year Bowhunting Privilege");
+        this.SetExprFieldName(LIC62_MUZZLELOADING_PRIVILEGE_3Y, "ASI::HUNTING LICENSE::3 Year Muzzleloading Privilege");
+        this.SetExprFieldName(LIC63_MUZZLELOADING_PRIVILEGE_5Y, "ASI::HUNTING LICENSE::5 Year Muzzleloading Privilege");
+        this.SetExprFieldName(LIC64_TRAPPING_LICENSE_3Y, "");
+        this.SetExprFieldName(LIC65_TRAPPING_LICENSE_5Y, "");
+        this.SetExprFieldName(LIC66_FRESHWATER_FISHING_3Y, "");
+        this.SetExprFieldName(LIC67_FRESHWATER_FISHING_5Y, "");
+        this.SetExprFieldName(LIC68_TURKEY_PERMIT_3Y, "ASI::HUNTING LICENSE::3 Year Turkey Permit");
+        this.SetExprFieldName(LIC69_TURKEY_PERMIT_5Y, "ASI::HUNTING LICENSE::5 Year Turkey Permit");
+	}
+	
 	//Ened All ASI group licences set form values
 
     this.isRevoked = function (psRef) {
