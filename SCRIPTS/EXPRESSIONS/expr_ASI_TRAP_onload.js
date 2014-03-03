@@ -117,3 +117,14 @@ myLicObj[myLicObj.length] = expression.getValue("ASI::TRAPING LICENSES::3 Year T
 myLicObj[myLicObj.length] = expression.getValue("ASI::TRAPING LICENSES::5 Year Trapping License");
 ////
 
+//
+var oTExplanation = expression.getValue("ASI::TRAPING LICENSES::Explanation");
+oTExplanation.value = String(f.MessageLifeTime);
+oTExplanation.readOnly = true;
+if (f.MessageLifeTime == "") {
+    oTExplanation.hidden = true;
+}
+if (f.ContactMsgLink_Lifetime != "") {
+    oHExplanation.message = f.ContactMsgLink_Lifetime;
+}
+expression.setReturn(oTExplanation);
