@@ -19,7 +19,9 @@ var aemail = expression.getValue("ASI::INTERNAL USE::A_email");
 var abirthDate = expression.getValue("ASI::INTERNAL USE::A_birthDate");
 var aIsNYResident = expression.getValue("ASI::INTERNAL USE::A_IsNYResident");
 var aPreferencePoints = expression.getValue("ASI::INTERNAL USE::A_Preference_Points");
-// var aIsMilitaryServiceman = "Todo"
+var aIsMilitaryServiceman = expression.getValue("ASI::INTERNAL USE::A_Military Serviceman");
+var aIsLegallyBlind = expression.getValue("ASI::INTERNAL USE::A_Legally Blind");
+var aPermanentDisability = expression.getValue("ASI::INTERNAL USE::A_Permanent Disability");
 var aPreviousLicense = expression.getValue("ASI::INTERNAL USE::A_Previous_License");
 var aSportsmanEducation = expression.getValue("ASI::INTERNAL USE::A_Sportsman_Education");
 var aLandOwnerInformation = expression.getValue("ASI::INTERNAL USE::A_Land_Owner_Information");
@@ -42,7 +44,9 @@ f.Year = aYear.value;
 f.DOB = abirthDate.value;
 f.Email = aemail.value;
 f.IsNyResiDent = aIsNYResident.value;
-// f.IsMilitaryServiceman = "TODO";
+f.IsMilitaryServiceman = aIsMilitaryServiceman.value;
+f.IsLegallyBlind = aIsLegallyBlind.value;
+f.IsPermanentDisabled = aPermanentDisability.value;
 f.IsNativeAmerican = (aIsNativeAmerican.value);
 f.PreferencePoints = aPreferencePoints.value;
 f.SetAnnualDisability(aAnnualDisability.value);
@@ -55,7 +59,8 @@ f.SetFulfillmentAttrib(aAgedIn.value, aNeedHuntEd.value);
 f.FromACA = aIsFromACA.value;
 f.UserIdEB = sUserIdEB;
 //
-
+//Set Fish lience Exclude sale
+f.SetFishSaleExcludes();
 //Set control array and set values for lic
 var exprControlArray = new Array();
 var exprObj;
