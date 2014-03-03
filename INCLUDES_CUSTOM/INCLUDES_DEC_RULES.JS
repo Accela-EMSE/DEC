@@ -2751,8 +2751,8 @@ function getIncl_NONRESIDENT_TRAPPING() {
 }
 function getIncl_ANNUAL_HUNT() {
     var arryInc = new Array();
-    arryInc.push(LIC64_TRAPPING_LICENSE_3Y);
-    arryInc.push(LIC65_TRAPPING_LICENSE_5Y);
+    arryInc.push(LIC58_HUNTING_LICENSE_3Y);
+    arryInc.push(LIC59_HUNTING_LICENSE_5Y);
     return arryInc;
 }
 function getIncl_3Y_HUNT() {
