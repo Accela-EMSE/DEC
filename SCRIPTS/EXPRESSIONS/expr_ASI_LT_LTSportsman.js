@@ -20,8 +20,8 @@ var aemail = expression.getValue("ASI::INTERNAL USE::A_email");
 var abirthDate = expression.getValue("ASI::INTERNAL USE::A_birthDate");
 var aIsNYResident = expression.getValue("ASI::INTERNAL USE::A_IsNYResident");
 var aPreferencePoints = expression.getValue("ASI::INTERNAL USE::A_Preference_Points");
-//var aIsMilitaryServiceman = "TODO";
-//var aIsLegallyBlind = "TODO";
+var aIsMilitaryServiceman = expression.getValue("ASI::INTERNAL USE::A_Military Serviceman");
+var aIsLegallyBlind = expression.getValue("ASI::INTERNAL USE::A_Legally Blind");
 var aPreviousLicense = expression.getValue("ASI::INTERNAL USE::A_Previous_License");
 var aSportsmanEducation = expression.getValue("ASI::INTERNAL USE::A_Sportsman_Education");
 var aLandOwnerInformation = expression.getValue("ASI::INTERNAL USE::A_Land_Owner_Information");
@@ -35,7 +35,7 @@ var aNeedHuntEd = expression.getValue("ASI::INTERNAL USE::A_NeedHuntEd");
 var aRevokedHunting = expression.getValue("ASI::INTERNAL USE::A_Revoked_Hunting");
 var aRevokedTrapping = expression.getValue("ASI::INTERNAL USE::A_Revoked_Trapping");
 var aRevokedFishing = expression.getValue("ASI::INTERNAL USE::A_Revoked_Fishing");
-//var aPermanentDisability = "TODO";
+var aPermanentDisability = expression.getValue("ASI::INTERNAL USE::A_Permanent Disability");
 var aDriverLicenseState = expression.getValue("ASI::INTERNAL USE::A_Driver_License_State");
 var aDriverLicenseNumber = expression.getValue("ASI::INTERNAL USE::A_Driver_License_Number");
 var aNonDriverLicenseNumber = expression.getValue("ASI::INTERNAL USE::A_Non_Driver_License_Number");
@@ -56,13 +56,7 @@ f.SetAnnualDisability(aAnnualDisability.value);
 f.SetPriorLicense(aPreviousLicense.value);
 f.SetSportsmanEducation(aSportsmanEducation.value);
 f.SetLandOwnerInfo(aLandOwnerInformation.value);
-f.Quantity_Trail_Supporter_Patch = aQuantity_Trail_Supporter_Patch.value
-	f.Quantity_Venison_Donation = aQuantity_Venison_Donation.value
-	f.Quantity_Conservation_Patron = aQuantity_Conservation_Patron.value
-	f.Quantity_Conservation_Fund = aQuantity_Conservation_Fund.value
-	f.Quantity_Conservationist_Magazine = aQuantity_Conservationist_Magazine.value
-	f.Quantity_Habitat_Stamp = aQuantity_Habitat_Stamp.value
-	f.IsPermanentDisabled = aPermanentDisability.value;
+f.IsPermanentDisabled = aPermanentDisability.value;
 f.SetActiveHoldingsInfo(aActiveHoldings.value);
 f.DriverLicenseState = aDriverLicenseState.value;
 f.DriverLicenseNumber = aDriverLicenseNumber.value;
@@ -72,6 +66,9 @@ f.SetFulfillmentAttrib(aAgedIn.value, aNeedHuntEd.value);
 f.FromACA = aIsFromACA.value;
 f.UserIdEB = sUserIdEB;
 //
+
+//Set LifeTimeSale
+f.SetLifeTimeSaleExcludes();
 
 //Set control array and set values for lic
 var exprControlArray = new Array();
