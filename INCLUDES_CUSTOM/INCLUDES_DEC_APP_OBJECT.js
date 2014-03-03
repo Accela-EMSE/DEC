@@ -693,53 +693,6 @@ function form_OBJECT(identity) {
                     var ofd = getFeeCodeByRule(ruleParams, this.licObjARRAY[idx].feeschedule, this.licObjARRAY[idx].feeversion, this.licObjARRAY[idx].FNfeeRule);
                     //eval("var feeItemCodes = " + this.licObjARRAY[idx].FNfeeRule + "(ruleParams, " + this.licObjARRAY[idx].feeschedule + " );");
                     var mstr = '';
-                    //if (this.licObjARRAY[idx].Identity == LIC06_HUNTING_LICENSE || this.licObjARRAY[idx].Identity == LIC07_MUZZLELOADING_PRIVILEGE || this.licObjARRAY[idx].Identity == LIC04_BOWHUNTING_PRIVILEGE || this.licObjARRAY[idx].Identity == LIC15_TRAPPING_LICENSE || this.licObjARRAY[idx].Identity == LIC08_TURKEY_PERMIT) {
-                    if (exists(this.licObjARRAY[idx].Identity, getValidLicForSubHead())) {
-                        var sSunHdrCaption = '';
-                        if (this.licObjARRAY[idx].Identity == LIC06_HUNTING_LICENSE || this.licObjARRAY[idx].Identity == LIC58_HUNTING_LICENSE_3Y || this.licObjARRAY[idx].Identity == LIC59_HUNTING_LICENSE_5Y) {
-                            if ("not set".equals(shuntsubheader)) {
-                                shuntsubheader = 'Hunting Licenses';
-                                sSunHdrCaption += 'Hunting Licenses';
-                            }
-                        }
-                        if (this.licObjARRAY[idx].Identity == LIC07_MUZZLELOADING_PRIVILEGE || this.licObjARRAY[idx].Identity == LIC62_MUZZLELOADING_PRIVILEGE_3Y || this.licObjARRAY[idx].Identity == LIC63_MUZZLELOADING_PRIVILEGE_5Y) {
-                            if ("not set".equals(smuzzsubheader)) {
-                                smuzzsubheader = 'Muzzleloading Privileges';
-                                sSunHdrCaption += 'Muzzleloading Privileges';
-                            }
-                        }
-                        if (this.licObjARRAY[idx].Identity == LIC04_BOWHUNTING_PRIVILEGE || this.licObjARRAY[idx].Identity == LIC60_BOWHUNTING_PRIVILEGE_3Y || this.licObjARRAY[idx].Identity == LIC61_BOWHUNTING_PRIVILEGE_5Y) {
-                            if ("not set".equals(sbowsubheader)) {
-                                sbowsubheader = 'Bowhunting Privileges';
-                                sSunHdrCaption += 'Bowhunting Privileges';
-                            }
-                        }
-                        if (this.licObjARRAY[idx].Identity == LIC15_TRAPPING_LICENSE || this.licObjARRAY[idx].Identity == LIC64_TRAPPING_LICENSE_3Y || this.licObjARRAY[idx].Identity == LIC65_TRAPPING_LICENSE_5Y) {
-                            if ("not set".equals(strapsubheader)) {
-                                strapsubheader = 'Trapping Licenses';
-                                sSunHdrCaption += 'Trapping Licenses';
-                            }
-                        }
-                        if (this.licObjARRAY[idx].Identity == LIC08_TURKEY_PERMIT || this.licObjARRAY[idx].Identity == LIC68_TURKEY_PERMIT_3Y || this.licObjARRAY[idx].Identity == LIC69_TURKEY_PERMIT_5Y) {
-                            if ("not set".equals(sturkeysubheader)) {
-                                sturkeysubheader = 'Turkey Permit';
-                                sSunHdrCaption += 'Turkey Permit';
-                            }
-                        }
-                        if (this.licObjARRAY[idx].Identity == LIC05_DEER_MANAGEMENT_PERMIT) {
-                            if ("not set".equals(sdmpsubheader)) {
-                                sdmpsubheader = 'DMP';
-                                sSunHdrCaption += 'DMP';
-                            }
-                        }
-
-                        if (sSunHdrCaption != '') {
-                            mstr += '<span class="DEC_Item_SubHeader">';
-                            mstr += sSunHdrCaption;
-                            mstr += '</span><br /><br />';
-                        }
-                    }
-
                     if (ofd != null) {
                         this.licObjARRAY[idx].feecode = ofd.feeCode;
                         this.licObjARRAY[idx].feeDesc = ofd.feeDesc;
@@ -869,6 +822,56 @@ function form_OBJECT(identity) {
             //if (idx == 42) break;
         }
 
+        for (var idx = 0; idx < this.licObjARRAY.length; idx++) {
+            if (this.licObjARRAY[idx].IsSelectable && exists(this.licObjARRAY[idx].Identity, getValidLicForSubHead())) {
+                var sSunHdrCaption = '';
+                if (this.licObjARRAY[idx].Identity == LIC06_HUNTING_LICENSE || this.licObjARRAY[idx].Identity == LIC58_HUNTING_LICENSE_3Y || this.licObjARRAY[idx].Identity == LIC59_HUNTING_LICENSE_5Y) {
+                    if ("not set".equals(shuntsubheader)) {
+                        shuntsubheader = 'Hunting Licenses';
+                        sSunHdrCaption += 'Hunting Licenses';
+                    }
+                }
+                if (this.licObjARRAY[idx].Identity == LIC07_MUZZLELOADING_PRIVILEGE || this.licObjARRAY[idx].Identity == LIC62_MUZZLELOADING_PRIVILEGE_3Y || this.licObjARRAY[idx].Identity == LIC63_MUZZLELOADING_PRIVILEGE_5Y) {
+                    if ("not set".equals(smuzzsubheader)) {
+                        smuzzsubheader = 'Muzzleloading Privileges';
+                        sSunHdrCaption += 'Muzzleloading Privileges';
+                    }
+                }
+                if (this.licObjARRAY[idx].Identity == LIC04_BOWHUNTING_PRIVILEGE || this.licObjARRAY[idx].Identity == LIC60_BOWHUNTING_PRIVILEGE_3Y || this.licObjARRAY[idx].Identity == LIC61_BOWHUNTING_PRIVILEGE_5Y) {
+                    if ("not set".equals(sbowsubheader)) {
+                        sbowsubheader = 'Bowhunting Privileges';
+                        sSunHdrCaption += 'Bowhunting Privileges';
+                    }
+                }
+                if (this.licObjARRAY[idx].Identity == LIC15_TRAPPING_LICENSE || this.licObjARRAY[idx].Identity == LIC64_TRAPPING_LICENSE_3Y || this.licObjARRAY[idx].Identity == LIC65_TRAPPING_LICENSE_5Y) {
+                    if ("not set".equals(strapsubheader)) {
+                        strapsubheader = 'Trapping Licenses';
+                        sSunHdrCaption += 'Trapping Licenses';
+                    }
+                }
+                if (this.licObjARRAY[idx].Identity == LIC08_TURKEY_PERMIT || this.licObjARRAY[idx].Identity == LIC68_TURKEY_PERMIT_3Y || this.licObjARRAY[idx].Identity == LIC69_TURKEY_PERMIT_5Y) {
+                    if ("not set".equals(sturkeysubheader)) {
+                        sturkeysubheader = 'Turkey Permit';
+                        sSunHdrCaption += 'Turkey Permit';
+                    }
+                }
+                if (this.licObjARRAY[idx].Identity == LIC05_DEER_MANAGEMENT_PERMIT) {
+                    if ("not set".equals(sdmpsubheader)) {
+                        sdmpsubheader = 'DMP';
+                        sSunHdrCaption += 'DMP';
+                    }
+                }
+
+                if (sSunHdrCaption != '') {
+                    var msg = this.licObjARRAY[idx].Message;
+                    var sh = '<span class="DEC_Item_SubHeader">';
+                    sh += sSunHdrCaption;
+                    sh += '</span><br /><br />';
+                    sh += msg;
+                    this.licObjARRAY[idx].Message = sh;
+                }
+            }
+        }
         var msgNotQual = "The items are not available for selection because the customer is not qualified or they are already in current holdings.\n"
         var msgRevoked = this.isPublicUser ? "This set of privileges have been revoked and are not available for purchase.\n" : "This set of privileges are not available for purchase.\n";
         var msgDEC = this.isPublicUser ? "This issue can only be resolved by contacting DEC Law Enforcement during business hours at 518-402-8821.\n" : "Instruct the customer that the only way to resolve this is to contact DEC during business hours at 518-402-8821.\n";
@@ -1440,6 +1443,7 @@ function form_OBJECT(identity) {
         this.SetExprFieldName(LIC68_TURKEY_PERMIT_3Y, "");
         this.SetExprFieldName(LIC69_TURKEY_PERMIT_5Y, "");
     }
+
 	//Added All ASI group licences set form values
 	this.SetTrapSaleExcludes = function (psRef) {
         //Set Expression Control Name for select licenses
@@ -1567,7 +1571,6 @@ function form_OBJECT(identity) {
         this.SetExprFieldName(LIC68_TURKEY_PERMIT_3Y, "");
         this.SetExprFieldName(LIC69_TURKEY_PERMIT_5Y, "");
 	}
-	
 	//Set Hunt function
 	this.SetHuntSaleExcludes = function (psRef) {
         //Set Expression Control Name for select licenses
@@ -1696,8 +1699,6 @@ function form_OBJECT(identity) {
         this.SetExprFieldName(LIC69_TURKEY_PERMIT_5Y, "");
 	}
 	
-	//Ened All ASI group licences set form values
-
     this.isRevoked = function (psRef) {
         var retVal = false;
 
@@ -2284,7 +2285,7 @@ function DecMapper(identity) {
 function rulePARAMS(identity) {
     this.Identity = identity;
     this.Age = new Number(0);
-	this.AgeLookAhead30Days = new Number(0);
+    this.AgeLookAhead30Days = new Number(0);
     this.Gender = "";
     this.IsNyResiDent = false;
     this.Gender = "";
@@ -2310,9 +2311,9 @@ function rulePARAMS(identity) {
     this.HasMuzzPriv = false;
     this.hasValidNYDriverLicense = false;
     this.hasSaleLicMilitaryDisable = false;
-	this.hasLifetimeFish = "not set";
-	this.hasLifetimeHunt = "not set";
-	this.hasLifetimeTrap = "not set";
+    this.hasLifetimeFish = "not set";
+    this.hasLifetimeHunt = "not set";
+    this.hasLifetimeTrap = "not set";
 
     this.SetEitherOrAntler = function (eEitherOrAntler) {
         //eEitherOrAntler=4:E; eEitherOrAntler=8:A;
@@ -2360,48 +2361,48 @@ function rulePARAMS(identity) {
         return isValid;
     }
     this.HasLifetimeHunt = function () {
-		if (!"not set".equals(this.hasLifetimeHunt)) {
-			return this.hasLifetimeHunt; // use cached value
-		}
+        if (!"not set".equals(this.hasLifetimeHunt)) {
+            return this.hasLifetimeHunt; // use cached value
+        }
         for (var idx = 0; idx < this.ActiveHoldingsInfo.length; idx++) {
             var verifyLicArray = new Array();
-			verifyLicArray.push(LIC09_LIFETIME_BOWHUNTING);
-			verifyLicArray.push(LIC11_LIFETIME_MUZZLELOADING);
-			verifyLicArray.push(LIC12_LIFETIME_SMALL_AND_BIG_GAME);
-			verifyLicArray.push(LIC13_LIFETIME_SPORTSMAN);
+            verifyLicArray.push(LIC09_LIFETIME_BOWHUNTING);
+            verifyLicArray.push(LIC11_LIFETIME_MUZZLELOADING);
+            verifyLicArray.push(LIC12_LIFETIME_SMALL_AND_BIG_GAME);
+            verifyLicArray.push(LIC13_LIFETIME_SPORTSMAN);
             if (exists(this.ActiveHoldingsInfo[idx].RecordType, verifyLicArray)) {
-				this.hasLifetimeHunt = true;
-				break;
+                this.hasLifetimeHunt = true;
+                break;
             }
         }
         return this.hasLifetimeHunt;
     }
     this.HasLifetimeFish = function () {
-		if (!"not set".equals(this.hasLifetimeFish)) {
-			return this.hasLifetimeFish; // use cached value
-		}
+        if (!"not set".equals(this.hasLifetimeFish)) {
+            return this.hasLifetimeFish; // use cached value
+        }
         var isValid = false;
         for (var idx = 0; idx < this.ActiveHoldingsInfo.length; idx++) {
             var verifyLicArray = new Array();
-			verifyLicArray.push(LIC10_LIFETIME_FISHING);
-			verifyLicArray.push(LIC13_LIFETIME_SPORTSMAN);
+            verifyLicArray.push(LIC10_LIFETIME_FISHING);
+            verifyLicArray.push(LIC13_LIFETIME_SPORTSMAN);
             if (exists(this.ActiveHoldingsInfo[idx].RecordType, verifyLicArray)) {
-				this.hasLifetimeFish = true;
-				break;
+                this.hasLifetimeFish = true;
+                break;
             }
         }
         return this.hasLifetimeFish;
     }
     this.HasLifetimeTrap = function () {
-		if (!"not set".equals(this.hasLifetimeTrap)) {
-			return this.hasLifetimeFish; // use cached value
-		}
+        if (!"not set".equals(this.hasLifetimeTrap)) {
+            return this.hasLifetimeFish; // use cached value
+        }
         for (var idx = 0; idx < this.ActiveHoldingsInfo.length; idx++) {
             var verifyLicArray = new Array();
-			verifyLicArray.push(LIC14_LIFETIME_TRAPPING);
+            verifyLicArray.push(LIC14_LIFETIME_TRAPPING);
             if (exists(this.ActiveHoldingsInfo[idx].RecordType, verifyLicArray)) {
-				this.hasLifetimeFish = true;
-				break;
+                this.hasLifetimeFish = true;
+                break;
             }
         }
         return this.hasLifetimeFish;
