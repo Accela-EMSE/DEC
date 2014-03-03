@@ -19,11 +19,13 @@ try {
     vMainCtrl = expression.getValue("ASIT::LAND OWNER INFORMATION::Tax Map ID/Parcel ID");
     var vSwisCode = expression.getValue("ASIT::LAND OWNER INFORMATION::SWIS Code");
     var vYear = expression.getValue("ASIT::LAND OWNER INFORMATION::License Year");
-    
+
     var vTform = expression.getValue("ASIT::LAND OWNER INFORMATION::FORM");
+    var vLicYear = expression.getValue("ASI::GENERAL INFORMATION::License Year");
 
     var allMsg = '';
     var msg = '';
+    var currenyear = vLicYear.getValue();
 
     for (var rowIndex = 0; rowIndex < totalRowCount; rowIndex++) {
         vTform = expression.getValue(rowIndex, "ASIT::LAND OWNER INFORMATION::FORM");
@@ -41,10 +43,18 @@ try {
         expression.setReturn(rowIndex, vMainCtrl);
 
         isValid = true;
-        isValid = isValidSWISCode(vSwisCode.value);
+
+        isValid = isRequiredSWISCode(currenyear, vYear.value, vSwisCode.value);
         msg = '';
         if (!isValid) {
-            msg = "Please enter valid 6 digit SWIS code.";
+			msg = "Please enter valid 6 digit SWIS code.";
+        }
+        if (isValid) {
+            isValid = isValidSWISCode(vSwisCode.value);
+            msg = '';
+            if (!isValid) {
+                msg = "Please enter valid 6 digit SWIS code.";
+            }
         }
         vSwisCode.message = msg;
         expression.setReturn(rowIndex, vSwisCode);
