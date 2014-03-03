@@ -36,6 +36,9 @@ var aRevokedFishing = expression.getValue("ASI::INTERNAL USE::A_Revoked_Fishing"
 var aDriverLicenseState = expression.getValue("ASI::INTERNAL USE::A_Driver_License_State");
 var aDriverLicenseNumber = expression.getValue("ASI::INTERNAL USE::A_Driver_License_Number");
 var aNonDriverLicenseNumber = expression.getValue("ASI::INTERNAL USE::A_Non_Driver_License_Number");
+var aIsMilitaryServiceman = expression.getValue("ASI::INTERNAL USE::A_Military Serviceman");
+var aIsLegallyBlind = expression.getValue("ASI::INTERNAL USE::A_Legally Blind");
+var aPermanentDisability = expression.getValue("ASI::INTERNAL USE::A_Permanent Disability");
 var vUserID = expression.getValue("$$userID$$");
 var sUserIdEB = vUserID.getValue();
 
@@ -58,6 +61,9 @@ f.DriverLicenseNumber = aDriverLicenseNumber.value;
 f.NonDriverLicenseNumber = aNonDriverLicenseNumber.value;
 f.SetEnforcementAttrib(aSuspended.value, aRevokedHunting.value, aRevokedTrapping.value, aRevokedFishing.value);
 f.SetFulfillmentAttrib(aAgedIn.value, aNeedHuntEd.value);
+f.IsMilitaryServiceman = aIsMilitaryServiceman.value;
+f.IsLegallyBlind = aIsLegallyBlind.value;
+f.IsPermanentDisabled = aPermanentDisability.value;
 f.FromACA = aIsFromACA.value;
 f.UserIdEB = sUserIdEB;
 //
