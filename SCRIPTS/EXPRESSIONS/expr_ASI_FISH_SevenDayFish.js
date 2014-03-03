@@ -77,6 +77,9 @@ f.FromACA = aIsFromACA.value;
 f.UserIdEB = sUserIdEB;
 //
 
+//Set Fish lience Exclude sale
+f.SetFishSaleExcludes();
+
 //Set control array and set values for lic
 var exprControlArray = new Array();
 var exprObj;
@@ -95,7 +98,10 @@ f.ExecuteBoRuleEngine();
 
 //conrol Refeshment to commit applied settings
 var myLicObj = new Array();
+myLicObj[myLicObj.length] = expression.getValue("ASI::FISHING LICENSES::Marine Registry");
+myLicObj[myLicObj.length] = expression.getValue("ASI::FISHING LICENSES::One Day Fishing License");
 myLicObj[myLicObj.length] = expression.getValue("ASI::FISHING LICENSES::Freshwater Fishing");
-myLicObj[myLicObj.length] = expression.getValue("ASI::FISHING LICENSES::Seven Day Fishing License");
+myLicObj[myLicObj.length] = expression.getValue("ASI::FISHING LICENSES::Nonresident 1 Day Fishing");
 myLicObj[myLicObj.length] = expression.getValue("ASI::FISHING LICENSES::Nonresident 7 Day Fishing");
+myLicObj[myLicObj.length] = expression.getValue("ASI::FISHING LICENSES::Seven Day Fishing License");
 ////

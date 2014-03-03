@@ -77,6 +77,9 @@ f.FromACA = aIsFromACA.value;
 f.UserIdEB = sUserIdEB;
 //
 
+//Set Fish lience Exclude sale
+f.SetFishSaleExcludes();
+
 //Set control array and set values for lic
 var exprControlArray = new Array();
 var exprObj;
