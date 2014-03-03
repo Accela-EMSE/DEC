@@ -20,7 +20,8 @@ var aemail = expression.getValue("ASI::INTERNAL USE::A_email");
 var abirthDate = expression.getValue("ASI::INTERNAL USE::A_birthDate");
 var aIsNYResident = expression.getValue("ASI::INTERNAL USE::A_IsNYResident");
 var aPreferencePoints = expression.getValue("ASI::INTERNAL USE::A_Preference_Points");
-//var aIsMilitaryServiceman = "TODO";
+var aIsMilitaryServiceman = expression.getValue("ASI::INTERNAL USE::A_Military Serviceman");
+var aIsLegallyBlind = expression.getValue("ASI::INTERNAL USE::A_Legally Blind");
 var aPreviousLicense = expression.getValue("ASI::INTERNAL USE::A_Previous_License");
 var aSportsmanEducation = expression.getValue("ASI::INTERNAL USE::A_Sportsman_Education");
 var aLandOwnerInformation = expression.getValue("ASI::INTERNAL USE::A_Land_Owner_Information");
@@ -32,6 +33,7 @@ var aSuspended = expression.getValue("ASI::INTERNAL USE::A_Suspended");
 var aRevokedHunting = expression.getValue("ASI::INTERNAL USE::A_Revoked_Hunting");
 var aRevokedTrapping = expression.getValue("ASI::INTERNAL USE::A_Revoked_Trapping");
 var aRevokedFishing = expression.getValue("ASI::INTERNAL USE::A_Revoked_Fishing");
+var aPermanentDisability = expression.getValue("ASI::INTERNAL USE::A_Permanent Disability");
 var aDriverLicenseState = expression.getValue("ASI::INTERNAL USE::A_Driver_License_State");
 var aDriverLicenseNumber = expression.getValue("ASI::INTERNAL USE::A_Driver_License_Number");
 var aNonDriverLicenseNumber = expression.getValue("ASI::INTERNAL USE::A_Non_Driver_License_Number");
@@ -44,13 +46,15 @@ f.Year = aYear.value;
 f.DOB = abirthDate.value;
 f.Email = aemail.value;
 f.IsNyResiDent = aIsNYResident.value;
-//f.IsMilitaryServiceman = ""//TODO;
+f.IsMilitaryServiceman = aIsMilitaryServiceman.value;
+f.IsLegallyBlind = aIsLegallyBlind.value;
 f.IsNativeAmerican = (aIsNativeAmerican.value);
 f.PreferencePoints = aPreferencePoints.value;
 f.SetAnnualDisability(aAnnualDisability.value);
 f.SetPriorLicense(aPreviousLicense.value);
 f.SetSportsmanEducation(aSportsmanEducation.value);
 f.SetLandOwnerInfo(aLandOwnerInformation.value);
+f.IsPermanentDisabled = aPermanentDisability.value;
 f.DriverLicenseState = aDriverLicenseState.value;
 f.DriverLicenseNumber = aDriverLicenseNumber.value;
 f.NonDriverLicenseNumber = aNonDriverLicenseNumber.value;
@@ -59,6 +63,9 @@ f.SetEnforcementAttrib(aSuspended.value, aRevokedHunting.value, aRevokedTrapping
 f.FromACA = aIsFromACA.value;
 f.UserIdEB = sUserIdEB;
 //
+
+//Set LifeTimeSale
+f.SetLifeTimeSaleExcludes();
 
 //Set control array and set values for lic
 var exprControlArray = new Array();
