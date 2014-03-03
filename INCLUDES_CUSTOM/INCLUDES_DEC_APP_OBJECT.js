@@ -2364,6 +2364,7 @@ function rulePARAMS(identity) {
         if (!"not set".equals(this.hasLifetimeHunt)) {
             return this.hasLifetimeHunt; // use cached value
         }
+        this.hasLifetimeHunt = false;
         for (var idx = 0; idx < this.ActiveHoldingsInfo.length; idx++) {
             var verifyLicArray = new Array();
             verifyLicArray.push(LIC09_LIFETIME_BOWHUNTING);
@@ -2381,7 +2382,7 @@ function rulePARAMS(identity) {
         if (!"not set".equals(this.hasLifetimeFish)) {
             return this.hasLifetimeFish; // use cached value
         }
-        var isValid = false;
+        this.hasLifetimeFish = false;
         for (var idx = 0; idx < this.ActiveHoldingsInfo.length; idx++) {
             var verifyLicArray = new Array();
             verifyLicArray.push(LIC10_LIFETIME_FISHING);
@@ -2397,15 +2398,16 @@ function rulePARAMS(identity) {
         if (!"not set".equals(this.hasLifetimeTrap)) {
             return this.hasLifetimeFish; // use cached value
         }
+        this.hasLifetimeTrap = false;
         for (var idx = 0; idx < this.ActiveHoldingsInfo.length; idx++) {
             var verifyLicArray = new Array();
             verifyLicArray.push(LIC14_LIFETIME_TRAPPING);
             if (exists(this.ActiveHoldingsInfo[idx].RecordType, verifyLicArray)) {
-                this.hasLifetimeFish = true;
+                this.hasLifetimeTrap = true;
                 break;
             }
         }
-        return this.hasLifetimeFish;
+        return this.hasLifetimeTrap;
     }
     this.toString = function () {
         var result = '';
