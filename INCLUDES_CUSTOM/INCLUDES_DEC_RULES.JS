@@ -2758,13 +2758,13 @@ function getIncl_ANNUAL_HUNT() {
 function getIncl_3Y_HUNT() {
     var arryInc = new Array();
     arryInc.push(LIC06_HUNTING_LICENSE);
-    arryInc.push(LIC65_TRAPPING_LICENSE_5Y);
+    arryInc.push(LIC59_HUNTING_LICENSE_5Y);
     return arryInc;
 }
 function getIncl_5Y_HUNT() {
     var arryInc = new Array();
     arryInc.push(LIC06_HUNTING_LICENSE);
-    arryInc.push(LIC64_TRAPPING_LICENSE_3Y);
+    arryInc.push(LIC58_HUNTING_LICENSE_3Y);
     return arryInc;
 }
 function getIncl_ANNUAL_BOWH() {
