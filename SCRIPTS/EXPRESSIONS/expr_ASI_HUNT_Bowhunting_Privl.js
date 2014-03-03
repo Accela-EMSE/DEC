@@ -38,6 +38,9 @@ var aDriverLicenseNumber = expression.getValue("ASI::INTERNAL USE::A_Driver_Lice
 var aNonDriverLicenseNumber = expression.getValue("ASI::INTERNAL USE::A_Non_Driver_License_Number");
 var vUserID = expression.getValue("$$userID$$");
 var sUserIdEB = vUserID.getValue();
+var aIsMilitaryServiceman = expression.getValue("ASI::INTERNAL USE::A_Military Serviceman");
+var aIsLegallyBlind = expression.getValue("ASI::INTERNAL USE::A_Legally Blind");
+var aPermanentDisability = expression.getValue("ASI::INTERNAL USE::A_Permanent Disability");
 
 //Init 
 var f = new form_OBJECT(GS2_EXPR);
@@ -61,6 +64,8 @@ f.SetEnforcementAttrib(aSuspended.value, aRevokedHunting.value, aRevokedTrapping
 f.SetFulfillmentAttrib(aAgedIn.value, aNeedHuntEd.value);
 f.FromACA = aIsFromACA.value;
 f.UserIdEB = sUserIdEB;
+f.IsMilitaryServiceman = aIsMilitaryServiceman.value;
+f.IsLegallyBlind = aIsLegallyBlind.value;
 //
 
 //Set control array and set values for lic
