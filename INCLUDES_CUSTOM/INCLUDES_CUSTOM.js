@@ -623,7 +623,7 @@ function issueSelectedSalesItems(frm) {
     var allDecCodes = frm.getAllDecCodes();
     var recArr = frm.licObjARRAY;
     var ruleParams = frm.getRulesParam();
-    ruleParams.AgeLookAhead30Days = frm.getAge(dateAdd(new Date(frm.DOB), 30));
+    ruleParams.AgeLookAhead30Days = frm.getAge(dateAdd(new Date(frm.DOB), -30));
     var seasonPeriod = GetDateRange(DEC_CONFIG, LICENSE_SEASON, frm.Year);
     var diff = dateDiff(new Date(), seasonPeriod[0]);
 
