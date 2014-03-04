@@ -5801,9 +5801,9 @@ function SetLifeTimeformForSelectedLics(frm) {
     frm.DOB = AInfo["A_birthDate"];
     frm.Email = AInfo["A_email"];
     frm.IsNyResiDent = AInfo["A_IsNYResident"];
-    frm.IsMilitaryServiceman = AInfo["Military Serviceman"];
+    frm.IsMilitaryServiceman = AInfo["A_Military Serviceman"];
     frm.IsNativeAmerican = AInfo["A_IsNativeAmerican"];
-    frm.IsLegallyBlind = AInfo["Legally Blind"];
+    frm.IsLegallyBlind = AInfo["A_Legally Blind"];
     frm.PreferencePoints = AInfo["A_Preference_Points"];
     frm.SetAnnualDisability(AInfo["A_Annual_Disability"]);
     frm.SetPriorLicense(AInfo["A_Previous_License"]);
@@ -5811,7 +5811,7 @@ function SetLifeTimeformForSelectedLics(frm) {
     frm.SetLandOwnerInfo(AInfo["A_Land_Owner_Information"]);
     frm.SetActiveHoldingsInfo(AInfo["A_ActiveHoldings"]);
     frm.Inscription = AInfo["Inscription"];
-    frm.IsPermanentDisabled = AInfo["Permanent Disability"];
+    frm.IsPermanentDisabled = AInfo["A_Permanent Disability"];
     frm.DriverLicenseState = AInfo["A_Driver_License_State"];
     frm.DriverLicenseNumber = AInfo["A_Driver_License_Number"];
     frm.NonDriverLicenseNumber = AInfo["A_Non_Driver_License_Number"];
@@ -5901,9 +5901,9 @@ function SetTrapformForSelectedLics(frm) {
     frm.DOB = AInfo["A_birthDate"];
     frm.Email = AInfo["A_email"];
     frm.IsNyResiDent = AInfo["A_IsNYResident"];
-    frm.IsMilitaryServiceman = AInfo["Military Serviceman"];
+    frm.IsMilitaryServiceman = AInfo["A_Military Serviceman"];
     frm.IsNativeAmerican = AInfo["A_IsNativeAmerican"];
-    frm.IsLegallyBlind = AInfo["Legally Blind"];
+    frm.IsLegallyBlind = AInfo["A_Legally Blind"];
     frm.PreferencePoints = AInfo["A_Preference_Points"];
     frm.SetAnnualDisability(AInfo["A_Annual_Disability"]);
     frm.SetPriorLicense(AInfo["A_Previous_License"]);
@@ -5911,7 +5911,7 @@ function SetTrapformForSelectedLics(frm) {
     frm.SetLandOwnerInfo(AInfo["A_Land_Owner_Information"]);
     frm.SetActiveHoldingsInfo(AInfo["A_ActiveHoldings"]);
     frm.Inscription = AInfo["Inscription"];
-    frm.IsPermanentDisabled = AInfo["Permanent Disability"];
+    frm.IsPermanentDisabled = AInfo["A_Permanent Disability"];
     frm.DriverLicenseState = AInfo["A_Driver_License_State"];
     frm.DriverLicenseNumber = AInfo["A_Driver_License_Number"];
     frm.NonDriverLicenseNumber = AInfo["A_Non_Driver_License_Number"];
@@ -5965,9 +5965,9 @@ function SetFishformForSelectedLics(frm) {
     frm.DOB = AInfo["A_birthDate"];
     frm.Email = AInfo["A_email"];
     frm.IsNyResiDent = AInfo["A_IsNYResident"];
-    frm.IsMilitaryServiceman = AInfo["Military Serviceman"];
+    frm.IsMilitaryServiceman = AInfo["A_Military Serviceman"];
     frm.IsNativeAmerican = AInfo["A_IsNativeAmerican"];
-    frm.IsLegallyBlind = AInfo["Legally Blind"];
+    frm.IsLegallyBlind = AInfo["A_Legally Blind"];
     frm.PreferencePoints = AInfo["A_Preference_Points"];
     frm.SetAnnualDisability(AInfo["A_Annual_Disability"]);
     frm.SetPriorLicense(AInfo["A_Previous_License"]);
@@ -5975,7 +5975,7 @@ function SetFishformForSelectedLics(frm) {
     frm.SetLandOwnerInfo(AInfo["A_Land_Owner_Information"]);
     frm.SetActiveHoldingsInfo(AInfo["A_ActiveHoldings"]);
     frm.Inscription = AInfo["Inscription"];
-    frm.IsPermanentDisabled = AInfo["Permanent Disability"];
+    frm.IsPermanentDisabled = AInfo["A_Permanent Disability"];
     frm.DriverLicenseState = AInfo["A_Driver_License_State"];
     frm.DriverLicenseNumber = AInfo["A_Driver_License_Number"];
     frm.NonDriverLicenseNumber = AInfo["A_Non_Driver_License_Number"];
@@ -6035,9 +6035,9 @@ function SetHuntformForSelectedLics(frm) {
     frm.DOB = AInfo["A_birthDate"];
     frm.Email = AInfo["A_email"];
     frm.IsNyResiDent = AInfo["A_IsNYResident"];
-    frm.IsMilitaryServiceman = AInfo["Military Serviceman"];
+    frm.IsMilitaryServiceman = AInfo["A_Military Serviceman"];
     frm.IsNativeAmerican = AInfo["A_IsNativeAmerican"];
-    frm.IsLegallyBlind = AInfo["Legally Blind"];
+    frm.IsLegallyBlind = AInfo["A_Legally Blind"];
     frm.PreferencePoints = AInfo["A_Preference_Points"];
     frm.SetAnnualDisability(AInfo["A_Annual_Disability"]);
     frm.SetPriorLicense(AInfo["A_Previous_License"]);
@@ -6045,7 +6045,7 @@ function SetHuntformForSelectedLics(frm) {
     frm.SetLandOwnerInfo(AInfo["A_Land_Owner_Information"]);
     frm.SetActiveHoldingsInfo(AInfo["A_ActiveHoldings"]);
     frm.Inscription = AInfo["Inscription"];
-    frm.IsPermanentDisabled = AInfo["Permanent Disability"];
+    frm.IsPermanentDisabled = AInfo["A_Permanent Disability"];
     frm.DriverLicenseState = AInfo["A_Driver_License_State"];
     frm.DriverLicenseNumber = AInfo["A_Driver_License_Number"];
     frm.NonDriverLicenseNumber = AInfo["A_Non_Driver_License_Number"];
