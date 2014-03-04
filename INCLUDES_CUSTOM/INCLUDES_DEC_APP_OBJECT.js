@@ -2396,7 +2396,7 @@ function rulePARAMS(identity) {
     }
     this.HasLifetimeTrap = function () {
         if (!"not set".equals(this.hasLifetimeTrap)) {
-            return this.hasLifetimeFish; // use cached value
+            return this.hasLifetimeTrap; // use cached value
         }
         this.hasLifetimeTrap = false;
         for (var idx = 0; idx < this.ActiveHoldingsInfo.length; idx++) {
