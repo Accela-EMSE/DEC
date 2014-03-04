@@ -2350,7 +2350,7 @@ function rulePARAMS(identity) {
         for (var idx = 0; idx < this.ActiveHoldingsInfo.length; idx++) {
             var verifyLicArray = new Array();
             verifyLicArray.push(AA29_JUNIOR_HUNTING);
-            verifyLicArray.push(LIC28_JUNIOR_BOWHUNTING);
+            verifyLicArray.push(AA28_JUNIOR_BOWHUNTING);
             verifyLicArray.push(AA06_HUNTING_LICENSE);
 
             if (exists(this.ActiveHoldingsInfo[idx].RecordType, verifyLicArray)) {
@@ -2367,10 +2367,10 @@ function rulePARAMS(identity) {
         this.hasLifetimeHunt = false;
         for (var idx = 0; idx < this.ActiveHoldingsInfo.length; idx++) {
             var verifyLicArray = new Array();
-            verifyLicArray.push(LIC09_LIFETIME_BOWHUNTING);
-            verifyLicArray.push(LIC11_LIFETIME_MUZZLELOADING);
-            verifyLicArray.push(LIC12_LIFETIME_SMALL_AND_BIG_GAME);
-            verifyLicArray.push(LIC13_LIFETIME_SPORTSMAN);
+            verifyLicArray.push(AA09_LIFETIME_BOWHUNTING);
+            verifyLicArray.push(AA11_LIFETIME_MUZZLELOADING);
+            verifyLicArray.push(AA12_LIFETIME_SMALL_AND_BIG_GAME);
+            verifyLicArray.push(AA13_LIFETIME_SPORTSMAN);
             if (exists(this.ActiveHoldingsInfo[idx].RecordType, verifyLicArray)) {
                 this.hasLifetimeHunt = true;
                 break;
@@ -2385,8 +2385,8 @@ function rulePARAMS(identity) {
         this.hasLifetimeFish = false;
         for (var idx = 0; idx < this.ActiveHoldingsInfo.length; idx++) {
             var verifyLicArray = new Array();
-            verifyLicArray.push(LIC10_LIFETIME_FISHING);
-            verifyLicArray.push(LIC13_LIFETIME_SPORTSMAN);
+            verifyLicArray.push(AA10_LIFETIME_FISHING);
+            verifyLicArray.push(AA13_LIFETIME_SPORTSMAN);
             if (exists(this.ActiveHoldingsInfo[idx].RecordType, verifyLicArray)) {
                 this.hasLifetimeFish = true;
                 break;
@@ -2401,7 +2401,7 @@ function rulePARAMS(identity) {
         this.hasLifetimeTrap = false;
         for (var idx = 0; idx < this.ActiveHoldingsInfo.length; idx++) {
             var verifyLicArray = new Array();
-            verifyLicArray.push(LIC14_LIFETIME_TRAPPING);
+            verifyLicArray.push(AA14_LIFETIME_TRAPPING);
             if (exists(this.ActiveHoldingsInfo[idx].RecordType, verifyLicArray)) {
                 this.hasLifetimeTrap = true;
                 break;
