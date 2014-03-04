@@ -267,11 +267,11 @@ oHWmuChoice2.hidden = !isHuntDmpApp;
 expression.setReturn(oHWmuChoice2);
 
 //oApplyLO1.readOnly = !isHuntDmpApp;
-oApplyLO1.hidden = !isHuntDmpApp;
+oApplyLO1.hidden = !isHuntDmpApp && f.currDrawType != DRAW_FCFS;
 expression.setReturn(oApplyLO1);
 
 //oApplyLO2.readOnly = !isHuntDmpApp;
-oApplyLO2.hidden = !isHuntDmpApp;
+oApplyLO2.hidden = !isHuntDmpApp && f.currDrawType != DRAW_FCFS;
 expression.setReturn(oApplyLO2);
 ////
 
