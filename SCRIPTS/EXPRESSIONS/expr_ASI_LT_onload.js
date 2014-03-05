@@ -41,6 +41,7 @@ var aIsLegallyBlind = expression.getValue("ASI::INTERNAL USE::A_Legally Blind");
 var aPermanentDisability = expression.getValue("ASI::INTERNAL USE::A_Permanent Disability");
 var vUserID = expression.getValue("$$userID$$");
 var sUserIdEB = vUserID.getValue();
+var oRecordType=expression.getValue("CAP::capType");
 
 //Init 
 var f = new form_OBJECT(GS2_EXPR, OPTZ_TYPE_ALLFEES);
@@ -55,7 +56,6 @@ f.SetAnnualDisability(aAnnualDisability.value);
 f.SetPriorLicense(aPreviousLicense.value);
 f.SetSportsmanEducation(aSportsmanEducation.value);
 f.SetLandOwnerInfo(aLandOwnerInformation.value);
-f.IsPermanentDisabled = aPermanentDisability.value;
 f.SetActiveHoldingsInfo(aActiveHoldings.value);
 f.DriverLicenseState = aDriverLicenseState.value;
 f.DriverLicenseNumber = aDriverLicenseNumber.value;
@@ -67,6 +67,7 @@ f.IsPermanentDisabled = aPermanentDisability.value;
 f.SetFulfillmentAttrib(aAgedIn.value, aNeedHuntEd.value);
 f.FromACA = aIsFromACA.value;
 f.UserIdEB = sUserIdEB;
+f.RecordType = oRecordType.getValue();
 //
 
 //Set LifeTimeSale

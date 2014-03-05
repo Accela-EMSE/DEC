@@ -62,9 +62,11 @@ f.DriverLicenseNumber = aDriverLicenseNumber.value;
 f.NonDriverLicenseNumber = aNonDriverLicenseNumber.value;
 f.SetEnforcementAttrib(aSuspended.value, aRevokedHunting.value, aRevokedTrapping.value, aRevokedFishing.value);
 f.SetFulfillmentAttrib(aAgedIn.value, aNeedHuntEd.value);
+f.IsMilitaryServiceman = aIsMilitaryServiceman.value;
+f.IsLegallyBlind = aIsLegallyBlind.value;
 f.FromACA = aIsFromACA.value;
 f.UserIdEB = sUserIdEB;
-f.RecordType = oRecordType.getValue(); 
+f.RecordType = oRecordType.getValue();
 //
 
 //calling Hunt Sale
