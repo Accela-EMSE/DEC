@@ -69,8 +69,12 @@ var aRevokedFishing = expression.getValue("ASI::INTERNAL USE::A_Revoked_Fishing"
 var aDriverLicenseState = expression.getValue("ASI::INTERNAL USE::A_Driver_License_State");
 var aDriverLicenseNumber = expression.getValue("ASI::INTERNAL USE::A_Driver_License_Number");
 var aNonDriverLicenseNumber = expression.getValue("ASI::INTERNAL USE::A_Non_Driver_License_Number");
+var aIsMilitaryServiceman = expression.getValue("ASI::INTERNAL USE::A_Military Serviceman");
+var aIsLegallyBlind = expression.getValue("ASI::INTERNAL USE::A_Legally Blind");
+var aPermanentDisability = expression.getValue("ASI::INTERNAL USE::A_Permanent Disability");
 var vUserID = expression.getValue("$$userID$$");
 var sUserIdEB = vUserID.getValue();
+var oRecordType=expression.getValue("CAP::capType");
 
 
 
@@ -86,7 +90,6 @@ f.SetAnnualDisability(aAnnualDisability.value);
 f.SetPriorLicense(aPreviousLicense.value);
 f.SetSportsmanEducation(aSportsmanEducation.value);
 f.SetLandOwnerInfo(aLandOwnerInformation.value);
-f.Quantity_Trail_Supporter_Patch = aQuantity_Trail_Supporter_Patch.value
 f.IsPermanentDisabled = aPermanentDisability.value;
 f.SetActiveHoldingsInfo(aActiveHoldings.value);
 f.DriverLicenseState = aDriverLicenseState.value;
@@ -94,8 +97,11 @@ f.DriverLicenseNumber = aDriverLicenseNumber.value;
 f.NonDriverLicenseNumber = aNonDriverLicenseNumber.value;
 f.SetEnforcementAttrib(aSuspended.value, aRevokedHunting.value, aRevokedTrapping.value, aRevokedFishing.value);
 f.SetFulfillmentAttrib(aAgedIn.value, aNeedHuntEd.value);
+f.IsMilitaryServiceman = aIsMilitaryServiceman.value;
+f.IsLegallyBlind = aIsLegallyBlind.value;
 f.FromACA = aIsFromACA.value;
 f.UserIdEB = sUserIdEB;
+f.RecordType = oRecordType.getValue();
 //
 
 //Set control array and set values for lic
