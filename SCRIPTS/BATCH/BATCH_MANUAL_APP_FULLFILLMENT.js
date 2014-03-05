@@ -9,11 +9,11 @@
 /*------------------------------------------------------------------------------------------------------/
 | START: TEST PARAMETERS
 /------------------------------------------------------------------------------------------------------*/
-//aa.env.setValue("setName", "APPLICATIONREPORT");
-//aa.env.setValue("emailAddress", "koteswar.potla@gcomsoft.com");
+//aa.env.setValue("setPrefix", "DAILY_X");
+//aa.env.setValue("emailAddress", "");
 //aa.env.setValue("showDebug", "Y");
 //aa.env.setValue("reportName", "License Tags");
-//aa.env.setValue("applicationNum","DEC-LS-14000841");
+//aa.env.setValue("applicationNum","DEC-LS-14000871");
 /*------------------------------------------------------------------------------------------------------/
 | END: TEST PARAMETERS
 /------------------------------------------------------------------------------------------------------*/
@@ -45,7 +45,7 @@ function getScriptText(vScriptName) {
 | START: BATCH PARAMETERS
 /------------------------------------------------------------------------------------------------------*/
 var emailAddress = getParam("emailAddress"); 				// email to send report
-var setName = getParam("setName"); 						//   Prefix for set ID
+var setPrefix = getParam("setPrefix"); 						//   Prefix for set ID
 var reportName = getParam("reportName");     // Report Name From Report Manager
 var applicationNum=getParam("applicationNum");     // Application Number 
 /*------------------------------------------------------------------------------------------------------/
@@ -160,6 +160,7 @@ function GenerateReportForApplication(){
 	//Set Comments: Initialized, Processing, Successfully processed
     //Set Status: Initialized, Pending, Completed
     var setResult;
+	var setName = setPrefix + '_' + sysDateMMDDYYYY;
     var id;	
 	
     setResult = aa.set.getSetByPK(setName);
