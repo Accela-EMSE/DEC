@@ -805,7 +805,7 @@ function form_OBJECT(identity) {
                 }
                 //------
                 if (this.licObjARRAY[idx].IsSelectable && this.licObjARRAY[idx].IsActive) {
-                    if (HasHunterGroup(this.licObjARRAY[idx].Identity)) {
+                    if (HasHunterGroup(this.licObjARRAY[idx].Identity, this.RecordType)) {
                         this.CountHunterGroup++;
                     }
                     else if (HasfishingGroup(this.licObjARRAY[idx].Identity)) {
@@ -1444,8 +1444,8 @@ function form_OBJECT(identity) {
         this.SetExprFieldName(LIC69_TURKEY_PERMIT_5Y, "");
     }
 
-	//Added All ASI group licences set form values
-	this.SetTrapSaleExcludes = function (psRef) {
+    //Added All ASI group licences set form values
+    this.SetTrapSaleExcludes = function (psRef) {
         //Set Expression Control Name for select licenses
         this.SetExprFieldName(LIC01_JUNIOR_HUNTING_TAGS, "");
         this.SetExprFieldName(LIC02_MARINE_REGISTRY, "");
@@ -1507,8 +1507,8 @@ function form_OBJECT(identity) {
         this.SetExprFieldName(LIC67_FRESHWATER_FISHING_5Y, "");
         this.SetExprFieldName(LIC68_TURKEY_PERMIT_3Y, "");
         this.SetExprFieldName(LIC69_TURKEY_PERMIT_5Y, "");
-	}
-	this.SetLifeTimeSaleExcludes = function (psRef) {
+    }
+    this.SetLifeTimeSaleExcludes = function (psRef) {
         //Set Expression Control Name for select licenses
         this.SetExprFieldName(LIC01_JUNIOR_HUNTING_TAGS, "");
         this.SetExprFieldName(LIC02_MARINE_REGISTRY, "");
@@ -1555,7 +1555,7 @@ function form_OBJECT(identity) {
         this.SetExprFieldName(LIC43_LIFETIME_CARD_REPLACE, "");
         this.SetExprFieldName(LIC44_SPORTSMAN_ED_CERTIFICATION, "");
         this.SetExprFieldName(LIC45_LIFETIME_INSCRIPTION, "ASI::LIFETIME LICENSES::Lifetime Inscription");
-		//this.SetExprFieldName(LIC55_TAG_DRIV_LIC, "ASI::LIFETIME LICENSES::Add Lifetime to Driver License");
+        //this.SetExprFieldName(LIC55_TAG_DRIV_LIC, "ASI::LIFETIME LICENSES::Add Lifetime to Driver License");
         this.SetExprFieldName(LIC56_TAG_DRIV_LIC_IMM, "ASI::LIFETIME LICENSES::Add Lifetime to Driver License Re-Issue Immediately");
         this.SetExprFieldName(LIC57_TAG_DRIV_LIC_REN, "ASI::LIFETIME LICENSES::Add Lifetime to Driver License on Renewal");
         this.SetExprFieldName(LIC58_HUNTING_LICENSE_3Y, "");
@@ -1570,9 +1570,9 @@ function form_OBJECT(identity) {
         this.SetExprFieldName(LIC67_FRESHWATER_FISHING_5Y, "");
         this.SetExprFieldName(LIC68_TURKEY_PERMIT_3Y, "");
         this.SetExprFieldName(LIC69_TURKEY_PERMIT_5Y, "");
-	}
-	//Set Hunt function
-	this.SetHuntSaleExcludes = function (psRef) {
+    }
+    //Set Hunt function
+    this.SetHuntSaleExcludes = function (psRef) {
         //Set Expression Control Name for select licenses
         this.SetExprFieldName(LIC01_JUNIOR_HUNTING_TAGS, "");
         this.SetExprFieldName(LIC02_MARINE_REGISTRY, "");
@@ -1634,8 +1634,8 @@ function form_OBJECT(identity) {
         this.SetExprFieldName(LIC67_FRESHWATER_FISHING_5Y, "");
         this.SetExprFieldName(LIC68_TURKEY_PERMIT_3Y, "ASI::HUNTING LICENSE::3 Year Turkey Permit");
         this.SetExprFieldName(LIC69_TURKEY_PERMIT_5Y, "ASI::HUNTING LICENSE::5 Year Turkey Permit");
-	}
-	this.SetFishSaleExcludes = function (psRef) {
+    }
+    this.SetFishSaleExcludes = function (psRef) {
         //Set Expression Control Name for select licenses
         this.SetExprFieldName(LIC01_JUNIOR_HUNTING_TAGS, "");
         this.SetExprFieldName(LIC02_MARINE_REGISTRY, "ASI::FISHING LICENSES::Marine Registry");
@@ -1697,8 +1697,8 @@ function form_OBJECT(identity) {
         this.SetExprFieldName(LIC67_FRESHWATER_FISHING_5Y, "ASI::FISHING LICENSES::5 Year Freshwater Fishing");
         this.SetExprFieldName(LIC68_TURKEY_PERMIT_3Y, "");
         this.SetExprFieldName(LIC69_TURKEY_PERMIT_5Y, "");
-	}
-	
+    }
+
     this.isRevoked = function (psRef) {
         var retVal = false;
 
@@ -2570,9 +2570,16 @@ function HasfishingGroup(psRef) {
     }
     return retvalue;
 }
-function HasHunterGroup(psRef) {
+function HasHunterGroup(psRef, recType) {
     var retvalue = false;
     for (var item in arryHunterGroup) {
+        if (recType == "Licenses/Sales/Application/Hunting" && (arryHunterGroup[item] == LIC15_TRAPPING_LICENSE || arryHunterGroup[item] == LIC64_TRAPPING_LICENSE_3Y || arryHunterGroup[item] == LIC65_TRAPPING_LICENSE_5Y)) {
+            continue;
+        }
+        if (recType == "Licenses/Sales/Application/Trapping" && !(arryHunterGroup[item] == LIC15_TRAPPING_LICENSE || arryHunterGroup[item] == LIC64_TRAPPING_LICENSE_3Y || arryHunterGroup[item] == LIC65_TRAPPING_LICENSE_5Y)) {
+            continue;
+        }
+
         if (arryHunterGroup[item] == psRef) {
             retvalue = true;
             break;
