@@ -1,5 +1,5 @@
 /*------------------------------------------------------------------------------------------------------/
-| Program:  BATCH_APPLICATION_REPORT.js  Trigger: Batch
+| Program:  BATCH_MANUAL_APP_FULLFILLMENT.js  Trigger: Batch
 | Event   : N/A
 | Usage   : Batch job (Daily)
 | Agency  : DEC
@@ -9,11 +9,11 @@
 /*------------------------------------------------------------------------------------------------------/
 | START: TEST PARAMETERS
 /------------------------------------------------------------------------------------------------------*/
-//aa.env.setValue("setPrefix", "APPLICATIONREPORT");
+//aa.env.setValue("setName", "APPLICATIONREPORT");
 //aa.env.setValue("emailAddress", "koteswar.potla@gcomsoft.com");
 //aa.env.setValue("showDebug", "Y");
-//.env.setValue("reportName", "License Tags");
-//aa.env.setValue("applicationNum","DEC-LS-14000828");
+//aa.env.setValue("reportName", "License Tags");
+//aa.env.setValue("applicationNum","DEC-LS-14000841");
 /*------------------------------------------------------------------------------------------------------/
 | END: TEST PARAMETERS
 /------------------------------------------------------------------------------------------------------*/
@@ -45,7 +45,7 @@ function getScriptText(vScriptName) {
 | START: BATCH PARAMETERS
 /------------------------------------------------------------------------------------------------------*/
 var emailAddress = getParam("emailAddress"); 				// email to send report
-var setPrefix = getParam("setPrefix"); 						//   Prefix for set ID
+var setName = getParam("setName"); 						//   Prefix for set ID
 var reportName = getParam("reportName");     // Report Name From Report Manager
 var applicationNum=getParam("applicationNum");     // Application Number 
 /*------------------------------------------------------------------------------------------------------/
@@ -161,17 +161,24 @@ function GenerateReportForApplication(){
     //Set Status: Initialized, Pending, Completed
     var setResult;
     var id;	
-	setResult = createFullfillmentSet(setPrefix);
-	id = setResult.setID;
+	
+    setResult = aa.set.getSetByPK(setName);
+    if (setResult.getSuccess()) {
+        setResult = setResult.getOutput();
+    } else {
+        setResult = createFullfillmentSet(setName);
+    }
 	updateSetStatusX(setResult.setID, setResult.setID, "FULLFILLMENT", "Processing", "Pending", "Pending");
 	recId=getCapId(applicationNum);
 	
-	if(recId!=''){
+	if(recId){
 		var recca = String(recId).split("-");
 		var itemCapId = aa.cap.getCapID(recca[0], recca[1], recca[2]).getOutput();
 		var itemCap = aa.cap.getCap(itemCapId).getOutput();
-		//aa.print("itemCapId  "+itemCapId);
 		generateReport(itemCapId);
+		if (setName.length > 0) {
+			addCapSetMemberX(itemCapId, setResult);
+		}
 		isReportGenerated=true;
 	}
 	else {
@@ -184,12 +191,20 @@ function GenerateReportForApplication(){
 
 function createFullfillmentSet(recordType) {
     var id = recordType;
-    var name = null;
+    var name = id;
     var setType = "FULLFILLMENT"; //configured Set Type 
     var setStatus = "Initialized";
     var setComment = "Initialized";
     var setStatusComment = "Initialized";
-    return createSet(id, name, setType, setStatus, setComment, setStatusComment);
+    var result = createSet(id, name, setType, setStatus, setComment, setStatusComment);
+	var setResult = null;
+    if (result) {
+		setResult = aa.set.getSetByPK(id);
+		if (setResult.getSuccess()) {
+			setResult = setResult.getOutput();
+		}
+	}
+	return setResult;
 }
 function updateSetStatusX(setName, setDescription, setType, comment, setStatus, setStatusComment) {
     try {
@@ -231,5 +246,19 @@ function generateReport(itemCapId) {
             reportFile = reportFile.getOutput();
             logDebug("Report File: " + reportFile);
         }
+    }
+}
+
+function addCapSetMemberX(itemCapId, setResult) {
+    try {
+        logDebug("inside addCapSetMemberX");
+        var cID = itemCapId.getCustomID();
+        var memberCapID = aa.cap.getCapID(cID).getOutput();
+        logDebug("ID: " + memberCapID);
+        var addResult = aa.set.addCapSetMember((setResult.getSetID()), memberCapID);
+        logDebug("Add set result: " + addResult.getSuccess());
+    }
+    catch (err) {
+        logDebug("Exception in addCapSetMember:" + err.message);
     }
 }
