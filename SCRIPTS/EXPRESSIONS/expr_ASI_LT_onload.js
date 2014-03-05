@@ -55,7 +55,6 @@ f.SetAnnualDisability(aAnnualDisability.value);
 f.SetPriorLicense(aPreviousLicense.value);
 f.SetSportsmanEducation(aSportsmanEducation.value);
 f.SetLandOwnerInfo(aLandOwnerInformation.value);
-f.Quantity_Trail_Supporter_Patch = aQuantity_Trail_Supporter_Patch.value
 f.IsPermanentDisabled = aPermanentDisability.value;
 f.SetActiveHoldingsInfo(aActiveHoldings.value);
 f.DriverLicenseState = aDriverLicenseState.value;
