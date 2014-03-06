@@ -46,7 +46,7 @@ var vUserID = expression.getValue("$$userID$$");
 var sUserIdEB = vUserID.getValue();
 
 //Init 
-var f = new form_OBJECT(GS2_EXPR);
+var f = new form_OBJECT(GS2_EXPR, OPTZ_TYPE_ALLFEES);
 f.Year = aYear.value;
 f.DOB = abirthDate.value;
 f.Email = aemail.value;
@@ -95,15 +95,20 @@ for (var idx = 0; idx < f.licObjARRAY.length; idx++) {
     //var oTemp = new License_OBJ();
     var oLic = f.licObjARRAY[idx];
 
-    if (f.licObjARRAY[idx].IsSelectable == false || f.licObjARRAY[idx].IsActive == false) {
-        //(exprControlArray[idx]).readOnly = true;
-        (exprControlArray[idx]).value = false;
-        (exprControlArray[idx]).hidden = true;
-    } else {
-        (exprControlArray[idx]).readOnly = f.licObjARRAY[idx].IsDisabled;
-        (exprControlArray[idx]).hidden = false;
+    if (f.licObjARRAY[idx].ExprFieldName != "") {
+        if (f.licObjARRAY[idx].Message != "") {
+            (exprControlArray[idx]).message = f.licObjARRAY[idx].Message;
+        }
+        if (f.licObjARRAY[idx].IsSelectable == false || f.licObjARRAY[idx].IsActive == false) {
+            //(exprControlArray[idx]).readOnly = true;
+            (exprControlArray[idx]).value = false;
+            (exprControlArray[idx]).hidden = true;
+        } else {
+            (exprControlArray[idx]).readOnly = f.licObjARRAY[idx].IsDisabled;
+            (exprControlArray[idx]).hidden = false;
+        }
+        expression.setReturn((exprControlArray[idx]));
     }
-    expression.setReturn((exprControlArray[idx]));
 }
 ////
 
