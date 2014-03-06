@@ -42,6 +42,7 @@ var aNonDriverLicenseNumber = expression.getValue("ASI::INTERNAL USE::A_Non_Driv
 
 var vUserID = expression.getValue("$$userID$$");
 var sUserIdEB = vUserID.getValue();
+var oRecordType=expression.getValue("CAP::capType");
 
 //Init 
 var f = new form_OBJECT(GS2_EXPR);
@@ -66,6 +67,7 @@ f.SetEnforcementAttrib(aSuspended.value, aRevokedHunting.value, aRevokedTrapping
 f.SetFulfillmentAttrib(aAgedIn.value, aNeedHuntEd.value);
 f.FromACA = aIsFromACA.value;
 f.UserIdEB = sUserIdEB;
+f.RecordType = oRecordType.getValue();
 //
 
 //Set LifeTimeSale
