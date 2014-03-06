@@ -1,0 +1,721 @@
+================ACA ONLOAD FILL FROM CONTACT
+showMessage=false;
+showDebug=false;
+var isCancel = copyContactAppSpecificToRecordAppSpecific();
+if (isCancel) {
+	cancel = true;
+	showMessage=true;
+	comment(isCancel);
+	}
+================ACA ONSUBMIT AFTER CARCASSTAG
+showMessage=false;
+showDebug=false;
+cancel = false;
+loadHarvestInfo();
+aa.env.setValue("CapModel",cap);
+================ACA ONSUBMIT AFTER LICYEAR
+showMessage=false;
+showDebug=false;
+createActiveHoldingTable();
+aa.env.setValue("CapModel",cap);
+================ACA ONSUBMIT AFTER OTHERSALES
+showMessage=false;
+showDebug=false;
+//branch("EMSE:GlobalFlags");
+frm = new form_OBJECT(GS2_SCRIPT, OPTZ_TYPE_SELECTED_FEES);
+SetOtherformForSelectedLics(frm);
+addFeeAndSetAsitForFeetxfer(frm);
+aa.env.setValue("CapModel",cap);
+================ACA ONSUBMIT AFTER PRINTSELCT
+showMessage=false;
+showDebug=false;
+//branch("EMSE:GlobalFlags");
+addRepritFees();
+aa.env.setValue("CapModel",cap);
+================ACA ONSUBMIT AFTER SALESSELECT
+showMessage=false;
+showDebug=false;
+//branch("EMSE:GlobalFlags");
+frm = new form_OBJECT(GS2_SCRIPT, OPTZ_TYPE_SELECTED_FEES);
+SetformForSelectedLics(frm);
+addFeeAndSetAsitForFeetxfer(frm);
+aa.env.setValue("CapModel",cap);
+================ACA ONSUBMIT AFTER TBL UPDATE
+showMessage=false;
+showDebug=false;
+//branch("EMSE:GlobalFlags");
+SetTableStringFields();
+createActiveHoldingTable();
+aa.env.setValue("CapModel",cap);
+================ACA ONSUBMIT AFTER UGRDCNT
+showMessage=false;
+showDebug=false;
+cancel = false;
+var isNotValidMsg = loadUpgradeLic();
+if (isNotValidMsg  !='') {
+	cancel = true;
+	showMessage=true;
+	comment(isNotValidMsg);
+	} else {
+	aa.env.setValue("CapModel",cap);
+	}
+================ACA ONSUBMIT AFTER UGRDSTEP2
+showMessage=false;
+showDebug=false;
+cancel = false;
+addFeeForUpgrade();
+aa.env.setValue("CapModel",cap);
+================ACA ONSUBMIT AFTER VDSLSTEP1
+showMessage=false;
+showDebug=false;
+cancel = false;
+loadDocumentToVoid();
+aa.env.setValue("CapModel",cap);
+================ACA ONSUBMIT BEFORE CARCASSTAG
+showMessage=false;
+showDebug=false;
+var isNotValidMsg = isValidHarvestinfo('Step1');
+if (isNotValidMsg !='') {
+	cancel = true;
+	showMessage=true;
+	comment(isNotValidMsg);
+	}
+================ACA ONSUBMIT BEFORE PRINTSELCT
+showMessage=false;
+showDebug=false;
+var isNotValidMsg = isValidReprintDocuments('Step2');
+if (isNotValidMsg !='') {
+	cancel = true;
+	showMessage=true;
+	comment(isNotValidMsg);
+	}
+================ACA ONSUBMIT BEFORE PRINTSTEP1
+showMessage=false;
+showDebug=false;
+var isNotValidMsg = isValidReprintDocuments('Step1');
+if (isNotValidMsg !='') {
+	cancel = true;
+	showMessage=true;
+	comment(isNotValidMsg);
+	}
+================ACA ONSUBMIT BEFORE SALESELECT
+showMessage=false;
+showDebug=false;
+var isNotValidMsg = isValidBuyRecord('Step3');
+if (isNotValidMsg !='') {
+	cancel = true;
+	showMessage=true;
+	comment(isNotValidMsg);
+	}
+================ACA ONSUBMIT BEFORE TBL UPDATE
+showMessage=false;
+showDebug=false;
+var isNotValidMsg = isValidBuyRecord('Step1');
+if (isNotValidMsg !='') {
+	cancel = true;
+	showMessage=true;
+	comment(isNotValidMsg);
+	}
+================ACA ONSUBMIT BEFORE UGRDSTEP1
+showMessage=false;
+showDebug=false;
+cancel = false;
+var isNotValidMsg = isValidLicesesToupgrad('Step1');
+if (isNotValidMsg !='') {
+	cancel = true;
+	showMessage=true;
+	comment(isNotValidMsg);
+	}
+================ACA ONSUBMIT BEFORE UGRDSTEP2
+showMessage=false;
+showDebug=false;
+cancel = false;
+var isNotValidMsg = isValidLicesesToupgrad('Step2');
+if (isNotValidMsg !='') {
+	cancel = true;
+	showMessage=true;
+	comment(isNotValidMsg);
+	}
+================ACA ONSUBMIT BEFORE VDSLSTEP1
+showMessage=false;
+showDebug=false;
+var isNotValidMsg = isValidVoidSales('Step1');
+if (isNotValidMsg !='') {
+	cancel = true;
+	showMessage=true;
+	comment(isNotValidMsg);
+	}
+================ACA ONSUBMIT BEFORE VDSLSTEP2
+showMessage=false;
+showDebug=false;
+var isNotValidMsg = isValidVoidSales('Step2');
+if (isNotValidMsg !='') {
+	cancel = true;
+	showMessage=true;
+	comment(isNotValidMsg);
+	}
+================ACA ONSUBMIT BEFORE VERIFYTAG
+showMessage=false;
+showDebug=false;
+var isNotValidMsg = isValidHarvestinfo('Step2');
+if (isNotValidMsg !='') {
+	cancel = true;
+	showMessage=true;
+	comment(isNotValidMsg);
+	}
+
+if (parseInt(AInfo['Number of days hunted to kill this turkey']) > 45) {
+	cancel = true;
+	showMessage=true;
+	comment("Please enter a value of 45 or less.");
+	}
+
+var verifyDateMsg = verifyDate(AInfo['Date of Kill']);
+if (verifyDateMsg !='') {
+	cancel = true;
+	showMessage=true;
+	comment(verifyDateMsg);
+	}
+================ACA_ONSUBMIT_AFTER_LICENSENUMBERCHECK
+showMessage=true;
+showDebug= true;
+comment("Inside license check");
+var verifyNumber = isValidNumber(AInfo['driverLicenseNbr']);
+message = "License number result: " + verifyNumber;
+================ASA:Licenses/Other/Sportsmen/DMV ID Request
+asaForDMVRequest();
+================ASA:Licenses/Other/Sportsmen/Game Harvest
+prefix = "CMN";
+if (!publicUser) {
+	branch("EMSE_VariableBranching");
+	}
+================ASA:Licenses/WMU/Process/Create
+prefix = "WTUA";
+branch("EMSE_VariableBranching");
+================ASIUA:Licenses/WMU/Process/Create
+processMutpleupdate();
+================AdditionalInfoUpdateAfter
+prefix = "AIUA";
+branch("EMSE_VariableBranching");
+================AdditionalInfoUpdateBefore
+prefix = "AIUB";
+branch("EMSE_VariableBranching");
+================ApplicationConditionAddAfter
+prefix = "ACAA";
+branch("EMSE_VariableBranching");
+================ApplicationSpecificInfoUpdateAfter
+prefix = "ASIUA";
+branch("EMSE_VariableBranching");
+================ApplicationSpecificInfoUpdateBefore
+prefix = "ASIUB";
+branch("EMSE_VariableBranching");
+================ApplicationSpecificInformationTableUpdateAfter
+prefix = "ASITUA";
+branch("EMSE_VariableBranching");
+================ApplicationStatusUpdateAfter
+prefix = "ASUA";
+branch("EMSE_VariableBranching");
+================ApplicationStatusUpdateBefore
+prefix = "ASUB";
+branch("EMSE_VariableBranching");
+================ApplicationSubmitAfter
+prefix = "ASA";
+branch("EMSE_VariableBranching");
+================ApplicationSubmitBefore
+prefix = "ASB";
+branch("EMSE_VariableBranching");
+================CMN:Licenses/*/*/*:SYNC_REF_CONTACT
+iArr = new Array();
+// attributes to ignore;
+contactTypeArray = new Array();
+// ignored since we are using REF_CONTACT_CREATION_RULES;
+createRefContactsFromCapContactsAndLink(capId,contactTypeArray,iArr,false,false,comparePeopleStandard);
+================CMN:Licenses/Other/Sportsmen/Game Harvest
+showDebug = false;
+showMessage=false;
+if (balanceDue == 0) {
+	closeTask ("Review", "Approved","","");
+	}
+
+updateTag();
+================CMN:Licenses/WMU/Process/Create
+var isSucess = true;
+showMessage=true;
+branch('WTUA:Licenses/WMU/Process/Create');
+================CMN_CREATE_ENFORCEMENT_CONDITIONS
+createEnforcemrntCondition();
+if (AInfo["Enforcement Type"] == "Revocation") {
+	revokeActiveHoldings();
+	}
+
+if (AInfo["Enforcement Type"] == "Suspension") {
+	suspendActiveHoldings();
+	}
+================CMN_CREATE_LICENSE
+frm = new form_OBJECT(GS2_SCRIPT, OPTZ_TYPE_CTRC);
+if (appTypeString == 'Licenses/Annual/Application/NA') {
+	SetformForSelectedLics(frm);
+	}
+
+if (appTypeString == 'Licenses/Other/Sales/Application') {
+	SetOtherformForSelectedLics(frm);
+	}
+
+issueSelectedSalesItems(frm);
+================CMN_MOVE_WKFLOW_AFTER_PAYMENT
+if (balanceDue == 0) {
+	closeTask ("Review", "Approved","","");
+	}
+================CTRCA:Licenses/*/*/*
+if (appMatch("Licenses/Other/Sportsmen/Profile")) {
+	processProfileUpdate();
+	}
+
+var contactsToUpdateArray = new Array();
+contactsToUpdateArray.push("Individual");
+createRefContactsFromCapContactsAndLink(capId,null,null,false,true,comparePeopleGeneric);
+if (appMatch("Licenses/Other/Sportsmen/Profile")) {
+	updateContacts();
+	}
+================CTRCA:Licenses/Annual/Application/NA
+showDebug = false;
+showMessage=false;
+branch ("CMN_CREATE_LICENSE");
+================CTRCA:Licenses/Other/Sales/Application
+showDebug = false;
+showMessage=false;
+branch ("CMN_CREATE_LICENSE");
+================CTRCA:Licenses/Other/Sportsmen/DMV ID Request
+ctrcaForDMVRequest();
+================CTRCA:Licenses/Other/Sportsmen/Game Harvest
+prefix = "CMN";
+branch("EMSE_VariableBranching");
+================CTRCA:Licenses/Sales/Reprint/Documents
+showDebug = false;
+showMessage=false;
+ReprintDocuments();
+================CTRCA:Licenses/Sales/Upgrade/Lifetime
+showDebug = false;
+showMessage=false;
+upgradeLifetimeLic();
+================CTRCA:Licenses/Sales/Void/Documents
+showDebug = false;
+showMessage=false;
+VoidsSales();
+================ContactAddAfter
+prefix = "CAA";
+branch("EMSE_VariableBranching");
+showMessage=true;
+showDebug=true;
+createRefContactsFromCapContactsAndLink(capId,null,null,false,true,comparePeopleGeneric);
+================ContactAddBefore
+prefix = "CAB";
+branch("EMSE_VariableBranching");
+================ContactEditAfter
+prefix = "CEA";
+branch("EMSE_VariableBranching");
+================ContactEditBefore
+================ContactRemoveAfter
+prefix = "CRA";
+branch("EMSE_VariableBranching");
+================ContactRemoveBefore
+prefix = "CRB";
+branch("EMSE_VariableBranching");
+================ConvertToRealCapAfter
+prefix = "CTRCA";
+branch("EMSE_VariableBranching");
+================DocumentUploadAfter
+prefix = "DUA";
+branch("EMSE_VariableBranching");
+================DocumentUploadBefore
+================EMSE:ASI Copy Exceptions
+================EMSE:GlobalFlags
+if (matches(currentUserID,"ADMIN", "LGAWAD")) {
+	showDebug = 3;
+	} else {
+	showDebug = false;
+	/* enable debugging on on scripts for ADMIN userID */;
+	}
+
+LICENSESTATE = "NY";
+================EMSE_VariableBranching
+if (matches(currentUserID, "ADMIN")) {
+	showDebug = false;
+	showMessage= false;
+	branch("EMSE:GlobalFlags");
+	} else {
+	showDebug = false;
+	showMessage= false;
+	branch("EMSE:GlobalFlags");
+	}
+
+branch(prefix + ":" + appTypeArray[0] + "/*/*/*");
+branch(prefix + ":" + appTypeArray[0] + "/" + appTypeArray[1] + "/*/*");
+branch(prefix + ":" + appTypeArray[0] + "/" + appTypeArray[1] + "/" + appTypeArray[2] + "/*");
+branch(prefix + ":" + appTypeArray[0] + "/*/" + appTypeArray[2] + "/" + appTypeArray[3]);
+branch(prefix + ":" + appTypeArray[0] + "/*/*/" + appTypeArray[3]);
+branch(prefix + ":" + appTypeArray[0] + "/" + appTypeArray[1] + "/*/" + appTypeArray[3]);
+branch(prefix + ":" + appTypeString);
+================FAB:Licenses/Annual/Application/NA
+if (!publicUser) {
+	showMessage = true;
+	comment("<span style='color:#ff0000;
+	font-weight:bold'>You are not allowed to manually assess fees on this record type.</span>");
+	cancel=true;
+	}
+================FAB:Licenses/Other/Sales/Application
+if (!publicUser) {
+	showMessage = true;
+	comment("<span style='color:#ff0000;
+	font-weight:bold'>You are not allowed to manually assess fees on this record type.</span>");
+	cancel=true;
+	}
+================FAB:Licenses/Sales/*/*
+if (!publicUser) {
+	showMessage = true;
+	comment("<span style='color:#ff0000;
+	font-weight:bold'>You are not allowed to manually assess fees on this record type.</span>");
+	cancel=true;
+	}
+================FeeAssessAfter
+prefix = "FAA";
+branch("EMSE_VariableBranching");
+================FeeAssessBefore
+prefix = "FAB";
+branch("EMSE_VariableBranching");
+================FeeEstimateAfter4ACA
+prefix = "FEA";
+branch("EMSE_VariableBranching");
+================INTERFACE:CONFIGS
+if (exportDECACHdata) {
+	}
+
+if (exportDECACHdata) {
+	}
+
+if (http://170.123.132.84:80/NYSELS-DEC-ACHJOB/services/ANSFailureService?wsdl) {
+	}
+
+if (http://170.123.132.84:80/NYSELS-DEC-ACHJOB/services/ANSService?wsdl) {
+	}
+
+if (createDailySplitFailure) {
+	}
+
+if (createDailysplit) {
+	}
+
+if (AccelaAdmin@Accela.com) {
+	}
+
+if (Venkatabalaji.Yadalla@nttdata.com;jimmy.batra@elicensing.ny.gov) {
+	}
+
+if (AccelaAdmin@Accela.com) {
+	}
+
+if (D:\\Accela\\av.biz\\ACH\\) {
+	}
+
+if (Venkatabalaji.Yadalla@nttdata.com;jimmy.batra@elicensing.ny.gov) {
+	}
+
+if (AccelaAdmin@Accela.com) {
+	}
+
+if (Venkatabalaji.Yadalla@nttdata.com;jimmy.batra@elicensing.ny.gov) {
+	}
+
+if (Venkatabalaji.Yadalla@nttdata.com;jimmy.batra@elicensing.ny.gov) {
+	}
+
+if (http://170.123.132.84:80/NYSELS-DEC-ACHJOB/services/DECACHManualService?wsdl) {
+	}
+
+if (Venkatabalaji.Yadalla@nttdata.com;jimmy.batra@elicensing.ny.gov) {
+	}
+
+if (http://170.123.132.84:80/NYSELS-DEC-ACHJOB/services/DECACHService?wsdl) {
+	}
+
+if (AccelaAdmin@Accela.com) {
+	}
+
+if (AccelaAdmin@Accela.com) {
+	}
+
+if (Venkatabalaji.Yadalla@nttdata.com;jimmy.batra@elicensing.ny.gov) {
+	}
+
+if (Venkatabalaji.Yadalla@nttdata.com;jimmy.batra@elicensing.ny.gov) {
+	}
+
+if (Venkatabalaji.Yadalla@nttdata.com;jimmy.batra@elicensing.ny.gov) {
+	}
+
+if (Venkatabalaji.Yadalla@nttdata.com;jimmy.batra@elicensing.ny.gov) {
+	}
+
+if (Venkatabalaji.Yadalla@nttdata.com;jimmy.batra@elicensing.ny.gov) {
+	}
+
+if (Venkatabalaji.Yadalla@nttdata.com;jimmy.batra@elicensing.ny.gov) {
+	}
+
+if (Venkatabalaji.Yadalla@nttdata.com;jimmy.batra@elicensing.ny.gov) {
+	}
+
+if (Venkatabalaji.Yadalla@nttdata.com;jimmy.batra@elicensing.ny.gov) {
+	}
+
+if (AccelaAdmin@Accela.com) {
+	}
+
+if (Venkatabalaji.Yadalla@nttdata.com;jimmy.batra@elicensing.ny.gov) {
+	}
+
+if (AccelaAdmin@Accela.com) {
+	}
+
+if (Venkatabalaji.Yadalla@nttdata.com;jimmy.batra@elicensing.ny.gov) {
+	}
+
+if (DEC DMV Fullfillment BatchJob has been triggered.) {
+	}
+
+if (AccelaAdmin@Accela.com) {
+	}
+
+if (Venkatabalaji.Yadalla@nttdata.com;jimmy.batra@elicensing.ny.gov) {
+	}
+
+if (DEC_DMV) {
+	}
+
+if (AccelaAdmin@Accela.com) {
+	}
+
+if (xxVenkatabalaji.Yadalla@eLicensing.ny.gov;xxnaveen.nallannagari@nttdata.com;xxlalitha.nekkanti@nttdata.com;xxRajasekhar.Mutyala@eLicensing.ny.gov;xxjimmy.batra@elicensing.ny.gov) {
+	}
+
+if (export) {
+	}
+
+if (http://170.123.132.84:80/NYSELS-DEC-BATCHJOB/services/DECDMVExportService?wsdl) {
+	}
+
+if (http://170.123.132.84:80/NYSELS-DEC-BATCHJOB/services/DailyPrintingExportService?wsdl) {
+	}
+
+if (http://170.123.132.84:80/NYSELS-DEC-ACHJOB/services/DailySplitFailureService?wsdl) {
+	}
+
+if (http://170.123.132.84:80/NYSELS-DEC-ACHJOB/services/DailySplitService?wsdl) {
+	}
+
+if (AccelaAdmin@Accela.com) {
+	}
+
+if (Venkatabalaji.Yadalla@nttdata.com;jimmy.batra@elicensing.ny.gov) {
+	}
+
+if (Venkatabalaji.Yadalla@nttdata.com;jimmy.batra@elicensing.ny.gov) {
+	}
+
+if (http://170.123.132.84:80/NYSELS-DEC-BATCHJOB/services/IBPPrintingExportService?wsdl) {
+	}
+
+if (Hunting Revocation) {
+	}
+
+if (Revocation) {
+	}
+
+if (AccelaAdmin@Accela.com) {
+	}
+
+if (Venkatabalaji.Yadalla@nttdata.com;jimmy.batra@elicensing.ny.gov) {
+	}
+
+if (AccelaAdmin@Accela.com) {
+	}
+
+if (Venkatabalaji.Yadalla@nttdata.com;jimmy.batra@elicensing.ny.gov) {
+	}
+
+if (loadLawEnforcementData) {
+	}
+
+if (http://170.123.132.84:80/NYSELS-DEC-BATCHJOB/services/LawEnforcementService?wsdl) {
+	}
+
+if (AccelaAdmin@Accela.com) {
+	}
+
+if (Venkatabalaji.Yadalla@nttdata.com;jimmy.batra@elicensing.ny.gov) {
+	}
+
+if (Venkatabalaji.Yadalla@nttdata.com;jimmy.batra@elicensing.ny.gov) {
+	}
+
+if (http://170.123.132.84:80/NYSELS-DEC-BATCHJOB/services/LTPrintingExportService?wsdl) {
+	}
+
+if (AccelaAdmin@Accela.com) {
+	}
+
+if (Venkatabalaji.Yadalla@nttdata.com;jimmy.batra@elicensing.ny.gov) {
+	}
+
+if (AccelaAdmin@Accela.com) {
+	}
+
+if (Venkatabalaji.Yadalla@nttdata.com;jimmy.batra@elicensing.ny.gov) {
+	}
+
+if (http://170.123.132.84:80/NYSELS-DEC-BATCHJOB/services/MagazineExportService?wsdl) {
+	}
+
+if (/app/jboss/Enterpriseplatform-6.0.0/jboss-eap-6.0/logs) {
+	}
+
+if (AccelaAdmin@Accela.com) {
+	}
+
+if (D:\\Accela\\av.biz\\ACH\\) {
+	}
+
+if (Venkatabalaji.Yadalla@nttdata.com;jimmy.batra@elicensing.ny.gov) {
+	}
+
+if (AccelaAdmin@Accela.com) {
+	}
+
+if (Venkatabalaji.Yadalla@nttdata.com;jimmy.batra@elicensing.ny.gov) {
+	}
+
+if (Venkatabalaji.Yadalla@nttdata.com;jimmy.batra@elicensing.ny.gov) {
+	}
+
+if (http://170.123.132.84:80/NYSELS-DEC-BATCHJOB/services/PreNoteExportService?wsdl) {
+	}
+
+if (exportPrintData) {
+	}
+
+if (DECSFTP) {
+	}
+
+if (exportPrintData) {
+	}
+
+if (DECSFTP) {
+	}
+
+if (exportPrintData) {
+	}
+
+if (DECSFTP) {
+	}
+
+if (AccelaAdmin@Accela.com) {
+	}
+
+if (Venkatabalaji.Yadalla@nttdata.com;jimmy.batra@elicensing.ny.gov) {
+	}
+
+if (AccelaAdmin@Accela.com) {
+	}
+
+if (Venkatabalaji.Yadalla@nttdata.com;jimmy.batra@elicensing.ny.gov) {
+	}
+
+if (http://170.123.132.84:80/NYSELS-DEC-BATCHJOB/services/OTDAService?wsdl) {
+	}
+
+if (exportPreNoteData) {
+	}
+================InspectionResultModifyAfter
+prefix = "IRSA";
+branch("EMSE_VariableBranching");
+================InspectionResultModifyBefore
+prefix = "IRSB";
+branch("EMSE_VariableBranching");
+================InspectionResultSubmitAfter
+prefix = "IRSA";
+branch("EMSE_VariableBranching");
+================InspectionResultSubmitBefore
+prefix = "IRSB";
+branch("EMSE_VariableBranching");
+================InspectionScheduleAfter
+prefix = "ISA";
+branch("EMSE_VariableBranching");
+================InspectionScheduleBefore
+prefix = "ISB";
+branch("EMSE_VariableBranching");
+================InvoiceFeeAfter
+prefix = "IFA";
+branch("EMSE_VariableBranching");
+================LicProfLookupSubmitAfter
+prefix = "LPLSA";
+branch("EMSE_VariableBranching");
+================LicProfLookupSubmitBefore
+prefix = "LPLSB";
+branch("EMSE_VariableBranching");
+================LicProfUpdateAfter
+prefix = "LPUA";
+branch("EMSE_VariableBranching");
+================LicProfUpdateBefore
+prefix = "LPUB";
+branch("EMSE_VariableBranching");
+================PaymentReceiveAfter
+branch ("CMN_MOVE_WKFLOW_AFTER_PAYMENT");
+================PaymentReceiveBefore
+prefix = "PRB";
+branch("EMSE_VariableBranching");
+================REF_CONTACT_CREATION_RULES
+if (F) {
+	}
+================RenewalInfoUpdateAfter
+prefix = "RIUA";
+branch("EMSE_VariableBranching");
+================WTUA:Licenses/*/*/*
+var isWmurecType = appMatch("Licenses/WMU/*/*");
+if (!isWmurecType) {
+	closeTasksForTagAnditems(capId);
+	}
+
+if (!isWmurecType && wfTask == "Void Document" && wfStatus == "Void" && !publicUser) {
+	updateAppStatus("Void","");
+	voidInternal();
+	}
+================WTUA:Licenses/WMU/Process/Create
+logDebug("WTUA:Licenses/WMU/Process/Create");
+var currWfStatus;
+if (isTaskActive('Init')) {
+	currWfStatus = 'Init';
+	}
+
+if (isTaskActive('Close Instant Lottery')) {
+	currWfStatus = 'Close Instant Lottery';
+	}
+
+if (isTaskActive('Close IBP Lottery')) {
+	currWfStatus = 'Close IBP Lottery';
+	}
+
+if (isTaskActive('Close FCFS Lottery')) {
+	currWfStatus = 'Close FCFS Lottery';
+	}
+
+if (isTaskActive('Close Draw Processs')) {
+	currWfStatus = 'Close Draw Processs';
+	}
+
+createDrawSettings(AInfo['License Year'], currWfStatus);
+================WorkflowTaskUpdateAfter
+prefix = "WTUA";
+branch("EMSE_VariableBranching");
+================WorkflowTaskUpdateBefore
+prefix = "WTUB";
+branch("EMSE_VariableBranching");
