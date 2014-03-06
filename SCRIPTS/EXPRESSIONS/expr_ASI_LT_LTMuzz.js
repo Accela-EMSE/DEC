@@ -42,7 +42,7 @@ var sUserIdEB = vUserID.getValue();
 var oRecordType=expression.getValue("CAP::capType");
 
 //Init 
-var f = new form_OBJECT(GS2_EXPR);
+var f = new form_OBJECT(GS2_EXPR, OPTZ_TYPE_ALLFEES);
 f.Year = aYear.value;
 f.DOB = abirthDate.value;
 f.Email = aemail.value;
