@@ -57,6 +57,8 @@ if (msg == '') {
     var aPermanentDisability = expression.getValue("ASI::INTERNAL USE::A_Permanent Disability");
     var vUserID = expression.getValue("$$userID$$");
     var sUserIdEB = vUserID.getValue();
+	var oRecordType=expression.getValue("CAP::capType");
+
 
     if (isNull(aActiveHoldings.value, '') != '') {
         //Init 
@@ -80,6 +82,7 @@ if (msg == '') {
 		f.IsPermanentDisabled = aPermanentDisability.value;
         f.FromACA = aIsFromACA.value;
         f.UserIdEB = sUserIdEB;
+		f.RecordType = oRecordType.getValue();
         //
 
         //Call rules
