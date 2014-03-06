@@ -41,6 +41,8 @@ var sUserIdEB = vUserID.getValue();
 var aIsMilitaryServiceman = expression.getValue("ASI::INTERNAL USE::A_Military Serviceman");
 var aIsLegallyBlind = expression.getValue("ASI::INTERNAL USE::A_Legally Blind");
 var aPermanentDisability = expression.getValue("ASI::INTERNAL USE::A_Permanent Disability");
+var oRecordType=expression.getValue("CAP::capType");
+
 
 //Init 
 var f = new form_OBJECT(GS2_EXPR);
@@ -54,7 +56,6 @@ f.SetAnnualDisability(aAnnualDisability.value);
 f.SetPriorLicense(aPreviousLicense.value);
 f.SetSportsmanEducation(aSportsmanEducation.value);
 f.SetLandOwnerInfo(aLandOwnerInformation.value);
-f.Quantity_Trail_Supporter_Patch = aQuantity_Trail_Supporter_Patch.value
 f.IsPermanentDisabled = aPermanentDisability.value;
 f.SetActiveHoldingsInfo(aActiveHoldings.value);
 f.DriverLicenseState = aDriverLicenseState.value;
@@ -66,6 +67,7 @@ f.FromACA = aIsFromACA.value;
 f.UserIdEB = sUserIdEB;
 f.IsMilitaryServiceman = aIsMilitaryServiceman.value;
 f.IsLegallyBlind = aIsLegallyBlind.value;
+f.RecordType = oRecordType.getValue();
 
 //
 //calling Hunt Sale
