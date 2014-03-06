@@ -6103,3 +6103,216 @@ function isValidBuyHuntRecord(pStep) {
     return retMsg;
 
 }
+
+function copyASIContactAppSpecificToRecordAppSpecific() {
+    logDebug("ENTER: copyNewContactAppSpecificToRecordAppSpecific");
+
+    if (publicUser) {
+
+        var publicUserID = "" + aa.env.getValue("CurrentUserID");
+
+        if (publicUserID.length > 0) {
+            var pUserSeqNum = aa.util.parseLong(publicUserID.substr(10, publicUserID.length - 1));
+            var s_publicUserResult = aa.publicUser.getPublicUser(pUserSeqNum);
+            if (s_publicUserResult.getSuccess()) {
+                var pUserObj = s_publicUserResult.getOutput();
+                if (pUserObj.getAccountType() == "CITIZEN") {
+                    MSG_SUSPENSION = "Customer privileges are suspended and licenses are not available for purchase. This issue can only be resolved by contacting DEC Law Enforcement during business hours at 518-402-8821.";
+                }
+            }
+        }
+    }
+
+    var isNotValidToProceed = MSG_SUSPENSION;
+
+    var xArray = getApplicantArrayEx();
+    var peopleSequenceNumber = null;
+    var deceasedDate = null;
+
+    for (ca in xArray) {
+        var thisContact = xArray[ca];
+        //First One is always Applicant
+
+        //Copy People Tempalte Fields.   These are fields that the user may change on field entry, need to make 
+        //sure that the new values are used in calculations on the page before they are updated to the reference contact
+        editAppSpecific4ACA("A_FromACA", "Yes");
+        editAppSpecific4ACA("A_email", thisContact["email"]);
+        editAppSpecific4ACA("A_birthDate", formatMMDDYYYY(thisContact["birthDate"]));
+        editAppSpecific4ACA("A_IsNYResident", thisContact["Are You New York Resident?"]);
+        editAppSpecific4ACA("A_Driver_License_State", thisContact["driverLicenseState"]);
+        editAppSpecific4ACA("A_Driver_License_Number", thisContact["driverLicenseNbr"]);
+        editAppSpecific4ACA("A_Non_Driver_License_Number", thisContact["stateIDNbr"]);
+
+        var strAnnual = null;
+        var strPrev = null;
+        var strLand = null;
+        var strEduc = null;
+
+        peopleSequenceNumber = thisContact["refcontactSeqNumber"]
+
+        if (peopleSequenceNumber != null) {
+            var peopleModel = getOutput(aa.people.getPeople(peopleSequenceNumber), "");
+
+            deceasedDate = peopleModel.getDeceasedDate();
+
+            //Copy All Asi Fields: asumption is identical subgroups are available in cap ASI
+            var subGroupArray = getTemplateValueByFormArrays(peopleModel.getTemplate(), null, null);
+            GetAllASI(subGroupArray);
+
+            for (var subGroupName in subGroupArray) {
+                var fieldArray = subGroupArray[subGroupName];
+               if (subGroupName == "ADDITIONAL INFO") {
+                    //editAppSpecific4ACA("A_IsNYResident", fieldArray["Are You New York Resident?"]);
+                    editAppSpecific4ACA("A_Preference_Points", isNull(fieldArray["Preference Points"], '0'));
+                    editAppSpecific4ACA("Preference Points", isNull(fieldArray["Preference Points"], '0'));
+                    editAppSpecific4ACA("A_Parent_Driver_License_Number", fieldArray["Parent Driver License Number"]);
+                    editAppSpecific4ACA("A_NY_Resident_Proof_Document", fieldArray["NY Resident Proof Document"]);
+                    continue;
+                } else {
+					   if (subGroupName == "APPEARANCE") {
+						editAppSpecific4ACA("Legally Blind", isNull(fieldArray["Legally Blind"], '0'));
+						editAppSpecific4ACA("Permanent Disability", isNull(fieldArray["Permanent Disability"], '0'));
+						continue;
+					} else {
+					   editAppSpecific4ACA("Military Serviceman", isNull(fieldArray["Military Serviceman"], '0'));
+					   continue;
+					}
+                } 
+				
+				
+            }
+
+            //Copy All ASITs : asumption is identical ASITs with subgroups are available in cap ASIT
+            subGroupArray = getTemplateValueByTableArrays(peopleModel.getTemplate());
+            strAnnual = GetContactASITDelimitedString(subGroupArray["ANNUAL DISABILITY"]);
+            strPrev = GetContactASITDelimitedString(subGroupArray["PREVIOUS LICENSE"]);
+            strLand = GetContactASITDelimitedString(subGroupArray["LAND OWNER INFORMATION"]);
+            strEduc = GetContactASITDelimitedString(subGroupArray["SPORTSMAN EDUCATION"]);
+            //strActiveHoldings = GetContactASITDelimitedString(subGroupArray["ACTIVE HOLDINGS"]);
+        }
+
+        //----load ASITs
+        editAppSpecific4ACA("A_Annual_Disability", strAnnual);
+        editAppSpecific4ACA("A_Previous_License", strPrev);
+        editAppSpecific4ACA("A_Land_Owner_Information", strLand);
+        editAppSpecific4ACA("A_Sportsman_Education", strEduc);
+        //editAppSpecific4ACA("A_ActiveHoldings", strActiveHoldings);
+
+        var asitModel;
+        var new_asit;
+
+        if (!(typeof (LANDOWNERINFORMATION) == "object")) {
+            var newLandOwnerInfo = GetTableValueArrayByDelimitedString("LANDOWNERINFORMATION", strLand)
+            asitModel = cap.getAppSpecificTableGroupModel();
+            new_asit = addASITable4ACAPageFlow(asitModel, "LAND OWNER INFORMATION", newLandOwnerInfo);
+        }
+        if (!(typeof (ANNUALDISABILITY) == "object")) {
+            var newAnnualDiability = GetTableValueArrayByDelimitedString("ANNUALDISABILITY", strAnnual)
+            asitModel = cap.getAppSpecificTableGroupModel();
+            new_asit = addASITable4ACAPageFlow(asitModel, "ANNUAL DISABILITY", newAnnualDiability);
+        }
+        if (!(typeof (SPORTSMANEDUCATION) == "object")) {
+            var newSportsmanDucat = GetTableValueArrayByDelimitedString("SPORTSMANEDUCATION", strEduc)
+            asitModel = cap.getAppSpecificTableGroupModel();
+            new_asit = addASITable4ACAPageFlow(asitModel, "SPORTSMAN EDUCATION", newSportsmanDucat);
+
+        }
+        if (!(typeof (PREVIOUSLICENSE) == "object")) {
+            var newPreviousLic = GetTableValueArrayByDelimitedString("PREVIOUSLICENSE", strPrev)
+            asitModel = cap.getAppSpecificTableGroupModel();
+            new_asit = addASITable4ACAPageFlow(asitModel, "PREVIOUS LICENSE", newPreviousLic);
+        }
+
+        //Contact Conditions Settings
+        var contactCondArray = getContactCondutions(peopleSequenceNumber);
+        editAppSpecific4ACA("A_Suspended", (isSuspension(contactCondArray) ? "Yes" : "No"));
+        editAppSpecific4ACA("A_Revoked_Hunting", (isRevocationHunting(contactCondArray) ? "Yes" : "No"));
+        editAppSpecific4ACA("A_Revoked_Trapping", (isRevocationTrapping(contactCondArray) ? "Yes" : "No"));
+        editAppSpecific4ACA("A_Revoked_Fishing", (isRevocationFishing(contactCondArray) ? "Yes" : "No"));
+        editAppSpecific4ACA("A_AgedIn", (isMarkForAgedInFulfillment(contactCondArray) ? "Yes" : "No"));
+        editAppSpecific4ACA("A_NeedHuntEd", (isMarkForNeedHutEdFulfillment(contactCondArray) ? "Yes" : "No"));
+
+        if (!isSuspension(contactCondArray)) {
+            isNotValidToProceed = false;
+        }
+        break;
+    }
+
+    if (deceasedDate) {
+        if (isNotValidToProceed) {
+            isNotValidToProceed += MSG_DECEASED;
+        }
+        else {
+            isNotValidToProceed = MSG_DECEASED;
+        }
+    }
+
+
+    if (!isAgentAbleToSell(publicUserID)) {
+        if (isNotValidToProceed) {
+            isNotValidToProceed += MSG_NO_AGENT_SALES;
+        }
+        else {
+            isNotValidToProceed = MSG_NO_AGENT_SALES;
+        }
+    }
+
+    // Defect 13354
+    var isMultipleAddresses = false;
+    var capContact = cap.getApplicantModel();
+    if (capContact) {
+
+        if (capContact.getRefContactNumber()) {
+            var passport = isNull(aa.people.getPeople(capContact.getRefContactNumber()).getOutput().getPassportNumber(), null);
+            var newpassport = isNull(cap.getApplicantModel().getPeople().getPassportNumber(), null);
+
+            if ((passport && !newpassport) || (!passport && newpassport) || (passport && newpassport && passport != newpassport)) {
+                if (isNotValidToProceed) {
+                    isNotValidToProceed += MSG_DEC_ID_EDITED;
+                }
+                else {
+                    isNotValidToProceed = MSG_DEC_ID_EDITED + " (" + passport + ") v. (" + newpassport + ")";
+                }
+            }
+        }
+
+
+        pmcal = capContact.getPeople().getContactAddressList();
+        if (pmcal) {
+            var addresses = pmcal.toArray();
+            if (addresses.length > 1) {
+                var addrTypeCount = new Array();
+                for (var y in addresses) {
+                    var thisAddr = addresses[y];
+                    addrTypeCount[thisAddr.addressType] = 0;
+                }
+
+                for (var yy in addresses) {
+                    thisAddr = addresses[yy];
+                    addrTypeCount[thisAddr.addressType] += 1;
+                }
+
+                for (var z in addrTypeCount) {
+                    if (addrTypeCount[z] > 1)
+                        isMultipleAddresses = true;
+                }
+            }
+
+            if (isMultipleAddresses) {
+                if (isNotValidToProceed) {
+                    isNotValidToProceed += MSG_TOO_MANY_ADDR
+                }
+                else {
+                    isNotValidToProceed = MSG_TOO_MANY_ADDR;
+                }
+            }
+        }
+    }
+
+
+
+    logDebug("EXIT: copyContactAppSpecificToRecordAppSpecific");
+
+    return isNotValidToProceed;
+}
+
