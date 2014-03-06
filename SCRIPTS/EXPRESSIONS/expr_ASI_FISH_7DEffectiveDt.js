@@ -58,6 +58,8 @@ if (msg == '') {
     var aRevokedFishing = expression.getValue("ASI::INTERNAL USE::A_Revoked_Fishing");
     var vUserID = expression.getValue("$$userID$$");
     var sUserIdEB = vUserID.getValue();
+	var oRecordType=expression.getValue("CAP::capType");
+
 
     if (isNull(aActiveHoldings.value, '') != '') {
         //Init 
@@ -78,6 +80,7 @@ if (msg == '') {
         f.SetFulfillmentAttrib(aAgedIn.value, aNeedHuntEd.value);
         f.FromACA = aIsFromACA.value;
         f.UserIdEB = sUserIdEB;
+		f.RecordType = oRecordType.getValue();
         //
 
         msg = f.isActiveFishingLic(oEffDt.getValue(), '7 Day')
