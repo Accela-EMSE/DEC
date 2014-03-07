@@ -2408,7 +2408,6 @@ function getPrereq_3Y_BOWH(ruleParams) {
     if (isRuleForSelectable_3Y_BOWH(ruleParams)) {
         arryPrereq = new Array();
         arryPrereq.push(LIC58_HUNTING_LICENSE_3Y);
-        arryPrereq.push(LIC59_HUNTING_LICENSE_5Y);
         arryPrereq.push(LIC12_LIFETIME_SMALL_AND_BIG_GAME);
         arryPrereq.push(LIC13_LIFETIME_SPORTSMAN);
     }
@@ -2427,7 +2426,6 @@ function getPrereq_5Y_BOWH(ruleParams) {
 function getPrereq_3Y_MUZZ(ruleParams) {
     var arryPrereq = new Array();
     arryPrereq.push(LIC58_HUNTING_LICENSE_3Y);
-    arryPrereq.push(LIC59_HUNTING_LICENSE_5Y);
     arryPrereq.push(LIC12_LIFETIME_SMALL_AND_BIG_GAME);
     arryPrereq.push(LIC13_LIFETIME_SPORTSMAN);
     return arryPrereq;
@@ -2444,7 +2442,6 @@ function getPrereq_3Y_TRKY_2014(ruleParams) {
     if (isRuleForSelectable_3Y_TRKY(ruleParams)) {
         arryPrereq = new Array();
         arryPrereq.push(LIC58_HUNTING_LICENSE_3Y);
-        arryPrereq.push(LIC59_HUNTING_LICENSE_5Y);
         arryPrereq.push(LIC12_LIFETIME_SMALL_AND_BIG_GAME);
     }
     return arryPrereq;
