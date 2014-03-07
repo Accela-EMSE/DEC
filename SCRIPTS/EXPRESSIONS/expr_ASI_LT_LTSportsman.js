@@ -91,7 +91,6 @@ f.ExecuteBoRuleEngine();
 
 ////Set Lic availablity using lic array from app object
 for (var idx = 0; idx < f.licObjARRAY.length; idx++) {
-	//var oTemp = new License_OBJ();
 	var oLic = f.licObjARRAY[idx];
 
 	if (f.licObjARRAY[idx].IsSelectable == false || f.licObjARRAY[idx].IsActive == false) {
