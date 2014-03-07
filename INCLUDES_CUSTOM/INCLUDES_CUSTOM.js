@@ -5815,312 +5815,6 @@ function isValidRecForCreateRef() {
     return retvalue;
 }
 
-//This function is ACA ONSUBMIT AFTER SEL LIFETIME
-function SetLifeTimeformForSelectedLics(frm) {
-
-    logDebug("ENTER: SetLifeTimeformForSelectedLics");
-
-    frm.Year = AInfo["License Year"];
-    frm.DOB = AInfo["A_birthDate"];
-    frm.Email = AInfo["A_email"];
-    frm.IsNyResiDent = AInfo["A_IsNYResident"];
-    frm.IsMilitaryServiceman = AInfo["A_Military Serviceman"];
-    frm.IsNativeAmerican = AInfo["A_IsNativeAmerican"];
-    frm.IsLegallyBlind = AInfo["A_Legally Blind"];
-    frm.PreferencePoints = AInfo["A_Preference_Points"];
-    frm.SetAnnualDisability(AInfo["A_Annual_Disability"]);
-    frm.SetPriorLicense(AInfo["A_Previous_License"]);
-    frm.SetSportsmanEducation(AInfo["A_Sportsman_Education"]);
-    frm.SetLandOwnerInfo(AInfo["A_Land_Owner_Information"]);
-    frm.SetActiveHoldingsInfo(AInfo["A_ActiveHoldings"]);
-    frm.Inscription = AInfo["Inscription"];
-    frm.IsPermanentDisabled = AInfo["A_Permanent Disability"];
-    frm.DriverLicenseState = AInfo["A_Driver_License_State"];
-    frm.DriverLicenseNumber = AInfo["A_Driver_License_Number"];
-    frm.NonDriverLicenseNumber = AInfo["A_Non_Driver_License_Number"];
-
-    frm.SetSelected(LIC10_LIFETIME_FISHING, (AInfo["Lifetime Fishing"] == "CHECKED"), 1);
-    frm.SetSelected(LIC13_LIFETIME_SPORTSMAN, (AInfo["Lifetime Sportsman"] == "CHECKED"), 1);
-    frm.SetSelected(LIC12_LIFETIME_SMALL_AND_BIG_GAME, (AInfo["Lifetime Small & Big Game"] == "CHECKED"), 1);
-    frm.SetSelected(LIC11_LIFETIME_MUZZLELOADING, (AInfo["Lifetime Muzzleloading"] == "CHECKED"), 1);
-    frm.SetSelected(LIC09_LIFETIME_BOWHUNTING, (AInfo["Lifetime Bowhunting"] == "CHECKED"), 1);
-    frm.SetSelected(LIC14_LIFETIME_TRAPPING, (AInfo["Lifetime Trapping"] == "CHECKED"), 1);
-    frm.SetSelected(LIC45_LIFETIME_INSCRIPTION, (AInfo["Lifetime Inscription"] == "CHECKED"), 1);
-    frm.SetSelected(LIC56_TAG_DRIV_LIC_IMM, (AInfo["Add Lifetime to Driver License Re-Issue Immediately"] == "CHECKED"), 1);
-    frm.SetSelected(LIC57_TAG_DRIV_LIC_REN, (AInfo["Add Lifetime to Driver License on Renewal"] == "CHECKED"), 1);
-
-    frm.ExecuteBoRuleEngine();
-
-    logDebug("EXIT: SetLifeTimeformForSelectedLics");
-}
-
-function isValidBuyLifeTimeRecord(pStep) {
-    logDebug("ENTER: isValidBuyLifeTimeRecord");
-    var retMsg = '';
-    var msg = '';
-    //Called via Pageflow from Standard Choice -> ACA ONSUBMIT BEFORE SALESSELECT
-    if (pStep == 'Step1') {
-        logDebug("pStep = Step1...");
-        logDebug("call verifyAny LifeTime SalesSelect()...");
-        msg = verifyAnyLifetimeSalesSelect(); //
-        retMsg += msg;
-    }
-    logDebug("EXIT: isValidBuyLifeTimeRecord");
-
-    return retMsg;
-}
-
-function verifyAnyLifetimeSalesSelect() {
-    var retMsg = ''
-    var isChecked = false;
-    isChecked = isChecked || (AInfo["Lifetime Bowhunting"] == "CHECKED");
-    isChecked = isChecked || (AInfo["Lifetime Fishing"] == "CHECKED");
-    isChecked = isChecked || (AInfo["Lifetime Muzzleloading"] == "CHECKED");
-    isChecked = isChecked || (AInfo["Lifetime Small & Big Game"] == "CHECKED");
-    isChecked = isChecked || (AInfo["Lifetime Sportsman"] == "CHECKED");
-    isChecked = isChecked || (AInfo["Lifetime Trapping"] == "CHECKED");
-    isChecked = isChecked || (AInfo["Lifetime Inscription"] == "CHECKED");
-    isChecked = isChecked || (AInfo["Add Lifetime to Driver License Re-Issue Immediately"] == "CHECKED");
-    isChecked = isChecked || (AInfo["Add Lifetime to Driver License on Renewal"] == "CHECKED");
-
-    if (!isChecked) {
-        retMsg += "Please select sales item.";
-        retMsg += "<Br />";
-    }
-    return retMsg;
-
-}
-
-function verifyAnyHuntSalesSelect() {
-    var retMsg = ''
-    var isChecked = false;
-    isChecked = isChecked || (AInfo["Bowhunting Privilege"] == "CHECKED");
-    isChecked = isChecked || (AInfo["3 Year Bowhunting Privilege"] == "CHECKED");
-    isChecked = isChecked || (AInfo["5 Year Bowhunting Privilege"] == "CHECKED");
-    isChecked = isChecked || (AInfo["Deer Management Permit"] == "CHECKED");
-    isChecked = isChecked || (AInfo["Hunting License"] == "CHECKED");
-    isChecked = isChecked || (AInfo["3 Year Hunting License"] == "CHECKED");
-    isChecked = isChecked || (AInfo["5 Year Hunting License"] == "CHECKED");
-    isChecked = isChecked || (AInfo["Muzzleloading Privilege"] == "CHECKED");
-    isChecked = isChecked || (AInfo["3 Year Muzzleloading Privilege"] == "CHECKED");
-    isChecked = isChecked || (AInfo["5 Year Muzzleloading Privilege"] == "CHECKED");
-    isChecked = isChecked || (AInfo["Turkey Permit"] == "CHECKED");
-    isChecked = isChecked || (AInfo["3 Year Turkey Permit"] == "CHECKED");
-    isChecked = isChecked || (AInfo["5 Year Turkey Permit"] == "CHECKED");
-
-    if (!isChecked) {
-        retMsg += "Please select sales item.";
-        retMsg += "<Br />";
-    }
-    return retMsg;
-}
-
-
-// This function is called inside "ACA ONSUBMIT AFTER SEL TRAP" Standard Choice for Fast Track Trapping Record Type
-function SetTrapformForSelectedLics(frm) {
-    logDebug("ENTER: SetTrapformForSelectedLics");
-
-    frm.Year = AInfo["License Year"];
-    frm.DOB = AInfo["A_birthDate"];
-    frm.Email = AInfo["A_email"];
-    frm.IsNyResiDent = AInfo["A_IsNYResident"];
-    frm.IsMilitaryServiceman = AInfo["A_Military Serviceman"];
-    frm.IsNativeAmerican = AInfo["A_IsNativeAmerican"];
-    frm.IsLegallyBlind = AInfo["A_Legally Blind"];
-    frm.PreferencePoints = AInfo["A_Preference_Points"];
-    frm.SetAnnualDisability(AInfo["A_Annual_Disability"]);
-    frm.SetPriorLicense(AInfo["A_Previous_License"]);
-    frm.SetSportsmanEducation(AInfo["A_Sportsman_Education"]);
-    frm.SetLandOwnerInfo(AInfo["A_Land_Owner_Information"]);
-    frm.SetActiveHoldingsInfo(AInfo["A_ActiveHoldings"]);
-    frm.Inscription = AInfo["Inscription"];
-    frm.IsPermanentDisabled = AInfo["A_Permanent Disability"];
-    frm.DriverLicenseState = AInfo["A_Driver_License_State"];
-    frm.DriverLicenseNumber = AInfo["A_Driver_License_Number"];
-    frm.NonDriverLicenseNumber = AInfo["A_Non_Driver_License_Number"];
-
-    frm.SetSelected(LIC15_TRAPPING_LICENSE, (AInfo["Trapping License"] == "CHECKED"), 1);
-    frm.SetSelected(LIC64_TRAPPING_LICENSE_3Y, (AInfo["3 Year Trapping License"] == "CHECKED"), 1);
-    frm.SetSelected(LIC65_TRAPPING_LICENSE_5Y, (AInfo["5 Year Trapping License"] == "CHECKED"), 1);
-
-    frm.ExecuteBoRuleEngine();
-
-    logDebug("EXIT: SetTrapformForSelectedLics");
-}
-
-// This function is called inside "ACA ONSUBMIT BEFORE SEL TRAP" Standard Choice for Fast Track Trapping Record Type
-function isValidBuyTrapRecord(pStep) {
-    logDebug("ENTER: isValidBuyTrapRecord");
-    var retMsg = '';
-    var msg = '';
-    //Called via Pageflow from Standard Choice -> ACA ONSUBMIT BEFORE SALESSELECT
-    if (pStep == 'Step1') {
-        logDebug("pStep = Step1...");
-        logDebug("call verifyAny LifeTime SalesSelect()...");
-        msg = verifyAnyTrapSalesSelect(); //
-        retMsg += msg;
-    }
-    logDebug("EXIT: isValidBuyTrapRecord");
-
-    return retMsg;
-}
-
-function verifyAnyTrapSalesSelect() {
-    var retMsg = ''
-    var isChecked = false;
-    isChecked = isChecked || (AInfo["Trapping License"] == "CHECKED");
-    isChecked = isChecked || (AInfo["3 Year Trapping License"] == "CHECKED");
-    isChecked = isChecked || (AInfo["5 Year Trapping License"] == "CHECKED");
-
-    if (!isChecked) {
-        retMsg += "Please select sales item.";
-        retMsg += "<Br />";
-    }
-    return retMsg;
-
-}
-
-// This function is called inside "ACA ONSUBMIT AFTER SEL FISH" Standard Choice for Fast Track Fishing Record Type
-function SetFishformForSelectedLics(frm) {
-    logDebug("ENTER: SetFishformForSelectedLics");
-
-    frm.Year = AInfo["License Year"];
-    frm.DOB = AInfo["A_birthDate"];
-    frm.Email = AInfo["A_email"];
-    frm.IsNyResiDent = AInfo["A_IsNYResident"];
-    frm.IsMilitaryServiceman = AInfo["A_Military Serviceman"];
-    frm.IsNativeAmerican = AInfo["A_IsNativeAmerican"];
-    frm.IsLegallyBlind = AInfo["A_Legally Blind"];
-    frm.PreferencePoints = AInfo["A_Preference_Points"];
-    frm.SetAnnualDisability(AInfo["A_Annual_Disability"]);
-    frm.SetPriorLicense(AInfo["A_Previous_License"]);
-    frm.SetSportsmanEducation(AInfo["A_Sportsman_Education"]);
-    frm.SetLandOwnerInfo(AInfo["A_Land_Owner_Information"]);
-    frm.SetActiveHoldingsInfo(AInfo["A_ActiveHoldings"]);
-    frm.Inscription = AInfo["Inscription"];
-    frm.IsPermanentDisabled = AInfo["A_Permanent Disability"];
-    frm.DriverLicenseState = AInfo["A_Driver_License_State"];
-    frm.DriverLicenseNumber = AInfo["A_Driver_License_Number"];
-    frm.NonDriverLicenseNumber = AInfo["A_Non_Driver_License_Number"];
-
-    frm.SetSelected(LIC02_MARINE_REGISTRY, (AInfo["Marine Registry"] == "CHECKED"), 1);
-    frm.SetSelected(LIC03_ONE_DAY_FISHING_LICENSE, (AInfo["One Day Fishing License"] == "CHECKED"), 1);
-    frm.SetSelected(LIC26_SEVEN_DAY_FISHING_LICENSE, (AInfo["Seven Day Fishing License"] == "CHECKED"), 1);
-    frm.SetSelected(LIC22_FRESHWATER_FISHING, (AInfo["Freshwater Fishing"] == "CHECKED"), 1);
-    frm.SetSelected(LIC66_FRESHWATER_FISHING_3Y, (AInfo["3 Year Freshwater Fishing"] == "CHECKED"), 1);
-    frm.SetSelected(LIC67_FRESHWATER_FISHING_5Y, (AInfo["5 Year Freshwater Fishing"] == "CHECKED"), 1);
-
-    frm.ExecuteBoRuleEngine();
-
-    logDebug("EXIT: SetFishformForSelectedLics");
-}
-
-// This function is called inside "ACA ONSUBMIT BEFORE SEL FISH" Standard Choice for Fast Track Trapping Record Type
-function isValidBuyFishRecord(pStep) {
-    logDebug("ENTER: isValidBuyFishRecord");
-    var retMsg = '';
-    if (pStep == 'Step1') {
-        logDebug("pStep = Step1...");
-        logDebug("call verifyAny LifeTime SalesSelect()...");
-        msg = verifyAnyFishSalesSelect(); //
-        retMsg += msg;
-
-        logDebug("call validateFishingdates()...");
-        msg = validateFishingdates();
-        retMsg += msg;
-    }
-    logDebug("EXIT: isValidBuyFishRecord");
-    return retMsg;
-}
-
-function verifyAnyFishSalesSelect() {
-    var retMsg = ''
-    var isChecked = false;
-    isChecked = isChecked || (AInfo["Freshwater Fishing"] == "CHECKED");
-    isChecked = isChecked || (AInfo["One Day Fishing License"] == "CHECKED");
-    isChecked = isChecked || (AInfo["Seven Day Fishing License"] == "CHECKED");
-    isChecked = isChecked || (AInfo["Marine Registry"] == "CHECKED");
-    isChecked = isChecked || (AInfo["3 Year Freshwater Fishing"] == "CHECKED");
-    isChecked = isChecked || (AInfo["5 Year Freshwater Fishing"] == "CHECKED");
-
-    if (!isChecked) {
-        retMsg += "Please select sales item.";
-        retMsg += "<Br />";
-    }
-    return retMsg;
-
-}
-//This function for ACA ONSUBMIT AFTER SEL HUNT 
-function SetHuntformForSelectedLics(frm) {
-    logDebug("ENTER: SetHuntformForSelectedLics");
-
-    frm.Year = AInfo["License Year"];
-    frm.DOB = AInfo["A_birthDate"];
-    frm.Email = AInfo["A_email"];
-    frm.IsNyResiDent = AInfo["A_IsNYResident"];
-    frm.IsMilitaryServiceman = AInfo["A_Military Serviceman"];
-    frm.IsNativeAmerican = AInfo["A_IsNativeAmerican"];
-    frm.IsLegallyBlind = AInfo["A_Legally Blind"];
-    frm.PreferencePoints = AInfo["A_Preference_Points"];
-    frm.SetAnnualDisability(AInfo["A_Annual_Disability"]);
-    frm.SetPriorLicense(AInfo["A_Previous_License"]);
-    frm.SetSportsmanEducation(AInfo["A_Sportsman_Education"]);
-    frm.SetLandOwnerInfo(AInfo["A_Land_Owner_Information"]);
-    frm.SetActiveHoldingsInfo(AInfo["A_ActiveHoldings"]);
-    frm.Inscription = AInfo["Inscription"];
-    frm.IsPermanentDisabled = AInfo["A_Permanent Disability"];
-    frm.DriverLicenseState = AInfo["A_Driver_License_State"];
-    frm.DriverLicenseNumber = AInfo["A_Driver_License_Number"];
-    frm.NonDriverLicenseNumber = AInfo["A_Non_Driver_License_Number"];
-
-    frm.SetSelected(LIC04_BOWHUNTING_PRIVILEGE, (AInfo["Bowhunting Privilege"] == "CHECKED"), 1);
-    frm.SetSelected(LIC60_BOWHUNTING_PRIVILEGE_3Y, (AInfo["3 Year Bowhunting Privilege"] == "CHECKED"), 1);
-    frm.SetSelected(LIC61_BOWHUNTING_PRIVILEGE_5Y, (AInfo["5 Year Bowhunting Privilege"] == "CHECKED"), 1);
-    frm.SetSelected(LIC05_DEER_MANAGEMENT_PERMIT, (AInfo["Deer Management Permit"] == "CHECKED"), 1);
-    frm.SetSelected(LIC06_HUNTING_LICENSE, (AInfo["Hunting License"] == "CHECKED"), 1);
-    frm.SetSelected(LIC58_HUNTING_LICENSE_3Y, (AInfo["3 Year Hunting License"] == "CHECKED"), 1);
-    frm.SetSelected(LIC59_HUNTING_LICENSE_5Y, (AInfo["5 Year Hunting License"] == "CHECKED"), 1);
-    frm.SetSelected(LIC07_MUZZLELOADING_PRIVILEGE, (AInfo["Muzzleloading Privilege"] == "CHECKED"), 1);
-    frm.SetSelected(LIC62_MUZZLELOADING_PRIVILEGE_3Y, (AInfo["3 Year Muzzleloading Privilege"] == "CHECKED"), 1);
-    frm.SetSelected(LIC63_MUZZLELOADING_PRIVILEGE_5Y, (AInfo["5 Year Muzzleloading Privilege"] == "CHECKED"), 1);
-    frm.SetSelected(LIC08_TURKEY_PERMIT, (AInfo["Turkey Permit"] == "CHECKED"), 1);
-    frm.SetSelected(LIC68_TURKEY_PERMIT_3Y, (AInfo["3 Year Turkey Permit"] == "CHECKED"), 1);
-    frm.SetSelected(LIC69_TURKEY_PERMIT_5Y, (AInfo["5 Year Turkey Permit"] == "CHECKED"), 1);
-
-    frm.ExecuteBoRuleEngine();
-    logDebug("EXIT: SetHuntformForSelectedLics");
-}
-
-//This function for ACA ONSUBMIT BEFORE SEL HUNT 
-function isValidBuyHuntRecord(pStep) {
-    logDebug("ENTER: isValidBuyHuntRecord");
-    var retMsg = '';
-    var msg = '';
-    //Called via Pageflow from Standard Choice -> ACA ONSUBMIT BEFORE SALESSELECT
-    if (pStep == 'Step1') {
-        logDebug("pStep = Step1...");
-        logDebug("call verifyAny Hunting SalesSelect()...");
-        msg = verifyAnyHuntSalesSelect(); //
-        retMsg += msg;
-
-        logDebug("call verifyDMPinfo()...");
-        msg = verifyDMPinfo();
-        if (msg != '') {
-            retMsg += msg;
-        }
-
-        logDebug("call verifyLandOwnerInfo()...");
-        msg = verifyLandOwnerInfo();
-        if (msg != '') {
-            retMsg += msg;
-        }
-    }
-    logDebug("EXIT: isValidBuyHuntRecord");
-
-    return retMsg;
-
-}
-
 function copyASIContactAppSpecificToRecordAppSpecific() {
     logDebug("ENTER: copyNewContactAppSpecificToRecordAppSpecific");
 
@@ -6326,10 +6020,172 @@ function copyASIContactAppSpecificToRecordAppSpecific() {
         }
     }
 
-
-
     logDebug("EXIT: copyContactAppSpecificToRecordAppSpecific");
 
     return isNotValidToProceed;
 }
+
+//Start-All express record types for ASI_FISH,ASI_HUNT,ASI_LT and ASI_TRAP
+//ACA ONSUBMIT After
+function SetExpressformForSelectedLics(frm){
+	logDebug("ENTER: SetExpressformForSelectedLics");
+	frm.Year = AInfo["License Year"];
+	frm.DOB = AInfo["A_birthDate"];
+	frm.Email = AInfo["A_email"];
+	frm.IsNyResiDent = AInfo["A_IsNYResident"];
+	frm.IsMilitaryServiceman = AInfo["A_Military Serviceman"];
+	frm.IsNativeAmerican = AInfo["A_IsNativeAmerican"];
+	frm.IsLegallyBlind = AInfo["A_Legally Blind"];
+	frm.PreferencePoints = AInfo["A_Preference_Points"];
+	frm.SetAnnualDisability(AInfo["A_Annual_Disability"]);
+	frm.SetPriorLicense(AInfo["A_Previous_License"]);
+	frm.SetSportsmanEducation(AInfo["A_Sportsman_Education"]);
+	frm.SetLandOwnerInfo(AInfo["A_Land_Owner_Information"]);
+	frm.SetActiveHoldingsInfo(AInfo["A_ActiveHoldings"]);
+	frm.Inscription = AInfo["Inscription"];
+	frm.IsPermanentDisabled = AInfo["A_Permanent Disability"];
+	frm.DriverLicenseState = AInfo["A_Driver_License_State"];
+	frm.DriverLicenseNumber = AInfo["A_Driver_License_Number"];
+	frm.NonDriverLicenseNumber = AInfo["A_Non_Driver_License_Number"];
+		
+	if (appTypeString == 'Licenses/Sales/Application/Fishing') {
+		frm.SetSelected(LIC02_MARINE_REGISTRY, (AInfo["Marine Registry"] == "CHECKED"), 1);
+		frm.SetSelected(LIC03_ONE_DAY_FISHING_LICENSE, (AInfo["One Day Fishing License"] == "CHECKED"), 1);
+		frm.SetSelected(LIC26_SEVEN_DAY_FISHING_LICENSE, (AInfo["Seven Day Fishing License"] == "CHECKED"), 1);
+		frm.SetSelected(LIC22_FRESHWATER_FISHING, (AInfo["Freshwater Fishing"] == "CHECKED"), 1);
+		frm.SetSelected(LIC66_FRESHWATER_FISHING_3Y, (AInfo["3 Year Freshwater Fishing"] == "CHECKED"), 1);
+		frm.SetSelected(LIC67_FRESHWATER_FISHING_5Y, (AInfo["5 Year Freshwater Fishing"] == "CHECKED"), 1);
+	}
+	if(appTypeString == 'Licenses/Sales/Application/Hunting'){
+		frm.SetSelected(LIC04_BOWHUNTING_PRIVILEGE, (AInfo["Bowhunting Privilege"] == "CHECKED"), 1);
+		frm.SetSelected(LIC60_BOWHUNTING_PRIVILEGE_3Y, (AInfo["3 Year Bowhunting Privilege"] == "CHECKED"), 1);
+		frm.SetSelected(LIC61_BOWHUNTING_PRIVILEGE_5Y, (AInfo["5 Year Bowhunting Privilege"] == "CHECKED"), 1);
+		frm.SetSelected(LIC05_DEER_MANAGEMENT_PERMIT, (AInfo["Deer Management Permit"] == "CHECKED"), 1);
+		frm.SetSelected(LIC06_HUNTING_LICENSE, (AInfo["Hunting License"] == "CHECKED"), 1);
+		frm.SetSelected(LIC58_HUNTING_LICENSE_3Y, (AInfo["3 Year Hunting License"] == "CHECKED"), 1);
+		frm.SetSelected(LIC59_HUNTING_LICENSE_5Y, (AInfo["5 Year Hunting License"] == "CHECKED"), 1);
+		frm.SetSelected(LIC07_MUZZLELOADING_PRIVILEGE, (AInfo["Muzzleloading Privilege"] == "CHECKED"), 1);
+		frm.SetSelected(LIC62_MUZZLELOADING_PRIVILEGE_3Y, (AInfo["3 Year Muzzleloading Privilege"] == "CHECKED"), 1);
+		frm.SetSelected(LIC63_MUZZLELOADING_PRIVILEGE_5Y, (AInfo["5 Year Muzzleloading Privilege"] == "CHECKED"), 1);
+		frm.SetSelected(LIC08_TURKEY_PERMIT, (AInfo["Turkey Permit"] == "CHECKED"), 1);
+		frm.SetSelected(LIC68_TURKEY_PERMIT_3Y, (AInfo["3 Year Turkey Permit"] == "CHECKED"), 1);
+		frm.SetSelected(LIC69_TURKEY_PERMIT_5Y, (AInfo["5 Year Turkey Permit"] == "CHECKED"), 1);
+	}
+	if (appTypeString == 'Licenses/Sales/Application/Lifetime') {
+		frm.SetSelected(LIC10_LIFETIME_FISHING, (AInfo["Lifetime Fishing"] == "CHECKED"), 1);
+		frm.SetSelected(LIC13_LIFETIME_SPORTSMAN, (AInfo["Lifetime Sportsman"] == "CHECKED"), 1);
+		frm.SetSelected(LIC12_LIFETIME_SMALL_AND_BIG_GAME, (AInfo["Lifetime Small & Big Game"] == "CHECKED"), 1);
+		frm.SetSelected(LIC11_LIFETIME_MUZZLELOADING, (AInfo["Lifetime Muzzleloading"] == "CHECKED"), 1);
+		frm.SetSelected(LIC09_LIFETIME_BOWHUNTING, (AInfo["Lifetime Bowhunting"] == "CHECKED"), 1);
+		frm.SetSelected(LIC14_LIFETIME_TRAPPING, (AInfo["Lifetime Trapping"] == "CHECKED"), 1);
+		frm.SetSelected(LIC45_LIFETIME_INSCRIPTION, (AInfo["Lifetime Inscription"] == "CHECKED"), 1);
+		frm.SetSelected(LIC56_TAG_DRIV_LIC_IMM, (AInfo["Add Lifetime to Driver License Re-Issue Immediately"] == "CHECKED"), 1);
+		frm.SetSelected(LIC57_TAG_DRIV_LIC_REN, (AInfo["Add Lifetime to Driver License on Renewal"] == "CHECKED"), 1);
+	}
+	if (appTypeString == 'Licenses/Sales/Application/Trapping') {
+		frm.SetSelected(LIC15_TRAPPING_LICENSE, (AInfo["Trapping License"] == "CHECKED"), 1);
+		frm.SetSelected(LIC64_TRAPPING_LICENSE_3Y, (AInfo["3 Year Trapping License"] == "CHECKED"), 1);
+		frm.SetSelected(LIC65_TRAPPING_LICENSE_5Y, (AInfo["5 Year Trapping License"] == "CHECKED"), 1);
+	}
+	
+	frm.ExecuteBoRuleEngine();
+	logDebug("EXIT: SetExpressformForSelectedLics");
+}
+//ACA ONSUBMIT Before
+function isValidBuyExpressRecord(pStep){
+	logDebug("ENTER: isValidBuyExpressRecord");
+	var retMsg = '';
+	var msg = '';
+	if (appTypeString == 'Licenses/Sales/Application/Fishing') {
+		if (pStep == 'Step1') {
+			msg = verifyAnyExpressSalesSelect(); 
+			retMsg += msg;
+			logDebug("call validateFishingdates()...");
+			msg = validateFishingdates();
+			retMsg += msg;
+		}
+	}
+	if (appTypeString == 'Licenses/Sales/Application/Hunting') {
+		if (pStep == 'Step1') {
+			msg = verifyAnyExpressSalesSelect(); 
+			retMsg += msg;
+
+			msg = verifyDMPinfo();
+			if (msg != '') {
+				retMsg += msg;
+			}
+			logDebug("call verifyLandOwnerInfo()...");
+			msg = verifyLandOwnerInfo();
+			if (msg != '') {
+				retMsg += msg;
+			}
+		}
+	}
+	if (appTypeString == 'Licenses/Sales/Application/Lifetime') {
+		if (pStep == 'Step1') {
+			msg = verifyAnyExpressSalesSelect(); 
+			retMsg += msg;
+		}
+	}
+	if (appTypeString == 'Licenses/Sales/Application/Trapping') {
+		if (pStep == 'Step1') {
+			msg = verifyAnyExpressSalesSelect(); 
+			retMsg += msg;
+		}
+	}
+	logDebug("Exit: isValidBuyExpressRecord");
+	return retMsg;
+}
+
+function verifyAnyExpressSalesSelect(){
+	var retMsg = ''
+    var isChecked = false;
+	if (appTypeString == 'Licenses/Sales/Application/Hunting') {		
+		isChecked = isChecked || (AInfo["Bowhunting Privilege"] == "CHECKED");
+		isChecked = isChecked || (AInfo["3 Year Bowhunting Privilege"] == "CHECKED");
+		isChecked = isChecked || (AInfo["5 Year Bowhunting Privilege"] == "CHECKED");
+		isChecked = isChecked || (AInfo["Deer Management Permit"] == "CHECKED");
+		isChecked = isChecked || (AInfo["Hunting License"] == "CHECKED");
+		isChecked = isChecked || (AInfo["3 Year Hunting License"] == "CHECKED");
+		isChecked = isChecked || (AInfo["5 Year Hunting License"] == "CHECKED");
+		isChecked = isChecked || (AInfo["Muzzleloading Privilege"] == "CHECKED");
+		isChecked = isChecked || (AInfo["3 Year Muzzleloading Privilege"] == "CHECKED");
+		isChecked = isChecked || (AInfo["5 Year Muzzleloading Privilege"] == "CHECKED");
+		isChecked = isChecked || (AInfo["Turkey Permit"] == "CHECKED");
+		isChecked = isChecked || (AInfo["3 Year Turkey Permit"] == "CHECKED");
+		isChecked = isChecked || (AInfo["5 Year Turkey Permit"] == "CHECKED");
+	}
+	if (appTypeString == 'Licenses/Sales/Application/Trapping') {
+		isChecked = isChecked || (AInfo["Trapping License"] == "CHECKED");
+		isChecked = isChecked || (AInfo["3 Year Trapping License"] == "CHECKED");
+		isChecked = isChecked || (AInfo["5 Year Trapping License"] == "CHECKED");
+		}
+
+	if (appTypeString == 'Licenses/Sales/Application/Fishing') {
+		isChecked = isChecked || (AInfo["Freshwater Fishing"] == "CHECKED");
+		isChecked = isChecked || (AInfo["One Day Fishing License"] == "CHECKED");
+		isChecked = isChecked || (AInfo["Seven Day Fishing License"] == "CHECKED");
+		isChecked = isChecked || (AInfo["Marine Registry"] == "CHECKED");
+		isChecked = isChecked || (AInfo["3 Year Freshwater Fishing"] == "CHECKED");
+		isChecked = isChecked || (AInfo["5 Year Freshwater Fishing"] == "CHECKED");
+	}
+	if (appTypeString == 'Licenses/Sales/Application/Lifetime') {
+	 	isChecked = isChecked || (AInfo["Lifetime Bowhunting"] == "CHECKED");
+		isChecked = isChecked || (AInfo["Lifetime Fishing"] == "CHECKED");
+		isChecked = isChecked || (AInfo["Lifetime Muzzleloading"] == "CHECKED");
+		isChecked = isChecked || (AInfo["Lifetime Small & Big Game"] == "CHECKED");
+		isChecked = isChecked || (AInfo["Lifetime Sportsman"] == "CHECKED");
+		isChecked = isChecked || (AInfo["Lifetime Trapping"] == "CHECKED");
+		isChecked = isChecked || (AInfo["Lifetime Inscription"] == "CHECKED");
+		isChecked = isChecked || (AInfo["Add Lifetime to Driver License Re-Issue Immediately"] == "CHECKED");
+		isChecked = isChecked || (AInfo["Add Lifetime to Driver License on Renewal"] == "CHECKED");
+		}
+	if (!isChecked) {
+		retMsg += "Please select sales item.";
+		retMsg += "<Br />";
+	}
+	return retMsg;
+
+}
+//End-All express record types for ASI_FISH,ASI_HUNT,ASI_LT and ASI_TRAP
 
