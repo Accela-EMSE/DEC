@@ -1072,8 +1072,12 @@ function SetformForSelectedLics(frm) {
     frm.SetSelected(LIC61_BOWHUNTING_PRIVILEGE_5Y, (AInfo["5 Year Bowhunting Privilege"] == "CHECKED"), 1);
     frm.SetSelected(LIC62_MUZZLELOADING_PRIVILEGE_3Y, (AInfo["3 Year Muzzleloading Privilege"] == "CHECKED"), 1);
     frm.SetSelected(LIC63_MUZZLELOADING_PRIVILEGE_5Y, (AInfo["5 Year Muzzleloading Privilege"] == "CHECKED"), 1);
+    frm.SetSelected(LIC64_TRAPPING_LICENSE_3Y, (AInfo["3 Year Trapping License"] == "CHECKED"), 1);
+    frm.SetSelected(LIC65_TRAPPING_LICENSE_5Y, (AInfo["5 Year Trapping License"] == "CHECKED"), 1);
+    frm.SetSelected(LIC66_FRESHWATER_FISHING_3Y, (AInfo["3 Year Freshwater Fishing"] == "CHECKED"), 1);
+    frm.SetSelected(LIC67_FRESHWATER_FISHING_5Y, (AInfo["5 Year Freshwater Fishing"] == "CHECKED"), 1);
     frm.SetSelected(LIC68_TURKEY_PERMIT_3Y, (AInfo["3 Year Turkey Permit"] == "CHECKED"), 1);
-    frm.SetSelected(LIC68_TURKEY_PERMIT_3Y, (AInfo["5 Year Turkey Permit"] == "CHECKED"), 1);
+    frm.SetSelected(LIC69_TURKEY_PERMIT_5Y, (AInfo["5 Year Turkey Permit"] == "CHECKED"), 1);
 
     frm.ExecuteBoRuleEngine();
 
@@ -4114,6 +4118,19 @@ function verifyAnySalesSelect() {
     isChecked = isChecked || (AInfo["Add Lifetime to Driver License Re-Issue Immediately"] == "CHECKED");
     isChecked = isChecked || (AInfo["Add Lifetime to Driver License on Renewal"] == "CHECKED");
 
+    isChecked = isChecked || (AInfo["3 Year Hunting License"] == "CHECKED");
+    isChecked = isChecked || (AInfo["5 Year Hunting License"] == "CHECKED");
+    isChecked = isChecked || (AInfo["3 Year Bowhunting Privilege"] == "CHECKED");
+    isChecked = isChecked || (AInfo["5 Year Bowhunting Privilege"] == "CHECKED");
+    isChecked = isChecked || (AInfo["3 Year Muzzleloading Privilege"] == "CHECKED");
+    isChecked = isChecked || (AInfo["5 Year Muzzleloading Privilege"] == "CHECKED");
+    isChecked = isChecked || (AInfo["3 Year Trapping License"] == "CHECKED");
+    isChecked = isChecked || (AInfo["5 Year Trapping License"] == "CHECKED");
+    isChecked = isChecked || (AInfo["3 Year Freshwater Fishing"] == "CHECKED");
+    isChecked = isChecked || (AInfo["5 Year Freshwater Fishing"] == "CHECKED");
+    isChecked = isChecked || (AInfo["3 Year Turkey Permit"] == "CHECKED");
+    isChecked = isChecked || (AInfo["5 Year Turkey Permit"] == "CHECKED");
+	
     if (!isChecked) {
         retMsg += "Please select sales item.";
         retMsg += "<Br />";
