@@ -143,12 +143,16 @@ expression.setReturn(oFExplanation);
 
 var oFreshWtrFishLic = expression.getValue("ASI::FISHING LICENSES::Freshwater Fishing");
 // var oNonFreshWtrFishLic = "TODO";
+var o3YFishLic = expression.getValue("ASI::FISHING LICENSES::3 Year Freshwater Fishing");
+var o5YFishLic = expression.getValue("ASI::FISHING LICENSES::5 Year Freshwater Fishing");
 var oFish1Day = expression.getValue("ASI::FISHING LICENSES::One Day Fishing License");
 var oNonresFish1Day = expression.getValue("ASI::FISHING LICENSES::Nonresident 1 Day Fishing");
 var oFish7Day = expression.getValue("ASI::FISHING LICENSES::Seven Day Fishing License");
 var oNonResFish7Day = expression.getValue("ASI::FISHING LICENSES::Nonresident 7 Day Fishing");
 
 var isFreshWtrFishLic = ((oFreshWtrFishLic.value != null && (oFreshWtrFishLic.value.equalsIgnoreCase('YES') || oFreshWtrFishLic.value.equalsIgnoreCase('Y') || oFreshWtrFishLic.value.equalsIgnoreCase('CHECKED') || oFreshWtrFishLic.value.equalsIgnoreCase('SELECTED') || oFreshWtrFishLic.value.equalsIgnoreCase('TRUE') || oFreshWtrFishLic.value.equalsIgnoreCase('ON'))));
+var is3YFishLic = ((o3YFishLic.value != null && (o3YFishLic.value.equalsIgnoreCase('YES') || o3YFishLic.value.equalsIgnoreCase('Y') || o3YFishLic.value.equalsIgnoreCase('CHECKED') || o3YFishLic.value.equalsIgnoreCase('SELECTED') || o3YFishLic.value.equalsIgnoreCase('TRUE') || o3YFishLic.value.equalsIgnoreCase('ON'))));
+var is5YFishLic = ((o5YFishLic.value != null && (o5YFishLic.value.equalsIgnoreCase('YES') || o5YFishLic.value.equalsIgnoreCase('Y') || o5YFishLic.value.equalsIgnoreCase('CHECKED') || o5YFishLic.value.equalsIgnoreCase('SELECTED') || o5YFishLic.value.equalsIgnoreCase('TRUE') || o5YFishLic.value.equalsIgnoreCase('ON'))));
 
 
 ////
@@ -157,6 +161,17 @@ var isFreshWtrFishLic = ((oFreshWtrFishLic.value != null && (oFreshWtrFishLic.va
 var isFish1Day = ((oFish1Day.value != null && (oFish1Day.value.equalsIgnoreCase('YES') || oFish1Day.value.equalsIgnoreCase('Y') || oFish1Day.value.equalsIgnoreCase('CHECKED') || oFish1Day.value.equalsIgnoreCase('SELECTED') || oFish1Day.value.equalsIgnoreCase('TRUE') || oFish1Day.value.equalsIgnoreCase('ON'))));
 var isNonResFish1Day = ((oNonresFish1Day.value != null && (oNonresFish1Day.value.equalsIgnoreCase('YES') || oNonresFish1Day.value.equalsIgnoreCase('Y') || oNonresFish1Day.value.equalsIgnoreCase('CHECKED') || oNonresFish1Day.value.equalsIgnoreCase('SELECTED') || oNonresFish1Day.value.equalsIgnoreCase('TRUE') || oNonresFish1Day.value.equalsIgnoreCase('ON'))));
 var o1DayEffDt = expression.getValue("ASI::FISHING LICENSES::Effective Date One Day Fishing");
+
+if (f.isAfterSwitchDate()) {
+	oFishEffDt.hidden = !isFreshWtrFishLic && !is3YFishLic && !is5YFishLic;
+	oFishEffDt.required = !(!isFreshWtrFishLic && !is3YFishLic && !is5YFishLic);
+} else {
+	oFishEffDt.hidden = true;
+}
+if (!isFreshWtrFishLic && !isNonFreshWtrFishLic && !is3YFishLic && !is5YFishLic) {
+    oFishEffDt.value = '';
+}
+expression.setReturn(oFishEffDt);
 
 o1DayEffDt.required = !(!isFish1Day && !isNonResFish1Day);
 //o1DayEffDt.readOnly = !isFish1Day && !isNonResFish1Day;
