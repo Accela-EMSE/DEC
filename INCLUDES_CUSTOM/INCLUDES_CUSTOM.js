@@ -335,88 +335,119 @@ function updateContacts() {
     }
 
     //logDebug(peopleSequenceNumber);
-    if (peopleSequenceNumber != null) {
-        //Set contact ASI using cap asi
-        var newAInfo = new Array();
-        var subGroupName = "ADDITIONAL INFO";
-        newAInfo.push(new NewTblDef("Parent Driver License Number", AInfo["A_Parent_Driver_License_Number"], subGroupName));
-        newAInfo.push(new NewTblDef("NY Resident Proof Document", AInfo["A_NY_Resident_Proof_Document"], subGroupName));
-        newAInfo.push(new NewTblDef("Are You New York Resident?", AInfo["A_IsNYResident"], subGroupName));
+    if (appTypeString == 'Licenses/Annual/Application/NA') {
+        if (peopleSequenceNumber != null) {
+            //Set contact ASI using cap asi
+            var newAInfo = new Array();
+            var subGroupName = "ADDITIONAL INFO";
+            newAInfo.push(new NewTblDef("Parent Driver License Number", AInfo["A_Parent_Driver_License_Number"], subGroupName));
+            newAInfo.push(new NewTblDef("NY Resident Proof Document", AInfo["A_NY_Resident_Proof_Document"], subGroupName));
+            newAInfo.push(new NewTblDef("Are You New York Resident?", AInfo["A_IsNYResident"], subGroupName));
 
-        subGroupName = "APPEARANCE";
-        newAInfo.push(new NewTblDef("Height", AInfo["Height"], subGroupName));
-        newAInfo.push(new NewTblDef("Height - inches", AInfo["Height - inches"], subGroupName));
-        newAInfo.push(new NewTblDef("Eye Color", AInfo["Eye Color"], subGroupName));
-        if (AInfo["Legally Blind"] == "Yes") {
-            newAInfo.push(new NewTblDef("Legally Blind", 'Y', subGroupName));
-        }
-        if (AInfo["Legally Blind"] == "No") {
-            newAInfo.push(new NewTblDef("Legally Blind", 'N', subGroupName));
-        }
-        if (AInfo["Permanent Disability"] == "Yes") {
-            newAInfo.push(new NewTblDef("Permanent Disability", 'Y', subGroupName));
-        }
-        if (AInfo["Permanent Disability"] == "No") {
-            newAInfo.push(new NewTblDef("Permanent Disability", 'N', subGroupName));
-        }
-        newAInfo.push(new NewTblDef("Permanent Disability Number", AInfo["Permanent Disability Number"], subGroupName));
-        if (AInfo["Native American?"] == "Yes") {
-            newAInfo.push(new NewTblDef("Native American?", 'Y', subGroupName));
-        }
-        if (AInfo["Native American?"] == "No") {
-            newAInfo.push(new NewTblDef("Native American?", 'N', subGroupName));
-        }
+            subGroupName = "APPEARANCE";
+            newAInfo.push(new NewTblDef("Height", AInfo["Height"], subGroupName));
+            newAInfo.push(new NewTblDef("Height - inches", AInfo["Height - inches"], subGroupName));
+            newAInfo.push(new NewTblDef("Eye Color", AInfo["Eye Color"], subGroupName));
+            if (AInfo["Legally Blind"] == "Yes") {
+                newAInfo.push(new NewTblDef("Legally Blind", 'Y', subGroupName));
+            }
+            if (AInfo["Legally Blind"] == "No") {
+                newAInfo.push(new NewTblDef("Legally Blind", 'N', subGroupName));
+            }
+            if (AInfo["Permanent Disability"] == "Yes") {
+                newAInfo.push(new NewTblDef("Permanent Disability", 'Y', subGroupName));
+            }
+            if (AInfo["Permanent Disability"] == "No") {
+                newAInfo.push(new NewTblDef("Permanent Disability", 'N', subGroupName));
+            }
+            newAInfo.push(new NewTblDef("Permanent Disability Number", AInfo["Permanent Disability Number"], subGroupName));
+            if (AInfo["Native American?"] == "Yes") {
+                newAInfo.push(new NewTblDef("Native American?", 'Y', subGroupName));
+            }
+            if (AInfo["Native American?"] == "No") {
+                newAInfo.push(new NewTblDef("Native American?", 'N', subGroupName));
+            }
 
-        subGroupName = "MILITARY ACTIVE SERVICE STATUS";
-        if (AInfo["Military Serviceman"] == "Yes") {
-            newAInfo.push(new NewTblDef("Military Serviceman", 'Y', subGroupName));
+            subGroupName = "MILITARY ACTIVE SERVICE STATUS";
+            if (AInfo["Military Serviceman"] == "Yes") {
+                newAInfo.push(new NewTblDef("Military Serviceman", 'Y', subGroupName));
+            }
+            if (AInfo["Military Serviceman"] == "No") {
+                newAInfo.push(new NewTblDef("Military Serviceman", 'N', subGroupName));
+            }
+            newAInfo.push(new NewTblDef("NY Organized Militia", AInfo["NY Organized Militia"], subGroupName));
+            newAInfo.push(new NewTblDef("NY Organized Militia Type", AInfo["NY Organized Militia Type"], subGroupName));
+            newAInfo.push(new NewTblDef("U.S. Reserve Member", AInfo["U.S. Reserve Member"], subGroupName));
+            newAInfo.push(new NewTblDef("U.S. Reserve Member Type", AInfo["U.S. Reserve Member Type"], subGroupName));
+            newAInfo.push(new NewTblDef("Full-time U.S. Armed Service", AInfo["Full-time U.S. Armed Service"], subGroupName));
+            newAInfo.push(new NewTblDef("Full-time U.S. Armed Service Type", AInfo["Full-time U.S. Armed Service Type"], subGroupName));
+            newAInfo.push(new NewTblDef("Grade / Rank", AInfo["Grade / Rank"], subGroupName));
+            newAInfo.push(new NewTblDef("Unit Name", AInfo["Unit Name"], subGroupName));
+            newAInfo.push(new NewTblDef("Location", AInfo["Location"], subGroupName));
+            newAInfo.push(new NewTblDef("Name of Commanding Officer", AInfo["Name of Commanding Officer"], subGroupName));
+            newAInfo.push(new NewTblDef("Phone of Commanding Officer", AInfo["Phone of Commanding Officer"], subGroupName));
+            newAInfo.push(new NewTblDef("Affirmation", AInfo["Affirmation"], subGroupName));
+            newAInfo.push(new NewTblDef("Affidavit Date", AInfo["Affidavit Date"], subGroupName));
+
+            //SANVI
+            var peopleModel = getOutput(aa.people.getPeople(peopleSequenceNumber), "");
+            setContactASI(peopleModel.getTemplate(), newAInfo);
+
+            createEducUpdCond(peopleModel);
+
+            //Set contact ASIT using cap asit: assumption is both are identical
+            var groupName = "ASIT_APPLCNT";
+            copyCapASIT(peopleModel, groupName, "LAND OWNER INFORMATION");
+            copyCapASIT(peopleModel, groupName, "ANNUAL DISABILITY");
+            copyCapASIT(peopleModel, groupName, "SPORTSMAN EDUCATION");
+            copyCapASIT(peopleModel, groupName, "PREVIOUS LICENSE");
+
+            //Set DEC ID/passport number
+            if (isNull(peopleModel.getPassportNumber(), '') == '') {
+                peopleModel.setPassportNumber(peopleSequenceNumber);
+            }
+
+            aa.people.editPeople(peopleModel);
+
+            //var subGroupArray = getTemplateValueByFormArrays(peopleModel.getTemplate(), null, null);
+            //GetAllASI(subGroupArray);
+            //var gArray = getTemplateValueByTableArrays(peopleModel.getTemplate());
+            //GetAllASIT(gArray);
+
+            //Set people templateFields 
+            if (peopTemplateAttribute != null || peopTemplateAttribute.size() > 0) {
+                var aKeys = peopTemplateAttribute.keySet().toArray();
+                for (var i = 0; i < aKeys.length; i++) {
+                    editContactPeopleTemplateAttribute(peopleSequenceNumber, aKeys[i], peopTemplateAttribute[aKeys[i]]);
+                }
+            }
         }
-        if (AInfo["Military Serviceman"] == "No") {
-            newAInfo.push(new NewTblDef("Military Serviceman", 'N', subGroupName));
-        }
-        newAInfo.push(new NewTblDef("NY Organized Militia", AInfo["NY Organized Militia"], subGroupName));
-        newAInfo.push(new NewTblDef("NY Organized Militia Type", AInfo["NY Organized Militia Type"], subGroupName));
-        newAInfo.push(new NewTblDef("U.S. Reserve Member", AInfo["U.S. Reserve Member"], subGroupName));
-        newAInfo.push(new NewTblDef("U.S. Reserve Member Type", AInfo["U.S. Reserve Member Type"], subGroupName));
-        newAInfo.push(new NewTblDef("Full-time U.S. Armed Service", AInfo["Full-time U.S. Armed Service"], subGroupName));
-        newAInfo.push(new NewTblDef("Full-time U.S. Armed Service Type", AInfo["Full-time U.S. Armed Service Type"], subGroupName));
-        newAInfo.push(new NewTblDef("Grade / Rank", AInfo["Grade / Rank"], subGroupName));
-        newAInfo.push(new NewTblDef("Unit Name", AInfo["Unit Name"], subGroupName));
-        newAInfo.push(new NewTblDef("Location", AInfo["Location"], subGroupName));
-        newAInfo.push(new NewTblDef("Name of Commanding Officer", AInfo["Name of Commanding Officer"], subGroupName));
-        newAInfo.push(new NewTblDef("Phone of Commanding Officer", AInfo["Phone of Commanding Officer"], subGroupName));
-        newAInfo.push(new NewTblDef("Affirmation", AInfo["Affirmation"], subGroupName));
-        newAInfo.push(new NewTblDef("Affidavit Date", AInfo["Affidavit Date"], subGroupName));
+    }
+    if (appTypeString == 'Licenses/Sales/Application/Fishing' || appTypeString == 'Licenses/Sales/Application/Hunting' || appTypeString == 'Licenses/Sales/Application/Hunting and Fishing' || appTypeString == 'Licenses/Sales/Application/Trapping' || appTypeString == 'Licenses/Sales/Application/Lifetime' || appTypeString == 'Licenses/Sales/Application/Sporting') {
+        if (peopleSequenceNumber != null) {
+            //Set contact ASI using cap asi
+            var newAInfo = new Array();
+            var subGroupName = "ADDITIONAL INFO";
+            newAInfo.push(new NewTblDef("Parent Driver License Number", AInfo["A_Parent_Driver_License_Number"], subGroupName));
+            newAInfo.push(new NewTblDef("NY Resident Proof Document", AInfo["A_NY_Resident_Proof_Document"], subGroupName));
+            newAInfo.push(new NewTblDef("Are You New York Resident?", AInfo["A_IsNYResident"], subGroupName));
 
-        var peopleModel = getOutput(aa.people.getPeople(peopleSequenceNumber), "");
-        setContactASI(peopleModel.getTemplate(), newAInfo);
+            var peopleModel = getOutput(aa.people.getPeople(peopleSequenceNumber), "");
+            setContactASI(peopleModel.getTemplate(), newAInfo);
 
-        createEducUpdCond(peopleModel);
+            //Set DEC ID/passport number
+            if (isNull(peopleModel.getPassportNumber(), '') == '') {
+                peopleModel.setPassportNumber(peopleSequenceNumber);
+            }
 
-        //Set contact ASIT using cap asit: assumption is both are identical
-        var groupName = "ASIT_APPLCNT";
-        copyCapASIT(peopleModel, groupName, "LAND OWNER INFORMATION");
-        copyCapASIT(peopleModel, groupName, "ANNUAL DISABILITY");
-        copyCapASIT(peopleModel, groupName, "SPORTSMAN EDUCATION");
-        copyCapASIT(peopleModel, groupName, "PREVIOUS LICENSE");
+            aa.people.editPeople(peopleModel);
 
-        //Set DEC ID/passport number
-        if (isNull(peopleModel.getPassportNumber(), '') == '') {
-            peopleModel.setPassportNumber(peopleSequenceNumber);
-        }
-
-        aa.people.editPeople(peopleModel);
-
-        //var subGroupArray = getTemplateValueByFormArrays(peopleModel.getTemplate(), null, null);
-        //GetAllASI(subGroupArray);
-        //var gArray = getTemplateValueByTableArrays(peopleModel.getTemplate());
-        //GetAllASIT(gArray);
-
-        //Set people templateFields 
-        if (peopTemplateAttribute != null || peopTemplateAttribute.size() > 0) {
-            var aKeys = peopTemplateAttribute.keySet().toArray();
-            for (var i = 0; i < aKeys.length; i++) {
-                editContactPeopleTemplateAttribute(peopleSequenceNumber, aKeys[i], peopTemplateAttribute[aKeys[i]]);
+            //Set people templateFields 
+            if (peopTemplateAttribute != null || peopTemplateAttribute.size() > 0) {
+                var aKeys = peopTemplateAttribute.keySet().toArray();
+                for (var i = 0; i < aKeys.length; i++) {
+                    editContactPeopleTemplateAttribute(peopleSequenceNumber, aKeys[i], peopTemplateAttribute[aKeys[i]]);
+                }
             }
         }
     }
@@ -582,7 +613,9 @@ function issueSelectedSalesItems(frm) {
 
     //balanceDue == 0 ^ 
     closeTask("Issuance", "Approved", "", "");
-    if (appMatch("Licenses/Annual/Application/NA")) {
+
+    //if (appMatch("Licenses/Annual/Application/NA")) {
+    if (appTypeString == 'Licenses/Annual/Application/NA' || appTypeString == 'Licenses/Sales/Application/Fishing' || appTypeString == 'Licenses/Sales/Application/Hunting' || appTypeString == 'Licenses/Sales/Application/Hunting and Fishing' || appTypeString == 'Licenses/Sales/Application/Trapping' || appTypeString == 'Licenses/Sales/Application/Lifetime' || appTypeString == 'Licenses/Sales/Application/Sporting') {
         var seasonPeriod = GetDateRange(DEC_CONFIG, LICENSE_SEASON, frm.Year);
         clacFromDt = dateAdd(convertDate(seasonPeriod[1]), 0);
         setLicExpirationDate(capId, "", clacFromDt);
@@ -900,14 +933,13 @@ function issueSelectedSalesItems(frm) {
 
     distributeFeesAndPayments(capId, arryTargetCapAttrib, salesAgentInfoArray);
 
-    if (appTypeString == 'Licenses/Annual/Application/NA') {
+    if (appTypeString == 'Licenses/Annual/Application/NA' || appTypeString == 'Licenses/Sales/Application/Fishing' || appTypeString == 'Licenses/Sales/Application/Hunting' || appTypeString == 'Licenses/Sales/Application/Hunting and Fishing' || appTypeString == 'Licenses/Sales/Application/Trapping' || appTypeString == 'Licenses/Sales/Application/Lifetime' || appTypeString == 'Licenses/Sales/Application/Sporting') {
         updateContacts();
         if (!hmfulfilmmentCond.containsKey(fullfillCond)) {
             hmfulfilmmentCond.put(fullfillCond, fullfillCond);
         }
         addFullfillmentConditionArray(capId, hmfulfilmmentCond.keySet().toArray());
     }
-
     //logDebug("Elapsed Time: " + elapsed());
     logDebug("EXIT: issueSelectedSalesItems");
 }
@@ -1372,13 +1404,13 @@ function copyContactAppSpecificToRecordAppSpecific() {
                     editAppSpecific4ACA("A_NY_Resident_Proof_Document", fieldArray["NY Resident Proof Document"]);
                     continue;
                 } else {
-					if (subGroupName == "MILITARY ACTIVE SERVICE STATUS") {
-						editAppSpecific4ACA("A_Military Serviceman", isNull(fieldArray["Military Serviceman"], '0'));
-					}
-					if (subGroupName == "APPEARANCE") {
-						editAppSpecific4ACA("A_Legally Blind", fieldArray["Legally Blind"]);
-						editAppSpecific4ACA("A_Permanent Disability", fieldArray["Permanent Disability"]);
-					}
+                    if (subGroupName == "MILITARY ACTIVE SERVICE STATUS") {
+                        editAppSpecific4ACA("A_Military Serviceman", isNull(fieldArray["Military Serviceman"], '0'));
+                    }
+                    if (subGroupName == "APPEARANCE") {
+                        editAppSpecific4ACA("A_Legally Blind", fieldArray["Legally Blind"]);
+                        editAppSpecific4ACA("A_Permanent Disability", fieldArray["Permanent Disability"]);
+                    }
                     for (var fld in fieldArray) {
                         editAppSpecific4ACA(fld, fieldArray[fld])
                     }
@@ -4079,7 +4111,6 @@ function verifyDMPinfo() {
 function verifyAnySalesSelect() {
     var retMsg = ''
     var isChecked = false;
-    isChecked = isChecked || (AInfo["NY Organized Militia"] == "CHECKED");
     isChecked = isChecked || (AInfo["Junior Hunting Tags"] == "CHECKED");
     isChecked = isChecked || (AInfo["Marine Registry"] == "CHECKED");
     isChecked = isChecked || (AInfo["One Day Fishing License"] == "CHECKED");
@@ -4140,7 +4171,7 @@ function verifyAnySalesSelect() {
     isChecked = isChecked || (AInfo["5 Year Freshwater Fishing"] == "CHECKED");
     isChecked = isChecked || (AInfo["3 Year Turkey Permit"] == "CHECKED");
     isChecked = isChecked || (AInfo["5 Year Turkey Permit"] == "CHECKED");
-	
+
     if (!isChecked) {
         retMsg += "Please select sales item.";
         retMsg += "<Br />";
@@ -4580,7 +4611,7 @@ function afterApplicationPrintFail(itemCapId, numberOfTries) {
     var contactTypeToAttach = ''; //Balnk = All
     appTypeString = itemCap.getCapType();
 
-    if (appTypeString == 'Licenses/Annual/Application/NA') {
+    if (appTypeString == 'Licenses/Annual/Application/NA' || appTypeString == 'Licenses/Sales/Application/Fishing' || appTypeString == 'Licenses/Sales/Application/Hunting' || appTypeString == 'Licenses/Sales/Application/Hunting and Fishing' || appTypeString == 'Licenses/Sales/Application/Trapping' || appTypeString == 'Licenses/Sales/Application/Lifetime' || appTypeString == 'Licenses/Sales/Application/Sporting') {
 
     }
     else if (appTypeString == 'Licenses/Sales/Reprint/Documents') {
@@ -5882,7 +5913,7 @@ function copyASIContactAppSpecificToRecordAppSpecific() {
 
             for (var subGroupName in subGroupArray) {
                 var fieldArray = subGroupArray[subGroupName];
-               if (subGroupName == "ADDITIONAL INFO") {
+                if (subGroupName == "ADDITIONAL INFO") {
                     //editAppSpecific4ACA("A_IsNYResident", fieldArray["Are You New York Resident?"]);
                     editAppSpecific4ACA("A_Preference_Points", isNull(fieldArray["Preference Points"], '0'));
                     editAppSpecific4ACA("Preference Points", isNull(fieldArray["Preference Points"], '0'));
@@ -5890,15 +5921,15 @@ function copyASIContactAppSpecificToRecordAppSpecific() {
                     editAppSpecific4ACA("A_NY_Resident_Proof_Document", fieldArray["NY Resident Proof Document"]);
                     continue;
                 } else {
-					   if (subGroupName == "APPEARANCE") {
-						editAppSpecific4ACA("A_Legally Blind", isNull(fieldArray["Legally Blind"], '0'));
-						editAppSpecific4ACA("A_Permanent Disability", isNull(fieldArray["Permanent Disability"], '0'));
-						continue;
-					} else {
-					   editAppSpecific4ACA("A_Military Serviceman", isNull(fieldArray["Military Serviceman"], '0'));
-					   continue;
-					}
-                } 
+                    if (subGroupName == "APPEARANCE") {
+                        editAppSpecific4ACA("A_Legally Blind", isNull(fieldArray["Legally Blind"], '0'));
+                        editAppSpecific4ACA("A_Permanent Disability", isNull(fieldArray["Permanent Disability"], '0'));
+                        continue;
+                    } else {
+                        editAppSpecific4ACA("A_Military Serviceman", isNull(fieldArray["Military Serviceman"], '0'));
+                        continue;
+                    }
+                }
             }
 
             //Copy All ASITs : asumption is identical ASITs with subgroups are available in cap ASIT
@@ -6035,164 +6066,180 @@ function copyASIContactAppSpecificToRecordAppSpecific() {
 
 //Start-All express record types for ASI_FISH,ASI_HUNT,ASI_LT and ASI_TRAP
 //ACA ONSUBMIT After
-function SetExpressformForSelectedLics(frm){
-	logDebug("ENTER: SetExpressformForSelectedLics");
-	frm.Year = AInfo["License Year"];
-	frm.DOB = AInfo["A_birthDate"];
-	frm.Email = AInfo["A_email"];
-	frm.IsNyResiDent = AInfo["A_IsNYResident"];
-	frm.IsMilitaryServiceman = AInfo["A_Military Serviceman"];
-	frm.IsNativeAmerican = AInfo["A_IsNativeAmerican"];
-	frm.IsLegallyBlind = AInfo["A_Legally Blind"];
-	frm.PreferencePoints = AInfo["A_Preference_Points"];
-	frm.SetAnnualDisability(AInfo["A_Annual_Disability"]);
-	frm.SetPriorLicense(AInfo["A_Previous_License"]);
-	frm.SetSportsmanEducation(AInfo["A_Sportsman_Education"]);
-	frm.SetLandOwnerInfo(AInfo["A_Land_Owner_Information"]);
-	frm.SetActiveHoldingsInfo(AInfo["A_ActiveHoldings"]);
-	frm.Inscription = AInfo["Inscription"];
-	frm.IsPermanentDisabled = AInfo["A_Permanent Disability"];
-	frm.DriverLicenseState = AInfo["A_Driver_License_State"];
-	frm.DriverLicenseNumber = AInfo["A_Driver_License_Number"];
-	frm.NonDriverLicenseNumber = AInfo["A_Non_Driver_License_Number"];
-		
-	if (appTypeString == 'Licenses/Sales/Application/Fishing') {
-		frm.SetSelected(LIC02_MARINE_REGISTRY, (AInfo["Marine Registry"] == "CHECKED"), 1);
-		frm.SetSelected(LIC03_ONE_DAY_FISHING_LICENSE, (AInfo["One Day Fishing License"] == "CHECKED"), 1);
-		frm.SetSelected(LIC26_SEVEN_DAY_FISHING_LICENSE, (AInfo["Seven Day Fishing License"] == "CHECKED"), 1);
-		frm.SetSelected(LIC22_FRESHWATER_FISHING, (AInfo["Freshwater Fishing"] == "CHECKED"), 1);
-		frm.SetSelected(LIC66_FRESHWATER_FISHING_3Y, (AInfo["3 Year Freshwater Fishing"] == "CHECKED"), 1);
-		frm.SetSelected(LIC67_FRESHWATER_FISHING_5Y, (AInfo["5 Year Freshwater Fishing"] == "CHECKED"), 1);
-	}
-	if(appTypeString == 'Licenses/Sales/Application/Hunting'){
-		frm.SetSelected(LIC04_BOWHUNTING_PRIVILEGE, (AInfo["Bowhunting Privilege"] == "CHECKED"), 1);
-		frm.SetSelected(LIC60_BOWHUNTING_PRIVILEGE_3Y, (AInfo["3 Year Bowhunting Privilege"] == "CHECKED"), 1);
-		frm.SetSelected(LIC61_BOWHUNTING_PRIVILEGE_5Y, (AInfo["5 Year Bowhunting Privilege"] == "CHECKED"), 1);
-		frm.SetSelected(LIC05_DEER_MANAGEMENT_PERMIT, (AInfo["Deer Management Permit"] == "CHECKED"), 1);
-		frm.SetSelected(LIC06_HUNTING_LICENSE, (AInfo["Hunting License"] == "CHECKED"), 1);
-		frm.SetSelected(LIC58_HUNTING_LICENSE_3Y, (AInfo["3 Year Hunting License"] == "CHECKED"), 1);
-		frm.SetSelected(LIC59_HUNTING_LICENSE_5Y, (AInfo["5 Year Hunting License"] == "CHECKED"), 1);
-		frm.SetSelected(LIC07_MUZZLELOADING_PRIVILEGE, (AInfo["Muzzleloading Privilege"] == "CHECKED"), 1);
-		frm.SetSelected(LIC62_MUZZLELOADING_PRIVILEGE_3Y, (AInfo["3 Year Muzzleloading Privilege"] == "CHECKED"), 1);
-		frm.SetSelected(LIC63_MUZZLELOADING_PRIVILEGE_5Y, (AInfo["5 Year Muzzleloading Privilege"] == "CHECKED"), 1);
-		frm.SetSelected(LIC08_TURKEY_PERMIT, (AInfo["Turkey Permit"] == "CHECKED"), 1);
-		frm.SetSelected(LIC68_TURKEY_PERMIT_3Y, (AInfo["3 Year Turkey Permit"] == "CHECKED"), 1);
-		frm.SetSelected(LIC69_TURKEY_PERMIT_5Y, (AInfo["5 Year Turkey Permit"] == "CHECKED"), 1);
-	}
-	if (appTypeString == 'Licenses/Sales/Application/Lifetime') {
-		frm.SetSelected(LIC10_LIFETIME_FISHING, (AInfo["Lifetime Fishing"] == "CHECKED"), 1);
-		frm.SetSelected(LIC13_LIFETIME_SPORTSMAN, (AInfo["Lifetime Sportsman"] == "CHECKED"), 1);
-		frm.SetSelected(LIC12_LIFETIME_SMALL_AND_BIG_GAME, (AInfo["Lifetime Small & Big Game"] == "CHECKED"), 1);
-		frm.SetSelected(LIC11_LIFETIME_MUZZLELOADING, (AInfo["Lifetime Muzzleloading"] == "CHECKED"), 1);
-		frm.SetSelected(LIC09_LIFETIME_BOWHUNTING, (AInfo["Lifetime Bowhunting"] == "CHECKED"), 1);
-		frm.SetSelected(LIC14_LIFETIME_TRAPPING, (AInfo["Lifetime Trapping"] == "CHECKED"), 1);
-		frm.SetSelected(LIC45_LIFETIME_INSCRIPTION, (AInfo["Lifetime Inscription"] == "CHECKED"), 1);
-		frm.SetSelected(LIC56_TAG_DRIV_LIC_IMM, (AInfo["Add Lifetime to Driver License Re-Issue Immediately"] == "CHECKED"), 1);
-		frm.SetSelected(LIC57_TAG_DRIV_LIC_REN, (AInfo["Add Lifetime to Driver License on Renewal"] == "CHECKED"), 1);
-	}
-	if (appTypeString == 'Licenses/Sales/Application/Trapping') {
-		frm.SetSelected(LIC15_TRAPPING_LICENSE, (AInfo["Trapping License"] == "CHECKED"), 1);
-		frm.SetSelected(LIC64_TRAPPING_LICENSE_3Y, (AInfo["3 Year Trapping License"] == "CHECKED"), 1);
-		frm.SetSelected(LIC65_TRAPPING_LICENSE_5Y, (AInfo["5 Year Trapping License"] == "CHECKED"), 1);
-	}
-	
-	frm.ExecuteBoRuleEngine();
-	logDebug("EXIT: SetExpressformForSelectedLics");
+function SetExpressformForSelectedLics(frm) {
+    logDebug("ENTER: SetExpressformForSelectedLics");
+    frm.Year = AInfo["License Year"];
+    frm.DOB = AInfo["A_birthDate"];
+    frm.Email = AInfo["A_email"];
+    frm.IsNyResiDent = AInfo["A_IsNYResident"];
+    frm.IsMilitaryServiceman = AInfo["A_Military Serviceman"];
+    frm.IsNativeAmerican = AInfo["A_IsNativeAmerican"];
+    frm.IsLegallyBlind = AInfo["A_Legally Blind"];
+    frm.PreferencePoints = AInfo["A_Preference_Points"];
+    frm.SetAnnualDisability(AInfo["A_Annual_Disability"]);
+    frm.SetPriorLicense(AInfo["A_Previous_License"]);
+    frm.SetSportsmanEducation(AInfo["A_Sportsman_Education"]);
+    frm.SetLandOwnerInfo(AInfo["A_Land_Owner_Information"]);
+    frm.SetActiveHoldingsInfo(AInfo["A_ActiveHoldings"]);
+    frm.Inscription = AInfo["Inscription"];
+    frm.IsPermanentDisabled = AInfo["A_Permanent Disability"];
+    frm.DriverLicenseState = AInfo["A_Driver_License_State"];
+    frm.DriverLicenseNumber = AInfo["A_Driver_License_Number"];
+    frm.NonDriverLicenseNumber = AInfo["A_Non_Driver_License_Number"];
+
+    if (appTypeString == 'Licenses/Sales/Application/Fishing' || appTypeString == 'Licenses/Sales/Application/Hunting and Fishing') {
+        frm.SetSelected(LIC02_MARINE_REGISTRY, (AInfo["Marine Registry"] == "CHECKED"), 1);
+        frm.SetSelected(LIC03_ONE_DAY_FISHING_LICENSE, (AInfo["One Day Fishing License"] == "CHECKED"), 1);
+        frm.SetSelected(LIC26_SEVEN_DAY_FISHING_LICENSE, (AInfo["Seven Day Fishing License"] == "CHECKED"), 1);
+        frm.SetSelected(LIC22_FRESHWATER_FISHING, (AInfo["Freshwater Fishing"] == "CHECKED"), 1);
+        frm.SetSelected(LIC66_FRESHWATER_FISHING_3Y, (AInfo["3 Year Freshwater Fishing"] == "CHECKED"), 1);
+        frm.SetSelected(LIC67_FRESHWATER_FISHING_5Y, (AInfo["5 Year Freshwater Fishing"] == "CHECKED"), 1);
+    }
+    if (appTypeString == 'Licenses/Sales/Application/Hunting' || appTypeString == 'Licenses/Sales/Application/Hunting and Fishing') {
+        frm.SetSelected(LIC04_BOWHUNTING_PRIVILEGE, (AInfo["Bowhunting Privilege"] == "CHECKED"), 1);
+        frm.SetSelected(LIC60_BOWHUNTING_PRIVILEGE_3Y, (AInfo["3 Year Bowhunting Privilege"] == "CHECKED"), 1);
+        frm.SetSelected(LIC61_BOWHUNTING_PRIVILEGE_5Y, (AInfo["5 Year Bowhunting Privilege"] == "CHECKED"), 1);
+        frm.SetSelected(LIC05_DEER_MANAGEMENT_PERMIT, (AInfo["Deer Management Permit"] == "CHECKED"), 1);
+        frm.SetSelected(LIC06_HUNTING_LICENSE, (AInfo["Hunting License"] == "CHECKED"), 1);
+        frm.SetSelected(LIC58_HUNTING_LICENSE_3Y, (AInfo["3 Year Hunting License"] == "CHECKED"), 1);
+        frm.SetSelected(LIC59_HUNTING_LICENSE_5Y, (AInfo["5 Year Hunting License"] == "CHECKED"), 1);
+        frm.SetSelected(LIC07_MUZZLELOADING_PRIVILEGE, (AInfo["Muzzleloading Privilege"] == "CHECKED"), 1);
+        frm.SetSelected(LIC62_MUZZLELOADING_PRIVILEGE_3Y, (AInfo["3 Year Muzzleloading Privilege"] == "CHECKED"), 1);
+        frm.SetSelected(LIC63_MUZZLELOADING_PRIVILEGE_5Y, (AInfo["5 Year Muzzleloading Privilege"] == "CHECKED"), 1);
+        frm.SetSelected(LIC08_TURKEY_PERMIT, (AInfo["Turkey Permit"] == "CHECKED"), 1);
+        frm.SetSelected(LIC68_TURKEY_PERMIT_3Y, (AInfo["3 Year Turkey Permit"] == "CHECKED"), 1);
+        frm.SetSelected(LIC69_TURKEY_PERMIT_5Y, (AInfo["5 Year Turkey Permit"] == "CHECKED"), 1);
+    }
+    if (appTypeString == 'Licenses/Sales/Application/Lifetime') {
+        frm.SetSelected(LIC10_LIFETIME_FISHING, (AInfo["Lifetime Fishing"] == "CHECKED"), 1);
+        frm.SetSelected(LIC13_LIFETIME_SPORTSMAN, (AInfo["Lifetime Sportsman"] == "CHECKED"), 1);
+        frm.SetSelected(LIC12_LIFETIME_SMALL_AND_BIG_GAME, (AInfo["Lifetime Small & Big Game"] == "CHECKED"), 1);
+        frm.SetSelected(LIC11_LIFETIME_MUZZLELOADING, (AInfo["Lifetime Muzzleloading"] == "CHECKED"), 1);
+        frm.SetSelected(LIC09_LIFETIME_BOWHUNTING, (AInfo["Lifetime Bowhunting"] == "CHECKED"), 1);
+        frm.SetSelected(LIC14_LIFETIME_TRAPPING, (AInfo["Lifetime Trapping"] == "CHECKED"), 1);
+        frm.SetSelected(LIC45_LIFETIME_INSCRIPTION, (AInfo["Lifetime Inscription"] == "CHECKED"), 1);
+        frm.SetSelected(LIC56_TAG_DRIV_LIC_IMM, (AInfo["Add Lifetime to Driver License Re-Issue Immediately"] == "CHECKED"), 1);
+        frm.SetSelected(LIC57_TAG_DRIV_LIC_REN, (AInfo["Add Lifetime to Driver License on Renewal"] == "CHECKED"), 1);
+    }
+    if (appTypeString == 'Licenses/Sales/Application/Trapping') {
+        frm.SetSelected(LIC15_TRAPPING_LICENSE, (AInfo["Trapping License"] == "CHECKED"), 1);
+        frm.SetSelected(LIC64_TRAPPING_LICENSE_3Y, (AInfo["3 Year Trapping License"] == "CHECKED"), 1);
+        frm.SetSelected(LIC65_TRAPPING_LICENSE_5Y, (AInfo["5 Year Trapping License"] == "CHECKED"), 1);
+    }
+
+    frm.ExecuteBoRuleEngine();
+    logDebug("EXIT: SetExpressformForSelectedLics");
 }
 //ACA ONSUBMIT Before
-function isValidBuyExpressRecord(pStep){
-	logDebug("ENTER: isValidBuyExpressRecord");
-	var retMsg = '';
-	var msg = '';
-	if (appTypeString == 'Licenses/Sales/Application/Fishing') {
-		if (pStep == 'Step1') {
-			msg = verifyAnyExpressSalesSelect(); 
-			retMsg += msg;
-			logDebug("call validateFishingdates()...");
-			msg = validateFishingdates();
-			retMsg += msg;
-		}
-	}
-	if (appTypeString == 'Licenses/Sales/Application/Hunting') {
-		if (pStep == 'Step1') {
-			msg = verifyAnyExpressSalesSelect(); 
-			retMsg += msg;
-
-			msg = verifyDMPinfo();
-			if (msg != '') {
-				retMsg += msg;
-			}
-			logDebug("call verifyLandOwnerInfo()...");
-			msg = verifyLandOwnerInfo();
-			if (msg != '') {
-				retMsg += msg;
-			}
-		}
-	}
-	if (appTypeString == 'Licenses/Sales/Application/Lifetime') {
-		if (pStep == 'Step1') {
-			msg = verifyAnyExpressSalesSelect(); 
-			retMsg += msg;
-		}
-	}
-	if (appTypeString == 'Licenses/Sales/Application/Trapping') {
-		if (pStep == 'Step1') {
-			msg = verifyAnyExpressSalesSelect(); 
-			retMsg += msg;
-		}
-	}
-	logDebug("Exit: isValidBuyExpressRecord");
-	return retMsg;
+function isValidBuyExpressRecord(pStep) {
+    logDebug("ENTER: isValidBuyExpressRecord");
+    var retMsg = '';
+    var msg = '';
+    if (pStep == 'Step1') {
+        msg = verifyAnyExpressSalesSelect();
+        retMsg += msg;
+        if (appTypeString == 'Licenses/Sales/Application/Fishing' || appTypeString == 'Licenses/Sales/Application/Hunting and Fishing' || appTypeString == 'Licenses/Sales/Application/Sporting') {
+            logDebug("call validateFishingdates()...");
+            msg = validateFishingdates();
+            retMsg += msg;
+        }
+        if (appTypeString == 'Licenses/Sales/Application/Hunting' || appTypeString == 'Licenses/Sales/Application/Hunting and Fishing' || appTypeString == 'Licenses/Sales/Application/Sporting') {
+            msg = verifyDMPinfo();
+            if (msg != '') {
+                retMsg += msg;
+            }
+            logDebug("call verifyLandOwnerInfo()...");
+            msg = verifyLandOwnerInfo();
+            if (msg != '') {
+                retMsg += msg;
+            }
+        }
+        if (appTypeString == 'Licenses/Sales/Application/Sporting') {
+            logDebug("Check ASI fields for valid numeric value...");
+            if (!isValidIntegerNumber(AInfo["Quantity Trail Supporter Patch"])) {
+                retMsg += 'Please enter valid integer number for Quantity Trail Supporter Patch.';
+                retMsg += "<Br />";
+            }
+            if (!isValidIntegerNumber(AInfo["Quantity Habitat/Access Stamp"])) {
+                retMsg += 'Please enter valid integer number for Quantity Habitat/Access Stamp.';
+                retMsg += "<Br />";
+            }
+            if (!isValidIntegerNumber(AInfo["Quantity Venison Donation"])) {
+                retMsg += 'Please enter valid integer number for Quantity Venison Donation.';
+                retMsg += "<Br />";
+            }
+            if (!isValidIntegerNumber(AInfo["Quantity Conservation Patron"])) {
+                retMsg += 'Please enter valid integer number for Quantity Conservation Patron.';
+                retMsg += "<Br />";
+            }
+            if (!isValidIntegerNumber(AInfo["Quantity Conservation Fund"])) {
+                retMsg += 'Please enter valid integer number for Quantity Conservation Fund.';
+                retMsg += "<Br />";
+            }
+        }
+    }
+    logDebug("Exit: isValidBuyExpressRecord");
+    return retMsg;
 }
 
-function verifyAnyExpressSalesSelect(){
-	var retMsg = ''
+function verifyAnyExpressSalesSelect() {
+    var retMsg = ''
     var isChecked = false;
-	if (appTypeString == 'Licenses/Sales/Application/Hunting') {		
-		isChecked = isChecked || (AInfo["Bowhunting Privilege"] == "CHECKED");
-		isChecked = isChecked || (AInfo["3 Year Bowhunting Privilege"] == "CHECKED");
-		isChecked = isChecked || (AInfo["5 Year Bowhunting Privilege"] == "CHECKED");
-		isChecked = isChecked || (AInfo["Deer Management Permit"] == "CHECKED");
-		isChecked = isChecked || (AInfo["Hunting License"] == "CHECKED");
-		isChecked = isChecked || (AInfo["3 Year Hunting License"] == "CHECKED");
-		isChecked = isChecked || (AInfo["5 Year Hunting License"] == "CHECKED");
-		isChecked = isChecked || (AInfo["Muzzleloading Privilege"] == "CHECKED");
-		isChecked = isChecked || (AInfo["3 Year Muzzleloading Privilege"] == "CHECKED");
-		isChecked = isChecked || (AInfo["5 Year Muzzleloading Privilege"] == "CHECKED");
-		isChecked = isChecked || (AInfo["Turkey Permit"] == "CHECKED");
-		isChecked = isChecked || (AInfo["3 Year Turkey Permit"] == "CHECKED");
-		isChecked = isChecked || (AInfo["5 Year Turkey Permit"] == "CHECKED");
-	}
-	if (appTypeString == 'Licenses/Sales/Application/Trapping') {
-		isChecked = isChecked || (AInfo["Trapping License"] == "CHECKED");
-		isChecked = isChecked || (AInfo["3 Year Trapping License"] == "CHECKED");
-		isChecked = isChecked || (AInfo["5 Year Trapping License"] == "CHECKED");
-		}
+    if (appTypeString == 'Licenses/Sales/Application/Hunting' || appTypeString == 'Licenses/Sales/Application/Hunting and Fishing' || appTypeString == 'Licenses/Sales/Application/Sporting') {
+        isChecked = isChecked || (AInfo["Bowhunting Privilege"] == "CHECKED");
+        isChecked = isChecked || (AInfo["3 Year Bowhunting Privilege"] == "CHECKED");
+        isChecked = isChecked || (AInfo["5 Year Bowhunting Privilege"] == "CHECKED");
+        isChecked = isChecked || (AInfo["Deer Management Permit"] == "CHECKED");
+        isChecked = isChecked || (AInfo["Hunting License"] == "CHECKED");
+        isChecked = isChecked || (AInfo["3 Year Hunting License"] == "CHECKED");
+        isChecked = isChecked || (AInfo["5 Year Hunting License"] == "CHECKED");
+        isChecked = isChecked || (AInfo["Muzzleloading Privilege"] == "CHECKED");
+        isChecked = isChecked || (AInfo["3 Year Muzzleloading Privilege"] == "CHECKED");
+        isChecked = isChecked || (AInfo["5 Year Muzzleloading Privilege"] == "CHECKED");
+        isChecked = isChecked || (AInfo["Turkey Permit"] == "CHECKED");
+        isChecked = isChecked || (AInfo["3 Year Turkey Permit"] == "CHECKED");
+        isChecked = isChecked || (AInfo["5 Year Turkey Permit"] == "CHECKED");
+    }
+    if (appTypeString == 'Licenses/Sales/Application/Trapping' || appTypeString == 'Licenses/Sales/Application/Sporting') {
+        isChecked = isChecked || (AInfo["Trapping License"] == "CHECKED");
+        isChecked = isChecked || (AInfo["3 Year Trapping License"] == "CHECKED");
+        isChecked = isChecked || (AInfo["5 Year Trapping License"] == "CHECKED");
+    }
 
-	if (appTypeString == 'Licenses/Sales/Application/Fishing') {
-		isChecked = isChecked || (AInfo["Freshwater Fishing"] == "CHECKED");
-		isChecked = isChecked || (AInfo["One Day Fishing License"] == "CHECKED");
-		isChecked = isChecked || (AInfo["Seven Day Fishing License"] == "CHECKED");
-		isChecked = isChecked || (AInfo["Marine Registry"] == "CHECKED");
-		isChecked = isChecked || (AInfo["3 Year Freshwater Fishing"] == "CHECKED");
-		isChecked = isChecked || (AInfo["5 Year Freshwater Fishing"] == "CHECKED");
-	}
-	if (appTypeString == 'Licenses/Sales/Application/Lifetime') {
-	 	isChecked = isChecked || (AInfo["Lifetime Bowhunting"] == "CHECKED");
-		isChecked = isChecked || (AInfo["Lifetime Fishing"] == "CHECKED");
-		isChecked = isChecked || (AInfo["Lifetime Muzzleloading"] == "CHECKED");
-		isChecked = isChecked || (AInfo["Lifetime Small & Big Game"] == "CHECKED");
-		isChecked = isChecked || (AInfo["Lifetime Sportsman"] == "CHECKED");
-		isChecked = isChecked || (AInfo["Lifetime Trapping"] == "CHECKED");
-		isChecked = isChecked || (AInfo["Lifetime Inscription"] == "CHECKED");
-		isChecked = isChecked || (AInfo["Add Lifetime to Driver License Re-Issue Immediately"] == "CHECKED");
-		isChecked = isChecked || (AInfo["Add Lifetime to Driver License on Renewal"] == "CHECKED");
-		}
-	if (!isChecked) {
-		retMsg += "Please select sales item.";
-		retMsg += "<Br />";
-	}
-	return retMsg;
+    if (appTypeString == 'Licenses/Sales/Application/Fishing' || appTypeString == 'Licenses/Sales/Application/Hunting and Fishing' || appTypeString == 'Licenses/Sales/Application/Sporting') {
+        isChecked = isChecked || (AInfo["Freshwater Fishing"] == "CHECKED");
+        isChecked = isChecked || (AInfo["One Day Fishing License"] == "CHECKED");
+        isChecked = isChecked || (AInfo["Seven Day Fishing License"] == "CHECKED");
+        isChecked = isChecked || (AInfo["Marine Registry"] == "CHECKED");
+        isChecked = isChecked || (AInfo["3 Year Freshwater Fishing"] == "CHECKED");
+        isChecked = isChecked || (AInfo["5 Year Freshwater Fishing"] == "CHECKED");
+    }
+    if (appTypeString == 'Licenses/Sales/Application/Lifetime' || appTypeString == 'Licenses/Sales/Application/Sporting') {
+        isChecked = isChecked || (AInfo["Lifetime Bowhunting"] == "CHECKED");
+        isChecked = isChecked || (AInfo["Lifetime Fishing"] == "CHECKED");
+        isChecked = isChecked || (AInfo["Lifetime Muzzleloading"] == "CHECKED");
+        isChecked = isChecked || (AInfo["Lifetime Small & Big Game"] == "CHECKED");
+        isChecked = isChecked || (AInfo["Lifetime Sportsman"] == "CHECKED");
+        isChecked = isChecked || (AInfo["Lifetime Trapping"] == "CHECKED");
+        isChecked = isChecked || (AInfo["Lifetime Inscription"] == "CHECKED");
+        isChecked = isChecked || (AInfo["Add Lifetime to Driver License Re-Issue Immediately"] == "CHECKED");
+        isChecked = isChecked || (AInfo["Add Lifetime to Driver License on Renewal"] == "CHECKED");
+    }
+    if (appTypeString == 'Licenses/Sales/Application/Sporting') {
+        isChecked = isChecked || (AInfo["Habitat/Access Stamp"] == "CHECKED");
+        isChecked = isChecked || (AInfo["Venison Donation"] == "CHECKED");
+        isChecked = isChecked || (AInfo["Conservation Fund"] == "CHECKED");
+        isChecked = isChecked || (AInfo["Trail Supporter Patch"] == "CHECKED");
+        isChecked = isChecked || (AInfo["Conservationist Magazine"] == "CHECKED");
+        isChecked = isChecked || (AInfo["Conservation Patron"] == "CHECKED");
+        isChecked = isChecked || (AInfo["Lifetime Card Replace"] == "CHECKED");
+        isChecked = isChecked || (AInfo["Sportsman Ed Certification"] == "CHECKED");
+    }
+    if (!isChecked) {
+        retMsg += "Please select sales item.";
+        retMsg += "<Br />";
+    }
+    return retMsg;
 
 }
 //End-All express record types for ASI_FISH,ASI_HUNT,ASI_LT and ASI_TRAP
