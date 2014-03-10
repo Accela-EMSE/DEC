@@ -962,7 +962,7 @@ function ReprintDocuments() {
             if (!parentMap.containsKey(pId)) {
                 parentMap.put(pId, pId);
             }
-            if (appMatch("Licenses/Annual/Application/NA", pId) || appMatch("Licenses/Sales/Reprint/Documents", pId)) {
+            if (appMatch("Licenses/Annual/Application/NA", pId) || appMatch("Licenses/Sales/Reprint/Documents", pId) || appMatch("Licenses/Sales/Application/Fishing", pId) || appMatch("Licenses/Sales/Application/Hunting", pId) || appMatch("Licenses/Sales/Application/Hunting and Fishing", pId) || appMatch("Licenses/Sales/Application/Trapping", pId) || appMatch("Licenses/Sales/Application/Lifetime", pId) || appMatch("Licenses/Sales/Application/Sporting", pId)) {
                 childArr = getChildren("Licenses/Tag/Document/Privilege Panel", pId);
                 if (childArr != null && childArr.length > 0) {
                     var ppCapId = childArr[0];
@@ -1755,7 +1755,7 @@ function addFeeForUpgrade() {
         //STEP2: Collect Paid fees for selected arrays
         var amtPaid = 0;
         for (y in selectionArray) {
-			//JIRA-47037
+            //JIRA-47037
             var parentAltId = getOriginalLTCapId(selectionArray[y])
             var itemCapId = getCapId(parentAltId);
             var pfResult = aa.finance.getPaymentFeeItems(itemCapId, null);
@@ -1819,7 +1819,7 @@ function getOriginalLTCapId(altId) {
         if (appMatch("Licenses/Sales/Reprint/Documents", itemCapId)) {
             //Ignore
         }
-        else if (appMatch("Licenses/Annual/Application/NA", itemCapId)) {
+        else if (appMatch("Licenses/Annual/Application/NA", itemCapId) || appMatch("Licenses/Sales/Application/Fishing", itemCapId) || appMatch("Licenses/Sales/Application/Hunting", itemCapId) || appMatch("Licenses/Sales/Application/Hunting and Fishing", itemCapId) || appMatch("Licenses/Sales/Application/Trapping", itemCapId) || appMatch("Licenses/Sales/Application/Lifetime", itemCapId) || appMatch("Licenses/Sales/Application/Sporting", itemCapId)) {
             return parentAltId;
         }
         else {
@@ -2334,6 +2334,12 @@ function GetDocsToVoidSale(peopleSequenceNumber) {
     //11/27/2013 - Reprinted Documents should not be voidable
     //applicationToChechArray.push('Licenses/Sales/Reprint/Documents');
     applicationToChechArray.push('Licenses/Sales/Upgrade/Lifetime');
+    applicationToChechArray.push('Licenses/Sales/Application/Fishing');
+    applicationToChechArray.push('Licenses/Sales/Application/Hunting');
+    applicationToChechArray.push('Licenses/Sales/Application/Hunting and Fishing');
+    applicationToChechArray.push('Licenses/Sales/Application/Trapping');
+    applicationToChechArray.push('Licenses/Sales/Application/Lifetime');
+    applicationToChechArray.push('Licenses/Sales/Application/Sporting');
 
     for (var aRec in applicationToChechArray) {
         logDebug(applicationToChechArray[aRec]);
@@ -2466,7 +2472,7 @@ function VoidsSales() {
         logDebug("itemCapId is " + itemCapId.getCustomID());
         if (itemCapId) {
             pId = getParent(itemCapId);
-            if (appMatch("Licenses/Annual/Application/NA", pId)) {
+            if (appMatch("Licenses/Annual/Application/NA", pId) || appMatch("Licenses/Sales/Application/Fishing", pId) || appMatch("Licenses/Sales/Application/Hunting", pId) || appMatch("Licenses/Sales/Application/Hunting and Fishing", pId) || appMatch("Licenses/Sales/Application/Trapping", pId) || appMatch("Licenses/Sales/Application/Lifetime", pId) || appMatch("Licenses/Sales/Application/Sporting", pId)) {
                 logDebug("parent record is  " + pId.getCustomID());
                 childArr = getChildren("Licenses/Tag/Document/Privilege Panel", pId);
                 logDebug("child array is  " + childArr.length);
@@ -2699,7 +2705,7 @@ function voidInternal() {
         // find privilege panel - it is a child of this records parent application
         logDebug("VoidInternal: Re-creating privilege panel");
         pId = getParent(capId);
-        if (appMatch("Licenses/Annual/Application/NA", pId)) {
+        if (appMatch("Licenses/Annual/Application/NA", pId) || appMatch("Licenses/Sales/Application/Fishing", pId) || appMatch("Licenses/Sales/Application/Hunting", pId) || appMatch("Licenses/Sales/Application/Hunting and Fishing", pId) || appMatch("Licenses/Sales/Application/Trapping", pId) || appMatch("Licenses/Sales/Application/Lifetime", pId) || appMatch("Licenses/Sales/Application/Sporting", pId)) {
             childArr = getChildren("Licenses/Tag/Document/Privilege Panel", pId);
             if (childArr != null && childArr.length > 0) {
                 ppCapId = childArr[0];
