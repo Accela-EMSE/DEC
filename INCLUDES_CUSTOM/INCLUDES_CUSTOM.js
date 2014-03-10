@@ -1372,6 +1372,13 @@ function copyContactAppSpecificToRecordAppSpecific() {
                     editAppSpecific4ACA("A_NY_Resident_Proof_Document", fieldArray["NY Resident Proof Document"]);
                     continue;
                 } else {
+					if (subGroupName == "MILITARY ACTIVE SERVICE STATUS") {
+						editAppSpecific4ACA("A_Military Serviceman", isNull(fieldArray["Military Serviceman"], '0'));
+					}
+					if (subGroupName == "APPEARANCE") {
+						editAppSpecific4ACA("A_Legally Blind", fieldArray["Legally Blind"]);
+						editAppSpecific4ACA("A_Permanent Disability", fieldArray["Permanent Disability"]);
+					}
                     for (var fld in fieldArray) {
                         editAppSpecific4ACA(fld, fieldArray[fld])
                     }
@@ -1581,6 +1588,9 @@ function SetTableStringFields() {
     editAppSpecific4ACA("A_Sportsman_Education", strEduc);
     //editAppSpecific4ACA("A_ActiveHoldings", strAllHolding);
     editAppSpecific4ACA("A_IsNativeAmerican", AInfo["Native American?"]);
+    editAppSpecific4ACA("A_Legally Blind", AInfo["Legally Blind"]);
+    editAppSpecific4ACA("A_Permanent Disability", AInfo["Permanent Disability"]);
+    editAppSpecific4ACA("A_Military Serviceman", AInfo["Military Serviceman"]);
 
     logDebug("EXIT: SetTableStringFields");
 }
@@ -5881,16 +5891,14 @@ function copyASIContactAppSpecificToRecordAppSpecific() {
                     continue;
                 } else {
 					   if (subGroupName == "APPEARANCE") {
-						editAppSpecific4ACA("Legally Blind", isNull(fieldArray["Legally Blind"], '0'));
-						editAppSpecific4ACA("Permanent Disability", isNull(fieldArray["Permanent Disability"], '0'));
+						editAppSpecific4ACA("A_Legally Blind", isNull(fieldArray["Legally Blind"], '0'));
+						editAppSpecific4ACA("A_Permanent Disability", isNull(fieldArray["Permanent Disability"], '0'));
 						continue;
 					} else {
-					   editAppSpecific4ACA("Military Serviceman", isNull(fieldArray["Military Serviceman"], '0'));
+					   editAppSpecific4ACA("A_Military Serviceman", isNull(fieldArray["Military Serviceman"], '0'));
 					   continue;
 					}
                 } 
-				
-				
             }
 
             //Copy All ASITs : asumption is identical ASITs with subgroups are available in cap ASIT
