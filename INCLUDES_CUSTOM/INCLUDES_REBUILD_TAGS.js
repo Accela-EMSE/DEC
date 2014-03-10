@@ -218,7 +218,7 @@ function getLifetimeLicenses(ipRefContact) {
         if (!fvCapType)
             continue;
 
-        if (fvCapType.getGroup() != "Licenses" || fvCapType.getType() != "Lifetime")
+        if (fvCapType.getGroup() != "Licenses" || fvCapType.getType() != "Lifetime" || fvCapType.getType() != "Term")
             continue;
         if (fvCapType.getSubType() == "Other" || fvCapType.getSubType() == "Fishing")
             continue;
@@ -236,17 +236,17 @@ function calculateEligTags(ipLifeLic, ipSpEd, ipAge, ipEnforcements, spProcessYe
 
         var fvLicType = fvLL.getKey();
         var fvTags = "";
-        if (fvLicType == "Bowhunting" && ipSpEd.containsKey("Hunter Ed") && ipSpEd.containsKey("Bowhunter Ed (IBEP)") && !ipEnforcements.revocationHunting) {
+        if ((fvLicType == "Bowhunting" || fvLicType == "3 Year Bowhunting Privilege" || fvLicType == "5 Year Bowhunting Privilege") && ipSpEd.containsKey("Hunter Ed") && ipSpEd.containsKey("Bowhunter Ed (IBEP)") && !ipEnforcements.revocationHunting) {
             if (ipAge >= 12 && ipAge < 16)
                 fvTags = "Privilege Panel,Back,Either Sex";
             else if (ipAge >= 16)
                 fvTags = "Privilege Panel,Either Sex";
         }
-        if (fvLicType == "Muzzleloading" && ipSpEd.containsKey("Hunter Ed") && !ipEnforcements.revocationHunting) {
+        if ((fvLicType == "Muzzleloading" || fvLicType == "3 Year Muzzleloading Privilege" || fvLicType == "5 Year Muzzleloading Privilege") && ipSpEd.containsKey("Hunter Ed") && !ipEnforcements.revocationHunting) {
             if (ipAge >= 14)
                 fvTags = "Privilege Panel,Either Sex";
         }
-        if (fvLicType == "Small & Big Game" && ipSpEd.containsKey("Hunter Ed") && !ipEnforcements.revocationHunting) {
+        if ((fvLicType == "Small & Big Game" || fvLicType == "3 Year Hunting" || fvLicType == "5 Year Hunting") && ipSpEd.containsKey("Hunter Ed") && !ipEnforcements.revocationHunting) {
             if (ipAge >= 12 && ipAge < 14)
                 fvTags = "Privilege Panel,Back";
             else if (ipAge >= 14)
@@ -258,8 +258,11 @@ function calculateEligTags(ipLifeLic, ipSpEd, ipAge, ipEnforcements, spProcessYe
             else if (ipAge >= 14)
                 fvTags = "Privilege Panel,Back,Turkey,Deer,Bear";
         }
-        if (fvLicType == "Trapping License" && ipSpEd.containsKey("Trapper Ed") && !ipEnforcements.revocationTrapping) {
+        if ((fvLicType == "Trapping License" || fvLicType == "3 Year Trapping License" || fvLicType == "5 Year Trapping License") && ipSpEd.containsKey("Trapper Ed") && !ipEnforcements.revocationTrapping) {
             fvTags = "Privilege Panel";
+        }
+        if ((fvLicType == "3 Year Turkey Permit" || fvLicType == "5 Year Turkey Permit") && ipSpEd.containsKey("Trapper Ed") && !ipEnforcements.revocationTrapping) {
+            fvTags = "Privilege Panel,Turkey";
         }
         ipLifeLic.put(fvLicType, fvTags);
     }
