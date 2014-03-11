@@ -1544,54 +1544,6 @@ function copyContactAppSpecificToRecordAppSpecific() {
         }
     }
 
-	var f = new form_OBJECT(GS2_EXPR, OPTZ_TYPE_ALLFEES);
-	SetExpressformForSelectedLics(f);
-	if (appTypeString == 'Licenses/Sales/Application/Fishing') {
-		f.SetFishSaleExcludes();
-		f.ExecuteBoRuleEngine();
-		if (f.MessageFish!= "") {
-			isNotValidToProceed += "SOME MESSAGE";
-		}
-	}
-	if (appTypeString == 'Licenses/Sales/Application/Hunting') {
-		f.SetHuntSaleExcludes();
-		f.ExecuteBoRuleEngine();
-		if (f.MessageHunter!= "") {
-			isNotValidToProceed += "SOME MESSAGE-0";
-		}
-	}
-	if (appTypeString == 'Licenses/Sales/Application/Trapping') {
-		f.SetTrapSaleExcludes();
-		f.ExecuteBoRuleEngine();
-		if (f.MessageHunter!= "") {
-			isNotValidToProceed += "SOME MESSAGE-1";
-		}
-	}
-	if (appTypeString == 'Licenses/Sales/Application/Lifetime') {
-		f.SetLifeTimeSaleExcludes();
-		f.ExecuteBoRuleEngine();
-		if (f.MessageLifeTime!= "") {
-			isNotValidToProceed += "SOME MESSAGE-2";
-		}
-	}
-	if (appTypeString == 'Licenses/Sales/Application/Hunting and Fishing') {
-		f.SetHuntAndFishSaleExcludes();
-		f.ExecuteBoRuleEngine();
-		if (f.MessageFish!= "") {
-			isNotValidToProceed += "SOME MESSAGE-3";
-		}
-		if (f.MessageHunter!= "") {
-			isNotValidToProceed += "SOME MESSAGE-4";
-		}
-	}
-	if (appTypeString == 'Licenses/Sales/Application/Sporting') {
-	//TODO
-		f.ExecuteBoRuleEngine();
-		if (f.MessageFish!= "") {
-			isNotValidToProceed += "SOME MESSAGE-5";
-		}
-	}
-
     logDebug("EXIT: copyContactAppSpecificToRecordAppSpecific");
 
     return isNotValidToProceed;
@@ -6104,46 +6056,67 @@ function copyASIContactAppSpecificToRecordAppSpecific() {
             }
         }
     }
+
+	var exmsg = '';
 	var f = new form_OBJECT(GS2_EXPR, OPTZ_TYPE_ALLFEES);
 	SetExpressformForSelectedLics(f);
 	if (appTypeString == 'Licenses/Sales/Application/Fishing') {
 		f.SetFishSaleExcludes();
 		f.ExecuteBoRuleEngine();
 		if (f.MessageFish!= "") {
-			isNotValidToProceed += "SOME MESSAGE";
+			exmsg += f.MessageFish;
 		}
 	}
 	if (appTypeString == 'Licenses/Sales/Application/Hunting') {
 		f.SetHuntSaleExcludes();
 		f.ExecuteBoRuleEngine();
 		if (f.MessageHunter!= "") {
-			isNotValidToProceed += "SOME MESSAGE-0";
+			exmsg += f.MessageHunter;
 		}
 	}
 	if (appTypeString == 'Licenses/Sales/Application/Trapping') {
 		f.SetTrapSaleExcludes();
 		f.ExecuteBoRuleEngine();
 		if (f.MessageHunter!= "") {
-			isNotValidToProceed += "SOME MESSAGE-1";
+			exmsg += f.MessageHunter;
 		}
 	}
 	if (appTypeString == 'Licenses/Sales/Application/Lifetime') {
 		f.SetLifeTimeSaleExcludes();
 		f.ExecuteBoRuleEngine();
 		if (f.MessageLifeTime!= "") {
-			isNotValidToProceed += "SOME MESSAGE-2";
+			exmsg += f.MessageLifeTime;
 		}
 	}
 	if (appTypeString == 'Licenses/Sales/Application/Hunting and Fishing') {
 		f.SetHuntAndFishSaleExcludes();
 		f.ExecuteBoRuleEngine();
 		if (f.MessageFish!= "") {
-			isNotValidToProceed += "SOME MESSAGE-3";
+			exmsg += f.MessageFish;
 		}
 		if (f.MessageHunter!= "") {
-			isNotValidToProceed += "SOME MESSAGE-4";
+			exmsg += f.MessageHunter;
 		}
 	}
+	if (appTypeString == 'Licenses/Sales/Application/Sporting') {
+		f.ExecuteBoRuleEngine();
+		if (f.MessageFish!= "") {
+			exmsg += f.MessageFish;
+		}
+		if (f.MessageHunter!= "") {
+			exmsg += f.MessageHunter;
+		}
+		if (f.MessageLifeTime!= "") {
+			exmsg += f.MessageLifeTime;
+		}
+	}
+	if (isNotValidToProceed) {
+		isNotValidToProceed += exmsg
+	}
+	else {
+		isNotValidToProceed = exmsg;
+	}
+
 	logDebug("EXIT: copyASIContactAppSpecificToRecordAppSpecific");
 
     return isNotValidToProceed;
