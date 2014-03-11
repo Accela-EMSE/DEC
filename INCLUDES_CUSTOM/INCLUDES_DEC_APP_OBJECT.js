@@ -2124,6 +2124,7 @@ function License_OBJ(identity, active) {
     this.IsActive = active;
     this.sortOrder = 0;
     this.Message = "";
+    this.SubHeader = "";
     this.DecCode = "";
     this.CodeDescription = "";
 
@@ -2174,6 +2175,8 @@ function License_OBJ(identity, active) {
         sbArray.push(this.TagsArray);
         scArray.push("Message : ");
         sbArray.push(this.Message);
+        scArray.push("SubHeader : ");
+        sbArray.push(this.SubHeader);
         scArray.push("DecCode : ");
         sbArray.push(this.DecCode);
         scArray.push("CodeDescription : ");
