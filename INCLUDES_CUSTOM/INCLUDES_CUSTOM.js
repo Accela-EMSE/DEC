@@ -1544,7 +1544,55 @@ function copyContactAppSpecificToRecordAppSpecific() {
         }
     }
 
-
+	var f = new form_OBJECT(GS2_EXPR, OPTZ_TYPE_ALLFEES);
+	SetExpressformForSelectedLics(f);
+	if (appTypeString == 'Licenses/Sales/Application/Fishing') {
+		f.SetFishSaleExcludes();
+		f.ExecuteBoRuleEngine();
+		if (f.MessageFish == "") {
+			isNotValidToProceed += "SOME MESSAGE";
+		}
+	}
+	if (appTypeString == 'Licenses/Sales/Application/Hunting') {
+	//TODO
+		f.SetFishSaleExcludes();
+		f.ExecuteBoRuleEngine();
+		if (f.MessageFish == "") {
+			isNotValidToProceed += "SOME MESSAGE";
+		}
+	}
+	if (appTypeString == 'Licenses/Sales/Application/Trapping') {
+	//TODO
+		f.SetFishSaleExcludes();
+		f.ExecuteBoRuleEngine();
+		if (f.MessageFish == "") {
+			isNotValidToProceed += "SOME MESSAGE";
+		}
+	}
+	if (appTypeString == 'Licenses/Sales/Application/Lifetime') {
+	//TODO
+		f.SetFishSaleExcludes();
+		f.ExecuteBoRuleEngine();
+		if (f.MessageFish == "") {
+			isNotValidToProceed += "SOME MESSAGE";
+		}
+	}
+	if (appTypeString == 'Licenses/Sales/Application/Hunting and Fishing') {
+	//TODO
+		f.SetFishSaleExcludes();
+		f.ExecuteBoRuleEngine();
+		if (f.MessageFish == "") {
+			isNotValidToProceed += "SOME MESSAGE";
+		}
+	}
+	if (appTypeString == 'Licenses/Sales/Application/Sporting') {
+	//TODO
+		f.SetFishSaleExcludes();
+		f.ExecuteBoRuleEngine();
+		if (f.MessageFish == "") {
+			isNotValidToProceed += "SOME MESSAGE";
+		}
+	}
 
     logDebug("EXIT: copyContactAppSpecificToRecordAppSpecific");
 
@@ -5950,28 +5998,28 @@ function copyASIContactAppSpecificToRecordAppSpecific() {
 
         var asitModel;
         var new_asit;
-
-        if (!(typeof (LANDOWNERINFORMATION) == "object")) {
-            var newLandOwnerInfo = GetTableValueArrayByDelimitedString("LANDOWNERINFORMATION", strLand)
-            asitModel = cap.getAppSpecificTableGroupModel();
-            new_asit = addASITable4ACAPageFlow(asitModel, "LAND OWNER INFORMATION", newLandOwnerInfo);
-        }
-        if (!(typeof (ANNUALDISABILITY) == "object")) {
-            var newAnnualDiability = GetTableValueArrayByDelimitedString("ANNUALDISABILITY", strAnnual)
-            asitModel = cap.getAppSpecificTableGroupModel();
-            new_asit = addASITable4ACAPageFlow(asitModel, "ANNUAL DISABILITY", newAnnualDiability);
-        }
-        if (!(typeof (SPORTSMANEDUCATION) == "object")) {
-            var newSportsmanDucat = GetTableValueArrayByDelimitedString("SPORTSMANEDUCATION", strEduc)
-            asitModel = cap.getAppSpecificTableGroupModel();
-            new_asit = addASITable4ACAPageFlow(asitModel, "SPORTSMAN EDUCATION", newSportsmanDucat);
-
-        }
-        if (!(typeof (PREVIOUSLICENSE) == "object")) {
-            var newPreviousLic = GetTableValueArrayByDelimitedString("PREVIOUSLICENSE", strPrev)
-            asitModel = cap.getAppSpecificTableGroupModel();
-            new_asit = addASITable4ACAPageFlow(asitModel, "PREVIOUS LICENSE", newPreviousLic);
-        }
+		if(appTypeString == 'Licenses/Sales/Application/Hunting' || appTypeString == 'Licenses/Sales/Application/Hunting and Fishing') {
+			if (!(typeof (LANDOWNERINFORMATION) == "object")) {
+				var newLandOwnerInfo = GetTableValueArrayByDelimitedString("LANDOWNERINFORMATION", strLand)
+				asitModel = cap.getAppSpecificTableGroupModel();
+				new_asit = addASITable4ACAPageFlow(asitModel, "LAND OWNER INFORMATION", newLandOwnerInfo);
+			}
+		}
+        //if (!(typeof (ANNUALDISABILITY) == "object")) {
+        //    var newAnnualDiability = GetTableValueArrayByDelimitedString("ANNUALDISABILITY", strAnnual)
+        //    asitModel = cap.getAppSpecificTableGroupModel();
+        //    new_asit = addASITable4ACAPageFlow(asitModel, "ANNUAL DISABILITY", newAnnualDiability);
+        //}
+        //if (!(typeof (SPORTSMANEDUCATION) == "object")) {
+        //    var newSportsmanDucat = GetTableValueArrayByDelimitedString("SPORTSMANEDUCATION", strEduc)
+        //    asitModel = cap.getAppSpecificTableGroupModel();
+        //    new_asit = addASITable4ACAPageFlow(asitModel, "SPORTSMAN EDUCATION", newSportsmanDucat);
+        //}
+        //if (!(typeof (PREVIOUSLICENSE) == "object")) {
+        //    var newPreviousLic = GetTableValueArrayByDelimitedString("PREVIOUSLICENSE", strPrev)
+        //    asitModel = cap.getAppSpecificTableGroupModel();
+        //    new_asit = addASITable4ACAPageFlow(asitModel, "PREVIOUS LICENSE", newPreviousLic);
+        //}
 
         //Contact Conditions Settings
         var contactCondArray = getContactCondutions(peopleSequenceNumber);
