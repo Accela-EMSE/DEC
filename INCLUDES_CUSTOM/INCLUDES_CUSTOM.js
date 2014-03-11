@@ -6091,23 +6091,14 @@ function copyASIContactAppSpecificToRecordAppSpecific() {
 	if (appTypeString == 'Licenses/Sales/Application/Hunting and Fishing') {
 		f.SetHuntAndFishSaleExcludes();
 		f.ExecuteBoRuleEngine();
-		if (f.MessageFish!= "") {
+		if (f.MessageFish!= "" && f.MessageHunter!= "") {
 			exmsg += f.MessageFish;
-		}
-		if (f.MessageHunter!= "") {
-			exmsg += f.MessageHunter;
-		}
+		}		
 	}
 	if (appTypeString == 'Licenses/Sales/Application/Sporting') {
 		f.ExecuteBoRuleEngine();
-		if (f.MessageFish!= "") {
+		if (f.MessageFish!= "" && f.MessageHunter!= "" && f.MessageLifeTime!= "") {
 			exmsg += f.MessageFish;
-		}
-		if (f.MessageHunter!= "") {
-			exmsg += f.MessageHunter;
-		}
-		if (f.MessageLifeTime!= "") {
-			exmsg += f.MessageLifeTime;
 		}
 	}
 	if (isNotValidToProceed) {
