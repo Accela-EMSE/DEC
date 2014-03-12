@@ -6392,6 +6392,12 @@ function isVerifyTransferLifetimeLicense() {
 	logDebug("EXIT: isVerifyNYDECHQUser");
     return isNotValidToProceed;
 }
+function addFeeAndSetAsitForTransferlifetime() {
+    logDebug("ENTER: addFeeAndSetAsitForTransferlifetime");
+	removeAllFees(capId);
+	addFeeWithVersion("FEE_TRANS_1", "FEE_TRANSFER_SCHDL", "1", "FINAL", 1, "N");
+    logDebug("EXIT: addFeeAndSetAsitForTransferlifetime");
+}
 
 
 
