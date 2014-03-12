@@ -20,7 +20,7 @@
 var showMessage = false; 					// Set to true to see results in popup window
 var showDebug = false; 						// Set to true to see debug messages in popup window
 var preExecute = "PreExecuteForBeforeEvents"
-var controlString = "ACA ONSUBMIT BEFORE SEL TRANSFER"; 	// Standard choice for control
+var controlString = "ACA ONSUBMIT BEFORE TRANSFER"; 	// Standard choice for control
 var documentOnly = false; 					// Document Only -- displays hierarchy of std choice steps
 var disableTokens = false; 					// turn off tokenizing of std choices (enables use of "{} and []")
 var useAppSpecificGroupName = false; 		// Use Group name when populating App Specific Info Values
