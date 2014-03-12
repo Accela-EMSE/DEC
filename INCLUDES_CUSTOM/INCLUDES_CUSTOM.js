@@ -6338,4 +6338,60 @@ function getPeopleByDecID(decId) {
     }
     return peopResult;
 }
+function isVerifyTransferLifetimeLicense() {
+    logDebug("ENTER: isVerifyNYDECHQUser");
+
+    if (publicUser) {
+        var publicUserID = "" + aa.env.getValue("CurrentUserID");
+        if (publicUserID.length > 0) {
+            var pUserSeqNum = aa.util.parseLong(publicUserID.substr(10, publicUserID.length - 1));
+            var s_publicUserResult = aa.publicUser.getPublicUser(pUserSeqNum);
+            if (s_publicUserResult.getSuccess()) {
+                var pUserObj = s_publicUserResult.getOutput();
+                if (pUserObj.getAccountType() == "CITIZEN") {
+                    MSG_SUSPENSION = "Customer privileges are suspended and licenses are not available for purchase. This issue can only be resolved by contacting DEC Law Enforcement during business hours at 518-402-8821.";
+                }
+            }
+        }
+    }
+    var isNotValidToProceed = MSG_SUSPENSION;
+    var xArray = getApplicantArrayEx();
+    var peopleSequenceNumber = null;
+    var deceasedDate = null;
+
+    for (ca in xArray) {
+        var thisContact = xArray[ca];
+        peopleSequenceNumber = thisContact["refcontactSeqNumber"]
+        if (peopleSequenceNumber != null) {
+            var peopleModel = getOutput(aa.people.getPeople(peopleSequenceNumber), "");
+            deceasedDate = peopleModel.getDeceasedDate();
+            //Copy All Asi Fields: asumption is identical subgroups are available in cap ASI
+            //var subGroupArray = getTemplateValueByFormArrays(peopleModel.getTemplate(), null, null);
+            //GetAllASI(subGroupArray);
+        }
+       break;
+    }
+    if (deceasedDate) {
+        if (isNotValidToProceed) {
+            isNotValidToProceed += MSG_DECEASED;
+        }
+        else {
+            isNotValidToProceed = MSG_DECEASED;
+        }
+    }
+	var isValidNYDECHQUser = isValidUserForTransferLifetimeLicense();
+	if(!isValidNYDECHQUser){
+		var exMsg="Not Valid NY DEC HQ User for Transfer Lifetime License";	
+		if (isNotValidToProceed) {
+            isNotValidToProceed += exMsg;
+        }
+        else {
+            isNotValidToProceed = exMsg;
+        }		
+	}		
+	logDebug("EXIT: isVerifyNYDECHQUser");
+    return isNotValidToProceed;
+}
+
+
 
