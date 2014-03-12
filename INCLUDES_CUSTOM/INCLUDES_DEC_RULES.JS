@@ -1137,11 +1137,11 @@ function getAllFeeCodeByRuleFor_LIFETM_BOWH(ruleParams, feeSched) {
     var rp = ruleParams;
 
     //Lifetime Bowhunting fee for NYS Resident having age  0-11
-    if (rp.IsNyResiDent && rp.Age <= 11) { feeItemCodes.push(new FeeCodeProp(LBH_1_RES, "000")); }
+    if ((rp.IsNyResiDent || rp.HasLifetimeHunt()) && rp.Age <= 11) { feeItemCodes.push(new FeeCodeProp(LBH_1_RES, "000")); }
     //Lifetime Bowhunting fee for NYS Resident having age  12-15
-    if (rp.IsNyResiDent && rp.Age >= 12 && rp.Age <= 15) { feeItemCodes.push(new FeeCodeProp(LBH_2_RES, "000")); }
+    if ((rp.IsNyResiDent || rp.HasLifetimeHunt()) && rp.Age >= 12 && rp.Age <= 15) { feeItemCodes.push(new FeeCodeProp(LBH_2_RES, "000")); }
     //Lifetime Bowhunting fee for NYS Resident having age  12-15
-    if (rp.IsNyResiDent && rp.Age >= 16) { feeItemCodes.push(new FeeCodeProp(LBH_3_RES, "000")); }
+    if ((rp.IsNyResiDent || rp.HasLifetimeHunt()) && rp.Age >= 16) { feeItemCodes.push(new FeeCodeProp(LBH_3_RES, "000")); }
 
     if (feeItemCodes.length == 0) { feeItemCodes.push(new FeeCodeProp(LBH_3_RES, "000")); }
     return feeItemCodes;
@@ -1151,9 +1151,9 @@ function getAllFeeCodeByRuleFor_LIFETM_MUZZ(ruleParams, feeSched) {
     var rp = ruleParams;
 
     //Lifetime Muzzleloading fee for NYS Resident having age  0-13
-    if (rp.IsNyResiDent && rp.Age <= 13) { feeItemCodes.push(new FeeCodeProp(LMP_1_RES, "000")); }
+    if ((rp.IsNyResiDent || rp.HasLifetimeHunt()) && rp.Age <= 13) { feeItemCodes.push(new FeeCodeProp(LMP_1_RES, "000")); }
     //Lifetime Muzzleloading fee for  having age  14+
-    if (rp.IsNyResiDent && rp.Age >= 14) { feeItemCodes.push(new FeeCodeProp(LMP_2_RES, "000")); }
+    if ((rp.IsNyResiDent || rp.HasLifetimeHunt()) && rp.Age >= 14) { feeItemCodes.push(new FeeCodeProp(LMP_2_RES, "000")); }
 
     if (feeItemCodes.length == 0) { feeItemCodes.push(new FeeCodeProp(LMP_2_RES, "000")); }
     return feeItemCodes;
@@ -1771,7 +1771,7 @@ function isRuleForSelectable_ANNUAL_HUNT(ruleParams) {
     return isSelectable;
 }
 function isRuleForSelectable_ANNUAL_BOWH_2012(ruleParams) {
-    var isSelectable = ((ruleParams.IsNyResiDent || ruleParams.HasLifetimeHunt) && ruleParams.Age >= 16 && ruleParams.HasHuntEd && ruleParams.HasBowHunt);
+    var isSelectable = ((ruleParams.IsNyResiDent || ruleParams.HasLifetimeHunt()) && ruleParams.Age >= 16 && ruleParams.HasHuntEd && ruleParams.HasBowHunt);
     return isSelectable;
 }
 function isRuleForSelectable_ANNUAL_BOWH_2014(ruleParams) {
@@ -1779,7 +1779,7 @@ function isRuleForSelectable_ANNUAL_BOWH_2014(ruleParams) {
     return isSelectable;
 }
 function isRuleForSelectable_ANNUAL_MUZZ_2012(ruleParams) {
-    var isSelectable = ((ruleParams.IsNyResiDent || ruleParams.HasLifetimeHunt) && ruleParams.Age >= 14 && ruleParams.HasHuntEd);
+    var isSelectable = ((ruleParams.IsNyResiDent || ruleParams.HasLifetimeHunt()) && ruleParams.Age >= 14 && ruleParams.HasHuntEd);
     return isSelectable;
 }
 function isRuleForSelectable_ANNUAL_MUZZ_2014(ruleParams) {
@@ -1787,10 +1787,10 @@ function isRuleForSelectable_ANNUAL_MUZZ_2014(ruleParams) {
     return isSelectable;
 }
 function isRuleForSelectable_ANNUAL_DMP_2012(ruleParams) {
-    var isSelectable = ((ruleParams.IsNyResiDent || ruleParams.HasLifetimeHunt) && ruleParams.Age > 13 && ruleParams.HasHuntEd);
-    isSelectable = isSelectable || ((ruleParams.IsNyResiDent || ruleParams.HasLifetimeHunt) && ruleParams.Age >= 12 && ruleParams.HasHuntEd && ruleParams.HasBowHunt);
-    isSelectable = isSelectable || (!(ruleParams.IsNyResiDent || ruleParams.HasLifetimeHunt) && ruleParams.Age > 13 && ruleParams.HasHuntEd);
-    isSelectable = isSelectable || (!(ruleParams.IsNyResiDent || ruleParams.HasLifetimeHunt) && ruleParams.Age >= 12 && ruleParams.HasHuntEd && ruleParams.HasBowHunt);
+    var isSelectable = ((ruleParams.IsNyResiDent || ruleParams.HasLifetimeHunt()) && ruleParams.Age > 13 && ruleParams.HasHuntEd);
+    isSelectable = isSelectable || ((ruleParams.IsNyResiDent || ruleParams.HasLifetimeHunt()) && ruleParams.Age >= 12 && ruleParams.HasHuntEd && ruleParams.HasBowHunt);
+    isSelectable = isSelectable || (!(ruleParams.IsNyResiDent || ruleParams.HasLifetimeHunt()) && ruleParams.Age > 13 && ruleParams.HasHuntEd);
+    isSelectable = isSelectable || (!(ruleParams.IsNyResiDent || ruleParams.HasLifetimeHunt()) && ruleParams.Age >= 12 && ruleParams.HasHuntEd && ruleParams.HasBowHunt);
     return isSelectable;
 }
 function isRuleForSelectable_ANNUAL_DMP_2014(ruleParams) {
@@ -1798,7 +1798,7 @@ function isRuleForSelectable_ANNUAL_DMP_2014(ruleParams) {
     return isSelectable;
 }
 function isRuleForSelectable_ANNUAL_TRKY_2012(ruleParams) {
-    var isSelectable = ((ruleParams.IsNyResiDent || ruleParams.HasLifetimeHunt) && ruleParams.Age >= 12 && ruleParams.HasHuntEd);
+    var isSelectable = ((ruleParams.IsNyResiDent || ruleParams.HasLifetimeHunt()) && ruleParams.Age >= 12 && ruleParams.HasHuntEd);
     return isSelectable;
 }
 function isRuleForSelectable_ANNUAL_TRKY_2014(ruleParams) {
@@ -1806,12 +1806,12 @@ function isRuleForSelectable_ANNUAL_TRKY_2014(ruleParams) {
     return isSelectable;
 }
 function isRuleForSelectable_ANNUAL_TRAP_2012(ruleParams) {
-    var isSelectable = ((ruleParams.IsNyResiDent || ruleParams.HasLifetimeTrap) && ruleParams.HasTrapEd);
+    var isSelectable = ((ruleParams.IsNyResiDent || ruleParams.HasLifetimeTrap()) && ruleParams.HasTrapEd);
     return isSelectable;
 }
 function isRuleForSelectable_ANNUAL_TRAP_2014(ruleParams) {
-    var isSelectable = ((ruleParams.IsNyResiDent || ruleParams.HasLifetimeTrap) && ruleParams.HasTrapEd);
-    isSelectable = isSelectable || (!(ruleParams.IsNyResiDent || ruleParams.HasLifetimeTrap) && ruleParams.HasTrapEd);
+    var isSelectable = ((ruleParams.IsNyResiDent || ruleParams.HasLifetimeTrap()) && ruleParams.HasTrapEd);
+    isSelectable = isSelectable || (!(ruleParams.IsNyResiDent || ruleParams.HasLifetimeTrap()) && ruleParams.HasTrapEd);
     return isSelectable;
 }
 function isRuleForSelectable_LIFETM_SPRT(ruleParams) {
@@ -1824,16 +1824,11 @@ function isRuleForSelectable_LIFETM_SBGM(ruleParams) {
     return isSelectable;
 }
 function isRuleForSelectable_LIFETM_BOWH(ruleParams) {
-    //var isSelectable = (ruleParams.IsNyResiDent);
-    //var isSelectable = (ruleParams.IsNyResiDent && ruleParams.Age < 70);
-    var isSelectable = (ruleParams.IsNyResiDent);
+    var isSelectable = (ruleParams.IsNyResiDent || ruleParams.HasLifetimeHunt());
     return isSelectable;
 }
 function isRuleForSelectable_LIFETM_MUZZ(ruleParams) {
-    //var isSelectable = (ruleParams.IsNyResiDent);
-    //var isSelectable = (ruleParams.IsNyResiDent && ruleParams.Age >= 16  && ruleParams.Age < 70);
-    //var isSelectable = (ruleParams.IsNyResiDent && ruleParams.Age < 70);
-    var isSelectable = (ruleParams.IsNyResiDent);
+    var isSelectable = (ruleParams.IsNyResiDent || ruleParams.HasLifetimeHunt());
     return isSelectable;
 }
 function isRuleForSelectable_LIFETM_TRAP(ruleParams) {
@@ -1875,7 +1870,7 @@ function isRuleForSelectable_SEVEN_DAY_FISHING_LICENSE_2014(ruleParams) {
     return isSelectable;
 }
 function isRuleForSelectable_CONSERVATION_LEGACY(ruleParams) {
-    var isSelectable = ((ruleParams.IsNyResiDent || ruleParams.HasLifetimeHunt) && ruleParams.Age >= 16 && ruleParams.Age <= 69 && ruleParams.HasHuntEd && ruleParams.HasBowHunt);
+    var isSelectable = ((ruleParams.IsNyResiDent || ruleParams.HasLifetimeHunt()) && ruleParams.Age >= 16 && ruleParams.Age <= 69 && ruleParams.HasHuntEd && ruleParams.HasBowHunt);
     return isSelectable;
 }
 function isRuleForSelectable_JUNIOR_BOWHUNTING(ruleParams) {
@@ -1891,55 +1886,55 @@ function isRuleForSelectable_JUNIOR_HUNT_TAGS(ruleParams) {
     return isSelectable;
 }
 function isRuleForSelectable_NONRES_MUZZLELOADING(ruleParams) {
-    var isSelectable = (!(ruleParams.IsNyResiDent || ruleParams.HasLifetimeHunt) && ruleParams.Age >= 14 && ruleParams.HasHuntEd);
+    var isSelectable = (!(ruleParams.IsNyResiDent || ruleParams.HasLifetimeHunt()) && ruleParams.Age >= 14 && ruleParams.HasHuntEd);
     return isSelectable;
 }
 function isRuleForSelectable_NONRES_SUPER_SPORTSMAN(ruleParams) {
-    var isSelectable = (!(ruleParams.IsNyResiDent || ruleParams.HasLifetimeHunt) && ruleParams.Age >= 16 && ruleParams.HasHuntEd && ruleParams.HasBowHunt);
+    var isSelectable = (!(ruleParams.IsNyResiDent || ruleParams.HasLifetimeHunt()) && ruleParams.Age >= 16 && ruleParams.HasHuntEd && ruleParams.HasBowHunt);
     return isSelectable;
 }
 function isRuleForSelectable_NONRESIDENT_BEAR_TAG(ruleParams) {
-    var isSelectable = (!(ruleParams.IsNyResiDent || ruleParams.HasLifetimeHunt) && ruleParams.Age >= 16);
+    var isSelectable = (!(ruleParams.IsNyResiDent || ruleParams.HasLifetimeHunt()) && ruleParams.Age >= 16);
     return isSelectable;
 }
 function isRuleForSelectable_NONRESIDENT_BIG_GAME(ruleParams) {
-    var isSelectable = (!(ruleParams.IsNyResiDent || ruleParams.HasLifetimeHunt) && ruleParams.Age >= 16 && ruleParams.HasHuntEd);
+    var isSelectable = (!(ruleParams.IsNyResiDent || ruleParams.HasLifetimeHunt()) && ruleParams.Age >= 16 && ruleParams.HasHuntEd);
     return isSelectable;
 }
 function isRuleForSelectable_NONRESIDENT_BOWHUNTING(ruleParams) {
-    var isSelectable = (!(ruleParams.IsNyResiDent || ruleParams.HasLifetimeHunt) && ruleParams.Age >= 16 && ruleParams.HasHuntEd && ruleParams.HasBowHunt);
+    var isSelectable = (!(ruleParams.IsNyResiDent || ruleParams.HasLifetimeHunt()) && ruleParams.Age >= 16 && ruleParams.HasHuntEd && ruleParams.HasBowHunt);
     return isSelectable;
 }
 function isRuleForSelectable_NONRESIDENT_SMALL_GAME(ruleParams) {
-    var isSelectable = (!(ruleParams.IsNyResiDent || ruleParams.HasLifetimeHunt) && ruleParams.Age >= 16 && ruleParams.HasHuntEd);
+    var isSelectable = (!(ruleParams.IsNyResiDent || ruleParams.HasLifetimeHunt()) && ruleParams.Age >= 16 && ruleParams.HasHuntEd);
     return isSelectable;
 }
 function isRuleForSelectable_NONRESIDENT_TURKEY(ruleParams) {
-    var isSelectable = (!(ruleParams.IsNyResiDent || ruleParams.HasLifetimeHunt) && ruleParams.Age >= 12);
+    var isSelectable = (!(ruleParams.IsNyResiDent || ruleParams.HasLifetimeHunt()) && ruleParams.Age >= 12);
     return isSelectable;
 }
 function isRuleForSelectable_SMALL_AND_BIG_GAME(ruleParams) {
-    var isSelectable = (!ruleParams.IsDisableForYear && (ruleParams.IsNyResiDent || ruleParams.HasLifetimeHunt) && ruleParams.Age >= 16 && ruleParams.Age <= 69 && ruleParams.HasHuntEd);
+    var isSelectable = (!ruleParams.IsDisableForYear && (ruleParams.IsNyResiDent || ruleParams.HasLifetimeHunt()) && ruleParams.Age >= 16 && ruleParams.Age <= 69 && ruleParams.HasHuntEd);
     return isSelectable;
 }
 function isRuleForSelectable_SMALL_GAME(ruleParams) {
-    var isSelectable = (!ruleParams.IsDisableForYear && !ruleParams.IsMilitaryServiceman && (ruleParams.IsNyResiDent || ruleParams.HasLifetimeHunt) && ruleParams.Age >= 16 && ruleParams.Age <= 69 && ruleParams.HasHuntEd);
+    var isSelectable = (!ruleParams.IsDisableForYear && !ruleParams.IsMilitaryServiceman && (ruleParams.IsNyResiDent || ruleParams.HasLifetimeHunt()) && ruleParams.Age >= 16 && ruleParams.Age <= 69 && ruleParams.HasHuntEd);
     return isSelectable;
 }
 function isRuleForSelectable_SPORTSMAN(ruleParams) {
-    var isSelectable = (!ruleParams.IsMilitaryServiceman && (ruleParams.IsNyResiDent || ruleParams.HasLifetimeHunt) && ruleParams.Age >= 16 && ruleParams.HasHuntEd);
+    var isSelectable = (!ruleParams.IsMilitaryServiceman && (ruleParams.IsNyResiDent || ruleParams.HasLifetimeHunt()) && ruleParams.Age >= 16 && ruleParams.HasHuntEd);
     return isSelectable;
 }
 function isRuleForSelectable_SUPER_SPORTSMAN(ruleParams) {
-    var isSelectable = ((ruleParams.IsNyResiDent || ruleParams.HasLifetimeHunt) && ruleParams.Age >= 16 && ruleParams.Age <= 69 && ruleParams.HasHuntEd && ruleParams.HasBowHunt);
+    var isSelectable = ((ruleParams.IsNyResiDent || ruleParams.HasLifetimeHunt()) && ruleParams.Age >= 16 && ruleParams.Age <= 69 && ruleParams.HasHuntEd && ruleParams.HasBowHunt);
     return isSelectable;
 }
 function isRuleForSelectable_NONRESIDENT_TRAPPING(ruleParams) {
-    var isSelectable = (!(ruleParams.IsNyResiDent || ruleParams.HasLifetimeTrap) && ruleParams.Age >= 16 && ruleParams.HasTrapEd);
+    var isSelectable = (!(ruleParams.IsNyResiDent || ruleParams.HasLifetimeTrap()) && ruleParams.Age >= 16 && ruleParams.HasTrapEd);
     return isSelectable;
 }
 function isRuleForSelectable_TRAPPER_SUPER_SPORTSMAN(ruleParams) {
-    var isSelectable = ((ruleParams.IsNyResiDent || ruleParams.HasLifetimeTrap) && ruleParams.Age >= 16 && ruleParams.Age <= 69 && ruleParams.HasTrapEd && ruleParams.HasHuntEd);
+    var isSelectable = ((ruleParams.IsNyResiDent || ruleParams.HasLifetimeTrap()) && ruleParams.Age >= 16 && ruleParams.Age <= 69 && ruleParams.HasTrapEd && ruleParams.HasHuntEd);
     return isSelectable;
 }
 function isRuleForSelectable_LIFETIME_CARD_REPLACE(ruleParams) {
