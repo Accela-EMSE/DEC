@@ -6379,8 +6379,8 @@ function isVerifyTransferLifetimeLicense() {
             isNotValidToProceed = MSG_DECEASED;
         }
     }
-	var isValidNYDECHQUser = isValidUserForTransferLifetimeLicense();
-	if(!isValidNYDECHQUser){
+	var isValidUser = isValidUserForTransferLifetimeLicense();
+	if(!isValidUser){
 		var exMsg="Not Valid NY DEC HQ User for Transfer Lifetime License";	
 		if (isNotValidToProceed) {
             isNotValidToProceed += exMsg;
