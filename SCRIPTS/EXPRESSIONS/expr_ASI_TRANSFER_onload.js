@@ -13,20 +13,29 @@ function getScriptText(vScriptName) {
     var emseScript = emseBiz.getScriptByPK(aa.getServiceProviderCode(), vScriptName, "ADMIN");
     return emseScript.getScriptText() + "";
 }
-var aYear = expression.getValue("ASI::GENERAL INFORMATION::License Year");
 var vUserID = expression.getValue("$$userID$$");
-var sUserIdEB = vUserID.getValue();
-var oRecordType=expression.getValue("CAP::capType");
+var oLicYear = expression.getValue("ASI::GENERAL INFORMATION::License Year");
+var oLicYearDesc = expression.getValue("ASI::GENERAL INFORMATION::License Year Description");
+var sYearDesc = oLicYearDesc.value;
 
-var otDecId = expression.getValue("ASI::TRANSFER INFORMATION::Customer ID Transfer to (DEC ID)");
+if (oLicYearDesc.value != null && oLicYearDesc.value != '') {
+    //var str = sYearDesc.substring(11, 15);
+	var rows = sYearDesc.split("-");
+	var str = rows[0].trim();
+	str = str.substring(str.length() - 4, str.length());
+    oLicYear.value = str;
+}
+oLicYear.hidden = true;
+expression.setReturn(oLicYear);
 
 var isValidUser = isValidUserForTransferLifetimeLicense(vUserID.getValue());
 var msg = "";
 if (!isValidUser) {
     msg = "Not authorize user to transfer license.";
- } 
-otDecId.message = msg;
-expression.setReturn(otDecId);
+} 
+oLicYearDesc.readOnly = !isValidUser;
+oLicYearDesc.message = msg;
+expression.setReturn(oLicYearDesc);
 	
-	}
+
 
