@@ -13,6 +13,7 @@
 |                           Expiry date is calculated 1 day before.
 |           10/18/2013,     Laxmikant Bondre (LBONDRE), 
 |                           Add Fulfillment Condition for Education Updated..
+
 |           10/29/2013      Roland VonSchoech, Accela - Add modified copyFees() function to include additional debug statements.
 |           10/29/2013      Raj Koul, commented out the logDebug function for workflow tasks Line #2026
 |           10/29/2013      Raj Koul, commented out the unnecessary message displaying  ref seq #2943
@@ -6292,4 +6293,27 @@ function verifyAnyExpressSalesSelect() {
 
 }
 //End-All express record types for ASI_FISH,ASI_HUNT,ASI_LT and ASI_TRAP
+
+function isValidUserForTransferLifetimeLicense(userId) {
+    var isvalid = false;
+
+    var uObj;
+    if (arguments.length > 0) {
+        uObj = new USEROBJ();
+        uObj.userId = userId;
+        uObj.userModel = uObj.getUserModel();
+        uObj.setUserModelAttributes();
+    } else {
+        uObj = new USEROBJ(publicUserID);
+    }
+    isvalid = (uObj.acctType == 'CITIZEN');
+
+    if (!isvalid) {
+        var salesAgentInfoArray = getAgentInfo(uObj.publicUserID, uObj);
+        if (salesAgentInfoArray != null) {
+            isvalid = (salesAgentInfoArray["Agent Group"] == "NYSDEC HQ");
+        }
+    }
+    return isvalid;
+}
 
