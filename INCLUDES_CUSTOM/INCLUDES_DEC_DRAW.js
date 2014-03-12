@@ -92,7 +92,7 @@ function Draw_Obj(syear, swmu, schoicenum, sdrawtype, sapplyLandOwner) {
         var ordbAinfo = new Array();
         searchCapId = GenerateAltId(AA_Preference_Order, this.Year, this.Wmu, this.DrawType);
         var ordCapId = getCapId(searchCapId);
-		logDebug("Pre-Order preference Order cap " + searchCapId + " : " + (ordCapId ? ordCapId.getCustomID() : "  Not found"));
+        logDebug("Pre-Order preference Order cap " + searchCapId + " : " + (ordCapId ? ordCapId.getCustomID() : "  Not found"));
         if (ordCapId != null) {
             loadAppSpecific(ordbAinfo, ordCapId);
             //logGlobals(ordbAinfo);
@@ -105,7 +105,7 @@ function Draw_Obj(syear, swmu, schoicenum, sdrawtype, sapplyLandOwner) {
         var drawtype = this.DrawType;
         var ChoiceNum = this.ChoiceNum
         var bDisabledVet = (this.IsDisableForYear && this.IsMilitaryServiceman);
-		
+
         var drawResult = new DrawResult_OBJ();  //Result holder
         if (this.DrawType != DRAW_FCFS && this.DrawType != DRAW_INST && this.DrawType != DRAW_IBP) {
             return drawResult;
@@ -122,7 +122,7 @@ function Draw_Obj(syear, swmu, schoicenum, sdrawtype, sapplyLandOwner) {
             if (this.ordbAinfo == null) {
                 searchCapId = GenerateAltId(AA_Preference_Order, year, wmu, drawtype);
                 var ordCapId = getCapId(searchCapId);
-				logDebug("Preference Order cap " + searchCapId + " : " + (ordCapId ? ordCapId.getCustomID() : "  Not found"));
+                logDebug("Preference Order cap " + searchCapId + " : " + (ordCapId ? ordCapId.getCustomID() : "  Not found"));
                 if (ordCapId != null) {
                     loadAppSpecific(ordbAinfo, ordCapId);
                     //logGlobals(ordbAinfo);
@@ -136,7 +136,7 @@ function Draw_Obj(syear, swmu, schoicenum, sdrawtype, sapplyLandOwner) {
             searchCapId = GenerateAltId(AA_Probability, year, wmu, drawtype);
             var probCapId = getCapId(searchCapId);
             var probAinfo = new Array();
-			logDebug("Preference Probability cap " + searchCapId + " : " + (probCapId ? probCapId.getCustomID() : "  Not found"));
+            logDebug("Preference Probability cap " + searchCapId + " : " + (probCapId ? probCapId.getCustomID() : "  Not found"));
             if (probCapId != null) {
                 loadAppSpecific(probAinfo, probCapId);
                 //logGlobals(probAinfo);
@@ -144,10 +144,10 @@ function Draw_Obj(syear, swmu, schoicenum, sdrawtype, sapplyLandOwner) {
 
             //create category Array
             var ctgArray = new Array();
-			
-			logDebug("do we have probability and order arrays? " + (probAinfo != null && ordbAinfo != null));
-			
-			if (probAinfo != null && ordbAinfo != null) {
+
+            logDebug("do we have probability and order arrays? " + (probAinfo != null && ordbAinfo != null));
+
+            if (probAinfo != null && ordbAinfo != null) {
                 ctgArray.push(new Category(1, ordbAinfo["C1"], probAinfo["C1"], 1));
                 ctgArray.push(new Category(2, ordbAinfo["C2"], probAinfo["C2"], 1));
                 ctgArray.push(new Category(3, ordbAinfo["C3"], probAinfo["C3"], 1));
@@ -170,13 +170,13 @@ function Draw_Obj(syear, swmu, schoicenum, sdrawtype, sapplyLandOwner) {
             if (ctgArray.length > 0) {
                 sortCategoryArray(ctgArray);
 
-				logDebug("drawResult params = "  + this.Wmu + "," + this.DrawType + "," + this.ChoiceNum + "," +  this.PreferencePoints + "," + this.IsLanOwner + "," +  this.bDisabledVet + "," +  this.IsNyResiDent + "," +  this.havedefinedItems);
-				
+                logDebug("drawResult params = " + this.Wmu + "," + this.DrawType + "," + this.ChoiceNum + "," + this.PreferencePoints + "," + this.IsLanOwner + "," + this.bDisabledVet + "," + this.IsNyResiDent + "," + this.havedefinedItems);
+
                 for (var out = 0; out < ctgArray.length; out++) {
                     if (ctgArray[out].ChoiceType == ChoiceNum) {
                         if (this.DrawType == DRAW_INST) {
                             eval('drawResult = verify' + ctgArray[out].Name + '(this);');
-							logDebug("drawResult = verify" + ctgArray[out].Name + "(this) = " + drawResult.Selected);
+                            logDebug("drawResult = verify" + ctgArray[out].Name + "(this) = " + drawResult.Selected);
                         } else if (this.DrawType == DRAW_IBP) {
                             drawResult = new DrawResult_OBJ(this.Wmu, this.DrawType, this.ChoiceNum, this.PreferencePoints, this.IsLanOwner, bDisabledVet, this.IsNyResiDent);
                             drawResult.Selected = (this.PreferenceBucketForIbp == ctgArray[out].index);
@@ -212,8 +212,8 @@ function verifyWmuConfiguration(year, wmu, drawtype, choiceNum, drawResult) {
     var searchCapId = GenerateAltId(AA_Configuration, year, wmu, drawtype);
     var cnfgCapId = getCapId(searchCapId);
     var cnfgAinfo = new Array();
-	logDebug("verifyWmuConfiguration(" + year + "," + wmu + "," + drawtype + "," + choiceNum + ")");
-	logDebug("verifyWmuConfiguration: searching for wmu config record " + searchCapId + " and found " + cnfgCapId); 
+    logDebug("verifyWmuConfiguration(" + year + "," + wmu + "," + drawtype + "," + choiceNum + ")");
+    logDebug("verifyWmuConfiguration: searching for wmu config record " + searchCapId + " and found " + cnfgCapId);
     if (cnfgCapId != null) {
         loadAppSpecific(cnfgAinfo, cnfgCapId);
         logGlobals(cnfgAinfo);
@@ -228,10 +228,10 @@ function verifyWmuConfiguration(year, wmu, drawtype, choiceNum, drawResult) {
         var now = new Date();
         var StatusApplicableTo = cnfgAinfo["Status Applicable To"];
 
-		logDebug("verifyWmuConfiguration: wmuStatus == 'Open' : " + (wmuStatus == 'Open'));
-		logDebug("verifyWmuConfiguration: StatusApplicableTo == 'Both' || StatusApplicableTo == 'WMU Choice " + drawResult.ChoiceNum + "' : " + (StatusApplicableTo == "Both" || StatusApplicableTo == 'WMU Choice ' + drawResult.ChoiceNum));
-		logDebug("verifyWmuConfiguration: (now >= openDt && now <= closeDt) : " + (now >= openDt && now <= closeDt));
-		logDebug("verifyWmuConfiguration: prmitTarget > 0 : " + (prmitTarget > 0));
+        logDebug("verifyWmuConfiguration: wmuStatus == 'Open' : " + (wmuStatus == 'Open'));
+        logDebug("verifyWmuConfiguration: StatusApplicableTo == 'Both' || StatusApplicableTo == 'WMU Choice " + drawResult.ChoiceNum + "' : " + (StatusApplicableTo == "Both" || StatusApplicableTo == 'WMU Choice ' + drawResult.ChoiceNum));
+        logDebug("verifyWmuConfiguration: (now >= openDt && now <= closeDt) : " + (now >= openDt && now <= closeDt));
+        logDebug("verifyWmuConfiguration: prmitTarget > 0 : " + (prmitTarget > 0));
         if (wmuStatus == 'Open') {
             if (StatusApplicableTo == "Both" || StatusApplicableTo == 'WMU Choice ' + drawResult.ChoiceNum) {
                 if ((now >= openDt && now <= closeDt)) {
@@ -291,18 +291,18 @@ function DrawResult_OBJ(sWmu, sDrawType, sChoiceNum, nPreferencePoints, bLandown
 
     this.SetPreferencePointsAfter = function () {
         if (this.DrawType == DRAW_INST) {
-			if (this.ChoiceNum == '1') {
-				if (this.Selected) {
-					this.PreferencePoints = 0;
-					this.RemainingPreferencePoints = this.PreferencePoints;
-				}
-				else {
-					this.PreferencePoints--;
-					this.RemainingPreferencePoints = this.PreferencePoints;
-					this.GivenPreferencePoints++;
-				}
-			}
-		}
+            if (this.ChoiceNum == '1') {
+                if (this.Selected) {
+                    this.PreferencePoints = 0;
+                    this.RemainingPreferencePoints = this.PreferencePoints;
+                }
+                else {
+                    this.PreferencePoints--;
+                    this.RemainingPreferencePoints = this.PreferencePoints;
+                    this.GivenPreferencePoints++;
+                }
+            }
+        }
     }
 }
 function verifyC1(drwParam) {
@@ -878,4 +878,181 @@ function processMutpleupdate(year) {
         showDebug = 3;
         logDebug("**ERROR An error occured in the processMutpleupdate. Error:  " + err.message);
     }
+}
+function processCorrection() {
+    logDebug("ENTER: processCorrection")
+
+    var drawTable = loadASITable("DRAW RESULT", capId);
+    var correctedPreferencePoints = 0;
+    var isAnyCorrection = false;
+    for (i in drawTable) {
+        var dmpASITinfo = drawTable[i];
+
+        if (dmpASITinfo["Correct?"] == "CHECKED") {
+            var dmpCapId = getDmpTagToCorrect(dmpASITinfo["WMU"], dmpASITinfo["DRAW TYPE"], dmpASITinfo["Choice Number"]);
+            if (dmpCapId) {
+                var tagAinfo = new Array();
+                var currcap = aa.cap.getCap(dmpCapId).getOutput();
+                loadAppSpecific(tagAinfo, dmpCapId);
+                //logGlobals(tagAinfo);
+
+                var newDmpCapId = voidDmpAndCreateNew(dmpCapId, capId);
+                if (newDmpCapId) {
+                    var newAsitArray = GetWmuAsitArrayAfterCorrection(DRAWRESULT, dmpASITinfo);
+                    if (newAsitArray && newAsitArray.length > 0) {
+                        addASITable("DRAW RESULT", newAsitArray, capId)
+                    }
+                    //loadASITables();
+
+                    if (isNull(dmpASITinfo["Preference Points Corrected"], '0') != '0') {
+                        if (parseInt(dmpASITinfo["Preference Points Corrected"], 10) > correctedPreferencePoints) {
+                            correctedPreferencePoints = parseInt(dmpASITinfo["Preference Points Corrected"], 10);
+                        }
+                    }
+                    if (!isAnyCorrection) {
+                        isAnyCorrection = true;
+                    }
+                }
+                break;
+            } else {
+                isAnyCorrection = false;
+                showMessage = true;
+                comment("DMP tag not found for selected resilt to correct.");
+            }
+
+        }
+    }
+    if (isAnyCorrection) {
+        updatePrefponts(correctedPreferencePoints);
+    }
+    logDebug("EXIT: processCorrection")
+
+}
+function getDmpTagToCorrect(drawtype, wmu, choicenumber) {
+    var retCapId = null;
+    var capArray = getChildren("Licenses/Tag/Hunting/DMP Deer", capId);
+    if (capArray != null && capArray.length > 0) {
+        for (y in capArray) {
+            var tagAinfo = new Array();
+            var childCapId = capArray[y];
+            var currcap = aa.cap.getCap(childCapId).getOutput();
+            var status = currcap.getCapStatus();
+            //logDebug(status);
+            if (status == "Active") {
+                loadAppSpecific(tagAinfo, childCapId);
+                if (tagAinfo["WMU"] == drawtype && tagAinfo["Draw Type"] == wmu && tagAinfo["Choice"] == choicenumber) {
+                    retCapId = childCapId;
+                } else {
+                    logDebug("Not Found");
+                }
+            }
+        }
+    }
+
+    return retCapId;
+}
+
+function voidDmpAndCreateNew(dmpCapId, parentCapId) {
+    logDebug("ENTER: voidDmpAndCreateNew " + dmpCapId.getCustomID());
+    updateAppStatus("Returnable", "Returnable", dmpCapId);
+    // now create a new one, 
+    newDmpId = createChildForDec("Licenses", "Tag", "Document", "Privilege Panel", "", parentCapId);
+    copyASIFields(dmpCapId, newDmpId);
+    updateAppStatus("Active", "Active", newDmpId);
+    activateTaskForRec("Report Game Harvest", "", newDmpId);
+    activateTaskForRec("Void Document", "", newDmpId);
+    activateTaskForRec("Revocation", "", newDmpId);
+    activateTaskForRec("Suspension", "", newDmpId);
+    copyConditions(dmpCapId, newDmpId);
+
+    //copy the expiration information
+    oldLicObj = new licenseObject(null, dmpCapId);
+    if (oldLicObj && oldLicObj != null) {
+        setLicExpirationStatus(newDmpId, "Active");
+        oldExpDate = oldLicObj.b1ExpDate;
+        setLicExpirationDate(newDmpId, null, oldExpDate);
+    }
+    var newDecDocId = GenerateDocumentNumber(newDmpId.getCustomID(), "9989");
+    updateDocumentNumber(newDecDocId, newDmpId);
+
+    // JIRA 17116 add new PP to the void 
+    var result = aa.cap.createAppHierarchy(capId, newDmpId);
+    logDebug("EXIT: voidDmpAndCreateNew");
+
+    return newDmpId;
+}
+function updatePrefponts(preferencePoints) {
+    var peopleSequenceNumber = null;
+    var contactSeqNumber = null;
+
+    //var capContact = getOutput(aa.people.getCapContactByCapID(capId));
+    var xArray = getApplicantArrayEx(capId);
+    for (ca in xArray) {
+        var thisContact = xArray[ca];
+        if (thisContact["contactType"] == "Individual") {
+            contactSeqNumber = thisContact["contactSeqNumber"];
+            break;
+        }
+    }
+    var capContactArray = new Array();
+
+    if (!contactSeqNumber) {
+        logDebug("**WARNING updateContacts could not fund an applicant/individual");
+    }
+    else {
+        capContactArray = getOutput(aa.people.getCapContactByContactID(contactSeqNumber));
+    }
+
+    if (capContactArray) {
+        for (yy in capContactArray) {
+            //First One is always Applicant else check for contact type
+            //var aArray = getApplicantInfoArray(capContactArray[yy], capId);
+            //xArray.push(aArray);
+            peopleSequenceNumber = capContactArray[yy].getCapContactModel().getRefContactNumber();
+            break;
+        }
+    }
+
+    var newAInfo = new Array();
+    var subGroupName = "ADDITIONAL INFO";
+    newAInfo.push(new NewTblDef("Preference Points", preferencePoints, subGroupName));
+
+    var peopleModel = getOutput(aa.people.getPeople(peopleSequenceNumber), "");
+    setContactASI(peopleModel.getTemplate(), newAInfo);
+
+    aa.people.editPeople(peopleModel);
+}
+
+function GetWmuAsitArrayAfterCorrection(tblDrawResult, dmpASITinfo) {
+    logDebug("ENTER: GetWmuAsitTableArray");
+
+    var readOnly = "N";
+    var tempObject = new Array();
+    var tempObject2 = new Array();
+    var tempArray = new Array();
+
+    var fieldInfo = new asiTableValObj("DRAW TYPE", "CORRECTION", "Y");
+    tempObject["DRAW TYPE"] = fieldInfo;
+    fieldInfo = new asiTableValObj("WMU", dmpASITinfo["WMU To Correct"] + "", "Y");
+    tempObject["WMU"] = fieldInfo;
+    fieldInfo = new asiTableValObj("Choice Number", dmpASITinfo["Choice Number"] + "", "Y");
+    tempObject["Choice Number"] = fieldInfo;
+    fieldInfo = new asiTableValObj("Result", "WON", "Y");
+    tempObject["Result"] = fieldInfo;
+    fieldInfo = new asiTableValObj("Apply Land Owner", dmpASITinfo["Apply Land Owner"] + "", "Y");
+    tempObject["Apply Land Owner"] = fieldInfo;
+    fieldInfo = new asiTableValObj("Preference Points Given", dmpASITinfo["Preference Points Given"] + "", "Y");
+    tempObject["Preference Points Given"] = fieldInfo;
+    fieldInfo = new asiTableValObj("Preference Points After", dmpASITinfo["Preference Points Corrected"] + "", "Y");
+    tempObject["Preference Points After"] = fieldInfo;
+    fieldInfo = new asiTableValObj("Preference Bucket", dmpASITinfo["Preference Bucket"] + "", "Y");
+    tempObject["Preference Bucket"] = fieldInfo;
+    fieldInfo = new asiTableValObj("Land Owner?", dmpASITinfo["Land Owner?"] + "", "N");
+    tempObject["Land Owner?"] = fieldInfo;
+    fieldInfo = new asiTableValObj("Correct?", dmpASITinfo["Correct?"] + "", "N");
+    tempObject["Correct?"] = fieldInfo;
+    tempArray.push(tempObject);
+
+    logDebug("EXIT: GetWmuAsitTableArray");
+    return tempArray;
 }
