@@ -131,10 +131,10 @@ var AA60_BOWHUNTING_PRIVILEGE_3Y = "Licenses/Term/Hunting/3 Year Bowhunting Priv
 var AA61_BOWHUNTING_PRIVILEGE_5Y = "Licenses/Term/Hunting/5 Year Bowhunting Privilege";
 var AA62_MUZZLELOADING_PRIVILEGE_3Y = "Licenses/Term/Hunting/3 Year Muzzleloading Privilege";
 var AA63_MUZZLELOADING_PRIVILEGE_5Y = "Licenses/Term/Hunting/5 Year Muzzleloading Privilege";
-var AA64_TRAPPING_LICENSE_3Y = "Licenses/Term/Hunting/3 Year Trapping License";
-var AA65_TRAPPING_LICENSE_5Y = "Licenses/Term/Hunting/5 Year Trapping License";
-var AA66_FRESHWATER_FISHING_3Y = "Licenses/Term/Trapping/3 Year Freshwater Fishing";
-var AA67_FRESHWATER_FISHING_5Y = "Licenses/Term/Trapping/5 Year Freshwater Fishing";
+var AA64_TRAPPING_LICENSE_3Y = "Licenses/Term/Trapping/3 Year Trapping License";
+var AA65_TRAPPING_LICENSE_5Y = "Licenses/Term/Trapping/5 Year Trapping License";
+var AA66_FRESHWATER_FISHING_3Y = "Licenses/Term/Fishing/3 Year Freshwater Fishing";
+var AA67_FRESHWATER_FISHING_5Y = "Licenses/Term/Fishing/5 Year Freshwater Fishing";
 var AA68_TURKEY_PERMIT_3Y = "Licenses/Term/Hunting/3 Year Turkey Permit";
 var AA69_TURKEY_PERMIT_5Y = "Licenses/Term/Hunting/5 Year Turkey Permit";
 
