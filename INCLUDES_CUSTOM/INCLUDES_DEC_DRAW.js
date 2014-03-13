@@ -887,6 +887,19 @@ function processCorrection() {
     var isAnyCorrection = false;
     for (i in drawTable) {
         var dmpASITinfo = drawTable[i];
+        if (dmpASITinfo["New?"] == "CHECKED") {
+
+            var newDmpCapId = createNewDmpTag(capId);
+
+            if (isNull(dmpASITinfo["Preference Points Corrected"], '0') != '0') {
+                if (parseInt(dmpASITinfo["Preference Points Corrected"], 10) > correctedPreferencePoints) {
+                    correctedPreferencePoints = parseInt(dmpASITinfo["Preference Points Corrected"], 10);
+                }
+            }
+            if (!isAnyCorrection) {
+                isAnyCorrection = isAnyCorrection && true;
+            }
+        }
 
         if (dmpASITinfo["Correct?"] == "CHECKED") {
             var dmpCapId = getDmpTagToCorrect(dmpASITinfo["WMU"], dmpASITinfo["DRAW TYPE"], dmpASITinfo["Choice Number"]);
@@ -910,17 +923,16 @@ function processCorrection() {
                         }
                     }
                     if (!isAnyCorrection) {
-                        isAnyCorrection = true;
+                        isAnyCorrection = isAnyCorrection && true;
                     }
                 }
-                break;
             } else {
-                isAnyCorrection = false;
+                isAnyCorrection = isAnyCorrection && false;
                 showMessage = true;
                 comment("DMP tag not found for selected resilt to correct.");
             }
-
         }
+
     }
     if (isAnyCorrection) {
         updatePrefponts(correctedPreferencePoints);
@@ -952,11 +964,39 @@ function getDmpTagToCorrect(drawtype, wmu, choicenumber) {
     return retCapId;
 }
 
+function createNewDmpTag(parentCapId) {
+    var newDmpId = createChildForDec("Licenses", "Tag", "Hunting", "DMP Deer", "", parentCapId);
+    copyASIFields(parentCapId, newDmpId);
+
+    updateAppStatus("Active", "Active", newDmpId);
+    activateTaskForRec("Report Game Harvest", "", newDmpId);
+    activateTaskForRec("Void Document", "", newDmpId);
+    activateTaskForRec("Revocation", "", newDmpId);
+    activateTaskForRec("Suspension", "", newDmpId);
+
+    //copy the expiration information
+    oldLicObj = new licenseObject(null, parentCapId);
+    if (oldLicObj && oldLicObj != null) {
+        setLicExpirationStatus(newDmpId, "Active");
+        oldExpDate = oldLicObj.b1ExpDate;
+        setLicExpirationDate(newDmpId, null, oldExpDate);
+    }
+
+    var tagCodeDescription = GetTagTypedesc(TAG_TYPE_4_DMP_DEER_TAG);
+    editAppName(tagCodeDescription, newDmpId);
+
+    var newDecDocId = GenerateDocumentNumber(newDmpId.getCustomID(), "9989");
+    updateDocumentNumber(newDecDocId, newDmpId);
+
+    var result = aa.cap.createAppHierarchy(capId, newDmpId);
+    logDebug("EXIT: voidDmpAndCreateNew");
+    return newDmpId;
+}
 function voidDmpAndCreateNew(dmpCapId, parentCapId) {
     logDebug("ENTER: voidDmpAndCreateNew " + dmpCapId.getCustomID());
     updateAppStatus("Returnable", "Returnable", dmpCapId);
     // now create a new one, 
-    newDmpId = createChildForDec("Licenses", "Tag", "Document", "Privilege Panel", "", parentCapId);
+    var newDmpId = createChildForDec("Licenses", "Tag", "Hunting", "DMP Deer", "", parentCapId);
     copyASIFields(dmpCapId, newDmpId);
     updateAppStatus("Active", "Active", newDmpId);
     activateTaskForRec("Report Game Harvest", "", newDmpId);
@@ -975,7 +1015,6 @@ function voidDmpAndCreateNew(dmpCapId, parentCapId) {
     var newDecDocId = GenerateDocumentNumber(newDmpId.getCustomID(), "9989");
     updateDocumentNumber(newDecDocId, newDmpId);
 
-    // JIRA 17116 add new PP to the void 
     var result = aa.cap.createAppHierarchy(capId, newDmpId);
     logDebug("EXIT: voidDmpAndCreateNew");
 
