@@ -6338,6 +6338,7 @@ function getPeopleByDecID(decId) {
     }
     return peopResult;
 }
+//ACA ONLOAD TRANSFER
 function isVerifyTransferLifetimeLicense() {
     logDebug("ENTER: isVerifyNYDECHQUser");
 
@@ -6398,6 +6399,45 @@ function addFeeAndSetAsitForTransferlifetime() {
 	addFeeWithVersion("FEE_TRANS_1", "FEE_TRANSFER_SCHDL", "1", "FINAL", 1, "N");
     logDebug("EXIT: addFeeAndSetAsitForTransferlifetime");
 }
-
-
+//ACA ONSUBMIT BEFORE TRANSFER
+function isVerifyLifetimeLicense(pStep){
+	logDebug("ENTER: isVerifyLifetimeLicense");
+    var retMsg = '';
+	var isValid=false;
+	
+	var uObj = new USEROBJ(publicUserID);
+    var agentInfoArray = getAgentInfo(publicUserID, uObj);
+    var isValidUser = (agentInfoArray["Agent Group"] == "NYSDEC HQ");
+	var isExitUser = getPeopleByDecID(publicUserID);
+	var verifyLicArray = new Array();
+	if (isExitUser==null) {
+		isValid=false;
+	 }
+	if (!isValid) {
+        retMsg+="Customer ID Transfer to (DEC ID)  is not exit";
+        retMsg += "<Br />";
+    }
+	if (isValidUser)
+	{
+		verifyLicArray.push(AA09_LIFETIME_BOWHUNTING);
+		verifyLicArray.push(AA10_LIFETIME_FISHING);
+		verifyLicArray.push(AA11_LIFETIME_MUZZLELOADING);
+		verifyLicArray.push(AA12_LIFETIME_SMALL_AND_BIG_GAME);
+		verifyLicArray.push(AA13_LIFETIME_SPORTSMAN);
+		verifyLicArray.push(AA14_LIFETIME_TRAPPING);
+	}
+	for(var tempVerifyLic in verifyLicArray)
+	{
+		if (exists(appTypeString, tempVerifyLic)) {
+			isValid=true;
+			break;
+		}
+	}
+	if (!isValid) {
+        retMsg += "User do not have lifetime licenses";
+        retMsg += "<Br />";
+    }
+	logDebug("EXIT: isVerifyLifetimeLicense");
+	return retMsg;
+}
 
