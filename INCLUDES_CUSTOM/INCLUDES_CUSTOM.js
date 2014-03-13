@@ -5949,13 +5949,13 @@ function copyASIContactAppSpecificToRecordAppSpecific() {
 
         var asitModel;
         var new_asit;
-		if(appTypeString == 'Licenses/Sales/Application/Hunting' || appTypeString == 'Licenses/Sales/Application/Hunting and Fishing') {
-			if (!(typeof (LANDOWNERINFORMATION) == "object")) {
-				var newLandOwnerInfo = GetTableValueArrayByDelimitedString("LANDOWNERINFORMATION", strLand)
-				asitModel = cap.getAppSpecificTableGroupModel();
-				new_asit = addASITable4ACAPageFlow(asitModel, "LAND OWNER INFORMATION", newLandOwnerInfo);
-			}
-		}
+        if (appTypeString == 'Licenses/Sales/Application/Hunting' || appTypeString == 'Licenses/Sales/Application/Hunting and Fishing') {
+            if (!(typeof (LANDOWNERINFORMATION) == "object")) {
+                var newLandOwnerInfo = GetTableValueArrayByDelimitedString("LANDOWNERINFORMATION", strLand)
+                asitModel = cap.getAppSpecificTableGroupModel();
+                new_asit = addASITable4ACAPageFlow(asitModel, "LAND OWNER INFORMATION", newLandOwnerInfo);
+            }
+        }
         //if (!(typeof (ANNUALDISABILITY) == "object")) {
         //    var newAnnualDiability = GetTableValueArrayByDelimitedString("ANNUALDISABILITY", strAnnual)
         //    asitModel = cap.getAppSpecificTableGroupModel();
@@ -6058,58 +6058,58 @@ function copyASIContactAppSpecificToRecordAppSpecific() {
         }
     }
 
-	var exmsg = '';
-	var f = new form_OBJECT(GS2_EXPR, OPTZ_TYPE_ALLFEES);
-	SetExpressformForSelectedLics(f);
-	if (appTypeString == 'Licenses/Sales/Application/Fishing') {
-		f.SetFishSaleExcludes();
-		f.ExecuteBoRuleEngine();
-		if (f.MessageFish!= "") {
-			exmsg += f.MessageFish;
-		}
-	}
-	if (appTypeString == 'Licenses/Sales/Application/Hunting') {
-		f.SetHuntSaleExcludes();
-		f.ExecuteBoRuleEngine();
-		if (f.MessageHunter!= "") {
-			exmsg += f.MessageHunter;
-		}
-	}
-	if (appTypeString == 'Licenses/Sales/Application/Trapping') {
-		f.SetTrapSaleExcludes();
-		f.ExecuteBoRuleEngine();
-		if (f.MessageHunter!= "") {
-			exmsg += f.MessageHunter;
-		}
-	}
-	if (appTypeString == 'Licenses/Sales/Application/Lifetime') {
-		f.SetLifeTimeSaleExcludes();
-		f.ExecuteBoRuleEngine();
-		if (f.MessageLifeTime!= "") {
-			exmsg += f.MessageLifeTime;
-		}
-	}
-	if (appTypeString == 'Licenses/Sales/Application/Hunting and Fishing') {
-		f.SetHuntAndFishSaleExcludes();
-		f.ExecuteBoRuleEngine();
-		if (f.MessageFish!= "" && f.MessageHunter!= "") {
-			exmsg += f.MessageFish;
-		}		
-	}
-	if (appTypeString == 'Licenses/Sales/Application/Sporting') {
-		f.ExecuteBoRuleEngine();
-		if (f.MessageFish!= "" && f.MessageHunter!= "" && f.MessageLifeTime!= "") {
-			exmsg += f.MessageFish;
-		}
-	}
-	if (isNotValidToProceed) {
-		isNotValidToProceed += exmsg
-	}
-	else {
-		isNotValidToProceed = exmsg;
-	}
+    var exmsg = '';
+    var f = new form_OBJECT(GS2_EXPR, OPTZ_TYPE_ALLFEES);
+    SetExpressformForSelectedLics(f);
+    if (appTypeString == 'Licenses/Sales/Application/Fishing') {
+        f.SetFishSaleExcludes();
+        f.ExecuteBoRuleEngine();
+        if (f.MessageFish != "") {
+            exmsg += f.MessageFish;
+        }
+    }
+    if (appTypeString == 'Licenses/Sales/Application/Hunting') {
+        f.SetHuntSaleExcludes();
+        f.ExecuteBoRuleEngine();
+        if (f.MessageHunter != "") {
+            exmsg += f.MessageHunter;
+        }
+    }
+    if (appTypeString == 'Licenses/Sales/Application/Trapping') {
+        f.SetTrapSaleExcludes();
+        f.ExecuteBoRuleEngine();
+        if (f.MessageHunter != "") {
+            exmsg += f.MessageHunter;
+        }
+    }
+    if (appTypeString == 'Licenses/Sales/Application/Lifetime') {
+        f.SetLifeTimeSaleExcludes();
+        f.ExecuteBoRuleEngine();
+        if (f.MessageLifeTime != "") {
+            exmsg += f.MessageLifeTime;
+        }
+    }
+    if (appTypeString == 'Licenses/Sales/Application/Hunting and Fishing') {
+        f.SetHuntAndFishSaleExcludes();
+        f.ExecuteBoRuleEngine();
+        if (f.MessageFish != "" && f.MessageHunter != "") {
+            exmsg += f.MessageFish;
+        }
+    }
+    if (appTypeString == 'Licenses/Sales/Application/Sporting') {
+        f.ExecuteBoRuleEngine();
+        if (f.MessageFish != "" && f.MessageHunter != "" && f.MessageLifeTime != "") {
+            exmsg += f.MessageFish;
+        }
+    }
+    if (isNotValidToProceed) {
+        isNotValidToProceed += exmsg
+    }
+    else {
+        isNotValidToProceed = exmsg;
+    }
 
-	logDebug("EXIT: copyASIContactAppSpecificToRecordAppSpecific");
+    logDebug("EXIT: copyASIContactAppSpecificToRecordAppSpecific");
 
     return isNotValidToProceed;
 }
@@ -6341,6 +6341,7 @@ function getPeopleByDecID(decId) {
 //ACA ONLOAD TRANSFER
 function isVerifyTransferLifetimeLicense() {
     logDebug("ENTER: isVerifyNYDECHQUser");
+    var isNotValidToProceed = '';
 
     if (publicUser) {
         var publicUserID = "" + aa.env.getValue("CurrentUserID");
@@ -6355,7 +6356,17 @@ function isVerifyTransferLifetimeLicense() {
             }
         }
     }
-    var isNotValidToProceed = MSG_SUSPENSION;
+	var isValidUser = isValidUserForTransferLifetimeLicense();
+	if (!isValidUser) {
+		var exMsg = "Not Valid NY DEC HQ User for Transfer Lifetime License";
+		if (isNotValidToProceed) {
+			isNotValidToProceed += '<br />';
+			isNotValidToProceed += exMsg;
+		}
+		else {
+			isNotValidToProceed = exMsg;
+		}
+	}
     var xArray = getApplicantArrayEx();
     var peopleSequenceNumber = null;
     var deceasedDate = null;
@@ -6370,74 +6381,76 @@ function isVerifyTransferLifetimeLicense() {
             //var subGroupArray = getTemplateValueByFormArrays(peopleModel.getTemplate(), null, null);
             //GetAllASI(subGroupArray);
         }
-       break;
+		var contactCondArray = getContactCondutions(peopleSequenceNumber);
+        if (isSuspension(contactCondArray)) {
+			if (isNotValidToProceed) {
+				isNotValidToProceed += '<br />';
+				isNotValidToProceed += MSG_SUSPENSION;
+			}
+			else {
+				isNotValidToProceed = MSG_SUSPENSION;
+			}
+        }
+        break;
     }
     if (deceasedDate) {
         if (isNotValidToProceed) {
+            isNotValidToProceed += '<br />';
             isNotValidToProceed += MSG_DECEASED;
         }
         else {
             isNotValidToProceed = MSG_DECEASED;
         }
     }
-	var isValidUser = isValidUserForTransferLifetimeLicense();
-	if(!isValidUser){
-		var exMsg="Not Valid NY DEC HQ User for Transfer Lifetime License";	
-		if (isNotValidToProceed) {
-            isNotValidToProceed += exMsg;
-        }
-        else {
-            isNotValidToProceed = exMsg;
-        }		
-	}		
-	logDebug("EXIT: isVerifyNYDECHQUser");
+    logDebug("EXIT: isVerifyNYDECHQUser");
+	if(isNotValidToProceed ==''){
+		isNotValidToProceed = false;
+	}
     return isNotValidToProceed;
 }
 function addFeeAndSetAsitForTransferlifetime() {
     logDebug("ENTER: addFeeAndSetAsitForTransferlifetime");
-	removeAllFees(capId);
-	addFeeWithVersion("FEE_TRANS_1", "FEE_TRANSFER_SCHDL", "1", "FINAL", 1, "N");
+    removeAllFees(capId);
+    addFeeWithVersion("FEE_TRANS_1", "FEE_TRANSFER_SCHDL", "1", "FINAL", 1, "N");
     logDebug("EXIT: addFeeAndSetAsitForTransferlifetime");
 }
 //ACA ONSUBMIT BEFORE TRANSFER
-function isVerifyLifetimeLicense(pStep){
-	logDebug("ENTER: isVerifyLifetimeLicense");
+function isVerifyLifetimeLicense(pStep) {
+    logDebug("ENTER: isVerifyLifetimeLicense");
     var retMsg = '';
-	var isValid=false;
-	
-	var uObj = new USEROBJ(publicUserID);
+    var isValid = false;
+
+    var uObj = new USEROBJ(publicUserID);
     var agentInfoArray = getAgentInfo(publicUserID, uObj);
     var isValidUser = (agentInfoArray["Agent Group"] == "NYSDEC HQ");
-	var isExitUser = getPeopleByDecID(publicUserID);
-	var verifyLicArray = new Array();
-	if (isExitUser==null) {
-		isValid=false;
-	 }
-	if (!isValid) {
-        retMsg+="Customer ID Transfer to (DEC ID)  is not exit";
+    var isExitUser = getPeopleByDecID(publicUserID);
+    var verifyLicArray = new Array();
+    if (isExitUser == null) {
+        isValid = false;
+    }
+    if (!isValid) {
+        retMsg += "Customer ID Transfer to (DEC ID)  is not exit";
         retMsg += "<Br />";
     }
-	if (isValidUser)
-	{
-		verifyLicArray.push(AA09_LIFETIME_BOWHUNTING);
-		verifyLicArray.push(AA10_LIFETIME_FISHING);
-		verifyLicArray.push(AA11_LIFETIME_MUZZLELOADING);
-		verifyLicArray.push(AA12_LIFETIME_SMALL_AND_BIG_GAME);
-		verifyLicArray.push(AA13_LIFETIME_SPORTSMAN);
-		verifyLicArray.push(AA14_LIFETIME_TRAPPING);
-	}
-	for(var tempVerifyLic in verifyLicArray)
-	{
-		if (exists(appTypeString, tempVerifyLic)) {
-			isValid=true;
-			break;
-		}
-	}
-	if (!isValid) {
+    if (isValidUser) {
+        verifyLicArray.push(AA09_LIFETIME_BOWHUNTING);
+        verifyLicArray.push(AA10_LIFETIME_FISHING);
+        verifyLicArray.push(AA11_LIFETIME_MUZZLELOADING);
+        verifyLicArray.push(AA12_LIFETIME_SMALL_AND_BIG_GAME);
+        verifyLicArray.push(AA13_LIFETIME_SPORTSMAN);
+        verifyLicArray.push(AA14_LIFETIME_TRAPPING);
+    }
+    for (var tempVerifyLic in verifyLicArray) {
+        if (exists(appTypeString, tempVerifyLic)) {
+            isValid = true;
+            break;
+        }
+    }
+    if (!isValid) {
         retMsg += "User do not have lifetime licenses";
         retMsg += "<Br />";
     }
-	logDebug("EXIT: isVerifyLifetimeLicense");
-	return retMsg;
+    logDebug("EXIT: isVerifyLifetimeLicense");
+    return retMsg;
 }
 
