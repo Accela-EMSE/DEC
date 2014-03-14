@@ -6317,7 +6317,7 @@ function isValidUserForTransferLifetimeLicense(userId) {
     return isvalid;
 }
 function getPeopleByDecID(decId) {
-    var peopResult = false;
+    var peopResult = null;
     var vError = null;
     try {
         var qryPeople = aa.people.createPeopleModel().getOutput().getPeopleModel();
@@ -6328,9 +6328,9 @@ function getPeopleByDecID(decId) {
             peopResult = r.getOutput();
             if (peopResult.length == 0) {
                 logDebug("Searched for REF contact, no matches found, returing null");
-				peopResult = false;
+				peopResult = null;
             } else {
-				peopResult = true;
+				 peopResult = peopResult[0];
             }
         }
     }
@@ -6417,6 +6417,7 @@ function addFeeAndSetAsitForTransferlifetime() {
 }
 //ACA ONSUBMIT BEFORE TRANSFER
 function isVerifyLifetimeLicense(pStep) {
+	
     logDebug("ENTER: isVerifyLifetimeLicense");
     var retMsg = '';
     var isValid = false;
@@ -6424,15 +6425,16 @@ function isVerifyLifetimeLicense(pStep) {
     var uObj = new USEROBJ(publicUserID);
     var agentInfoArray = getAgentInfo(publicUserID, uObj);
     var isValidUser = (agentInfoArray["Agent Group"] == "NYSDEC HQ");
-    var isExitUser = getPeopleByDecID(publicUserID);
-    var verifyLicArray = new Array();
-    if (isExitUser == null) {
+	var decId = AInfo["Customer ID Transfer to (DEC ID)"];
+    var isExitUser = getPeopleByDecID(decId);
+	if(isNull(isExitUser)){
         isValid = false;
     }
     if (!isValid) {
         retMsg += "Customer ID Transfer to (DEC ID)  is not exit";
         retMsg += "<Br />";
     }
+	var verifyLicArray = new Array();
     if (isValidUser) {
         verifyLicArray.push(AA09_LIFETIME_BOWHUNTING);
         verifyLicArray.push(AA10_LIFETIME_FISHING);
