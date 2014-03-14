@@ -22,10 +22,10 @@ var otDecId = expression.getValue("ASI::TRANSFER INFORMATION::Customer ID Transf
 //
 var isDecIDExist = getPeopleByDecID(otDecId);
 var msg = "";
-if (isDecIDExist==null) {
+if(isNull(isDecIDExist)){
     msg="Customer ID Transfer to (DEC ID)  is not exit";
 	otDecId.value = "";
- } 
+ }
 otDecId.message = msg;
 expression.setReturn(otDecId);
 ////
