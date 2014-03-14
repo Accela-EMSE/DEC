@@ -6317,7 +6317,7 @@ function isValidUserForTransferLifetimeLicense(userId) {
     return isvalid;
 }
 function getPeopleByDecID(decId) {
-    var peopResult = null;
+    var peopResult = false;
     var vError = null;
     try {
         var qryPeople = aa.people.createPeopleModel().getOutput().getPeopleModel();
@@ -6328,8 +6328,9 @@ function getPeopleByDecID(decId) {
             peopResult = r.getOutput();
             if (peopResult.length == 0) {
                 logDebug("Searched for REF contact, no matches found, returing null");
+				peopResult = false;
             } else {
-                peopResult = peopResult[0];
+				peopResult = true;
             }
         }
     }
