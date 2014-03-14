@@ -994,7 +994,7 @@ function createNewDmpTag(parentCapId) {
 }
 function voidDmpAndCreateNew(dmpCapId, parentCapId) {
     logDebug("ENTER: voidDmpAndCreateNew " + dmpCapId.getCustomID());
-    updateAppStatus("Returnable", "Returnable", dmpCapId);
+    updateAppStatus("Void", "Void", dmpCapId);
     // now create a new one, 
     var newDmpId = createChildForDec("Licenses", "Tag", "Hunting", "DMP Deer", "", parentCapId);
     copyASIFields(dmpCapId, newDmpId);
