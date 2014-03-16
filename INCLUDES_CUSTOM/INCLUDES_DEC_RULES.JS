@@ -2402,7 +2402,9 @@ function getPrereq_3Y_BOWH(ruleParams) {
     var arryPrereq = null;
     if (isRuleForSelectable_3Y_BOWH(ruleParams)) {
         arryPrereq = new Array();
-        arryPrereq.push(LIC58_HUNTING_LICENSE_3Y);
+        if (ruleParams.Has3YHuntExpiration() > 24) {
+            arryPrereq.push(LIC58_HUNTING_LICENSE_3Y);
+        }
         arryPrereq.push(LIC12_LIFETIME_SMALL_AND_BIG_GAME);
         arryPrereq.push(LIC13_LIFETIME_SPORTSMAN);
     }
@@ -2412,7 +2414,9 @@ function getPrereq_5Y_BOWH(ruleParams) {
     var arryPrereq = null;
     if (isRuleForSelectable_5Y_BOWH(ruleParams)) {
         arryPrereq = new Array();
-        arryPrereq.push(LIC59_HUNTING_LICENSE_5Y);
+        if (ruleParams.Has5YHuntExpiration() > 48) {
+            arryPrereq.push(LIC59_HUNTING_LICENSE_5Y);
+        }
         arryPrereq.push(LIC12_LIFETIME_SMALL_AND_BIG_GAME);
         arryPrereq.push(LIC13_LIFETIME_SPORTSMAN);
     }
@@ -2420,14 +2424,18 @@ function getPrereq_5Y_BOWH(ruleParams) {
 }
 function getPrereq_3Y_MUZZ(ruleParams) {
     var arryPrereq = new Array();
-    arryPrereq.push(LIC58_HUNTING_LICENSE_3Y);
+    if (ruleParams.Has3YHuntExpiration() > 24) {
+        arryPrereq.push(LIC58_HUNTING_LICENSE_3Y);
+    }
     arryPrereq.push(LIC12_LIFETIME_SMALL_AND_BIG_GAME);
     arryPrereq.push(LIC13_LIFETIME_SPORTSMAN);
     return arryPrereq;
 }
 function getPrereq_5Y_MUZZ(ruleParams) {
     var arryPrereq = new Array();
-    arryPrereq.push(LIC59_HUNTING_LICENSE_5Y);
+    if (ruleParams.Has5YHuntExpiration() > 48) {
+        arryPrereq.push(LIC59_HUNTING_LICENSE_5Y);
+    }
     arryPrereq.push(LIC12_LIFETIME_SMALL_AND_BIG_GAME);
     arryPrereq.push(LIC13_LIFETIME_SPORTSMAN);
     return arryPrereq;
@@ -2436,7 +2444,9 @@ function getPrereq_3Y_TRKY_2014(ruleParams) {
     var arryPrereq = null;
     if (isRuleForSelectable_3Y_TRKY(ruleParams)) {
         arryPrereq = new Array();
-        arryPrereq.push(LIC58_HUNTING_LICENSE_3Y);
+        if (ruleParams.Has3YHuntExpiration() > 24) {
+            arryPrereq.push(LIC58_HUNTING_LICENSE_3Y);
+        }
         arryPrereq.push(LIC12_LIFETIME_SMALL_AND_BIG_GAME);
     }
     return arryPrereq;
@@ -2445,7 +2455,9 @@ function getPrereq_5Y_TRKY_2014(ruleParams) {
     var arryPrereq = null;
     if (isRuleForSelectable_5Y_TRKY(ruleParams)) {
         arryPrereq = new Array();
-        arryPrereq.push(LIC59_HUNTING_LICENSE_5Y);
+        if (ruleParams.Has5YHuntExpiration() > 48) {
+            arryPrereq.push(LIC59_HUNTING_LICENSE_5Y);
+        }
         arryPrereq.push(LIC12_LIFETIME_SMALL_AND_BIG_GAME);
     }
     return arryPrereq;
@@ -2709,7 +2721,7 @@ function getIncl_NONRESIDENT_SMALL_GAME() {
     var arryInc = new Array();
     arryInc.push(LIC31_NONRES_SUPER_SPORTSMAN);
     //JIRA - 48190
-	//arryInc.push(LIC06_HUNTING_LICENSE);
+    //arryInc.push(LIC06_HUNTING_LICENSE);
     //arryInc.push(LIC58_HUNTING_LICENSE_3Y);
     //arryInc.push(LIC59_HUNTING_LICENSE_5Y);
     return arryInc;
@@ -2724,7 +2736,7 @@ function getIncl_JUNIOR_HUNTING() {
 function getIncl_SMALL_GAME() {
     var arryInc = new Array();
     //JIRA - 48190
-	//arryInc.push(LIC06_HUNTING_LICENSE);
+    //arryInc.push(LIC06_HUNTING_LICENSE);
     //arryInc.push(LIC58_HUNTING_LICENSE_3Y);
     //arryInc.push(LIC59_HUNTING_LICENSE_5Y);
     return arryInc;
