@@ -2708,9 +2708,10 @@ function getIncl_NONRESIDENT_BOWHUNTING() {
 function getIncl_NONRESIDENT_SMALL_GAME() {
     var arryInc = new Array();
     arryInc.push(LIC31_NONRES_SUPER_SPORTSMAN);
-    arryInc.push(LIC06_HUNTING_LICENSE);
-    arryInc.push(LIC58_HUNTING_LICENSE_3Y);
-    arryInc.push(LIC59_HUNTING_LICENSE_5Y);
+    //JIRA - 48190
+	//arryInc.push(LIC06_HUNTING_LICENSE);
+    //arryInc.push(LIC58_HUNTING_LICENSE_3Y);
+    //arryInc.push(LIC59_HUNTING_LICENSE_5Y);
     return arryInc;
 }
 function getIncl_JUNIOR_HUNTING() {
@@ -2722,9 +2723,10 @@ function getIncl_JUNIOR_HUNTING() {
 }
 function getIncl_SMALL_GAME() {
     var arryInc = new Array();
-    arryInc.push(LIC06_HUNTING_LICENSE);
-    arryInc.push(LIC58_HUNTING_LICENSE_3Y);
-    arryInc.push(LIC59_HUNTING_LICENSE_5Y);
+    //JIRA - 48190
+	//arryInc.push(LIC06_HUNTING_LICENSE);
+    //arryInc.push(LIC58_HUNTING_LICENSE_3Y);
+    //arryInc.push(LIC59_HUNTING_LICENSE_5Y);
     return arryInc;
 }
 function getIncl_JUNIOR_BOWHUNTING() {
