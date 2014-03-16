@@ -1698,9 +1698,9 @@ function form_OBJECT(identity) {
         this.SetExprFieldName(LIC68_TURKEY_PERMIT_3Y, "");
         this.SetExprFieldName(LIC69_TURKEY_PERMIT_5Y, "");
     }
-	//Set HuntAndFish function
-	this.SetHuntAndFishSaleExcludes = function (psRef) {
-	//Set Expression Control Name for select licenses
+    //Set HuntAndFish function
+    this.SetHuntAndFishSaleExcludes = function (psRef) {
+        //Set Expression Control Name for select licenses
         this.SetExprFieldName(LIC01_JUNIOR_HUNTING_TAGS, "");
         this.SetExprFieldName(LIC02_MARINE_REGISTRY, "ASI::FISHING LICENSES::Marine Registry");
         this.SetExprFieldName(LIC03_ONE_DAY_FISHING_LICENSE, "ASI::FISHING LICENSES::One Day Fishing License");
@@ -1761,8 +1761,8 @@ function form_OBJECT(identity) {
         this.SetExprFieldName(LIC67_FRESHWATER_FISHING_5Y, "ASI::FISHING LICENSES::5 Year Freshwater Fishing");
         this.SetExprFieldName(LIC68_TURKEY_PERMIT_3Y, "ASI::HUNTING LICENSE::3 Year Turkey Permit");
         this.SetExprFieldName(LIC69_TURKEY_PERMIT_5Y, "ASI::HUNTING LICENSE::5 Year Turkey Permit");
-	
-	}
+
+    }
 
     this.isRevoked = function (psRef) {
         var retVal = false;
@@ -2382,6 +2382,8 @@ function rulePARAMS(identity) {
     this.hasLifetimeFish = "not set";
     this.hasLifetimeHunt = "not set";
     this.hasLifetimeTrap = "not set";
+    this.has3YHuntExpiration = "not set";
+    this.has5YHuntExpiration = "not set";
 
     this.SetEitherOrAntler = function (eEitherOrAntler) {
         //eEitherOrAntler=4:E; eEitherOrAntler=8:A;
@@ -2476,6 +2478,36 @@ function rulePARAMS(identity) {
             }
         }
         return this.hasLifetimeTrap;
+    }
+    this.Has3YHuntExpiration = function () {
+        if (!"not set".equals(this.has3YHuntExpiration)) {
+            return this.has3YHuntExpiration; // use cached value
+        }
+        this.has3YHuntExpiration = 36; //months
+        for (var idx = 0; idx < this.ActiveHoldingsInfo.length; idx++) {
+            var verifyLicArray = new Array();
+            verifyLicArray.push(AA58_HUNTING_LICENSE_3Y);
+            if (exists(this.ActiveHoldingsInfo[idx].RecordType, verifyLicArray)) {
+                this.has3YHuntExpiration = monthDiff(new Date(), convertDate(this.ActiveHoldingsInfo[idx].ToDate));
+                break;
+            }
+        }
+        return this.has3YHuntExpiration;
+    }
+    this.Has5YHuntExpiration = function () {
+        if (!"not set".equals(this.has5YHuntExpiration)) {
+            return this.has5YHuntExpiration; // use cached value
+        }
+        this.has5YHuntExpiration = 60; //months
+        for (var idx = 0; idx < this.ActiveHoldingsInfo.length; idx++) {
+            var verifyLicArray = new Array();
+            verifyLicArray.push(AA59_HUNTING_LICENSE_5Y);
+            if (exists(this.ActiveHoldingsInfo[idx].RecordType, verifyLicArray)) {
+                this.has5YHuntExpiration = monthDiff(new Date(), convertDate(this.ActiveHoldingsInfo[idx].ToDate));
+                break;
+            }
+        }
+        return this.has5YHuntExpiration;
     }
     this.toString = function () {
         var result = '';
@@ -3017,4 +3049,12 @@ function exists(eVal, eArray) {
 function DateRange(startDt, endDt) {
     this.StartDT = startDt;
     this.EndDT = endDt;
+}
+function monthDiff(d1, d2) {
+    var d1Y = d1.getFullYear();
+    var d2Y = d2.getFullYear();
+    var d1M = d1.getMonth();
+    var d2M = d2.getMonth();
+
+    return (d2M + 12 * d2Y) - (d1M + 12 * d1Y) + 1;
 }
