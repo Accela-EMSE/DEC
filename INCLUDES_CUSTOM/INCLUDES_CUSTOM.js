@@ -6428,13 +6428,13 @@ function isVerifyLifetimeLicense(pStep) {
     var uObj = new USEROBJ(publicUserID);
     var agentInfoArray = getAgentInfo(publicUserID, uObj);
     var isValidUser = (agentInfoArray["Agent Group"] == "NYSDEC HQ");
-	var decId = AInfo["Customer ID Transfer to (DEC ID)"];
+	var decId = AInfo["Customer ID Transfer to"];
     var isExitUser = getPeopleByDecID(decId);
 	if(isNull(isExitUser)){
         isValid = false;
     }
     if (!isValid) {
-        retMsg += "Customer ID Transfer to (DEC ID)  is not exit";
+        retMsg += "Customer ID Transfer to  is not exit";
         retMsg += "<Br />";
     }
     if (isValidUser) {
@@ -6475,7 +6475,7 @@ function isVerifyLifetimeLicense(pStep) {
 function transferLifetimeLicenses() {
     logDebug("ENTER: transferLifetimeLicenses");
 
-    var txfrCustomerId = AInfo["Customer ID Transfer to (DEC ID)"];
+    var txfrCustomerId = AInfo["Customer ID Transfer to"];
 
     var selDocToUpgrade = new Array();
     var selDocToVoid = new Array();
