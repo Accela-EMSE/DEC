@@ -6456,4 +6456,51 @@ function isVerifyLifetimeLicense(pStep) {
     logDebug("EXIT: isVerifyLifetimeLicense");
     return retMsg;
 }
+function transferLifetimeLicenses() {
+    logDebug("ENTER: transferLifetimeLicenses");
+
+    var txfrCustomerId = AInfo["Customer ID Transfer to (DEC ID)"];
+
+    var selDocToUpgrade = new Array();
+    var selDocToVoid = new Array();
+    if ((typeof (ACTIVEDOCUMENTS) == "object")) {
+
+        var verifyLicArray = new Array();
+        verifyLicArray.push(AA09_LIFETIME_BOWHUNTING);
+        verifyLicArray.push(AA10_LIFETIME_FISHING);
+        verifyLicArray.push(AA11_LIFETIME_MUZZLELOADING);
+        verifyLicArray.push(AA12_LIFETIME_SMALL_AND_BIG_GAME);
+        verifyLicArray.push(AA13_LIFETIME_SPORTSMAN);
+        verifyLicArray.push(AA14_LIFETIME_TRAPPING);
+
+
+        for (y in ACTIVEDOCUMENTS) {
+            if (exists(ACTIVEDOCUMENTS[y]["RecordType"], verifyLicArray)) {
+                selDocToUpgrade.push(ACTIVEDOCUMENTS[y]["Document ID"]);
+            }
+            else {
+                selDocToVoid.push(ACTIVEDOCUMENTS[y]["Document ID"]);
+            }
+        }
+    }
+
+    //Get the current DEC AGENT Public User as object and attach to the new record
+    var uObj = new USEROBJ(publicUserID);
+    salesAgentInfoArray = getAgentInfo(publicUserID, uObj);
+    attachAgent(uObj);
+
+    for (y in selDocToUpgrade) {
+        var itemCapId = getCapId(selDocToUpgrade[y]);
+        var c = getContactObj(itemCapId, "Individual");
+        if (c && c.refSeqNumber) {
+            c.remove();
+            attachedContacts(txfrCustomerId);
+        }
+    }
+    for (y in selDocToVoid) {
+        var itemCapId = getCapId(selDocToVoid[y]);
+        voidRec(itemCapId);
+    }
+    logDebug("EXIT: transferLifetimeLicenses");
+}
 
