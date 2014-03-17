@@ -6407,6 +6407,7 @@ function isVerifyTransferLifetimeLicense() {
 	if(isNotValidToProceed ==''){
 		isNotValidToProceed = false;
 	}
+	
     return isNotValidToProceed;
 }
 function addFeeAndSetAsitForTransferlifetime() {
@@ -6420,7 +6421,9 @@ function isVerifyLifetimeLicense(pStep) {
 	
     logDebug("ENTER: isVerifyLifetimeLicense");
     var retMsg = '';
-    var isValid = false;
+    var isValid = true;
+	var verifyLicArray = new Array();
+	var peopleSequenceNumber=null;
 
     var uObj = new USEROBJ(publicUserID);
     var agentInfoArray = getAgentInfo(publicUserID, uObj);
@@ -6434,7 +6437,6 @@ function isVerifyLifetimeLicense(pStep) {
         retMsg += "Customer ID Transfer to (DEC ID)  is not exit";
         retMsg += "<Br />";
     }
-	var verifyLicArray = new Array();
     if (isValidUser) {
         verifyLicArray.push(AA09_LIFETIME_BOWHUNTING);
         verifyLicArray.push(AA10_LIFETIME_FISHING);
@@ -6443,13 +6445,27 @@ function isVerifyLifetimeLicense(pStep) {
         verifyLicArray.push(AA13_LIFETIME_SPORTSMAN);
         verifyLicArray.push(AA14_LIFETIME_TRAPPING);
     }
-    for (var tempVerifyLic in verifyLicArray) {
-        if (exists(appTypeString, tempVerifyLic)) {
-            isValid = true;
+	var CC = new contactObj(null);
+	var xArray = getApplicantArrayEx();
+	var isAvailableLT=false;
+	for (ca in xArray) {
+        var thisContact = xArray[ca];
+		peopleSequenceNumber = thisContact["refcontactSeqNumber"];
+		break;
+	}
+    CC.refSeqNumber = peopleSequenceNumber;
+    var allContactCaps = CC.getCaps("Licenses/*/*/*");
+	for (var ccp in allContactCaps) {
+        var itemCapId = allContactCaps[ccp];
+        var itemCap = aa.cap.getCap(itemCapId).getOutput();
+        appTypeResult = itemCap.getCapType();
+        appTypeString = appTypeResult.toString();
+        if (exists(appTypeString, verifyLicArray)) {
+			isAvailableLT = true;
             break;
         }
     }
-    if (!isValid) {
+    if (!isAvailableLT) {
         retMsg += "User do not have lifetime licenses";
         retMsg += "<Br />";
     }
