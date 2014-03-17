@@ -18,7 +18,7 @@ var vUserID = expression.getValue("$$userID$$");
 var sUserIdEB = vUserID.getValue();
 var oRecordType=expression.getValue("CAP::capType");
 
-var otDecId = expression.getValue("ASI::TRANSFER INFORMATION::Customer ID Transfer to (DEC ID)");
+var otDecId = expression.getValue("ASI::TRANSFER INFORMATION::Customer ID Transfer to");
 //
 var isDecIDExist = getPeopleByDecID(otDecId);
 var msg = "";
