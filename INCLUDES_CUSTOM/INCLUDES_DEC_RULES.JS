@@ -1749,12 +1749,12 @@ function getAllFeeCodeByRuleFor_5Y_FRESHWATER_FISHING(ruleParams, feeSched) {
 }
 
 function isRuleForSelectable_ONEDAY_FISH_2012(ruleParams) {
-    var isSelectable = ((ruleParams.IsNyResiDent || ruleParams.HasLifetimeFish) && ruleParams.Age >= 16 && ruleParams.Age <= 69 && !ruleParams.IsMilitaryServiceman);
+    var isSelectable = ((ruleParams.IsNyResiDent || ruleParams.HasLifetimeFish()) && ruleParams.Age >= 16 && ruleParams.Age <= 69 && !ruleParams.IsMilitaryServiceman);
     return isSelectable;
 }
 function isRuleForSelectable_ONEDAY_FISH_2014(ruleParams) {
-    var isSelectable = ((ruleParams.IsNyResiDent || ruleParams.HasLifetimeFish) && ruleParams.Age >= 16 && ruleParams.Age <= 69 && !ruleParams.IsMilitaryServiceman);
-    isSelectable = isSelectable || (!(ruleParams.IsNyResiDent || ruleParams.HasLifetimeFish) && ruleParams.Age >= 16);
+    var isSelectable = ((ruleParams.IsNyResiDent || ruleParams.HasLifetimeFish()) && ruleParams.Age >= 16 && ruleParams.Age <= 69 && !ruleParams.IsMilitaryServiceman);
+    isSelectable = isSelectable || (!(ruleParams.IsNyResiDent || ruleParams.HasLifetimeFish()) && ruleParams.Age >= 16);
 
     return isSelectable;
 }
@@ -1844,28 +1844,28 @@ function isRuleForSelectable_LIFETM_FISH(ruleParams) {
     return isSelectable;
 }
 function isRuleForSelectable_FRESHWATER_FISHING_2012(ruleParams) {
-    var isSelectable = ((ruleParams.IsNyResiDent || ruleParams.HasLifetimeFish) && ruleParams.Age >= 16);
+    var isSelectable = ((ruleParams.IsNyResiDent || ruleParams.HasLifetimeFish()) && ruleParams.Age >= 16);
     return isSelectable;
 }
 function isRuleForSelectable_NONRES_FRESHWATER_FISHING(ruleParams) {
-    var isSelectable = (!(ruleParams.IsNyResiDent || ruleParams.HasLifetimeFish) && ruleParams.Age >= 16);
+    var isSelectable = (!(ruleParams.IsNyResiDent || ruleParams.HasLifetimeFish()) && ruleParams.Age >= 16);
     return isSelectable;
 }
 function isRuleForSelectable_NONRESIDENT_1_DAY_FISHING(ruleParams) {
-    var isSelectable = (!(ruleParams.IsNyResiDent || ruleParams.HasLifetimeFish) && ruleParams.Age >= 16 && !ruleParams.IsMilitaryServiceman);
+    var isSelectable = (!(ruleParams.IsNyResiDent || ruleParams.HasLifetimeFish()) && ruleParams.Age >= 16 && !ruleParams.IsMilitaryServiceman);
     return isSelectable;
 }
 function isRuleForSelectable_NONRESIDENT_7_DAY_FISHING(ruleParams) {
-    var isSelectable = (!(ruleParams.IsNyResiDent || ruleParams.HasLifetimeFish) && ruleParams.Age >= 16 && !ruleParams.IsMilitaryServiceman);
+    var isSelectable = (!(ruleParams.IsNyResiDent || ruleParams.HasLifetimeFish()) && ruleParams.Age >= 16 && !ruleParams.IsMilitaryServiceman);
     return isSelectable;
 }
 function isRuleForSelectable_SEVEN_DAY_FISHING_LICENSE_2012(ruleParams) {
-    var isSelectable = ((ruleParams.IsNyResiDent || ruleParams.HasLifetimeFish) && ruleParams.Age >= 16 && ruleParams.Age <= 69 && !ruleParams.IsMilitaryServiceman);
+    var isSelectable = ((ruleParams.IsNyResiDent || ruleParams.HasLifetimeFish()) && ruleParams.Age >= 16 && ruleParams.Age <= 69 && !ruleParams.IsMilitaryServiceman);
     return isSelectable;
 }
 function isRuleForSelectable_SEVEN_DAY_FISHING_LICENSE_2014(ruleParams) {
-    var isSelectable = ((ruleParams.IsNyResiDent || ruleParams.HasLifetimeFish) && ruleParams.Age >= 16 && ruleParams.Age <= 69 && !ruleParams.IsMilitaryServiceman);
-    isSelectable = isSelectable || (!(ruleParams.IsNyResiDent || ruleParams.HasLifetimeFish) && ruleParams.Age >= 16);
+    var isSelectable = ((ruleParams.IsNyResiDent || ruleParams.HasLifetimeFish()) && ruleParams.Age >= 16 && ruleParams.Age <= 69 && !ruleParams.IsMilitaryServiceman);
+    isSelectable = isSelectable || (!(ruleParams.IsNyResiDent || ruleParams.HasLifetimeFish()) && ruleParams.Age >= 16);
 
     return isSelectable;
 }
