@@ -6422,6 +6422,7 @@ function isVerifyLifetimeLicense(pStep) {
     logDebug("ENTER: isVerifyLifetimeLicense");
     var retMsg = '';
     var isValid = true;
+	var isAvailableLT=false;
 
     //Verify Customer ID Transfer to
     var decId = AInfo["Customer ID Transfer to"];
