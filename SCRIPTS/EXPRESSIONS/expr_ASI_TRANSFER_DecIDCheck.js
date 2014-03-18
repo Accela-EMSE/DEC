@@ -18,12 +18,12 @@ var vUserID = expression.getValue("$$userID$$");
 var sUserIdEB = vUserID.getValue();
 var oRecordType=expression.getValue("CAP::capType");
 
-var otDecId = expression.getValue("ASI::TRANSFER INFORMATION::Customer ID Transfer to");
+var otDecId = expression.getValue("ASI::TRANSFER INFORMATION::Transfer Lifetime License To");
 //
-var isDecIDExist = getPeopleByDecID(otDecId);
+var isDecIDExist = isValidDecId(otDecId.value);
 var msg = "";
-if(isNull(isDecIDExist)){
-    msg="Customer ID Transfer to (DEC ID)  is not exit";
+if(!isDecIDExist){
+    msg="Customer ID (DEC ID)  is not exit";
 	otDecId.value = "";
  }
 otDecId.message = msg;
