@@ -6381,6 +6381,33 @@ function isVerifyTransferLifetimeLicense() {
             //Copy All Asi Fields: asumption is identical subgroups are available in cap ASI
             //var subGroupArray = getTemplateValueByFormArrays(peopleModel.getTemplate(), null, null);
             //GetAllASI(subGroupArray);
+
+            var availableActiveItems = getActiveHoldings(peopleSequenceNumber, AInfo["License Year"]);
+            var verifyLicArray = new Array();
+            verifyLicArray.push(AA09_LIFETIME_BOWHUNTING);
+            verifyLicArray.push(AA10_LIFETIME_FISHING);
+            verifyLicArray.push(AA11_LIFETIME_MUZZLELOADING);
+            verifyLicArray.push(AA12_LIFETIME_SMALL_AND_BIG_GAME);
+            verifyLicArray.push(AA13_LIFETIME_SPORTSMAN);
+            verifyLicArray.push(AA14_LIFETIME_TRAPPING);
+
+            var isAvailableLT = false;
+            for (var tidx in availableActiveItems) {
+                var tObj = availableActiveItems[tidx];
+                if (exists(tObj.RecordType, verifyLicArray)) {
+                    isAvailableLT = true;
+                    break;
+                }
+            }
+            if (!isAvailableLT) {
+                if (isNotValidToProceed) {
+                    isNotValidToProceed += '<br />';
+                    isNotValidToProceed += "User do not have lifetime licenses";
+                }
+                else {
+                    isNotValidToProceed = "User do not have lifetime licenses";
+                }
+            }
         }
         var contactCondArray = getContactCondutions(peopleSequenceNumber);
         if (isSuspension(contactCondArray)) {
@@ -6395,19 +6422,20 @@ function isVerifyTransferLifetimeLicense() {
         break;
     }
     if (deceasedDate) {
+        //Good
+    } else {
         if (isNotValidToProceed) {
-            isNotValidToProceed += '<br />';
-            isNotValidToProceed += MSG_DECEASED;
+            isNotValidToProceed += "Cannot continue transfer, the selected applicant is not deceased.";
         }
         else {
-            isNotValidToProceed = MSG_DECEASED;
+            isNotValidToProceed = "Cannot continue transfer, the selected applicant is not deceased.";
         }
     }
+
     logDebug("EXIT: isVerifyNYDECHQUser");
     if (isNotValidToProceed == '') {
         isNotValidToProceed = false;
     }
-
     return isNotValidToProceed;
 }
 function addFeeAndSetAsitForTransferlifetime() {
@@ -6421,22 +6449,19 @@ function isVerifyLifetimeLicense(pStep) {
 
     logDebug("ENTER: isVerifyLifetimeLicense");
     var retMsg = '';
-    var isValid = true;
 	var isAvailableLT=false;
 
-    //Verify Customer ID Transfer to
-    var decId = AInfo["Customer ID Transfer to"];
-    var isExitUser = getPeopleByDecID(decId);
-    if (isNull(isExitUser)) {
-        isValid = false;
-    }
-    if (!isValid) {
-        retMsg += "Customer ID Transfer to  is not exit";
+    //Verify Transfer Lifetime License To    
+    var decId = AInfo["Transfer Lifetime License To"];
+    var isExitUser = isValidDecId(decId);
+    if (!isExitUser) {
+        retMsg += "Customer ID to which transfering lifetime license(s) is not exit.";
         retMsg += "<Br />";
     }
 
     //Verify any lifetime licenses
-    if ((typeof (ACTIVEDOCUMENTS) == "object")) {
+    var isAvailableLT = false;
+    if ((typeof (ACTIVEHOLDINGS) == "object")) {
         var verifyLicArray = new Array();
         verifyLicArray.push(AA09_LIFETIME_BOWHUNTING);
         verifyLicArray.push(AA10_LIFETIME_FISHING);
@@ -6444,26 +6469,55 @@ function isVerifyLifetimeLicense(pStep) {
         verifyLicArray.push(AA12_LIFETIME_SMALL_AND_BIG_GAME);
         verifyLicArray.push(AA13_LIFETIME_SPORTSMAN);
         verifyLicArray.push(AA14_LIFETIME_TRAPPING);
-        for (y in ACTIVEDOCUMENTS) {
-            if (exists(ACTIVEDOCUMENTS[y]["RecordType"], verifyLicArray)) {
+        for (y in ACTIVEHOLDINGS) {
+            logDebug(ACTIVEHOLDINGS[y]["RecordType"])
+            if (exists(ACTIVEHOLDINGS[y]["RecordType"], verifyLicArray)) {
                 isAvailableLT = true;
                 break;
             }
         }
     }
-
     if (!isAvailableLT) {
         retMsg += "User do not have lifetime licenses";
         retMsg += "<Br />";
     }
+
+    var isSelected = false;
+    var hasLTBasePriv = false;
+    var hasSelectedLTPriv = false;
+    if ((typeof (LICENSESTOTRANSFER) == "object")) {
+        for (y in LICENSESTOTRANSFER) {
+            isSelected = isSelected || (LICENSESTOTRANSFER[y]["Select"] == 'Yes' || LICENSESTOTRANSFER[y]["Select"] == 'Y');
+
+            hasLTBasePriv = hasLTBasePriv || (LICENSESTOTRANSFER[y]["RecordType"] == AA12_LIFETIME_SMALL_AND_BIG_GAME);
+            hasLTBasePriv = hasLTBasePriv || (LICENSESTOTRANSFER[y]["RecordType"] == AA13_LIFETIME_SPORTSMAN);
+
+            hasSelectedLTPriv = hasSelectedLTPriv || (LICENSESTOTRANSFER[y]["RecordType"] == AA09_LIFETIME_BOWHUNTING);
+            hasSelectedLTPriv = hasSelectedLTPriv || (LICENSESTOTRANSFER[y]["RecordType"] == AA11_LIFETIME_MUZZLELOADING);
+        }
+    }
+    if (!isSelected) {
+        retMsg += 'Please select licenses to upgrade.';
+        retMsg += '<Br />';
+    } else if (hasSelectedLTPriv) {
+        var hasLTBasePriv = hasLifetimeBase(decId);
+        if (!hasLTBasePriv) {
+            retMsg += 'Customer ID to which transfering lifetime license(s) does not have lifetime base privilage.';
+            retMsg += '<Br />';
+        }
+    }
+
     logDebug("EXIT: isVerifyLifetimeLicense");
     return retMsg;
 }
 function transferLifetimeLicenses() {
     logDebug("ENTER: transferLifetimeLicenses");
 
-    var txfrCustomerId = AInfo["Customer ID Transfer to"];
-
+    var txfrCustomerId = AInfo["Transfer Lifetime License To"];
+	
+	//TODO: Implement DEC requirement to create new document number
+	//FEE ACCOUNT CODE
+	//Validations for transfer To
     var selDocToUpgrade = new Array();
     var selDocToVoid = new Array();
     if ((typeof (ACTIVEDOCUMENTS) == "object")) {
@@ -6504,3 +6558,124 @@ function transferLifetimeLicenses() {
     }
     logDebug("EXIT: transferLifetimeLicenses");
 }
+
+
+function createTransferLicTable() {
+    logDebug("ENTER: createUpgradeLicTable");
+    var xArray = getApplicantArrayEx();
+    var peopleSequenceNumber = null;
+    for (ca in xArray) {
+        var thisContact = xArray[ca];
+        peopleSequenceNumber = thisContact["refcontactSeqNumber"]
+        if (peopleSequenceNumber != null) {
+            var asitModel;
+            var new_asit;
+
+            //if (!(typeof (LICENSESTOTRANSFER) == "object")) {
+            var availableItems = GetLicsForTransfer(peopleSequenceNumber);
+            var newAsitArray = GetLicesesTotransferAsitTableArray(availableItems);
+
+            asitModel = cap.getAppSpecificTableGroupModel();
+            new_asit = addASITable4ACAPageFlow(asitModel, "LICENSES TO TRANSFER", newAsitArray);
+            //}
+        }
+        break;
+    }
+    logDebug("EXIT: createUpgradeLicTable");
+}
+function GetLicsForTransfer(peopleSequenceNumber) {
+    logDebug("ENTER: GetLicsForTransfer");
+    var availableActiveItems = new Array();
+    var validActiveholdingsArray = new Array();
+    validActiveholdingsArray.push(AA09_LIFETIME_BOWHUNTING);
+    validActiveholdingsArray.push(AA10_LIFETIME_FISHING);
+    validActiveholdingsArray.push(AA11_LIFETIME_MUZZLELOADING);
+    validActiveholdingsArray.push(AA12_LIFETIME_SMALL_AND_BIG_GAME);
+    validActiveholdingsArray.push(AA13_LIFETIME_SPORTSMAN);
+    validActiveholdingsArray.push(AA14_LIFETIME_TRAPPING);
+
+    var CC = new contactObj(null);
+    CC.refSeqNumber = peopleSequenceNumber;
+    var allContactCaps = CC.getCaps("Licenses/Lifetime/*/*");
+
+    for (var ccp in allContactCaps) {
+        var itemCapId = allContactCaps[ccp];
+        var itemCap = aa.cap.getCap(itemCapId).getOutput();
+        appTypeResult = itemCap.getCapType();
+        appTypeString = appTypeResult.toString();
+        if (exists(appTypeString, validActiveholdingsArray)) {
+            var newActiveTag = new ACTIVE_ITEM(itemCapId, itemCap, appTypeString);
+            if (newActiveTag.isActive()) {
+                availableActiveItems.push(newActiveTag);
+            }
+        }
+    }
+    logDebug("EXIT: GetLicsForTransfer");
+
+    return availableActiveItems;
+}
+function GetLicesesTotransferAsitTableArray(availableItems) {
+    logDebug("ENTER: GetLicesesTotransferAsitTableArray");
+
+    var readOnly = "N";
+    var tempObject = new Array();
+    var tempArray = new Array();
+
+    for (var tidx in availableItems) {
+        var tObj = availableItems[tidx];
+
+        tempObject = new Array();
+        var itemCode = (isNull(tObj.IsTag(), false) ? isNull(tObj.TagType, '') : isNull(tObj.ItemCode, ''));
+        var fieldInfo = new asiTableValObj("Description", itemCode + ' ' + isNull(tObj.Description, ''), "Y");
+        tempObject["Description"] = fieldInfo;
+        fieldInfo = new asiTableValObj("Document ID", isNull(tObj.altId, ''), "Y");
+        tempObject["Document ID"] = fieldInfo;
+        fieldInfo = new asiTableValObj("License Year", isNull(tObj.LicenseYear, ''), "Y");
+        tempObject["License Year"] = fieldInfo;
+        fieldInfo = new asiTableValObj("Select", "N", "N");
+        tempObject["Select"] = fieldInfo;
+        fieldInfo = new asiTableValObj("RecordType", tObj.RecordType, "Y");
+        tempObject["RecordType"] = fieldInfo;
+
+        tempArray.push(tempObject);  // end of record
+    }
+    logDebug("EXIT: GetLicesesTotransferAsitTableArray");
+
+    return tempArray;
+}
+function hasLifetimeBase(peopleSequenceNumber) {
+    var isValid = false;
+
+    var availableActiveItems = getActiveHoldings(peopleSequenceNumber, AInfo["License Year"]);
+    var verifyLicArray = new Array();
+    verifyLicArray.push(AA12_LIFETIME_SMALL_AND_BIG_GAME);
+    verifyLicArray.push(AA13_LIFETIME_SPORTSMAN);
+
+    for (var tidx in availableActiveItems) {
+        var tObj = availableActiveItems[tidx];
+        if (exists(tObj.RecordType, verifyLicArray)) {
+            isValid = true;
+            break;
+        }
+    }
+    return isValid;
+}
+
+function isValidDecId(decId) {
+    var isValid = false;
+    try {
+        if (decId != '') {
+            var peopMd = getPeopleByDecID(decId);
+            var peopleSequenceNumber = peopMd.getContactSeqNumber();
+            var peopleModel = getOutput(aa.people.getPeople(peopleSequenceNumber), "");
+            if (peopleModel != null) {
+                isValid = true;
+            }
+        }
+    }
+    catch (err) {
+        logDebug("**WARNING in isValidDecIdWithDOB:" + err.message);
+    }
+    return isValid;
+}
+
