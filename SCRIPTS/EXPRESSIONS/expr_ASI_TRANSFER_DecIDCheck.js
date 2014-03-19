@@ -20,7 +20,7 @@ var oRecordType=expression.getValue("CAP::capType");
 
 var otDecId = expression.getValue("ASI::TRANSFER INFORMATION::Transfer Lifetime License To");
 //
-var isDecIDExist = isValidDecId(otDecId.value);
+var isDecIDExist = isValidDecIdForTansfer(otDecId.value);
 var msg = "";
 if(!isDecIDExist){
     msg="Customer ID (DEC ID)  is not exit";
