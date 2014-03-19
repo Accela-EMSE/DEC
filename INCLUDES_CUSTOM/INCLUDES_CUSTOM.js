@@ -6060,6 +6060,7 @@ function copyASIContactAppSpecificToRecordAppSpecific() {
         }
     }
 
+	loadAppSpecific4ACA(AInfo);
     var exmsg = '';
     var f = new form_OBJECT(GS2_EXPR, OPTZ_TYPE_ALLFEES);
     SetExpressformForSelectedLics(f);
