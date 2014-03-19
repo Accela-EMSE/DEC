@@ -883,7 +883,7 @@ function processCorrection() {
     logDebug("ENTER: processCorrection")
 
     var drawTable = loadASITable("DRAW RESULT", capId);
-    var correctedPreferencePoints = 0;
+    var correctedPreferencePoints = -1;
     var isAnyCorrection = false;
     for (i in drawTable) {
         var dmpASITinfo = drawTable[i];
@@ -891,14 +891,12 @@ function processCorrection() {
 
             var newDmpCapId = createNewDmpTag(capId);
 
-            if (isNull(dmpASITinfo["Preference Points Corrected"], '0') != '0') {
+            if (isNull(dmpASITinfo["Preference Points Corrected"], '-1') != '-1') {
                 if (parseInt(dmpASITinfo["Preference Points Corrected"], 10) > correctedPreferencePoints) {
                     correctedPreferencePoints = parseInt(dmpASITinfo["Preference Points Corrected"], 10);
                 }
             }
-            if (!isAnyCorrection) {
-                isAnyCorrection = isAnyCorrection && true;
-            }
+            isAnyCorrection = isAnyCorrection || true;
         }
 
         if (dmpASITinfo["Correct?"] == "CHECKED") {
@@ -916,25 +914,19 @@ function processCorrection() {
                         addASITable("DRAW RESULT", newAsitArray, capId)
                     }
                     //loadASITables();
-
-                    if (isNull(dmpASITinfo["Preference Points Corrected"], '0') != '0') {
-                        if (parseInt(dmpASITinfo["Preference Points Corrected"], 10) > correctedPreferencePoints) {
-                            correctedPreferencePoints = parseInt(dmpASITinfo["Preference Points Corrected"], 10);
-                        }
-                    }
-                    if (!isAnyCorrection) {
-                        isAnyCorrection = isAnyCorrection && true;
-                    }
                 }
-            } else {
-                isAnyCorrection = isAnyCorrection && false;
-                showMessage = true;
-                comment("DMP tag not found for selected resilt to correct.");
+                isAnyCorrection = isAnyCorrection || true;
+            }
+            if (isNull(dmpASITinfo["Preference Points Corrected"], '-1') != '-1') {
+                if (parseInt(dmpASITinfo["Preference Points Corrected"], 10) > correctedPreferencePoints) {
+                    correctedPreferencePoints = parseInt(dmpASITinfo["Preference Points Corrected"], 10);
+                }
+                isAnyCorrection = isAnyCorrection || true;
             }
         }
 
     }
-    if (isAnyCorrection) {
+    if (isAnyCorrection && correctedPreferencePoints > -1) {
         updatePrefponts(correctedPreferencePoints);
     }
     logDebug("EXIT: processCorrection")
@@ -995,6 +987,11 @@ function createNewDmpTag(parentCapId) {
 function voidDmpAndCreateNew(dmpCapId, parentCapId) {
     logDebug("ENTER: voidDmpAndCreateNew " + dmpCapId.getCustomID());
     updateAppStatus("Void", "Void", dmpCapId);
+    closeTaskForRec("Void Document", "Void", "", "", "", dmpCapId);
+    closeTaskForRec("Report Game Harvest", "", "", "", "", dmpCapId);
+    closeTaskForRec("Revocation", "", "", "", "", dmpCapId);
+    closeTaskForRec("Suspension", "", "", "", "", dmpCapId);
+
     // now create a new one, 
     var newDmpId = createChildForDec("Licenses", "Tag", "Hunting", "DMP Deer", "", parentCapId);
     copyASIFields(dmpCapId, newDmpId);
