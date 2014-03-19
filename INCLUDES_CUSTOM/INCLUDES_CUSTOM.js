@@ -6455,7 +6455,7 @@ function isVerifyLifetimeLicense(pStep) {
 
     //Verify Transfer Lifetime License To    
     var decId = AInfo["Transfer Lifetime License To"];
-    var isExitUser = isValidDecId(decId);
+    var isExitUser = isValidDecIdForTansfer(decId);
     if (!isExitUser) {
         retMsg += "Customer ID to which transfering lifetime license(s) is not exit.";
         retMsg += "<Br />";
@@ -6567,7 +6567,7 @@ function transferLifetimeLicenses() {
             if (c && c.refSeqNumber) {
                 c.remove();
                 newAInfo.push(new NewLicDef("Source Document ID", selDocToTransfer[y]));
-                newAInfo.push(new NewLicDef("Source DEC ID", c.refSeqNumber));
+                newAInfo.push(new NewLicDef("Source Customer ID", c.refSeqNumber));
             }
             attachedContacts(txfrCustomerId, newLicId);
 
@@ -6683,7 +6683,7 @@ function hasLifetimeBase(peopleSequenceNumber) {
     return isValid;
 }
 
-function isValidDecId(decId) {
+function isValidDecIdForTansfer(decId) {
     var isValid = false;
     try {
         if (decId != '') {
@@ -6696,7 +6696,7 @@ function isValidDecId(decId) {
         }
     }
     catch (err) {
-        logDebug("**WARNING in isValidDecIdWithDOB:" + err.message);
+        logDebug("**WARNING in isValidDecIdForTansfer:" + err.message);
     }
     return isValid;
 }
