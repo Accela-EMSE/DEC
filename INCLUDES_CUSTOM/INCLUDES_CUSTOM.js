@@ -6370,6 +6370,9 @@ function isVerifyTransferLifetimeLicense() {
             isNotValidToProceed = exMsg;
         }
     }
+	
+	
+	
     var xArray = getApplicantArrayEx();
     var peopleSequenceNumber = null;
     var deceasedDate = null;
@@ -6692,6 +6695,10 @@ function isValidDecIdForTansfer(decId) {
             var peopleModel = getOutput(aa.people.getPeople(peopleSequenceNumber), "");
             if (peopleModel != null) {
                 isValid = true;
+				var deceasedDate = peopleModel.getDeceasedDate();
+				if(!deceasedDate){
+					isValid = false;
+				}
             }
         }
     }
