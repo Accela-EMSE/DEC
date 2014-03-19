@@ -6463,7 +6463,22 @@ function isVerifyLifetimeLicense(pStep) {
         retMsg += "Customer ID to which transfering lifetime license(s) is not exit.";
         retMsg += "<Br />";
     }
-
+	//Started-Checking Transfer ID should not be equal to Applicant.
+	var customerId = AInfo["Transfer Lifetime License To"];
+    var xArray = getApplicantArrayEx();
+    var peopleSequenceNumber = null;
+    for (ca in xArray) {
+        var thisContact = xArray[ca];
+        peopleSequenceNumber = thisContact["refcontactSeqNumber"]
+        if (peopleSequenceNumber != null && customerId!=null) {
+			if(customerId == peopleSequenceNumber){
+				 retMsg += "Transfer ID to should not be equal to Applicant ID.";
+				 retMsg += "<Br />";
+			}
+			break;	
+        }
+    }
+	//Ended -Checking Transfer ID should not be equal to Applicant.
     //Verify any lifetime licenses
     var isAvailableLT = false;
     if ((typeof (ACTIVEHOLDINGS) == "object")) {
