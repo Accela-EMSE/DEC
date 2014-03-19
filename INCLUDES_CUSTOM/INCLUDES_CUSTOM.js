@@ -6295,7 +6295,7 @@ function verifyAnyExpressSalesSelect() {
 
 }
 //End-All express record types for ASI_FISH,ASI_HUNT,ASI_LT and ASI_TRAP
-
+//Transfer
 function isValidUserForTransferLifetimeLicense(userId) {
     var isvalid = false;
 
@@ -6370,9 +6370,9 @@ function isVerifyTransferLifetimeLicense() {
             isNotValidToProceed = exMsg;
         }
     }
-	
-	
-	
+
+
+
     var xArray = getApplicantArrayEx();
     var peopleSequenceNumber = null;
     var deceasedDate = null;
@@ -6460,25 +6460,25 @@ function isVerifyLifetimeLicense(pStep) {
     var decId = AInfo["Transfer Lifetime License To"];
     var isExitUser = isValidDecIdForTansfer(decId);
     if (!isExitUser) {
-        retMsg += "Customer ID to which transfering lifetime license(s) is not exit.";
+        retMsg += "Customer ID to which transfering lifetime license(s) is not exit or is died.";
         retMsg += "<Br />";
     }
-	//Started-Checking Transfer ID should not be equal to Applicant.
-	var customerId = AInfo["Transfer Lifetime License To"];
+    //Started-Checking Transfer ID should not be equal to Applicant.
+    var customerId = AInfo["Transfer Lifetime License To"];
     var xArray = getApplicantArrayEx();
     var peopleSequenceNumber = null;
     for (ca in xArray) {
         var thisContact = xArray[ca];
         peopleSequenceNumber = thisContact["refcontactSeqNumber"]
-        if (peopleSequenceNumber != null && customerId!=null) {
-			if(customerId == peopleSequenceNumber){
-				 retMsg += "Transfer ID to should not be equal to Applicant ID.";
-				 retMsg += "<Br />";
-			}
-			break;	
+        if (peopleSequenceNumber != null && customerId != null) {
+            if (customerId == peopleSequenceNumber) {
+                retMsg += "Transfer ID to should not be equal to Applicant ID.";
+                retMsg += "<Br />";
+            }
+            break;
         }
     }
-	//Ended -Checking Transfer ID should not be equal to Applicant.
+    //Ended -Checking Transfer ID should not be equal to Applicant.
     //Verify any lifetime licenses
     var isAvailableLT = false;
     if ((typeof (ACTIVEHOLDINGS) == "object")) {
@@ -6598,8 +6598,6 @@ function transferLifetimeLicenses() {
     }
     logDebug("EXIT: transferLifetimeLicenses");
 }
-
-
 function createTransferLicTable() {
     logDebug("ENTER: createUpgradeLicTable");
     var xArray = getApplicantArrayEx();
@@ -6700,7 +6698,6 @@ function hasLifetimeBase(peopleSequenceNumber) {
     }
     return isValid;
 }
-
 function isValidDecIdForTansfer(decId) {
     var isValid = false;
     try {
@@ -6710,10 +6707,10 @@ function isValidDecIdForTansfer(decId) {
             var peopleModel = getOutput(aa.people.getPeople(peopleSequenceNumber), "");
             if (peopleModel != null) {
                 isValid = true;
-				var deceasedDate = peopleModel.getDeceasedDate();
-				if(!deceasedDate){
-					isValid = false;
-				}
+                var deceasedDate = peopleModel.getDeceasedDate();
+                if (deceasedDate) {
+                    isValid = false;
+                }
             }
         }
     }
