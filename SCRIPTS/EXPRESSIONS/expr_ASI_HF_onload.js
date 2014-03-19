@@ -71,11 +71,8 @@ f.UserIdEB = sUserIdEB;
 f.RecordType = oRecordType.getValue();
 //
 
-//calling Hunt Sale
-f.SetHuntSaleExcludes();
-
-//Set Fish lience Exclude sale
-f.SetFishSaleExcludes();
+//calling Hunt and fish Sale
+f.SetHuntAndFishSaleExcludes();
 
 //Set control array and set values for lic
 var exprControlArray = new Array();
@@ -141,6 +138,17 @@ myLicObj[myLicObj.length] = expression.getValue("ASI::FISHING LICENSES::Seven Da
 myLicObj[myLicObj.length] = expression.getValue("ASI::FISHING LICENSES::3 Year Freshwater Fishing");
 myLicObj[myLicObj.length] = expression.getValue("ASI::FISHING LICENSES::5 Year Freshwater Fishing");
 ////
+//
+var oHExplanation = expression.getValue("ASI::HUNTING LICENSE::Explanation");
+oHExplanation.value = f.MessageHunter;
+oHExplanation.readOnly = true;
+if (f.MessageHunter == "") {
+    oHExplanation.hidden = true;
+}
+if (f.ContactMsgLink_Hunt != "") {
+    oHExplanation.message = f.ContactMsgLink_Hunt;
+}
+expression.setReturn(oHExplanation);
 
 //
 var oFExplanation = expression.getValue("ASI::FISHING LICENSES::Explanation");
@@ -150,7 +158,7 @@ if (f.MessageFish == "") {
     oFExplanation.hidden = true;
 }
 if (f.ContactMsgLink_Fish != "") {
-    oHExplanation.message = f.ContactMsgLink_Fish;
+    oFExplanation.message = f.ContactMsgLink_Fish;
 }
 expression.setReturn(oFExplanation);
 
