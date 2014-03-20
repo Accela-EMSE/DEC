@@ -3988,6 +3988,9 @@ function get60dayFishRecTypeArray() {
 function getValidLicForSubHead() {
     var validArray = new Array();
 
+	//Option to hide sub head as a part of roll back
+	//return validArray;
+	
     validArray.push(LIC06_HUNTING_LICENSE);
     validArray.push(LIC07_MUZZLELOADING_PRIVILEGE);
     validArray.push(LIC04_BOWHUNTING_PRIVILEGE);
