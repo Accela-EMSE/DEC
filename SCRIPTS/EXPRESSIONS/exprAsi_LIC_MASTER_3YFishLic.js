@@ -40,11 +40,9 @@ var aNeedHuntEd = expression.getValue("ASI::INTERNAL USE::A_NeedHuntEd");
 var aRevokedHunting = expression.getValue("ASI::INTERNAL USE::A_Revoked_Hunting");
 var aRevokedTrapping = expression.getValue("ASI::INTERNAL USE::A_Revoked_Trapping");
 var aRevokedFishing = expression.getValue("ASI::INTERNAL USE::A_Revoked_Fishing");
-var aIsLegallyBlind = expression.getValue("ASI::INTERNAL USE::A_Legally Blind");
+var aPermanentDisability = expression.getValue("ASI::INTERNAL USE::A_Permanent Disability");
 var vUserID = expression.getValue("$$userID$$");
 var sUserIdEB = vUserID.getValue();
-var oRecordType=expression.getValue("CAP::capType");
-
 
 //Init 
 var f = new form_OBJECT(GS2_EXPR);
@@ -73,7 +71,6 @@ f.SetEnforcementAttrib(aSuspended.value, aRevokedHunting.value, aRevokedTrapping
 f.SetFulfillmentAttrib(aAgedIn.value, aNeedHuntEd.value);
 f.FromACA = aIsFromACA.value;
 f.UserIdEB = sUserIdEB;
-f.RecordType = oRecordType.getValue();
 //
 
 //Set control array and set values for lic
@@ -96,20 +93,16 @@ f.ExecuteBoRuleEngine();
 for (var idx = 0; idx < f.licObjARRAY.length; idx++) {
     //var oTemp = new License_OBJ();
     var oLic = f.licObjARRAY[idx];
-	if (f.licObjARRAY[idx].ExprFieldName != "") {
-        if (f.licObjARRAY[idx].Message != "") {
-            (exprControlArray[idx]).message = f.licObjARRAY[idx].Message;
-        }
-		if (f.licObjARRAY[idx].IsSelectable == false || f.licObjARRAY[idx].IsActive == false) {
-			//(exprControlArray[idx]).readOnly = true;
-			(exprControlArray[idx]).value = false;
-			(exprControlArray[idx]).hidden = true;
-		} else {
-			(exprControlArray[idx]).readOnly = f.licObjARRAY[idx].IsDisabled;
-			(exprControlArray[idx]).hidden = false;
-		}
-		expression.setReturn((exprControlArray[idx]));
-	}
+
+    if (f.licObjARRAY[idx].IsSelectable == false || f.licObjARRAY[idx].IsActive == false) {
+        //(exprControlArray[idx]).readOnly = true;
+        (exprControlArray[idx]).value = false;
+        (exprControlArray[idx]).hidden = true;
+    } else {
+        (exprControlArray[idx]).readOnly = f.licObjARRAY[idx].IsDisabled;
+        (exprControlArray[idx]).hidden = false;
+    }
+    expression.setReturn((exprControlArray[idx]));
 }
 ////
 
