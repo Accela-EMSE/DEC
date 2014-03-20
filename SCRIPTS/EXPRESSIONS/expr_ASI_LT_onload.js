@@ -138,7 +138,7 @@ if (f.MessageLifeTime == "") {
     oLExplanation.hidden = true;
 }
 if (f.ContactMsgLink_Lifetime != "") {
-    oHExplanation.message = f.ContactMsgLink_Lifetime;
+    oLExplanation.message = f.ContactMsgLink_Lifetime;
 }
 expression.setReturn(oLExplanation);
 ////
