@@ -6446,8 +6446,19 @@ function isVerifyTransferLifetimeLicense() {
 }
 function addFeeAndSetAsitForTransferlifetime() {
     logDebug("ENTER: addFeeAndSetAsitForTransferlifetime");
-    removeAllFees(capId);
-    addFeeWithVersion("FEE_TRANS_1", "FEE_TRANSFER_SCHDL", "1", "FINAL", 1, "N");
+    
+	var selDocToTransfer = new Array();
+    if ((typeof (LICENSESTOTRANSFER) == "object")) {
+        for (y in LICENSESTOTRANSFER) {
+            var isSelected = (LICENSESTOTRANSFER[y]["Select"] == 'Yes' || LICENSESTOTRANSFER[y]["Select"] == 'Y');
+			if(isSelected) {
+				selDocToTransfer.push(LICENSESTOTRANSFER[y]["Document ID"]);
+			}
+		}
+	}    
+	
+	removeAllFees(capId);
+    addFeeWithVersion("FEE_TRANS_1", "FEE_TRANSFER_SCHDL", 1, "FINAL", (selDocToTransfer.length + ""), "N");
     logDebug("EXIT: addFeeAndSetAsitForTransferlifetime");
 }
 //ACA ONSUBMIT BEFORE TRANSFER
@@ -6520,7 +6531,7 @@ function isVerifyLifetimeLicense(pStep) {
     if (!isSelected) {
         retMsg += 'Please select licenses to upgrade.';
         retMsg += '<Br />';
-    } else if (hasSelectedLTPriv) {
+    } else if (!hasLTBasePriv && hasSelectedLTPriv) {
         var hasLTBasePriv = hasLifetimeBase(decId);
         if (!hasLTBasePriv) {
             retMsg += 'Customer ID to which transfering lifetime license(s) does not have lifetime base privilage.';
@@ -6536,8 +6547,8 @@ function transferLifetimeLicenses() {
 
     var txfrCustomerId = AInfo["Transfer Lifetime License To"];
 
-    var selDocToTransfer = new Array();
     var selDocToVoid = new Array();
+	/*//This is not required
     if ((typeof (ACTIVEDOCUMENTS) == "object")) {
         var verifyLicArray = new Array();
         verifyLicArray.push(AA09_LIFETIME_BOWHUNTING);
@@ -6549,14 +6560,25 @@ function transferLifetimeLicenses() {
 
         for (y in ACTIVEDOCUMENTS) {
             if (exists(ACTIVEDOCUMENTS[y]["RecordType"], verifyLicArray)) {
-                selDocToTransfer.push(ACTIVEDOCUMENTS[y]["Document ID"]);
+                //DO Nothing
             }
             else {
                 selDocToVoid.push(ACTIVEDOCUMENTS[y]["Document ID"]);
             }
         }
     }
-
+	*/
+	
+    var selDocToTransfer = new Array();
+    if ((typeof (LICENSESTOTRANSFER) == "object")) {
+        for (y in LICENSESTOTRANSFER) {
+            var isSelected = (LICENSESTOTRANSFER[y]["Select"] == 'Yes' || LICENSESTOTRANSFER[y]["Select"] == 'Y');
+			if(isSelected) {
+				selDocToVoid.push(LICENSESTOTRANSFER[y]["Document ID"]);
+			}
+		}
+	}
+	
     //Get the current DEC AGENT Public User as object and attach to the new record
     var uObj = new USEROBJ(publicUserID);
     salesAgentInfoArray = getAgentInfo(publicUserID, uObj);
