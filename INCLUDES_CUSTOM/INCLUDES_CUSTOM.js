@@ -6574,7 +6574,7 @@ function transferLifetimeLicenses() {
         for (y in LICENSESTOTRANSFER) {
             var isSelected = (LICENSESTOTRANSFER[y]["Select"] == 'Yes' || LICENSESTOTRANSFER[y]["Select"] == 'Y');
 			if(isSelected) {
-				selDocToVoid.push(LICENSESTOTRANSFER[y]["Document ID"]);
+				selDocToTransfer.push(LICENSESTOTRANSFER[y]["Document ID"]);
 			}
 		}
 	}
@@ -6587,14 +6587,14 @@ function transferLifetimeLicenses() {
     attachedContacts(txfrCustomerId);
 
     var custDob = null;
-    var peopMd = getPeopleByDecID(decId);
+    var peopMd = getPeopleByDecID(txfrCustomerId);
     var peopleSequenceNumber = peopMd.getContactSeqNumber();
     var peopleModel = getOutput(aa.people.getPeople(peopleSequenceNumber), "");
     if (peopleModel != null) {
         if (peopleModel.getBirthDate() != null) {
-            if (dob != null) {
+            //if (dob != null) {
                 custDob = new Date((peopleModel.getBirthDate().getMonth() + 1) + "/" + peopleModel.getBirthDate().getDate() + "/" + peopleModel.getBirthDate().getYear());
-            }
+            //}
         }
     }
 
