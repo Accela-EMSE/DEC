@@ -6601,7 +6601,7 @@ function transferLifetimeLicenses() {
     for (y in selDocToTransfer) {
         var itemCapId = getCapId(selDocToTransfer[y]);
         var newLicId = closeLTlicenseAndCreateNew(itemCapId, capId, custDob)
-        if (newDmpCapId) {
+        if (newLicId) {
             var newAInfo = new Array();
 
             var c = getContactObj(newLicId, "Individual");
