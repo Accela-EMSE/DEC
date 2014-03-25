@@ -289,12 +289,12 @@ function copyLicASI(newCap, newAInfo) {
                     ignore = true;
                     break;
                 }
-            if (ignore)
-                continue;
-        }
-        editAppSpecific(newAInfo[item].FieldName, newAInfo[item].Value, newCap);
+        if (ignore)
+            continue;
     }
-    logDebug("EXIT: copyLicASI");
+    editAppSpecific(newAInfo[item].FieldName, newAInfo[item].Value, newCap);
+}
+logDebug("EXIT: copyLicASI");
 }
 function updateContacts() {
     logDebug("ENTER: updateContacts");
@@ -806,7 +806,7 @@ function issueSelectedSalesItems(frm) {
                         AInfo["CODE.Effective Date"] = effectiveDt;
                         clacFromDt = dateAdd(convertDate(effectiveDt), -1);
                         setLicExpirationDate(newLicId, clacFromDt);
-                    } else if (ats == AA23_NONRES_FRESHWATER_FISHING || ats == AA22_FRESHWATER_FISHING) {
+                    } else if (ats == AA23_NONRES_FRESHWATER_FISHING || ats == AA22_FRESHWATER_FISHING || ats == AA66_FRESHWATER_FISHING_3Y || ats == AA67_FRESHWATER_FISHING_5Y) {
                         //JIRA: 21268
                         if (frm.isAfterSwitchDate()) {
                             effectiveDt = AInfo["Effective Date Fishing"];
@@ -1873,33 +1873,33 @@ function updateFeeWithVersion(fcode, fsched, fversion, fperiod, fqty, finvoice, 
                 }
             }
 
-        for (feeNum in feeList)
-            if (feeList[feeNum].getFeeitemStatus().equals("NEW") && !feeUpdated)  // update this fee item
-            {
-                feeSeq = feeList[feeNum].getFeeSeqNbr();
-                var editResult = aa.finance.editFeeItemUnit(capId, fqty, feeSeq);
-                feeUpdated = true;
-                if (editResult.getSuccess()) {
-                    logDebug("Updated Qty on Existing Fee Item: " + fcode + " to Qty: " + fqty);
-                    if (finvoice == "Y") {
-                        feeSeqList.push(feeSeq);
-                        paymentPeriodList.push(fperiod);
-                    }
+    for (feeNum in feeList)
+        if (feeList[feeNum].getFeeitemStatus().equals("NEW") && !feeUpdated)  // update this fee item
+        {
+            feeSeq = feeList[feeNum].getFeeSeqNbr();
+            var editResult = aa.finance.editFeeItemUnit(capId, fqty, feeSeq);
+            feeUpdated = true;
+            if (editResult.getSuccess()) {
+                logDebug("Updated Qty on Existing Fee Item: " + fcode + " to Qty: " + fqty);
+                if (finvoice == "Y") {
+                    feeSeqList.push(feeSeq);
+                    paymentPeriodList.push(fperiod);
                 }
-                else
-                { logDebug("**ERROR: updating qty on fee item (" + fcode + "): " + editResult.getErrorMessage()); break }
             }
-    }
-    else
-    { logDebug("**ERROR: getting fee items (" + fcode + "): " + getFeeResult.getErrorMessage()) }
+            else
+            { logDebug("**ERROR: updating qty on fee item (" + fcode + "): " + editResult.getErrorMessage()); break }
+        }
+}
+else
+{ logDebug("**ERROR: getting fee items (" + fcode + "): " + getFeeResult.getErrorMessage()) }
 
-    // Add fee if no fee has been updated OR invoiced fee already exists and duplicates are allowed
-    if (!feeUpdated && adjustedQty != 0 && (!invFeeFound || invFeeFound && pDuplicate == "Y"))
-        feeSeq = addFeeWithVersion(fcode, fsched, fversion, fperiod, adjustedQty, finvoice);
-    else
-        feeSeq = null;
+// Add fee if no fee has been updated OR invoiced fee already exists and duplicates are allowed
+if (!feeUpdated && adjustedQty != 0 && (!invFeeFound || invFeeFound && pDuplicate == "Y"))
+    feeSeq = addFeeWithVersion(fcode, fsched, fversion, fperiod, adjustedQty, finvoice);
+else
+    feeSeq = null;
 
-    return feeSeq;
+return feeSeq;
 }
 
 function transferReceiptAndApply(receiptCapId, targetCapId) {
@@ -2002,8 +2002,8 @@ function addStdConditionWithComments(cType, cDesc, cShortComment, cLongComment) 
                     logDebug("**ERROR: adding condition (" + standardCondition.getConditionDesc() + "): " + addCapCondResult.getErrorMessage());
                 }
             }
-    }
-    logDebug("EXIT: addStdConditionWithComments");
+}
+logDebug("EXIT: addStdConditionWithComments");
 }
 
 function distributeFeesAndPayments(sourceCapId, arryTargetCapAttrib, pSalesAgentInfoArray) {
@@ -2046,167 +2046,167 @@ function distributeFeesAndPayments(sourceCapId, arryTargetCapAttrib, pSalesAgent
                     invoiceNbrArray.push(pfObj[ij].getInvoiceNbr());
                     feeAllocationArray.push(pfObj[ij].getFeeAllocation());
                 }
-        }
-
-
-        if (feeSeqArray.length > 0) {
-            z = aa.finance.applyRefund(capId, thisPay, feeSeqArray, invoiceNbrArray, feeAllocationArray, "FeeStat", "InvStat", "123");
-            if (z.getSuccess())
-                logDebug("Refund applied")
-            else
-                logDebug("Error applying refund " + z.getErrorMessage());
-        }
     }
 
-    //
-    // Step 2: void from the source
-    //
-    logDebug("Step 2:  void from the source");
 
-    feeA = loadFees()
-
-    var feeCapMessage = "";
-    for (x in feeA) {
-        thisFee = feeA[x];
-        logDebug("status is " + thisFee.status)
-        if (thisFee.status == "INVOICED") {
-            voidResult = aa.finance.voidFeeItem(capId, thisFee.sequence);
-            if (voidResult.getSuccess()) {
-                logDebug("Fee item " + thisFee.code + "(" + thisFee.sequence + ") has been voided")
-            }
-            else {
-                logDebug("**ERROR: voiding fee item " + thisFee.code + "(" + thisFee.sequence + ") " + voidResult.getErrorMessage());
-            }
-
-            var feeSeqArray = new Array();
-            var paymentPeriodArray = new Array();
-
-            feeSeqArray.push(thisFee.sequence);
-            paymentPeriodArray.push(thisFee.period);
-            var invoiceResult_L = aa.finance.createInvoice(capId, feeSeqArray, paymentPeriodArray);
-
-            if (!invoiceResult_L.getSuccess())
-                logDebug("**ERROR: Invoicing the fee items voided " + feeCapMessage + " was not successful.  Reason: " + invoiceResult_L.getErrorMessage());
-        }
-    }
-
-    //
-    // Step 3: add the fees to the target and transfer the funds from Source to each Target cap
-    //
-    logDebug("Step 3: transfer the funds from Source to each Target cap");
-
-    var unapplied = paymentGetNotAppliedTot()
-    for (var item in arryTargetCapAttrib) {
-        var targetCapId = arryTargetCapAttrib[item].targetCapId;
-        var targetfd = arryTargetCapAttrib[item].targetFeeInfo;
-        var isForceComboCharge = arryTargetCapAttrib[item].isForceComboCharge;
-
-        var targetfeeSeq_L = new Array();    // invoicing fees
-        var targetpaymentPeriod_L = new Array();   // invoicing pay period
-        var feeSeqAndPeriodArray = new Array(); //return values for fees and period after added
-
-        var amtAgentCharge = parseFloat(parseFloat(targetfd.feeUnit) * parseFloat(targetfd.formula));
-        var cmnsPerc = GetCommissionByUser(targetfd.Code3commission + "", pSalesAgentInfoArray);
-
-        if (cmnsPerc > 0 || isForceComboCharge) {
-            //JIRA: 17343. Changed comission calculation. Calculate per unit commision then add it.
-            var amtCommission = 0;
-            if (parseFloat(targetfd.feeUnit) > 1) {
-                var amtPerUnitCommission = cmnsPerc == 0 ? 0 : (cmnsPerc * parseFloat(targetfd.formula)) / 100;
-                amtPerUnitCommission = (Math.round(amtPerUnitCommission * 100) / 100);
-                amtCommission = (amtPerUnitCommission * parseFloat(targetfd.feeUnit));
-                amtAgentCharge = parseFloat(parseFloat(targetfd.feeUnit) * parseFloat(targetfd.formula));
-            } else {
-                amtCommission = cmnsPerc == 0 ? 0 : (cmnsPerc * amtAgentCharge) / 100;
-            }
-
-            amtCommission = (Math.round(amtCommission * 100) / 100);
-            amtAgentCharge -= amtCommission;
-            feeSeqAndPeriodArray = addFeeWithVersionAndReturnfeeSeq("AGENT_CHARGE", targetfd.feeschedule, targetfd.version, "FINAL", amtAgentCharge, "Y", targetCapId)
-
-            targetfeeSeq_L.push(feeSeqAndPeriodArray[0]);
-            targetpaymentPeriod_L.push(feeSeqAndPeriodArray[1]);
-
-            feeSeqAndPeriodArray = addFeeWithVersionAndReturnfeeSeq("COMMISSION", targetfd.feeschedule, targetfd.version, "FINAL", amtCommission, "Y", targetCapId)
-            targetfeeSeq_L.push(feeSeqAndPeriodArray[0]);
-            targetpaymentPeriod_L.push(feeSeqAndPeriodArray[1]);
-        } else {
-            feeSeqAndPeriodArray = addFeeWithVersionAndReturnfeeSeq(targetfd.feeCode, targetfd.feeschedule, targetfd.version, "FINAL", targetfd.feeUnit, "Y", targetCapId)
-            targetfeeSeq_L.push(feeSeqAndPeriodArray[0]);
-            targetpaymentPeriod_L.push(feeSeqAndPeriodArray[1]);
-        }
-
-        createInvoice(targetfeeSeq_L, targetpaymentPeriod_L, targetCapId);
-
-        balanceDue = parseFloat(parseFloat(targetfd.feeUnit) * parseFloat(targetfd.formula));
-
-        //No need to check in dec case
-        //        if (unapplied < balanceDue) {
-        //            logDebug("insufficient funds to do transfer from receipt record");
-        //            return false;
-        //        }
-
-        var xferResult = aa.finance.makeFundTransfer(capId, targetCapId, currentUserID, "", "", sysDate, sysDate, "", sysDate, balanceDue, "NA", "Fund Transfer", "NA", "R", null, "", "NA", "");
-        if (xferResult.getSuccess())
-            logDebug("Successfully did fund transfer to : " + targetCapId.getCustomID());
+    if (feeSeqArray.length > 0) {
+        z = aa.finance.applyRefund(capId, thisPay, feeSeqArray, invoiceNbrArray, feeAllocationArray, "FeeStat", "InvStat", "123");
+        if (z.getSuccess())
+            logDebug("Refund applied")
         else
-            logDebug("**ERROR: doing fund transfer to (" + targetCapId.getCustomID() + "): " + xferResult.getErrorMessage());
+            logDebug("Error applying refund " + z.getErrorMessage());
+    }
+}
 
-        //
-        // Step 4: On the target, loop through payments then invoices to auto-apply
-        //
+//
+// Step 2: void from the source
+//
+logDebug("Step 2:  void from the source");
 
-        var piresult = aa.finance.getPaymentByCapID(targetCapId, null).getOutput()
+feeA = loadFees()
 
-        for (ik in piresult) {
-            var feeSeqArray = new Array();
-            var invoiceNbrArray = new Array();
-            var feeAllocationArray = new Array();
+var feeCapMessage = "";
+for (x in feeA) {
+    thisFee = feeA[x];
+    logDebug("status is " + thisFee.status)
+    if (thisFee.status == "INVOICED") {
+        voidResult = aa.finance.voidFeeItem(capId, thisFee.sequence);
+        if (voidResult.getSuccess()) {
+            logDebug("Fee item " + thisFee.code + "(" + thisFee.sequence + ") has been voided")
+        }
+        else {
+            logDebug("**ERROR: voiding fee item " + thisFee.code + "(" + thisFee.sequence + ") " + voidResult.getErrorMessage());
+        }
+
+        var feeSeqArray = new Array();
+        var paymentPeriodArray = new Array();
+
+        feeSeqArray.push(thisFee.sequence);
+        paymentPeriodArray.push(thisFee.period);
+        var invoiceResult_L = aa.finance.createInvoice(capId, feeSeqArray, paymentPeriodArray);
+
+        if (!invoiceResult_L.getSuccess())
+            logDebug("**ERROR: Invoicing the fee items voided " + feeCapMessage + " was not successful.  Reason: " + invoiceResult_L.getErrorMessage());
+    }
+}
+
+//
+// Step 3: add the fees to the target and transfer the funds from Source to each Target cap
+//
+logDebug("Step 3: transfer the funds from Source to each Target cap");
+
+var unapplied = paymentGetNotAppliedTot()
+for (var item in arryTargetCapAttrib) {
+    var targetCapId = arryTargetCapAttrib[item].targetCapId;
+    var targetfd = arryTargetCapAttrib[item].targetFeeInfo;
+    var isForceComboCharge = arryTargetCapAttrib[item].isForceComboCharge;
+
+    var targetfeeSeq_L = new Array();    // invoicing fees
+    var targetpaymentPeriod_L = new Array();   // invoicing pay period
+    var feeSeqAndPeriodArray = new Array(); //return values for fees and period after added
+
+    var amtAgentCharge = parseFloat(parseFloat(targetfd.feeUnit) * parseFloat(targetfd.formula));
+    var cmnsPerc = GetCommissionByUser(targetfd.Code3commission + "", pSalesAgentInfoArray);
+
+    if (cmnsPerc > 0 || isForceComboCharge) {
+        //JIRA: 17343. Changed comission calculation. Calculate per unit commision then add it.
+        var amtCommission = 0;
+        if (parseFloat(targetfd.feeUnit) > 1) {
+            var amtPerUnitCommission = cmnsPerc == 0 ? 0 : (cmnsPerc * parseFloat(targetfd.formula)) / 100;
+            amtPerUnitCommission = (Math.round(amtPerUnitCommission * 100) / 100);
+            amtCommission = (amtPerUnitCommission * parseFloat(targetfd.feeUnit));
+            amtAgentCharge = parseFloat(parseFloat(targetfd.feeUnit) * parseFloat(targetfd.formula));
+        } else {
+            amtCommission = cmnsPerc == 0 ? 0 : (cmnsPerc * amtAgentCharge) / 100;
+        }
+
+        amtCommission = (Math.round(amtCommission * 100) / 100);
+        amtAgentCharge -= amtCommission;
+        feeSeqAndPeriodArray = addFeeWithVersionAndReturnfeeSeq("AGENT_CHARGE", targetfd.feeschedule, targetfd.version, "FINAL", amtAgentCharge, "Y", targetCapId)
+
+        targetfeeSeq_L.push(feeSeqAndPeriodArray[0]);
+        targetpaymentPeriod_L.push(feeSeqAndPeriodArray[1]);
+
+        feeSeqAndPeriodArray = addFeeWithVersionAndReturnfeeSeq("COMMISSION", targetfd.feeschedule, targetfd.version, "FINAL", amtCommission, "Y", targetCapId)
+        targetfeeSeq_L.push(feeSeqAndPeriodArray[0]);
+        targetpaymentPeriod_L.push(feeSeqAndPeriodArray[1]);
+    } else {
+        feeSeqAndPeriodArray = addFeeWithVersionAndReturnfeeSeq(targetfd.feeCode, targetfd.feeschedule, targetfd.version, "FINAL", targetfd.feeUnit, "Y", targetCapId)
+        targetfeeSeq_L.push(feeSeqAndPeriodArray[0]);
+        targetpaymentPeriod_L.push(feeSeqAndPeriodArray[1]);
+    }
+
+    createInvoice(targetfeeSeq_L, targetpaymentPeriod_L, targetCapId);
+
+    balanceDue = parseFloat(parseFloat(targetfd.feeUnit) * parseFloat(targetfd.formula));
+
+    //No need to check in dec case
+    //        if (unapplied < balanceDue) {
+    //            logDebug("insufficient funds to do transfer from receipt record");
+    //            return false;
+    //        }
+
+    var xferResult = aa.finance.makeFundTransfer(capId, targetCapId, currentUserID, "", "", sysDate, sysDate, "", sysDate, balanceDue, "NA", "Fund Transfer", "NA", "R", null, "", "NA", "");
+    if (xferResult.getSuccess())
+        logDebug("Successfully did fund transfer to : " + targetCapId.getCustomID());
+    else
+        logDebug("**ERROR: doing fund transfer to (" + targetCapId.getCustomID() + "): " + xferResult.getErrorMessage());
+
+    //
+    // Step 4: On the target, loop through payments then invoices to auto-apply
+    //
+
+    var piresult = aa.finance.getPaymentByCapID(targetCapId, null).getOutput()
+
+    for (ik in piresult) {
+        var feeSeqArray = new Array();
+        var invoiceNbrArray = new Array();
+        var feeAllocationArray = new Array();
 
 
-            var thisPay = piresult[ik];
-            var applyAmt = 0;
-            var unallocatedAmt = thisPay.getAmountNotAllocated()
+        var thisPay = piresult[ik];
+        var applyAmt = 0;
+        var unallocatedAmt = thisPay.getAmountNotAllocated()
 
-            if (unallocatedAmt > 0) {
+        if (unallocatedAmt > 0) {
 
-                var invArray = aa.finance.getInvoiceByCapID(targetCapId, null).getOutput()
+            var invArray = aa.finance.getInvoiceByCapID(targetCapId, null).getOutput()
 
-                for (var invCount in invArray) {
-                    var thisInvoice = invArray[invCount];
-                    var balDue = thisInvoice.getInvoiceModel().getBalanceDue();
-                    if (balDue > 0) {
-                        feeT = aa.invoice.getFeeItemInvoiceByInvoiceNbr(thisInvoice.getInvNbr()).getOutput();
+            for (var invCount in invArray) {
+                var thisInvoice = invArray[invCount];
+                var balDue = thisInvoice.getInvoiceModel().getBalanceDue();
+                if (balDue > 0) {
+                    feeT = aa.invoice.getFeeItemInvoiceByInvoiceNbr(thisInvoice.getInvNbr()).getOutput();
 
-                        for (targetFeeNum in feeT) {
-                            var thisTFee = feeT[targetFeeNum];
+                    for (targetFeeNum in feeT) {
+                        var thisTFee = feeT[targetFeeNum];
 
-                            if (thisTFee.getFee() > unallocatedAmt)
-                                applyAmt = unallocatedAmt;
-                            else
-                                applyAmt = thisTFee.getFee()   // use balance here?
+                        if (thisTFee.getFee() > unallocatedAmt)
+                            applyAmt = unallocatedAmt;
+                        else
+                            applyAmt = thisTFee.getFee()   // use balance here?
 
-                            unallocatedAmt = unallocatedAmt - applyAmt;
+                        unallocatedAmt = unallocatedAmt - applyAmt;
 
-                            feeSeqArray.push(thisTFee.getFeeSeqNbr());
-                            invoiceNbrArray.push(thisInvoice.getInvNbr());
-                            feeAllocationArray.push(applyAmt);
-                        }
+                        feeSeqArray.push(thisTFee.getFeeSeqNbr());
+                        invoiceNbrArray.push(thisInvoice.getInvNbr());
+                        feeAllocationArray.push(applyAmt);
                     }
                 }
-
-                applyResult = aa.finance.applyPayment(targetCapId, thisPay, feeSeqArray, invoiceNbrArray, feeAllocationArray, "PAYSTAT", "INVSTAT", "123")
-
-                if (applyResult.getSuccess())
-                    logDebug("Successfully applied payment");
-                else
-                    logDebug("**ERROR: applying payment to fee (" + thisTFee.getFeeDescription() + "): " + applyResult.getErrorMessage());
-
             }
+
+            applyResult = aa.finance.applyPayment(targetCapId, thisPay, feeSeqArray, invoiceNbrArray, feeAllocationArray, "PAYSTAT", "INVSTAT", "123")
+
+            if (applyResult.getSuccess())
+                logDebug("Successfully applied payment");
+            else
+                logDebug("**ERROR: applying payment to fee (" + thisTFee.getFeeDescription() + "): " + applyResult.getErrorMessage());
+
         }
     }
-    //logDebug("Elapsed Time: " + elapsed());
-    logDebug("EXIT: distributeFeesAndPayments");
+}
+//logDebug("Elapsed Time: " + elapsed());
+logDebug("EXIT: distributeFeesAndPayments");
 }
 function GenerateDocumentNumber(currentID) {
     logDebug("ENTER: GenerateDocumentNumber");
@@ -3873,15 +3873,15 @@ function verifyNotMilitaryAndDisabled() {
     if ((typeof (ANNUALDISABILITY) == "object"))
         for (var y in ANNUALDISABILITY) rowNum++;
 
-    var MilitaryServiceman = (AInfo["Military Serviceman"] == "Yes");
-    var PermanentDisability = (AInfo["Permanent Disability"] == "Yes");
-    var HasAnnualDisability = (rowNum > 0);
+var MilitaryServiceman = (AInfo["Military Serviceman"] == "Yes");
+var PermanentDisability = (AInfo["Permanent Disability"] == "Yes");
+var HasAnnualDisability = (rowNum > 0);
 
-    if ((MilitaryServiceman ? 1 : 0) + (PermanentDisability ? 1 : 0) + (HasAnnualDisability ? 1 : 0) > 1) {
-        retMsg += "Please choose only one of Military Service, Permanent Disability, or Annual Disability.";
-        retMsg += "<Br />";
-    }
-    return retMsg;
+if ((MilitaryServiceman ? 1 : 0) + (PermanentDisability ? 1 : 0) + (HasAnnualDisability ? 1 : 0) > 1) {
+    retMsg += "Please choose only one of Military Service, Permanent Disability, or Annual Disability.";
+    retMsg += "<Br />";
+}
+return retMsg;
 }
 
 
@@ -4945,8 +4945,8 @@ function addContactStdConditionWithComments(contSeqNum, cType, cDesc) {
                     }
                 }
             }
-    }
-    if (!foundCondition) logDebug("**WARNING: couldn't find standard condition for " + cType + " / " + cDesc);
+}
+if (!foundCondition) logDebug("**WARNING: couldn't find standard condition for " + cType + " / " + cDesc);
 }
 
 function arrayUnique(array) {
@@ -5734,113 +5734,113 @@ function transferFeesAndPayments(sourceCapId, targetCapId) {
                     invoiceNbrArray.push(pfObj[ij].getInvoiceNbr());
                     feeAllocationArray.push(pfObj[ij].getFeeAllocation());
                 }
-        }
-
-        if (feeSeqArray.length > 0) {
-            z = aa.finance.applyRefund(capId, thisPay, feeSeqArray, invoiceNbrArray, feeAllocationArray, "FeeStat", "InvStat", "123");
-            if (z.getSuccess()) {
-                logDebug("Refund applied");
-            } else {
-                logDebug("Error applying refund " + z.getErrorMessage());
-            }
-        }
     }
 
-    //
-    // Step 2: add the fees to the target and void from the source
-    //
+    if (feeSeqArray.length > 0) {
+        z = aa.finance.applyRefund(capId, thisPay, feeSeqArray, invoiceNbrArray, feeAllocationArray, "FeeStat", "InvStat", "123");
+        if (z.getSuccess()) {
+            logDebug("Refund applied");
+        } else {
+            logDebug("Error applying refund " + z.getErrorMessage());
+        }
+    }
+}
 
-    feeA = loadFees()
+//
+// Step 2: add the fees to the target and void from the source
+//
 
-    for (x in feeA) {
-        thisFee = feeA[x];
-        logDebug("status is " + thisFee.status)
-        if (thisFee.status == "INVOICED") {
-            addFee(thisFee.code, thisFee.sched, thisFee.period, thisFee.unit, "Y", targetCapId)
-            voidResult = aa.finance.voidFeeItem(capId, thisFee.sequence);
-            if (voidResult.getSuccess()) {
-                logDebug("Fee item " + thisFee.code + "(" + thisFee.sequence + ") has been voided")
-            }
-            else {
-                logDebug("**ERROR: voiding fee item " + thisFee.code + "(" + thisFee.sequence + ") " + voidResult.getErrorMessage());
-            }
+feeA = loadFees()
 
-            var feeSeqArray = new Array();
-            var paymentPeriodArray = new Array();
-
-            feeSeqArray.push(thisFee.sequence);
-            paymentPeriodArray.push(thisFee.period);
-            var invoiceResult_L = aa.finance.createInvoice(capId, feeSeqArray, paymentPeriodArray);
-
-            if (!invoiceResult_L.getSuccess())
-                logDebug("**ERROR: Invoicing the fee items voided " + feeCapMessage + " was not successful.  Reason: " + invoiceResult.getErrorMessage());
+for (x in feeA) {
+    thisFee = feeA[x];
+    logDebug("status is " + thisFee.status)
+    if (thisFee.status == "INVOICED") {
+        addFee(thisFee.code, thisFee.sched, thisFee.period, thisFee.unit, "Y", targetCapId)
+        voidResult = aa.finance.voidFeeItem(capId, thisFee.sequence);
+        if (voidResult.getSuccess()) {
+            logDebug("Fee item " + thisFee.code + "(" + thisFee.sequence + ") has been voided")
+        }
+        else {
+            logDebug("**ERROR: voiding fee item " + thisFee.code + "(" + thisFee.sequence + ") " + voidResult.getErrorMessage());
         }
 
-    }
-
-    //
-    // Step 3: transfer the funds from Source to Target
-    //
-
-    var unapplied = paymentGetNotAppliedTot()
-
-    var xferResult = aa.finance.makeFundTransfer(capId, targetCapId, currentUserID, "", "", sysDate, sysDate, "", sysDate, unapplied, "NA", "Fund Transfer", "NA", "R", null, "", "NA", "");
-    if (xferResult.getSuccess())
-        logDebug("Successfully did fund transfer to : " + targetCapId.getCustomID());
-    else
-        logDebug("**ERROR: doing fund transfer to (" + targetCapId.getCustomID() + "): " + xferResult.getErrorMessage());
-
-    //
-    // Step 4: On the target, loop through payments then invoices to auto-apply
-    //
-
-    var piresult = aa.finance.getPaymentByCapID(targetCapId, null).getOutput()
-
-    for (ik in piresult) {
         var feeSeqArray = new Array();
-        var invoiceNbrArray = new Array();
-        var feeAllocationArray = new Array();
+        var paymentPeriodArray = new Array();
 
-        var thisPay = piresult[ik];
-        var applyAmt = 0;
-        var unallocatedAmt = thisPay.getAmountNotAllocated()
+        feeSeqArray.push(thisFee.sequence);
+        paymentPeriodArray.push(thisFee.period);
+        var invoiceResult_L = aa.finance.createInvoice(capId, feeSeqArray, paymentPeriodArray);
 
-        if (unallocatedAmt > 0) {
+        if (!invoiceResult_L.getSuccess())
+            logDebug("**ERROR: Invoicing the fee items voided " + feeCapMessage + " was not successful.  Reason: " + invoiceResult.getErrorMessage());
+    }
 
-            var invArray = aa.finance.getInvoiceByCapID(targetCapId, null).getOutput()
+}
 
-            for (var invCount in invArray) {
-                var thisInvoice = invArray[invCount];
-                var balDue = thisInvoice.getInvoiceModel().getBalanceDue();
-                if (balDue > 0) {
-                    feeT = aa.invoice.getFeeItemInvoiceByInvoiceNbr(thisInvoice.getInvNbr()).getOutput();
+//
+// Step 3: transfer the funds from Source to Target
+//
 
-                    for (targetFeeNum in feeT) {
-                        var thisTFee = feeT[targetFeeNum];
+var unapplied = paymentGetNotAppliedTot()
 
-                        if (thisTFee.getFee() > unallocatedAmt)
-                            applyAmt = unallocatedAmt;
-                        else
-                            applyAmt = thisTFee.getFee() // use balance here?
+var xferResult = aa.finance.makeFundTransfer(capId, targetCapId, currentUserID, "", "", sysDate, sysDate, "", sysDate, unapplied, "NA", "Fund Transfer", "NA", "R", null, "", "NA", "");
+if (xferResult.getSuccess())
+    logDebug("Successfully did fund transfer to : " + targetCapId.getCustomID());
+else
+    logDebug("**ERROR: doing fund transfer to (" + targetCapId.getCustomID() + "): " + xferResult.getErrorMessage());
 
-                        unallocatedAmt = unallocatedAmt - applyAmt;
+//
+// Step 4: On the target, loop through payments then invoices to auto-apply
+//
 
-                        feeSeqArray.push(thisTFee.getFeeSeqNbr());
-                        invoiceNbrArray.push(thisInvoice.getInvNbr());
-                        feeAllocationArray.push(applyAmt);
-                    }
+var piresult = aa.finance.getPaymentByCapID(targetCapId, null).getOutput()
+
+for (ik in piresult) {
+    var feeSeqArray = new Array();
+    var invoiceNbrArray = new Array();
+    var feeAllocationArray = new Array();
+
+    var thisPay = piresult[ik];
+    var applyAmt = 0;
+    var unallocatedAmt = thisPay.getAmountNotAllocated()
+
+    if (unallocatedAmt > 0) {
+
+        var invArray = aa.finance.getInvoiceByCapID(targetCapId, null).getOutput()
+
+        for (var invCount in invArray) {
+            var thisInvoice = invArray[invCount];
+            var balDue = thisInvoice.getInvoiceModel().getBalanceDue();
+            if (balDue > 0) {
+                feeT = aa.invoice.getFeeItemInvoiceByInvoiceNbr(thisInvoice.getInvNbr()).getOutput();
+
+                for (targetFeeNum in feeT) {
+                    var thisTFee = feeT[targetFeeNum];
+
+                    if (thisTFee.getFee() > unallocatedAmt)
+                        applyAmt = unallocatedAmt;
+                    else
+                        applyAmt = thisTFee.getFee() // use balance here?
+
+                    unallocatedAmt = unallocatedAmt - applyAmt;
+
+                    feeSeqArray.push(thisTFee.getFeeSeqNbr());
+                    invoiceNbrArray.push(thisInvoice.getInvNbr());
+                    feeAllocationArray.push(applyAmt);
                 }
             }
-
-            applyResult = aa.finance.applyPayment(targetCapId, thisPay, feeSeqArray, invoiceNbrArray, feeAllocationArray, "PAYSTAT", "INVSTAT", "123")
-
-            if (applyResult.getSuccess())
-                logDebug("Successfully applied payment");
-            else
-                logDebug("**ERROR: applying payment to fee (" + thisTFee.getFeeDescription() + "): " + applyResult.getErrorMessage());
-
         }
+
+        applyResult = aa.finance.applyPayment(targetCapId, thisPay, feeSeqArray, invoiceNbrArray, feeAllocationArray, "PAYSTAT", "INVSTAT", "123")
+
+        if (applyResult.getSuccess())
+            logDebug("Successfully applied payment");
+        else
+            logDebug("**ERROR: applying payment to fee (" + thisTFee.getFeeDescription() + "): " + applyResult.getErrorMessage());
+
     }
+}
 }
 //JIRA-47037
 function isValidRecForCreateRef() {
@@ -6060,7 +6060,7 @@ function copyASIContactAppSpecificToRecordAppSpecific() {
         }
     }
 
-	loadAppSpecific4ACA(AInfo);
+    loadAppSpecific4ACA(AInfo);
     var exmsg = '';
     var f = new form_OBJECT(GS2_EXPR, OPTZ_TYPE_ALLFEES);
     SetExpressformForSelectedLics(f);
@@ -6446,18 +6446,18 @@ function isVerifyTransferLifetimeLicense() {
 }
 function addFeeAndSetAsitForTransferlifetime() {
     logDebug("ENTER: addFeeAndSetAsitForTransferlifetime");
-    
-	var selDocToTransfer = new Array();
+
+    var selDocToTransfer = new Array();
     if ((typeof (LICENSESTOTRANSFER) == "object")) {
         for (y in LICENSESTOTRANSFER) {
             var isSelected = (LICENSESTOTRANSFER[y]["Select"] == 'Yes' || LICENSESTOTRANSFER[y]["Select"] == 'Y');
-			if(isSelected) {
-				selDocToTransfer.push(LICENSESTOTRANSFER[y]["Document ID"]);
-			}
-		}
-	}    
-	
-	removeAllFees(capId);
+            if (isSelected) {
+                selDocToTransfer.push(LICENSESTOTRANSFER[y]["Document ID"]);
+            }
+        }
+    }
+
+    removeAllFees(capId);
     addFeeWithVersion("FEE_TRANS_1", "FEE_TRANSFER_SCHDL", 1, "FINAL", (selDocToTransfer.length + ""), "N");
     logDebug("EXIT: addFeeAndSetAsitForTransferlifetime");
 }
@@ -6544,12 +6544,13 @@ function isVerifyLifetimeLicense(pStep) {
 }
 function transferLifetimeLicenses() {
     logDebug("ENTER: transferLifetimeLicenses");
+    try {
 
-    var txfrCustomerId = AInfo["Transfer Lifetime License To"];
+        var txfrCustomerId = AInfo["Transfer Lifetime License To"];
 
-    var selDocToVoid = new Array();
-	/*//This is not required
-    if ((typeof (ACTIVEDOCUMENTS) == "object")) {
+        var selDocToVoid = new Array();
+        /*//This is not required
+        if ((typeof (ACTIVEDOCUMENTS) == "object")) {
         var verifyLicArray = new Array();
         verifyLicArray.push(AA09_LIFETIME_BOWHUNTING);
         verifyLicArray.push(AA10_LIFETIME_FISHING);
@@ -6559,65 +6560,72 @@ function transferLifetimeLicenses() {
         verifyLicArray.push(AA14_LIFETIME_TRAPPING);
 
         for (y in ACTIVEDOCUMENTS) {
-            if (exists(ACTIVEDOCUMENTS[y]["RecordType"], verifyLicArray)) {
-                //DO Nothing
-            }
-            else {
-                selDocToVoid.push(ACTIVEDOCUMENTS[y]["Document ID"]);
+        if (exists(ACTIVEDOCUMENTS[y]["RecordType"], verifyLicArray)) {
+        //DO Nothing
+        }
+        else {
+        selDocToVoid.push(ACTIVEDOCUMENTS[y]["Document ID"]);
+        }
+        }
+        }
+        */
+
+        var selDocToTransfer = new Array();
+        if ((typeof (LICENSESTOTRANSFER) == "object")) {
+            for (y in LICENSESTOTRANSFER) {
+                var isSelected = (LICENSESTOTRANSFER[y]["Select"] == 'Yes' || LICENSESTOTRANSFER[y]["Select"] == 'Y');
+                if (isSelected) {
+                    selDocToTransfer.push(LICENSESTOTRANSFER[y]["Document ID"]);
+                }
             }
         }
-    }
-	*/
-	
-    var selDocToTransfer = new Array();
-    if ((typeof (LICENSESTOTRANSFER) == "object")) {
-        for (y in LICENSESTOTRANSFER) {
-            var isSelected = (LICENSESTOTRANSFER[y]["Select"] == 'Yes' || LICENSESTOTRANSFER[y]["Select"] == 'Y');
-			if(isSelected) {
-				selDocToTransfer.push(LICENSESTOTRANSFER[y]["Document ID"]);
-			}
-		}
-	}
-	
-    //Get the current DEC AGENT Public User as object and attach to the new record
-    var uObj = new USEROBJ(publicUserID);
-    salesAgentInfoArray = getAgentInfo(publicUserID, uObj);
-    attachAgent(uObj);
 
-    attachedContacts(txfrCustomerId);
+        //Get the current DEC AGENT Public User as object and attach to the new record
+        var uObj = new USEROBJ(publicUserID);
+        salesAgentInfoArray = getAgentInfo(publicUserID, uObj);
+        attachAgent(uObj);
 
-    var custDob = null;
-    var peopMd = getPeopleByDecID(txfrCustomerId);
-    var peopleSequenceNumber = peopMd.getContactSeqNumber();
-    var peopleModel = getOutput(aa.people.getPeople(peopleSequenceNumber), "");
-    if (peopleModel != null) {
-        if (peopleModel.getBirthDate() != null) {
-            //if (dob != null) {
+        attachedContacts(txfrCustomerId);
+
+        var custDob = null;
+        var peopMd = getPeopleByDecID(txfrCustomerId);
+        var peopleSequenceNumber = peopMd.getContactSeqNumber();
+        var peopleModel = getOutput(aa.people.getPeople(peopleSequenceNumber), "");
+        if (peopleModel != null) {
+            if (peopleModel.getBirthDate() != null) {
                 custDob = new Date((peopleModel.getBirthDate().getMonth() + 1) + "/" + peopleModel.getBirthDate().getDate() + "/" + peopleModel.getBirthDate().getYear());
-            //}
-        }
-    }
-
-    for (y in selDocToTransfer) {
-        var itemCapId = getCapId(selDocToTransfer[y]);
-        var newLicId = closeLTlicenseAndCreateNew(itemCapId, capId, custDob)
-        if (newLicId) {
-            var newAInfo = new Array();
-
-            var c = getContactObj(newLicId, "Individual");
-            if (c && c.refSeqNumber) {
-                c.remove();
-                newAInfo.push(new NewLicDef("Source Document ID", selDocToTransfer[y]));
-                newAInfo.push(new NewLicDef("Source Customer ID", c.refSeqNumber));
             }
-            attachedContacts(txfrCustomerId, newLicId);
-
-            copyLicASI(newLicId, newAInfo);
         }
+
+        var arryLic = new Array();
+        for (y in selDocToTransfer) {
+            var itemCapId = getCapId(selDocToTransfer[y]);
+            var newLicId = closeLTlicenseAndCreateNew(itemCapId, capId, custDob)
+            if (newLicId) {
+                arryLic.push(newLicId);
+                var newAInfo = new Array();
+
+                var c = getContactObj(newLicId, "Individual");
+                if (c && c.refSeqNumber) {
+                    c.remove();
+                    newAInfo.push(new NewLicDef("Source Document ID", selDocToTransfer[y]));
+                    newAInfo.push(new NewLicDef("Source Customer ID", c.refSeqNumber));
+                }
+                attachedContacts(txfrCustomerId, newLicId);
+
+                copyLicASI(newLicId, newAInfo);
+            }
+        }
+        for (y in selDocToVoid) {
+            var itemCapId = getCapId(selDocToVoid[y]);
+            voidRec(itemCapId);
+        }
+
+        distributeFeesForTransfer(capId, arryLic, salesAgentInfoArray);
+
     }
-    for (y in selDocToVoid) {
-        var itemCapId = getCapId(selDocToVoid[y]);
-        voidRec(itemCapId);
+    catch (err) {
+        logDebug("**ERROR in ReprintDocuments:" + err.message);
     }
     logDebug("EXIT: transferLifetimeLicenses");
 }
@@ -6751,13 +6759,13 @@ function closeLTlicenseAndCreateNew(itemCapId, parentCapId, custDob) {
     var ata = ats.split("/");
 
     updateAppStatus("Closed", "Closed", itemCapId);
-    closeTaskForRec("Void Document", "Void", "", "", "", itemCapId);
+    closeTaskForRec("Void Document", "", "", "", "", itemCapId);
     closeTaskForRec("Report Game Harvest", "", "", "", "", itemCapId);
     closeTaskForRec("Revocation", "", "", "", "", itemCapId);
     closeTaskForRec("Suspension", "", "", "", "", itemCapId);
 
     // now create a new one, 
-    var newLicId = createChildForDec(ata[0], ata[1], ata[2], ata[3], "", parentCapId);
+    var newLicId = createChildForDec(ata[0], ata[1], ata[2], ata[3], "", itemCapId);
     copyASIFields(itemCapId, newLicId);
     updateAppStatus("Active", "Active", newLicId);
     activateTaskForRec("Report Game Harvest", "", newLicId);
@@ -6773,10 +6781,10 @@ function closeLTlicenseAndCreateNew(itemCapId, parentCapId, custDob) {
 
         var expDate = oldLicObj.b1ExpDate;
         if (custDob != null) {
-            expDate = dateAdd(convertDate(custDob), 0);
+            expDate = dateAddMonths(convertDate(custDob), (100 * 12));
         }
-        oldExpDate = expDate;
-        setLicExpirationDate(newLicId, null, oldExpDate);
+        var newExpDate = expDate;
+        setLicExpirationDate(newLicId, null, newExpDate);
     }
     var newDecDocId = GenerateDocumentNumber(newLicId.getCustomID());
     updateDocumentNumber(newDecDocId, newLicId);
@@ -6785,4 +6793,209 @@ function closeLTlicenseAndCreateNew(itemCapId, parentCapId, custDob) {
     logDebug("EXIT: voidDmpAndCreateNew");
 
     return newLicId;
+}
+function distributeFeesForTransfer(sourceCapId, arryLic, pSalesAgentInfoArray) {
+    logDebug("ENTER: distributeFeesAndPayments");
+    //logDebug("Elapsed Time: " + elapsed());
+
+    //
+    // Step 0: Make payment before distribution
+    //
+    //    logDebug("Step 0: Make payment before distribution");
+
+    //    if (feeSeqList.length) {
+    //        invoiceResult = aa.finance.createInvoice(capId, feeSeqList, paymentPeriodList);
+    //        if (invoiceResult.getSuccess())
+    //            logDebug("Invoicing assessed fee items is successful.");
+    //        else
+    //            logDebug("**ERROR: Invoicing the fee items assessed to app # " + capIDString + " was not successful.  Reason: " + invoiceResult.getErrorMessage());
+    //    }
+
+
+    //
+    // Step 1: Unapply payments from the Source
+    //
+    logDebug("Step 1: Unapply payments from the Source");
+
+    var piresult = aa.finance.getPaymentByCapID(capId, null).getOutput()
+
+    var feeSeqArray = new Array();
+    var invoiceNbrArray = new Array();
+    var feeAllocationArray = new Array();
+
+    for (ik in piresult) {
+        var thisPay = piresult[ik];
+        var pfResult = aa.finance.getPaymentFeeItems(capId, null);
+        if (pfResult.getSuccess()) {
+            var pfObj = pfResult.getOutput();
+            for (ij in pfObj)
+                if (pfObj[ij].getPaymentSeqNbr() == thisPay.getPaymentSeqNbr()) {
+                    feeSeqArray.push(pfObj[ij].getFeeSeqNbr());
+                    invoiceNbrArray.push(pfObj[ij].getInvoiceNbr());
+                    feeAllocationArray.push(pfObj[ij].getFeeAllocation());
+                }
+        }
+
+
+        if (feeSeqArray.length > 0) {
+            z = aa.finance.applyRefund(capId, thisPay, feeSeqArray, invoiceNbrArray, feeAllocationArray, "FeeStat", "InvStat", "123");
+            if (z.getSuccess())
+                logDebug("Refund applied")
+            else
+                logDebug("Error applying refund " + z.getErrorMessage());
+        }
+    }
+
+    //
+    // Step 2: void from the source
+    //
+    logDebug("Step 2:  void from the source");
+
+    feeA = loadFees()
+
+    var feeCapMessage = "";
+    var amtFeeTxfr = 0;
+    var commissionCodeTxfr = '';
+    for (x in feeA) {
+        thisFee = feeA[x];
+        logDebug("status is " + thisFee.status)
+        if (thisFee.code == "FEE_TRANS_1") {
+            amtFeeTxfr = thisFee.formula;
+            commissionCodeTxfr = isNull(thisFee.accCodeL3, '');
+        }
+        if (thisFee.status == "INVOICED") {
+            voidResult = aa.finance.voidFeeItem(capId, thisFee.sequence);
+            if (voidResult.getSuccess()) {
+                logDebug("Fee item " + thisFee.code + "(" + thisFee.sequence + ") has been voided")
+            }
+            else {
+                logDebug("**ERROR: voiding fee item " + thisFee.code + "(" + thisFee.sequence + ") " + voidResult.getErrorMessage());
+            }
+
+            var feeSeqArray = new Array();
+            var paymentPeriodArray = new Array();
+
+            feeSeqArray.push(thisFee.sequence);
+            paymentPeriodArray.push(thisFee.period);
+            var invoiceResult_L = aa.finance.createInvoice(capId, feeSeqArray, paymentPeriodArray);
+
+            if (!invoiceResult_L.getSuccess())
+                logDebug("**ERROR: Invoicing the fee items voided " + feeCapMessage + " was not successful.  Reason: " + invoiceResult_L.getErrorMessage());
+        }
+    }
+
+    //
+    // Step 3: add the fees to the target and transfer the funds from Source to each Target cap
+    //
+    logDebug("Step 3: transfer the funds from Source to each Target cap");
+
+    var perLicAmt = 0;
+    if (arryLic.length && amtFeeTxfr > 0) {
+        perLicAmt = (amtFeeTxfr / arryLic.length)
+        perLicAmt = (Math.round(perLicAmt * 100) / 100);
+    }
+
+    var unapplied = paymentGetNotAppliedTot()
+
+    //Distribution for licenses
+    for (var item in arryLic) {
+        var targetCapId = arryLic[item];
+
+        var targetfeeSeq_L = new Array();    // invoicing fees
+        var targetpaymentPeriod_L = new Array();   // invoicing pay period
+        var feeSeqAndPeriodArray = new Array(); //return values for fees and period after added
+
+        var amtAgentCharge = perLicAmt;
+        if (item == arryLic.length - 1) {
+            amtAgentCharge = amtFeeTxfr - (perLicAmt * (arryLic.length - 1));
+            amtAgentCharge = (Math.round(amtAgentCharge * 100) / 100);
+        }
+        var cmnsPerc = GetCommissionByUser(commissionCodeTxfr + "", pSalesAgentInfoArray);
+
+        var amtCommission = cmnsPerc == 0 ? 0 : (cmnsPerc * amtAgentCharge) / 100;
+        amtCommission = (Math.round(amtCommission * 100) / 100);
+        amtAgentCharge -= amtCommission;
+
+        feeSeqAndPeriodArray = addFeeWithVersionAndReturnfeeSeq("AGENT_CHARGE", "FEE_TRANSFER_SCHDL", 1, "FINAL", amtAgentCharge, "Y", targetCapId)
+        targetfeeSeq_L.push(feeSeqAndPeriodArray[0]);
+        targetpaymentPeriod_L.push(feeSeqAndPeriodArray[1]);
+        if (amtCommission > 0) {
+            feeSeqAndPeriodArray = addFeeWithVersionAndReturnfeeSeq("COMMISSION", "FEE_TRANSFER_SCHDL", 1, "FINAL", amtCommission, "Y", targetCapId)
+            targetfeeSeq_L.push(feeSeqAndPeriodArray[0]);
+            targetpaymentPeriod_L.push(feeSeqAndPeriodArray[1]);
+        }
+
+        createInvoice(targetfeeSeq_L, targetpaymentPeriod_L, targetCapId);
+
+        balanceDue = amtCommission + amtAgentCharge;
+
+        //No need to check in dec case
+        //balanceDue = parseFloat(parseFloat(targetfd.feeUnit) * parseFloat(targetfd.formula));
+        //        if (unapplied < balanceDue) {
+        //            logDebug("insufficient funds to do transfer from receipt record");
+        //            return false;
+        //        }
+
+        var xferResult = aa.finance.makeFundTransfer(capId, targetCapId, currentUserID, "", "", sysDate, sysDate, "", sysDate, balanceDue, "NA", "Fund Transfer", "NA", "R", null, "", "NA", "");
+        if (xferResult.getSuccess())
+            logDebug("Successfully did fund transfer to : " + targetCapId.getCustomID());
+        else
+            logDebug("**ERROR: doing fund transfer to (" + targetCapId.getCustomID() + "): " + xferResult.getErrorMessage());
+
+        //
+        // Step 4: On the target, loop through payments then invoices to auto-apply
+        //
+
+        var piresult = aa.finance.getPaymentByCapID(targetCapId, null).getOutput()
+
+        for (ik in piresult) {
+            var feeSeqArray = new Array();
+            var invoiceNbrArray = new Array();
+            var feeAllocationArray = new Array();
+
+
+            var thisPay = piresult[ik];
+            var applyAmt = 0;
+            var unallocatedAmt = thisPay.getAmountNotAllocated()
+
+            if (unallocatedAmt > 0) {
+
+                var invArray = aa.finance.getInvoiceByCapID(targetCapId, null).getOutput()
+
+                for (var invCount in invArray) {
+                    var thisInvoice = invArray[invCount];
+                    var balDue = thisInvoice.getInvoiceModel().getBalanceDue();
+                    if (balDue > 0) {
+                        feeT = aa.invoice.getFeeItemInvoiceByInvoiceNbr(thisInvoice.getInvNbr()).getOutput();
+
+                        for (targetFeeNum in feeT) {
+                            var thisTFee = feeT[targetFeeNum];
+
+                            if (thisTFee.getFee() > unallocatedAmt)
+                                applyAmt = unallocatedAmt;
+                            else
+                                applyAmt = thisTFee.getFee()   // use balance here?
+
+                            unallocatedAmt = unallocatedAmt - applyAmt;
+
+                            feeSeqArray.push(thisTFee.getFeeSeqNbr());
+                            invoiceNbrArray.push(thisInvoice.getInvNbr());
+                            feeAllocationArray.push(applyAmt);
+                        }
+                    }
+                }
+
+                applyResult = aa.finance.applyPayment(targetCapId, thisPay, feeSeqArray, invoiceNbrArray, feeAllocationArray, "PAYSTAT", "INVSTAT", "123")
+
+                if (applyResult.getSuccess())
+                    logDebug("Successfully applied payment");
+                else
+                    logDebug("**ERROR: applying payment to fee (" + thisTFee.getFeeDescription() + "): " + applyResult.getErrorMessage());
+
+            }
+        }
+    }
+
+    //logDebug("Elapsed Time: " + elapsed());
+    logDebug("EXIT: distributeFeesAndPayments");
 }
