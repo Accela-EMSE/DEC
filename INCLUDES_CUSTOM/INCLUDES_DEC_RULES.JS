@@ -3988,9 +3988,9 @@ function get60dayFishRecTypeArray() {
 function getValidLicForSubHead() {
     var validArray = new Array();
 
-	//Option to hide sub head as a part of roll back
-	//return validArray;
-	
+    //Option to hide sub head as a part of roll back
+    //return validArray;
+
     validArray.push(LIC06_HUNTING_LICENSE);
     validArray.push(LIC07_MUZZLELOADING_PRIVILEGE);
     validArray.push(LIC04_BOWHUNTING_PRIVILEGE);
@@ -4014,4 +4014,79 @@ function getValidLicForSubHead() {
     validArray.push(LIC69_TURKEY_PERMIT_5Y);
 
     return validArray;
+}
+function getValidLicToUpdateFileDate() {
+    var validRecTypeArray = new Array();     //   record types
+
+    validRecTypeArray.push(AA01_FISHING_LICENSE);
+    validRecTypeArray.push(AA02_MARINE_REGISTRY);
+    validRecTypeArray.push(AA03_ONE_DAY_FISHING_LICENSE);
+    validRecTypeArray.push(AA04_BOWHUNTING_PRIVILEGE);
+    validRecTypeArray.push(AA05_DEER_MANAGEMENT_PERMIT);
+    validRecTypeArray.push(AA06_HUNTING_LICENSE);
+    validRecTypeArray.push(AA07_MUZZLELOADING_PRIVILEGE);
+    validRecTypeArray.push(AA08_TURKEY_PERMIT);
+    validRecTypeArray.push(AA09_LIFETIME_BOWHUNTING);
+    validRecTypeArray.push(AA10_LIFETIME_FISHING);
+    validRecTypeArray.push(AA11_LIFETIME_MUZZLELOADING);
+    validRecTypeArray.push(AA12_LIFETIME_SMALL_AND_BIG_GAME);
+    validRecTypeArray.push(AA13_LIFETIME_SPORTSMAN);
+    validRecTypeArray.push(AA14_LIFETIME_TRAPPING);
+    validRecTypeArray.push(AA15_TRAPPING_LICENSE);
+    //validRecTypeArray.push(AA16_HABITAT_ACCESS_STAMP);
+    //validRecTypeArray.push(AA17_VENISON_DONATION);
+    //validRecTypeArray.push(AA18_CONSERVATION_FUND);
+    //validRecTypeArray.push(AA19_TRAIL_SUPPORTER_PATCH);
+    //validRecTypeArray.push(AA20_CONSERVATIONIST_MAGAZINE);
+    //validRecTypeArray.push(AA21_CONSERVATION_PATRON);
+    validRecTypeArray.push(AA22_FRESHWATER_FISHING);
+    validRecTypeArray.push(AA23_NONRES_FRESHWATER_FISHING);
+    validRecTypeArray.push(AA24_NONRESIDENT_1_DAY_FISHING);
+    validRecTypeArray.push(AA25_NONRESIDENT_7_DAY_FISHING);
+    validRecTypeArray.push(AA26_SEVEN_DAY_FISHING_LICENSE);
+    validRecTypeArray.push(AA27_CONSERVATION_LEGACY);
+    validRecTypeArray.push(AA28_JUNIOR_BOWHUNTING);
+    validRecTypeArray.push(AA29_JUNIOR_HUNTING);
+    validRecTypeArray.push(AA30_NONRES_MUZZLELOADING);
+    validRecTypeArray.push(AA31_NONRES_SUPER_SPORTSMAN);
+    validRecTypeArray.push(AA32_NONRESIDENT_BEAR_TAG);
+    validRecTypeArray.push(AA33_NONRESIDENT_BIG_GAME);
+    validRecTypeArray.push(AA34_NONRESIDENT_BOWHUNTING);
+    validRecTypeArray.push(AA35_NONRESIDENT_SMALL_GAME);
+    validRecTypeArray.push(AA36_NONRESIDENT_TURKEY);
+    validRecTypeArray.push(AA37_SMALL_AND_BIG_GAME);
+    validRecTypeArray.push(AA38_SMALL_GAME);
+    validRecTypeArray.push(AA39_SPORTSMAN);
+    validRecTypeArray.push(AA40_SUPER_SPORTSMAN);
+    validRecTypeArray.push(AA41_NONRESIDENT_TRAPPING);
+    validRecTypeArray.push(AA42_TRAPPER_SUPER_SPORTSMAN);
+    //validRecTypeArray.push(AA43_LIFETIME_CARD_REPLACE);
+    //validRecTypeArray.push(AA44_SPORTSMAN_ED_CERTIFICATION);
+    validRecTypeArray.push(AA45_LIFETIME_INSCRIPTION);
+    //validRecTypeArray.push(AA46_TAG_REG_SEASON_DEER);
+    //validRecTypeArray.push(AA47_TAG_BEAR);
+    //validRecTypeArray.push(AA48_TAG_BOW_MUZZ_EITHER_SEX);
+    //validRecTypeArray.push(AA49_TAG_BOW_MUZZ_ANTLERLESS);
+    //validRecTypeArray.push(AA50_TAG_SPRING_TURKEY_TAG);
+    //validRecTypeArray.push(AA51_TAG_FALL_TURKEY_TAG);
+    //validRecTypeArray.push(AA52_TAG_BACK);
+    //validRecTypeArray.push(AA53_TAG_DMP_DEER);
+    //validRecTypeArray.push(AA54_TAG_PRIV_PANEL);
+    //validRecTypeArray.push(AA55_TAG_DRIV_LIC_IMM);
+    //validRecTypeArray.push(AA56_TAG_DRIV_LIC_REN);
+    //validRecTypeArray.push(AA57_JUNIOR_HUNTING_TAGS);
+    validRecTypeArray.push(AA58_HUNTING_LICENSE_3Y);
+    validRecTypeArray.push(AA59_HUNTING_LICENSE_5Y);
+    validRecTypeArray.push(AA60_BOWHUNTING_PRIVILEGE_3Y);
+    validRecTypeArray.push(AA61_BOWHUNTING_PRIVILEGE_5Y);
+    validRecTypeArray.push(AA62_MUZZLELOADING_PRIVILEGE_3Y);
+    validRecTypeArray.push(AA63_MUZZLELOADING_PRIVILEGE_5Y);
+    validRecTypeArray.push(AA64_TRAPPING_LICENSE_3Y);
+    validRecTypeArray.push(AA65_TRAPPING_LICENSE_5Y);
+    validRecTypeArray.push(AA66_FRESHWATER_FISHING_3Y);
+    validRecTypeArray.push(AA67_FRESHWATER_FISHING_5Y);
+    validRecTypeArray.push(AA68_TURKEY_PERMIT_3Y);
+    validRecTypeArray.push(AA69_TURKEY_PERMIT_5Y);
+
+    return validRecTypeArray;
 }
