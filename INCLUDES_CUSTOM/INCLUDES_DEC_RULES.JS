@@ -1610,7 +1610,7 @@ function getAllFeeCodeByRuleFor_3Y_HUNT(ruleParams, feeSched) {
     //3 Year Hunting: NYS Resident having age 16-69
     if ((rp.IsNyResiDent || rp.HasLifetimeHunt()) && rp.Age >= 16 && rp.Age <= 69) { feeItemCodes.push(new FeeCodeProp(H3Y_1_RES, "000")); }
     //3 Year Hunting: Non-Resident having age 16-69
-    if (!(rp.IsNyResiDent || rp.HasLifetimeHunt()) && rp.Age >= 16 && rp.Age <= 69) { feeItemCodes.push(new FeeCodeProp(H3Y_2_NRES, "000")); }
+    if (!(rp.IsNyResiDent || rp.HasLifetimeHunt()) && rp.Age >= 16) { feeItemCodes.push(new FeeCodeProp(H3Y_2_NRES, "000")); }
 
     if (feeItemCodes.length == 0) { feeItemCodes.push(new FeeCodeProp(H3Y_2_NRES, "000")); }
     return feeItemCodes;
@@ -1622,7 +1622,7 @@ function getAllFeeCodeByRuleFor_5Y_HUNT(ruleParams, feeSched) {
     //5 Year Hunting: NYS Resident having age 16-69
     if ((rp.IsNyResiDent || rp.HasLifetimeHunt()) && rp.Age >= 16 && rp.Age <= 69) { feeItemCodes.push(new FeeCodeProp(H5Y_1_RES, "000")); }
     //5 Year Hunting: Non-Resident having age 16-69
-    if (!(rp.IsNyResiDent || rp.HasLifetimeHunt()) && rp.Age >= 16 && rp.Age <= 69) { feeItemCodes.push(new FeeCodeProp(H5Y_2_NRES, "000")); }
+    if (!(rp.IsNyResiDent || rp.HasLifetimeHunt()) && rp.Age >= 16) { feeItemCodes.push(new FeeCodeProp(H5Y_2_NRES, "000")); }
 
     if (feeItemCodes.length == 0) { feeItemCodes.push(new FeeCodeProp(H5Y_2_NRES, "000")); }
     return feeItemCodes;
@@ -1634,7 +1634,7 @@ function getAllFeeCodeByRuleFor_3Y_BOWH(ruleParams, feeSched) {
     //3 Year Bow Hunting: NYS Resident having age 16-69
     if ((rp.IsNyResiDent || rp.HasLifetimeHunt()) && rp.Age >= 16 && rp.Age <= 69) { feeItemCodes.push(new FeeCodeProp(B3Y_1_RES, "000")); }
     //3 Year Bow Hunting: Non-Resident having age 16-69
-    if (!(rp.IsNyResiDent || rp.HasLifetimeHunt()) && rp.Age >= 16 && rp.Age <= 69) { feeItemCodes.push(new FeeCodeProp(B3Y_2_NRES, "000")); }
+    if (!(rp.IsNyResiDent || rp.HasLifetimeHunt()) && rp.Age >= 16) { feeItemCodes.push(new FeeCodeProp(B3Y_2_NRES, "000")); }
 
     if (feeItemCodes.length == 0) { feeItemCodes.push(new FeeCodeProp(B3Y_2_NRES, "000")); }
     return feeItemCodes;
@@ -1646,7 +1646,7 @@ function getAllFeeCodeByRuleFor_5Y_BOWH(ruleParams, feeSched) {
     //5 Year Bow Hunting: NYS Resident having age 16-69
     if ((rp.IsNyResiDent || rp.HasLifetimeHunt()) && rp.Age >= 16 && rp.Age <= 69) { feeItemCodes.push(new FeeCodeProp(B5Y_1_RES, "000")); }
     //5 Year Bow Hunting: Non-Resident having age 16-69
-    if (!(rp.IsNyResiDent || rp.HasLifetimeHunt()) && rp.Age >= 16 && rp.Age <= 69) { feeItemCodes.push(new FeeCodeProp(B5Y_2_NRES, "000")); }
+    if (!(rp.IsNyResiDent || rp.HasLifetimeHunt()) && rp.Age >= 16) { feeItemCodes.push(new FeeCodeProp(B5Y_2_NRES, "000")); }
 
     if (feeItemCodes.length == 0) { feeItemCodes.push(new FeeCodeProp(B5Y_2_NRES, "000")); }
     return feeItemCodes;
@@ -1658,7 +1658,7 @@ function getAllFeeCodeByRuleFor_3Y_MUZZ(ruleParams, feeSched) {
     //3 Year Muzzleloading Privilege: NYS Resident having age 16-69
     if ((rp.IsNyResiDent || rp.HasLifetimeHunt()) && rp.Age >= 16 && rp.Age <= 69) { feeItemCodes.push(new FeeCodeProp(M3Y_1_RES, "000")); }
     //3 Year Muzzleloading Privilege: Non-Resident having age 16-69
-    if (!(rp.IsNyResiDent || rp.HasLifetimeHunt()) && rp.Age >= 16 && rp.Age <= 69) { feeItemCodes.push(new FeeCodeProp(M3Y_2_NRES, "000")); }
+    if (!(rp.IsNyResiDent || rp.HasLifetimeHunt()) && rp.Age >= 16) { feeItemCodes.push(new FeeCodeProp(M3Y_2_NRES, "000")); }
 
     if (feeItemCodes.length == 0) { feeItemCodes.push(new FeeCodeProp(M3Y_2_NRES, "000")); }
     return feeItemCodes;
@@ -1670,7 +1670,7 @@ function getAllFeeCodeByRuleFor_5Y_MUZZ(ruleParams, feeSched) {
     //5 Year Muzzleloading Privilege: NYS Resident having age 16-69 
     if ((rp.IsNyResiDent || rp.HasLifetimeHunt()) && rp.Age >= 16 && rp.Age <= 69) { feeItemCodes.push(new FeeCodeProp(M5Y_1_RES, "000")); }
     //5 Year Muzzleloading Privilege: Non-Resident having age 16-69
-    if (!(rp.IsNyResiDent || rp.HasLifetimeHunt()) && rp.Age >= 16 && rp.Age <= 69) { feeItemCodes.push(new FeeCodeProp(M5Y_2_NRES, "000")); }
+    if (!(rp.IsNyResiDent || rp.HasLifetimeHunt()) && rp.Age >= 16) { feeItemCodes.push(new FeeCodeProp(M5Y_2_NRES, "000")); }
 
     if (feeItemCodes.length == 0) { feeItemCodes.push(new FeeCodeProp(M5Y_2_NRES, "000")); }
     return feeItemCodes;
@@ -1682,7 +1682,7 @@ function getAllFeeCodeByRuleFor_3Y_TRKY(ruleParams, feeSched) {
     //3 Year Turkey Permit: NYS Resident having age 16-69
     if ((rp.IsNyResiDent || rp.HasLifetimeHunt()) && rp.Age >= 16 && rp.Age <= 69) { feeItemCodes.push(new FeeCodeProp(TK3Y_1_RES, "000")); }
     //3 Year Turkey Permit: Non-Resident having age 16-69
-    if (!(rp.IsNyResiDent || rp.HasLifetimeHunt()) && rp.Age >= 16 && rp.Age <= 69) { feeItemCodes.push(new FeeCodeProp(TK3Y_2_NRES, "000")); }
+    if (!(rp.IsNyResiDent || rp.HasLifetimeHunt()) && rp.Age >= 16) { feeItemCodes.push(new FeeCodeProp(TK3Y_2_NRES, "000")); }
 
     if (feeItemCodes.length == 0) { feeItemCodes.push(new FeeCodeProp(TK3Y_2_NRES, "000")); }
     return feeItemCodes;
@@ -1694,7 +1694,7 @@ function getAllFeeCodeByRuleFor_5Y_TRKY(ruleParams, feeSched) {
     //5 Year Turkey Permit: NYS Resident having age 16-69
     if ((rp.IsNyResiDent || rp.HasLifetimeHunt()) && rp.Age >= 16 && rp.Age <= 69) { feeItemCodes.push(new FeeCodeProp(TK5Y_1_RES, "000")); }
     //5 Year Turkey Permit: Non-Resident having age 16-69
-    if (!(rp.IsNyResiDent || rp.HasLifetimeHunt()) && rp.Age >= 16 && rp.Age <= 69) { feeItemCodes.push(new FeeCodeProp(TK5Y_2_NRES, "000")); }
+    if (!(rp.IsNyResiDent || rp.HasLifetimeHunt()) && rp.Age >= 16) { feeItemCodes.push(new FeeCodeProp(TK5Y_2_NRES, "000")); }
 
     if (feeItemCodes.length == 0) { feeItemCodes.push(new FeeCodeProp(TK5Y_2_NRES, "000")); }
     return feeItemCodes;
@@ -1706,7 +1706,7 @@ function getAllFeeCodeByRuleFor_3Y_TRAP(ruleParams, feeSched) {
     //3 Year Trapping License: NYS Resident having age 16-69
     if ((rp.IsNyResiDent || rp.HasLifetimeTrap()) && rp.Age >= 16 && rp.Age <= 69) { feeItemCodes.push(new FeeCodeProp(TP3Y_1_RES, "000")); }
     //3 Year Trapping License: Non-Resident having age 16-69
-    if (!(rp.IsNyResiDent || rp.HasLifetimeTrap()) && rp.Age >= 16 && rp.Age <= 69) { feeItemCodes.push(new FeeCodeProp(TP3Y_2_NRES, "000")); }
+    if (!(rp.IsNyResiDent || rp.HasLifetimeTrap()) && rp.Age >= 16) { feeItemCodes.push(new FeeCodeProp(TP3Y_2_NRES, "000")); }
 
     if (feeItemCodes.length == 0) { feeItemCodes.push(new FeeCodeProp(TP3Y_2_NRES, "000")); }
     return feeItemCodes;
@@ -1718,7 +1718,7 @@ function getAllFeeCodeByRuleFor_5Y_TRAP(ruleParams, feeSched) {
     //5 Year Trapping License: NYS Resident having age 16-69
     if ((rp.IsNyResiDent || rp.HasLifetimeTrap()) && rp.Age >= 16 && rp.Age <= 69) { feeItemCodes.push(new FeeCodeProp(TP5Y_1_RES, "000")); }
     //5 Year Trapping License: NYS Resident having age 16-69
-    if (!(rp.IsNyResiDent || rp.HasLifetimeTrap()) && rp.Age >= 16 && rp.Age <= 69) { feeItemCodes.push(new FeeCodeProp(TP5Y_2_NRES, "000")); }
+    if (!(rp.IsNyResiDent || rp.HasLifetimeTrap()) && rp.Age >= 16) { feeItemCodes.push(new FeeCodeProp(TP5Y_2_NRES, "000")); }
 
     if (feeItemCodes.length == 0) { feeItemCodes.push(new FeeCodeProp(TP5Y_2_NRES, "000")); }
     return feeItemCodes;
@@ -1730,7 +1730,7 @@ function getAllFeeCodeByRuleFor_3Y_FRESHWATER_FISHING(ruleParams, feeSched) {
     //3 Year Freshwater Fishing: NYS Resident having age 16-69
     if ((rp.IsNyResiDent || rp.HasLifetimeFish()) && rp.Age >= 16 && rp.Age <= 69) { feeItemCodes.push(new FeeCodeProp(FS3Y_1_RES, "000")); }
     //3 Year Freshwater Fishing: Non-Resident having age 16-69
-    if (!(rp.IsNyResiDent || rp.HasLifetimeFish()) && rp.Age >= 16 && rp.Age <= 69) { feeItemCodes.push(new FeeCodeProp(FS3Y_2_NRES, "000")); }
+    if (!(rp.IsNyResiDent || rp.HasLifetimeFish()) && rp.Age >= 16) { feeItemCodes.push(new FeeCodeProp(FS3Y_2_NRES, "000")); }
 
     if (feeItemCodes.length == 0) { feeItemCodes.push(new FeeCodeProp(FS3Y_2_NRES, "000")); }
     return feeItemCodes;
@@ -1742,7 +1742,7 @@ function getAllFeeCodeByRuleFor_5Y_FRESHWATER_FISHING(ruleParams, feeSched) {
     //5 Freshwater Fishing: NYS Resident having age 16-69
     if ((rp.IsNyResiDent || rp.HasLifetimeFish()) && rp.Age >= 16 && rp.Age <= 69) { feeItemCodes.push(new FeeCodeProp(FS5Y_1_RES, "000")); }
     //5 Freshwater Fishing: Non-Resident having age 16-69
-    if (!(rp.IsNyResiDent || rp.HasLifetimeFish()) && rp.Age >= 16 && rp.Age <= 69) { feeItemCodes.push(new FeeCodeProp(FS5Y_2_NRES, "000")); }
+    if (!(rp.IsNyResiDent || rp.HasLifetimeFish()) && rp.Age >= 16) { feeItemCodes.push(new FeeCodeProp(FS5Y_2_NRES, "000")); }
 
     if (feeItemCodes.length == 0) { feeItemCodes.push(new FeeCodeProp(FS5Y_2_NRES, "000")); }
     return feeItemCodes;
@@ -1976,84 +1976,132 @@ function isRuleForSelectable_DRIV_LIC(ruleParams) {
 function isRuleForSelectable_3Y_HUNT(ruleParams) {
     var isSelectable = false;
     if (!(ruleParams.IsLegallyBlind || ruleParams.IsPermanentDisabled || ruleParams.IsDisableForYear || ruleParams.IsMilitaryServiceman || ruleParams.IsNativeAmerican)) {
-        isSelectable = (ruleParams.Age >= 16 && ruleParams.Age <= 69 && ruleParams.HasHuntEd);
+        if (ruleParams.IsNyResiDent || ruleParams.HasLifetimeHunt()) {
+            isSelectable = (ruleParams.Age >= 16 && ruleParams.Age <= 69 && ruleParams.HasHuntEd);
+        } else {
+            isSelectable = (ruleParams.Age >= 16 && ruleParams.HasHuntEd);
+        }
     }
     return isSelectable;
 }
 function isRuleForSelectable_5Y_HUNT(ruleParams) {
     var isSelectable = false;
     if (!(ruleParams.IsLegallyBlind || ruleParams.IsPermanentDisabled || ruleParams.IsDisableForYear || ruleParams.IsMilitaryServiceman || ruleParams.IsNativeAmerican)) {
-        isSelectable = (ruleParams.Age >= 16 && ruleParams.Age <= 69 && ruleParams.HasHuntEd);
+        if (ruleParams.IsNyResiDent || ruleParams.HasLifetimeHunt()) {
+            isSelectable = (ruleParams.Age >= 16 && ruleParams.Age <= 69 && ruleParams.HasHuntEd);
+        } else {
+            isSelectable = (ruleParams.Age >= 16 && ruleParams.HasHuntEd);
+        }
     }
     return isSelectable;
 }
 function isRuleForSelectable_3Y_BOWH(ruleParams) {
     var isSelectable = false;
     if (!(ruleParams.IsLegallyBlind || ruleParams.IsPermanentDisabled || ruleParams.IsDisableForYear || ruleParams.IsMilitaryServiceman || ruleParams.IsNativeAmerican)) {
-        isSelectable = (ruleParams.Age >= 16 && ruleParams.Age <= 69 && ruleParams.HasHuntEd && ruleParams.HasBowHunt);
+        if (ruleParams.IsNyResiDent || ruleParams.HasLifetimeHunt()) {
+            isSelectable = (ruleParams.Age >= 16 && ruleParams.Age <= 69 && ruleParams.HasHuntEd && ruleParams.HasBowHunt);
+        } else {
+            isSelectable = (ruleParams.Age >= 16 && ruleParams.HasHuntEd && ruleParams.HasBowHunt);
+        }
     }
     return isSelectable;
 }
 function isRuleForSelectable_5Y_BOWH(ruleParams) {
     var isSelectable = false;
     if (!(ruleParams.IsLegallyBlind || ruleParams.IsPermanentDisabled || ruleParams.IsDisableForYear || ruleParams.IsMilitaryServiceman || ruleParams.IsNativeAmerican)) {
-        isSelectable = (ruleParams.Age >= 16 && ruleParams.Age <= 69 && ruleParams.HasHuntEd && ruleParams.HasBowHunt);
+        if (ruleParams.IsNyResiDent || ruleParams.HasLifetimeHunt()) {
+            isSelectable = (ruleParams.Age >= 16 && ruleParams.Age <= 69 && ruleParams.HasHuntEd && ruleParams.HasBowHunt);
+        } else {
+            isSelectable = (ruleParams.Age >= 16 && ruleParams.HasHuntEd && ruleParams.HasBowHunt);
+        }
     }
     return isSelectable;
 }
 function isRuleForSelectable_3Y_MUZZ(ruleParams) {
     var isSelectable = false;
     if (!(ruleParams.IsLegallyBlind || ruleParams.IsPermanentDisabled || ruleParams.IsDisableForYear || ruleParams.IsMilitaryServiceman || ruleParams.IsNativeAmerican)) {
-        isSelectable = (ruleParams.Age >= 16 && ruleParams.Age <= 69 && ruleParams.HasHuntEd);
+        if (ruleParams.IsNyResiDent || ruleParams.HasLifetimeHunt()) {
+            isSelectable = (ruleParams.Age >= 16 && ruleParams.Age <= 69 && ruleParams.HasHuntEd);
+        } else {
+            isSelectable = (ruleParams.Age >= 16 && ruleParams.HasHuntEd);
+        }
     }
     return isSelectable;
 }
 function isRuleForSelectable_5Y_MUZZ(ruleParams) {
     var isSelectable = false;
     if (!(ruleParams.IsLegallyBlind || ruleParams.IsPermanentDisabled || ruleParams.IsDisableForYear || ruleParams.IsMilitaryServiceman || ruleParams.IsNativeAmerican)) {
-        isSelectable = (ruleParams.Age >= 16 && ruleParams.Age <= 69 && ruleParams.HasHuntEd);
+        if (ruleParams.IsNyResiDent || ruleParams.HasLifetimeHunt()) {
+            isSelectable = (ruleParams.Age >= 16 && ruleParams.Age <= 69 && ruleParams.HasHuntEd);
+        } else {
+            isSelectable = (ruleParams.Age >= 16 && ruleParams.HasHuntEd);
+        }
     }
     return isSelectable;
 }
 function isRuleForSelectable_3Y_TRKY(ruleParams) {
     var isSelectable = false;
     if (!(ruleParams.IsLegallyBlind || ruleParams.IsPermanentDisabled || ruleParams.IsDisableForYear || ruleParams.IsMilitaryServiceman || ruleParams.IsNativeAmerican)) {
-        isSelectable = (ruleParams.Age >= 16 && ruleParams.Age <= 69 && ruleParams.HasHuntEd);
+        if (ruleParams.IsNyResiDent || ruleParams.HasLifetimeHunt()) {
+            isSelectable = (ruleParams.Age >= 16 && ruleParams.Age <= 69 && ruleParams.HasHuntEd);
+        } else {
+            isSelectable = (ruleParams.Age >= 16 && ruleParams.HasHuntEd);
+        }
     }
     return isSelectable;
 }
 function isRuleForSelectable_5Y_TRKY(ruleParams) {
     var isSelectable = false;
     if (!(ruleParams.IsLegallyBlind || ruleParams.IsPermanentDisabled || ruleParams.IsDisableForYear || ruleParams.IsMilitaryServiceman || ruleParams.IsNativeAmerican)) {
-        isSelectable = (ruleParams.Age >= 16 && ruleParams.Age <= 69 && ruleParams.HasHuntEd);
+        if (ruleParams.IsNyResiDent || ruleParams.HasLifetimeHunt()) {
+            isSelectable = (ruleParams.Age >= 16 && ruleParams.Age <= 69 && ruleParams.HasHuntEd);
+        } else {
+            isSelectable = (ruleParams.Age >= 16 && ruleParams.HasHuntEd);
+        }
     }
     return isSelectable;
 }
 function isRuleForSelectable_3Y_TRAP(ruleParams) {
     var isSelectable = false;
     if (!(ruleParams.IsLegallyBlind || ruleParams.IsPermanentDisabled || ruleParams.IsDisableForYear || ruleParams.IsMilitaryServiceman || ruleParams.IsNativeAmerican)) {
-        isSelectable = (ruleParams.Age >= 16 && ruleParams.Age <= 69 && ruleParams.HasTrapEd);
+        if (ruleParams.IsNyResiDent || ruleParams.HasLifetimeTrap()) {
+            isSelectable = (ruleParams.Age >= 16 && ruleParams.Age <= 69 && ruleParams.HasTrapEd);
+        } else {
+            isSelectable = (ruleParams.Age >= 16 && ruleParams.HasTrapEd);
+        }
     }
     return isSelectable;
 }
 function isRuleForSelectable_5Y_TRAP(ruleParams) {
     var isSelectable = false;
     if (!(ruleParams.IsLegallyBlind || ruleParams.IsPermanentDisabled || ruleParams.IsDisableForYear || ruleParams.IsMilitaryServiceman || ruleParams.IsNativeAmerican)) {
-        isSelectable = (ruleParams.Age >= 16 && ruleParams.Age <= 69 && ruleParams.HasTrapEd);
+        if (ruleParams.IsNyResiDent || ruleParams.HasLifetimeTrap()) {
+            isSelectable = (ruleParams.Age >= 16 && ruleParams.Age <= 69 && ruleParams.HasTrapEd);
+        } else {
+            isSelectable = (ruleParams.Age >= 16 && ruleParams.HasTrapEd);
+        }
     }
     return isSelectable;
 }
 function isRuleForSelectable_3Y_FRESHWATER_FISHING(ruleParams) {
     var isSelectable = false;
     if (!(ruleParams.IsLegallyBlind || ruleParams.IsPermanentDisabled || ruleParams.IsDisableForYear || ruleParams.IsMilitaryServiceman || ruleParams.IsNativeAmerican)) {
-        isSelectable = (ruleParams.Age >= 16 && ruleParams.Age <= 69);
+        if (ruleParams.IsNyResiDent || ruleParams.HasLifetimeFish()) {
+            isSelectable = (ruleParams.Age >= 16 && ruleParams.Age <= 69);
+        } else {
+            isSelectable = (ruleParams.Age >= 16);
+        }
     }
     return isSelectable;
 }
 function isRuleForSelectable_5Y_FRESHWATER_FISHING(ruleParams) {
     var isSelectable = false;
     if (!(ruleParams.IsLegallyBlind || ruleParams.IsPermanentDisabled || ruleParams.IsDisableForYear || ruleParams.IsMilitaryServiceman || ruleParams.IsNativeAmerican)) {
-        isSelectable = (ruleParams.Age >= 16 && ruleParams.Age <= 69);
+        if (ruleParams.IsNyResiDent || ruleParams.HasLifetimeFish()) {
+            isSelectable = (ruleParams.Age >= 16 && ruleParams.Age <= 69);
+        } else {
+            isSelectable = (ruleParams.Age >= 16);
+        }
     }
     return isSelectable;
 }
