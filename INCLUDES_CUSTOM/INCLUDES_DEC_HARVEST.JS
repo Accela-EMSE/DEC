@@ -920,7 +920,7 @@ function ReprintDocuments() {
 
             var licExpObj = new licenseObject(itemCapId.getCustomID(), itemCapId);
             if (!matches(licExpObj.b1ExpDate, null, "", undefined))
-                setLicExpirationDate(newLicId, "", licExpObj.b1ExpDate);
+                setLicExpirationDate(newLicId, "", licExpObj.b1ExpDate, null, true);
 
             logDebug("DEBUG: Generate a new document number ...");
             var newDecDocId = GenerateDocumentNumber(newLicId.getCustomID());
