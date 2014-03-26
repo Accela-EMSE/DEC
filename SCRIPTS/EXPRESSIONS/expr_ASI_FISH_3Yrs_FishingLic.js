@@ -51,7 +51,7 @@ f.SetAnnualDisability(aAnnualDisability.value);
 f.SetPriorLicense(aPreviousLicense.value);
 f.SetSportsmanEducation(aSportsmanEducation.value);
 f.SetLandOwnerInfo(aLandOwnerInformation.value);
-f.SetActiveHoldingsInfo(aActiveHoldings.value);
+//f.SetActiveHoldingsInfo(aActiveHoldings.value);
 f.SetEnforcementAttrib(aSuspended.value, aRevokedHunting.value, aRevokedTrapping.value, aRevokedFishing.value);
 f.IsMilitaryServiceman = aIsMilitaryServiceman.value;
 f.IsLegallyBlind = aIsLegallyBlind.value;
