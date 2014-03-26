@@ -2629,9 +2629,13 @@ function attachAgent(uObj) //Add optional capId param for Record to attach to
 function attachedContacts() {
     var peopleSequenceNumber = null;
     var thisCap = capId;
-    if (arguments.length == 1) peopleSequenceNumber = arguments[0];
-    if (arguments.length == 2) thisCap = arguments[1];
-
+    if (arguments.length == 1) {
+        peopleSequenceNumber = arguments[0];
+    }
+    if (arguments.length == 2) {
+        peopleSequenceNumber = arguments[0];
+        thisCap = arguments[1];
+    }
     var isForAnonymous = false;
     if (peopleSequenceNumber == null) {
         if (publicUserID == 'PUBLICUSER0') {
@@ -3001,8 +3005,8 @@ function getContactObj(itemCap, typeToLoad) {
     // returning the first match on contact type
     var capContactArray = null;
     var cArray = new Array();
-	if(itemCap == null) return cArray;
-	
+    if (itemCap == null) return cArray;
+
     var capContactArray;
     if (itemCap.getClass() == "com.accela.aa.aamain.cap.CapModel") { // page flow script 
         capContactArray = cap.getContactsGroup().toArray();
@@ -3034,7 +3038,7 @@ function getContactObjs(itemCap) // optional typeToLoad, optional return only on
     if (arguments.length == 2) typesToLoad = arguments[1];
     var capContactArray = null;
     var cArray = new Array();
-	if(itemCap == null) return cArray;
+    if (itemCap == null) return cArray;
 
     var capContactArray;
     if (itemCap.getClass() == "com.accela.aa.aamain.cap.CapModel") { // page flow script 
@@ -6787,6 +6791,11 @@ function closeLTlicenseAndCreateNew(itemCapId, parentCapId, custDob) {
     activateTaskForRec("Suspension", "", newLicId);
     copyConditions(itemCapId, newLicId);
 
+	//Keep same file Date for legacy privilages
+	var openDt = itemCap.getFileDate();
+	var effectiveDt = new Date(openDt.getMonth() + "/" + openDt.getDayOfMonth() + "/" + openDt.getYear());
+	editFileDate(newLicId, jsDateToMMDDYYYY(effectiveDt));
+	
     //copy the expiration information
     oldLicObj = new licenseObject(null, itemCapId);
     if (oldLicObj && oldLicObj != null) {
@@ -6794,7 +6803,7 @@ function closeLTlicenseAndCreateNew(itemCapId, parentCapId, custDob) {
 
         var expDate = oldLicObj.b1ExpDate;
         if (custDob != null) {
-            expDate = dateAddMonths(convertDate(custDob), (100 * 12));
+            expDate = dateAddMonths(convertDate(custDob), (101 * 12));
         }
         var newExpDate = expDate;
         setLicExpirationDate(newLicId, null, newExpDate);
@@ -7018,10 +7027,13 @@ function updateEffectiveDate() {
     try {
         var effectiveDt = AInfo["Effective Date"];
         var thisCap = capId;
-        if (arguments.length == 1) effectiveDt = arguments[0];
-        if (arguments.length == 2) thisCap = arguments[1];
-
-        logDebug(appTypeString);
+        if (arguments.length == 1) {
+            effectiveDt = arguments[0];
+        }
+        if (arguments.length == 2) {
+            effectiveDt = arguments[0];
+            thisCap = arguments[1];
+        }
 
         var verifyLicArray = getValidLicToUpdateFileDate();
         if (exists(appTypeString, verifyLicArray)) {
