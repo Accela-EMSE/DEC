@@ -3001,7 +3001,8 @@ function getContactObj(itemCap, typeToLoad) {
     // returning the first match on contact type
     var capContactArray = null;
     var cArray = new Array();
-
+	if(itemCap == null) return cArray;
+	
     var capContactArray;
     if (itemCap.getClass() == "com.accela.aa.aamain.cap.CapModel") { // page flow script 
         capContactArray = cap.getContactsGroup().toArray();
@@ -3033,6 +3034,7 @@ function getContactObjs(itemCap) // optional typeToLoad, optional return only on
     if (arguments.length == 2) typesToLoad = arguments[1];
     var capContactArray = null;
     var cArray = new Array();
+	if(itemCap == null) return cArray;
 
     var capContactArray;
     if (itemCap.getClass() == "com.accela.aa.aamain.cap.CapModel") { // page flow script 
