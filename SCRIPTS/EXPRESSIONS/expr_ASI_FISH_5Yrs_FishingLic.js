@@ -24,6 +24,7 @@ var aSportsmanEducation = expression.getValue("ASI::INTERNAL USE::A_Sportsman_Ed
 var aLandOwnerInformation = expression.getValue("ASI::INTERNAL USE::A_Land_Owner_Information");
 var aAnnualDisability = expression.getValue("ASI::INTERNAL USE::A_Annual_Disability");
 var aIsNativeAmerican = expression.getValue("ASI::INTERNAL USE::A_IsNativeAmerican");
+var aActiveHoldings = expression.getValue("ASI::INTERNAL USE::A_ActiveHoldings");
 var aIsFromACA = expression.getValue("ASI::INTERNAL USE::A_FromACA");
 var aSuspended = expression.getValue("ASI::INTERNAL USE::A_Suspended");
 var aAgedIn = expression.getValue("ASI::INTERNAL USE::A_AgedIn");
@@ -52,7 +53,7 @@ f.SetAnnualDisability(aAnnualDisability.value);
 f.SetPriorLicense(aPreviousLicense.value);
 f.SetSportsmanEducation(aSportsmanEducation.value);
 f.SetLandOwnerInfo(aLandOwnerInformation.value);
-//f.SetActiveHoldingsInfo(aActiveHoldings.value);
+f.SetActiveHoldingsInfo(aActiveHoldings.value);
 f.SetEnforcementAttrib(aSuspended.value, aRevokedHunting.value, aRevokedTrapping.value, aRevokedFishing.value);
 f.IsMilitaryServiceman = aIsMilitaryServiceman.value;
 f.IsLegallyBlind = aIsLegallyBlind.value;
