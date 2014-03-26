@@ -7162,7 +7162,7 @@ function createLegacyLoadLic() {
                 editFileDate(newLicId, effectiveDt);
 
                 //effectiveDt + 100Years
-                var expDate = dateAddMonths(new Date(effectiveDt), (101 * 12));
+                var expDate = dateAddMonths(new Date(effectiveDt), (100 * 12));
 				setLicExpirationDate(newLicId, "", expDate, null, true);
             }
         } else {
