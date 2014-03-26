@@ -7045,3 +7045,131 @@ function updateEffectiveDate() {
         logDebug("**ERROR in updateEffectiveDate:" + err.message);
     }
 }
+
+function createLegacyLoadLic() {
+    logDebug("ENTER: createLegacyLoadLic");
+
+
+    try {
+        //Get Applicant information
+        var peopleSequenceNumber = null;
+        var contactSeqNumber = null;
+        var custDob = null;
+
+        //var capContact = getOutput(aa.people.getCapContactByCapID(capId));
+        var xArray = getApplicantArrayEx(capId);
+        for (ca in xArray) {
+            var thisContact = xArray[ca];
+            if (thisContact["contactType"] == "Individual") {
+                contactSeqNumber = thisContact["contactSeqNumber"];
+                break;
+            }
+        }
+        //xArray = new Array();
+        // JHS 10/9/2013 added test for null on contactSeqNumber
+        var capContactArray = new Array();
+
+        if (!contactSeqNumber) {
+            logDebug("**WARNING updateContacts could not fund an applicant/individual");
+        }
+        else {
+            capContactArray = getOutput(aa.people.getCapContactByContactID(contactSeqNumber));
+        }
+
+        if (capContactArray) {
+            for (yy in capContactArray) {
+                //First One is always Applicant else check for contact type
+                //var aArray = getApplicantInfoArray(capContactArray[yy], capId);
+                //xArray.push(aArray);
+                peopleSequenceNumber = capContactArray[yy].getCapContactModel().getRefContactNumber();
+                var peopleModel = getOutput(aa.people.getPeople(peopleSequenceNumber), "");
+                if (peopleModel != null) {
+                    if (peopleModel.getBirthDate() != null) {
+                        custDob = new Date((peopleModel.getBirthDate().getMonth() + 1) + "/" + peopleModel.getBirthDate().getDate() + "/" + peopleModel.getBirthDate().getYear());
+                    }
+                }
+                break;
+            }
+        }
+	
+        if ((typeof (LICENSEINFORMATION) == "object")) {
+            for (var y in LICENSEINFORMATION) {
+
+                //loop through ASIT table and create licence record with respective record type
+                var licType = LICENSEINFORMATION[y]["License Type"];
+				
+				if(licType=="Lifetime Bowhunting"){
+					recordType = "Licenses/Lifetime/Hunting/Bowhunting";
+				}
+				if(licType=="Lifetime Fishing"){
+					recordType = "Licenses/Lifetime/Fishing/Fishing License";
+				}
+				if(licType=="Lifetime Muzzleloading"){
+					recordType = "Licenses/Lifetime/Hunting/Muzzleloading";
+				}
+				if(licType=="Lifetime Small & Big Game"){
+					recordType = "Licenses/Lifetime/Hunting/Small & Big Game";
+				}
+				if(licType=="Lifetime Sportsman"){
+					recordType = "Licenses/Lifetime/Hunting/Sportsman";
+				}
+				if(licType=="Lifetime Trapping"){
+					recordType = "Licenses/Lifetime/Trapping/Trapping License";
+				}
+				
+                var effectiveDt = LICENSEINFORMATION[y]["Effective Date"];
+                var syear = LICENSEINFORMATION[y]["License Year"];
+                var newDecDocId = LICENSEINFORMATION[y]["Document Number"];
+                var sYearDesc = "September 1, " + syear + " - August 31, " + (parseInt(syear, 10) + 1);
+
+                var f = new form_OBJECT(GS2_SCRIPT, OPTZ_TYPE_ALLFEES);
+                var seasonPeriod = GetLicenseSeasonPeriod();
+                f.Year = seasonPeriod[0].getFullYear();
+                f.IsNyResiDent = "Yes"; //logically is/was NYS resident
+                f.DOB = custDob;
+
+                f.ExecuteBoRuleEngine();
+
+                var recArr = f.licObjARRAY;
+                var ruleParams = f.getRulesParam();
+
+                var decCode = "";
+                var codeDescription = "";
+                for (var idx = 0; idx < recArr.length; idx++) {
+                    var oLic = recArr[idx];
+                    if (isNull(oLic.RecordType, '') == recordType) {
+                        var newfd = getFeeCodeByRule(ruleParams, oLic.feeschedule, oLic.feeversion, oLic.FNfeeRule);
+                        decCode = GetItemCode(newfd.Code3commission + "");
+                        codeDescription = GetItemCodedesc(decCode);
+                        break;
+                    }
+                }
+
+                var ata = recordType.split("/");
+                var newLicId = issueSubLicense(ata[0], ata[1], ata[2], ata[3], "Active", capId);
+                editAppName(codeDescription, newLicId);
+
+                var newAInfo = new Array();
+                newAInfo.push(new NewLicDef("Year", syear));
+                newAInfo.push(new NewLicDef("Year Description", sYearDesc));
+                newAInfo.push(new NewLicDef("Item Code", decCode));
+                newAInfo.push(new NewLicDef("Quantity", "1"));
+                newAInfo.push(new NewLicDef("Effective Date", effectiveDt));
+                copyLicASI(newLicId, newAInfo);
+
+                updateDocumentNumber(newDecDocId, newLicId);
+
+                editFileDate(newLicId, effectiveDt);
+
+                //effectiveDt + 100Years
+                var expDate = dateAddMonths(new Date(effectiveDt), (101 * 12));
+				setLicExpirationDate(newLicId, "", expDate, null, true);
+            }
+        } else {
+            logDebug("**ERROR in createLegacyLoadLic: No row ia table.");
+        }
+    }
+    catch (err) {
+        logDebug("**ERROR in createLegacyLoadLic:" + err.message);
+    }
+}
