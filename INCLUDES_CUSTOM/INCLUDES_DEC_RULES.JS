@@ -825,7 +825,7 @@ function getAllFeeCodeByRuleFor_FRESHWATER_FISHING_2014(ruleParams, feeSched) {
     //Annual Fishing License fee for Native American having age  16+
     if ((rp.IsNyResiDent || rp.HasLifetimeFish()) && rp.IsNativeAmerican) { feeItemCodes.push(new FeeCodeProp(AFF_4_RESNAM, "000")); }
     //Annual Fishing License fee for Legally Blind having age  16+
-    if (rp.IsLegallyBlind) { feeItemCodes.push(new FeeCodeProp(AFF_3_RESLB, "000")); }
+    if ((rp.IsNyResiDent || rp.HasLifetimeFish()) && rp.IsLegallyBlind) { feeItemCodes.push(new FeeCodeProp(AFF_3_RESLB, "000")); }
 
     //Annual NonRes Freshwater Fishing: Non-Res having age 16+
     if (!(rp.IsNyResiDent || rp.HasLifetimeFish()) && rp.Age >= 16) { feeItemCodes.push(new FeeCodeProp(AFF_7_NORES, "000")); }
@@ -1753,8 +1753,11 @@ function isRuleForSelectable_ONEDAY_FISH_2012(ruleParams) {
     return isSelectable;
 }
 function isRuleForSelectable_ONEDAY_FISH_2014(ruleParams) {
-    var isSelectable = ((ruleParams.IsNyResiDent || ruleParams.HasLifetimeFish()) && ruleParams.Age >= 16 && ruleParams.Age <= 69 && !ruleParams.IsMilitaryServiceman);
-    isSelectable = isSelectable || (!(ruleParams.IsNyResiDent || ruleParams.HasLifetimeFish()) && ruleParams.Age >= 16);
+    var isSelectable = false;
+    if (ruleParams.IsLegallyBlind) {
+        isSelectable = ((ruleParams.IsNyResiDent || ruleParams.HasLifetimeFish()) && ruleParams.Age >= 16 && ruleParams.Age <= 69 && !ruleParams.IsMilitaryServiceman);
+        isSelectable = isSelectable || (!(ruleParams.IsNyResiDent || ruleParams.HasLifetimeFish()) && ruleParams.Age >= 16);
+    }
 
     return isSelectable;
 }
@@ -1864,9 +1867,12 @@ function isRuleForSelectable_SEVEN_DAY_FISHING_LICENSE_2012(ruleParams) {
     return isSelectable;
 }
 function isRuleForSelectable_SEVEN_DAY_FISHING_LICENSE_2014(ruleParams) {
-    var isSelectable = ((ruleParams.IsNyResiDent || ruleParams.HasLifetimeFish()) && ruleParams.Age >= 16 && ruleParams.Age <= 69 && !ruleParams.IsMilitaryServiceman);
-    isSelectable = isSelectable || (!(ruleParams.IsNyResiDent || ruleParams.HasLifetimeFish()) && ruleParams.Age >= 16);
+    var isSelectable = false;
 
+    if (ruleParams.IsLegallyBlind) {
+        isSelectable = ((ruleParams.IsNyResiDent || ruleParams.HasLifetimeFish()) && ruleParams.Age >= 16 && ruleParams.Age <= 69 && !ruleParams.IsMilitaryServiceman);
+        isSelectable = isSelectable || (!(ruleParams.IsNyResiDent || ruleParams.HasLifetimeFish()) && ruleParams.Age >= 16);
+    }
     return isSelectable;
 }
 function isRuleForSelectable_CONSERVATION_LEGACY(ruleParams) {
