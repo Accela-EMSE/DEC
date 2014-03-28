@@ -55,18 +55,6 @@ var LIC54_TAG_PRIV_PANEL = "Privilage Panel";
 //var LIC55_TAG_DRIV_LIC = "Add Lifetime to Driver License";
 var LIC56_TAG_DRIV_LIC_IMM = "Add Lifetime to Driver License Re-Issue Immediately";
 var LIC57_TAG_DRIV_LIC_REN = "Add Lifetime to Driver License on Renewal";
-var LIC58_HUNTING_LICENSE_3Y = "LIC58_HUNTING_LICENSE_3Y";
-var LIC59_HUNTING_LICENSE_5Y = "LIC59_HUNTING_LICENSE_5Y";
-var LIC60_BOWHUNTING_PRIVILEGE_3Y = "LIC60_BOWHUNTING_PRIVILEGE_3Y";
-var LIC61_BOWHUNTING_PRIVILEGE_5Y = "LIC61_BOWHUNTING_PRIVILEGE_5Y";
-var LIC62_MUZZLELOADING_PRIVILEGE_3Y = "LIC62_MUZZLELOADING_PRIVILEGE_3Y";
-var LIC63_MUZZLELOADING_PRIVILEGE_5Y = "LIC63_MUZZLELOADING_PRIVILEGE_5Y";
-var LIC64_TRAPPING_LICENSE_3Y = "LIC64_TRAPPING_LICENSE_3Y";
-var LIC65_TRAPPING_LICENSE_5Y = "LIC65_TRAPPING_LICENSE_5Y";
-var LIC66_FRESHWATER_FISHING_3Y = "LIC66_FRESHWATER_FISHING_3Y";
-var LIC67_FRESHWATER_FISHING_5Y = "LIC67_FRESHWATER_FISHING_5Y";
-var LIC68_TURKEY_PERMIT_3Y = "LIC68_TURKEY_PERMIT_3Y";
-var LIC69_TURKEY_PERMIT_5Y = "LIC69_TURKEY_PERMIT_5Y";
 
 var AA01_FISHING_LICENSE = "Licenses/Annual/Fishing/NA"; //Obsolete: Merge to freshWaterFishing
 var AA02_MARINE_REGISTRY = "Licenses/Annual/Fishing/Marine Registry";
@@ -125,18 +113,6 @@ var AA54_TAG_PRIV_PANEL = "Licenses/Tag/Document/Privilege Panel";
 var AA55_TAG_DRIV_LIC_IMM = "Licenses/Tag/Document/Driver License Immediate";
 var AA56_TAG_DRIV_LIC_REN = "Licenses/Tag/Document/Driver License Renewal";
 var AA57_JUNIOR_HUNTING_TAGS = "Licenses/Annual/Hunting/Junior Big Game Tags";
-var AA58_HUNTING_LICENSE_3Y = "Licenses/Term/Hunting/3 Year Hunting";
-var AA59_HUNTING_LICENSE_5Y = "Licenses/Term/Hunting/5 Year Hunting";
-var AA60_BOWHUNTING_PRIVILEGE_3Y = "Licenses/Term/Hunting/3 Year Bowhunting Privilege";
-var AA61_BOWHUNTING_PRIVILEGE_5Y = "Licenses/Term/Hunting/5 Year Bowhunting Privilege";
-var AA62_MUZZLELOADING_PRIVILEGE_3Y = "Licenses/Term/Hunting/3 Year Muzzleloading Privilege";
-var AA63_MUZZLELOADING_PRIVILEGE_5Y = "Licenses/Term/Hunting/5 Year Muzzleloading Privilege";
-var AA64_TRAPPING_LICENSE_3Y = "Licenses/Term/Trapping/3 Year Trapping License";
-var AA65_TRAPPING_LICENSE_5Y = "Licenses/Term/Trapping/5 Year Trapping License";
-var AA66_FRESHWATER_FISHING_3Y = "Licenses/Term/Fishing/3 Year Freshwater Fishing";
-var AA67_FRESHWATER_FISHING_5Y = "Licenses/Term/Fishing/5 Year Freshwater Fishing";
-var AA68_TURKEY_PERMIT_3Y = "Licenses/Term/Hunting/3 Year Turkey Permit";
-var AA69_TURKEY_PERMIT_5Y = "Licenses/Term/Hunting/5 Year Turkey Permit";
 
 //Tag Type: STANDARD CHOICE: TAG_TYPE
 var TAG_TYPE_1_BACK_TAG = 1;
@@ -417,55 +393,6 @@ var FEE_ANL_JUNIOR_HUNT_TAG_SCHDL = "FEE_ANL_JUNIOR_HUNT_TAG_SCHDL";
 var AJHT_1_RES = "AJHT_1_RES"
 var AJHT_2_NORES = "AJHT_2_NORES"
 
-//Add fee schdules for 3 Year and 5 Year
-var FEE_3YEAR_HUNTING_SCHDL = "FEE_3YEAR_HUNTING_SCHDL";
-var H3Y_1_RES = "H3Y_1_RES"
-var H3Y_2_NRES = "H3Y_2_NRES"
-
-var FEE_5YEAR_HUNTING_SCHDL = "FEE_5YEAR_HUNTING_SCHDL";
-var H5Y_1_RES = "H5Y_1_RES";
-var H5Y_2_NRES = "H5Y_2_NRES";
-
-var FEE_3YEAR_BOWHUNTING_SCHDL = "FEE_3YEAR_BOWHUNTING_SCHDL";
-var B3Y_1_RES = "B3Y_1_RES";
-var B3Y_2_NRES = "B3Y_2_NRES";
-
-var FEE_5YEAR_BOWHUNTING_SCHDL = "FEE_5YEAR_BOWHUNTING_SCHDL";
-var B5Y_1_RES = "B5Y_1_RES";
-var B5Y_2_NRES = "B5Y_2_NRES";
-
-var FEE_3YEAR_MUZZLELOADING_SCHDL = "FEE_3YEAR_MUZZLELOADING_SCHDL";
-var M3Y_1_RES = "M3Y_1_RES";
-var M3Y_2_NRES = "M3Y_2_NRES";
-
-var FEE_5YEAR_MUZZLELOADING_SCHDL = "FEE_5YEAR_MUZZLELOADING_SCHDL";
-var M5Y_1_RES = "M5Y_1_RES";
-var M5Y_2_NRES = "M5Y_2_NRES";
-
-var FEE_3YEAR_TURKEY_PERMIT_SCHDL = "FEE_3YEAR_TURKEY_PERMIT_SCHDL";
-var TK3Y_1_RES = "TK3Y_1_RES";
-var TK3Y_2_NRES = "TK3Y_2_NRES";
-
-var FEE_5YEAR_TURKEY_PERMIT_SCHDL = "FEE_5YEAR_TURKEY_PERMIT_SCHDL";
-var TK5Y_1_RES = "TK5Y_1_RES";
-var TK5Y_2_NRES = "TK5Y_2_NRES";
-
-var FEE_3YEAR_TRAPPING_SCHDL = "FEE_3YEAR_TRAPPING_SCHDL";
-var TP3Y_1_RES = "TP3Y_1_RES";
-var TP3Y_2_NRES = "TP3Y_2_NRES";
-
-var FEE_5YEAR_TRAPPING_SCHDL = "FEE_5YEAR_TRAPPING_SCHDL";
-var TP5Y_1_RES = "TP5Y_1_RES";
-var TP5Y_2_NRES = "TP5Y_2_NRES";
-
-var FEE_3YEAR_FISHING_SCHDL = "FEE_3YEAR_FISHING_SCHDL";
-var FS3Y_1_RES = "FS3Y_1_RES";
-var FS3Y_2_NRES = "FS3Y_2_NRES";
-
-var FEE_5YEAR_FISHING_SCHDL = "FEE_5YEAR_FISHING_SCHDL";
-var FS5Y_1_RES = "FS5Y_1_RES";
-var FS5Y_2_NRES = "FS5Y_2_NRES";
-
 // Lifetime Driver License
 var FEE_LIFETIME_DRIV_LIC_SCHDL = "FEE_LIFETM_DL_IMM_OPTIN";
 var FEE_LIFETIME_DRIV_LIC_IMMED = "FEE_DL_1";
@@ -480,8 +407,6 @@ arryfishingGroup.push(LIC23_NONRES_FRESHWATER_FISHING);
 arryfishingGroup.push(LIC24_NONRESIDENT_1_DAY_FISHING);
 arryfishingGroup.push(LIC25_NONRESIDENT_7_DAY_FISHING);
 arryfishingGroup.push(LIC26_SEVEN_DAY_FISHING_LICENSE);
-arryfishingGroup.push(LIC66_FRESHWATER_FISHING_3Y);
-arryfishingGroup.push(LIC67_FRESHWATER_FISHING_5Y);
 
 var arryHunterGroup = new Array();
 arryHunterGroup.push(LIC04_BOWHUNTING_PRIVILEGE);
@@ -489,6 +414,7 @@ arryHunterGroup.push(LIC05_DEER_MANAGEMENT_PERMIT);
 arryHunterGroup.push(LIC06_HUNTING_LICENSE);
 arryHunterGroup.push(LIC07_MUZZLELOADING_PRIVILEGE);
 arryHunterGroup.push(LIC08_TURKEY_PERMIT);
+arryHunterGroup.push(LIC15_TRAPPING_LICENSE);
 arryHunterGroup.push(LIC27_CONSERVATION_LEGACY);
 arryHunterGroup.push(LIC28_JUNIOR_BOWHUNTING);
 arryHunterGroup.push(LIC29_JUNIOR_HUNTING);
@@ -505,17 +431,6 @@ arryHunterGroup.push(LIC39_SPORTSMAN);
 arryHunterGroup.push(LIC40_SUPER_SPORTSMAN);
 arryHunterGroup.push(LIC41_NONRESIDENT_TRAPPING);
 arryHunterGroup.push(LIC42_TRAPPER_SUPER_SPORTSMAN);
-arryHunterGroup.push(LIC58_HUNTING_LICENSE_3Y);
-arryHunterGroup.push(LIC59_HUNTING_LICENSE_5Y);
-arryHunterGroup.push(LIC60_BOWHUNTING_PRIVILEGE_3Y);
-arryHunterGroup.push(LIC61_BOWHUNTING_PRIVILEGE_5Y);
-arryHunterGroup.push(LIC62_MUZZLELOADING_PRIVILEGE_3Y);
-arryHunterGroup.push(LIC63_MUZZLELOADING_PRIVILEGE_5Y);
-arryHunterGroup.push(LIC68_TURKEY_PERMIT_3Y);
-arryHunterGroup.push(LIC69_TURKEY_PERMIT_5Y);
-arryHunterGroup.push(LIC15_TRAPPING_LICENSE);
-arryHunterGroup.push(LIC64_TRAPPING_LICENSE_3Y);
-arryHunterGroup.push(LIC65_TRAPPING_LICENSE_5Y);
 
 var arryLifeTimeGroup = new Array();
 arryLifeTimeGroup.push(LIC09_LIFETIME_BOWHUNTING);
@@ -609,19 +524,6 @@ function GetAllSalesItemsNames() {
     //RecordTypeArray[RecordTypeArray.length] = LIC55_TAG_DRIV_LIC;
     RecordTypeArray[RecordTypeArray.length] = LIC56_TAG_DRIV_LIC_IMM;
     RecordTypeArray[RecordTypeArray.length] = LIC57_TAG_DRIV_LIC_REN;
-    RecordTypeArray[RecordTypeArray.length] = LIC58_HUNTING_LICENSE_3Y;
-    RecordTypeArray[RecordTypeArray.length] = LIC59_HUNTING_LICENSE_5Y;
-    RecordTypeArray[RecordTypeArray.length] = LIC60_BOWHUNTING_PRIVILEGE_3Y;
-    RecordTypeArray[RecordTypeArray.length] = LIC61_BOWHUNTING_PRIVILEGE_5Y;
-    RecordTypeArray[RecordTypeArray.length] = LIC62_MUZZLELOADING_PRIVILEGE_3Y;
-    RecordTypeArray[RecordTypeArray.length] = LIC63_MUZZLELOADING_PRIVILEGE_5Y;
-    RecordTypeArray[RecordTypeArray.length] = LIC64_TRAPPING_LICENSE_3Y;
-    RecordTypeArray[RecordTypeArray.length] = LIC65_TRAPPING_LICENSE_5Y;
-    RecordTypeArray[RecordTypeArray.length] = LIC66_FRESHWATER_FISHING_3Y;
-    RecordTypeArray[RecordTypeArray.length] = LIC67_FRESHWATER_FISHING_5Y;
-    RecordTypeArray[RecordTypeArray.length] = LIC68_TURKEY_PERMIT_3Y;
-    RecordTypeArray[RecordTypeArray.length] = LIC69_TURKEY_PERMIT_5Y;
-
     return RecordTypeArray;
 }
 function SalesItemProp(identity, recordType, feeSched, feeVersion, fnFeeRule, fnIsSelectableRule, fnprereqisiteArray, fnIncludesArray, fntagsArray, verifyRevokedHunting, verifyRevokedTrapping, verifyRevokedFishing) {
@@ -732,30 +634,18 @@ function SetVesrionSalesItems2012() {
 function SetVesrionSalesItems2014() {
     var emptyArray = new Array();
 
-    emptyArray.push(new SalesItemProp(LIC06_HUNTING_LICENSE, AA06_HUNTING_LICENSE, FEE_ANNUAL_HUNTING_SCHDL, "1", "getAllFeeCodeByRuleFor_ANNUAL_HUNT", "isRuleForSelectable_ANNUAL_HUNT", null, "getIncl_ANNUAL_HUNT", "getTag_ANNUAL_HUNT", true, false, false));
-    emptyArray.push(new SalesItemProp(LIC58_HUNTING_LICENSE_3Y, AA58_HUNTING_LICENSE_3Y, FEE_3YEAR_HUNTING_SCHDL, "1", "getAllFeeCodeByRuleFor_3Y_HUNT", "isRuleForSelectable_3Y_HUNT", null, "getIncl_3Y_HUNT", "getTag_ANNUAL_HUNT", true, false, false));
-    emptyArray.push(new SalesItemProp(LIC59_HUNTING_LICENSE_5Y, AA59_HUNTING_LICENSE_5Y, FEE_5YEAR_HUNTING_SCHDL, "1", "getAllFeeCodeByRuleFor_5Y_HUNT", "isRuleForSelectable_5Y_HUNT", null, "getIncl_5Y_HUNT", "getTag_ANNUAL_HUNT", true, false, false));
-    emptyArray.push(new SalesItemProp(LIC04_BOWHUNTING_PRIVILEGE, AA04_BOWHUNTING_PRIVILEGE, FEE_ANNUAL_BOWHUNTING_SCHDL, "2", "getAllFeeCodeByRuleFor_ANNUAL_BOWH_2014", "isRuleForSelectable_ANNUAL_BOWH_2014", "getPrereq_ANNUAL_BOWH_2014", "getIncl_ANNUAL_BOWH", "getTag_ANNUAL_BOWH_2014", true, false, false));
-    emptyArray.push(new SalesItemProp(LIC60_BOWHUNTING_PRIVILEGE_3Y, AA60_BOWHUNTING_PRIVILEGE_3Y, FEE_3YEAR_BOWHUNTING_SCHDL, "1", "getAllFeeCodeByRuleFor_3Y_BOWH", "isRuleForSelectable_3Y_BOWH", "getPrereq_3Y_BOWH", "getIncl_3Y_BOWH", "getTag_ANNUAL_BOWH_2014", true, false, false));
-    emptyArray.push(new SalesItemProp(LIC61_BOWHUNTING_PRIVILEGE_5Y, AA61_BOWHUNTING_PRIVILEGE_5Y, FEE_5YEAR_BOWHUNTING_SCHDL, "1", "getAllFeeCodeByRuleFor_5Y_BOWH", "isRuleForSelectable_5Y_BOWH", "getPrereq_5Y_BOWH", "getIncl_5Y_BOWH", "getTag_ANNUAL_BOWH_2014", true, false, false));
-    emptyArray.push(new SalesItemProp(LIC07_MUZZLELOADING_PRIVILEGE, AA07_MUZZLELOADING_PRIVILEGE, FEE_ANNUAL_MUZZLELOADING_SCHDL, "2", "getAllFeeCodeByRuleFor_ANNUAL_MUZZ_2014", "isRuleForSelectable_ANNUAL_MUZZ_2014", "getPrereq_ANNUAL_MUZZ_2014", "getIncl_ANNUAL_MUZZ", "getTag_ANNUAL_MUZZ_2014", true, false, false));
-    emptyArray.push(new SalesItemProp(LIC62_MUZZLELOADING_PRIVILEGE_3Y, AA62_MUZZLELOADING_PRIVILEGE_3Y, FEE_3YEAR_MUZZLELOADING_SCHDL, "1", "getAllFeeCodeByRuleFor_3Y_MUZZ", "isRuleForSelectable_3Y_MUZZ", "getPrereq_3Y_MUZZ", "getIncl_3Y_MUZZ", "getTag_ANNUAL_MUZZ_2014", true, false, false));
-    emptyArray.push(new SalesItemProp(LIC63_MUZZLELOADING_PRIVILEGE_5Y, AA63_MUZZLELOADING_PRIVILEGE_5Y, FEE_5YEAR_MUZZLELOADING_SCHDL, "1", "getAllFeeCodeByRuleFor_5Y_MUZZ", "isRuleForSelectable_5Y_MUZZ", "getPrereq_5Y_MUZZ", "getIncl_5Y_MUZZ", "getTag_ANNUAL_MUZZ_2014", true, false, false));
+    emptyArray.push(new SalesItemProp(LIC06_HUNTING_LICENSE, AA06_HUNTING_LICENSE, FEE_ANNUAL_HUNTING_SCHDL, "1", "getAllFeeCodeByRuleFor_ANNUAL_HUNT", "isRuleForSelectable_ANNUAL_HUNT", null, null, "getTag_ANNUAL_HUNT", true, false, false));
+    emptyArray.push(new SalesItemProp(LIC04_BOWHUNTING_PRIVILEGE, AA04_BOWHUNTING_PRIVILEGE, FEE_ANNUAL_BOWHUNTING_SCHDL, "2", "getAllFeeCodeByRuleFor_ANNUAL_BOWH_2014", "isRuleForSelectable_ANNUAL_BOWH_2014", "getPrereq_ANNUAL_BOWH_2014", null, "getTag_ANNUAL_BOWH_2014", true, false, false));
+    emptyArray.push(new SalesItemProp(LIC07_MUZZLELOADING_PRIVILEGE, AA07_MUZZLELOADING_PRIVILEGE, FEE_ANNUAL_MUZZLELOADING_SCHDL, "2", "getAllFeeCodeByRuleFor_ANNUAL_MUZZ_2014", "isRuleForSelectable_ANNUAL_MUZZ_2014", "getPrereq_ANNUAL_MUZZ_2014", null, "getTag_ANNUAL_MUZZ_2014", true, false, false));
     //RV - 11/25 - Original code had no record type (param 2). I'm not sure the sales item below is currently being used.  When testing for season beginning Oct 2013 -, the logic was being called from the 2012 version() salesItemProp() above.
     emptyArray.push(new SalesItemProp(LIC01_JUNIOR_HUNTING_TAGS, AA57_JUNIOR_HUNTING_TAGS, FEE_ANL_JUNIOR_HUNT_TAG_SCHDL, "1", "getAllFeeCodeByRuleFor_JUNIOR_HUNT_TAGS", "isRuleForSelectable_JUNIOR_HUNT_TAGS", null, null, "getTag_JUNIOR_HUNT_TAGS", true, false, false));
-    emptyArray.push(new SalesItemProp(LIC08_TURKEY_PERMIT, AA08_TURKEY_PERMIT, FEE_ANNUAL_TURKEY_PERMIT_SCHDL, "2", "getAllFeeCodeByRuleFor_ANNUAL_TRKY_2014", "isRuleForSelectable_ANNUAL_TRKY_2014", "getPrereq_ANNUAL_TRKY_2014", "getIncl_ANNUAL_TRKY", "getTag_ANNUAL_TRKY_2014", true, false, false));
-    emptyArray.push(new SalesItemProp(LIC68_TURKEY_PERMIT_3Y, AA68_TURKEY_PERMIT_3Y, FEE_3YEAR_TURKEY_PERMIT_SCHDL, "1", "getAllFeeCodeByRuleFor_3Y_TRKY", "isRuleForSelectable_3Y_TRKY", "getPrereq_3Y_TRKY_2014", "getIncl_3Y_TRKY", "getTag_ANNUAL_TRKY_2014", true, false, false));
-    emptyArray.push(new SalesItemProp(LIC69_TURKEY_PERMIT_5Y, AA69_TURKEY_PERMIT_5Y, FEE_5YEAR_TURKEY_PERMIT_SCHDL, "1", "getAllFeeCodeByRuleFor_5Y_TRKY", "isRuleForSelectable_5Y_TRKY", "getPrereq_5Y_TRKY_2014", "getIncl_5Y_TRKY", "getTag_ANNUAL_TRKY_2014", true, false, false));
+    emptyArray.push(new SalesItemProp(LIC08_TURKEY_PERMIT, AA08_TURKEY_PERMIT, FEE_ANNUAL_TURKEY_PERMIT_SCHDL, "2", "getAllFeeCodeByRuleFor_ANNUAL_TRKY_2014", "isRuleForSelectable_ANNUAL_TRKY_2014", "getPrereq_ANNUAL_TRKY_2014", null, "getTag_ANNUAL_TRKY_2014", true, false, false));
     emptyArray.push(new SalesItemProp(LIC05_DEER_MANAGEMENT_PERMIT, AA05_DEER_MANAGEMENT_PERMIT, FEE_ANNUAL_DMP_SCHDL, "1", "getAllFeeCodeByRuleFor_ANNUAL_DMP", "isRuleForSelectable_ANNUAL_DMP_2014", "getPrereq_ANNUAL_DMP_2014", null, "getTag_ANNUAL_DMP_2014", true, false, false));
-    emptyArray.push(new SalesItemProp(LIC15_TRAPPING_LICENSE, AA15_TRAPPING_LICENSE, FEE_ANNUAL_TRAPPING_SCHDL, "2", "getAllFeeCodeByRuleFor_ANNUAL_TRAP_2014", "isRuleForSelectable_ANNUAL_TRAP_2014", null, "getIncl_ANNUAL_TRAP", null, false, true, false));
-    emptyArray.push(new SalesItemProp(LIC64_TRAPPING_LICENSE_3Y, AA64_TRAPPING_LICENSE_3Y, FEE_3YEAR_TRAPPING_SCHDL, "1", "getAllFeeCodeByRuleFor_3Y_TRAP", "isRuleForSelectable_3Y_TRAP", null, "getIncl_3Y_TRAP", null, false, true, false));
-    emptyArray.push(new SalesItemProp(LIC65_TRAPPING_LICENSE_5Y, AA65_TRAPPING_LICENSE_5Y, FEE_5YEAR_TRAPPING_SCHDL, "1", "getAllFeeCodeByRuleFor_5Y_TRAP", "isRuleForSelectable_5Y_TRAP", null, "getIncl_5Y_TRAP", null, false, true, false));
+    emptyArray.push(new SalesItemProp(LIC15_TRAPPING_LICENSE, AA15_TRAPPING_LICENSE, FEE_ANNUAL_TRAPPING_SCHDL, "2", "getAllFeeCodeByRuleFor_ANNUAL_TRAP_2014", "isRuleForSelectable_ANNUAL_TRAP_2014", null, null, null, false, true, false));
 
-    emptyArray.push(new SalesItemProp(LIC22_FRESHWATER_FISHING, AA22_FRESHWATER_FISHING, FEE_ANL_FRESHWATER_FISH_SCHDL, "2", "getAllFeeCodeByRuleFor_FRESHWATER_FISHING_2014", "isRuleForSelectable_FRESHWATER_FISHING_2014", null, "getIncl_FRESHWATER_FISHING_2014", null, false, false, true));
-    emptyArray.push(new SalesItemProp(LIC66_FRESHWATER_FISHING_3Y, AA66_FRESHWATER_FISHING_3Y, FEE_3YEAR_FISHING_SCHDL, "1", "getAllFeeCodeByRuleFor_3Y_FRESHWATER_FISHING", "isRuleForSelectable_3Y_FRESHWATER_FISHING", null, "getIncl_3Y_FRESHWATER_FISHING", null, false, false, true));
-    emptyArray.push(new SalesItemProp(LIC67_FRESHWATER_FISHING_5Y, AA67_FRESHWATER_FISHING_5Y, FEE_5YEAR_FISHING_SCHDL, "1", "getAllFeeCodeByRuleFor_5Y_FRESHWATER_FISHING", "isRuleForSelectable_5Y_FRESHWATER_FISHING", null, "getIncl_5Y_FRESHWATER_FISHING", null, false, false, true));
+    emptyArray.push(new SalesItemProp(LIC22_FRESHWATER_FISHING, AA22_FRESHWATER_FISHING, FEE_ANL_FRESHWATER_FISH_SCHDL, "2", "getAllFeeCodeByRuleFor_FRESHWATER_FISHING_2014", "isRuleForSelectable_FRESHWATER_FISHING_2014", null, null, null, false, false, true));
     emptyArray.push(new SalesItemProp(LIC03_ONE_DAY_FISHING_LICENSE, AA03_ONE_DAY_FISHING_LICENSE, FEE_ONEDAY_FISH_SCHDL, "2", "getAllFeeCodeByRuleFor_ONEDAY_FISH_2014", "isRuleForSelectable_ONEDAY_FISH_2014", null, null, null, false, false, true));
-    emptyArray.push(new SalesItemProp(LIC26_SEVEN_DAY_FISHING_LICENSE, AA26_SEVEN_DAY_FISHING_LICENSE, FEE_ANNUAL_7DAY_FISHING_SCHDL, "3", "getAllFeeCodeByRuleFor_SEVEN_DAY_FISHING_LICENSE_2014", "isRuleForSelectable_SEVEN_DAY_FISHING_LICENSE_2014", null, null, null, false, false, true));
+    emptyArray.push(new SalesItemProp(LIC26_SEVEN_DAY_FISHING_LICENSE, AA26_SEVEN_DAY_FISHING_LICENSE, FEE_ANNUAL_7DAY_FISHING_SCHDL, "2", "getAllFeeCodeByRuleFor_SEVEN_DAY_FISHING_LICENSE_2014", "isRuleForSelectable_SEVEN_DAY_FISHING_LICENSE_2014", null, null, null, false, false, true));
     emptyArray.push(new SalesItemProp(LIC02_MARINE_REGISTRY, AA02_MARINE_REGISTRY, FEE_ANNUAL_MRIN_REGISTRY_SCHDL, "1", "getAllFeeCodeByRuleFor_ANNUAL_MRIN", "isRuleForSelectable_ANNUAL_MRIN", null, null, null, false, false, false));
 
     emptyArray.push(new SalesItemProp(LIC09_LIFETIME_BOWHUNTING, AA09_LIFETIME_BOWHUNTING, FEE_LIFETIME_BOWHUNTING_SCHDL, "1", "getAllFeeCodeByRuleFor_LIFETM_BOWH", "isRuleForSelectable_LIFETM_BOWH", "getPrereq_LIFETM_BOWH", "getIncl_LIFETM_BOWH", "getTag_LIFETM_BOWH", true, false, false));
@@ -1603,151 +1493,6 @@ function getAllFeeCodeByRuleFor_OTHER_SALE_VENISON_DONATION_SCHDL(ruleParams, fe
     //if (feeItemCodes.length == 0) { feeItemCodes.push(new FeeCodeProp(OS1_VENISON, "000")); }
     return feeItemCodes;
 }
-function getAllFeeCodeByRuleFor_3Y_HUNT(ruleParams, feeSched) {
-    var feeItemCodes = new Array();
-    var rp = ruleParams;
-
-    //3 Year Hunting: NYS Resident having age 16-69
-    if ((rp.IsNyResiDent || rp.HasLifetimeHunt()) && rp.Age >= 16 && rp.Age <= 69) { feeItemCodes.push(new FeeCodeProp(H3Y_1_RES, "000")); }
-    //3 Year Hunting: Non-Resident having age 16-69
-    if (!(rp.IsNyResiDent || rp.HasLifetimeHunt()) && rp.Age >= 16) { feeItemCodes.push(new FeeCodeProp(H3Y_2_NRES, "000")); }
-
-    if (feeItemCodes.length == 0) { feeItemCodes.push(new FeeCodeProp(H3Y_2_NRES, "000")); }
-    return feeItemCodes;
-}
-function getAllFeeCodeByRuleFor_5Y_HUNT(ruleParams, feeSched) {
-    var feeItemCodes = new Array();
-    var rp = ruleParams;
-
-    //5 Year Hunting: NYS Resident having age 16-69
-    if ((rp.IsNyResiDent || rp.HasLifetimeHunt()) && rp.Age >= 16 && rp.Age <= 69) { feeItemCodes.push(new FeeCodeProp(H5Y_1_RES, "000")); }
-    //5 Year Hunting: Non-Resident having age 16-69
-    if (!(rp.IsNyResiDent || rp.HasLifetimeHunt()) && rp.Age >= 16) { feeItemCodes.push(new FeeCodeProp(H5Y_2_NRES, "000")); }
-
-    if (feeItemCodes.length == 0) { feeItemCodes.push(new FeeCodeProp(H5Y_2_NRES, "000")); }
-    return feeItemCodes;
-}
-function getAllFeeCodeByRuleFor_3Y_BOWH(ruleParams, feeSched) {
-    var feeItemCodes = new Array();
-    var rp = ruleParams;
-
-    //3 Year Bow Hunting: NYS Resident having age 16-69
-    if ((rp.IsNyResiDent || rp.HasLifetimeHunt()) && rp.Age >= 16 && rp.Age <= 69) { feeItemCodes.push(new FeeCodeProp(B3Y_1_RES, "000")); }
-    //3 Year Bow Hunting: Non-Resident having age 16-69
-    if (!(rp.IsNyResiDent || rp.HasLifetimeHunt()) && rp.Age >= 16) { feeItemCodes.push(new FeeCodeProp(B3Y_2_NRES, "000")); }
-
-    if (feeItemCodes.length == 0) { feeItemCodes.push(new FeeCodeProp(B3Y_2_NRES, "000")); }
-    return feeItemCodes;
-}
-function getAllFeeCodeByRuleFor_5Y_BOWH(ruleParams, feeSched) {
-    var feeItemCodes = new Array();
-    var rp = ruleParams;
-
-    //5 Year Bow Hunting: NYS Resident having age 16-69
-    if ((rp.IsNyResiDent || rp.HasLifetimeHunt()) && rp.Age >= 16 && rp.Age <= 69) { feeItemCodes.push(new FeeCodeProp(B5Y_1_RES, "000")); }
-    //5 Year Bow Hunting: Non-Resident having age 16-69
-    if (!(rp.IsNyResiDent || rp.HasLifetimeHunt()) && rp.Age >= 16) { feeItemCodes.push(new FeeCodeProp(B5Y_2_NRES, "000")); }
-
-    if (feeItemCodes.length == 0) { feeItemCodes.push(new FeeCodeProp(B5Y_2_NRES, "000")); }
-    return feeItemCodes;
-}
-function getAllFeeCodeByRuleFor_3Y_MUZZ(ruleParams, feeSched) {
-    var feeItemCodes = new Array();
-    var rp = ruleParams;
-
-    //3 Year Muzzleloading Privilege: NYS Resident having age 16-69
-    if ((rp.IsNyResiDent || rp.HasLifetimeHunt()) && rp.Age >= 16 && rp.Age <= 69) { feeItemCodes.push(new FeeCodeProp(M3Y_1_RES, "000")); }
-    //3 Year Muzzleloading Privilege: Non-Resident having age 16-69
-    if (!(rp.IsNyResiDent || rp.HasLifetimeHunt()) && rp.Age >= 16) { feeItemCodes.push(new FeeCodeProp(M3Y_2_NRES, "000")); }
-
-    if (feeItemCodes.length == 0) { feeItemCodes.push(new FeeCodeProp(M3Y_2_NRES, "000")); }
-    return feeItemCodes;
-}
-function getAllFeeCodeByRuleFor_5Y_MUZZ(ruleParams, feeSched) {
-    var feeItemCodes = new Array();
-    var rp = ruleParams;
-
-    //5 Year Muzzleloading Privilege: NYS Resident having age 16-69 
-    if ((rp.IsNyResiDent || rp.HasLifetimeHunt()) && rp.Age >= 16 && rp.Age <= 69) { feeItemCodes.push(new FeeCodeProp(M5Y_1_RES, "000")); }
-    //5 Year Muzzleloading Privilege: Non-Resident having age 16-69
-    if (!(rp.IsNyResiDent || rp.HasLifetimeHunt()) && rp.Age >= 16) { feeItemCodes.push(new FeeCodeProp(M5Y_2_NRES, "000")); }
-
-    if (feeItemCodes.length == 0) { feeItemCodes.push(new FeeCodeProp(M5Y_2_NRES, "000")); }
-    return feeItemCodes;
-}
-function getAllFeeCodeByRuleFor_3Y_TRKY(ruleParams, feeSched) {
-    var feeItemCodes = new Array();
-    var rp = ruleParams;
-
-    //3 Year Turkey Permit: NYS Resident having age 16-69
-    if ((rp.IsNyResiDent || rp.HasLifetimeHunt()) && rp.Age >= 16 && rp.Age <= 69) { feeItemCodes.push(new FeeCodeProp(TK3Y_1_RES, "000")); }
-    //3 Year Turkey Permit: Non-Resident having age 16-69
-    if (!(rp.IsNyResiDent || rp.HasLifetimeHunt()) && rp.Age >= 16) { feeItemCodes.push(new FeeCodeProp(TK3Y_2_NRES, "000")); }
-
-    if (feeItemCodes.length == 0) { feeItemCodes.push(new FeeCodeProp(TK3Y_2_NRES, "000")); }
-    return feeItemCodes;
-}
-function getAllFeeCodeByRuleFor_5Y_TRKY(ruleParams, feeSched) {
-    var feeItemCodes = new Array();
-    var rp = ruleParams;
-
-    //5 Year Turkey Permit: NYS Resident having age 16-69
-    if ((rp.IsNyResiDent || rp.HasLifetimeHunt()) && rp.Age >= 16 && rp.Age <= 69) { feeItemCodes.push(new FeeCodeProp(TK5Y_1_RES, "000")); }
-    //5 Year Turkey Permit: Non-Resident having age 16-69
-    if (!(rp.IsNyResiDent || rp.HasLifetimeHunt()) && rp.Age >= 16) { feeItemCodes.push(new FeeCodeProp(TK5Y_2_NRES, "000")); }
-
-    if (feeItemCodes.length == 0) { feeItemCodes.push(new FeeCodeProp(TK5Y_2_NRES, "000")); }
-    return feeItemCodes;
-}
-function getAllFeeCodeByRuleFor_3Y_TRAP(ruleParams, feeSched) {
-    var feeItemCodes = new Array();
-    var rp = ruleParams;
-
-    //3 Year Trapping License: NYS Resident having age 16-69
-    if ((rp.IsNyResiDent || rp.HasLifetimeTrap()) && rp.Age >= 16 && rp.Age <= 69) { feeItemCodes.push(new FeeCodeProp(TP3Y_1_RES, "000")); }
-    //3 Year Trapping License: Non-Resident having age 16-69
-    if (!(rp.IsNyResiDent || rp.HasLifetimeTrap()) && rp.Age >= 16) { feeItemCodes.push(new FeeCodeProp(TP3Y_2_NRES, "000")); }
-
-    if (feeItemCodes.length == 0) { feeItemCodes.push(new FeeCodeProp(TP3Y_2_NRES, "000")); }
-    return feeItemCodes;
-}
-function getAllFeeCodeByRuleFor_5Y_TRAP(ruleParams, feeSched) {
-    var feeItemCodes = new Array();
-    var rp = ruleParams;
-
-    //5 Year Trapping License: NYS Resident having age 16-69
-    if ((rp.IsNyResiDent || rp.HasLifetimeTrap()) && rp.Age >= 16 && rp.Age <= 69) { feeItemCodes.push(new FeeCodeProp(TP5Y_1_RES, "000")); }
-    //5 Year Trapping License: NYS Resident having age 16-69
-    if (!(rp.IsNyResiDent || rp.HasLifetimeTrap()) && rp.Age >= 16) { feeItemCodes.push(new FeeCodeProp(TP5Y_2_NRES, "000")); }
-
-    if (feeItemCodes.length == 0) { feeItemCodes.push(new FeeCodeProp(TP5Y_2_NRES, "000")); }
-    return feeItemCodes;
-}
-function getAllFeeCodeByRuleFor_3Y_FRESHWATER_FISHING(ruleParams, feeSched) {
-    var feeItemCodes = new Array();
-    var rp = ruleParams;
-
-    //3 Year Freshwater Fishing: NYS Resident having age 16-69
-    if ((rp.IsNyResiDent || rp.HasLifetimeFish()) && rp.Age >= 16 && rp.Age <= 69) { feeItemCodes.push(new FeeCodeProp(FS3Y_1_RES, "000")); }
-    //3 Year Freshwater Fishing: Non-Resident having age 16-69
-    if (!(rp.IsNyResiDent || rp.HasLifetimeFish()) && rp.Age >= 16) { feeItemCodes.push(new FeeCodeProp(FS3Y_2_NRES, "000")); }
-
-    if (feeItemCodes.length == 0) { feeItemCodes.push(new FeeCodeProp(FS3Y_2_NRES, "000")); }
-    return feeItemCodes;
-}
-function getAllFeeCodeByRuleFor_5Y_FRESHWATER_FISHING(ruleParams, feeSched) {
-    var feeItemCodes = new Array();
-    var rp = ruleParams;
-
-    //5 Freshwater Fishing: NYS Resident having age 16-69
-    if ((rp.IsNyResiDent || rp.HasLifetimeFish()) && rp.Age >= 16 && rp.Age <= 69) { feeItemCodes.push(new FeeCodeProp(FS5Y_1_RES, "000")); }
-    //5 Freshwater Fishing: Non-Resident having age 16-69
-    if (!(rp.IsNyResiDent || rp.HasLifetimeFish()) && rp.Age >= 16) { feeItemCodes.push(new FeeCodeProp(FS5Y_2_NRES, "000")); }
-
-    if (feeItemCodes.length == 0) { feeItemCodes.push(new FeeCodeProp(FS5Y_2_NRES, "000")); }
-    return feeItemCodes;
-}
-
 function isRuleForSelectable_ONEDAY_FISH_2012(ruleParams) {
     var isSelectable = ((ruleParams.IsNyResiDent || ruleParams.HasLifetimeFish()) && ruleParams.Age >= 16 && ruleParams.Age <= 69 && !ruleParams.IsMilitaryServiceman);
     return isSelectable;
@@ -1873,6 +1618,7 @@ function isRuleForSelectable_SEVEN_DAY_FISHING_LICENSE_2014(ruleParams) {
         isSelectable = ((ruleParams.IsNyResiDent || ruleParams.HasLifetimeFish()) && ruleParams.Age >= 16 && ruleParams.Age <= 69 && !ruleParams.IsMilitaryServiceman);
         isSelectable = isSelectable || (!(ruleParams.IsNyResiDent || ruleParams.HasLifetimeFish()) && ruleParams.Age >= 16);
     }
+
     return isSelectable;
 }
 function isRuleForSelectable_CONSERVATION_LEGACY(ruleParams) {
@@ -1978,138 +1724,6 @@ function isRuleForSelectable_OTHER_SALE_VENISON_DONATION_SCHDL(ruleParams) {
 }
 function isRuleForSelectable_DRIV_LIC(ruleParams) {
     return (ruleParams.hasValidNYDriverLicense || ruleParams.hasValidNYNonDriverLicense);
-}
-function isRuleForSelectable_3Y_HUNT(ruleParams) {
-    var isSelectable = false;
-    if (!(ruleParams.IsLegallyBlind || ruleParams.IsPermanentDisabled || ruleParams.IsDisableForYear || ruleParams.IsMilitaryServiceman || ruleParams.IsNativeAmerican)) {
-        if (ruleParams.IsNyResiDent || ruleParams.HasLifetimeHunt()) {
-            isSelectable = (ruleParams.Age >= 16 && ruleParams.Age <= 69 && ruleParams.HasHuntEd);
-        } else {
-            isSelectable = (ruleParams.Age >= 16 && ruleParams.HasHuntEd);
-        }
-    }
-    return isSelectable;
-}
-function isRuleForSelectable_5Y_HUNT(ruleParams) {
-    var isSelectable = false;
-    if (!(ruleParams.IsLegallyBlind || ruleParams.IsPermanentDisabled || ruleParams.IsDisableForYear || ruleParams.IsMilitaryServiceman || ruleParams.IsNativeAmerican)) {
-        if (ruleParams.IsNyResiDent || ruleParams.HasLifetimeHunt()) {
-            isSelectable = (ruleParams.Age >= 16 && ruleParams.Age <= 69 && ruleParams.HasHuntEd);
-        } else {
-            isSelectable = (ruleParams.Age >= 16 && ruleParams.HasHuntEd);
-        }
-    }
-    return isSelectable;
-}
-function isRuleForSelectable_3Y_BOWH(ruleParams) {
-    var isSelectable = false;
-    if (!(ruleParams.IsLegallyBlind || ruleParams.IsPermanentDisabled || ruleParams.IsDisableForYear || ruleParams.IsMilitaryServiceman || ruleParams.IsNativeAmerican)) {
-        if (ruleParams.IsNyResiDent || ruleParams.HasLifetimeHunt()) {
-            isSelectable = (ruleParams.Age >= 16 && ruleParams.Age <= 69 && ruleParams.HasHuntEd && ruleParams.HasBowHunt);
-        } else {
-            isSelectable = (ruleParams.Age >= 16 && ruleParams.HasHuntEd && ruleParams.HasBowHunt);
-        }
-    }
-    return isSelectable;
-}
-function isRuleForSelectable_5Y_BOWH(ruleParams) {
-    var isSelectable = false;
-    if (!(ruleParams.IsLegallyBlind || ruleParams.IsPermanentDisabled || ruleParams.IsDisableForYear || ruleParams.IsMilitaryServiceman || ruleParams.IsNativeAmerican)) {
-        if (ruleParams.IsNyResiDent || ruleParams.HasLifetimeHunt()) {
-            isSelectable = (ruleParams.Age >= 16 && ruleParams.Age <= 69 && ruleParams.HasHuntEd && ruleParams.HasBowHunt);
-        } else {
-            isSelectable = (ruleParams.Age >= 16 && ruleParams.HasHuntEd && ruleParams.HasBowHunt);
-        }
-    }
-    return isSelectable;
-}
-function isRuleForSelectable_3Y_MUZZ(ruleParams) {
-    var isSelectable = false;
-    if (!(ruleParams.IsLegallyBlind || ruleParams.IsPermanentDisabled || ruleParams.IsDisableForYear || ruleParams.IsMilitaryServiceman || ruleParams.IsNativeAmerican)) {
-        if (ruleParams.IsNyResiDent || ruleParams.HasLifetimeHunt()) {
-            isSelectable = (ruleParams.Age >= 16 && ruleParams.Age <= 69 && ruleParams.HasHuntEd);
-        } else {
-            isSelectable = (ruleParams.Age >= 16 && ruleParams.HasHuntEd);
-        }
-    }
-    return isSelectable;
-}
-function isRuleForSelectable_5Y_MUZZ(ruleParams) {
-    var isSelectable = false;
-    if (!(ruleParams.IsLegallyBlind || ruleParams.IsPermanentDisabled || ruleParams.IsDisableForYear || ruleParams.IsMilitaryServiceman || ruleParams.IsNativeAmerican)) {
-        if (ruleParams.IsNyResiDent || ruleParams.HasLifetimeHunt()) {
-            isSelectable = (ruleParams.Age >= 16 && ruleParams.Age <= 69 && ruleParams.HasHuntEd);
-        } else {
-            isSelectable = (ruleParams.Age >= 16 && ruleParams.HasHuntEd);
-        }
-    }
-    return isSelectable;
-}
-function isRuleForSelectable_3Y_TRKY(ruleParams) {
-    var isSelectable = false;
-    if (!(ruleParams.IsLegallyBlind || ruleParams.IsPermanentDisabled || ruleParams.IsDisableForYear || ruleParams.IsMilitaryServiceman || ruleParams.IsNativeAmerican)) {
-        if (ruleParams.IsNyResiDent || ruleParams.HasLifetimeHunt()) {
-            isSelectable = (ruleParams.Age >= 16 && ruleParams.Age <= 69 && ruleParams.HasHuntEd);
-        } else {
-            isSelectable = (ruleParams.Age >= 16 && ruleParams.HasHuntEd);
-        }
-    }
-    return isSelectable;
-}
-function isRuleForSelectable_5Y_TRKY(ruleParams) {
-    var isSelectable = false;
-    if (!(ruleParams.IsLegallyBlind || ruleParams.IsPermanentDisabled || ruleParams.IsDisableForYear || ruleParams.IsMilitaryServiceman || ruleParams.IsNativeAmerican)) {
-        if (ruleParams.IsNyResiDent || ruleParams.HasLifetimeHunt()) {
-            isSelectable = (ruleParams.Age >= 16 && ruleParams.Age <= 69 && ruleParams.HasHuntEd);
-        } else {
-            isSelectable = (ruleParams.Age >= 16 && ruleParams.HasHuntEd);
-        }
-    }
-    return isSelectable;
-}
-function isRuleForSelectable_3Y_TRAP(ruleParams) {
-    var isSelectable = false;
-    if (!(ruleParams.IsLegallyBlind || ruleParams.IsPermanentDisabled || ruleParams.IsDisableForYear || ruleParams.IsMilitaryServiceman || ruleParams.IsNativeAmerican)) {
-        if (ruleParams.IsNyResiDent || ruleParams.HasLifetimeTrap()) {
-            isSelectable = (ruleParams.Age >= 16 && ruleParams.Age <= 69 && ruleParams.HasTrapEd);
-        } else {
-            isSelectable = (ruleParams.Age >= 16 && ruleParams.HasTrapEd);
-        }
-    }
-    return isSelectable;
-}
-function isRuleForSelectable_5Y_TRAP(ruleParams) {
-    var isSelectable = false;
-    if (!(ruleParams.IsLegallyBlind || ruleParams.IsPermanentDisabled || ruleParams.IsDisableForYear || ruleParams.IsMilitaryServiceman || ruleParams.IsNativeAmerican)) {
-        if (ruleParams.IsNyResiDent || ruleParams.HasLifetimeTrap()) {
-            isSelectable = (ruleParams.Age >= 16 && ruleParams.Age <= 69 && ruleParams.HasTrapEd);
-        } else {
-            isSelectable = (ruleParams.Age >= 16 && ruleParams.HasTrapEd);
-        }
-    }
-    return isSelectable;
-}
-function isRuleForSelectable_3Y_FRESHWATER_FISHING(ruleParams) {
-    var isSelectable = false;
-    if (!(ruleParams.IsLegallyBlind || ruleParams.IsPermanentDisabled || ruleParams.IsDisableForYear || ruleParams.IsMilitaryServiceman || ruleParams.IsNativeAmerican)) {
-        if (ruleParams.IsNyResiDent || ruleParams.HasLifetimeFish()) {
-            isSelectable = (ruleParams.Age >= 16 && ruleParams.Age <= 69);
-        } else {
-            isSelectable = (ruleParams.Age >= 16);
-        }
-    }
-    return isSelectable;
-}
-function isRuleForSelectable_5Y_FRESHWATER_FISHING(ruleParams) {
-    var isSelectable = false;
-    if (!(ruleParams.IsLegallyBlind || ruleParams.IsPermanentDisabled || ruleParams.IsDisableForYear || ruleParams.IsMilitaryServiceman || ruleParams.IsNativeAmerican)) {
-        if (ruleParams.IsNyResiDent || ruleParams.HasLifetimeFish()) {
-            isSelectable = (ruleParams.Age >= 16 && ruleParams.Age <= 69);
-        } else {
-            isSelectable = (ruleParams.Age >= 16);
-        }
-    }
-    return isSelectable;
 }
 //////////////
 function checkRuletoCreateTag(ruleParams, tagProp, dictTags) {
@@ -2241,8 +1855,6 @@ function getPrereq_ANNUAL_TRKY_2014(ruleParams) {
     if (isRuleForSelectable_ANNUAL_TRKY_2014(ruleParams)) {
         arryPrereq = new Array();
         arryPrereq.push(LIC06_HUNTING_LICENSE);
-        arryPrereq.push(LIC58_HUNTING_LICENSE_3Y);
-        arryPrereq.push(LIC59_HUNTING_LICENSE_5Y);
         arryPrereq.push(LIC29_JUNIOR_HUNTING);
         arryPrereq.push(LIC37_SMALL_AND_BIG_GAME);
         arryPrereq.push(LIC38_SMALL_GAME);
@@ -2279,8 +1891,6 @@ function getPrereq_ANNUAL_DMP_2014(ruleParams) {
         if (rp.Age >= 12 && rp.Age <= 13) {
             if (rp.HasHuntEd && rp.HasBowHunt) {
                 arryPrereq.push(LIC04_BOWHUNTING_PRIVILEGE);
-                arryPrereq.push(LIC60_BOWHUNTING_PRIVILEGE_3Y);
-                arryPrereq.push(LIC61_BOWHUNTING_PRIVILEGE_5Y);
                 arryPrereq.push(LIC28_JUNIOR_BOWHUNTING);
                 arryPrereq.push(LIC09_LIFETIME_BOWHUNTING);
             }
@@ -2292,14 +1902,10 @@ function getPrereq_ANNUAL_DMP_2014(ruleParams) {
                 arryPrereq.push(LIC13_LIFETIME_SPORTSMAN);
                 //JIRA - 17470
                 arryPrereq.push(LIC06_HUNTING_LICENSE);
-                arryPrereq.push(LIC58_HUNTING_LICENSE_3Y);
-                arryPrereq.push(LIC59_HUNTING_LICENSE_5Y);
             }
         }
         else if (rp.Age >= 16) {
             arryPrereq.push(LIC06_HUNTING_LICENSE);
-            arryPrereq.push(LIC58_HUNTING_LICENSE_3Y);
-            arryPrereq.push(LIC59_HUNTING_LICENSE_5Y);
             arryPrereq.push(LIC30_NONRES_MUZZLELOADING);
             arryPrereq.push(LIC37_SMALL_AND_BIG_GAME);
             arryPrereq.push(LIC12_LIFETIME_SMALL_AND_BIG_GAME);
@@ -2359,8 +1965,6 @@ function getPrereq_ANNUAL_BOWH_2014(ruleParams) {
     if (isRuleForSelectable_ANNUAL_BOWH_2014(ruleParams)) {
         arryPrereq = new Array();
         arryPrereq.push(LIC06_HUNTING_LICENSE);
-        arryPrereq.push(LIC58_HUNTING_LICENSE_3Y);
-        arryPrereq.push(LIC59_HUNTING_LICENSE_5Y);
         arryPrereq.push(LIC37_SMALL_AND_BIG_GAME);
         arryPrereq.push(LIC12_LIFETIME_SMALL_AND_BIG_GAME);
         arryPrereq.push(LIC42_TRAPPER_SUPER_SPORTSMAN);
@@ -2443,8 +2047,6 @@ function getPrereq_NONRESIDENT_TURKEY(ruleParams) {
 function getPrereq_ANNUAL_MUZZ_2014(ruleParams) {
     var arryPrereq = new Array();
     arryPrereq.push(LIC06_HUNTING_LICENSE);
-    arryPrereq.push(LIC58_HUNTING_LICENSE_3Y);
-    arryPrereq.push(LIC59_HUNTING_LICENSE_5Y);
     arryPrereq.push(LIC12_LIFETIME_SMALL_AND_BIG_GAME);
     arryPrereq.push(LIC13_LIFETIME_SPORTSMAN);
     arryPrereq.push(LIC38_SMALL_GAME);
@@ -2452,96 +2054,23 @@ function getPrereq_ANNUAL_MUZZ_2014(ruleParams) {
     arryPrereq.push(LIC33_NONRESIDENT_BIG_GAME);
     return arryPrereq;
 }
-function getPrereq_3Y_BOWH(ruleParams) {
-    var arryPrereq = null;
-    if (isRuleForSelectable_3Y_BOWH(ruleParams)) {
-        arryPrereq = new Array();
-        if (ruleParams.Has3YHuntExpiration() > 24) {
-            arryPrereq.push(LIC58_HUNTING_LICENSE_3Y);
-        }
-        arryPrereq.push(LIC12_LIFETIME_SMALL_AND_BIG_GAME);
-        arryPrereq.push(LIC13_LIFETIME_SPORTSMAN);
-    }
-    return arryPrereq;
-}
-function getPrereq_5Y_BOWH(ruleParams) {
-    var arryPrereq = null;
-    if (isRuleForSelectable_5Y_BOWH(ruleParams)) {
-        arryPrereq = new Array();
-        if (ruleParams.Has5YHuntExpiration() > 48) {
-            arryPrereq.push(LIC59_HUNTING_LICENSE_5Y);
-        }
-        arryPrereq.push(LIC12_LIFETIME_SMALL_AND_BIG_GAME);
-        arryPrereq.push(LIC13_LIFETIME_SPORTSMAN);
-    }
-    return arryPrereq;
-}
-function getPrereq_3Y_MUZZ(ruleParams) {
-    var arryPrereq = new Array();
-    if (ruleParams.Has3YHuntExpiration() > 24) {
-        arryPrereq.push(LIC58_HUNTING_LICENSE_3Y);
-    }
-    arryPrereq.push(LIC12_LIFETIME_SMALL_AND_BIG_GAME);
-    arryPrereq.push(LIC13_LIFETIME_SPORTSMAN);
-    return arryPrereq;
-}
-function getPrereq_5Y_MUZZ(ruleParams) {
-    var arryPrereq = new Array();
-    if (ruleParams.Has5YHuntExpiration() > 48) {
-        arryPrereq.push(LIC59_HUNTING_LICENSE_5Y);
-    }
-    arryPrereq.push(LIC12_LIFETIME_SMALL_AND_BIG_GAME);
-    arryPrereq.push(LIC13_LIFETIME_SPORTSMAN);
-    return arryPrereq;
-}
-function getPrereq_3Y_TRKY_2014(ruleParams) {
-    var arryPrereq = null;
-    if (isRuleForSelectable_3Y_TRKY(ruleParams)) {
-        arryPrereq = new Array();
-        if (ruleParams.Has3YHuntExpiration() > 24) {
-            arryPrereq.push(LIC58_HUNTING_LICENSE_3Y);
-        }
-        arryPrereq.push(LIC12_LIFETIME_SMALL_AND_BIG_GAME);
-    }
-    return arryPrereq;
-}
-function getPrereq_5Y_TRKY_2014(ruleParams) {
-    var arryPrereq = null;
-    if (isRuleForSelectable_5Y_TRKY(ruleParams)) {
-        arryPrereq = new Array();
-        if (ruleParams.Has5YHuntExpiration() > 48) {
-            arryPrereq.push(LIC59_HUNTING_LICENSE_5Y);
-        }
-        arryPrereq.push(LIC12_LIFETIME_SMALL_AND_BIG_GAME);
-    }
-    return arryPrereq;
-}
+
 //////////////
 
 function getIncl_CONSERVATION_LEGACY(ruleParams) {
     var arryInc = new Array();
     arryInc.push(LIC03_ONE_DAY_FISHING_LICENSE);
     arryInc.push(LIC22_FRESHWATER_FISHING);
-    arryInc.push(LIC66_FRESHWATER_FISHING_3Y);
-    arryInc.push(LIC67_FRESHWATER_FISHING_5Y);
     arryInc.push(LIC26_SEVEN_DAY_FISHING_LICENSE);
     arryInc.push(LIC04_BOWHUNTING_PRIVILEGE);
-    arryInc.push(LIC60_BOWHUNTING_PRIVILEGE_3Y);
-    arryInc.push(LIC61_BOWHUNTING_PRIVILEGE_5Y);
     arryInc.push(LIC07_MUZZLELOADING_PRIVILEGE);
-    arryInc.push(LIC62_MUZZLELOADING_PRIVILEGE_3Y);
-    arryInc.push(LIC63_MUZZLELOADING_PRIVILEGE_5Y);
     arryInc.push(LIC08_TURKEY_PERMIT);
-    arryInc.push(LIC68_TURKEY_PERMIT_3Y);
-    arryInc.push(LIC69_TURKEY_PERMIT_5Y);
     arryInc.push(LIC37_SMALL_AND_BIG_GAME);
     arryInc.push(LIC38_SMALL_GAME);
     arryInc.push(LIC39_SPORTSMAN);
     arryInc.push(LIC40_SUPER_SPORTSMAN);
     arryInc.push(LIC42_TRAPPER_SUPER_SPORTSMAN);
     arryInc.push(LIC06_HUNTING_LICENSE);
-    arryInc.push(LIC58_HUNTING_LICENSE_3Y);
-    arryInc.push(LIC59_HUNTING_LICENSE_5Y);
 
     return arryInc;
 }
@@ -2553,15 +2082,11 @@ function getIncl_SMALL_AND_BIG_GAME(ruleParams) {
     arryInc.push(LIC27_CONSERVATION_LEGACY);
     arryInc.push(LIC42_TRAPPER_SUPER_SPORTSMAN);
     arryInc.push(LIC06_HUNTING_LICENSE);
-    arryInc.push(LIC58_HUNTING_LICENSE_3Y);
-    arryInc.push(LIC59_HUNTING_LICENSE_5Y);
     return arryInc;
 }
 function getIncl_NONRESIDENT_TURKEY(ruleParams) {
     var arryInc = new Array();
     arryInc.push(LIC08_TURKEY_PERMIT);
-    arryInc.push(LIC68_TURKEY_PERMIT_3Y);
-    arryInc.push(LIC69_TURKEY_PERMIT_5Y);
 
     return arryInc;
 }
@@ -2573,26 +2098,15 @@ function getIncl_NONRES_SUPER_SPORTSMAN(ruleParams) {
     arryInc.push(LIC25_NONRESIDENT_7_DAY_FISHING);
     arryInc.push(LIC30_NONRES_MUZZLELOADING);
     arryInc.push(LIC07_MUZZLELOADING_PRIVILEGE);
-    arryInc.push(LIC62_MUZZLELOADING_PRIVILEGE_3Y);
-    arryInc.push(LIC63_MUZZLELOADING_PRIVILEGE_5Y);
     arryInc.push(LIC36_NONRESIDENT_TURKEY);
     arryInc.push(LIC35_NONRESIDENT_SMALL_GAME);
     arryInc.push(LIC34_NONRESIDENT_BOWHUNTING);
     arryInc.push(LIC04_BOWHUNTING_PRIVILEGE);
-    arryInc.push(LIC60_BOWHUNTING_PRIVILEGE_3Y);
-    arryInc.push(LIC61_BOWHUNTING_PRIVILEGE_5Y);
     arryInc.push(LIC06_HUNTING_LICENSE);
-    arryInc.push(LIC58_HUNTING_LICENSE_3Y);
-    arryInc.push(LIC59_HUNTING_LICENSE_5Y);
     arryInc.push(LIC03_ONE_DAY_FISHING_LICENSE);
     arryInc.push(LIC22_FRESHWATER_FISHING);
-    arryInc.push(LIC66_FRESHWATER_FISHING_3Y);
-    arryInc.push(LIC67_FRESHWATER_FISHING_5Y);
     arryInc.push(LIC26_SEVEN_DAY_FISHING_LICENSE);
     arryInc.push(LIC08_TURKEY_PERMIT);
-    arryInc.push(LIC68_TURKEY_PERMIT_3Y);
-    arryInc.push(LIC69_TURKEY_PERMIT_5Y);
-
     return arryInc;
 }
 function getIncl_SPORTSMAN(ruleParams) {
@@ -2601,15 +2115,11 @@ function getIncl_SPORTSMAN(ruleParams) {
     arryInc.push(LIC38_SMALL_GAME);
     arryInc.push(LIC03_ONE_DAY_FISHING_LICENSE);
     arryInc.push(LIC22_FRESHWATER_FISHING);
-    arryInc.push(LIC66_FRESHWATER_FISHING_3Y);
-    arryInc.push(LIC67_FRESHWATER_FISHING_5Y);
     arryInc.push(LIC26_SEVEN_DAY_FISHING_LICENSE);
     arryInc.push(LIC27_CONSERVATION_LEGACY);
     arryInc.push(LIC40_SUPER_SPORTSMAN);
     arryInc.push(LIC42_TRAPPER_SUPER_SPORTSMAN);
     arryInc.push(LIC06_HUNTING_LICENSE);
-    arryInc.push(LIC58_HUNTING_LICENSE_3Y);
-    arryInc.push(LIC59_HUNTING_LICENSE_5Y);
     return arryInc;
 }
 function getIncl_SUPER_SPORTSMAN(ruleParams) {
@@ -2620,22 +2130,12 @@ function getIncl_SUPER_SPORTSMAN(ruleParams) {
     arryInc.push(LIC27_CONSERVATION_LEGACY);
     arryInc.push(LIC03_ONE_DAY_FISHING_LICENSE);
     arryInc.push(LIC22_FRESHWATER_FISHING);
-    arryInc.push(LIC66_FRESHWATER_FISHING_3Y);
-    arryInc.push(LIC67_FRESHWATER_FISHING_5Y);
     arryInc.push(LIC26_SEVEN_DAY_FISHING_LICENSE);
     arryInc.push(LIC04_BOWHUNTING_PRIVILEGE);
-    arryInc.push(LIC60_BOWHUNTING_PRIVILEGE_3Y);
-    arryInc.push(LIC61_BOWHUNTING_PRIVILEGE_5Y);
     arryInc.push(LIC07_MUZZLELOADING_PRIVILEGE);
-    arryInc.push(LIC62_MUZZLELOADING_PRIVILEGE_3Y);
-    arryInc.push(LIC63_MUZZLELOADING_PRIVILEGE_5Y);
     arryInc.push(LIC08_TURKEY_PERMIT);
-    arryInc.push(LIC68_TURKEY_PERMIT_3Y);
-    arryInc.push(LIC69_TURKEY_PERMIT_5Y);
     arryInc.push(LIC42_TRAPPER_SUPER_SPORTSMAN);
     arryInc.push(LIC06_HUNTING_LICENSE);
-    arryInc.push(LIC58_HUNTING_LICENSE_3Y);
-    arryInc.push(LIC59_HUNTING_LICENSE_5Y);
 
     return arryInc;
 }
@@ -2644,25 +2144,15 @@ function getIncl_TRAPPER_SUPER_SPORTSMAN(ruleParams) {
     arryInc.push(LIC37_SMALL_AND_BIG_GAME);
     arryInc.push(LIC03_ONE_DAY_FISHING_LICENSE);
     arryInc.push(LIC22_FRESHWATER_FISHING);
-    arryInc.push(LIC66_FRESHWATER_FISHING_3Y);
-    arryInc.push(LIC67_FRESHWATER_FISHING_5Y);
     arryInc.push(LIC26_SEVEN_DAY_FISHING_LICENSE);
     arryInc.push(LIC07_MUZZLELOADING_PRIVILEGE);
-    arryInc.push(LIC62_MUZZLELOADING_PRIVILEGE_3Y);
-    arryInc.push(LIC63_MUZZLELOADING_PRIVILEGE_5Y);
     arryInc.push(LIC08_TURKEY_PERMIT);
-    arryInc.push(LIC68_TURKEY_PERMIT_3Y);
-    arryInc.push(LIC69_TURKEY_PERMIT_5Y);
     arryInc.push(LIC15_TRAPPING_LICENSE);
-    arryInc.push(LIC64_TRAPPING_LICENSE_3Y);
-    arryInc.push(LIC65_TRAPPING_LICENSE_5Y);
     arryInc.push(LIC39_SPORTSMAN);
     arryInc.push(LIC27_CONSERVATION_LEGACY);
     arryInc.push(LIC38_SMALL_GAME);
     arryInc.push(LIC40_SUPER_SPORTSMAN);
     arryInc.push(LIC06_HUNTING_LICENSE);
-    arryInc.push(LIC58_HUNTING_LICENSE_3Y);
-    arryInc.push(LIC59_HUNTING_LICENSE_5Y);
     return arryInc;
 }
 function getIncl_FRESHWATER_FISHING_2012(ruleParams) {
@@ -2685,8 +2175,6 @@ function getIncl_NONRES_FRESHWATER_FISHING(ruleParams) {
 function getIncl_LIFETM_FISH(ruleParams) {
     var arryInc = new Array();
     arryInc.push(LIC03_ONE_DAY_FISHING_LICENSE);
-    arryInc.push(LIC66_FRESHWATER_FISHING_3Y);
-    arryInc.push(LIC67_FRESHWATER_FISHING_5Y);
     arryInc.push(LIC22_FRESHWATER_FISHING);
     arryInc.push(LIC26_SEVEN_DAY_FISHING_LICENSE);
     arryInc.push(LIC13_LIFETIME_SPORTSMAN);
@@ -2705,8 +2193,6 @@ function getIncl_LIFETM_SBGM(ruleParams) {
     arryInc.push(LIC10_LIFETIME_FISHING);
     arryInc.push(LIC29_JUNIOR_HUNTING);
     arryInc.push(LIC06_HUNTING_LICENSE);
-    arryInc.push(LIC58_HUNTING_LICENSE_3Y);
-    arryInc.push(LIC59_HUNTING_LICENSE_5Y);
     return arryInc;
 }
 function getIncl_LIFETM_SPRT(ruleParams) {
@@ -2715,8 +2201,6 @@ function getIncl_LIFETM_SPRT(ruleParams) {
     arryInc.push(LIC37_SMALL_AND_BIG_GAME);
     arryInc.push(LIC03_ONE_DAY_FISHING_LICENSE);
     arryInc.push(LIC10_LIFETIME_FISHING);
-    arryInc.push(LIC66_FRESHWATER_FISHING_3Y);
-    arryInc.push(LIC67_FRESHWATER_FISHING_5Y);
     arryInc.push(LIC12_LIFETIME_SMALL_AND_BIG_GAME);
     arryInc.push(LIC22_FRESHWATER_FISHING);
     arryInc.push(LIC26_SEVEN_DAY_FISHING_LICENSE);
@@ -2727,8 +2211,6 @@ function getIncl_LIFETM_SPRT(ruleParams) {
     arryInc.push(LIC40_SUPER_SPORTSMAN);
     arryInc.push(LIC27_CONSERVATION_LEGACY);
     arryInc.push(LIC06_HUNTING_LICENSE);
-    arryInc.push(LIC58_HUNTING_LICENSE_3Y);
-    arryInc.push(LIC59_HUNTING_LICENSE_5Y);
     return arryInc;
 }
 function getIncl_LIFETM_MUZZ(ruleParams) {
@@ -2736,8 +2218,6 @@ function getIncl_LIFETM_MUZZ(ruleParams) {
     arryInc.push(LIC27_CONSERVATION_LEGACY);
     arryInc.push(LIC40_SUPER_SPORTSMAN);
     arryInc.push(LIC07_MUZZLELOADING_PRIVILEGE);
-    arryInc.push(LIC62_MUZZLELOADING_PRIVILEGE_3Y);
-    arryInc.push(LIC63_MUZZLELOADING_PRIVILEGE_5Y);
     return arryInc;
 }
 function getIncl_LIFETM_BOWH(ruleParams) {
@@ -2746,175 +2226,49 @@ function getIncl_LIFETM_BOWH(ruleParams) {
     arryInc.push(LIC40_SUPER_SPORTSMAN);
     arryInc.push(LIC28_JUNIOR_BOWHUNTING);
     arryInc.push(LIC04_BOWHUNTING_PRIVILEGE);
-    arryInc.push(LIC60_BOWHUNTING_PRIVILEGE_3Y);
-    arryInc.push(LIC61_BOWHUNTING_PRIVILEGE_5Y);
     return arryInc;
 }
 function getIncl_LIFETM_TRAP(ruleParams) {
     var arryInc = new Array();
     arryInc.push(LIC15_TRAPPING_LICENSE);
-    arryInc.push(LIC64_TRAPPING_LICENSE_3Y);
-    arryInc.push(LIC65_TRAPPING_LICENSE_5Y);
     return arryInc;
 }
 function getIncl_NONRES_MUZZLELOADING() {
     var arryInc = new Array();
     arryInc.push(LIC07_MUZZLELOADING_PRIVILEGE);
-    arryInc.push(LIC62_MUZZLELOADING_PRIVILEGE_3Y);
-    arryInc.push(LIC63_MUZZLELOADING_PRIVILEGE_5Y);
     return arryInc;
 }
 function getIncl_NONRESIDENT_BOWHUNTING() {
     var arryInc = new Array();
     arryInc.push(LIC04_BOWHUNTING_PRIVILEGE);
-    arryInc.push(LIC60_BOWHUNTING_PRIVILEGE_3Y);
-    arryInc.push(LIC61_BOWHUNTING_PRIVILEGE_5Y);
     return arryInc;
 }
 function getIncl_NONRESIDENT_SMALL_GAME() {
     var arryInc = new Array();
     arryInc.push(LIC31_NONRES_SUPER_SPORTSMAN);
-    //JIRA - 48190
+	//JIRA - 48190
     //arryInc.push(LIC06_HUNTING_LICENSE);
-    //arryInc.push(LIC58_HUNTING_LICENSE_3Y);
-    //arryInc.push(LIC59_HUNTING_LICENSE_5Y);
     return arryInc;
 }
 function getIncl_JUNIOR_HUNTING() {
     var arryInc = new Array();
     arryInc.push(LIC06_HUNTING_LICENSE);
-    arryInc.push(LIC58_HUNTING_LICENSE_3Y);
-    arryInc.push(LIC59_HUNTING_LICENSE_5Y);
     return arryInc;
 }
 function getIncl_SMALL_GAME() {
     var arryInc = new Array();
     //JIRA - 48190
-    //arryInc.push(LIC06_HUNTING_LICENSE);
-    //arryInc.push(LIC58_HUNTING_LICENSE_3Y);
-    //arryInc.push(LIC59_HUNTING_LICENSE_5Y);
+	//arryInc.push(LIC06_HUNTING_LICENSE);
     return arryInc;
 }
 function getIncl_JUNIOR_BOWHUNTING() {
     var arryInc = new Array();
     arryInc.push(LIC04_BOWHUNTING_PRIVILEGE);
-    arryInc.push(LIC60_BOWHUNTING_PRIVILEGE_3Y);
-    arryInc.push(LIC61_BOWHUNTING_PRIVILEGE_5Y);
     return arryInc;
 }
 function getIncl_NONRESIDENT_TRAPPING() {
     var arryInc = new Array();
     arryInc.push(LIC15_TRAPPING_LICENSE);
-    arryInc.push(LIC64_TRAPPING_LICENSE_3Y);
-    arryInc.push(LIC65_TRAPPING_LICENSE_5Y);
-    return arryInc;
-}
-function getIncl_ANNUAL_HUNT() {
-    var arryInc = new Array();
-    arryInc.push(LIC58_HUNTING_LICENSE_3Y);
-    arryInc.push(LIC59_HUNTING_LICENSE_5Y);
-    return arryInc;
-}
-function getIncl_3Y_HUNT() {
-    var arryInc = new Array();
-    arryInc.push(LIC06_HUNTING_LICENSE);
-    arryInc.push(LIC59_HUNTING_LICENSE_5Y);
-    return arryInc;
-}
-function getIncl_5Y_HUNT() {
-    var arryInc = new Array();
-    arryInc.push(LIC06_HUNTING_LICENSE);
-    arryInc.push(LIC58_HUNTING_LICENSE_3Y);
-    return arryInc;
-}
-function getIncl_ANNUAL_BOWH() {
-    var arryInc = new Array();
-    arryInc.push(LIC60_BOWHUNTING_PRIVILEGE_3Y);
-    arryInc.push(LIC61_BOWHUNTING_PRIVILEGE_5Y);
-    return arryInc;
-}
-function getIncl_3Y_BOWH() {
-    var arryInc = new Array();
-    arryInc.push(LIC04_BOWHUNTING_PRIVILEGE);
-    arryInc.push(LIC61_BOWHUNTING_PRIVILEGE_5Y);
-    return arryInc;
-}
-function getIncl_5Y_BOWH() {
-    var arryInc = new Array();
-    arryInc.push(LIC04_BOWHUNTING_PRIVILEGE);
-    arryInc.push(LIC60_BOWHUNTING_PRIVILEGE_3Y);
-    return arryInc;
-}
-function getIncl_ANNUAL_MUZZ() {
-    var arryInc = new Array();
-    arryInc.push(LIC62_MUZZLELOADING_PRIVILEGE_3Y);
-    arryInc.push(LIC63_MUZZLELOADING_PRIVILEGE_5Y);
-    return arryInc;
-}
-function getIncl_3Y_MUZZ() {
-    var arryInc = new Array();
-    arryInc.push(LIC07_MUZZLELOADING_PRIVILEGE);
-    arryInc.push(LIC63_MUZZLELOADING_PRIVILEGE_5Y);
-    return arryInc;
-}
-function getIncl_5Y_MUZZ() {
-    var arryInc = new Array();
-    arryInc.push(LIC07_MUZZLELOADING_PRIVILEGE);
-    arryInc.push(LIC62_MUZZLELOADING_PRIVILEGE_3Y);
-    return arryInc;
-}
-function getIncl_ANNUAL_TRKY() {
-    var arryInc = new Array();
-    arryInc.push(LIC68_TURKEY_PERMIT_3Y);
-    arryInc.push(LIC69_TURKEY_PERMIT_5Y);
-    return arryInc;
-}
-function getIncl_3Y_TRKY() {
-    var arryInc = new Array();
-    arryInc.push(LIC08_TURKEY_PERMIT);
-    arryInc.push(LIC69_TURKEY_PERMIT_5Y);
-    return arryInc;
-}
-function getIncl_5Y_TRKY() {
-    var arryInc = new Array();
-    arryInc.push(LIC08_TURKEY_PERMIT);
-    arryInc.push(LIC68_TURKEY_PERMIT_3Y);
-    return arryInc;
-}
-function getIncl_ANNUAL_TRAP() {
-    var arryInc = new Array();
-    arryInc.push(LIC64_TRAPPING_LICENSE_3Y);
-    arryInc.push(LIC65_TRAPPING_LICENSE_5Y);
-    return arryInc;
-}
-function getIncl_3Y_TRAP() {
-    var arryInc = new Array();
-    arryInc.push(LIC15_TRAPPING_LICENSE);
-    arryInc.push(LIC65_TRAPPING_LICENSE_5Y);
-    return arryInc;
-}
-function getIncl_5Y_TRAP() {
-    var arryInc = new Array();
-    arryInc.push(LIC15_TRAPPING_LICENSE);
-    arryInc.push(LIC64_TRAPPING_LICENSE_3Y);
-    return arryInc;
-}
-function getIncl_FRESHWATER_FISHING_2014() {
-    var arryInc = new Array();
-    arryInc.push(LIC66_FRESHWATER_FISHING_3Y);
-    arryInc.push(LIC67_FRESHWATER_FISHING_5Y);
-    return arryInc;
-}
-function getIncl_3Y_FRESHWATER_FISHING() {
-    var arryInc = new Array();
-    arryInc.push(LIC22_FRESHWATER_FISHING);
-    arryInc.push(LIC67_FRESHWATER_FISHING_5Y);
-    return arryInc;
-}
-function getIncl_5Y_FRESHWATER_FISHING() {
-    var arryInc = new Array();
-    arryInc.push(LIC22_FRESHWATER_FISHING);
-    arryInc.push(LIC66_FRESHWATER_FISHING_3Y);
     return arryInc;
 }
 ////////
@@ -3368,18 +2722,6 @@ function getActiveholdingsFilterArray() {
     validRecTypeArray.push(AA56_TAG_DRIV_LIC_REN);
     //11/25/2013 - RV - Place Junior Hunting Tags in Active holdings(?)
     validRecTypeArray.push(AA57_JUNIOR_HUNTING_TAGS);
-    validRecTypeArray.push(AA58_HUNTING_LICENSE_3Y);
-    validRecTypeArray.push(AA59_HUNTING_LICENSE_5Y);
-    validRecTypeArray.push(AA60_BOWHUNTING_PRIVILEGE_3Y);
-    validRecTypeArray.push(AA61_BOWHUNTING_PRIVILEGE_5Y);
-    validRecTypeArray.push(AA62_MUZZLELOADING_PRIVILEGE_3Y);
-    validRecTypeArray.push(AA63_MUZZLELOADING_PRIVILEGE_5Y);
-    validRecTypeArray.push(AA64_TRAPPING_LICENSE_3Y);
-    validRecTypeArray.push(AA65_TRAPPING_LICENSE_5Y);
-    validRecTypeArray.push(AA66_FRESHWATER_FISHING_3Y);
-    validRecTypeArray.push(AA67_FRESHWATER_FISHING_5Y);
-    validRecTypeArray.push(AA68_TURKEY_PERMIT_3Y);
-    validRecTypeArray.push(AA69_TURKEY_PERMIT_5Y);
 
     return validRecTypeArray;
 
@@ -3623,18 +2965,6 @@ function getVoidableFilterArray() {
 
     //validRecTypeArray.push(AA53_TAG_DMP_DEER);
     //validRecTypeArray.push(AA54_TAG_PRIV_PANEL);
-    validRecTypeArray.push(AA58_HUNTING_LICENSE_3Y);
-    validRecTypeArray.push(AA59_HUNTING_LICENSE_5Y);
-    validRecTypeArray.push(AA60_BOWHUNTING_PRIVILEGE_3Y);
-    validRecTypeArray.push(AA61_BOWHUNTING_PRIVILEGE_5Y);
-    validRecTypeArray.push(AA62_MUZZLELOADING_PRIVILEGE_3Y);
-    validRecTypeArray.push(AA63_MUZZLELOADING_PRIVILEGE_5Y);
-    validRecTypeArray.push(AA64_TRAPPING_LICENSE_3Y);
-    validRecTypeArray.push(AA65_TRAPPING_LICENSE_5Y);
-    validRecTypeArray.push(AA66_FRESHWATER_FISHING_3Y);
-    validRecTypeArray.push(AA67_FRESHWATER_FISHING_5Y);
-    validRecTypeArray.push(AA68_TURKEY_PERMIT_3Y);
-    validRecTypeArray.push(AA69_TURKEY_PERMIT_5Y);
 
     return validRecTypeArray;
 }
@@ -3697,18 +3027,6 @@ function getReprintFilterArray() {
     // RV 11/25 - TESTING -	validRecTypeArray.push(AA57_JUNIOR_HUNTING_TAGS);
     //Do not allow Privilege Panels to be reprinted
     //validRecTypeArray.push(AA54_TAG_PRIV_PANEL);
-    validRecTypeArray.push(AA58_HUNTING_LICENSE_3Y);
-    validRecTypeArray.push(AA59_HUNTING_LICENSE_5Y);
-    validRecTypeArray.push(AA60_BOWHUNTING_PRIVILEGE_3Y);
-    validRecTypeArray.push(AA61_BOWHUNTING_PRIVILEGE_5Y);
-    validRecTypeArray.push(AA62_MUZZLELOADING_PRIVILEGE_3Y);
-    validRecTypeArray.push(AA63_MUZZLELOADING_PRIVILEGE_5Y);
-    validRecTypeArray.push(AA64_TRAPPING_LICENSE_3Y);
-    validRecTypeArray.push(AA65_TRAPPING_LICENSE_5Y);
-    validRecTypeArray.push(AA66_FRESHWATER_FISHING_3Y);
-    validRecTypeArray.push(AA67_FRESHWATER_FISHING_5Y);
-    validRecTypeArray.push(AA68_TURKEY_PERMIT_3Y);
-    validRecTypeArray.push(AA69_TURKEY_PERMIT_5Y);
 
     return validRecTypeArray;
 }
@@ -3977,15 +3295,6 @@ function getRevokHuntRecTypeArray() {
     validRecTypeArray.push(AA12_LIFETIME_SMALL_AND_BIG_GAME);
     validRecTypeArray.push(AA13_LIFETIME_SPORTSMAN);
 
-    validRecTypeArray.push(AA58_HUNTING_LICENSE_3Y);
-    validRecTypeArray.push(AA59_HUNTING_LICENSE_5Y);
-    validRecTypeArray.push(AA60_BOWHUNTING_PRIVILEGE_3Y);
-    validRecTypeArray.push(AA61_BOWHUNTING_PRIVILEGE_5Y);
-    validRecTypeArray.push(AA62_MUZZLELOADING_PRIVILEGE_3Y);
-    validRecTypeArray.push(AA63_MUZZLELOADING_PRIVILEGE_5Y);
-    validRecTypeArray.push(AA68_TURKEY_PERMIT_3Y);
-    validRecTypeArray.push(AA69_TURKEY_PERMIT_5Y);
-
     return validRecTypeArray;
 }
 function getRevokFishRecTypeArray() {
@@ -3999,8 +3308,6 @@ function getRevokFishRecTypeArray() {
     validRecTypeArray.push(AA25_NONRESIDENT_7_DAY_FISHING);
     validRecTypeArray.push(AA26_SEVEN_DAY_FISHING_LICENSE);
     validRecTypeArray.push(AA54_TAG_PRIV_PANEL);
-    validRecTypeArray.push(AA66_FRESHWATER_FISHING_3Y);
-    validRecTypeArray.push(AA67_FRESHWATER_FISHING_5Y);
 
     // JIRA-16742
     validRecTypeArray.push(AA10_LIFETIME_FISHING);
@@ -4014,8 +3321,6 @@ function getRevokTrapRecTypeArray() {
     validRecTypeArray.push(AA41_NONRESIDENT_TRAPPING);
     validRecTypeArray.push(AA42_TRAPPER_SUPER_SPORTSMAN);
     validRecTypeArray.push(AA54_TAG_PRIV_PANEL);
-    validRecTypeArray.push(AA64_TRAPPING_LICENSE_3Y);
-    validRecTypeArray.push(AA65_TRAPPING_LICENSE_5Y);
 
     // JIRA-16742
     validRecTypeArray.push(AA14_LIFETIME_TRAPPING);
@@ -4034,113 +3339,6 @@ function get60dayFishRecTypeArray() {
     validRecTypeArray.push(AA24_NONRESIDENT_1_DAY_FISHING);
     validRecTypeArray.push(AA25_NONRESIDENT_7_DAY_FISHING);
     validRecTypeArray.push(AA26_SEVEN_DAY_FISHING_LICENSE);
-    validRecTypeArray.push(AA66_FRESHWATER_FISHING_3Y);
-    validRecTypeArray.push(AA67_FRESHWATER_FISHING_5Y);
-
-    return validRecTypeArray;
-}
-function getValidLicForSubHead() {
-    var validArray = new Array();
-
-    //Option to hide sub head as a part of roll back
-    //return validArray;
-
-    validArray.push(LIC06_HUNTING_LICENSE);
-    validArray.push(LIC07_MUZZLELOADING_PRIVILEGE);
-    validArray.push(LIC04_BOWHUNTING_PRIVILEGE);
-    validArray.push(LIC15_TRAPPING_LICENSE);
-    validArray.push(LIC08_TURKEY_PERMIT);
-    validArray.push(AA24_NONRESIDENT_1_DAY_FISHING);
-    validArray.push(AA25_NONRESIDENT_7_DAY_FISHING);
-    validArray.push(AA26_SEVEN_DAY_FISHING_LICENSE);
-    validArray.push(LIC05_DEER_MANAGEMENT_PERMIT);
-    validArray.push(LIC58_HUNTING_LICENSE_3Y);
-    validArray.push(LIC59_HUNTING_LICENSE_5Y);
-    validArray.push(LIC60_BOWHUNTING_PRIVILEGE_3Y);
-    validArray.push(LIC61_BOWHUNTING_PRIVILEGE_5Y);
-    validArray.push(LIC62_MUZZLELOADING_PRIVILEGE_3Y);
-    validArray.push(LIC63_MUZZLELOADING_PRIVILEGE_5Y);
-    validArray.push(LIC64_TRAPPING_LICENSE_3Y);
-    validArray.push(LIC65_TRAPPING_LICENSE_5Y);
-    validArray.push(LIC66_FRESHWATER_FISHING_3Y);
-    validArray.push(LIC67_FRESHWATER_FISHING_5Y);
-    validArray.push(LIC68_TURKEY_PERMIT_3Y);
-    validArray.push(LIC69_TURKEY_PERMIT_5Y);
-
-    return validArray;
-}
-function getValidLicToUpdateFileDate() {
-    var validRecTypeArray = new Array();     //   record types
-
-    validRecTypeArray.push(AA01_FISHING_LICENSE);
-    validRecTypeArray.push(AA02_MARINE_REGISTRY);
-    validRecTypeArray.push(AA03_ONE_DAY_FISHING_LICENSE);
-    validRecTypeArray.push(AA04_BOWHUNTING_PRIVILEGE);
-    validRecTypeArray.push(AA05_DEER_MANAGEMENT_PERMIT);
-    validRecTypeArray.push(AA06_HUNTING_LICENSE);
-    validRecTypeArray.push(AA07_MUZZLELOADING_PRIVILEGE);
-    validRecTypeArray.push(AA08_TURKEY_PERMIT);
-    validRecTypeArray.push(AA09_LIFETIME_BOWHUNTING);
-    validRecTypeArray.push(AA10_LIFETIME_FISHING);
-    validRecTypeArray.push(AA11_LIFETIME_MUZZLELOADING);
-    validRecTypeArray.push(AA12_LIFETIME_SMALL_AND_BIG_GAME);
-    validRecTypeArray.push(AA13_LIFETIME_SPORTSMAN);
-    validRecTypeArray.push(AA14_LIFETIME_TRAPPING);
-    validRecTypeArray.push(AA15_TRAPPING_LICENSE);
-    //validRecTypeArray.push(AA16_HABITAT_ACCESS_STAMP);
-    //validRecTypeArray.push(AA17_VENISON_DONATION);
-    //validRecTypeArray.push(AA18_CONSERVATION_FUND);
-    //validRecTypeArray.push(AA19_TRAIL_SUPPORTER_PATCH);
-    //validRecTypeArray.push(AA20_CONSERVATIONIST_MAGAZINE);
-    //validRecTypeArray.push(AA21_CONSERVATION_PATRON);
-    validRecTypeArray.push(AA22_FRESHWATER_FISHING);
-    validRecTypeArray.push(AA23_NONRES_FRESHWATER_FISHING);
-    validRecTypeArray.push(AA24_NONRESIDENT_1_DAY_FISHING);
-    validRecTypeArray.push(AA25_NONRESIDENT_7_DAY_FISHING);
-    validRecTypeArray.push(AA26_SEVEN_DAY_FISHING_LICENSE);
-    validRecTypeArray.push(AA27_CONSERVATION_LEGACY);
-    validRecTypeArray.push(AA28_JUNIOR_BOWHUNTING);
-    validRecTypeArray.push(AA29_JUNIOR_HUNTING);
-    validRecTypeArray.push(AA30_NONRES_MUZZLELOADING);
-    validRecTypeArray.push(AA31_NONRES_SUPER_SPORTSMAN);
-    validRecTypeArray.push(AA32_NONRESIDENT_BEAR_TAG);
-    validRecTypeArray.push(AA33_NONRESIDENT_BIG_GAME);
-    validRecTypeArray.push(AA34_NONRESIDENT_BOWHUNTING);
-    validRecTypeArray.push(AA35_NONRESIDENT_SMALL_GAME);
-    validRecTypeArray.push(AA36_NONRESIDENT_TURKEY);
-    validRecTypeArray.push(AA37_SMALL_AND_BIG_GAME);
-    validRecTypeArray.push(AA38_SMALL_GAME);
-    validRecTypeArray.push(AA39_SPORTSMAN);
-    validRecTypeArray.push(AA40_SUPER_SPORTSMAN);
-    validRecTypeArray.push(AA41_NONRESIDENT_TRAPPING);
-    validRecTypeArray.push(AA42_TRAPPER_SUPER_SPORTSMAN);
-    //validRecTypeArray.push(AA43_LIFETIME_CARD_REPLACE);
-    //validRecTypeArray.push(AA44_SPORTSMAN_ED_CERTIFICATION);
-    validRecTypeArray.push(AA45_LIFETIME_INSCRIPTION);
-    //validRecTypeArray.push(AA46_TAG_REG_SEASON_DEER);
-    //validRecTypeArray.push(AA47_TAG_BEAR);
-    //validRecTypeArray.push(AA48_TAG_BOW_MUZZ_EITHER_SEX);
-    //validRecTypeArray.push(AA49_TAG_BOW_MUZZ_ANTLERLESS);
-    //validRecTypeArray.push(AA50_TAG_SPRING_TURKEY_TAG);
-    //validRecTypeArray.push(AA51_TAG_FALL_TURKEY_TAG);
-    //validRecTypeArray.push(AA52_TAG_BACK);
-    //validRecTypeArray.push(AA53_TAG_DMP_DEER);
-    //validRecTypeArray.push(AA54_TAG_PRIV_PANEL);
-    //validRecTypeArray.push(AA55_TAG_DRIV_LIC_IMM);
-    //validRecTypeArray.push(AA56_TAG_DRIV_LIC_REN);
-    //validRecTypeArray.push(AA57_JUNIOR_HUNTING_TAGS);
-    validRecTypeArray.push(AA58_HUNTING_LICENSE_3Y);
-    validRecTypeArray.push(AA59_HUNTING_LICENSE_5Y);
-    validRecTypeArray.push(AA60_BOWHUNTING_PRIVILEGE_3Y);
-    validRecTypeArray.push(AA61_BOWHUNTING_PRIVILEGE_5Y);
-    validRecTypeArray.push(AA62_MUZZLELOADING_PRIVILEGE_3Y);
-    validRecTypeArray.push(AA63_MUZZLELOADING_PRIVILEGE_5Y);
-    validRecTypeArray.push(AA64_TRAPPING_LICENSE_3Y);
-    validRecTypeArray.push(AA65_TRAPPING_LICENSE_5Y);
-    validRecTypeArray.push(AA66_FRESHWATER_FISHING_3Y);
-    validRecTypeArray.push(AA67_FRESHWATER_FISHING_5Y);
-    validRecTypeArray.push(AA68_TURKEY_PERMIT_3Y);
-    validRecTypeArray.push(AA69_TURKEY_PERMIT_5Y);
 
     return validRecTypeArray;
 }
