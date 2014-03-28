@@ -128,22 +128,4 @@ myLicObj[myLicObj.length] = expression.getValue("ASI::HUNTING LICENSE::Deer Mana
 myLicObj[myLicObj.length] = expression.getValue("ASI::HUNTING LICENSE::Hunting License");
 myLicObj[myLicObj.length] = expression.getValue("ASI::HUNTING LICENSE::Muzzleloading Privilege");
 myLicObj[myLicObj.length] = expression.getValue("ASI::HUNTING LICENSE::Turkey Permit");
-myLicObj[myLicObj.length] = expression.getValue("ASI::HUNTING LICENSE::3 Year Hunting License");
-myLicObj[myLicObj.length] = expression.getValue("ASI::HUNTING LICENSE::5 Year Hunting License");
-myLicObj[myLicObj.length] = expression.getValue("ASI::HUNTING LICENSE::3 Year Bowhunting Privilege");
-myLicObj[myLicObj.length] = expression.getValue("ASI::HUNTING LICENSE::5 Year Bowhunting Privilege");
-myLicObj[myLicObj.length] = expression.getValue("ASI::HUNTING LICENSE::3 Year Muzzleloading Privilege");
-myLicObj[myLicObj.length] = expression.getValue("ASI::HUNTING LICENSE::5 Year Muzzleloading Privilege");
-myLicObj[myLicObj.length] = expression.getValue("ASI::HUNTING LICENSE::3 Year Turkey Permit");
-myLicObj[myLicObj.length] = expression.getValue("ASI::HUNTING LICENSE::5 Year Turkey Permit");
-myLicObj[myLicObj.length] = expression.getValue("ASI::FISHING LICENSES::Marine Registry");
-myLicObj[myLicObj.length] = expression.getValue("ASI::FISHING LICENSES::One Day Fishing License");
-myLicObj[myLicObj.length] = expression.getValue("ASI::FISHING LICENSES::Freshwater Fishing");
-myLicObj[myLicObj.length] = expression.getValue("ASI::FISHING LICENSES::Nonresident 1 Day Fishing");
-myLicObj[myLicObj.length] = expression.getValue("ASI::FISHING LICENSES::Nonresident 7 Day Fishing");
-myLicObj[myLicObj.length] = expression.getValue("ASI::FISHING LICENSES::Seven Day Fishing License");
-myLicObj[myLicObj.length] = expression.getValue("ASI::FISHING LICENSES::3 Year Freshwater Fishing");
-myLicObj[myLicObj.length] = expression.getValue("ASI::FISHING LICENSES::5 Year Freshwater Fishing");
-
-
 ////
