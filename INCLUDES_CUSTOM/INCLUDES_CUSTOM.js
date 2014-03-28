@@ -806,7 +806,8 @@ function issueSelectedSalesItems(frm) {
                         AInfo["CODE.Effective Date"] = effectiveDt;
                         clacFromDt = dateAdd(convertDate(effectiveDt), -1);
                         setLicExpirationDate(newLicId, clacFromDt);
-                    } else if (ats == AA23_NONRES_FRESHWATER_FISHING || ats == AA22_FRESHWATER_FISHING || ats == AA66_FRESHWATER_FISHING_3Y || ats == AA67_FRESHWATER_FISHING_5Y) {
+                    //} else if (ats == AA23_NONRES_FRESHWATER_FISHING || ats == AA22_FRESHWATER_FISHING || ats == AA66_FRESHWATER_FISHING_3Y || ats == AA67_FRESHWATER_FISHING_5Y) {
+                    } else if (ats == AA23_NONRES_FRESHWATER_FISHING || ats == AA22_FRESHWATER_FISHING) {
                         //JIRA: 21268
                         if (frm.isAfterSwitchDate()) {
                             effectiveDt = AInfo["Effective Date Fishing"];
@@ -1099,18 +1100,19 @@ function SetformForSelectedLics(frm) {
     frm.SetSelected(LIC29_JUNIOR_HUNTING, (AInfo["Junior Hunting"] == "CHECKED"), 2);
     frm.SetSelected(LIC30_NONRES_MUZZLELOADING, (AInfo["NonRes Muzzleloading"] == "CHECKED"), 2);
     frm.SetSelected(LIC34_NONRESIDENT_BOWHUNTING, (AInfo["Nonresident Bowhunting"] == "CHECKED"), 2);
-    frm.SetSelected(LIC58_HUNTING_LICENSE_3Y, (AInfo["3 Year Hunting License"] == "CHECKED"), 1);
-    frm.SetSelected(LIC59_HUNTING_LICENSE_5Y, (AInfo["5 Year Hunting License"] == "CHECKED"), 1);
-    frm.SetSelected(LIC60_BOWHUNTING_PRIVILEGE_3Y, (AInfo["3 Year Bowhunting Privilege"] == "CHECKED"), 1);
-    frm.SetSelected(LIC61_BOWHUNTING_PRIVILEGE_5Y, (AInfo["5 Year Bowhunting Privilege"] == "CHECKED"), 1);
-    frm.SetSelected(LIC62_MUZZLELOADING_PRIVILEGE_3Y, (AInfo["3 Year Muzzleloading Privilege"] == "CHECKED"), 1);
-    frm.SetSelected(LIC63_MUZZLELOADING_PRIVILEGE_5Y, (AInfo["5 Year Muzzleloading Privilege"] == "CHECKED"), 1);
-    frm.SetSelected(LIC64_TRAPPING_LICENSE_3Y, (AInfo["3 Year Trapping License"] == "CHECKED"), 1);
-    frm.SetSelected(LIC65_TRAPPING_LICENSE_5Y, (AInfo["5 Year Trapping License"] == "CHECKED"), 1);
-    frm.SetSelected(LIC66_FRESHWATER_FISHING_3Y, (AInfo["3 Year Freshwater Fishing"] == "CHECKED"), 1);
-    frm.SetSelected(LIC67_FRESHWATER_FISHING_5Y, (AInfo["5 Year Freshwater Fishing"] == "CHECKED"), 1);
-    frm.SetSelected(LIC68_TURKEY_PERMIT_3Y, (AInfo["3 Year Turkey Permit"] == "CHECKED"), 1);
-    frm.SetSelected(LIC69_TURKEY_PERMIT_5Y, (AInfo["5 Year Turkey Permit"] == "CHECKED"), 1);
+    //3-5 Year
+	//frm.SetSelected(LIC58_HUNTING_LICENSE_3Y, (AInfo["3 Year Hunting License"] == "CHECKED"), 1);
+    //frm.SetSelected(LIC59_HUNTING_LICENSE_5Y, (AInfo["5 Year Hunting License"] == "CHECKED"), 1);
+    //frm.SetSelected(LIC60_BOWHUNTING_PRIVILEGE_3Y, (AInfo["3 Year Bowhunting Privilege"] == "CHECKED"), 1);
+    //frm.SetSelected(LIC61_BOWHUNTING_PRIVILEGE_5Y, (AInfo["5 Year Bowhunting Privilege"] == "CHECKED"), 1);
+    //frm.SetSelected(LIC62_MUZZLELOADING_PRIVILEGE_3Y, (AInfo["3 Year Muzzleloading Privilege"] == "CHECKED"), 1);
+    //frm.SetSelected(LIC63_MUZZLELOADING_PRIVILEGE_5Y, (AInfo["5 Year Muzzleloading Privilege"] == "CHECKED"), 1);
+    //frm.SetSelected(LIC64_TRAPPING_LICENSE_3Y, (AInfo["3 Year Trapping License"] == "CHECKED"), 1);
+    //frm.SetSelected(LIC65_TRAPPING_LICENSE_5Y, (AInfo["5 Year Trapping License"] == "CHECKED"), 1);
+    //frm.SetSelected(LIC66_FRESHWATER_FISHING_3Y, (AInfo["3 Year Freshwater Fishing"] == "CHECKED"), 1);
+    //frm.SetSelected(LIC67_FRESHWATER_FISHING_5Y, (AInfo["5 Year Freshwater Fishing"] == "CHECKED"), 1);
+    //frm.SetSelected(LIC68_TURKEY_PERMIT_3Y, (AInfo["3 Year Turkey Permit"] == "CHECKED"), 1);
+    //frm.SetSelected(LIC69_TURKEY_PERMIT_5Y, (AInfo["5 Year Turkey Permit"] == "CHECKED"), 1);
 
     frm.ExecuteBoRuleEngine();
 
@@ -4177,20 +4179,21 @@ function verifyAnySalesSelect() {
     isChecked = isChecked || (AInfo["Add Lifetime to Driver License Re-Issue Immediately"] == "CHECKED");
     isChecked = isChecked || (AInfo["Add Lifetime to Driver License on Renewal"] == "CHECKED");
 
-    isChecked = isChecked || (AInfo["3 Year Hunting License"] == "CHECKED");
-    isChecked = isChecked || (AInfo["5 Year Hunting License"] == "CHECKED");
-    isChecked = isChecked || (AInfo["3 Year Bowhunting Privilege"] == "CHECKED");
-    isChecked = isChecked || (AInfo["5 Year Bowhunting Privilege"] == "CHECKED");
-    isChecked = isChecked || (AInfo["3 Year Muzzleloading Privilege"] == "CHECKED");
-    isChecked = isChecked || (AInfo["5 Year Muzzleloading Privilege"] == "CHECKED");
-    isChecked = isChecked || (AInfo["3 Year Trapping License"] == "CHECKED");
-    isChecked = isChecked || (AInfo["5 Year Trapping License"] == "CHECKED");
-    isChecked = isChecked || (AInfo["3 Year Freshwater Fishing"] == "CHECKED");
-    isChecked = isChecked || (AInfo["5 Year Freshwater Fishing"] == "CHECKED");
-    isChecked = isChecked || (AInfo["3 Year Turkey Permit"] == "CHECKED");
-    isChecked = isChecked || (AInfo["5 Year Turkey Permit"] == "CHECKED");
-
-    if (!isChecked) {
+	//3-5 Year
+    //isChecked = isChecked || (AInfo["3 Year Hunting License"] == "CHECKED");
+    //isChecked = isChecked || (AInfo["5 Year Hunting License"] == "CHECKED");
+    //isChecked = isChecked || (AInfo["3 Year Bowhunting Privilege"] == "CHECKED");
+    //isChecked = isChecked || (AInfo["5 Year Bowhunting Privilege"] == "CHECKED");
+    //isChecked = isChecked || (AInfo["3 Year Muzzleloading Privilege"] == "CHECKED");
+    //isChecked = isChecked || (AInfo["5 Year Muzzleloading Privilege"] == "CHECKED");
+    //isChecked = isChecked || (AInfo["3 Year Trapping License"] == "CHECKED");
+    //isChecked = isChecked || (AInfo["5 Year Trapping License"] == "CHECKED");
+    //isChecked = isChecked || (AInfo["3 Year Freshwater Fishing"] == "CHECKED");
+    //isChecked = isChecked || (AInfo["5 Year Freshwater Fishing"] == "CHECKED");
+    //isChecked = isChecked || (AInfo["3 Year Turkey Permit"] == "CHECKED");
+    //isChecked = isChecked || (AInfo["5 Year Turkey Permit"] == "CHECKED");
+    
+	if (!isChecked) {
         retMsg += "Please select sales item.";
         retMsg += "<Br />";
     }
@@ -6162,23 +6165,28 @@ function SetExpressformForSelectedLics(frm) {
         frm.SetSelected(LIC03_ONE_DAY_FISHING_LICENSE, (AInfo["One Day Fishing License"] == "CHECKED"), 1);
         frm.SetSelected(LIC26_SEVEN_DAY_FISHING_LICENSE, (AInfo["Seven Day Fishing License"] == "CHECKED"), 1);
         frm.SetSelected(LIC22_FRESHWATER_FISHING, (AInfo["Freshwater Fishing"] == "CHECKED"), 1);
-        frm.SetSelected(LIC66_FRESHWATER_FISHING_3Y, (AInfo["3 Year Freshwater Fishing"] == "CHECKED"), 1);
-        frm.SetSelected(LIC67_FRESHWATER_FISHING_5Y, (AInfo["5 Year Freshwater Fishing"] == "CHECKED"), 1);
+        //3-5 Year
+		//frm.SetSelected(LIC66_FRESHWATER_FISHING_3Y, (AInfo["3 Year Freshwater Fishing"] == "CHECKED"), 1);
+        //frm.SetSelected(LIC67_FRESHWATER_FISHING_5Y, (AInfo["5 Year Freshwater Fishing"] == "CHECKED"), 1);
     }
     if (appTypeString == 'Licenses/Sales/Application/Hunting' || appTypeString == 'Licenses/Sales/Application/Hunting and Fishing') {
         frm.SetSelected(LIC04_BOWHUNTING_PRIVILEGE, (AInfo["Bowhunting Privilege"] == "CHECKED"), 1);
-        frm.SetSelected(LIC60_BOWHUNTING_PRIVILEGE_3Y, (AInfo["3 Year Bowhunting Privilege"] == "CHECKED"), 1);
-        frm.SetSelected(LIC61_BOWHUNTING_PRIVILEGE_5Y, (AInfo["5 Year Bowhunting Privilege"] == "CHECKED"), 1);
+        //3-5 Year
+		//frm.SetSelected(LIC60_BOWHUNTING_PRIVILEGE_3Y, (AInfo["3 Year Bowhunting Privilege"] == "CHECKED"), 1);
+        //frm.SetSelected(LIC61_BOWHUNTING_PRIVILEGE_5Y, (AInfo["5 Year Bowhunting Privilege"] == "CHECKED"), 1);
         frm.SetSelected(LIC05_DEER_MANAGEMENT_PERMIT, (AInfo["Deer Management Permit"] == "CHECKED"), 1);
         frm.SetSelected(LIC06_HUNTING_LICENSE, (AInfo["Hunting License"] == "CHECKED"), 1);
-        frm.SetSelected(LIC58_HUNTING_LICENSE_3Y, (AInfo["3 Year Hunting License"] == "CHECKED"), 1);
-        frm.SetSelected(LIC59_HUNTING_LICENSE_5Y, (AInfo["5 Year Hunting License"] == "CHECKED"), 1);
+        //3-5 Year
+		//frm.SetSelected(LIC58_HUNTING_LICENSE_3Y, (AInfo["3 Year Hunting License"] == "CHECKED"), 1);
+        //frm.SetSelected(LIC59_HUNTING_LICENSE_5Y, (AInfo["5 Year Hunting License"] == "CHECKED"), 1);
         frm.SetSelected(LIC07_MUZZLELOADING_PRIVILEGE, (AInfo["Muzzleloading Privilege"] == "CHECKED"), 1);
-        frm.SetSelected(LIC62_MUZZLELOADING_PRIVILEGE_3Y, (AInfo["3 Year Muzzleloading Privilege"] == "CHECKED"), 1);
-        frm.SetSelected(LIC63_MUZZLELOADING_PRIVILEGE_5Y, (AInfo["5 Year Muzzleloading Privilege"] == "CHECKED"), 1);
+        //3-5 Year
+		//frm.SetSelected(LIC62_MUZZLELOADING_PRIVILEGE_3Y, (AInfo["3 Year Muzzleloading Privilege"] == "CHECKED"), 1);
+        //frm.SetSelected(LIC63_MUZZLELOADING_PRIVILEGE_5Y, (AInfo["5 Year Muzzleloading Privilege"] == "CHECKED"), 1);
         frm.SetSelected(LIC08_TURKEY_PERMIT, (AInfo["Turkey Permit"] == "CHECKED"), 1);
-        frm.SetSelected(LIC68_TURKEY_PERMIT_3Y, (AInfo["3 Year Turkey Permit"] == "CHECKED"), 1);
-        frm.SetSelected(LIC69_TURKEY_PERMIT_5Y, (AInfo["5 Year Turkey Permit"] == "CHECKED"), 1);
+        //3-5 Year
+		//frm.SetSelected(LIC68_TURKEY_PERMIT_3Y, (AInfo["3 Year Turkey Permit"] == "CHECKED"), 1);
+        //frm.SetSelected(LIC69_TURKEY_PERMIT_5Y, (AInfo["5 Year Turkey Permit"] == "CHECKED"), 1);
     }
     if (appTypeString == 'Licenses/Sales/Application/Lifetime') {
         frm.SetSelected(LIC10_LIFETIME_FISHING, (AInfo["Lifetime Fishing"] == "CHECKED"), 1);
@@ -6193,8 +6201,9 @@ function SetExpressformForSelectedLics(frm) {
     }
     if (appTypeString == 'Licenses/Sales/Application/Trapping') {
         frm.SetSelected(LIC15_TRAPPING_LICENSE, (AInfo["Trapping License"] == "CHECKED"), 1);
-        frm.SetSelected(LIC64_TRAPPING_LICENSE_3Y, (AInfo["3 Year Trapping License"] == "CHECKED"), 1);
-        frm.SetSelected(LIC65_TRAPPING_LICENSE_5Y, (AInfo["5 Year Trapping License"] == "CHECKED"), 1);
+        //3-5 Year
+		//frm.SetSelected(LIC64_TRAPPING_LICENSE_3Y, (AInfo["3 Year Trapping License"] == "CHECKED"), 1);
+        //frm.SetSelected(LIC65_TRAPPING_LICENSE_5Y, (AInfo["5 Year Trapping License"] == "CHECKED"), 1);
     }
 
     frm.ExecuteBoRuleEngine();
@@ -6257,23 +6266,28 @@ function verifyAnyExpressSalesSelect() {
     var isChecked = false;
     if (appTypeString == 'Licenses/Sales/Application/Hunting' || appTypeString == 'Licenses/Sales/Application/Hunting and Fishing' || appTypeString == 'Licenses/Sales/Application/Sporting') {
         isChecked = isChecked || (AInfo["Bowhunting Privilege"] == "CHECKED");
-        isChecked = isChecked || (AInfo["3 Year Bowhunting Privilege"] == "CHECKED");
-        isChecked = isChecked || (AInfo["5 Year Bowhunting Privilege"] == "CHECKED");
+        //3-5 Year
+		//isChecked = isChecked || (AInfo["3 Year Bowhunting Privilege"] == "CHECKED");
+        //isChecked = isChecked || (AInfo["5 Year Bowhunting Privilege"] == "CHECKED");
         isChecked = isChecked || (AInfo["Deer Management Permit"] == "CHECKED");
         isChecked = isChecked || (AInfo["Hunting License"] == "CHECKED");
-        isChecked = isChecked || (AInfo["3 Year Hunting License"] == "CHECKED");
-        isChecked = isChecked || (AInfo["5 Year Hunting License"] == "CHECKED");
+        //3-5 Year
+		//isChecked = isChecked || (AInfo["3 Year Hunting License"] == "CHECKED");
+        //isChecked = isChecked || (AInfo["5 Year Hunting License"] == "CHECKED");
         isChecked = isChecked || (AInfo["Muzzleloading Privilege"] == "CHECKED");
-        isChecked = isChecked || (AInfo["3 Year Muzzleloading Privilege"] == "CHECKED");
-        isChecked = isChecked || (AInfo["5 Year Muzzleloading Privilege"] == "CHECKED");
+        //3-5 Year
+		//isChecked = isChecked || (AInfo["3 Year Muzzleloading Privilege"] == "CHECKED");
+        //isChecked = isChecked || (AInfo["5 Year Muzzleloading Privilege"] == "CHECKED");
         isChecked = isChecked || (AInfo["Turkey Permit"] == "CHECKED");
-        isChecked = isChecked || (AInfo["3 Year Turkey Permit"] == "CHECKED");
-        isChecked = isChecked || (AInfo["5 Year Turkey Permit"] == "CHECKED");
+        //3-5 Year
+		//isChecked = isChecked || (AInfo["3 Year Turkey Permit"] == "CHECKED");
+        //isChecked = isChecked || (AInfo["5 Year Turkey Permit"] == "CHECKED");
     }
     if (appTypeString == 'Licenses/Sales/Application/Trapping' || appTypeString == 'Licenses/Sales/Application/Sporting') {
         isChecked = isChecked || (AInfo["Trapping License"] == "CHECKED");
-        isChecked = isChecked || (AInfo["3 Year Trapping License"] == "CHECKED");
-        isChecked = isChecked || (AInfo["5 Year Trapping License"] == "CHECKED");
+        //3-5 Year
+		//isChecked = isChecked || (AInfo["3 Year Trapping License"] == "CHECKED");
+        //isChecked = isChecked || (AInfo["5 Year Trapping License"] == "CHECKED");
     }
 
     if (appTypeString == 'Licenses/Sales/Application/Fishing' || appTypeString == 'Licenses/Sales/Application/Hunting and Fishing' || appTypeString == 'Licenses/Sales/Application/Sporting') {
@@ -6281,8 +6295,9 @@ function verifyAnyExpressSalesSelect() {
         isChecked = isChecked || (AInfo["One Day Fishing License"] == "CHECKED");
         isChecked = isChecked || (AInfo["Seven Day Fishing License"] == "CHECKED");
         isChecked = isChecked || (AInfo["Marine Registry"] == "CHECKED");
-        isChecked = isChecked || (AInfo["3 Year Freshwater Fishing"] == "CHECKED");
-        isChecked = isChecked || (AInfo["5 Year Freshwater Fishing"] == "CHECKED");
+        //3-5 Year
+		//isChecked = isChecked || (AInfo["3 Year Freshwater Fishing"] == "CHECKED");
+        //isChecked = isChecked || (AInfo["5 Year Freshwater Fishing"] == "CHECKED");
     }
     if (appTypeString == 'Licenses/Sales/Application/Lifetime' || appTypeString == 'Licenses/Sales/Application/Sporting') {
         isChecked = isChecked || (AInfo["Lifetime Bowhunting"] == "CHECKED");
