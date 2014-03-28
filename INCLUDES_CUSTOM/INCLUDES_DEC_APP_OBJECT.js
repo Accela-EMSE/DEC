@@ -821,7 +821,7 @@ function form_OBJECT(identity) {
             }
             //if (idx == 42) break;
         }
-
+		/* 3-5 Year: Sub Header implementation
         for (var idx = 0; idx < this.licObjARRAY.length; idx++) {
             if (this.licObjARRAY[idx].IsSelectable && exists(this.licObjARRAY[idx].Identity, getValidLicForSubHead())) {
                 var sSunHdrCaption = '';
@@ -872,7 +872,8 @@ function form_OBJECT(identity) {
                 }
             }
         }
-        var msgNotQual = "The items are not available for selection because the customer is not qualified or they are already in current holdings.\n"
+        */
+		var msgNotQual = "The items are not available for selection because the customer is not qualified or they are already in current holdings.\n"
         var msgRevoked = this.isPublicUser ? "This set of privileges have been revoked and are not available for purchase.\n" : "This set of privileges are not available for purchase.\n";
         var msgDEC = this.isPublicUser ? "This issue can only be resolved by contacting DEC Law Enforcement during business hours at 518-402-8821.\n" : "Instruct the customer that the only way to resolve this is to contact DEC during business hours at 518-402-8821.\n";
         //Msg changed per Law Enforcement...Raj  
@@ -1430,7 +1431,8 @@ function form_OBJECT(identity) {
         //this.SetExprFieldName(LIC55_TAG_DRIV_LIC, "");
         this.SetExprFieldName(LIC56_TAG_DRIV_LIC_IMM, "");
         this.SetExprFieldName(LIC57_TAG_DRIV_LIC_REN, "");
-        this.SetExprFieldName(LIC58_HUNTING_LICENSE_3Y, "");
+        /* 3-5 Year
+		this.SetExprFieldName(LIC58_HUNTING_LICENSE_3Y, "");
         this.SetExprFieldName(LIC59_HUNTING_LICENSE_5Y, "");
         this.SetExprFieldName(LIC60_BOWHUNTING_PRIVILEGE_3Y, "");
         this.SetExprFieldName(LIC61_BOWHUNTING_PRIVILEGE_5Y, "");
@@ -1442,6 +1444,7 @@ function form_OBJECT(identity) {
         this.SetExprFieldName(LIC67_FRESHWATER_FISHING_5Y, "");
         this.SetExprFieldName(LIC68_TURKEY_PERMIT_3Y, "");
         this.SetExprFieldName(LIC69_TURKEY_PERMIT_5Y, "");
+		*/
     }
 
     //Added All ASI group licences set form values
@@ -1495,7 +1498,8 @@ function form_OBJECT(identity) {
         //this.SetExprFieldName(LIC55_TAG_DRIV_LIC, "");
         this.SetExprFieldName(LIC56_TAG_DRIV_LIC_IMM, "");
         this.SetExprFieldName(LIC57_TAG_DRIV_LIC_REN, "");
-        this.SetExprFieldName(LIC58_HUNTING_LICENSE_3Y, "");
+        /*3-5
+		this.SetExprFieldName(LIC58_HUNTING_LICENSE_3Y, "");
         this.SetExprFieldName(LIC59_HUNTING_LICENSE_5Y, "");
         this.SetExprFieldName(LIC60_BOWHUNTING_PRIVILEGE_3Y, "");
         this.SetExprFieldName(LIC61_BOWHUNTING_PRIVILEGE_5Y, "");
@@ -1507,6 +1511,7 @@ function form_OBJECT(identity) {
         this.SetExprFieldName(LIC67_FRESHWATER_FISHING_5Y, "");
         this.SetExprFieldName(LIC68_TURKEY_PERMIT_3Y, "");
         this.SetExprFieldName(LIC69_TURKEY_PERMIT_5Y, "");
+		*/
     }
     this.SetLifeTimeSaleExcludes = function (psRef) {
         //Set Expression Control Name for select licenses
@@ -1558,7 +1563,8 @@ function form_OBJECT(identity) {
         //this.SetExprFieldName(LIC55_TAG_DRIV_LIC, "ASI::LIFETIME LICENSES::Add Lifetime to Driver License");
         this.SetExprFieldName(LIC56_TAG_DRIV_LIC_IMM, "ASI::LIFETIME LICENSES::Add Lifetime to Driver License Re-Issue Immediately");
         this.SetExprFieldName(LIC57_TAG_DRIV_LIC_REN, "ASI::LIFETIME LICENSES::Add Lifetime to Driver License on Renewal");
-        this.SetExprFieldName(LIC58_HUNTING_LICENSE_3Y, "");
+        /* 3-5 Year:
+		this.SetExprFieldName(LIC58_HUNTING_LICENSE_3Y, "");
         this.SetExprFieldName(LIC59_HUNTING_LICENSE_5Y, "");
         this.SetExprFieldName(LIC60_BOWHUNTING_PRIVILEGE_3Y, "");
         this.SetExprFieldName(LIC61_BOWHUNTING_PRIVILEGE_5Y, "");
@@ -1570,6 +1576,7 @@ function form_OBJECT(identity) {
         this.SetExprFieldName(LIC67_FRESHWATER_FISHING_5Y, "");
         this.SetExprFieldName(LIC68_TURKEY_PERMIT_3Y, "");
         this.SetExprFieldName(LIC69_TURKEY_PERMIT_5Y, "");
+		*/
     }
     //Set Hunt function
     this.SetHuntSaleExcludes = function (psRef) {
@@ -1622,7 +1629,8 @@ function form_OBJECT(identity) {
         //this.SetExprFieldName(LIC55_TAG_DRIV_LIC, "ASI::LIFETIME LICENSES::Add Lifetime to Driver License");
         this.SetExprFieldName(LIC56_TAG_DRIV_LIC_IMM, "");
         this.SetExprFieldName(LIC57_TAG_DRIV_LIC_REN, "");
-        this.SetExprFieldName(LIC58_HUNTING_LICENSE_3Y, "ASI::HUNTING LICENSE::3 Year Hunting License");
+        /* 3-5 Year
+		this.SetExprFieldName(LIC58_HUNTING_LICENSE_3Y, "ASI::HUNTING LICENSE::3 Year Hunting License");
         this.SetExprFieldName(LIC59_HUNTING_LICENSE_5Y, "ASI::HUNTING LICENSE::5 Year Hunting License");
         this.SetExprFieldName(LIC60_BOWHUNTING_PRIVILEGE_3Y, "ASI::HUNTING LICENSE::3 Year Bowhunting Privilege");
         this.SetExprFieldName(LIC61_BOWHUNTING_PRIVILEGE_5Y, "ASI::HUNTING LICENSE::5 Year Bowhunting Privilege");
@@ -1634,6 +1642,7 @@ function form_OBJECT(identity) {
         this.SetExprFieldName(LIC67_FRESHWATER_FISHING_5Y, "");
         this.SetExprFieldName(LIC68_TURKEY_PERMIT_3Y, "ASI::HUNTING LICENSE::3 Year Turkey Permit");
         this.SetExprFieldName(LIC69_TURKEY_PERMIT_5Y, "ASI::HUNTING LICENSE::5 Year Turkey Permit");
+		*/
     }
     this.SetFishSaleExcludes = function (psRef) {
         //Set Expression Control Name for select licenses
@@ -1685,6 +1694,7 @@ function form_OBJECT(identity) {
         //this.SetExprFieldName(LIC55_TAG_DRIV_LIC, " ");
         this.SetExprFieldName(LIC56_TAG_DRIV_LIC_IMM, "");
         this.SetExprFieldName(LIC57_TAG_DRIV_LIC_REN, "");
+		/* 3-5 Year
         this.SetExprFieldName(LIC58_HUNTING_LICENSE_3Y, "");
         this.SetExprFieldName(LIC59_HUNTING_LICENSE_5Y, "");
         this.SetExprFieldName(LIC60_BOWHUNTING_PRIVILEGE_3Y, "");
@@ -1697,6 +1707,7 @@ function form_OBJECT(identity) {
         this.SetExprFieldName(LIC67_FRESHWATER_FISHING_5Y, "ASI::FISHING LICENSES::5 Year Freshwater Fishing");
         this.SetExprFieldName(LIC68_TURKEY_PERMIT_3Y, "");
         this.SetExprFieldName(LIC69_TURKEY_PERMIT_5Y, "");
+		*/
     }
     //Set HuntAndFish function
     this.SetHuntAndFishSaleExcludes = function (psRef) {
@@ -1749,7 +1760,8 @@ function form_OBJECT(identity) {
         //this.SetExprFieldName(LIC55_TAG_DRIV_LIC, "ASI::LIFETIME LICENSES::Add Lifetime to Driver License");
         this.SetExprFieldName(LIC56_TAG_DRIV_LIC_IMM, "");
         this.SetExprFieldName(LIC57_TAG_DRIV_LIC_REN, "");
-        this.SetExprFieldName(LIC58_HUNTING_LICENSE_3Y, "ASI::HUNTING LICENSE::3 Year Hunting License");
+        /* 3-5 Year
+		this.SetExprFieldName(LIC58_HUNTING_LICENSE_3Y, "ASI::HUNTING LICENSE::3 Year Hunting License");
         this.SetExprFieldName(LIC59_HUNTING_LICENSE_5Y, "ASI::HUNTING LICENSE::5 Year Hunting License");
         this.SetExprFieldName(LIC60_BOWHUNTING_PRIVILEGE_3Y, "ASI::HUNTING LICENSE::3 Year Bowhunting Privilege");
         this.SetExprFieldName(LIC61_BOWHUNTING_PRIVILEGE_5Y, "ASI::HUNTING LICENSE::5 Year Bowhunting Privilege");
@@ -1761,7 +1773,7 @@ function form_OBJECT(identity) {
         this.SetExprFieldName(LIC67_FRESHWATER_FISHING_5Y, "ASI::FISHING LICENSES::5 Year Freshwater Fishing");
         this.SetExprFieldName(LIC68_TURKEY_PERMIT_3Y, "ASI::HUNTING LICENSE::3 Year Turkey Permit");
         this.SetExprFieldName(LIC69_TURKEY_PERMIT_5Y, "ASI::HUNTING LICENSE::5 Year Turkey Permit");
-
+		*/
     }
 
     this.isRevoked = function (psRef) {
@@ -2093,7 +2105,8 @@ function form_OBJECT(identity) {
         //this.SetExprFieldName(LIC55_TAG_DRIV_LIC, "ASI::LIFETIME LICENSES::Add Lifetime to Driver License");
         this.SetExprFieldName(LIC56_TAG_DRIV_LIC_IMM, "ASI::LIFETIME LICENSES::Add Lifetime to Driver License Re-Issue Immediately");
         this.SetExprFieldName(LIC57_TAG_DRIV_LIC_REN, "ASI::LIFETIME LICENSES::Add Lifetime to Driver License on Renewal");
-        this.SetExprFieldName(LIC58_HUNTING_LICENSE_3Y, "ASI::HUNTING LICENSE::3 Year Hunting License");
+        /* 3-5 Year
+		this.SetExprFieldName(LIC58_HUNTING_LICENSE_3Y, "ASI::HUNTING LICENSE::3 Year Hunting License");
         this.SetExprFieldName(LIC59_HUNTING_LICENSE_5Y, "ASI::HUNTING LICENSE::5 Year Hunting License");
         this.SetExprFieldName(LIC60_BOWHUNTING_PRIVILEGE_3Y, "ASI::HUNTING LICENSE::3 Year Bowhunting Privilege");
         this.SetExprFieldName(LIC61_BOWHUNTING_PRIVILEGE_5Y, "ASI::HUNTING LICENSE::5 Year Bowhunting Privilege");
@@ -2105,6 +2118,7 @@ function form_OBJECT(identity) {
         this.SetExprFieldName(LIC67_FRESHWATER_FISHING_5Y, "ASI::FISHING LICENSES::5 Year Freshwater Fishing");
         this.SetExprFieldName(LIC68_TURKEY_PERMIT_3Y, "ASI::HUNTING LICENSE::3 Year Turkey Permit");
         this.SetExprFieldName(LIC69_TURKEY_PERMIT_5Y, "ASI::HUNTING LICENSE::5 Year Turkey Permit");
+		*/
 
     }
 
@@ -2382,9 +2396,11 @@ function rulePARAMS(identity) {
     this.hasLifetimeFish = "not set";
     this.hasLifetimeHunt = "not set";
     this.hasLifetimeTrap = "not set";
-    this.has3YHuntExpiration = "not set";
+    /* 3-5 Year
+	this.has3YHuntExpiration = "not set";
     this.has5YHuntExpiration = "not set";
-
+	*/
+	
     this.SetEitherOrAntler = function (eEitherOrAntler) {
         //eEitherOrAntler=4:E; eEitherOrAntler=8:A;
         this.EitherOrAntler = this.EitherOrAntler | eEitherOrAntler;
@@ -2479,6 +2495,7 @@ function rulePARAMS(identity) {
         }
         return this.hasLifetimeTrap;
     }
+	/* 3-5 Year
     this.Has3YHuntExpiration = function () {
         if (!"not set".equals(this.has3YHuntExpiration)) {
             return this.has3YHuntExpiration; // use cached value
@@ -2509,6 +2526,7 @@ function rulePARAMS(identity) {
         }
         return this.has5YHuntExpiration;
     }
+	*/
     this.toString = function () {
         var result = '';
         var sbArray = new Array();
