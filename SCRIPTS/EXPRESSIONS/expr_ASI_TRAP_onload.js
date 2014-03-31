@@ -115,8 +115,6 @@ for (var idx = 0; idx < f.licObjARRAY.length; idx++) {
 var myLicObj = new Array();
 
 myLicObj[myLicObj.length] = expression.getValue("ASI::TRAPING LICENSES::Trapping License");
-myLicObj[myLicObj.length] = expression.getValue("ASI::TRAPING LICENSES::3 Year Trapping License");
-myLicObj[myLicObj.length] = expression.getValue("ASI::TRAPING LICENSES::5 Year Trapping License");
 ////
 
 //
