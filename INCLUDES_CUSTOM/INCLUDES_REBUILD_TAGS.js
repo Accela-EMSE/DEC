@@ -15,6 +15,12 @@
 /------------------------------------------------------------------------------------------------------*/
 
 function rebuildAllTagsforaRefContact(ipRefContact, ipEffDate) {
+    var fvNewRec = null;
+    if (arguments.length > 2) {
+        //Created new licenses due to enfoecement lifted
+        fvNewRec = arguments[2];
+    }
+
     opErrors = null;
     logDebug("Ref Contact: " + ipRefContact);
     var fvContactQry = aa.people.getPeople(ipRefContact);
@@ -61,7 +67,7 @@ function rebuildAllTagsforaRefContact(ipRefContact, ipEffDate) {
     logDebug("Eligible Tags: " + fvEligibleTags);
     var fvExistTags = getExistingTags(ipRefContact, fvExpDate, fvEligibleTags);
     logDebug("Existing Tags: " + fvExistTags);
-    var opErrors = createNewTags(ipRefContact, fvStartDate, fvExpDate, fvExistTags);
+    var opErrors = createNewTags(ipRefContact, fvStartDate, fvExpDate, fvExistTags, fvNewRec);
     return opErrors;
 }
 
@@ -388,22 +394,41 @@ function getExistingTags(ipRefContact, ipExpDate, ipEligibleTags) {
     return ipEligibleTags;
 }
 
-function createNewTags(ipRefContact, ipStartDate, ipExpDate, ipEligibleTags) {
+function createNewTags(ipRefContact, ipStartDate, ipExpDate, ipEligibleTags, ipNewRec) {
     var opErrors = null;
     var realTagQty = 0;
     var fvTotalTags = parseInt(ipEligibleTags.get("TOTAL"), 10);
     logDebug("No. of Tags to be created: " + fvTotalTags);
-    if (fvTotalTags == 0)
+
+    var fvNewLic = 0;
+    if (ipNewRec) {
+        //Created new licenses due to enfoecement lifted
+        fvNewLic = ipNewRec.length;
+    }
+    logDebug("No. of new licenses to be attached: " + fvNewLic);
+
+    if (fvTotalTags == 0 && fvNewLic == 0)
         return opErrors;
     var fvParentApp = null;
+
+    var isPrivPanel = ipEligibleTags.containsKey("Privilege Panel");
+    if (!isPrivPanel && fvNewLic > 0) {
+        logDebug("I am in add Privilege Panel");
+        ipEligibleTags.put("Privilege Panel", 1);
+    }
 
     var fvTagArray = ipEligibleTags.entrySet().toArray();
 
     for (var fvCounter in fvTagArray) {
         var fvTagObj = fvTagArray[fvCounter];
         var fvTag = fvTagObj.getKey();
+        logDebug(fvTag);
         var fvTagQty = parseInt(fvTagObj.getValue(), 10);
-        if (fvTagQty > 0 && fvTag != "TOTAL" && fvTag != "Privilege Panel") {
+        if ((fvTagQty > 0 && fvTag != "TOTAL") && fvTag != "Privilege Panel") {
+            realTagQty++;
+        }
+        if (fvNewLic > 0 && fvTag == "Privilege Panel") {
+            logDebug("I am Here Privilege Panel");
             realTagQty++;
         }
     }
@@ -432,6 +457,25 @@ function createNewTags(ipRefContact, ipStartDate, ipExpDate, ipEligibleTags) {
     }
     else {
         logDebug("All tags are present, no records required");
+    }
+
+    if (ipNewRec) {
+        if (ipNewRec.length > 0) {
+            logDebug("Attach new created license(s)");
+            if (!fvParentApp) {
+                fvParentApp = createParentTagApp(ipRefContact, ipStartDate, ipExpDate);
+                if (fvParentApp)
+                    logDebug("New Application Created: " + fvParentApp.getCustomID());
+            }
+            for (var x in ipNewRec) {
+                var newObj = aa.cap.getCapID(ipNewRec[x]).getOutput(); //Cap object
+                var result = aa.cap.createAppHierarchy(fvParentApp, newObj);
+                if (result.getSuccess())
+                    logDebug("Child application successfully linked");
+                else
+                    logDebug("Could not link applications");
+            }
+        }
     }
 
     return opErrors;
