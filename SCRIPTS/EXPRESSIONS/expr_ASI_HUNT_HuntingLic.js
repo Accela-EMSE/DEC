@@ -4,7 +4,7 @@ var totalRowCount = expression.getTotalRowCount();
 var aa = expression.getScriptRoot();
 
 eval(getScriptText("INCLUDES_ACCELA_FUNCTIONS"));
-eval(getScriptText("INCLUDES_CUSTOM"));
+eval(getScriptText("INCLUDES_3CUSTOM"));
 eval(getScriptText("INCLUDES_EXPRESSIONS"));
 
 function getScriptText(vScriptName) {
@@ -114,16 +114,7 @@ myLicObj[myLicObj.length] = expression.getValue("ASI::HUNTING LICENSE::Deer Mana
 myLicObj[myLicObj.length] = expression.getValue("ASI::HUNTING LICENSE::Hunting License");
 myLicObj[myLicObj.length] = expression.getValue("ASI::HUNTING LICENSE::Muzzleloading Privilege");
 myLicObj[myLicObj.length] = expression.getValue("ASI::HUNTING LICENSE::Turkey Permit");
-myLicObj[myLicObj.length] = expression.getValue("ASI::HUNTING LICENSE::3 Year Hunting License");
-myLicObj[myLicObj.length] = expression.getValue("ASI::HUNTING LICENSE::5 Year Hunting License");
-myLicObj[myLicObj.length] = expression.getValue("ASI::HUNTING LICENSE::3 Year Bowhunting Privilege");
-myLicObj[myLicObj.length] = expression.getValue("ASI::HUNTING LICENSE::5 Year Bowhunting Privilege");
-myLicObj[myLicObj.length] = expression.getValue("ASI::HUNTING LICENSE::3 Year Muzzleloading Privilege");
-myLicObj[myLicObj.length] = expression.getValue("ASI::HUNTING LICENSE::5 Year Muzzleloading Privilege");
-myLicObj[myLicObj.length] = expression.getValue("ASI::HUNTING LICENSE::3 Year Turkey Permit");
-myLicObj[myLicObj.length] = expression.getValue("ASI::HUNTING LICENSE::5 Year Turkey Permit");
-
-//
+s//
 var oHuntDmpApp = expression.getValue("ASI::HUNTING LICENSE::Deer Management Permit");
 var isHuntDmpApp = ((oHuntDmpApp.value != null && (oHuntDmpApp.value.equalsIgnoreCase('YES') || oHuntDmpApp.value.equalsIgnoreCase('Y') || oHuntDmpApp.value.equalsIgnoreCase('CHECKED') || oHuntDmpApp.value.equalsIgnoreCase('SELECTED') || oHuntDmpApp.value.equalsIgnoreCase('TRUE') || oHuntDmpApp.value.equalsIgnoreCase('ON'))));
 
