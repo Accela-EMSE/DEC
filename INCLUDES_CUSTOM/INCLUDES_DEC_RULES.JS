@@ -645,7 +645,7 @@ function SetVesrionSalesItems2014() {
 
     emptyArray.push(new SalesItemProp(LIC22_FRESHWATER_FISHING, AA22_FRESHWATER_FISHING, FEE_ANL_FRESHWATER_FISH_SCHDL, "2", "getAllFeeCodeByRuleFor_FRESHWATER_FISHING_2014", "isRuleForSelectable_FRESHWATER_FISHING_2014", null, null, null, false, false, true));
     emptyArray.push(new SalesItemProp(LIC03_ONE_DAY_FISHING_LICENSE, AA03_ONE_DAY_FISHING_LICENSE, FEE_ONEDAY_FISH_SCHDL, "2", "getAllFeeCodeByRuleFor_ONEDAY_FISH_2014", "isRuleForSelectable_ONEDAY_FISH_2014", null, null, null, false, false, true));
-    emptyArray.push(new SalesItemProp(LIC26_SEVEN_DAY_FISHING_LICENSE, AA26_SEVEN_DAY_FISHING_LICENSE, FEE_ANNUAL_7DAY_FISHING_SCHDL, "2", "getAllFeeCodeByRuleFor_SEVEN_DAY_FISHING_LICENSE_2014", "isRuleForSelectable_SEVEN_DAY_FISHING_LICENSE_2014", null, null, null, false, false, true));
+    emptyArray.push(new SalesItemProp(LIC26_SEVEN_DAY_FISHING_LICENSE, AA26_SEVEN_DAY_FISHING_LICENSE, FEE_ANNUAL_7DAY_FISHING_SCHDL, "3", "getAllFeeCodeByRuleFor_SEVEN_DAY_FISHING_LICENSE_2014", "isRuleForSelectable_SEVEN_DAY_FISHING_LICENSE_2014", null, null, null, false, false, true));
     emptyArray.push(new SalesItemProp(LIC02_MARINE_REGISTRY, AA02_MARINE_REGISTRY, FEE_ANNUAL_MRIN_REGISTRY_SCHDL, "1", "getAllFeeCodeByRuleFor_ANNUAL_MRIN", "isRuleForSelectable_ANNUAL_MRIN", null, null, null, false, false, false));
 
     emptyArray.push(new SalesItemProp(LIC09_LIFETIME_BOWHUNTING, AA09_LIFETIME_BOWHUNTING, FEE_LIFETIME_BOWHUNTING_SCHDL, "1", "getAllFeeCodeByRuleFor_LIFETM_BOWH", "isRuleForSelectable_LIFETM_BOWH", "getPrereq_LIFETM_BOWH", "getIncl_LIFETM_BOWH", "getTag_LIFETM_BOWH", true, false, false));
@@ -2052,6 +2052,8 @@ function getPrereq_ANNUAL_MUZZ_2014(ruleParams) {
     arryPrereq.push(LIC38_SMALL_GAME);
     arryPrereq.push(LIC35_NONRESIDENT_SMALL_GAME);
     arryPrereq.push(LIC33_NONRESIDENT_BIG_GAME);
+    arryPrereq.push(LIC37_SMALL_AND_BIG_GAME);
+    arryPrereq.push(LIC42_TRAPPER_SUPER_SPORTSMAN);
     return arryPrereq;
 }
 
