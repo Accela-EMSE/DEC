@@ -829,6 +829,8 @@ function GetActiveDocumentsAsitTableArray(availableActiveItems) {
         tempObject["Document ID"] = fieldInfo;
         fieldInfo = new asiTableValObj("License Year", isNull(tObj.LicenseYear, ''), "Y");
         tempObject["License Year"] = fieldInfo;
+        fieldInfo = new asiTableValObj("Replace Ordinal Number", isNull(tObj.ReplaceOrdinalNumber, '0'), "Y");
+        tempObject["Replace Ordinal Number"] = fieldInfo;
         fieldInfo = new asiTableValObj("Select", "N", "N");
         tempObject["Select"] = fieldInfo;
 
@@ -911,6 +913,20 @@ function ReprintDocuments() {
             //copyFees(itemCapId, newLicId); 10/31/2013 - This causes an error in ACA at the point that addFee() is called.
             logDebug("DEBUG: Function Call copyConditions()");
             copyConditions(newLicId, itemCapId);
+
+            var docAinfo = new Array();
+            loadAppSpecific(docAinfo, itemCapId);
+
+            var repOrdNum = parseInt(docAinfo["Replace Ordinal Number"], 10);
+            if (repOrdNum) {
+                //
+            } else {
+                repOrdNum = 0
+            }
+
+            var newAInfo = new Array();
+            newAInfo.push(new NewLicDef("Replace Ordinal Number", repOrdNum));
+            copyLicASI(newLicId, newAInfo);
 
             //Attach the current DEC AGENT
             attachAgent(uObj, newLicId);
@@ -1356,7 +1372,14 @@ function isValidReprintDocuments(pStep) {
                 for (var y in ACTIVEDOCUMENTS) {
                     if (ACTIVEDOCUMENTS[y]["Select"] == 'Yes') {
                         selDocToPrint.push(ACTIVEDOCUMENTS[y]["Document ID"]);
-                        break; //Optimization.  If we find a doc, stop looping.  We are only checking that at least one doc is Select[ed].
+                        if ((parseInt(ACTIVEDOCUMENTS[y]["Replace Ordinal Number"], 10) + 1) > 3) {
+                            retMsg += "Document ID "
+                            retMsg += ACTIVEDOCUMENTS[y]["Document ID"];
+                            retMsg += " - "
+                            retMsg += ACTIVEDOCUMENTS[y]["Description"];
+                            retMsg += ' can not be replace more than 3 times.';
+                            retMsg += '<Br />';
+                        }
                     }
                 }
             }
