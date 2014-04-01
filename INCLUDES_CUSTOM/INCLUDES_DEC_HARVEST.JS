@@ -923,7 +923,8 @@ function ReprintDocuments() {
             } else {
                 repOrdNum = 0
             }
-
+			repOrdNum++;
+			
             var newAInfo = new Array();
             newAInfo.push(new NewLicDef("Replace Ordinal Number", repOrdNum));
             copyLicASI(newLicId, newAInfo);
