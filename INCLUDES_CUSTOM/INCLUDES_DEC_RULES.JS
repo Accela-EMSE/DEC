@@ -1501,8 +1501,8 @@ function isRuleForSelectable_ONEDAY_FISH_2014(ruleParams) {
     var isSelectable = false;
     if (!ruleParams.IsLegallyBlind) {
         isSelectable = ((ruleParams.IsNyResiDent || ruleParams.HasLifetimeFish()) && ruleParams.Age >= 16 && ruleParams.Age <= 69 && !ruleParams.IsMilitaryServiceman);
-        isSelectable = isSelectable || (!(ruleParams.IsNyResiDent || ruleParams.HasLifetimeFish()) && ruleParams.Age >= 16);
     }
+    isSelectable = isSelectable || (!(ruleParams.IsNyResiDent || ruleParams.HasLifetimeFish()) && ruleParams.Age >= 16);
 
     return isSelectable;
 }
@@ -1616,8 +1616,8 @@ function isRuleForSelectable_SEVEN_DAY_FISHING_LICENSE_2014(ruleParams) {
 
     if (!ruleParams.IsLegallyBlind) {
         isSelectable = ((ruleParams.IsNyResiDent || ruleParams.HasLifetimeFish()) && ruleParams.Age >= 16 && ruleParams.Age <= 69 && !ruleParams.IsMilitaryServiceman);
-        isSelectable = isSelectable || (!(ruleParams.IsNyResiDent || ruleParams.HasLifetimeFish()) && ruleParams.Age >= 16);
     }
+    isSelectable = isSelectable || (!(ruleParams.IsNyResiDent || ruleParams.HasLifetimeFish()) && ruleParams.Age >= 16);
 
     return isSelectable;
 }
