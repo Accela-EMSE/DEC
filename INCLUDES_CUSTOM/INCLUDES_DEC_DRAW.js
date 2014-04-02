@@ -1033,7 +1033,7 @@ function updatePrefponts(preferencePoints) {
     var capContactArray = new Array();
 
     if (!contactSeqNumber) {
-        logDebug("**WARNING updateContacts could not fund an applicant/individual");
+        logDebug("**WARNING updatePrefponts could not fund an applicant/individual");
     }
     else {
         capContactArray = getOutput(aa.people.getCapContactByContactID(contactSeqNumber));
