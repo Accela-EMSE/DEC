@@ -391,7 +391,6 @@ function updateTag() {
             newAInfo.push(new NewLicDef("Date of Kill", AInfo["Date of Kill"]));
             newAInfo.push(new NewLicDef("County of Kill", AInfo["County of Kill"]));
             newAInfo.push(new NewLicDef("Town", AInfo["Town"]));
-            newAInfo.push(new NewLicDef("WMU", AInfo["WMU"]));
             newAInfo.push(new NewLicDef("Source", AInfo["Reporting Channel"]));
 
             if (isBear || isDeer) {
@@ -414,13 +413,21 @@ function updateTag() {
                 newAInfo.push(new NewLicDef("Are you reporting on a consigned DMP tag?", AInfo["DEC Cust. ID"]));
             }
             if (isFallTurkey || isSpringTurkey) {
-                newAInfo.push(new NewLicDef("Weight (to nearest pound)", AInfo["Weight (to nearest pound)"]));
+                newAInfo.push(new NewLicDef("Weight (to the nearest pound)", AInfo["Weight (to nearest pound)"]));
                 newAInfo.push(new NewLicDef("Turkey Spur Length", AInfo["Turkey Spur Length"]));
                 newAInfo.push(new NewLicDef("Turkey Beard Length", AInfo["Turkey Beard Length"]));
                 newAInfo.push(new NewLicDef("Number of days hunted to kill this turkey", AInfo["Number of days hunted to kill this turkey"]));
+                newAInfo.push(new NewLicDef("Turkey Leg Saved?", AInfo["Turkey Leg Saved?"]));
             }
             copyLicASI(tagObj.tagCapId, newAInfo);
 
+			//JIRA-49531
+            var newAInfo = new Array();
+            newAInfo.push(new NewLicDef("HARVEST INFORMATION.WMU", AInfo["WMU"]));
+			useAppSpecificGroupName = true;
+            copyLicASI(tagObj.tagCapId, newAInfo);
+			useAppSpecificGroupName = false;
+			
             //Update Status
             updateTagStatus("Reported", "Reported", tagObj.tagCapId);
             //updateTask("Report Game Harvest", "Reported", "", "", "", tagObj.tagCapId);
@@ -937,7 +944,8 @@ function ReprintDocuments() {
 
             var licExpObj = new licenseObject(itemCapId.getCustomID(), itemCapId);
             if (!matches(licExpObj.b1ExpDate, null, "", undefined))
-                setLicExpirationDate(newLicId, "", licExpObj.b1ExpDate, null, true);
+                setLicExpirationDate(newLicId, "", licExpObj.b1ExpDate);
+				//setLicExpirationDate(newLicId, "", licExpObj.b1ExpDate, null, true);
 
             logDebug("DEBUG: Generate a new document number ...");
             var newDecDocId = GenerateDocumentNumber(newLicId.getCustomID());
