@@ -336,7 +336,7 @@ function updateContacts() {
     }
 
     //logDebug(peopleSequenceNumber);
-    if (appTypeString == 'Licenses/Annual/Application/NA') {
+    if (appTypeString == 'Licenses/Annual/Application/NA' || appTypeString == "Licenses/Other/Sportsmen/Profile") {
         if (peopleSequenceNumber != null) {
             //Set contact ASI using cap asi
             var newAInfo = new Array();
