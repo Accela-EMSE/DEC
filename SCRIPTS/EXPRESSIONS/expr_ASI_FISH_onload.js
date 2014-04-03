@@ -14,6 +14,10 @@ function getScriptText(vScriptName) {
     return emseScript.getScriptText() + "";
 }
 
+function diffDate(iDate1, iDate2) {
+    return expression.diffDate(iDate1, iDate2);
+}
+
 //Read Qualifier variables : Assumtion variables are loaded using contact page flow onsubmit 
 var aYear = expression.getValue("ASI::GENERAL INFORMATION::License Year");
 var aemail = expression.getValue("ASI::INTERNAL USE::A_email");
@@ -159,6 +163,41 @@ if (!isFreshWtrFishLic) {
     oFishEffDt.value = '';
 }
 expression.setReturn(oFishEffDt);
+
+var oToday = expression.getValue("$$today$$");
+var isDD7 = true; 
+var isDD1 = true; 
+
+if(oFishEffDt.getValue() != null && oFishEffDt.getValue() != '') {
+	var dd =  diffDate(oToday.getValue(), oFishEffDt.getValue());
+	isDD7 = (dd >= 7); 
+	isDD1 = (dd > 0); 
+}
+
+oFish1Day.hidden = !isDD1;
+if(!isDD1){
+	oFish1Day.value = false;
+}
+expression.setReturn(oFish1Day);
+
+oNonresFish1Day.hidden = !isDD1;
+if(!isDD1){
+	oNonresFish1Day.value = false;
+}
+expression.setReturn(oNonresFish1Day);
+
+oFish7Day.hidden = !isDD7;
+if(!isDD7){
+	oFish7Day.value = false;
+}
+expression.setReturn(oFish7Day);
+
+oNonResFish7Day.hidden = !isDD7;
+if(!isDD7){
+	oNonResFish7Day.value = false;
+}
+expression.setReturn(oNonResFish7Day);
+
 
 var isFish1Day = ((oFish1Day.value != null && (oFish1Day.value.equalsIgnoreCase('YES') || oFish1Day.value.equalsIgnoreCase('Y') || oFish1Day.value.equalsIgnoreCase('CHECKED') || oFish1Day.value.equalsIgnoreCase('SELECTED') || oFish1Day.value.equalsIgnoreCase('TRUE') || oFish1Day.value.equalsIgnoreCase('ON'))));
 var isNonResFish1Day = ((oNonresFish1Day.value != null && (oNonresFish1Day.value.equalsIgnoreCase('YES') || oNonresFish1Day.value.equalsIgnoreCase('Y') || oNonresFish1Day.value.equalsIgnoreCase('CHECKED') || oNonresFish1Day.value.equalsIgnoreCase('SELECTED') || oNonresFish1Day.value.equalsIgnoreCase('TRUE') || oNonresFish1Day.value.equalsIgnoreCase('ON'))));
