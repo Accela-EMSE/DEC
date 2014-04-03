@@ -88,8 +88,8 @@ if (reportInfo) {
 	var edmsEntityModel = reportInfo.getEDMSEntityIdModel();
 	aa.debug("REPORTRUNBEFOREINACA", "edmsEntityModel = " + edmsEntityModel);
 
-	if (reportName == "WEBANS" && agentId) {
-		var rs = aa.wsConsumer.consume("http://stginfweb.elicensing.ny.gov/NYSELS-DEC-ANSREGWS/services/ReANS?wsdl", "regANS", ["DEC_ACH", agentId]);
+	if (reportName == "ANS" && agentId) {
+		var rs = aa.wsConsumer.consume("http://infweb.licensecenter.ny.gov/NYSELS-DEC-ANSREGWS/services/ReANS?wsdl", "regANS", ["DEC_ACH", agentId]);
 		if (rs.getSuccess()) {
 			var resp = rs.getOutput();
 			aa.debug("REPORTRUNBEFOREINACA", "resp[0] = " + resp[0]);
@@ -120,7 +120,7 @@ if (reportInfo) {
 
 						// if already used all the reprint times, return error message and code.
 						if (parseInt(rePrintTimes) + 1 > maxReprintTimes) {
-							aa.env.setValue("ScriptReturnMessage", "You can no longer reprint.");
+							aa.env.setValue("ScriptReturnMessage", "You have reached the maximum times you can reprint.  Please select the reason it did not print below.");
 							aa.env.setValue("ScriptReturnCode", "-1");
 						}
 					}
