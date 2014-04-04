@@ -180,6 +180,7 @@ function getAllRefsToProcess() {
         opRefContacts = getRefContactsByRecTypeByStatusByDOB("Licenses","Lifetime",null,null,"Active",fvProcDtStart,fvProcDtEnd,opRefContacts);
     }
     opRefContacts = processNewAdded(convertDate(dateAdd(fvLastRunDate,1)),convertDate(dateAdd(fvStartDate,-1)),fvStartYear,fvEndYear,opRefContacts);
+    opRefContacts = processNewProfileUpdate(convertDate(dateAdd(fvLastRunDate,1)),convertDate(dateAdd(fvStartDate,-1)),fvStartYear,fvEndYear,opRefContacts);
     return opRefContacts;
 }
 
@@ -360,6 +361,31 @@ function processNewAdded(ipStartDt,ipEndDt,ipStartYear,ipEndYear,ipRefContacts) 
         fvRecDtStart = new Date(fvRecDtStart);
         fvRecDtEnd = new Date(fvRecDtEnd);
         opRefContacts = getRefContactsByRecTypeByStatusByDOB("Licenses","Lifetime",null,null,"Active",fvProcDtStart,fvProcDtEnd,opRefContacts,fvRecDtStart,fvRecDtEnd);
+    }
+    return opRefContacts;
+}
+
+function processNewProfileUpdate(ipStartDt,ipEndDt,ipStartYear,ipEndYear,ipRefContacts) {
+    logDebug("New Add Start Date: " + ipStartDt);
+    logDebug("New Add End Date: " + ipEndDt);
+    logDebug("New Add Start Year: " + ipStartYear);
+    logDebug("New Add End Year: " + ipEndYear);
+    var opRefContacts = ipRefContacts;
+    for (var fvYearCounter = ipStartYear; fvYearCounter <= ipEndYear; fvYearCounter++) {
+        var fvProcDtStart = new Date(fvYearCounter, ipStartDt.getMonth(), ipStartDt.getDate());
+        var fvProcDtEnd = new Date(fvYearCounter, ipEndDt.getMonth(), ipEndDt.getDate());
+        if (fvProcDtStart.getTime() > fvProcDtEnd.getTime())
+            fvProcDtEnd = new Date(fvYearCounter + 1, ipEndDt.getMonth(), ipEndDt.getDate());
+		//JIRA-44705
+		//opRefContacts = getRefContactsByRecTypeByStatusByDOB("Licenses","Lifetime",null,null,"Active",fvProcDtStart,fvProcDtEnd,opRefContacts,fvProcDtStart,fvProcDtEnd);
+		var fvRecDtStart = new Date(ipStartDt);
+		var fvRecDtEnd = new Date(ipEndDt);
+		fvRecDtStart = dateAdd(fvRecDtStart, -2);
+		fvRecDtEnd = dateAdd(fvRecDtEnd, 0);
+
+        fvRecDtStart = new Date(fvRecDtStart);
+        fvRecDtEnd = new Date(fvRecDtEnd);
+        opRefContacts = getRefContactsByRecTypeByStatusByDOB("Licenses","Other","Sales","Profile","",fvProcDtStart,fvProcDtEnd,opRefContacts,fvRecDtStart,fvRecDtEnd);
     }
     return opRefContacts;
 }
