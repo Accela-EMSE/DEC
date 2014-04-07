@@ -7239,3 +7239,57 @@ function hasCurrentAffidavit(sAffidavitDate) {
     }
     return retValue;
 }
+function callWebServiceForANS(agentId) {
+    try {
+        if (agentId) {
+            var sLink = lookup("DEC_CONFIG", "ANS_SERVICE");
+            if (sLink) {
+                var rs = aa.wsConsumer.consume(sLink, "regANS", ["DEC_ACH", agentId]);
+                if (rs.getSuccess()) {
+                    var resp = rs.getOutput();
+                    logDebug("callWebServiceForANS: resp[0] = " + resp[0]);
+                } else {
+                    logDebug("callWebServiceForANS: web service call failed: " + rs.getErrorMessage());
+                }
+            }
+        }
+    }
+    catch (vError) {
+        logDebug("Runtime error occurred: " + vError);
+    }
+}
+function searchCustomerByAttribtes(lastname, firstname, birthDate, decid) {
+    var peopResult = null;
+    var vError = null;
+    try {
+        var qryPeople = aa.people.createPeopleModel().getOutput().getPeopleModel();
+        qryPeople.setBirthDate(birthDate)
+        qryPeople.setFirstName(firstname)
+        qryPeople.setLastName(lastname)
+        if (decid) {
+            qryPeople.setLastName(decid)
+        }
+
+        var r = aa.people.getPeopleByPeopleModel(qryPeople);
+        if (r.getSuccess()) {
+            peopResult = r.getOutput();
+            if (peopResult.length == 0) {
+                logDebug("Searched for REF contact, no matches found, returing null");
+                peopResult = null
+            }
+        }
+    }
+    catch (vError) {
+        logDebug("Runtime error occurred: " + vError);
+    }
+    return peopResult;
+    //--Call Without DEC ID
+    //var resultPeopleArray = searchCustomerByAttribtes('lastname', 'firstname', '03/23/2000', '');
+    //--Call With DEC ID
+    //var resultPeopleArray = searchCustomerByAttribtes('lastname', 'firstname', '03/23/2000', '998976541234');
+
+    //--Result checking
+    //resultPeopleArray.length == 0 //Not Found
+    //resultPeopleArray.length == 1 //Found
+    //resultPeopleArray.length > 1 //Found Multiple
+}
