@@ -17,7 +17,7 @@ var LicenseYear = expression.getValue("ASIT::LICENSE INFORMATION::License Year")
 // Check number of records
 var minRows = 1;
 if (totalRowCount <= minRows) {
-    form.message = "You must enter at least " + minRows + " row(s) on this table";;
+    form.message = "You must enter at least " + minRows + " row(s) on this table"; ;
     form.blockSubmit = true;
     expression.setReturn(form);
 }
@@ -30,7 +30,7 @@ if (bizDomScriptResult.getSuccess()) {
         // these are the same variable as lic type
         for (var rowIndex = 0; rowIndex < totalRowCount; rowIndex++) {
             form = expression.getValue(rowIndex, "ASIT::LICENSE INFORMATION::FORM");
-             LicenseType = expression.getValue(rowIndex, "ASIT::LICENSE INFORMATION::License Type");
+            LicenseType = expression.getValue(rowIndex, "ASIT::LICENSE INFORMATION::License Type");
             if (bizDomScriptArray[i].getBizdomainValue().equals(LicenseType.value)) {
                 DuplicateCounter = DuplicateCounter + 1;
             }
@@ -65,7 +65,7 @@ for (var rowIndex = 0; rowIndex < totalRowCount; rowIndex++) {
         }
     }
 
-  
+
 
     DocumentNumber = expression.getValue(rowIndex, "ASIT::LICENSE INFORMATION::Document Number");
 
