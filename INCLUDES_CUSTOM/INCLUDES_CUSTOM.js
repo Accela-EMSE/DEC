@@ -7298,7 +7298,7 @@ function searchCustomerByAttribtes() {
     catch (vError) {
         logDebug("Runtime error occurred: " + vError);
     }
-    return peopleCount;
+    return "abcd";
     //--Call Without DEC ID
     //var resultPeopleArray = searchCustomerByAttribtes('lastname', 'firstname', '03/23/2000', '');
     //--Call With DEC ID
