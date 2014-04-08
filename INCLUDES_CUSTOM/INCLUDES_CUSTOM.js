@@ -7293,12 +7293,12 @@ function searchCustomerByAttribtes() {
                 logDebug("Searched for REF contact, More than One Person found.");
             }                
         }
-        return peopleCount;
+        //return peopleCount;
     }
     catch (vError) {
         logDebug("Runtime error occurred: " + vError);
     }
-    return peopResult;
+    return peopleCount;
     //--Call Without DEC ID
     //var resultPeopleArray = searchCustomerByAttribtes('lastname', 'firstname', '03/23/2000', '');
     //--Call With DEC ID
