@@ -737,6 +737,8 @@ function createDrawSettingRecords(typeLevel1, typeLevel2, typeLevel3, typeLevel4
     newLicId = createChild(typeLevel1, typeLevel2, typeLevel3, typeLevel4, null);
     newLicIdString = newLicId.getCustomID();
 
+	updateAppStatus(initStatus, "Open", newLicId);
+	
     logDebug("EXIT: createDrawSettingRecords");
     return newLicId;
 }
