@@ -7258,25 +7258,41 @@ function callWebServiceForANS(agentId) {
         logDebug("Runtime error occurred: " + vError);
     }
 }
-function searchCustomerByAttribtes(lastname, firstname, birthDate, decid) {
+
+function searchCustomerByAttribtes() {
+
+    var peopleCount = "";
+    var lastname = AInfo['Last'];
+    var firstname = AInfo['First'];
+    var birthDate = AInfo['Date of Birth'];
+    var decid = AInfo['DECALS Customer Number'];
     var peopResult = null;
     var vError = null;
+
     try {
+
         var qryPeople = aa.people.createPeopleModel().getOutput().getPeopleModel();
-        qryPeople.setBirthDate(birthDate)
-        qryPeople.setFirstName(firstname)
-        qryPeople.setLastName(lastname)
+        qryPeople.setBirthDate(birthDate);
+        qryPeople.setFirstName(firstname);
+        qryPeople.setLastName(lastname);
         if (decid) {
-            qryPeople.setLastName(decid)
+            qryPeople.setPassportNumber(decid);
         }
 
         var r = aa.people.getPeopleByPeopleModel(qryPeople);
         if (r.getSuccess()) {
             peopResult = r.getOutput();
             if (peopResult.length == 0) {
+                peopleCount = "zero Person found.";
                 logDebug("Searched for REF contact, no matches found, returing null");
-                peopResult = null
+            }else if (peopResult.length = 1) {
+                peopleCount = "One Person found.";
+                logDebug("Searched for REF contact, One Person found.");
+            }else if (peopResult.length > 1){
+                peopleCount = "More than One Person found.";
+                logDebug("Searched for REF contact, More than One Person found.");
             }
+            return peopleCount;    
         }
     }
     catch (vError) {
