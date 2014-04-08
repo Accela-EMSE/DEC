@@ -7276,7 +7276,7 @@ function searchCustomerByAttribtes() {
         qryPeople.setFirstName(firstname);
         qryPeople.setLastName(lastname);
         if (decid) {
-            qryPeople.setPassportNumber(decid);
+            qryPeople.setPassportNumber(decid); 
         }
 
         var r = aa.people.getPeopleByPeopleModel(qryPeople);
@@ -7291,9 +7291,9 @@ function searchCustomerByAttribtes() {
             }else if (peopResult.length > 1){
                 peopleCount = "More than One Person found.";
                 logDebug("Searched for REF contact, More than One Person found.");
-            }
-            return peopleCount;    
+            }                
         }
+        return peopleCount;
     }
     catch (vError) {
         logDebug("Runtime error occurred: " + vError);
