@@ -7298,7 +7298,7 @@ function searchCustomerBySql(lastname, firstname, birthDate, decid) {
         if (birthDate) {
             sql += " AND trunc(L1_BIRTH_DATE) = trunc(TO_dATE('" + birthDate + "', 'MM/DD/YYYY')) ";
         }
-        if (decid) {
+        if (decid != '' && decid != null) {
             sql += " AND G1_PASSPORT_NBR = '" + decid + "'";
         }
         sql += " AND rownum < 3";
