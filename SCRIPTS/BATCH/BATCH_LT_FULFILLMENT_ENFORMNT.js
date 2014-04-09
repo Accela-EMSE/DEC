@@ -358,7 +358,3 @@ function voidRecAndCreateNew(itemCapId, ata) {
 
     return newDecDocId;
 }
-
-
-
-	
