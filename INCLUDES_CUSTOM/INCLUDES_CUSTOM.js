@@ -7259,28 +7259,23 @@ function callWebServiceForANS(agentId) {
     }
 }
 
-function verifyNewRegistrion(step) {
+function verifyNewRegistrionX() {
     var retmsg = '';
-    var firstname = AInfo["First"]
+    var firstname = AInfo["First"];
     var lastname = AInfo["Last"];
     var sdob = AInfo["Date of Birth"]
     var decid = AInfo["DECALS Customer Number"]
 
-    var dob = null;
-    if (sdob) {
-        var dob = new Date(sdob);
-    }
-    var resultArray = searchCustomerByAttribtes(lastname, firstname, dob, decid);
+    var resultCount = searchCustomerBySql(lastname, firstname, sdob, decid);
 
-    if (resultArray == null) {
+    if (resultCount == 0) {
         retmsg = "No match";
-    } else {
-        if (resultArray.length == 1) {
-            retmsg = "Exact match";
-        }
-        if (resultArray.length > 1) {
-            retmsg = "Multiple match";
-        }
+    }
+    if (resultCount == 1) {
+        retmsg = "Exact match";
+    }
+    if (resultCount > 1) {
+        retmsg = "Multiple match";
     }
     if (retmsg != '') {
         retmsg += '<Br />'
@@ -7288,8 +7283,48 @@ function verifyNewRegistrion(step) {
     return retmsg;
 }
 
+function searchCustomerBySql(lastname, firstname, birthDate, decid) {
+    var counter = 0;
+    try {
+        var sql = " Select rownum from G3Contact ";
+        sql += " WHERE SERV_PROV_CODE = '" + aa.getServiceProviderCode() + "' ";
+        sql += " AND G1_CONTACT_TYPE  = 'Individual' ";
+        if (firstname) {
+            sql += " AND G1_FNAME = '" + firstname + "' ";
+        }
+        if (lastname) {
+            sql += " AND G1_LNAME = '" + lastname + "' ";
+        }
+        if (birthDate) {
+            sql += " AND trunc(L1_BIRTH_DATE) = trunc(TO_dATE('" + birthDate + "', 'MM/DD/YYYY')) ";
+        }
+        if (decid) {
+            sql += " AND G1_PASSPORT_NBR = '" + decid + "'";
+        }
+        sql += " AND rownum < 3";
 
+        var initialContext = aa.proxyInvoker.newInstance("javax.naming.InitialContext", null).getOutput();
+        var ds = initialContext.lookup("java:/AA");
+        var conn = ds.getConnection();
 
+        var sStmt = conn.prepareStatement(sql);
+        var rSet = sStmt.executeQuery();
+        while (rSet.next()) {
+            var sRownum = rSet.getString("rownum");
+            counter++;
+            if (counter > 1) {
+                break;
+            }
+        }
+        conn.close();
+    }
+    catch (vError) {
+        logDebug("Runtime error occurred: " + vError);
+    }
+    return counter;
+}
+
+//Obsolete
 function searchCustomerByAttribtes(lastname, firstname, birthDate, decid) {
     var peopResult = null;
     var vError = null;
