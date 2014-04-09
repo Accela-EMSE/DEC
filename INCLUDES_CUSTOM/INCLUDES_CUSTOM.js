@@ -7259,7 +7259,7 @@ function callWebServiceForANS(agentId) {
     }
 }
 
-function verifyNewRegistrionX() {
+function verifyNewRegistrion() {
     var retmsg = '';
     var firstname = AInfo["First"];
     var lastname = AInfo["Last"];
