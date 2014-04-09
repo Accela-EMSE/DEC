@@ -7293,13 +7293,13 @@ function searchCustomerByAttribtes(lastname, firstname, birthDate, decid) {
     var vError = null;
     try {
         var qryPeople = aa.people.createPeopleModel().getOutput().getPeopleModel();
-        if (firstname) {
+        if (firstname) 
 			qryPeople.setFirstName(firstname)
-        if (lastname) {
+        if (lastname) 
 			qryPeople.setLastName(lastname)
-        if (birthDate) {
+        if (birthDate) 
 			qryPeople.setBirthDate(birthDate)
-        if (decid) {
+        if (decid) 
             qryPeople.setPassportNumber(decid)
 
         var r = aa.people.getPeopleByPeopleModel(qryPeople);
