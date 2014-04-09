@@ -7259,46 +7259,62 @@ function callWebServiceForANS(agentId) {
     }
 }
 
-function searchCustomerByAttribtes() {
+function verifyNewRegistrion(step) {
+    var retmsg = '';
+    var firstname = AInfo["First"]
+    var lastname = AInfo["Last"];
+    var sdob = AInfo["Date of Birth"]
+    var decid = AInfo["DECALS Customer Number"]
 
-    var peopleCount = "";
-    var lastname = AInfo['Last'];
-    var firstname = AInfo['First'];
-    var birthDate = AInfo['Date of Birth'];
-    var decid = AInfo['DECALS Customer Number'];
+	var dob = null;
+	if(sdob) {
+		var dob = new Date(sdob);
+	}
+    var resultArray = searchCustomerByAttribtes(lastname, firstname, dob, decid);
+
+    if (resultArray == null) {
+        retmsg = "No match";
+    } else {
+        if (resultArray.length == 1) {
+            retmsg = "Exact match";
+        }
+        if (resultArray.length > 1) {
+            retmsg = "Multiple match";
+        }
+    }
+    if (retmsg != '') {
+        retmsg += '<Br />'
+    }
+    return retmsg;
+}
+
+function searchCustomerByAttribtes(lastname, firstname, birthDate, decid) {
     var peopResult = null;
     var vError = null;
-
     try {
-
         var qryPeople = aa.people.createPeopleModel().getOutput().getPeopleModel();
-        qryPeople.setBirthDate(birthDate);
-        qryPeople.setFirstName(firstname);
-        qryPeople.setLastName(lastname);
+        if (firstname) {
+			qryPeople.setFirstName(firstname)
+        if (lastname) {
+			qryPeople.setLastName(lastname)
+        if (birthDate) {
+			qryPeople.setBirthDate(birthDate)
         if (decid) {
-            qryPeople.setPassportNumber(decid); 
-        }
+            qryPeople.setPassportNumber(decid)
 
         var r = aa.people.getPeopleByPeopleModel(qryPeople);
         if (r.getSuccess()) {
             peopResult = r.getOutput();
             if (peopResult.length == 0) {
-                peopleCount = "zero Person found.";
                 logDebug("Searched for REF contact, no matches found, returing null");
-            }else if (peopResult.length = 1) {
-                peopleCount = "One Person found.";
-                logDebug("Searched for REF contact, One Person found.");
-            }else if (peopResult.length > 1){
-                peopleCount = "More than One Person found.";
-                logDebug("Searched for REF contact, More than One Person found.");
-            }                
+                peopResult = null
+            }
         }
-        //return peopleCount;
     }
     catch (vError) {
         logDebug("Runtime error occurred: " + vError);
     }
-    return "abcd";
+    return peopResult;
     //--Call Without DEC ID
     //var resultPeopleArray = searchCustomerByAttribtes('lastname', 'firstname', '03/23/2000', '');
     //--Call With DEC ID
