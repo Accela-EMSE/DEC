@@ -580,7 +580,7 @@ function createWmuConfiguration(year, wmu, drawtype) {
 
             var srcCapId = null;
             if (drawtype == DRAW_INST) {
-                srcCapId = getCapId(GenerateAltId(ats, prevYear, wmu, DRAW_FCFS));
+                srcCapId = getCapId(GenerateAltId(ats, prevYear, wmu, DRAW_INST));
             }
             if (drawtype == DRAW_IBP) {
                 srcCapId = getCapId(GenerateAltId(ats, year, wmu, DRAW_INST));
@@ -592,14 +592,20 @@ function createWmuConfiguration(year, wmu, drawtype) {
             var newCapId = createDrawSettingRecords(ata[0], ata[1], ata[2], ata[3], "Open");
             editAppName(GetAppName(ats, year, wmu, drawtype), newCapId);
 
+            var retArray = GetDateRange("DEC_CONFIG", "DMP_INSTANT_LOTTERY_PERIOD", year)
+            var sStartDt = jsDateToMMDDYYYY(retArray[0]);
+            var sEndDt = jsDateToMMDDYYYY(retArray[1]);
+            var aStartDt = sStartDt.split("/");
+            var aEndDt = sEndDt.split("/");
+
             var newAInfo = new Array();
             if (srcCapId != null) {
                 copyASIFields(srcCapId, newCapId);
 
                 newAInfo.push(new NewLicDef("Draw Type", drawtype));
                 newAInfo.push(new NewLicDef("License Year", year));
-                newAInfo.push(new NewLicDef("Open Date", dateFormatted('8', '15', year.toString())));
-                newAInfo.push(new NewLicDef("Close Date", dateFormatted('9', '30', nextYear.toString())));
+                newAInfo.push(new NewLicDef("Open Date", dateFormatted(aStartDt[0], aStartDt[1], year.toString())));
+                newAInfo.push(new NewLicDef("Close Date", dateFormatted(aEndDt[0], aEndDt[1], nextYear.toString())));
                 newAInfo.push(new NewLicDef("Status", 'Open'));
                 newAInfo.push(new NewLicDef("Status Effecctive Date", jsDateToASIDate(now)));
                 newAInfo.push(new NewLicDef("Status Applicable To", 'Both'));
@@ -617,8 +623,8 @@ function createWmuConfiguration(year, wmu, drawtype) {
                 newAInfo.push(new NewLicDef("License Year", year));
 
                 newAInfo.push(new NewLicDef("Permit Target", 0));
-                newAInfo.push(new NewLicDef("Open Date", dateFormatted('8', '15', year.toString())));
-                newAInfo.push(new NewLicDef("Close Date", dateFormatted('9', '30', nextYear.toString())));
+                newAInfo.push(new NewLicDef("Open Date", dateFormatted(aStartDt[0], aStartDt[1], year.toString())));
+                newAInfo.push(new NewLicDef("Close Date", dateFormatted(aEndDt[0], aEndDt[1], nextYear.toString())));
                 newAInfo.push(new NewLicDef("Status", 'Open'));
                 newAInfo.push(new NewLicDef("Status Effecctive Date", jsDateToASIDate(now)));
                 newAInfo.push(new NewLicDef("Status Applicable To", 'Both'));
@@ -737,8 +743,8 @@ function createDrawSettingRecords(typeLevel1, typeLevel2, typeLevel3, typeLevel4
     newLicId = createChild(typeLevel1, typeLevel2, typeLevel3, typeLevel4, null);
     newLicIdString = newLicId.getCustomID();
 
-	updateAppStatus(initStatus, "Open", newLicId);
-	
+    updateAppStatus(initStatus, "Open", newLicId);
+
     logDebug("EXIT: createDrawSettingRecords");
     return newLicId;
 }
