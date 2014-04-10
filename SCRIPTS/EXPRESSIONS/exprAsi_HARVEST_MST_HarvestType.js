@@ -162,10 +162,10 @@ expression.setReturn(okRighttAntlerPoints);
 
 //Onli Turkey
 var okTurkBeardLen = expression.getValue("ASI::KILL INFORMATION::Turkey Beard Length");
-okTurkBeardLen.hidden = !(isViz && (isSpringTurky || isFallTurky));
-//okTurkBeardLen.readOnly = !(isViz && (isSpringTurky || isFallTurky));
-okTurkBeardLen.required = (isViz && (isSpringTurky || isFallTurky));
-if (!(isViz && (isSpringTurky || isFallTurky))) {
+okTurkBeardLen.hidden = !(isViz && (isFallTurky));
+//okTurkBeardLen.readOnly = !(isViz && (isFallTurky));
+okTurkBeardLen.required = (isViz && (isFallTurky));
+if (!(isViz && (isFallTurky))) {
     okTurkBeardLen.value = '';
 }
 expression.setReturn(okTurkBeardLen);
@@ -180,19 +180,19 @@ if (!(isViz && (isSpringTurky || isFallTurky))) {
 expression.setReturn(okTurkLegSaved);
 
 var okTurkSpurLen = expression.getValue("ASI::KILL INFORMATION::Turkey Spur Length");
-okTurkSpurLen.hidden = !(isViz && (isSpringTurky || isFallTurky));
-//okTurkSpurLen.readOnly = !(isViz && (isSpringTurky || isFallTurky));
-okTurkSpurLen.required = (isViz && (isSpringTurky || isFallTurky));
-if (!(isViz && (isSpringTurky || isFallTurky))) {
+okTurkSpurLen.hidden = !(isViz && (isFallTurky));
+//okTurkSpurLen.readOnly = !(isViz && (isFallTurky));
+okTurkSpurLen.required = (isViz && (isFallTurky));
+if (!(isViz && (isFallTurky))) {
     okTurkSpurLen.value = '';
 }
 expression.setReturn(okTurkSpurLen);
 
 var okWeight = expression.getValue("ASI::KILL INFORMATION::Weight (to nearest pound)");
-okWeight.hidden = !(isViz && (isSpringTurky || isFallTurky));
-//okWeight.readOnly = !(isViz && (isSpringTurky || isFallTurky));
-okWeight.required = (isViz && (isSpringTurky || isFallTurky));
-if (!(isViz && (isSpringTurky || isFallTurky))) {
+okWeight.hidden = !(isViz && (isFallTurky));
+//okWeight.readOnly = !(isViz && (isFallTurky));
+okWeight.required = (isViz && (isFallTurky));
+if (!(isViz && (isFallTurky))) {
     okWeight.value = '';
 }
 expression.setReturn(okWeight);
