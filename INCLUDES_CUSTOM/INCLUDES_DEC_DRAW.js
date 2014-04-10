@@ -592,11 +592,32 @@ function createWmuConfiguration(year, wmu, drawtype) {
             var newCapId = createDrawSettingRecords(ata[0], ata[1], ata[2], ata[3], "Open");
             editAppName(GetAppName(ats, year, wmu, drawtype), newCapId);
 
-            var retArray = GetDateRange("DEC_CONFIG", "DMP_INSTANT_LOTTERY_PERIOD", year)
-            var sStartDt = jsDateToMMDDYYYY(retArray[0]);
-            var sEndDt = jsDateToMMDDYYYY(retArray[1]);
-            var aStartDt = sStartDt.split("/");
-            var aEndDt = sEndDt.split("/");
+			var stdChoice = '';
+			var sStartDt = new Date();
+			var sEndDt = new Date();
+            if (drawtype == DRAW_INST) {
+                stdChoice = "DMP_INSTANT_LOTTERY_PERIOD";
+				var retArray = GetDateRange("DEC_CONFIG", stdChoice, year);
+				sStartDt = jsDateToMMDDYYYY(retArray[0]);
+				sEndDt = jsDateToMMDDYYYY(retArray[1]);
+            }
+            if (drawtype == DRAW_IBP) {
+                stdChoice = "DMP_INSTANT_LOTTERY_PERIOD";
+				retArray = GetDateRange("DEC_CONFIG", stdChoice, year)
+				sStartDt = jsDateToMMDDYYYY(retArray[0]);
+                
+				stdChoice = "DMP_FCFS_PERIOD";
+				var retArray = GetDateRange("DEC_CONFIG", stdChoice, year);
+				sEndDt = jsDateToMMDDYYYY(retArray[1]);
+            }
+            if (drawtype == DRAW_FCFS) {
+                stdChoice = "DMP_FCFS_PERIOD";
+				var retArray = GetDateRange("DEC_CONFIG", stdChoice, year);
+				sStartDt = jsDateToMMDDYYYY(retArray[0]);
+				sEndDt = jsDateToMMDDYYYY(retArray[1]);
+            }
+			var aStartDt = sStartDt.split("/");
+			var aEndDt = sEndDt.split("/");
 
             var newAInfo = new Array();
             if (srcCapId != null) {
@@ -604,8 +625,8 @@ function createWmuConfiguration(year, wmu, drawtype) {
 
                 newAInfo.push(new NewLicDef("Draw Type", drawtype));
                 newAInfo.push(new NewLicDef("License Year", year));
-                newAInfo.push(new NewLicDef("Open Date", dateFormatted(aStartDt[0], aStartDt[1], year.toString())));
-                newAInfo.push(new NewLicDef("Close Date", dateFormatted(aEndDt[0], aEndDt[1], nextYear.toString())));
+                newAInfo.push(new NewLicDef("Open Date", sStartDt));
+                newAInfo.push(new NewLicDef("Close Date", sEndDt));
                 newAInfo.push(new NewLicDef("Status", 'Open'));
                 newAInfo.push(new NewLicDef("Status Effecctive Date", jsDateToASIDate(now)));
                 newAInfo.push(new NewLicDef("Status Applicable To", 'Both'));
@@ -623,8 +644,8 @@ function createWmuConfiguration(year, wmu, drawtype) {
                 newAInfo.push(new NewLicDef("License Year", year));
 
                 newAInfo.push(new NewLicDef("Permit Target", 0));
-                newAInfo.push(new NewLicDef("Open Date", dateFormatted(aStartDt[0], aStartDt[1], year.toString())));
-                newAInfo.push(new NewLicDef("Close Date", dateFormatted(aEndDt[0], aEndDt[1], nextYear.toString())));
+                newAInfo.push(new NewLicDef("Open Date", sStartDt));
+                newAInfo.push(new NewLicDef("Close Date", sEndDt));
                 newAInfo.push(new NewLicDef("Status", 'Open'));
                 newAInfo.push(new NewLicDef("Status Effecctive Date", jsDateToASIDate(now)));
                 newAInfo.push(new NewLicDef("Status Applicable To", 'Both'));
