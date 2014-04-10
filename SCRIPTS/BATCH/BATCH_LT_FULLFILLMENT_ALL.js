@@ -9,8 +9,8 @@
 /*------------------------------------------------------------------------------------------------------/
 | START: TEST PARAMETERS
 /------------------------------------------------------------------------------------------------------*/
-//aa.env.setValue("emailAddress", "saxthelm@accela.com");
-//aa.env.setValue("LookAheadDays", 21);
+//aa.env.setValue("emailAddress", "lalit@accela.com");
+//aa.env.setValue("LookAheadDays", 30);
 //aa.env.setValue("showDebug", "Y");
 /*------------------------------------------------------------------------------------------------------/
 | END: TEST PARAMETERS
@@ -62,7 +62,10 @@ var sysDate = aa.date.getCurrentDate();
 var currentUser = aa.person.getCurrentUser().getOutput();
 var startDate = new Date();
 var startTime = startDate.getTime(); 		// Start timer
+var useAppSpecificGroupName = false;
 var vToday = startDate;
+var seasonPeriod = GetDateRange(DEC_CONFIG, LICENSE_SEASON, startDate.getFullYear());
+vToday = seasonPeriod[0];
 vToday.setHours(0);
 vToday.setMinutes(0);
 vToday.setSeconds(0);
