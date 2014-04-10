@@ -7271,9 +7271,9 @@ function verifyNewRegistrion() {
     if (resultCount == 0) {
         retmsg = "No match";
     }
-    if (resultCount == 1) {
+    /*if (resultCount == 1) {
         retmsg = "Exact match";
-    }
+    }*/
     if (resultCount > 1) {
         retmsg = "Multiple match";
     }
