@@ -2272,7 +2272,7 @@ function isValidVoidSales(pStep) {
     logDebug("ENTER: isValidVoidSales");
     var retMsg = ''
     //ACA ONSUBMIT BEFORE VDSLSTEP1
-    if (pStep == 'Step1') {
+    if (pStep == 'Step1' || pStep == 'Step2') {
         if (!isValidUserForVoidSales()) {
             retMsg += 'This user is not authorized to Void Sales.'; 	//...Raj    JIRA-15711
             retMsg += '<Br />';
