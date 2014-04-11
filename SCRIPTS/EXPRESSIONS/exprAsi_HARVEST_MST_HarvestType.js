@@ -162,37 +162,37 @@ expression.setReturn(okRighttAntlerPoints);
 
 //Onli Turkey
 var okTurkBeardLen = expression.getValue("ASI::KILL INFORMATION::Turkey Beard Length");
-okTurkBeardLen.hidden = !(isViz && (isFallTurky));
-//okTurkBeardLen.readOnly = !(isViz && (isFallTurky));
-okTurkBeardLen.required = (isViz && (isFallTurky));
-if (!(isViz && (isFallTurky))) {
+okTurkBeardLen.hidden = !(isViz && (isSpringTurky));
+//okTurkBeardLen.readOnly = !(isViz && (isSpringTurky));
+okTurkBeardLen.required = (isViz && (isSpringTurky));
+if (!(isViz && (isSpringTurky))) {
     okTurkBeardLen.value = '';
 }
 expression.setReturn(okTurkBeardLen);
 
 var okTurkLegSaved = expression.getValue("ASI::KILL INFORMATION::Turkey Leg Saved?");
-okTurkLegSaved.hidden = !(isViz && (isSpringTurky || isFallTurky));
-//okTurkLegSaved.readOnly = !(isViz && (isSpringTurky || isFallTurky));
-okTurkLegSaved.required = (isViz && (isSpringTurky || isFallTurky));
-if (!(isViz && (isSpringTurky || isFallTurky))) {
+okTurkLegSaved.hidden = !(isViz && (isFallTurky));
+//okTurkLegSaved.readOnly = !(isViz && (isFallTurky));
+okTurkLegSaved.required = (isViz && (isFallTurky));
+if (!(isViz && (isFallTurky))) {
     okTurkLegSaved.value = '';
 }
 expression.setReturn(okTurkLegSaved);
 
 var okTurkSpurLen = expression.getValue("ASI::KILL INFORMATION::Turkey Spur Length");
-okTurkSpurLen.hidden = !(isViz && (isFallTurky));
-//okTurkSpurLen.readOnly = !(isViz && (isFallTurky));
-okTurkSpurLen.required = (isViz && (isFallTurky));
-if (!(isViz && (isFallTurky))) {
+okTurkSpurLen.hidden = !(isViz && (isSpringTurky));
+//okTurkSpurLen.readOnly = !(isViz && (isSpringTurky));
+okTurkSpurLen.required = (isViz && (isSpringTurky));
+if (!(isViz && (isSpringTurky))) {
     okTurkSpurLen.value = '';
 }
 expression.setReturn(okTurkSpurLen);
 
 var okWeight = expression.getValue("ASI::KILL INFORMATION::Weight (to nearest pound)");
-okWeight.hidden = !(isViz && (isFallTurky));
-//okWeight.readOnly = !(isViz && (isFallTurky));
-okWeight.required = (isViz && (isFallTurky));
-if (!(isViz && (isFallTurky))) {
+okWeight.hidden = !(isViz && (isSpringTurky));
+//okWeight.readOnly = !(isViz && (isSpringTurky));
+okWeight.required = (isViz && (isSpringTurky));
+if (!(isViz && (isSpringTurky))) {
     okWeight.value = '';
 }
 expression.setReturn(okWeight);
