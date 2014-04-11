@@ -232,6 +232,19 @@ function getMonday(d) {
     return new Date(d.setDate(diff));
 }
 
+function getFirstMonday(d) {
+    d = new Date(d);
+	var firstDay = new Date(d.getFullYear(), d.getMonth(), 1);
+	
+    //Find Tuesday
+    var mon = 1;
+
+    while (firstDay.getDay() != mon) {
+		firstDay.setDate(firstDay.getDate() + 1);
+    }
+    return firstDay;
+}
+
 function GetDateRange(stdChoice, sValue, year) {
     var returnPeriod = new Array();
     var desc = GetLookupVal(stdChoice, sValue);
@@ -240,8 +253,10 @@ function GetDateRange(stdChoice, sValue, year) {
             var monthArray = new Array();
             var atmp = desc.toString().split("|");
             var isChangeByDay = false;
+            var isChangeByFirstDayOfMonth = false;
             if (atmp.length > 1) {
                 isChangeByDay = (atmp[1] == "Monday");
+                isChangeByFirstDayOfMonth = (atmp[1] == "First Monday");
             }
             monthArray = atmp[0].toString().split("-");
             //monthArray = desc.toString().split("-");
@@ -257,14 +272,19 @@ function GetDateRange(stdChoice, sValue, year) {
                             if ((returnPeriod[returnPeriod.length - 1]) && dt.getTime() < (returnPeriod[returnPeriod.length - 1]).getTime()) {
                                 dt = new Date((parseInt(year) + 1), op[0] - 1, op[1]);
                             }
-                        } 
+                        }
                     }
                     returnPeriod[returnPeriod.length] = dt;
                 }
             }
 
-            if (isChangeByDay && returnPeriod.length == 2) {
-                returnPeriod[0] = getMonday(returnPeriod[0]);
+            if ((isChangeByDay || isChangeByFirstDayOfMonth) && returnPeriod.length == 2) {
+                if (isChangeByDay) {
+                    returnPeriod[0] = getMonday(returnPeriod[0]);
+                }
+                if (isChangeByFirstDayOfMonth) {
+                    returnPeriod[0] = getFirstMonday(returnPeriod[0]);
+                }
             }
         }
     }
