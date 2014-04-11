@@ -135,10 +135,14 @@ function getCompletedAge(ipBirthDate, ipEffDate) {
 }
 
 function getSpEd(ipRefContact) {
+	//JIRA:49706
     var fvSubGroupName = "SPORTSMAN EDUCATION";
     var fvFieldNameType = "Sportsman Education Type";
     var fvFieldNameRevoked = "Revoked";
 
+    var fvPriorSubGroupName = "PREVIOUS LICENSE";
+    var fvPriorFieldNameType = "Previous License Type";
+	
     var fvPeopleModel = aa.people.getPeople(ipRefContact).getOutput();
 
     var fvSpEdArray = aa.util.newHashMap();
@@ -150,7 +154,7 @@ function getSpEd(ipRefContact) {
                 var fvSubGroups = fvTemplateGroups.get(0).getSubgroups();
                 for (var fvSubGroupIndex = 0; fvSubGroupIndex < fvSubGroups.size(); fvSubGroupIndex++) {
                     var fvSubGroup = fvSubGroups.get(fvSubGroupIndex);
-                    if (fvSubGroupName != fvSubGroup.getSubgroupName())
+                    if (fvSubGroupName != fvSubGroup.getSubgroupName() && fvPriorSubGroupName != fvSubGroup.getSubgroupName())
                         continue;
 
                     var fvFields = fvSubGroup.getFields();
@@ -163,6 +167,8 @@ function getSpEd(ipRefContact) {
                                 fvFieldPosType = fvCounter;
                             if (fvField.fieldName == fvFieldNameRevoked)
                                 fvFieldPosRevoked = fvCounter;
+                            if (fvField.fieldName == fvPriorFieldNameType)
+                                fvFieldPosType = fvCounter;
                         }
 
                         var fvRows = fvSubGroup.getRows();
@@ -180,8 +186,8 @@ function getSpEd(ipRefContact) {
                     }
                     break;
                 }
-            }
-        }
+			}
+		}
     }
 
     return fvSpEdArray;
