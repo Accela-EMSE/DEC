@@ -7362,6 +7362,80 @@ function validatePublicUserCreation () {
     return retmsg;
 }
 
+// createNewRegPublicUserFromContact function for creating public user.
+
+function createNewRegPublicUserFromContact() {
+    var contact;
+    var refContactNum;
+    var userModel;
+    var retmsg = "";
+    var newRegUserName = AInfo["User Name"];
+    var newRegUserLastName = AInfo["User Name"];
+    var newRegEmail = AInfo["Email"];
+    var newRegPassword = AInfo["Password"];
+    var newRegSecurityQuestion = AInfo["Security Question"];
+    var newRegSecurityAnswer = AInfo["Security Answer"];
+    var internalDecId = AInfo["Internal Decid"];
+    var newRegFirstName = AInfo["First"];
+    var newRegLastName = AInfo["Last"];
+
+    logDebug("CreatePublicUserFromContact: creating new user"); 
+    var publicUser = aa.publicUser.getPublicUserModel();
+    publicUser.setFirstName(newRegFirstName);
+    publicUser.setLastName(newRegLastName);
+    publicUser.setEmail(newRegEmail);
+    publicUser.setUserID(newRegUserName);
+    publicUser.setPassword("e8248cbe79a288ffec75d7300ad2e07172f487f6");
+    //publicUser.setPassword(newRegPassword);
+    publicUser.setAuditID("PublicUser");
+    publicUser.setAuditStatus("A");
+    publicUser.setPasswordRequestQuestion(newRegSecurityQuestion);
+    publicUser.setPasswordRequestAnswer(newRegSecurityAnswer);
+
+    var result = aa.publicUser.createPublicUser(publicUser);
+    logDebug("result : " + result.getSuccess());
+    if (result.getSuccess()) {
+        logDebug("Created public user " + newRegUserName + "  sucessfully.");
+        var userSeqNum = result.getOutput();
+        var userModel = aa.publicUser.getPublicUser(userSeqNum).getOutput()
+
+                // create for agency
+                aa.publicUser.createPublicUserForAgency(userModel);
+
+                // activate for agency
+                var userPinBiz = aa.proxyInvoker.newInstance("com.accela.pa.pin.UserPINBusiness").getOutput()
+                userPinBiz.updateActiveStatusAndLicenseIssueDate4PublicUser(aa.getServiceProviderCode(), userSeqNum, "ADMIN");
+
+                // reset password
+               /* var resetPasswordResult = aa.publicUser.resetPassword(newRegEmail);
+                if (resetPasswordResult.getSuccess()) {
+                    var resetPassword = resetPasswordResult.getOutput();
+                    userModel.setPassword(resetPassword);
+                    logDebug("(contactObj) Reset password for " + newRegEmail + "  sucessfully.");
+                } else {
+                    logDebug("(contactObj **WARNING: Reset password for  " + newRegEmail + "  failure:" + resetPasswordResult.getErrorMessage());
+                }*/
+
+                // send Activate email
+                aa.publicUser.sendActivateEmail(userModel, true, true);
+
+                // send another email
+                aa.publicUser.sendPasswordEmail(userModel);
+            }else {
+                logDebug("**Warning creating public user " + newRegUserName + "  failure: " + result.getErrorMessage()); 
+                retmsg = "Warning creating public user " + newRegUserName + "  failure: " +result.getErrorMessage();
+            }
+
+
+            if (internalDecId) {
+                logDebug("(contactObj) CreatePublicUserFromContact: Linking this public user with reference contact : " + internalDecId);
+                aa.licenseScript.associateContactWithPublicUser(userModel.getUserSeqNum(), internalDecId);
+            }
+
+            logDebug(retmsg);
+            return retmsg; 
+        }
+
 //Obsolete
 function searchCustomerByAttribtes(lastname, firstname, birthDate, decid) {
     var peopResult = null;
