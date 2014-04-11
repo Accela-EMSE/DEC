@@ -834,6 +834,8 @@ function issueSelectedSalesItems(frm) {
                         effectiveDt = AInfo["Effective Date Marine"];
                         editFileDate(newLicId, effectiveDt);
                         AInfo["CODE.Effective Date"] = effectiveDt;
+						//JIRA: 48336
+                        clacFromDt = dateAdd(convertDate(effectiveDt), 0);
                         clacFromDt = dateAdd(convertDate(effectiveDt), -1);
                         setLicExpirationDate(newLicId, clacFromDt);
                         //
