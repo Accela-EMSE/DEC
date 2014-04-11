@@ -166,7 +166,7 @@ if (!isValidUser) {
 
     //Onli Turkey
     var okTurkBeardLen = expression.getValue("ASI::KILL INFORMATION::Turkey Beard Length");
-    if (!(isViz && (isFallTurky))) {
+    if (!(isViz && (isSpringTurky))) {
         okTurkBeardLen.hidden = true;
         okTurkBeardLen.required = false;
         okTurkBeardLen.value = '';
@@ -174,7 +174,7 @@ if (!isValidUser) {
     }
 
     var okTurkLegSaved = expression.getValue("ASI::KILL INFORMATION::Turkey Leg Saved?");
-    if (!(isViz && (isSpringTurky || isFallTurky))) {
+    if (!(isViz && (isFallTurky))) {
         okTurkLegSaved.hidden = true;
         okTurkLegSaved.required = false;
         okTurkLegSaved.value = '';
@@ -190,7 +190,7 @@ if (!isValidUser) {
     }
 
     var okTurkSpurLen = expression.getValue("ASI::KILL INFORMATION::Turkey Spur Length");
-    if (!(isViz && (isFallTurky))) {
+    if (!(isViz && (isSpringTurky))) {
         okTurkSpurLen.hidden = true;
         okTurkSpurLen.required = false;
         okTurkSpurLen.value = '';
@@ -198,7 +198,7 @@ if (!isValidUser) {
     expression.setReturn(okTurkSpurLen);
 
     var okWeight = expression.getValue("ASI::KILL INFORMATION::Weight (to nearest pound)");
-    if (!(isViz && (isFallTurky))) {
+    if (!(isViz && (isSpringTurky))) {
         okWeight.hidden = true;
         okWeight.required = false;
         okWeight.value = '';
