@@ -20,6 +20,8 @@ var OPTZ_TYPE_ALLFEES = 1; //Optimizer pass from caller to get fee information i
 var OPTZ_TYPE_SELECTED_FEES = 2; //Optimizer pass from caller to get fee information for selected information in engne rule;
 var OPTZ_TYPE_CTRC = 3; //Optimizer pass from caller to avod unnecessary processing in engne rule
 
+var CONST_INSTANT_GRACE_PERIOD = 10;
+
 var allTableNames = new Array();
 var allTableRefLink = new Array();
 
@@ -2810,12 +2812,16 @@ function getDrawTypeByPeriod(year) {
     var retArray = GetDateRange("DEC_CONFIG", "DMP_INSTANT_LOTTERY_PERIOD", year)
 
     var currDrawType = '';
+    if (this.isNYSDEC_HQ) {
+        now = dateAdd(now, CONST_INSTANT_GRACE_PERIOD);
+    }
     if ((now >= retArray[0] && now <= retArray[1])) {
         currDrawType = DRAW_INST;
     }
     //if (now > retArray[1]) {
     //    currDrawType = DRAW_INST;
     //}
+    now = new Date(jsDateToMMDDYYYY(new Date()));
     retArray = GetDateRange("DEC_CONFIG", "DMP_FCFS_PERIOD", year)
 
     if ((now >= retArray[0] && now <= retArray[1])) {
