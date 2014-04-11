@@ -7279,7 +7279,7 @@ function verifyNewRegistrion() {
         decalRefNumber = resultCount[0];
         logDebug("decalRefNumber : " + decalRefNumber); 
         // validation to check public user id already exists with DEC ID
-        
+        var publicUserListByContact =  getPublicUserListByContactNBR(decalRefNumber);
         editAppSpecific4ACA("Internal Decid", decalRefNumber);        
     }
     if (resultCount.length > 1) {
@@ -7334,6 +7334,32 @@ function searchCustomerBySql(lastname, firstname, birthDate, decid) {
         logDebug("Runtime error occurred: " + vError);
     }
     return retArry;
+}
+
+// Function to validate the Public user creation process in the New Registration
+
+function validatePublicUserCreation () {
+
+    var newRegEmail = AInfo["Email"];
+    var newRegUserName = AInfo["User Name"];
+    var retmsg = "";
+
+     // check to see if public user exists already based on user Id
+     var getUserResult = aa.publicUser.getPublicUserByUserId(newRegUserName);
+     if (getUserResult.getSuccess() && getUserResult.getOutput()) {
+        userModel = getUserResult.getOutput();
+        logDebug("CreatePublicUserFromContact: Found an existing public user: " + userModel.getUserID());
+        retmsg += "Found an existing public user with User Id " + userModel.getUserID() + "<BR>";
+    }
+
+    // check to see if public user exists already based on email address
+    var getUserResult = aa.publicUser.getPublicUserByEmail(newRegEmail);
+    if (getUserResult.getSuccess() && getUserResult.getOutput()) {
+        userModel = getUserResult.getOutput();
+        logDebug("CreatePublicUserFromContact: Found an existing public user: " + userModel.getUserID());
+        retmsg += "Found an existing public user: " + userModel.getUserID() + " with the email address " + newRegEmail + "<BR>";
+    }
+    return retmsg;
 }
 
 //Obsolete
