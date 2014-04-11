@@ -289,15 +289,15 @@ function copyLicASI(newCap, newAInfo) {
                     ignore = true;
                     break;
                 }
-            if (ignore)
-                continue;
+                if (ignore)
+                    continue;
+            }
+            editAppSpecific(newAInfo[item].FieldName, newAInfo[item].Value, newCap);
         }
-        editAppSpecific(newAInfo[item].FieldName, newAInfo[item].Value, newCap);
+        logDebug("EXIT: copyLicASI");
     }
-    logDebug("EXIT: copyLicASI");
-}
-function updateContacts() {
-    logDebug("ENTER: updateContacts");
+    function updateContacts() {
+        logDebug("ENTER: updateContacts");
     //logDebug("Elapsed Time: " + elapsed());
 
     var peopleSequenceNumber = null;
@@ -460,7 +460,7 @@ function editContactPeopleTemplateAttribute(peopleSequenceNumber, pAttributeName
     var peopAttrResult = aa.people.getPeopleAttributeByPeople(peopleSequenceNumber, "Individual");
 
     if (!peopAttrResult.getSuccess())
-    { logDebug("**WARNING retrieving reference license professional attribute: " + peopAttrResult.getErrorMessage()); return false }
+        { logDebug("**WARNING retrieving reference license professional attribute: " + peopAttrResult.getErrorMessage()); return false }
 
     var peopAttrArray = peopAttrResult.getOutput();
     var attrfound = false;
@@ -616,20 +616,20 @@ function issueSelectedSalesItems(frm) {
     closeTask("Issuance", "Approved", "", "");
 
     //if (appMatch("Licenses/Annual/Application/NA")) {
-    if (appTypeString == 'Licenses/Annual/Application/NA' || appTypeString == 'Licenses/Sales/Application/Fishing' || appTypeString == 'Licenses/Sales/Application/Hunting' || appTypeString == 'Licenses/Sales/Application/Hunting and Fishing' || appTypeString == 'Licenses/Sales/Application/Trapping' || appTypeString == 'Licenses/Sales/Application/Lifetime' || appTypeString == 'Licenses/Sales/Application/Sporting') {
-        var seasonPeriod = GetDateRange(DEC_CONFIG, LICENSE_SEASON, frm.Year);
-        clacFromDt = dateAdd(convertDate(seasonPeriod[1]), 0);
-        setLicExpirationDate(capId, "", clacFromDt);
-    }
-    var arryTargetCapAttrib = new Array();
-    var arryAccumTags = new Array();
+        if (appTypeString == 'Licenses/Annual/Application/NA' || appTypeString == 'Licenses/Sales/Application/Fishing' || appTypeString == 'Licenses/Sales/Application/Hunting' || appTypeString == 'Licenses/Sales/Application/Hunting and Fishing' || appTypeString == 'Licenses/Sales/Application/Trapping' || appTypeString == 'Licenses/Sales/Application/Lifetime' || appTypeString == 'Licenses/Sales/Application/Sporting') {
+            var seasonPeriod = GetDateRange(DEC_CONFIG, LICENSE_SEASON, frm.Year);
+            clacFromDt = dateAdd(convertDate(seasonPeriod[1]), 0);
+            setLicExpirationDate(capId, "", clacFromDt);
+        }
+        var arryTargetCapAttrib = new Array();
+        var arryAccumTags = new Array();
 
-    var uObj = new USEROBJ(publicUserID);
-    salesAgentInfoArray = getAgentInfo(publicUserID, uObj);
-    attachAgent(uObj);
-    if (appTypeString == 'Licenses/Other/Sales/Application') {
-        attachedContacts();
-    }
+        var uObj = new USEROBJ(publicUserID);
+        salesAgentInfoArray = getAgentInfo(publicUserID, uObj);
+        attachAgent(uObj);
+        if (appTypeString == 'Licenses/Other/Sales/Application') {
+            attachedContacts();
+        }
 
     //Mark Fullfillment
     var fullfillCond = '';
@@ -666,7 +666,7 @@ function issueSelectedSalesItems(frm) {
     var sortedRecArray = [];
     for (var key in recArr) sortedRecArray.push(recArr[key]);
 
-    sortedRecArray.sort(function (a, b) { return (a.sortOrder - b.sortOrder); });
+        sortedRecArray.sort(function (a, b) { return (a.sortOrder - b.sortOrder); });
 
     for (var idx = 0; idx < sortedRecArray.length; idx++) {
         var oLic = sortedRecArray[idx];
@@ -807,7 +807,7 @@ function issueSelectedSalesItems(frm) {
                         clacFromDt = dateAdd(convertDate(effectiveDt), -1);
                         setLicExpirationDate(newLicId, clacFromDt);
                         //} else if (ats == AA23_NONRES_FRESHWATER_FISHING || ats == AA22_FRESHWATER_FISHING || ats == AA66_FRESHWATER_FISHING_3Y || ats == AA67_FRESHWATER_FISHING_5Y) {
-                    } else if (ats == AA23_NONRES_FRESHWATER_FISHING || ats == AA22_FRESHWATER_FISHING) {
+                        } else if (ats == AA23_NONRES_FRESHWATER_FISHING || ats == AA22_FRESHWATER_FISHING) {
                         //JIRA: 21268
                         if (frm.isAfterSwitchDate()) {
                             effectiveDt = AInfo["Effective Date Fishing"];
@@ -1008,9 +1008,9 @@ function SetformForSelectedLics(frm) {
     if (typeof (LANDOWNERINFORMATION) == "object") {
         for (y in LANDOWNERINFORMATION) {
             frm.AddLandOwnerInfo(LANDOWNERINFORMATION[y]["License Year"],
-                        LANDOWNERINFORMATION[y]["SWIS Code"],
-                        LANDOWNERINFORMATION[y]["Tax Map ID/Parcel ID"],
-                        LANDOWNERINFORMATION[y]["Check this box to use this landowner parcel for your DMP application"]);
+                LANDOWNERINFORMATION[y]["SWIS Code"],
+                LANDOWNERINFORMATION[y]["Tax Map ID/Parcel ID"],
+                LANDOWNERINFORMATION[y]["Check this box to use this landowner parcel for your DMP application"]);
         }
     }
 
@@ -1018,8 +1018,8 @@ function SetformForSelectedLics(frm) {
     if (typeof (ANNUALDISABILITY) == "object") {
         for (y in ANNUALDISABILITY) {
             frm.AddAnnualDisability(ANNUALDISABILITY[y]["Year"],
-                        ANNUALDISABILITY[y]["Annual Disability Case Number"],
-                        ANNUALDISABILITY[y]["40%+ Military Disabled"]);
+                ANNUALDISABILITY[y]["Annual Disability Case Number"],
+                ANNUALDISABILITY[y]["40%+ Military Disabled"]);
         }
     }
 
@@ -1027,10 +1027,10 @@ function SetformForSelectedLics(frm) {
     if (typeof (SPORTSMANEDUCATION) == "object") {
         for (y in SPORTSMANEDUCATION) {
             frm.AddSportsmanEducation(SPORTSMANEDUCATION[y]["Sportsman Education Type"],
-                        SPORTSMANEDUCATION[y]["Certificate Number"],
-                        SPORTSMANEDUCATION[y]["State"],
-                        SPORTSMANEDUCATION[y]["Country"],
-                        SPORTSMANEDUCATION[y]["Other Country"]);
+                SPORTSMANEDUCATION[y]["Certificate Number"],
+                SPORTSMANEDUCATION[y]["State"],
+                SPORTSMANEDUCATION[y]["Country"],
+                SPORTSMANEDUCATION[y]["Other Country"]);
         }
     }
 
@@ -1038,12 +1038,12 @@ function SetformForSelectedLics(frm) {
     if (typeof (PREVIOUSLICENSE) == "object") {
         for (y in PREVIOUSLICENSE) {
             frm.AddPriorLicense(PREVIOUSLICENSE[y]["Previous License Type"],
-                        PREVIOUSLICENSE[y]["License Date"],
-                        PREVIOUSLICENSE[y]["License Number"],
-                        PREVIOUSLICENSE[y]["State"],
-                        PREVIOUSLICENSE[y]["Country"],
-                        PREVIOUSLICENSE[y]["Other Country"],
-                        PREVIOUSLICENSE[y]["Verified_By"]);
+                PREVIOUSLICENSE[y]["License Date"],
+                PREVIOUSLICENSE[y]["License Number"],
+                PREVIOUSLICENSE[y]["State"],
+                PREVIOUSLICENSE[y]["Country"],
+                PREVIOUSLICENSE[y]["Other Country"],
+                PREVIOUSLICENSE[y]["Verified_By"]);
         }
     }
 
@@ -1897,7 +1897,7 @@ function updateFeeWithVersion(fcode, fsched, fversion, fperiod, fqty, finvoice, 
                 }
             }
 
-        for (feeNum in feeList)
+            for (feeNum in feeList)
             if (feeList[feeNum].getFeeitemStatus().equals("NEW") && !feeUpdated)  // update this fee item
             {
                 feeSeq = feeList[feeNum].getFeeSeqNbr();
@@ -1911,11 +1911,11 @@ function updateFeeWithVersion(fcode, fsched, fversion, fperiod, fqty, finvoice, 
                     }
                 }
                 else
-                { logDebug("**ERROR: updating qty on fee item (" + fcode + "): " + editResult.getErrorMessage()); break }
+                    { logDebug("**ERROR: updating qty on fee item (" + fcode + "): " + editResult.getErrorMessage()); break }
             }
-    }
-    else
-    { logDebug("**ERROR: getting fee items (" + fcode + "): " + getFeeResult.getErrorMessage()) }
+        }
+        else
+            { logDebug("**ERROR: getting fee items (" + fcode + "): " + getFeeResult.getErrorMessage()) }
 
     // Add fee if no fee has been updated OR invoiced fee already exists and duplicates are allowed
     if (!feeUpdated && adjustedQty != 0 && (!invFeeFound || invFeeFound && pDuplicate == "Y"))
@@ -2026,12 +2026,12 @@ function addStdConditionWithComments(cType, cDesc, cShortComment, cLongComment) 
                     logDebug("**ERROR: adding condition (" + standardCondition.getConditionDesc() + "): " + addCapCondResult.getErrorMessage());
                 }
             }
+        }
+        logDebug("EXIT: addStdConditionWithComments");
     }
-    logDebug("EXIT: addStdConditionWithComments");
-}
 
-function distributeFeesAndPayments(sourceCapId, arryTargetCapAttrib, pSalesAgentInfoArray) {
-    logDebug("ENTER: distributeFeesAndPayments");
+    function distributeFeesAndPayments(sourceCapId, arryTargetCapAttrib, pSalesAgentInfoArray) {
+        logDebug("ENTER: distributeFeesAndPayments");
     //logDebug("Elapsed Time: " + elapsed());
 
     //
@@ -2070,17 +2070,17 @@ function distributeFeesAndPayments(sourceCapId, arryTargetCapAttrib, pSalesAgent
                     invoiceNbrArray.push(pfObj[ij].getInvoiceNbr());
                     feeAllocationArray.push(pfObj[ij].getFeeAllocation());
                 }
-        }
+            }
 
 
-        if (feeSeqArray.length > 0) {
-            z = aa.finance.applyRefund(capId, thisPay, feeSeqArray, invoiceNbrArray, feeAllocationArray, "FeeStat", "InvStat", "123");
-            if (z.getSuccess())
-                logDebug("Refund applied")
-            else
-                logDebug("Error applying refund " + z.getErrorMessage());
+            if (feeSeqArray.length > 0) {
+                z = aa.finance.applyRefund(capId, thisPay, feeSeqArray, invoiceNbrArray, feeAllocationArray, "FeeStat", "InvStat", "123");
+                if (z.getSuccess())
+                    logDebug("Refund applied")
+                else
+                    logDebug("Error applying refund " + z.getErrorMessage());
+            }
         }
-    }
 
     //
     // Step 2: void from the source
@@ -2284,7 +2284,7 @@ function activateTaskForRec(wfstr) // optional process name
     if (workflowResult.getSuccess())
         var wfObj = workflowResult.getOutput();
     else
-    { logMessage("**ERROR: Failed to get workflow object: " + workflowResult.getErrorMessage()); return false; }
+        { logMessage("**ERROR: Failed to get workflow object: " + workflowResult.getErrorMessage()); return false; }
 
     for (i in wfObj) {
         var fTask = wfObj[i];
@@ -2320,7 +2320,7 @@ function closeTaskForRec(wfstr, wfstat, wfcomment, wfnote) // optional process n
     if (workflowResult.getSuccess())
         var wfObj = workflowResult.getOutput();
     else
-    { logMessage("**ERROR: Failed to get workflow object: " + workflowResult.getErrorMessage()); return false; }
+        { logMessage("**ERROR: Failed to get workflow object: " + workflowResult.getErrorMessage()); return false; }
 
     if (!wfstat) wfstat = "NA";
 
@@ -2490,9 +2490,9 @@ function isRevocation(RrevocationType, contactCondArray) {
         if (r.description == RrevocationType && r.type == 'Revocation') {
             if (r.statusType == "Applied") {
                 //if ((!r.effiectDate || now >= r.effiectDate) && (!r.expireDate || now <= r.expireDate)) {     //based on customer request ...Raj
-                isRevoked = true;
-                break;
-            }
+                    isRevoked = true;
+                    break;
+                }
             //}
         }
     }
@@ -2506,8 +2506,8 @@ function isSuspension(contactCondArray) {
         if (r.description == "Suspension of Privileges" && r.type == 'Suspension') {
             if (r.statusType == "Applied") {                                                                    //based on customer request ...Raj
                 //if (now >= r.effiectDate && now <= r.expireDate) {                                            
-                isSuspension = true;
-                break;
+                    isSuspension = true;
+                    break;
                 //}
             }
         }
@@ -2529,8 +2529,8 @@ function isFulfillmentCond(FulfillmentType, contactCondArray) {
         var r = contactCondArray[conCond];
         if (r.description == FulfillmentType && r.type == 'Revocation') {
             //if (now >= r.effiectDate && now <= r.expireDate) {
-            isNeedFulfillment = true;
-            break;
+                isNeedFulfillment = true;
+                break;
             //}
         }
     }
@@ -3118,41 +3118,41 @@ function contactObj(ccsm) {
         this.asiObj = this.people.getAttributes().toArray();
         for (var xx1 in this.asiObj) this.asi[this.asiObj[xx1].attributeName] = this.asiObj[xx1].attributeValue;
         //this.primary = this.capContact.getPrimaryFlag().equals("Y");
-        this.primary = this.capContact.getPrimaryFlag() && this.capContact.getPrimaryFlag().equals("Y");
-        this.relation = this.people.relation;
-        this.seqNumber = this.people.contactSeqNumber;
-        this.type = this.people.getContactType();
-        this.capId = this.capContactScript.getCapID();
-        var contactAddressrs = aa.address.getContactAddressListByCapContact(this.capContact);
-        if (contactAddressrs.getSuccess()) {
-            this.addresses = contactAddressrs.getOutput();
-            var contactAddressModelArr = convertContactAddressModelArr(contactAddressrs.getOutput());
-            this.people.setContactAddressList(contactAddressModelArr);
-        }
+    this.primary = this.capContact.getPrimaryFlag() && this.capContact.getPrimaryFlag().equals("Y");
+    this.relation = this.people.relation;
+    this.seqNumber = this.people.contactSeqNumber;
+    this.type = this.people.getContactType();
+    this.capId = this.capContactScript.getCapID();
+    var contactAddressrs = aa.address.getContactAddressListByCapContact(this.capContact);
+    if (contactAddressrs.getSuccess()) {
+        this.addresses = contactAddressrs.getOutput();
+        var contactAddressModelArr = convertContactAddressModelArr(contactAddressrs.getOutput());
+        this.people.setContactAddressList(contactAddressModelArr);
     }
-    this.toString = function () { return this.capId + " : " + this.type + " " + this.people.getLastName() + "," + this.people.getFirstName() + " (id:" + this.seqNumber + "/" + this.refSeqNumber + ") #ofAddr=" + this.addresses.length + " primary=" + this.primary; }
+}
+this.toString = function () { return this.capId + " : " + this.type + " " + this.people.getLastName() + "," + this.people.getFirstName() + " (id:" + this.seqNumber + "/" + this.refSeqNumber + ") #ofAddr=" + this.addresses.length + " primary=" + this.primary; }
 
-    this.getEmailTemplateParams = function (params) {
-        addParameter(params, "$$LastName$$", this.people.getLastName());
-        addParameter(params, "$$FirstName$$", this.people.getFirstName());
-        addParameter(params, "$$MiddleName$$", this.people.getMiddleName());
-        addParameter(params, "$$BusinesName$$", this.people.getBusinessName());
-        addParameter(params, "$$ContactSeqNumber$$", this.seqNumber);
-        addParameter(params, "$$ContactType$$", this.type);
-        addParameter(params, "$$Relation$$", this.relation);
-        addParameter(params, "$$Phone1$$", this.people.getPhone1());
-        addParameter(params, "$$Phone2$$", this.people.getPhone2());
-        addParameter(params, "$$Email$$", this.people.getEmail());
-        addParameter(params, "$$AddressLine1$$", this.people.getCompactAddress().getAddressLine1());
-        addParameter(params, "$$AddressLine2$$", this.people.getCompactAddress().getAddressLine2());
-        addParameter(params, "$$City$$", this.people.getCompactAddress().getCity());
-        addParameter(params, "$$State$$", this.people.getCompactAddress().getState());
-        addParameter(params, "$$Zip$$", this.people.getCompactAddress().getZip());
-        addParameter(params, "$$Fax$$", this.people.getFax());
-        addParameter(params, "$$Country$$", this.people.getCompactAddress().getCountry());
-        addParameter(params, "$$FullName$$", this.people.getFullName());
-        return params;
-    }
+this.getEmailTemplateParams = function (params) {
+    addParameter(params, "$$LastName$$", this.people.getLastName());
+    addParameter(params, "$$FirstName$$", this.people.getFirstName());
+    addParameter(params, "$$MiddleName$$", this.people.getMiddleName());
+    addParameter(params, "$$BusinesName$$", this.people.getBusinessName());
+    addParameter(params, "$$ContactSeqNumber$$", this.seqNumber);
+    addParameter(params, "$$ContactType$$", this.type);
+    addParameter(params, "$$Relation$$", this.relation);
+    addParameter(params, "$$Phone1$$", this.people.getPhone1());
+    addParameter(params, "$$Phone2$$", this.people.getPhone2());
+    addParameter(params, "$$Email$$", this.people.getEmail());
+    addParameter(params, "$$AddressLine1$$", this.people.getCompactAddress().getAddressLine1());
+    addParameter(params, "$$AddressLine2$$", this.people.getCompactAddress().getAddressLine2());
+    addParameter(params, "$$City$$", this.people.getCompactAddress().getCity());
+    addParameter(params, "$$State$$", this.people.getCompactAddress().getState());
+    addParameter(params, "$$Zip$$", this.people.getCompactAddress().getZip());
+    addParameter(params, "$$Fax$$", this.people.getFax());
+    addParameter(params, "$$Country$$", this.people.getCompactAddress().getCountry());
+    addParameter(params, "$$FullName$$", this.people.getFullName());
+    return params;
+}
 
     this.replace = function (targetCapId) { // send to another record, optional new contact type
 
@@ -3234,10 +3234,10 @@ function contactObj(ccsm) {
     this.createPublicUser = function () {
 
         if (!this.capContact.getEmail())
-        { logDebug("(contactObj) Couldn't create public user for : " + this + ", no email address"); return false; }
+            { logDebug("(contactObj) Couldn't create public user for : " + this + ", no email address"); return false; }
 
         if (String(this.people.getContactTypeFlag()).equals("organization"))
-        { logDebug("(contactObj) Couldn't create public user for " + this + ", the contact is an organization"); return false; }
+            { logDebug("(contactObj) Couldn't create public user for " + this + ", the contact is an organization"); return false; }
 
         // check to see if public user exists already based on email address
         var getUserResult = aa.publicUser.getPublicUserByEmail(this.capContact.getEmail())
@@ -3914,90 +3914,90 @@ function verifyNotMilitaryAndDisabled() {
     if ((typeof (ANNUALDISABILITY) == "object"))
         for (var y in ANNUALDISABILITY) rowNum++;
 
-    var MilitaryServiceman = (AInfo["Military Serviceman"] == "Yes");
-    var PermanentDisability = (AInfo["Permanent Disability"] == "Yes");
-    var HasAnnualDisability = (rowNum > 0);
+            var MilitaryServiceman = (AInfo["Military Serviceman"] == "Yes");
+        var PermanentDisability = (AInfo["Permanent Disability"] == "Yes");
+        var HasAnnualDisability = (rowNum > 0);
 
-    if ((MilitaryServiceman ? 1 : 0) + (PermanentDisability ? 1 : 0) + (HasAnnualDisability ? 1 : 0) > 1) {
-        retMsg += "Please choose only one of Military Service, Permanent Disability, or Annual Disability.";
-        retMsg += "<Br />";
-    }
-    return retMsg;
-}
-
-
-function ActiveOrReserve() {
-    var retMsg = ''
-    var isUSReserveMember = (AInfo["U.S. Reserve Member"] == "CHECKED");
-    var isFulltimeUSArmedService = (AInfo["Full-time U.S. Armed Service"] == "CHECKED");
-    if (isFulltimeUSArmedService && isUSReserveMember) {
-        retMsg += "Please choose only one: U.S. Reserve Member or Full-time U.S. Armed Service.";
-        retMsg += "<Br />";
-    }
-    return retMsg;
-
-}
-function isValidIntegerInches(inputvalue) {
-    var isvalid = true;
-    if (inputvalue != null && inputvalue != '') {
-        var pattern = /^[0-9]+$/;
-
-        isvalid = (pattern.test(inputvalue));
-    }
-    return isvalid;
-}
-function VerifyFeets() {
-    var retMsg = ''
-    var inchVal = AInfo["Height"];
-    var isValid = isValidIntegerInches(inchVal);
-
-    if (!isValid) {
-        retMsg = 'Please enter valid integer.';
-    }
-    else {
-        if (inchVal != null && (parseInt(inchVal) < 0)) {
-            retMsg = "Inches must be greater than 0.";
+        if ((MilitaryServiceman ? 1 : 0) + (PermanentDisability ? 1 : 0) + (HasAnnualDisability ? 1 : 0) > 1) {
+            retMsg += "Please choose only one of Military Service, Permanent Disability, or Annual Disability.";
+            retMsg += "<Br />";
         }
+        return retMsg;
     }
-    return retMsg;
-}
 
-function VerifyInches() {
-    var retMsg = ''
-    var inchVal = AInfo["Height - inches"];
-    var isValid = isValidIntegerInches(inchVal);
 
-    if (!isValid) {
-        retMsg = 'Please enter valid integer.';
-    }
-    else {
-        if (inchVal != null && (parseInt(inchVal) > 11 || parseInt(inchVal) < 0)) {
-            retMsg = "Inches must be between 0 to 11";
+    function ActiveOrReserve() {
+        var retMsg = ''
+        var isUSReserveMember = (AInfo["U.S. Reserve Member"] == "CHECKED");
+        var isFulltimeUSArmedService = (AInfo["Full-time U.S. Armed Service"] == "CHECKED");
+        if (isFulltimeUSArmedService && isUSReserveMember) {
+            retMsg += "Please choose only one: U.S. Reserve Member or Full-time U.S. Armed Service.";
+            retMsg += "<Br />";
         }
+        return retMsg;
+
     }
-    return retMsg;
-}
-function verifySportsmanEd() {
-    var retMsg = ''
-    var rowNum = 0;
-    if ((typeof (SPORTSMANEDUCATION) == "object")) {
-        for (var y in SPORTSMANEDUCATION) {
-            rowNum++;
-            var certNum = SPORTSMANEDUCATION[y]["Certificate Number"]
-            var certState = SPORTSMANEDUCATION[y]["State"]
-            if (certState == 'NY') {
-                if (!isValidCertificateNum(certNum)) {
-                    retMsg += ("Sportsman Education row #" + rowNum + ": Please enter valid certificate number.");
+    function isValidIntegerInches(inputvalue) {
+        var isvalid = true;
+        if (inputvalue != null && inputvalue != '') {
+            var pattern = /^[0-9]+$/;
+
+            isvalid = (pattern.test(inputvalue));
+        }
+        return isvalid;
+    }
+    function VerifyFeets() {
+        var retMsg = ''
+        var inchVal = AInfo["Height"];
+        var isValid = isValidIntegerInches(inchVal);
+
+        if (!isValid) {
+            retMsg = 'Please enter valid integer.';
+        }
+        else {
+            if (inchVal != null && (parseInt(inchVal) < 0)) {
+                retMsg = "Inches must be greater than 0.";
+            }
+        }
+        return retMsg;
+    }
+
+    function VerifyInches() {
+        var retMsg = ''
+        var inchVal = AInfo["Height - inches"];
+        var isValid = isValidIntegerInches(inchVal);
+
+        if (!isValid) {
+            retMsg = 'Please enter valid integer.';
+        }
+        else {
+            if (inchVal != null && (parseInt(inchVal) > 11 || parseInt(inchVal) < 0)) {
+                retMsg = "Inches must be between 0 to 11";
+            }
+        }
+        return retMsg;
+    }
+    function verifySportsmanEd() {
+        var retMsg = ''
+        var rowNum = 0;
+        if ((typeof (SPORTSMANEDUCATION) == "object")) {
+            for (var y in SPORTSMANEDUCATION) {
+                rowNum++;
+                var certNum = SPORTSMANEDUCATION[y]["Certificate Number"]
+                var certState = SPORTSMANEDUCATION[y]["State"]
+                if (certState == 'NY') {
+                    if (!isValidCertificateNum(certNum)) {
+                        retMsg += ("Sportsman Education row #" + rowNum + ": Please enter valid certificate number.");
+                        retMsg += '<Br />';
+                    }
+                }
+
+                var certDate = SPORTSMANEDUCATION[y]["Certification Date"]
+                var diff = dateDiff(new Date(), new Date(certDate));
+                if (diff > 0) {
+                    retMsg += ("Sportsman Education row #" + rowNum + ": Certification Date cannot be after today's date.");
                     retMsg += '<Br />';
                 }
-            }
-
-            var certDate = SPORTSMANEDUCATION[y]["Certification Date"]
-            var diff = dateDiff(new Date(), new Date(certDate));
-            if (diff > 0) {
-                retMsg += ("Sportsman Education row #" + rowNum + ": Certification Date cannot be after today's date.");
-                retMsg += '<Br />';
-            }
             //code started
             var asiValDate = new Date(certDate);
             var cDate = new Date();
@@ -4987,27 +4987,27 @@ function addContactStdConditionWithComments(contSeqNum, cType, cDesc) {
                     }
                 }
             }
-    }
-    if (!foundCondition) logDebug("**WARNING: couldn't find standard condition for " + cType + " / " + cDesc);
-}
-
-function arrayUnique(array) {
-    var a = array.concat();
-    for (var i = 0; i < a.length; ++i) {
-        for (var j = i + 1; j < a.length; ++j) {
-            if (a[i] === a[j])
-                a.splice(j--, 1);
         }
+        if (!foundCondition) logDebug("**WARNING: couldn't find standard condition for " + cType + " / " + cDesc);
     }
 
-    return a;
-}
+    function arrayUnique(array) {
+        var a = array.concat();
+        for (var i = 0; i < a.length; ++i) {
+            for (var j = i + 1; j < a.length; ++j) {
+                if (a[i] === a[j])
+                    a.splice(j--, 1);
+            }
+        }
 
-function elapsed() {
-    var thisDate = new Date();
-    var thisTime = thisDate.getTime();
-    return ((thisTime - startTime) / 1000)
-}
+        return a;
+    }
+
+    function elapsed() {
+        var thisDate = new Date();
+        var thisTime = thisDate.getTime();
+        return ((thisTime - startTime) / 1000)
+    }
 
 function addASITable4ACAPageFlow(destinationTableGroupModel, tableName, tableValueArray) // optional capId
 {
@@ -5230,15 +5230,15 @@ function processProfileUpdate() {
 
         for (var i in c.addresses) { capContactAdd.push("" + c.addresses[i].getAddressID()); logDebug("ccontact adress : " + c.addresses[i].getAddressID()); }
 
-        for (var i in pa) { peopleAdd.push("" + pa[i].getAddressID()); logDebug("people adress : " + pa[i].getAddressID()); }
+            for (var i in pa) { peopleAdd.push("" + pa[i].getAddressID()); logDebug("people adress : " + pa[i].getAddressID()); }
 
-        var diff = peopleAdd.filter(function (n) { return capContactAdd.indexOf(n) == -1 });
+                var diff = peopleAdd.filter(function (n) { return capContactAdd.indexOf(n) == -1 });
 
-        for (var i in diff) {
-            for (var j in pa) {
-                if (String(pa[j].getAddressID()).equals(diff[i])) {
-                    var theAdd = pa[j];
-                    logDebug("disabling address " + theAdd);
+            for (var i in diff) {
+                for (var j in pa) {
+                    if (String(pa[j].getAddressID()).equals(diff[i])) {
+                        var theAdd = pa[j];
+                        logDebug("disabling address " + theAdd);
                     //deactivate address on the reference contact
                     theAdd.setAuditStatus("I");
                     theAdd.setExpirationDate(aa.date.getCurrentDate());
@@ -5737,23 +5737,23 @@ function ctrcaForDMVRequest() {
 function editContactType(existingType, newType) {
     //Function will change contact types from exsistingType to newType,
     //optional paramter capID{
-    var updateCap = capId
-    if (arguments.length == 3)
-        updateCap = arguments[2]
+        var updateCap = capId
+        if (arguments.length == 3)
+            updateCap = arguments[2]
 
-    capContactResult = aa.people.getCapContactByCapID(updateCap);
-    if (capContactResult.getSuccess()) {
-        Contacts = capContactResult.getOutput();
-        for (yy in Contacts) {
-            var theContact = Contacts[yy].getCapContactModel();
-            if (theContact.getContactType() == existingType) {
-                theContact.setContactType(newType);
-                aa.people.editCapContact(theContact);
-                logDebug(" Contact for " + theContact.getFullName() + " Updated to " + newType);
+        capContactResult = aa.people.getCapContactByCapID(updateCap);
+        if (capContactResult.getSuccess()) {
+            Contacts = capContactResult.getOutput();
+            for (yy in Contacts) {
+                var theContact = Contacts[yy].getCapContactModel();
+                if (theContact.getContactType() == existingType) {
+                    theContact.setContactType(newType);
+                    aa.people.editCapContact(theContact);
+                    logDebug(" Contact for " + theContact.getFullName() + " Updated to " + newType);
+                }
             }
         }
     }
-}
 //Obsolete
 function transferFeesAndPayments(sourceCapId, targetCapId) {
     //
@@ -5776,17 +5776,17 @@ function transferFeesAndPayments(sourceCapId, targetCapId) {
                     invoiceNbrArray.push(pfObj[ij].getInvoiceNbr());
                     feeAllocationArray.push(pfObj[ij].getFeeAllocation());
                 }
-        }
+            }
 
-        if (feeSeqArray.length > 0) {
-            z = aa.finance.applyRefund(capId, thisPay, feeSeqArray, invoiceNbrArray, feeAllocationArray, "FeeStat", "InvStat", "123");
-            if (z.getSuccess()) {
-                logDebug("Refund applied");
-            } else {
-                logDebug("Error applying refund " + z.getErrorMessage());
+            if (feeSeqArray.length > 0) {
+                z = aa.finance.applyRefund(capId, thisPay, feeSeqArray, invoiceNbrArray, feeAllocationArray, "FeeStat", "InvStat", "123");
+                if (z.getSuccess()) {
+                    logDebug("Refund applied");
+                } else {
+                    logDebug("Error applying refund " + z.getErrorMessage());
+                }
             }
         }
-    }
 
     //
     // Step 2: add the fees to the target and void from the source
@@ -6702,11 +6702,11 @@ function createTransferLicTable() {
             var new_asit;
 
             //if (!(typeof (LICENSESTOTRANSFER) == "object")) {
-            var availableItems = GetLicsForTransfer(peopleSequenceNumber);
-            var newAsitArray = GetLicesesTotransferAsitTableArray(availableItems);
+                var availableItems = GetLicsForTransfer(peopleSequenceNumber);
+                var newAsitArray = GetLicesesTotransferAsitTableArray(availableItems);
 
-            asitModel = cap.getAppSpecificTableGroupModel();
-            new_asit = addASITable4ACAPageFlow(asitModel, "LICENSES TO TRANSFER", newAsitArray);
+                asitModel = cap.getAppSpecificTableGroupModel();
+                new_asit = addASITable4ACAPageFlow(asitModel, "LICENSES TO TRANSFER", newAsitArray);
             //}
         }
         break;
@@ -6900,17 +6900,17 @@ function distributeFeesForTransfer(sourceCapId, arryLic, pSalesAgentInfoArray) {
                     invoiceNbrArray.push(pfObj[ij].getInvoiceNbr());
                     feeAllocationArray.push(pfObj[ij].getFeeAllocation());
                 }
-        }
+            }
 
 
-        if (feeSeqArray.length > 0) {
-            z = aa.finance.applyRefund(capId, thisPay, feeSeqArray, invoiceNbrArray, feeAllocationArray, "FeeStat", "InvStat", "123");
-            if (z.getSuccess())
-                logDebug("Refund applied")
-            else
-                logDebug("Error applying refund " + z.getErrorMessage());
+            if (feeSeqArray.length > 0) {
+                z = aa.finance.applyRefund(capId, thisPay, feeSeqArray, invoiceNbrArray, feeAllocationArray, "FeeStat", "InvStat", "123");
+                if (z.getSuccess())
+                    logDebug("Refund applied")
+                else
+                    logDebug("Error applying refund " + z.getErrorMessage());
+            }
         }
-    }
 
     //
     // Step 2: void from the source
@@ -7265,18 +7265,24 @@ function verifyNewRegistrion() {
     var retmsg = '';
     var firstname = AInfo["First"];
     var lastname = AInfo["Last"];
-    var sdob = AInfo["Date of Birth"]
-    var decid = AInfo["DECALS Customer Number"]
+    var sdob = AInfo["Date of Birth"];
+    var decid = AInfo["DECALS Customer Number"];
+    var decalRefNumber = "";
 
     var resultCount = searchCustomerBySql(lastname, firstname, sdob, decid);
 
-    if (resultCount == 0) {
+    if (resultCount.length == 0) {
         retmsg = "No match";
     }
-    /*if (resultCount == 1) {
-        retmsg = "Exact match";
-    }*/
-    if (resultCount > 1) {
+    if (resultCount.length == 1) {
+        logDebug("Exact Match");
+        decalRefNumber = resultCount[0];
+        logDebug("decalRefNumber : " + decalRefNumber); 
+        // validation to check public user id already exists with DEC ID
+        
+        editAppSpecific4ACA("Internal Decid", decalRefNumber);        
+    }
+    if (resultCount.length > 1) {
         retmsg = "Multiple match";
     }
     if (retmsg != '') {
@@ -7285,10 +7291,12 @@ function verifyNewRegistrion() {
     return retmsg;
 }
 
+
 function searchCustomerBySql(lastname, firstname, birthDate, decid) {
+    var retArry = new Array();
     var counter = 0;
     try {
-        var sql = " Select rownum from G3Contact ";
+        var sql = " Select G1_PASSPORT_NBR from G3Contact ";
         sql += " WHERE SERV_PROV_CODE = '" + aa.getServiceProviderCode() + "' ";
         sql += " AND G1_CONTACT_TYPE  = 'Individual' ";
         if (firstname) {
@@ -7304,6 +7312,7 @@ function searchCustomerBySql(lastname, firstname, birthDate, decid) {
             sql += " AND G1_PASSPORT_NBR = '" + decid + "'";
         }
         sql += " AND rownum < 3";
+        logDebug(sql);
 
         var initialContext = aa.proxyInvoker.newInstance("javax.naming.InitialContext", null).getOutput();
         var ds = initialContext.lookup("java:/AA");
@@ -7312,7 +7321,8 @@ function searchCustomerBySql(lastname, firstname, birthDate, decid) {
         var sStmt = conn.prepareStatement(sql);
         var rSet = sStmt.executeQuery();
         while (rSet.next()) {
-            var sRownum = rSet.getString("rownum");
+            var sDecid = rSet.getString("G1_PASSPORT_NBR");
+            retArry.push(sDecid);
             counter++;
             if (counter > 1) {
                 break;
@@ -7323,7 +7333,7 @@ function searchCustomerBySql(lastname, firstname, birthDate, decid) {
     catch (vError) {
         logDebug("Runtime error occurred: " + vError);
     }
-    return counter;
+    return retArry;
 }
 
 //Obsolete
