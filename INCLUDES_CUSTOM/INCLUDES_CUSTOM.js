@@ -7474,3 +7474,14 @@ function searchCustomerByAttribtes(lastname, firstname, birthDate, decid) {
     //resultPeopleArray.length == 1 //Found
     //resultPeopleArray.length > 1 //Found Multiple
 }
+function getEncryptPassword(sPassowrd) {
+    var pwd = null;
+    var result = aa.publicUser.encryptPassword(sPassowrd);
+    if (result.getSuccess()) {
+        pwd = result.getOutput();
+    } else {
+        logDebug("**WARNING: getEncryptPassword - " + result.getErrorMessage());
+    }
+
+    return pwd;
+}
