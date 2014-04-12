@@ -7278,8 +7278,18 @@ function verifyNewRegistrion() {
         logDebug("Exact Match");
         decalRefNumber = resultCount[0];
         logDebug("decalRefNumber : " + decalRefNumber); 
+
         // validation to check public user id already exists with DEC ID
-        var publicUserListByContact =  getPublicUserListByContactNBR(decalRefNumber);
+        var lDecalRefNumber = aa.util.parseLong(decalRefNumber);
+        var publicUserListByContact =  aa.publicUser.getPublicUserListByContactNBR(lDecalRefNumber);
+        if (publicUserListByContact.getSuccess()) {
+            var contactList = publicUserListByContact.getOutput();
+            if (contactList.size() > 0) {
+                logDebug(contactList);
+                retmsg += "public User Id already exists for " + firstname + " " + lastname;
+                logDebug("public User Id already exists for " + firstname + " " + lastname);
+            }
+        }
         editAppSpecific4ACA("Internal Decid", decalRefNumber);        
     }
     if (resultCount.length > 1) {
