@@ -7367,7 +7367,7 @@ function validatePublicUserCreation () {
     if (getUserResult.getSuccess() && getUserResult.getOutput()) {
         userModel = getUserResult.getOutput();
         logDebug("CreatePublicUserFromContact: Found an existing public user: " + userModel.getUserID());
-        retmsg += "Found an existing public user: " + userModel.getUserID() + " with the email address " + newRegEmail + "<BR>";
+        retmsg += "Found an existing public user with email address " + newRegEmail + "<BR>";
     }
     return retmsg;
 }
