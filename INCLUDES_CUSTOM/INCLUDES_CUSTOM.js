@@ -7272,7 +7272,7 @@ function verifyNewRegistrion() {
     var resultCount = searchCustomerBySql(lastname, firstname, sdob, decid);
 
     if (resultCount.length == 0) {
-        retmsg = "No match";
+        retmsg = "No match is found for the given information. Please Register for a New Account using the link at the top of the page." + "<BR>";
     }
     if (resultCount.length == 1) {
         logDebug("Exact Match");
@@ -7286,14 +7286,14 @@ function verifyNewRegistrion() {
             var contactList = publicUserListByContact.getOutput();
             if (contactList.size() > 0) {
                 logDebug(contactList);
-                retmsg += "public User Id already exists for " + firstname + " " + lastname;
+                retmsg += "Public User Id already exists for " + firstname + " " + lastname + "<BR>";
                 logDebug("public User Id already exists for " + firstname + " " + lastname);
             }
         }
         editAppSpecific4ACA("Internal Decid", decalRefNumber);        
     }
     if (resultCount.length > 1) {
-        retmsg = "Multiple match";
+        retmsg = "Multiple match is found for the given information. Please enter your DECALS Customer Number." + "<BR>";
     }
     if (retmsg != '') {
         retmsg += '<Br />'
@@ -7381,7 +7381,7 @@ function createNewRegPublicUserFromContact() {
     var retmsg = "";
     var newRegUserName = AInfo["User Name"];
     var newRegUserLastName = AInfo["User Name"];
-    var newRegEmail = AInfo["Email"];
+    var newRegEmail = AInfo["E-mail Address"];
     var newRegPassword = AInfo["Password"];
     var newRegSecurityQuestion = AInfo["Security Question"];
     var newRegSecurityAnswer = AInfo["Security Answer"];
@@ -7395,8 +7395,8 @@ function createNewRegPublicUserFromContact() {
     publicUser.setLastName(newRegLastName);
     publicUser.setEmail(newRegEmail);
     publicUser.setUserID(newRegUserName);
-    publicUser.setPassword("e8248cbe79a288ffec75d7300ad2e07172f487f6");
-    //publicUser.setPassword(newRegPassword);
+    //publicUser.setPassword(getEncryptPassword(newRegPassword)); //e8248cbe79a288ffec75d7300ad2e07172f487f6
+    publicUser.setPassword(newRegPassword);
     publicUser.setAuditID("PublicUser");
     publicUser.setAuditStatus("A");
     publicUser.setPasswordRequestQuestion(newRegSecurityQuestion);
