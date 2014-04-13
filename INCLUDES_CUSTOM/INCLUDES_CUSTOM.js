@@ -7350,7 +7350,7 @@ function searchCustomerBySql(lastname, firstname, birthDate, decid) {
 
 function validatePublicUserCreation () {
 
-    var newRegEmail = AInfo["Email"];
+    var newRegEmail = AInfo["E-mail Address"];
     var newRegUserName = AInfo["User Name"];
     var retmsg = "";
 
