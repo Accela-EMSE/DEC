@@ -7387,7 +7387,9 @@ function createNewRegPublicUserFromContact() {
     //
     publicUser.setAuditID("PublicUser");
     publicUser.setAuditStatus("A");
-    publicUser.setPasswordRequestQuestion(newRegSecurityQuestion);
+
+	var sSecurityQuestionMap = lookup("DD_SECURITY_QUESTIONS", newRegSecurityQuestion);
+    publicUser.setPasswordRequestQuestion(sSecurityQuestionMap);
     publicUser.setPasswordRequestAnswer(newRegSecurityAnswer);
 
     var result = aa.publicUser.createPublicUser(publicUser);
