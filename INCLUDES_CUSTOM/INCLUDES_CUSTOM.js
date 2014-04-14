@@ -5889,6 +5889,7 @@ function isValidRecForCreateRef() {
     var retvalue = true;
     var recTypeArray = new Array();
     recTypeArray.push("Licenses/Other/Sportsmen/DMV ID Request");
+    recTypeArray.push("Licenses/Customer/Registration/Application");
     //recTypeArray.push("Licenses/Sales/Upgrade/Lifetime");
     //recTypeArray.push("Licenses/Sales/Void/Documents");
     //recTypeArray.push("Licenses/Sales/Reprint/Documents");
