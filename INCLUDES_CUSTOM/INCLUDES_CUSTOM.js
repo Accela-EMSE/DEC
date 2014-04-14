@@ -7425,6 +7425,8 @@ function createNewRegPublicUserFromContact() {
 		if (internalDecId) {
 			logDebug("(contactObj) CreatePublicUserFromContact: Linking this public user with reference contact : " + internalDecId);
 			aa.licenseScript.associateContactWithPublicUser(userModel.getUserSeqNum(), internalDecId);
+		
+			attachedContacts(internalDecId);
 		}
     } else {
         retmsg = "Warning creating public user " + newRegUserName + "  failure: " + result.getErrorMessage();
