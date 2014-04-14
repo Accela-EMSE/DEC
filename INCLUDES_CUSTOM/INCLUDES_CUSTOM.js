@@ -7421,14 +7421,13 @@ function createNewRegPublicUserFromContact() {
 
         // send another email
         aa.publicUser.sendPasswordEmail(userModel);
+
+		if (internalDecId) {
+			logDebug("(contactObj) CreatePublicUserFromContact: Linking this public user with reference contact : " + internalDecId);
+			aa.licenseScript.associateContactWithPublicUser(userModel.getUserSeqNum(), internalDecId);
+		}
     } else {
         retmsg = "Warning creating public user " + newRegUserName + "  failure: " + result.getErrorMessage();
-    }
-
-
-    if (internalDecId) {
-        logDebug("(contactObj) CreatePublicUserFromContact: Linking this public user with reference contact : " + internalDecId);
-        aa.licenseScript.associateContactWithPublicUser(userModel.getUserSeqNum(), internalDecId);
     }
 
     return retmsg;
