@@ -7367,11 +7367,10 @@ function createNewRegPublicUserFromContact() {
     var userModel;
     var retmsg = "";
     var newRegUserName = AInfo["User Name"];
-    var newRegUserLastName = AInfo["User Name"];
     var newRegEmail = AInfo["E-mail Address"];
     var newRegPassword = AInfo["Password"];
-    var newRegSecurityQuestion = AInfo["Security Question"];
-    var newRegSecurityAnswer = AInfo["Security Answer"];
+    var newRegSecurityQuestion = AInfo["Select a Security Question"];
+    var newRegSecurityAnswer = AInfo["Answer"];
     var internalDecId = AInfo["Internal Decid"];
     var newRegFirstName = AInfo["First"];
     var newRegLastName = AInfo["Last"];
