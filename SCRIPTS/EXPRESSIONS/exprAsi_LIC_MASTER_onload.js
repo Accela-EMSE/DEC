@@ -108,7 +108,7 @@ var aDriverLicenseNumber = expression.getValue("ASI::INTERNAL USE::A_Driver_Lice
 var aNonDriverLicenseNumber = expression.getValue("ASI::INTERNAL USE::A_Non_Driver_License_Number");
 var vUserID = expression.getValue("$$userID$$");
 var sUserIdEB = vUserID.getValue();
-var oRecordType=expression.getValue("CAP::capType");
+var oRecordType = expression.getValue("CAP::capType");
 
 
 //Init 
@@ -393,10 +393,10 @@ var isNonFreshWtrFishLic = ((oNonFreshWtrFishLic.value != null && (oNonFreshWtrF
 var oFishEffDt = expression.getValue("ASI::FISHING LICENSES::Effective Date Fishing");
 
 if (f.isAfterSwitchDate()) {
-	oFishEffDt.hidden = !isFreshWtrFishLic && !isNonFreshWtrFishLic;
-	oFishEffDt.required = !(!isFreshWtrFishLic && !isNonFreshWtrFishLic);
+    oFishEffDt.hidden = !isFreshWtrFishLic && !isNonFreshWtrFishLic;
+    oFishEffDt.required = !(!isFreshWtrFishLic && !isNonFreshWtrFishLic);
 } else {
-	oFishEffDt.hidden = true;
+    oFishEffDt.hidden = true;
 }
 if (!isFreshWtrFishLic && !isNonFreshWtrFishLic) {
     oFishEffDt.value = '';
@@ -404,39 +404,43 @@ if (!isFreshWtrFishLic && !isNonFreshWtrFishLic) {
 expression.setReturn(oFishEffDt);
 ////
 var oToday = expression.getValue("$$today$$");
-var isDD7 = true; 
-var isDD1 = true; 
+var isDD7 = true;
+var isDD1 = true;
 
-if(oFishEffDt.getValue() != null && oFishEffDt.getValue() != '') {
-	var dd =  diffDate(oToday.getValue(), oFishEffDt.getValue());
-	isDD7 = (dd >= 7); 
-	isDD1 = (dd > 0); 
+if (oFishEffDt.getValue() != null && oFishEffDt.getValue() != '') {
+    var dd = diffDate(oToday.getValue(), oFishEffDt.getValue());
+    isDD7 = (dd >= 7);
+    isDD1 = (dd > 0);
 }
 
-oFish1Day.hidden = !isDD1;
-if(!isDD1){
-	oFish1Day.value = false;
+if (f.licObjARRAY[f.licensesNameArray[LIC03_ONE_DAY_FISHING_LICENSE]].IsSelectable) {
+    oFish1Day.hidden = !isDD1;
+    if (!isDD1) {
+        oFish1Day.value = false;
+    }
+    expression.setReturn(oFish1Day);
 }
-expression.setReturn(oFish1Day);
-
-oNonresFish1Day.hidden = !isDD1;
-if(!isDD1){
-	oNonresFish1Day.value = false;
+if (f.licObjARRAY[f.licensesNameArray[LIC24_NONRESIDENT_1_DAY_FISHING]].IsSelectable) {
+    oNonresFish1Day.hidden = !isDD1;
+    if (!isDD1) {
+        oNonresFish1Day.value = false;
+    }
+    expression.setReturn(oNonresFish1Day);
 }
-expression.setReturn(oNonresFish1Day);
-
-oFish7Day.hidden = !isDD7;
-if(!isDD7){
-	oFish7Day.value = false;
+if (f.licObjARRAY[f.licensesNameArray[LIC26_SEVEN_DAY_FISHING_LICENSE]].IsSelectable) {
+    oFish7Day.hidden = !isDD7;
+    if (!isDD7) {
+        oFish7Day.value = false;
+    }
+    expression.setReturn(oFish7Day);
 }
-expression.setReturn(oFish7Day);
-
-oNonResFish7Day.hidden = !isDD7;
-if(!isDD7){
-	oNonResFish7Day.value = false;
+if (f.licObjARRAY[f.licensesNameArray[LIC25_NONRESIDENT_7_DAY_FISHING]].IsSelectable) {
+    oNonResFish7Day.hidden = !isDD7;
+    if (!isDD7) {
+        oNonResFish7Day.value = false;
+    }
+    expression.setReturn(oNonResFish7Day);
 }
-expression.setReturn(oNonResFish7Day);
-
 //
 var isFish1Day = ((oFish1Day.value != null && (oFish1Day.value.equalsIgnoreCase('YES') || oFish1Day.value.equalsIgnoreCase('Y') || oFish1Day.value.equalsIgnoreCase('CHECKED') || oFish1Day.value.equalsIgnoreCase('SELECTED') || oFish1Day.value.equalsIgnoreCase('TRUE') || oFish1Day.value.equalsIgnoreCase('ON'))));
 var isNonResFish1Day = ((oNonresFish1Day.value != null && (oNonresFish1Day.value.equalsIgnoreCase('YES') || oNonresFish1Day.value.equalsIgnoreCase('Y') || oNonresFish1Day.value.equalsIgnoreCase('CHECKED') || oNonresFish1Day.value.equalsIgnoreCase('SELECTED') || oNonresFish1Day.value.equalsIgnoreCase('TRUE') || oNonresFish1Day.value.equalsIgnoreCase('ON'))));
@@ -472,13 +476,13 @@ var isMarineReg = ((oMarineReg.value != null && (oMarineReg.value.equalsIgnoreCa
 
 
 if (f.isAfterSwitchDate()) {
-	oMarineEffDt.hidden = !isMarineReg;
-	oMarineEffDt.required = isMarineReg;
+    oMarineEffDt.hidden = !isMarineReg;
+    oMarineEffDt.required = isMarineReg;
 } else {
-	oMarineEffDt.hidden = true;
+    oMarineEffDt.hidden = true;
 }
 if (!isMarineReg) {
-	oMarineEffDt.value = '';
+    oMarineEffDt.value = '';
 }
 expression.setReturn(oMarineEffDt);
 ////
