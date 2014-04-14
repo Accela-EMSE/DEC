@@ -7381,10 +7381,8 @@ function createNewRegPublicUserFromContact() {
     publicUser.setLastName(newRegLastName);
     publicUser.setEmail(newRegEmail);
     publicUser.setUserID(newRegUserName);
-    //TODO
-    //publicUser.setPassword(getEncryptPassword(newRegPassword)); 
-    publicUser.setPassword("e8248cbe79a288ffec75d7300ad2e07172f487f6");
-    //
+    publicUser.setPassword(getEncryptPassword(newRegPassword)); 
+    //publicUser.setPassword("e8248cbe79a288ffec75d7300ad2e07172f487f6");
     publicUser.setAuditID("PublicUser");
     publicUser.setAuditStatus("A");
 
