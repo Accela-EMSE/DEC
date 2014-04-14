@@ -775,7 +775,7 @@ function form_OBJECT(identity) {
                         this.licObjARRAY[idx].IsSelectable = (isActive && isSelectable && isValidUser && !isInCombo && !isRevoked);
                     else
                         this.licObjARRAY[idx].IsSelectable = (isActive && isSelectable && isValidUser && !isInCombo && !isInActiveHoldings && !isRevoked);
-                }
+				}
             }
 
             if (this.optmzType != OPTZ_TYPE_CTRC) {
