@@ -6114,38 +6114,37 @@ function copyASIContactAppSpecificToRecordAppSpecific() {
     if (isNull(AInfo["License Year"], '') != '') {
         var exmsg = '';
         var f = new form_OBJECT(GS2_SCRIPT, OPTZ_TYPE_ALLFEES);
-        SetExpressformForSelectedLics(f);
         if (appTypeString == 'Licenses/Sales/Application/Fishing') {
             f.SetFishSaleExcludes();
-            f.ExecuteBoRuleEngine();
+            SetExpressformForSelectedLics(f);
             if (f.MessageFish != "") {
                 exmsg += f.MessageFish;
             }
         }
         if (appTypeString == 'Licenses/Sales/Application/Hunting') {
             f.SetHuntSaleExcludes();
-            f.ExecuteBoRuleEngine();
+            SetExpressformForSelectedLics(f);
             if (f.MessageHunter != "") {
                 exmsg += f.MessageHunter;
             }
         }
         if (appTypeString == 'Licenses/Sales/Application/Trapping') {
             f.SetTrapSaleExcludes();
-            f.ExecuteBoRuleEngine();
+            SetExpressformForSelectedLics(f);
             if (f.MessageHunter != "") {
                 exmsg += f.MessageHunter;
             }
         }
         if (appTypeString == 'Licenses/Sales/Application/Lifetime') {
             f.SetLifeTimeSaleExcludes();
-            f.ExecuteBoRuleEngine();
+            SetExpressformForSelectedLics(f);
             if (f.MessageLifeTime != "") {
                 exmsg += f.MessageLifeTime;
             }
         }
         if (appTypeString == 'Licenses/Sales/Application/Hunting and Fishing') {
             f.SetHuntAndFishSaleExcludes();
-            f.ExecuteBoRuleEngine();
+            SetExpressformForSelectedLics(f);
             if (f.MessageFish != "" && f.MessageHunter != "") {
                 exmsg += f.MessageFish;
             }
@@ -6237,6 +6236,7 @@ function SetExpressformForSelectedLics(frm) {
         //frm.SetSelected(LIC65_TRAPPING_LICENSE_5Y, (AInfo["5 Year Trapping License"] == "CHECKED"), 1);
     }
 
+    frm.ExecuteBoRuleEngine();
     logDebug("EXIT: SetExpressformForSelectedLics");
 }
 //ACA ONSUBMIT Before
