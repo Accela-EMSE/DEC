@@ -6112,7 +6112,7 @@ function copyASIContactAppSpecificToRecordAppSpecific() {
     loadAppSpecific4ACA(AInfo);
     if (isNull(AInfo["License Year"], '') != '') {
         var exmsg = '';
-        var f = new form_OBJECT(GS2_EXPR, OPTZ_TYPE_ALLFEES);
+        var f = new form_OBJECT(GS2_SCRIPT, OPTZ_TYPE_ALLFEES);
         SetExpressformForSelectedLics(f);
         if (appTypeString == 'Licenses/Sales/Application/Fishing') {
             f.SetFishSaleExcludes();
@@ -6236,7 +6236,6 @@ function SetExpressformForSelectedLics(frm) {
         //frm.SetSelected(LIC65_TRAPPING_LICENSE_5Y, (AInfo["5 Year Trapping License"] == "CHECKED"), 1);
     }
 
-    frm.ExecuteBoRuleEngine();
     logDebug("EXIT: SetExpressformForSelectedLics");
 }
 //ACA ONSUBMIT Before
