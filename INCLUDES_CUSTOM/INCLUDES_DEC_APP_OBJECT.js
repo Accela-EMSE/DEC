@@ -682,7 +682,6 @@ function form_OBJECT(identity) {
             if (isActive) {
                 eval("isSelectable = " + this.licObjARRAY[idx].FNIsSelectableRule + "(ruleParams);");
                 this.setBoMessage(this.licObjARRAY[idx].Identity);
-
                 if (!ruleParams.hasSaleLicMilitaryDisable && this.licObjARRAY[idx].IsSelected) {
                     if (hasSaleLicMilitaryDisable(this.licObjARRAY[idx].RecordType)) {
                         couterhasSaleLicMilitaryDisable++;
@@ -2693,10 +2692,10 @@ function HasfishingGroup(psRef) {
 function HasHunterGroup(psRef, recType) {
     var retvalue = false;
     for (var item in arryHunterGroup) {
-        if (recType == "Licenses/Sales/Application/Hunting" && (arryHunterGroup[item] == LIC15_TRAPPING_LICENSE || arryHunterGroup[item] == LIC64_TRAPPING_LICENSE_3Y || arryHunterGroup[item] == LIC65_TRAPPING_LICENSE_5Y)) {
+        if (recType == "Licenses/Sales/Application/Hunting" && (arryHunterGroup[item] == LIC15_TRAPPING_LICENSE)) {
             continue;
         }
-        if (recType == "Licenses/Sales/Application/Trapping" && !(arryHunterGroup[item] == LIC15_TRAPPING_LICENSE || arryHunterGroup[item] == LIC64_TRAPPING_LICENSE_3Y || arryHunterGroup[item] == LIC65_TRAPPING_LICENSE_5Y)) {
+        if (recType == "Licenses/Sales/Application/Trapping" && !(arryHunterGroup[item] == LIC15_TRAPPING_LICENSE)) {
             continue;
         }
 
