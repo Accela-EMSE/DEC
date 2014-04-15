@@ -234,8 +234,8 @@ function verifyWmuConfiguration(year, wmu, drawtype, choiceNum, drawResult) {
         logDebug("verifyWmuConfiguration: prmitTarget > 0 : " + (prmitTarget > 0));
         if (wmuStatus == 'Open') {
             if (StatusApplicableTo == "Both" || StatusApplicableTo == 'WMU Choice ' + drawResult.ChoiceNum) {
-                if ((now >= openDt && now <= closeDt)) {
-                    if (prmitTarget > 0) {
+                if (drawtype == DRAW_INST || (now >= openDt && now <= closeDt)) {
+                    if (drawtype == DRAW_INST || prmitTarget > 0) {
                         drawResult.Selected = true;
                         prmitTarget--;
                         usedCount++;
@@ -592,32 +592,32 @@ function createWmuConfiguration(year, wmu, drawtype) {
             var newCapId = createDrawSettingRecords(ata[0], ata[1], ata[2], ata[3], "Open");
             editAppName(GetAppName(ats, year, wmu, drawtype), newCapId);
 
-			var stdChoice = '';
-			var sStartDt = new Date();
-			var sEndDt = new Date();
+            var stdChoice = '';
+            var sStartDt = new Date();
+            var sEndDt = new Date();
             if (drawtype == DRAW_INST) {
                 stdChoice = "DMP_INSTANT_LOTTERY_PERIOD";
-				var retArray = GetDateRange("DEC_CONFIG", stdChoice, year);
-				sStartDt = jsDateToMMDDYYYY(retArray[0]);
-				sEndDt = jsDateToMMDDYYYY(retArray[1]);
+                var retArray = GetDateRange("DEC_CONFIG", stdChoice, year);
+                sStartDt = jsDateToMMDDYYYY(retArray[0]);
+                sEndDt = jsDateToMMDDYYYY(retArray[1]);
             }
             if (drawtype == DRAW_IBP) {
                 stdChoice = "DMP_INSTANT_LOTTERY_PERIOD";
-				retArray = GetDateRange("DEC_CONFIG", stdChoice, year)
-				sStartDt = jsDateToMMDDYYYY(retArray[0]);
-                
-				stdChoice = "DMP_FCFS_PERIOD";
-				var retArray = GetDateRange("DEC_CONFIG", stdChoice, year);
-				sEndDt = jsDateToMMDDYYYY(retArray[1]);
+                retArray = GetDateRange("DEC_CONFIG", stdChoice, year)
+                sStartDt = jsDateToMMDDYYYY(retArray[0]);
+
+                stdChoice = "DMP_FCFS_PERIOD";
+                var retArray = GetDateRange("DEC_CONFIG", stdChoice, year);
+                sEndDt = jsDateToMMDDYYYY(retArray[1]);
             }
             if (drawtype == DRAW_FCFS) {
                 stdChoice = "DMP_FCFS_PERIOD";
-				var retArray = GetDateRange("DEC_CONFIG", stdChoice, year);
-				sStartDt = jsDateToMMDDYYYY(retArray[0]);
-				sEndDt = jsDateToMMDDYYYY(retArray[1]);
+                var retArray = GetDateRange("DEC_CONFIG", stdChoice, year);
+                sStartDt = jsDateToMMDDYYYY(retArray[0]);
+                sEndDt = jsDateToMMDDYYYY(retArray[1]);
             }
-			var aStartDt = sStartDt.split("/");
-			var aEndDt = sEndDt.split("/");
+            var aStartDt = sStartDt.split("/");
+            var aEndDt = sEndDt.split("/");
 
             var newAInfo = new Array();
             if (srcCapId != null) {
