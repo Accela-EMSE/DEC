@@ -77,6 +77,7 @@ function VERSIONS(identity) {
 /***Application Object**********/
 function form_OBJECT(identity) {
     this.optmzType = 0;
+	this.DebugMessage = '';
     if (arguments.length > 1) {
         this.optmzType = arguments[1];
     }
@@ -910,6 +911,8 @@ function form_OBJECT(identity) {
         var sbArray = new Array();
         var scArray = new Array();
 
+        scArray.push("DebugMessage : ");
+        sbArray.push(this.DebugMessage);
         scArray.push("optmzType : ");
         sbArray.push(this.optmzType);
         scArray.push("gCaller : ");
