@@ -1207,22 +1207,15 @@ function getApplicantArrayEx() {
     if (arguments.length == 0 && !cap.isCompleteCap() && controlString != "ApplicationSubmitAfter" && controlString != "ConvertToRealCapAfter") // we are in a page flow script so use the capModel to get applicant
     {
         logDebug("getApplicantArrayEx: retrieving from page flow/partial cap");
-        var capApplicant = cap.getApplicantModel();
-        aArray = getApplicantInfoArray(capApplicant);
-        cArray.push(aArray);
-        /*
         var capContact = cap.getApplicantModel();
-        if(capContact.getRefContactNumber() == null || capContact.getRefContactNumber() == "")
-        {
-        var contactList = cap.getContactsGroup();
-        if(contactList != null && contactList.size() > 0) {
-        capContact = contactList.get(0);
+        if (capContact.getRefContactNumber() == null || capContact.getRefContactNumber() == "") {
+            var contactList = cap.getContactsGroup();
+            if (contactList != null && contactList.size() > 0) {
+                capContact = contactList.get(0);
+            }
         }
-        }                                                                                                                                                                                                                  
-        aArray = getApplicantInfoArray(capContact);                                                                                                                                                                                                                   
-        
+        aArray = getApplicantInfoArray(capContact);
         cArray.push(aArray);
-        */
     }
     else {
         logDebug("getApplicantArrayEx: retrieving from database");
@@ -6111,6 +6104,7 @@ function copyASIContactAppSpecificToRecordAppSpecific() {
     }
 
     loadAppSpecific4ACA(AInfo);
+    //logGlobals(AInfo);
     if (isNull(AInfo["License Year"], '') != '') {
         var exmsg = '';
         var f = new form_OBJECT(GS2_SCRIPT, OPTZ_TYPE_ALLFEES);
@@ -7381,12 +7375,12 @@ function createNewRegPublicUserFromContact() {
     publicUser.setLastName(newRegLastName);
     publicUser.setEmail(newRegEmail);
     publicUser.setUserID(newRegUserName);
-    publicUser.setPassword(getEncryptPassword(newRegPassword)); 
+    publicUser.setPassword(getEncryptPassword(newRegPassword));
     //publicUser.setPassword("e8248cbe79a288ffec75d7300ad2e07172f487f6");
     publicUser.setAuditID("PublicUser");
     publicUser.setAuditStatus("A");
 
-	var sSecurityQuestionMap = lookup("DD_SECURITY_QUESTIONS", newRegSecurityQuestion);
+    var sSecurityQuestionMap = lookup("DD_SECURITY_QUESTIONS", newRegSecurityQuestion);
     publicUser.setPasswordRequestQuestion(sSecurityQuestionMap);
     publicUser.setPasswordRequestAnswer(newRegSecurityAnswer);
 
@@ -7420,12 +7414,12 @@ function createNewRegPublicUserFromContact() {
         // send another email
         aa.publicUser.sendPasswordEmail(userModel);
 
-		if (internalDecId) {
-			logDebug("(contactObj) CreatePublicUserFromContact: Linking this public user with reference contact : " + internalDecId);
-			aa.licenseScript.associateContactWithPublicUser(userModel.getUserSeqNum(), internalDecId);
-		
-			attachedContacts(internalDecId);
-		}
+        if (internalDecId) {
+            logDebug("(contactObj) CreatePublicUserFromContact: Linking this public user with reference contact : " + internalDecId);
+            aa.licenseScript.associateContactWithPublicUser(userModel.getUserSeqNum(), internalDecId);
+
+            attachedContacts(internalDecId);
+        }
     } else {
         retmsg = "Warning creating public user " + newRegUserName + "  failure: " + result.getErrorMessage();
     }
