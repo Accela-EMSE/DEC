@@ -159,6 +159,8 @@ function GetLicenseSeasonPeriod() {
 function InitLicenseFilingYear() {
     var SHARED_DDLIST = LICENSE_FILING_YEAR;
     var SHARED_DDLIST_DESC = LICENSE_FILING_YEAR_Desc;
+    var monthNames = ["January", "February", "March", "April", "May", "June",
+    "July", "August", "September", "October", "November", "December"];
 
     var now = new Date();
     var appYear = new Array();
@@ -166,9 +168,13 @@ function InitLicenseFilingYear() {
     var y = now.getFullYear();
 
     //Read Stadard choice for season
-    var overlapPeriod = GetOverLapPeriod();
+    var overlapPeriod = GetDateRange(DEC_CONFIG, OVERLAP_SEASON, y);
+
     //Read Stadard choice for season
     var seasonPeriod = GetLicenseSeasonPeriod();
+    var startMonth = monthNames[seasonPeriod[0].getMonth()];
+    var endMonth = monthNames[seasonPeriod[1].getMonth()];
+    var endDay = seasonPeriod[1].getDate();
 
     var IsOverLapPeriod = (now >= overlapPeriod[0] && now <= overlapPeriod[1]);
     var startY;
@@ -177,18 +183,19 @@ function InitLicenseFilingYear() {
     appYear[appYear.length] = seasonPeriod[0].getFullYear();
     startY = seasonPeriod[0].getFullYear();
     endY = startY + 1;
-    appYearDesc[appYearDesc.length] = "October 1, " + startY + " - September 30, " + endY;
+
+    appYearDesc[appYearDesc.length] = startMonth + " 1, " + startY + " - " + endMonth + " " + endDay + ", " + endY;
     if (IsOverLapPeriod) {
         appYear[appYear.length] = seasonPeriod[0].getFullYear() + 1;
         startY = seasonPeriod[0].getFullYear() + 1;
         endY = startY + 1;
-        appYearDesc[appYearDesc.length] = "October 1, " + startY + " - September 30, " + endY;
+        appYearDesc[appYearDesc.length] = startMonth + " 1, " + startY + " - " + endMonth + " " + endDay + ", " + endY;
     }
     for (var y = 0; y < appYear.length; y++) {
-        editLookup(SHARED_DDLIST, appYear[y], "");
-        editLookup(SHARED_DDLIST_DESC, appYearDesc[y], appYear[y]);
-        editLookup(SHARED_DDLIST, appYear[y], "");
-        editLookup(SHARED_DDLIST_DESC, appYearDesc[y], appYear[y]);
+        editLookup(SHARED_DDLIST, appYear[y] + "", appYearDesc[y] + "");
+        editLookup(SHARED_DDLIST_DESC, appYearDesc[y], appYear[y] + "");
+        editLookup(SHARED_DDLIST, appYear[y] + "", appYearDesc[y] + "");
+        editLookup(SHARED_DDLIST_DESC, appYearDesc[y], appYear[y] + "");
     }
     //Disable Past Years ;
     var n = appYear[0];
@@ -200,8 +207,8 @@ function InitLicenseFilingYear() {
             editLookupAuditStatus(SHARED_DDLIST, n, "I");
             startY = n;
             endY = startY + 1;
-            editLookupAuditStatus(SHARED_DDLIST_DESC, "October 1, " + startY + " - September 30, " + endY, "I");
-            editLookupAuditStatus(SHARED_DDLIST_DESC, "October 1, " + startY + " - September 30, " + endY, "I");
+            editLookupAuditStatus(SHARED_DDLIST_DESC, startMonth + " 1, " + startY + " - " + endMonth + " " + endDay + ", " + endY, "I");
+            editLookupAuditStatus(SHARED_DDLIST_DESC, startMonth + " 1, " + startY + " - " + endMonth + " " + endDay + ", " + endY, "I");
         } else {
             break;
         }
@@ -217,8 +224,8 @@ function InitLicenseFilingYear() {
             editLookupAuditStatus(SHARED_DDLIST, n, "A");
             startY = n;
             endY = startY + 1;
-            editLookupAuditStatus(SHARED_DDLIST_DESC, "October 1, " + startY + " - September 30, " + endY, "A");
-            editLookupAuditStatus(SHARED_DDLIST_DESC, "October 1, " + startY + " - September 30, " + endY, "A");
+            editLookupAuditStatus(SHARED_DDLIST_DESC, startMonth + " 1, " + startY + " - " + endMonth + " " + endDay + ", " + endY, "A");
+            editLookupAuditStatus(SHARED_DDLIST_DESC, startMonth + " 1, " + startY + " - " + endMonth + " " + endDay + ", " + endY, "A");
         }
         break;
     }
@@ -234,13 +241,13 @@ function getMonday(d) {
 
 function getFirstMonday(d) {
     d = new Date(d);
-	var firstDay = new Date(d.getFullYear(), d.getMonth(), 1);
-	
+    var firstDay = new Date(d.getFullYear(), d.getMonth(), 1);
+
     //Find Tuesday
     var mon = 1;
 
     while (firstDay.getDay() != mon) {
-		firstDay.setDate(firstDay.getDate() + 1);
+        firstDay.setDate(firstDay.getDate() + 1);
     }
     return firstDay;
 }
