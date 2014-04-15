@@ -138,12 +138,11 @@ function MaintainWMUchoices() {
     var now = new Date();
     var currYear = now.getFullYear();
     var month = now.getMonth() + 1;
-	
-	var retArray = GetDateRangeForWMU("DEC_CONFIG", "OVERLAP_SEASON", currYear, month)
-    currYear = (retArray[0]).getFullYear();
-	
-	var currDrawtype = getDrawTypeByPeriod(currYear);
 
+    var retArray = GetDateRangeForWMU("DEC_CONFIG", "OVERLAP_SEASON", currYear, month)
+    currYear = (retArray[0]).getFullYear();
+
+    var currDrawtype = getDrawTypeByPeriod(currYear);
     var strControl = "WMU";
     var bizDomScriptResult = aa.bizDomain.getBizDomain(strControl);
     if (bizDomScriptResult.getSuccess()) {
@@ -166,13 +165,8 @@ function MaintainWMUchoices() {
                     editLookupAuditStatus("WMU Choice 1", wmu, "I");
                     editLookupAuditStatus("WMU Choice 2", wmu, "I");
                 } else {
-                    if (currDrawtype != DRAW_INST) {
-                        changeWmuStatus(currYear, wmu, currDrawtype, 1);
-                        changeWmuStatus(currYear, wmu, currDrawtype, 2);
-                    } else {
-                        editLookupAuditStatus("WMU Choice 1", wmu, "A");
-                        editLookupAuditStatus("WMU Choice 2", wmu, "A");
-                    }
+                    changeWmuStatus(currYear, wmu, currDrawtype, 1);
+                    changeWmuStatus(currYear, wmu, currDrawtype, 2);
                 }
             }
         }
@@ -201,8 +195,8 @@ function changeWmuStatus(year, wmu, drawtype, choiceNum) {
 
         if (wmuStatus == 'Open') {
             if (StatusApplicableTo == "Both" || StatusApplicableTo == 'WMU Choice ' + choiceNum) {
-                if ((now >= openDt && now <= closeDt)) {
-                    if (prmitTarget - usedCount > 0) {
+                if (drawtype == DRAW_INST || (now >= openDt && now <= closeDt)) {
+                    if (drawtype == DRAW_INST || (prmitTarget - usedCount > 0)) {
                         keepActive = true;
                     }
                 }
