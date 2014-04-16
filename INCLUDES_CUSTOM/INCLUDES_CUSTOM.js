@@ -5578,7 +5578,8 @@ function getRefConByPublicUserSeq(pSeqNum) {
 function asaForDMVRequest() {
 
     try {
-
+        //Added to resolve Defect 47387.
+        removeAllFees(capId);
         // add fees
 
         if (AInfo["Add Lifetime to Driver License Re-Issue Immediately"] == "CHECKED") {
