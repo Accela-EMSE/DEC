@@ -9,10 +9,10 @@
 /*------------------------------------------------------------------------------------------------------/
 | START: TEST PARAMETERS
 /------------------------------------------------------------------------------------------------------*/
-aa.env.setValue("emailAddress", "");
-aa.env.setValue("showDebug", "Y");
-aa.env.setValue("reportName", "License Tags");
-aa.env.setValue("setName","DAILY_04/09/2014_1");
+//aa.env.setValue("emailAddress", "");
+//aa.env.setValue("showDebug", "Y");
+//aa.env.setValue("reportName", "License Tags");
+//aa.env.setValue("setName","DAILY_04/09/2014_1");
 /*------------------------------------------------------------------------------------------------------/
 | END: TEST PARAMETERS
 /------------------------------------------------------------------------------------------------------*/
