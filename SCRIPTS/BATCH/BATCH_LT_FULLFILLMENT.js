@@ -92,7 +92,7 @@ if (isSuccess) {
     }
     else {
         aa.env.setValue("ScriptReturnMessage", "Batch Job run successfully.");
-        aa.eventLog.createEventLog("Batch Job run successfully.", "Batch Process", batchJobName, sysDate, sysDate, batchJobDesc, batchJobResult, batchJobID);        
+        aa.eventLog.createEventLog("Batch Job run successfully.", "Batch Process", batchJobName, sysDate, sysDate, batchJobDesc, batchJobResult, batchJobID);
     }
 }
 else {
@@ -160,14 +160,16 @@ function SetLTFullfillmentLogic() {
     var uniqueCapIdArray = aa.util.newHashMap();
     var counter = 0;
     var recId;
+    var setNameArray = new Array();
 
     //Set Comments: Initialized, Processing, Successfully processed
     //Set Status: Initialized, Pending, Completed
     var setResult;
-	var id;
+    var id;
     if (counter == 0 && setPrefix.length > 0) {
         setResult = createFullfillmentSet(setPrefix);
-		id = setResult.setID;
+        id = setResult.setID;
+        setNameArray.push(setResult.setID);
         updateSetStatusX(setResult.setID, setResult.setID, "FULLFILLMENT", "Processing", "Pending", "Pending");
         uniqueCapIdArray = aa.util.newHashMap();
         var settprocess = new capSet(setResult.setID);
@@ -205,7 +207,7 @@ function SetLTFullfillmentLogic() {
             var emCondm = ffConitions.getConditionByFullfillmentType(ffCondArray[ff]);
             emCondm.setConditionStatus("Applied");
             emCondm.setConditionStatusType("Applied");
-            
+
             if (emCondm != null) {
                 emptyCm.setCapConditionModel(emCondm);
 
@@ -224,7 +226,7 @@ function SetLTFullfillmentLogic() {
                                 continue;
                             uniqueCapIdArray.put(recId, recId);
                             altId = itemCapId.getCustomID();
-                            generateReport(altId);
+                            var isSuccess = generateReport(altId);
                             if (setPrefix.length > 0) {
                                 addCapSetMemberX(itemCapId, setResult);
                             }
@@ -236,6 +238,7 @@ function SetLTFullfillmentLogic() {
                             if (!isPartialSuccess) {
                                 updateSetStatusX(setResult.setID, setResult.setID, "FULLFILLMENT", "Successfully processed", "Ready For Fullfillment", "Ready For Fullfillment");
                                 setResult = createFullfillmentSet(setPrefix);
+                                setNameArray.push(setResult.setID);
                                 updateSetStatusX(setResult.setID, setResult.setID, "FULLFILLMENT", "Processing", "Pending", "Pending");
                                 uniqueCapIdArray = aa.util.newHashMap();
                             }
@@ -250,6 +253,13 @@ function SetLTFullfillmentLogic() {
     if (!isPartialSuccess) {
         updateSetStatusX(setResult.setID, setResult.setID, "FULLFILLMENT", "Successfully processed", "Ready For Fullfillment", "Ready For Fullfillment");
     }
+
+    logDebug("ENTER: Pass 2 to create missing documenets in EDMS.");
+    for (y in setNameArray) {
+        logDebug("GenerateMissingReportForSets for - " + setNameArray[y]);
+        GenerateMissingReportForSets(setNameArray[y] + "");
+    }
+    logDebug("EXIT: Pass 2 to create missing documenets in EDMS.");
 
     return true;
 }
@@ -266,11 +276,11 @@ function createFullfillmentSet(recordType) {
 
 function addCapSetMemberX(itemCapId, setResult) {
     try {
-		logDebug("inside addCapSetMemberX");
+        logDebug("inside addCapSetMemberX");
         var memberCapID = itemCapId;
-		logDebug("ID: " + memberCapID);
+        logDebug("ID: " + memberCapID);
         var addResult = aa.set.addCapSetMember(setResult.getSetID(), memberCapID);
-		logDebug("Add set result: " + addResult.getSuccess());
+        logDebug("Add set result: " + addResult.getSuccess());
     }
     catch (err) {
         logDebug("Exception in addCapSetMember:" + err.message);
@@ -283,7 +293,7 @@ function updateSetStatusX(setName, setDescription, setType, comment, setStatus, 
         setTest.status = setStatus;  // update the set header status
         setTest.comment = comment;   // changed the set comment
         setTest.statusComment = setStatusComment; // change the set status comment
-		setTest.type = setType;
+        setTest.type = setType;
         setTest.update();  // commit changes to the set
     }
     catch (err) {
@@ -292,29 +302,39 @@ function updateSetStatusX(setName, setDescription, setType, comment, setStatus, 
 }
 
 function generateReport(itemCap) {
-	var parameters = aa.util.newHashMap();
-	parameters.put("PARENT", itemCap);
-	
-	report = aa.reportManager.getReportInfoModelByName(reportName);
-	report = report.getOutput();
-	report.setCapId(itemCap);
-	report.setModule("Licenses");
-	report.setReportParameters(parameters); 
+    var isSuccess = false;
+    try {
+        var parameters = aa.util.newHashMap();
+        parameters.put("PARENT", itemCap);
 
-	var checkPermission = aa.reportManager.hasPermission(reportName,"admin");
-	logDebug("Permission for report: " + checkPermission.getOutput().booleanValue());
+        report = aa.reportManager.getReportInfoModelByName(reportName);
+        report = report.getOutput();
+        report.setCapId(itemCap);
+        report.setModule("Licenses");
+        report.setReportParameters(parameters);
 
-	if (checkPermission.getOutput().booleanValue()) {
-        logDebug("User has permission"); 
-		var reportResult = aa.reportManager.getReportResult(report);
-		if (reportResult) {
-			reportResult = reportResult.getOutput();
-			logDebug("Report result: " + reportResult);
-			reportFile = aa.reportManager.storeReportToDisk(reportResult);
-			reportFile = reportFile.getOutput();
-			logDebug("Report File: " + reportFile);
-		}
-	}
+        var checkPermission = aa.reportManager.hasPermission(reportName, "admin");
+        logDebug("Permission for report: " + checkPermission.getOutput().booleanValue());
+
+        if (checkPermission.getOutput().booleanValue()) {
+            logDebug("User has permission");
+            var reportResult = aa.reportManager.getReportResult(report);
+            if (reportResult) {
+                isSuccess = true;
+            }
+            if (false) {
+                reportResult = reportResult.getOutput();
+                logDebug("Report result: " + reportResult);
+                reportFile = aa.reportManager.storeReportToDisk(reportResult);
+                reportFile = reportFile.getOutput();
+                logDebug("Report File: " + reportFile);
+            }
+        }
+    }
+    catch (vError) {
+        logDebug("Runtime error occurred: " + vError);
+    }
+    return isSuccess;
 }
 
 function getMailStop(ipCapID) {
@@ -322,7 +342,7 @@ function getMailStop(ipCapID) {
     var fvCapContactQry = aa.people.getCapContactByCapID(ipCapID);
     if (fvCapContactQry.getSuccess()) {
         var fvCapContacts = fvCapContactQry.getOutput();
-        
+
         for (var fvCounter1 in fvCapContacts) {
             var fvCapContact = fvCapContacts[fvCounter1];
             var fvContact = fvCapContact.getCapContactModel();
@@ -345,4 +365,44 @@ function getMailStop(ipCapID) {
         }
     }
     return opMailStop;
+}
+
+function GenerateMissingReportForSets(pSetName) {
+    var isValid = true;
+    var isReportGenerated = false;
+
+    var sql = "SELECT sd.set_id, sd.b1_per_id1, sd.b1_per_id2, sd.b1_per_id3 ";
+    sql += " FROM setdetails sd ";
+    sql += " WHERE sd.serv_prov_code = '" + servProvCode + "' ";
+    sql += " AND sd.set_id = '" + pSetName + "' ";
+    sql += " AND sd.rec_status = 'A' ";
+    sql += " AND NOT EXISTS (SELECT 1 FROM bdocument bd ";
+    sql += " WHERE bd.serv_prov_code = sd.serv_prov_code ";
+    sql += " AND bd.b1_per_id1 = sd.b1_per_id1 ";
+    sql += " AND bd.b1_per_id2 = sd.b1_per_id2 ";
+    sql += " AND bd.b1_per_id3 = sd.b1_per_id3 ";
+    sql += " AND doc_status = 'Uploaded' ";
+    //sql += " AND trunc(bd.File_upload_date) = trunc(sysdate) ";
+    sql += " AND bd.source_name = 'DOCUMENTUM' ";
+    sql += " AND bd.ent_type = 'CAP' ";
+    sql += " AND bd.rec_status = 'A') ";
+
+    logDebug(sql);
+    var initialContext = aa.proxyInvoker.newInstance("javax.naming.InitialContext", null).getOutput();
+    var ds = initialContext.lookup("java:/AA");
+    var conn = ds.getConnection();
+
+    var sStmt = conn.prepareStatement(sql);
+    var rSet = sStmt.executeQuery();
+    while (rSet.next()) {
+        var itemCapId = aa.cap.getCapID(rSet.getString("B1_PER_ID1"), rSet.getString("B1_PER_ID2"), rSet.getString("B1_PER_ID3")).getOutput();
+        logDebug(itemCapId);
+        var altId = itemCapId.getCustomID();
+        //var itemCap = aa.cap.getCap(itemCapId).getOutput();
+        var isSuccess = generateReport(altId);
+    }
+
+    conn.close();
+
+    return isReportGenerated;
 }
