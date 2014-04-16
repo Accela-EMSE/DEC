@@ -163,6 +163,7 @@ function SetDailyFullfillmentLogic() {
     var uniqueCapIdArray = aa.util.newHashMap();
     var counter = 0;
     var recId;
+    var setNameArray = new Array();
 
     //Set Comments: Initialized, Processing, Successfully processed
     //Set Status: Initialized, Pending, Completed
@@ -171,6 +172,7 @@ function SetDailyFullfillmentLogic() {
     if (counter == 0 && setPrefix.length > 0) {
         setResult = createFullfillmentSet(setPrefix);
         id = setResult.setID;
+        setNameArray.push(setResult.setID);
         updateSetStatusX(setResult.setID, setResult.setID, "FULLFILLMENT", "Processing", "Pending", "Pending");
         uniqueCapIdArray = aa.util.newHashMap();
         var settprocess = new capSet(setResult.setID);
@@ -194,6 +196,7 @@ function SetDailyFullfillmentLogic() {
     recordTypeArray.push("Licenses/Annual/Application/NA");
     recordTypeArray.push("Licenses/Sales/Reprint/Documents");
     recordTypeArray.push("Licenses/Sales/Upgrade/Lifetime");
+    //TODO
 
     for (var yy in recordTypeArray) {
         var ats = recordTypeArray[yy];
@@ -300,7 +303,7 @@ function SetDailyFullfillmentLogic() {
                                     logDebug("Custom ID for report: " + altId);
                                     //appTypeResult = itemCap.getCapType();
                                     //appTypeString = appTypeResult.toString();
-                                    generateReport(itemCapId);
+                                    var isSuccess = generateReport(itemCapId);
                                     //logDebug("Report file: " + reportFileName);
                                     if (setPrefix.length > 0) {
                                         addCapSetMemberX(itemCapId, setResult);
@@ -317,6 +320,7 @@ function SetDailyFullfillmentLogic() {
                                     updateSetStatusX(setResult.setID, setResult.setID, "FULLFILLMENT", "Successfully processed", "Ready For Fullfillment", "Ready For Fullfillment");
 
                                     setResult = createFullfillmentSet(setPrefix);
+                                    setNameArray.push(setResult.setID);
                                     updateSetStatusX(setResult.setID, setResult.setID, "FULLFILLMENT", "Processing", "Pending", "Pending");
                                     uniqueCapIdArray = aa.util.newHashMap();
                                 }
@@ -331,6 +335,14 @@ function SetDailyFullfillmentLogic() {
 
     logDebug("Updated set status");
     updateSetStatusX(setResult.setID, setResult.setID, "FULLFILLMENT", "Successfully processed", "Ready For Fullfillment", "Ready For Fullfillment");
+
+    logDebug("ENTER: Pass 2 to create missing documenets in EDMS.");
+    for (y in setNameArray) {
+        logDebug("GenerateMissingReportForSets for - " + setNameArray[y]);
+        GenerateMissingReportForSets(setNameArray[y] + "");
+    }
+    logDebug("EXIT: Pass 2 to create missing documenets in EDMS.");
+
     return true;
 }
 
@@ -388,30 +400,79 @@ return reportFileName;
 }*/
 
 function generateReport(itemCapId) {
-    var parameters = aa.util.newHashMap();
-    parameters.put("PARENT", itemCapId.getCustomID());
+    var isSuccess = false;
+    try {
+        var parameters = aa.util.newHashMap();
+        parameters.put("PARENT", itemCapId.getCustomID());
 
-    var report = aa.reportManager.getReportInfoModelByName(reportName);
-    report = report.getOutput();
-    //aa.print(report);
-    report.setCapId(itemCapId.toString());
-    report.setModule("Licenses");
-    report.setReportParameters(parameters);
-    // set the alt-id as that's what the EDMS is using.
-    report.getEDMSEntityIdModel().setAltId(itemCapId.getCustomID());
-    var checkPermission = aa.reportManager.hasPermission(reportName, "admin");
-    logDebug("Permission for report: " + checkPermission.getOutput().booleanValue());
+        var report = aa.reportManager.getReportInfoModelByName(reportName);
+        report = report.getOutput();
+        //aa.print(report);
+        report.setCapId(itemCapId.toString());
+        report.setModule("Licenses");
+        report.setReportParameters(parameters);
+        // set the alt-id as that's what the EDMS is using.
+        report.getEDMSEntityIdModel().setAltId(itemCapId.getCustomID());
+        var checkPermission = aa.reportManager.hasPermission(reportName, "admin");
+        logDebug("Permission for report: " + checkPermission.getOutput().booleanValue());
 
-    if (checkPermission.getOutput().booleanValue()) {
-        logDebug("User has permission");
-        var reportResult = aa.reportManager.getReportResult(report);
-        // not needed as the report is set up for EDMS
-        if (false) {
-            reportResult = reportResult.getOutput();
-            logDebug("Report result: " + reportResult);
-            reportFile = aa.reportManager.storeReportToDisk(reportResult);
-            reportFile = reportFile.getOutput();
-            logDebug("Report File: " + reportFile);
+        if (checkPermission.getOutput().booleanValue()) {
+            logDebug("User has permission");
+            var reportResult = aa.reportManager.getReportResult(report);
+            if (reportResult) {
+                isSuccess = true;
+            }
+            // not needed as the report is set up for EDMS
+            if (false) {
+                reportResult = reportResult.getOutput();
+                logDebug("Report result: " + reportResult);
+                reportFile = aa.reportManager.storeReportToDisk(reportResult);
+                reportFile = reportFile.getOutput();
+                logDebug("Report File: " + reportFile);
+            }
         }
     }
+    catch (vError) {
+        logDebug("Runtime error occurred: " + vError);
+    }
+    return isSuccess;
+}
+
+function GenerateMissingReportForSets(pSetName) {
+    var isValid = true;
+    var isReportGenerated = false;
+
+    var sql = "SELECT sd.set_id, sd.b1_per_id1, sd.b1_per_id2, sd.b1_per_id3 ";
+    sql += " FROM setdetails sd ";
+    sql += " WHERE sd.serv_prov_code = '" + servProvCode + "' ";
+    sql += " AND sd.set_id = '" + pSetName + "' ";
+    sql += " AND sd.rec_status = 'A' ";
+    sql += " AND NOT EXISTS (SELECT 1 FROM bdocument bd ";
+    sql += " WHERE bd.serv_prov_code = sd.serv_prov_code ";
+    sql += " AND bd.b1_per_id1 = sd.b1_per_id1 ";
+    sql += " AND bd.b1_per_id2 = sd.b1_per_id2 ";
+    sql += " AND bd.b1_per_id3 = sd.b1_per_id3 ";
+    sql += " AND doc_status = 'Uploaded' ";
+    //sql += " AND trunc(bd.File_upload_date) = trunc(sysdate) ";
+    sql += " AND bd.source_name = 'DOCUMENTUM' ";
+    sql += " AND bd.ent_type = 'CAP' ";
+    sql += " AND bd.rec_status = 'A') ";
+
+    logDebug(sql);
+    var initialContext = aa.proxyInvoker.newInstance("javax.naming.InitialContext", null).getOutput();
+    var ds = initialContext.lookup("java:/AA");
+    var conn = ds.getConnection();
+
+    var sStmt = conn.prepareStatement(sql);
+    var rSet = sStmt.executeQuery();
+    while (rSet.next()) {
+        var itemCapId = aa.cap.getCapID(rSet.getString("B1_PER_ID1"), rSet.getString("B1_PER_ID2"), rSet.getString("B1_PER_ID3")).getOutput();
+        logDebug(itemCapId);
+        //var itemCap = aa.cap.getCap(itemCapId).getOutput();
+        var isSuccess = generateReport(itemCapId);
+    }
+
+    conn.close();
+
+    return isReportGenerated;
 }
