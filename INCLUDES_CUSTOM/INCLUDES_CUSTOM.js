@@ -7339,8 +7339,25 @@ function validatePublicUserCreation() {
 
     var newRegEmail = AInfo["E-mail Address"];
     var newRegUserName = AInfo["User Name"];
+    var newRegPass = AInfo["Password"];
+    var newRegPassAgain = AInfo["Type Password Again"];
     var retmsg = "";
 
+    // check to see if the Password and confirm Password fields matches
+    if (newRegPass && newRegPassAgain) {
+        if (!newRegPass.equals(newRegPassAgain)) {
+            retmsg += "Password field and Type Password Again field do not match with each other." + "<BR>";
+        }
+    }
+
+    // Email Address validation 
+    if (newRegEmail != null && newRegEmail != '') {
+        var pattern = /^([a-zA-Z0-9_.-])+@([a-zA-Z0-9_.-])+\.([a-zA-Z])+([a-zA-Z])+/;
+        if (!pattern.test(newRegEmail)) {
+            retmsg += "Please enter a valid Email Address." + "<BR>";
+        }
+    }
+  
     // check to see if public user exists already based on user Id
     var getUserResult = aa.publicUser.getPublicUserByUserId(newRegUserName);
     if (getUserResult.getSuccess() && getUserResult.getOutput()) {
