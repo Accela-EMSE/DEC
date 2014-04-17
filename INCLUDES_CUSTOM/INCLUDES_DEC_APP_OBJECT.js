@@ -77,7 +77,7 @@ function VERSIONS(identity) {
 /***Application Object**********/
 function form_OBJECT(identity) {
     this.optmzType = 0;
-	this.DebugMessage = '';
+    this.DebugMessage = '';
     if (arguments.length > 1) {
         this.optmzType = arguments[1];
     }
@@ -776,7 +776,7 @@ function form_OBJECT(identity) {
                         this.licObjARRAY[idx].IsSelectable = (isActive && isSelectable && isValidUser && !isInCombo && !isRevoked);
                     else
                         this.licObjARRAY[idx].IsSelectable = (isActive && isSelectable && isValidUser && !isInCombo && !isInActiveHoldings && !isRevoked);
-				}
+                }
             }
 
             if (this.optmzType != OPTZ_TYPE_CTRC) {
@@ -1817,6 +1817,9 @@ function form_OBJECT(identity) {
                                         isExist = ((dateDiff(new Date(), convertDate(this.ActiveHoldingsInfo[idx].ToDate))) > 60);
                                     } else {
                                         isExist = ((dateDiff(new Date(), convertDate(this.ActiveHoldingsInfo[idx].ToDate))) > 0);
+                                        var seasonPeriod = GetDateRange(DEC_CONFIG, LICENSE_SEASON, this.Year);
+                                        var diff = dateDiff(new Date(this.ActiveHoldingsInfo[idx].ToDate), seasonPeriod[1]);
+                                        isExist = isExist && (diff <= 0)
                                     }
                                 }
                                 //JIRA - 41760
@@ -1848,6 +1851,9 @@ function form_OBJECT(identity) {
                                 isExist = (isNull(this.ActiveHoldingsInfo[idx].ToDate, '') == '');
                                 if (!isExist) {
                                     isExist = ((dateDiff(new Date(), convertDate(this.ActiveHoldingsInfo[idx].ToDate))) > 0);
+                                    var seasonPeriod = GetDateRange(DEC_CONFIG, LICENSE_SEASON, this.Year);
+                                    var diff = dateDiff(new Date(this.ActiveHoldingsInfo[idx].ToDate), seasonPeriod[1]);
+                                    isExist = isExist && (diff <= 0)
                                 }
                                 break;
                             }
@@ -1894,6 +1900,9 @@ function form_OBJECT(identity) {
                                         }
                                     } else {
                                         isExist = ((dateDiff(new Date(), convertDate(this.ActiveHoldingsInfo[idx].ToDate))) > 0);
+                                        var seasonPeriod = GetDateRange(DEC_CONFIG, LICENSE_SEASON, this.Year);
+                                        var diff = dateDiff(new Date(this.ActiveHoldingsInfo[idx].ToDate), seasonPeriod[1]);
+                                        isExist = isExist && (diff <= 0)
                                     }
                                 }
                                 //JIRA - 41760
@@ -1925,6 +1934,9 @@ function form_OBJECT(identity) {
                                 isExist = (isNull(this.ActiveHoldingsInfo[idx].ToDate, '') == '');
                                 if (!isExist) {
                                     isExist = ((dateDiff(new Date(), convertDate(this.ActiveHoldingsInfo[idx].ToDate))) > 0);
+                                    var seasonPeriod = GetDateRange(DEC_CONFIG, LICENSE_SEASON, this.Year);
+                                    var diff = dateDiff(new Date(this.ActiveHoldingsInfo[idx].ToDate), seasonPeriod[1]);
+                                    isExist = isExist && (diff <= 0)
                                 }
                                 break;
                             }
