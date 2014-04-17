@@ -39,7 +39,7 @@ function Category(index, nOrder, nProbability, nChoiceType) {
 function getOrderForBucket(bucketNum, elements) {
     var retOrder = 0;
     for (var inn = 0; inn < elements.length; inn++) {
-        if (bucketNum == parseFloat(elements[inn].index)) {
+        if (bucketNum == parseFloat(elements[inn].Index)) {
             retOrder = parseFloat(elements[inn].Order);
         }
     }
@@ -66,7 +66,7 @@ function Draw_Obj(syear, swmu, schoicenum, sdrawtype, sapplyLandOwner) {
     this.DrawType = sdrawtype;
     this.ApplyLandowner = sapplyLandOwner;
 
-    this.IsLanOwner = (this.ApplyLandowner != '' && this.ApplyLandowner != null);
+    this.IsLanOwner = (this.ApplyLandowner == "CHECKED");
     this.IsNyResiDent = false;
     this.IsDisableForYear = false;
     this.IsMilitaryServiceman = false;
@@ -111,6 +111,7 @@ function Draw_Obj(syear, swmu, schoicenum, sdrawtype, sapplyLandOwner) {
             return drawResult;
         }
 
+		logDebug(this.DrawType);
         if (this.DrawType == DRAW_FCFS) {
             drawResult = new DrawResult_OBJ(this.Wmu, this.DrawType, this.ChoiceNum, this.PreferencePoints, this.IsLanOwner, bDisabledVet, this.IsNyResiDent);
             drawResult = verifyWmuConfiguration(year, wmu, drawtype, ChoiceNum, drawResult);
@@ -170,7 +171,7 @@ function Draw_Obj(syear, swmu, schoicenum, sdrawtype, sapplyLandOwner) {
             if (ctgArray.length > 0) {
                 sortCategoryArray(ctgArray);
 
-                logDebug("drawResult params = " + this.Wmu + "," + this.DrawType + "," + this.ChoiceNum + "," + this.PreferencePoints + "," + this.IsLanOwner + "," + this.bDisabledVet + "," + this.IsNyResiDent + "," + this.havedefinedItems);
+                logDebug("drawResult params = " + this.Wmu + "," + this.DrawType + "," + this.ChoiceNum + "," + this.PreferencePoints + "," + this.IsLanOwner + "," + bDisabledVet + "," + this.IsNyResiDent + "," + this.havedefinedItems);
 
                 for (var out = 0; out < ctgArray.length; out++) {
                     if (ctgArray[out].ChoiceType == ChoiceNum) {
@@ -179,21 +180,20 @@ function Draw_Obj(syear, swmu, schoicenum, sdrawtype, sapplyLandOwner) {
                             logDebug("drawResult = verify" + ctgArray[out].Name + "(this) = " + drawResult.Selected);
                         } else if (this.DrawType == DRAW_IBP) {
                             drawResult = new DrawResult_OBJ(this.Wmu, this.DrawType, this.ChoiceNum, this.PreferencePoints, this.IsLanOwner, bDisabledVet, this.IsNyResiDent);
-                            drawResult.Selected = (this.PreferenceBucketForIbp == ctgArray[out].index);
+                            drawResult.Selected = (this.PreferenceBucketForIbp == ctgArray[out].Index);
                         }
                         if (drawResult.Selected) {
-                            drawResult.PreferenceBucket = ctgArray[out].index;
-
+							drawResult.PreferenceBucket = ctgArray[out].Index;
                             //Decide When to Hit the draw  for instant and IBP
                             if (this.DrawType == DRAW_INST || this.DrawType == DRAW_IBP) {
                                 drawResult.Selected = hitDraw(ctgArray[out].Probability);
                             } else {
                                 drawResult.Selected = true;
                             }
-                            if (!drawResult.Selected) {
+                            if (drawResult.Selected) {
                                 drawResult = verifyWmuConfiguration(year, wmu, drawtype, ChoiceNum, drawResult);
-                                drawResult.SetPreferencePointsAfter();
                             }
+                            drawResult.SetPreferencePointsAfter();
                             break;
                         }
                     }
@@ -297,7 +297,7 @@ function DrawResult_OBJ(sWmu, sDrawType, sChoiceNum, nPreferencePoints, bLandown
                     this.RemainingPreferencePoints = this.PreferencePoints;
                 }
                 else {
-                    this.PreferencePoints--;
+                    this.PreferencePoints++;
                     this.RemainingPreferencePoints = this.PreferencePoints;
                     this.GivenPreferencePoints++;
                 }
