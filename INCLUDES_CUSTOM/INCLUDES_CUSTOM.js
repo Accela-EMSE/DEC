@@ -956,18 +956,20 @@ function createPrivilagePanel(ruleParams) {
 function RunDMPLottery(frm, syear, swmu, schoicenum, isApplyLO, activeHoldings, nPreferencePoints) {
     var currDrawType = getDrawTypeByPeriod(syear);
 
+	var ruleParams = frm.getRulesParam();
+	
     var drw = new Draw_Obj(syear, swmu, schoicenum, currDrawType, isApplyLO);
-    drw.IsNyResiDent = frm.IsNyResiDent;
-    drw.IsDisableForYear = frm.IsDisableForYear;
-    drw.IsMilitaryServiceman = frm.IsMilitaryServiceman;
+    drw.IsNyResiDent = ruleParams.IsNyResiDent;
+    drw.IsDisableForYear = ruleParams.IsDisableForYear;
+    drw.IsMilitaryServiceman = ruleParams.IsMilitaryServiceman;
     drw.PreferencePoints = nPreferencePoints;
-    drw.Age = frm.Age;
-    drw.Gender = frm.Gender;
-    drw.IsMinor = frm.IsMinor;
-    drw.IsLegallyBlind = frm.IsLegallyBlind;
-    drw.HasBowHunt = frm.HasBowHunt;
-    drw.HasTrapEd = frm.HasTrapEd;
-    drw.HasHuntEd = frm.HasHuntEd;
+    drw.Age = ruleParams.Age;
+    drw.Gender = ruleParams.Gender;
+    drw.IsMinor = ruleParams.IsMinor;
+    drw.IsLegallyBlind = ruleParams.IsLegallyBlind;
+    drw.HasBowHunt = ruleParams.HasBowHunt;
+    drw.HasTrapEd = ruleParams.HasTrapEd;
+    drw.HasHuntEd = ruleParams.HasHuntEd;
     drw.havedefinedItems = hasWmuDefinedItems(activeHoldings);
 
     var drawResult = drw.RunLottery();
