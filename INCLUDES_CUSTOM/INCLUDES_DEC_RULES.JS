@@ -742,7 +742,7 @@ function getAllFeeCodeByRuleFor_ANNUAL_HUNT(ruleParams, feeSched) {
     //Annual Hunting License: NYS Res having age 12-13
     if ((rp.IsNyResiDent || rp.HasLifetimeHunt()) && rp.Age >= 12 && rp.Age <= 13) { feeItemCodes.push(new FeeCodeProp(AHL_1_RES, "000")); }
     //Annual Hunting License: Non-Res having age 12-13
-    if (!(rp.IsNyResiDent || rp.HasLifetimeHunt()) && rp.Age >= 12 && rp.Age <= 15) { feeItemCodes.push(new FeeCodeProp(AHL_2_NORES, "000")); }
+    if (!(rp.IsNyResiDent || rp.HasLifetimeHunt()) && rp.Age >= 12 && rp.Age <= 13) { feeItemCodes.push(new FeeCodeProp(AHL_2_NORES, "000")); }
     //Annual Hunting License fee for NYS Resident having age  16-69
     if ((rp.IsNyResiDent || rp.HasLifetimeHunt()) && rp.Age >= 16 && rp.Age <= 69) { feeItemCodes.push(new FeeCodeProp(AHL_3_RES, "000")); }
     //Annual Hunting License fee for Non-Resident having age  16+
