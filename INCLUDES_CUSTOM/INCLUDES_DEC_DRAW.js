@@ -105,13 +105,13 @@ function Draw_Obj(syear, swmu, schoicenum, sdrawtype, sapplyLandOwner) {
         var drawtype = this.DrawType;
         var ChoiceNum = this.ChoiceNum
         var bDisabledVet = (this.IsDisableForYear && this.IsMilitaryServiceman);
-		
+
         var drawResult = new DrawResult_OBJ();  //Result holder
         if (this.DrawType != DRAW_FCFS && this.DrawType != DRAW_INST && this.DrawType != DRAW_IBP) {
             return drawResult;
         }
 
-		logDebug(this.DrawType);
+        logDebug(this.DrawType);
         if (this.DrawType == DRAW_FCFS) {
             drawResult = new DrawResult_OBJ(this.Wmu, this.DrawType, this.ChoiceNum, this.PreferencePoints, this.IsLanOwner, bDisabledVet, this.IsNyResiDent);
             drawResult = verifyWmuConfiguration(year, wmu, drawtype, ChoiceNum, drawResult);
@@ -183,7 +183,7 @@ function Draw_Obj(syear, swmu, schoicenum, sdrawtype, sapplyLandOwner) {
                             drawResult.Selected = (this.PreferenceBucketForIbp == ctgArray[out].Index);
                         }
                         if (drawResult.Selected) {
-							drawResult.PreferenceBucket = ctgArray[out].Index;
+                            drawResult.PreferenceBucket = ctgArray[out].Index;
                             //Decide When to Hit the draw  for instant and IBP
                             if (this.DrawType == DRAW_INST || this.DrawType == DRAW_IBP) {
                                 drawResult.Selected = hitDraw(ctgArray[out].Probability);
@@ -325,7 +325,7 @@ function verifyC3(drwParam) {
     var drw = drwParam;
     var bDisabledVet = (drw.IsDisableForYear && drw.IsMilitaryServiceman);
     var result = new DrawResult_OBJ(drw.Wmu, drw.DrawType, drw.ChoiceNum, drw.PreferencePoints, drw.IsLanOwner, bDisabledVet, drw.IsNyResiDent);
-    result.Selected = (drw.ChoiceNum == '1' && drw.PreferencePoints == 2 && drw.havedefinedItems);
+    result.Selected = (drw.ChoiceNum == '1' && drw.PreferencePoints == 2 && drw.IsNyResiDent && drw.havedefinedItems);
 
     return result;
 }
@@ -333,7 +333,7 @@ function verifyC4(drwParam) {
     var drw = drwParam;
     var bDisabledVet = (drw.IsDisableForYear && drw.IsMilitaryServiceman);
     var result = new DrawResult_OBJ(drw.Wmu, drw.DrawType, drw.ChoiceNum, drw.PreferencePoints, drw.IsLanOwner, bDisabledVet, drw.IsNyResiDent);
-    result.Selected = (drw.ChoiceNum == '1' && drw.PreferencePoints == 1 && drw.havedefinedItems);
+    result.Selected = (drw.ChoiceNum == '1' && drw.PreferencePoints == 1 && drw.IsNyResiDent && drw.havedefinedItems);
 
     return result;
 }
@@ -341,7 +341,7 @@ function verifyC5(drwParam) {
     var drw = drwParam;
     var bDisabledVet = (drw.IsDisableForYear && drw.IsMilitaryServiceman);
     var result = new DrawResult_OBJ(drw.Wmu, drw.DrawType, drw.ChoiceNum, drw.PreferencePoints, drw.IsLanOwner, bDisabledVet, drw.IsNyResiDent);
-    result.Selected = (drw.ChoiceNum == '1' && drw.PreferencePoints == 0 && drw.havedefinedItems);
+    result.Selected = (drw.ChoiceNum == '1' && drw.PreferencePoints == 0 && drw.IsNyResiDent && drw.havedefinedItems);
 
     return result;
 }
@@ -381,7 +381,7 @@ function verifyC10(drwParam) {
     var drw = drwParam;
     var bDisabledVet = (drw.IsDisableForYear && drw.IsMilitaryServiceman);
     var result = new DrawResult_OBJ(drw.Wmu, drw.DrawType, drw.ChoiceNum, drw.PreferencePoints, drw.IsLanOwner, bDisabledVet, drw.IsNyResiDent);
-    result.Selected = (drw.ChoiceNum == '2' && drw.PreferencePoints >= 3 && drw.havedefinedItems);
+    result.Selected = (drw.ChoiceNum == '2' && drw.PreferencePoints >= 3 && drw.IsNyResiDent && drw.havedefinedItems);
 
     return result;
 }
@@ -389,7 +389,7 @@ function verifyC11(drwParam) {
     var drw = drwParam;
     var bDisabledVet = (drw.IsDisableForYear && drw.IsMilitaryServiceman);
     var result = new DrawResult_OBJ(drw.Wmu, drw.DrawType, drw.ChoiceNum, drw.PreferencePoints, drw.IsLanOwner, bDisabledVet, drw.IsNyResiDent);
-    result.Selected = (drw.ChoiceNum == '2' && drw.PreferencePoints == 2 && drw.havedefinedItems);
+    result.Selected = (drw.ChoiceNum == '2' && drw.PreferencePoints == 2 && drw.IsNyResiDent && drw.havedefinedItems);
 
     return result;
 }
@@ -397,7 +397,7 @@ function verifyC12(drwParam) {
     var drw = drwParam;
     var bDisabledVet = (drw.IsDisableForYear && drw.IsMilitaryServiceman);
     var result = new DrawResult_OBJ(drw.Wmu, drw.DrawType, drw.ChoiceNum, drw.PreferencePoints, drw.IsLanOwner, bDisabledVet, drw.IsNyResiDent);
-    result.Selected = (drw.ChoiceNum == '2' && drw.PreferencePoints == 1 && drw.havedefinedItems);
+    result.Selected = (drw.ChoiceNum == '2' && drw.PreferencePoints == 1 && drw.IsNyResiDent && drw.havedefinedItems);
 
     return result;
 }
@@ -405,7 +405,7 @@ function verifyC13(drwParam) {
     var drw = drwParam;
     var bDisabledVet = (drw.IsDisableForYear && drw.IsMilitaryServiceman);
     var result = new DrawResult_OBJ(drw.Wmu, drw.DrawType, drw.ChoiceNum, drw.PreferencePoints, drw.IsLanOwner, bDisabledVet, drw.IsNyResiDent);
-    result.Selected = (drw.ChoiceNum == '2' && drw.PreferencePoints == 0 && drw.havedefinedItems);
+    result.Selected = (drw.ChoiceNum == '2' && drw.PreferencePoints == 0 && drw.IsNyResiDent && drw.havedefinedItems);
 
     return result;
 }
@@ -837,16 +837,16 @@ function randomNum() {
     }
 }
 function hitDraw(nProbability) {
-	logDebug("Pass Probability :" + nProbability);
+    logDebug("Pass Probability :" + nProbability);
     if (nProbability == 1) {
         return true;
     }
     if (nProbability == 0) {
         return false;
     }
-	logDebug("rndNum: " + rndNum);
+    logDebug("rndNum: " + rndNum);
     var rndNum = Math.random(100.00) * 10;
-	logDebug("probNum: " + probNum);
+    logDebug("probNum: " + probNum);
     var probNum = parseFloat(nProbability) * 10;
     return rndNum <= probNum;
 }
