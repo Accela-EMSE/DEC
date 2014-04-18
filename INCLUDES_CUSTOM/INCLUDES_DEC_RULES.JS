@@ -2823,13 +2823,30 @@ function hasBaseDMP(activeHoldingsInfo) {
 function hasWmuDefinedItems(activeHoldingsInfo) {
     var isExist = false;
 
+	return true;
+	//No Need following Verfication since DMP available sfter rules validation
     var validRecArray = Array();
-    validRecArray.push(AA09_LIFETIME_BOWHUNTING);
+	validRecArray.push(AA04_BOWHUNTING_PRIVILEGE);
+	validRecArray.push(AA06_HUNTING_LICENSE);
+	validRecArray.push(AA09_LIFETIME_BOWHUNTING);
     validRecArray.push(AA11_LIFETIME_MUZZLELOADING);
-    validRecArray.push(AA12_LIFETIME_SMALL_AND_BIG_GAME);
-    validRecArray.push(AA13_LIFETIME_SPORTSMAN);
-    validRecArray.push(AA39_SPORTSMAN);
+	validRecArray.push(AA12_LIFETIME_SMALL_AND_BIG_GAME);
+	validRecArray.push(AA13_LIFETIME_SPORTSMAN);
+	validRecArray.push(AA27_CONSERVATION_LEGACY);
+	validRecArray.push(AA28_JUNIOR_BOWHUNTING);
+	validRecArray.push(AA29_JUNIOR_HUNTING);
+	validRecArray.push(AA30_NONRES_MUZZLELOADING);
+	validRecArray.push(AA31_NONRES_SUPER_SPORTSMAN);
+	validRecArray.push(AA33_NONRESIDENT_BIG_GAME);
+	validRecArray.push(AA34_NONRESIDENT_BOWHUNTING);
+	validRecArray.push(AA37_SMALL_AND_BIG_GAME);
+	validRecArray.push(AA39_SPORTSMAN);
+	validRecArray.push(AA40_SUPER_SPORTSMAN);
+	validRecArray.push(AA42_TRAPPER_SUPER_SPORTSMAN);
 
+
+	
+	
     for (var idx = 0; idx < activeHoldingsInfo.length; idx++) {
         if (exists(activeHoldingsInfo[idx].RecordType, validRecArray)) {
             isExist = true;
