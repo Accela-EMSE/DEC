@@ -809,7 +809,8 @@ function GetTagsForHarvestReprint(peopleSequenceNumber, year) {
         appTypeString = appTypeResult.toString();
         if (exists(appTypeString, validActiveholdingsArray)) {
             var newActiveTag = new ACTIVE_ITEM(itemCapId, itemCap, appTypeString);
-            if (newActiveTag.isActive(year)) {
+            //JIRA - 50282
+            if (newActiveTag.isActive()) {
                 availableActiveItems.push(newActiveTag);
             }
         }
