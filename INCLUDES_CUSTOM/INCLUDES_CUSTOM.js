@@ -7457,3 +7457,19 @@ function getEncryptPassword(sPassowrd) {
 
     return pwd;
 }
+function GetSubmissionDateArray(rowsValueArray) {
+	var submssionDtArray = new Array();
+    for (var vv in rowsValueArray) {
+        var tempArray = rowsValueArray[vv];
+        for (var row in tempArray) {
+            var tempObject = tempArray[row];
+            for (var val in tempObject) {
+                var fieldInfo = tempObject[val];
+                //logDebug(fieldInfo.columnName +":" +isNull(fieldInfo.fieldValue, ''));
+				if(fieldInfo.columnName == 'Submission Date')
+					submssionDtArray.push(fieldInfo.fieldValue);
+            }
+        }
+    }
+    return submssionDtArray;
+}
