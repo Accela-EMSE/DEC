@@ -956,8 +956,8 @@ function createPrivilagePanel(ruleParams) {
 function RunDMPLottery(frm, syear, swmu, schoicenum, isApplyLO, activeHoldings, nPreferencePoints) {
     var currDrawType = getDrawTypeByPeriod(syear);
 
-	var ruleParams = frm.getRulesParam();
-	
+    var ruleParams = frm.getRulesParam();
+
     var drw = new Draw_Obj(syear, swmu, schoicenum, currDrawType, isApplyLO);
     drw.IsNyResiDent = ruleParams.IsNyResiDent;
     drw.IsDisableForYear = ruleParams.IsDisableForYear;
@@ -6107,7 +6107,6 @@ function copyASIContactAppSpecificToRecordAppSpecific() {
     }
 
     loadAppSpecific4ACA(AInfo);
-    //logGlobals(AInfo);
     if (isNull(AInfo["License Year"], '') != '') {
         var exmsg = '';
         var f = new form_OBJECT(GS2_SCRIPT, OPTZ_TYPE_ALLFEES);
@@ -6147,7 +6146,7 @@ function copyASIContactAppSpecificToRecordAppSpecific() {
             }
         }
         if (appTypeString == 'Licenses/Sales/Application/Sporting') {
-            f.ExecuteBoRuleEngine();
+            SetExpressformForSelectedLics(f);
             if (f.MessageFish != "" && f.MessageHunter != "" && f.MessageLifeTime != "") {
                 exmsg += f.MessageFish;
             }
@@ -6187,7 +6186,19 @@ function SetExpressformForSelectedLics(frm) {
     frm.DriverLicenseNumber = AInfo["A_Driver_License_Number"];
     frm.NonDriverLicenseNumber = AInfo["A_Non_Driver_License_Number"];
 
-    if (appTypeString == 'Licenses/Sales/Application/Fishing' || appTypeString == 'Licenses/Sales/Application/Hunting and Fishing') {
+    var isFishSection = (appTypeString == 'Licenses/Sales/Application/Fishing' || appTypeString == 'Licenses/Sales/Application/Hunting and Fishing');
+    isFishSection = isFishSection || (appTypeString == 'Licenses/Sales/Application/Sporting');
+
+    var isHuntSection = (appTypeString == 'Licenses/Sales/Application/Hunting' || appTypeString == 'Licenses/Sales/Application/Hunting and Fishing');
+    isHuntSection = isHuntSection || (appTypeString == 'Licenses/Sales/Application/Sporting');
+
+    var isLifetimeSection = (appTypeString == 'Licenses/Sales/Application/Lifetime');
+    isLifetimeSection = isLifetimeSection || (appTypeString == 'Licenses/Sales/Application/Sporting');
+
+    var isTrapSection = (appTypeString == 'Licenses/Sales/Application/Trapping');
+    isTrapSection = isTrapSection || (appTypeString == 'Licenses/Sales/Application/Sporting');
+
+    if (isFishSection) {
         frm.SetSelected(LIC02_MARINE_REGISTRY, (AInfo["Marine Registry"] == "CHECKED"), 1);
         frm.SetSelected(LIC03_ONE_DAY_FISHING_LICENSE, (AInfo["One Day Fishing License"] == "CHECKED"), 1);
         frm.SetSelected(LIC26_SEVEN_DAY_FISHING_LICENSE, (AInfo["Seven Day Fishing License"] == "CHECKED"), 1);
@@ -6196,7 +6207,7 @@ function SetExpressformForSelectedLics(frm) {
         //frm.SetSelected(LIC66_FRESHWATER_FISHING_3Y, (AInfo["3 Year Freshwater Fishing"] == "CHECKED"), 1);
         //frm.SetSelected(LIC67_FRESHWATER_FISHING_5Y, (AInfo["5 Year Freshwater Fishing"] == "CHECKED"), 1);
     }
-    if (appTypeString == 'Licenses/Sales/Application/Hunting' || appTypeString == 'Licenses/Sales/Application/Hunting and Fishing') {
+    if (isHuntSection) {
         frm.SetSelected(LIC04_BOWHUNTING_PRIVILEGE, (AInfo["Bowhunting Privilege"] == "CHECKED"), 1);
         //3-5 Year
         //frm.SetSelected(LIC60_BOWHUNTING_PRIVILEGE_3Y, (AInfo["3 Year Bowhunting Privilege"] == "CHECKED"), 1);
@@ -6215,7 +6226,7 @@ function SetExpressformForSelectedLics(frm) {
         //frm.SetSelected(LIC68_TURKEY_PERMIT_3Y, (AInfo["3 Year Turkey Permit"] == "CHECKED"), 1);
         //frm.SetSelected(LIC69_TURKEY_PERMIT_5Y, (AInfo["5 Year Turkey Permit"] == "CHECKED"), 1);
     }
-    if (appTypeString == 'Licenses/Sales/Application/Lifetime') {
+    if (isLifetimeSection) {
         frm.SetSelected(LIC10_LIFETIME_FISHING, (AInfo["Lifetime Fishing"] == "CHECKED"), 1);
         frm.SetSelected(LIC13_LIFETIME_SPORTSMAN, (AInfo["Lifetime Sportsman"] == "CHECKED"), 1);
         frm.SetSelected(LIC12_LIFETIME_SMALL_AND_BIG_GAME, (AInfo["Lifetime Small & Big Game"] == "CHECKED"), 1);
@@ -6226,7 +6237,7 @@ function SetExpressformForSelectedLics(frm) {
         frm.SetSelected(LIC56_TAG_DRIV_LIC_IMM, (AInfo["Add Lifetime to Driver License Re-Issue Immediately"] == "CHECKED"), 1);
         frm.SetSelected(LIC57_TAG_DRIV_LIC_REN, (AInfo["Add Lifetime to Driver License on Renewal"] == "CHECKED"), 1);
     }
-    if (appTypeString == 'Licenses/Sales/Application/Trapping') {
+    if (isTrapSection) {
         frm.SetSelected(LIC15_TRAPPING_LICENSE, (AInfo["Trapping License"] == "CHECKED"), 1);
         //3-5 Year
         //frm.SetSelected(LIC64_TRAPPING_LICENSE_3Y, (AInfo["3 Year Trapping License"] == "CHECKED"), 1);
@@ -7359,7 +7370,7 @@ function validatePublicUserCreation() {
             retmsg += "Please enter a valid Email Address." + "<BR>";
         }
     }
-  
+
     // check to see if public user exists already based on user Id
     var getUserResult = aa.publicUser.getPublicUserByUserId(newRegUserName);
     if (getUserResult.getSuccess() && getUserResult.getOutput()) {
@@ -7458,7 +7469,7 @@ function getEncryptPassword(sPassowrd) {
     return pwd;
 }
 function GetSubmissionDateArray(rowsValueArray) {
-	var submssionDtArray = new Array();
+    var submssionDtArray = new Array();
     for (var vv in rowsValueArray) {
         var tempArray = rowsValueArray[vv];
         for (var row in tempArray) {
@@ -7466,8 +7477,8 @@ function GetSubmissionDateArray(rowsValueArray) {
             for (var val in tempObject) {
                 var fieldInfo = tempObject[val];
                 //logDebug(fieldInfo.columnName +":" +isNull(fieldInfo.fieldValue, ''));
-				if(fieldInfo.columnName == 'Submission Date')
-					submssionDtArray.push(fieldInfo.fieldValue);
+                if (fieldInfo.columnName == 'Submission Date')
+                    submssionDtArray.push(fieldInfo.fieldValue);
             }
         }
     }
