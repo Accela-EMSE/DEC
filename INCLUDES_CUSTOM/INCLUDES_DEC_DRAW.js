@@ -105,7 +105,7 @@ function Draw_Obj(syear, swmu, schoicenum, sdrawtype, sapplyLandOwner) {
         var drawtype = this.DrawType;
         var ChoiceNum = this.ChoiceNum
         var bDisabledVet = (this.IsDisableForYear && this.IsMilitaryServiceman);
-
+		
         var drawResult = new DrawResult_OBJ();  //Result holder
         if (this.DrawType != DRAW_FCFS && this.DrawType != DRAW_INST && this.DrawType != DRAW_IBP) {
             return drawResult;
@@ -837,13 +837,16 @@ function randomNum() {
     }
 }
 function hitDraw(nProbability) {
+	logDebug("Pass Probability :" + nProbability);
     if (nProbability == 1) {
         return true;
     }
     if (nProbability == 0) {
         return false;
     }
+	logDebug("rndNum: " + rndNum);
     var rndNum = Math.random(100.00) * 10;
+	logDebug("probNum: " + probNum);
     var probNum = parseFloat(nProbability) * 10;
     return rndNum <= probNum;
 }
