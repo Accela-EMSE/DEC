@@ -424,7 +424,7 @@ function updateContacts() {
             }
         }
     }
-    if (appTypeString == 'Licenses/Sales/Application/Fishing' || appTypeString == 'Licenses/Sales/Application/Hunting' || appTypeString == 'Licenses/Sales/Application/Hunting and Fishing' || appTypeString == 'Licenses/Sales/Application/Trapping' || appTypeString == 'Licenses/Sales/Application/Lifetime' || appTypeString == 'Licenses/Sales/Application/Sporting') {
+    if (appTypeString == 'Licenses/Sales/Application/Fishing' || appTypeString == 'Licenses/Sales/Application/Hunting' || appTypeString == 'Licenses/Sales/Application/Hunting and Fishing' || appTypeString == 'Licenses/Sales/Application/Trapping' || appTypeString == 'Licenses/Sales/Application/Lifetime' || appTypeString == 'Licenses/Sales/Application/Sporting' || appTypeString == 'Licenses/Sales/Application/Marine Registry') {
         if (peopleSequenceNumber != null) {
             //Set contact ASI using cap asi
             var newAInfo = new Array();
@@ -616,7 +616,7 @@ function issueSelectedSalesItems(frm) {
     closeTask("Issuance", "Approved", "", "");
 
     //if (appMatch("Licenses/Annual/Application/NA")) {
-    if (appTypeString == 'Licenses/Annual/Application/NA' || appTypeString == 'Licenses/Sales/Application/Fishing' || appTypeString == 'Licenses/Sales/Application/Hunting' || appTypeString == 'Licenses/Sales/Application/Hunting and Fishing' || appTypeString == 'Licenses/Sales/Application/Trapping' || appTypeString == 'Licenses/Sales/Application/Lifetime' || appTypeString == 'Licenses/Sales/Application/Sporting') {
+    if (appTypeString == 'Licenses/Annual/Application/NA' || appTypeString == 'Licenses/Sales/Application/Fishing' || appTypeString == 'Licenses/Sales/Application/Hunting' || appTypeString == 'Licenses/Sales/Application/Hunting and Fishing' || appTypeString == 'Licenses/Sales/Application/Trapping' || appTypeString == 'Licenses/Sales/Application/Lifetime' || appTypeString == 'Licenses/Sales/Application/Sporting' || appTypeString == 'Licenses/Sales/Application/Marine Registry') {
         var seasonPeriod = GetDateRange(DEC_CONFIG, LICENSE_SEASON, frm.Year);
         clacFromDt = dateAdd(convertDate(seasonPeriod[1]), 0);
         setLicExpirationDate(capId, "", clacFromDt);
@@ -937,7 +937,7 @@ function issueSelectedSalesItems(frm) {
 
     distributeFeesAndPayments(capId, arryTargetCapAttrib, salesAgentInfoArray);
 
-    if (appTypeString == 'Licenses/Annual/Application/NA' || appTypeString == 'Licenses/Sales/Application/Fishing' || appTypeString == 'Licenses/Sales/Application/Hunting' || appTypeString == 'Licenses/Sales/Application/Hunting and Fishing' || appTypeString == 'Licenses/Sales/Application/Trapping' || appTypeString == 'Licenses/Sales/Application/Lifetime' || appTypeString == 'Licenses/Sales/Application/Sporting') {
+    if (appTypeString == 'Licenses/Annual/Application/NA' || appTypeString == 'Licenses/Sales/Application/Fishing' || appTypeString == 'Licenses/Sales/Application/Hunting' || appTypeString == 'Licenses/Sales/Application/Hunting and Fishing' || appTypeString == 'Licenses/Sales/Application/Trapping' || appTypeString == 'Licenses/Sales/Application/Lifetime' || appTypeString == 'Licenses/Sales/Application/Sporting' || appTypeString == 'Licenses/Sales/Application/Marine Registry') {
         updateContacts();
         if (!hmfulfilmmentCond.containsKey(fullfillCond)) {
             hmfulfilmmentCond.put(fullfillCond, fullfillCond);
@@ -959,7 +959,7 @@ function RunDMPLottery(frm, syear, swmu, schoicenum, isApplyLO, activeHoldings, 
     var ruleParams = frm.getRulesParam();
 
     var drw = new Draw_Obj(syear, swmu, schoicenum, currDrawType, isApplyLO);
-    drw.IsNyResiDent = ruleParams.IsNyResiDent;
+    drw.IsNyResiDent = ruleParams.IsNyResiDent || ruleParams.HasLifetimelic();
     drw.IsDisableForYear = ruleParams.IsDisableForYear;
     drw.IsMilitaryServiceman = ruleParams.IsMilitaryServiceman;
     drw.PreferencePoints = nPreferencePoints;
@@ -4649,7 +4649,7 @@ function afterApplicationPrintFail(itemCapId, numberOfTries) {
     var contactTypeToAttach = ''; //Balnk = All
     appTypeString = itemCap.getCapType();
 
-    if (appTypeString == 'Licenses/Annual/Application/NA' || appTypeString == 'Licenses/Sales/Application/Fishing' || appTypeString == 'Licenses/Sales/Application/Hunting' || appTypeString == 'Licenses/Sales/Application/Hunting and Fishing' || appTypeString == 'Licenses/Sales/Application/Trapping' || appTypeString == 'Licenses/Sales/Application/Lifetime' || appTypeString == 'Licenses/Sales/Application/Sporting') {
+    if (appTypeString == 'Licenses/Annual/Application/NA' || appTypeString == 'Licenses/Sales/Application/Fishing' || appTypeString == 'Licenses/Sales/Application/Hunting' || appTypeString == 'Licenses/Sales/Application/Hunting and Fishing' || appTypeString == 'Licenses/Sales/Application/Trapping' || appTypeString == 'Licenses/Sales/Application/Lifetime' || appTypeString == 'Licenses/Sales/Application/Sporting' || appTypeString == 'Licenses/Sales/Application/Marine Registry') {
 
     }
     else if (appTypeString == 'Licenses/Sales/Reprint/Documents') {
@@ -6110,7 +6110,7 @@ function copyASIContactAppSpecificToRecordAppSpecific() {
     if (isNull(AInfo["License Year"], '') != '') {
         var exmsg = '';
         var f = new form_OBJECT(GS2_SCRIPT, OPTZ_TYPE_ALLFEES);
-        if (appTypeString == 'Licenses/Sales/Application/Fishing') {
+        if (appTypeString == 'Licenses/Sales/Application/Fishing' || appTypeString == 'Licenses/Sales/Application/Marine Registry') {
             f.SetFishSaleExcludes();
             SetExpressformForSelectedLics(f);
             if (f.MessageFish != "") {
@@ -6186,7 +6186,7 @@ function SetExpressformForSelectedLics(frm) {
     frm.DriverLicenseNumber = AInfo["A_Driver_License_Number"];
     frm.NonDriverLicenseNumber = AInfo["A_Non_Driver_License_Number"];
 
-    var isFishSection = (appTypeString == 'Licenses/Sales/Application/Fishing' || appTypeString == 'Licenses/Sales/Application/Hunting and Fishing');
+    var isFishSection = (appTypeString == 'Licenses/Sales/Application/Fishing' || appTypeString == 'Licenses/Sales/Application/Hunting and Fishing' || appTypeString == 'Licenses/Sales/Application/Marine Registry');
     isFishSection = isFishSection || (appTypeString == 'Licenses/Sales/Application/Sporting');
 
     var isHuntSection = (appTypeString == 'Licenses/Sales/Application/Hunting' || appTypeString == 'Licenses/Sales/Application/Hunting and Fishing');
@@ -6255,7 +6255,7 @@ function isValidBuyExpressRecord(pStep) {
     if (pStep == 'Step1') {
         msg = verifyAnyExpressSalesSelect();
         retMsg += msg;
-        if (appTypeString == 'Licenses/Sales/Application/Fishing' || appTypeString == 'Licenses/Sales/Application/Hunting and Fishing' || appTypeString == 'Licenses/Sales/Application/Sporting') {
+        if (appTypeString == 'Licenses/Sales/Application/Fishing' || appTypeString == 'Licenses/Sales/Application/Hunting and Fishing' || appTypeString == 'Licenses/Sales/Application/Sporting' || appTypeString == 'Licenses/Sales/Application/Marine Registry') {
             logDebug("call validateFishingdates()...");
             msg = validateFishingdates();
             retMsg += msg;
@@ -6328,7 +6328,7 @@ function verifyAnyExpressSalesSelect() {
         //isChecked = isChecked || (AInfo["5 Year Trapping License"] == "CHECKED");
     }
 
-    if (appTypeString == 'Licenses/Sales/Application/Fishing' || appTypeString == 'Licenses/Sales/Application/Hunting and Fishing' || appTypeString == 'Licenses/Sales/Application/Sporting') {
+    if (appTypeString == 'Licenses/Sales/Application/Fishing' || appTypeString == 'Licenses/Sales/Application/Hunting and Fishing' || appTypeString == 'Licenses/Sales/Application/Sporting' || appTypeString == 'Licenses/Sales/Application/Marine Registry') {
         isChecked = isChecked || (AInfo["Freshwater Fishing"] == "CHECKED");
         isChecked = isChecked || (AInfo["One Day Fishing License"] == "CHECKED");
         isChecked = isChecked || (AInfo["Seven Day Fishing License"] == "CHECKED");
