@@ -225,8 +225,8 @@ function SetLTFullfillmentLogic() {
                             if (fvMailStop)
                                 continue;
                             uniqueCapIdArray.put(recId, recId);
-                            altId = itemCapId.getCustomID();
-                            var isSuccess = generateReport(altId);
+							altId = itemCapId.getCustomID();
+                            var isSuccess = generateReport(itemCapId);
                             if (setPrefix.length > 0) {
                                 addCapSetMemberX(itemCapId, setResult);
                             }
