@@ -301,18 +301,20 @@ function updateSetStatusX(setName, setDescription, setType, comment, setStatus, 
     }
 }
 
-function generateReport(itemCap) {
+function generateReport(itemCapId) {
     var isSuccess = false;
     try {
         var parameters = aa.util.newHashMap();
-        parameters.put("PARENT", itemCap);
+        parameters.put("PARENT", itemCapId.getCustomID());
 
-        report = aa.reportManager.getReportInfoModelByName(reportName);
+        var report = aa.reportManager.getReportInfoModelByName(reportName);
         report = report.getOutput();
-        report.setCapId(itemCap);
+        //aa.print(report);
+        report.setCapId(itemCapId.toString());
         report.setModule("Licenses");
         report.setReportParameters(parameters);
-
+        // set the alt-id as that's what the EDMS is using.
+        report.getEDMSEntityIdModel().setAltId(itemCapId.getCustomID());
         var checkPermission = aa.reportManager.hasPermission(reportName, "admin");
         logDebug("Permission for report: " + checkPermission.getOutput().booleanValue());
 
@@ -322,6 +324,7 @@ function generateReport(itemCap) {
             if (reportResult) {
                 isSuccess = true;
             }
+            // not needed as the report is set up for EDMS
             if (false) {
                 reportResult = reportResult.getOutput();
                 logDebug("Report result: " + reportResult);
@@ -397,9 +400,8 @@ function GenerateMissingReportForSets(pSetName) {
     while (rSet.next()) {
         var itemCapId = aa.cap.getCapID(rSet.getString("B1_PER_ID1"), rSet.getString("B1_PER_ID2"), rSet.getString("B1_PER_ID3")).getOutput();
         logDebug(itemCapId);
-        var altId = itemCapId.getCustomID();
         //var itemCap = aa.cap.getCap(itemCapId).getOutput();
-        var isSuccess = generateReport(altId);
+        var isSuccess = generateReport(itemCapId);
     }
 
     conn.close();
