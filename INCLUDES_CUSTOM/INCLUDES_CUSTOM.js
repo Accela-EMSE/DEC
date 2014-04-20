@@ -7484,3 +7484,105 @@ function GetSubmissionDateArray(rowsValueArray) {
     }
     return submssionDtArray;
 }
+Date.prototype.format = function (format) {
+    var o = {
+        "M+": this.getMonth() + 1, //month
+        "d+": this.getDate(),    //day
+        "h+": this.getHours(),   //hour
+        "m+": this.getMinutes(), //minute
+        "s+": this.getSeconds(), //second
+        "q+": Math.floor((this.getMonth() + 3) / 3),  //quarter
+        "S": this.getMilliseconds() //millisecond
+    }
+
+    if (/(y+)/.test(format)) format = format.replace(RegExp.$1,
+    (this.getFullYear() + "").substr(4 - RegExp.$1.length));
+    for (var k in o) if (new RegExp("(" + k + ")").test(format))
+        format = format.replace(RegExp.$1,
+      RegExp.$1.length == 1 ? o[k] :
+        ("00" + o[k]).substr(("" + o[k]).length));
+    return format;
+}
+function addTimeLog() {
+    logDebug("ENTER: addTimeLog");
+    var now = new Date();
+    var sKey = controlString;
+    var sAction = "Action 2";
+    var nNumericMsec = now.getTime();
+    var sDateTimeValue = now.format("MM/dd/yyyy h:mm:ss");
+    var nVisitIndex = getVisitIndex(sKey, sAction);
+
+    var tableValueArray = {
+        "Key": sKey,
+        "Action": sAction,
+        "Visit Index": nVisitIndex + "",
+        "DateTime Value": sDateTimeValue,
+        "Numeric msec": nNumericMsec + ""
+    };
+
+    //save the latest reprint log to ASIT.
+    if (controlString == "ConvertToRealCapAfter") {
+        addToASITable("TIME LOG", tableValueArray);
+    } else {
+        var newAsitArray = GetTimeLogAsitTableArray(tableValueArray);
+
+        var asitModel = cap.getAppSpecificTableGroupModel();
+        var new_asit = addASITable4ACAPageFlow(asitModel, "TIME LOG", newAsitArray);
+    }
+    logDebug("EXIT: addTimeLog");
+}
+function GetTimeLogAsitTableArray(tableValueArray) {
+    logDebug("ENTER: GetTimeLogAsitTableArray");
+
+    var readOnly = "N";
+    var tempObject = new Array();
+    var tempArray = new Array();
+
+    var fieldInfo;
+    if (typeof (TIMELOG) == "object") {
+        for (y in TIMELOG) {
+			tempObject = new Array();
+			
+            fieldInfo = new asiTableValObj("Key", TIMELOG[y]["Key"], readOnly);
+            tempObject["Key"] = fieldInfo;
+            fieldInfo = new asiTableValObj("Action", TIMELOG[y]["Action"], readOnly);
+            tempObject["Action"] = fieldInfo;
+            fieldInfo = new asiTableValObj("Visit Index", TIMELOG[y]["Visit Index"], readOnly);
+            tempObject["Visit Index"] = fieldInfo;
+            fieldInfo = new asiTableValObj("DateTime Value", TIMELOG[y]["DateTime Value"], readOnly);
+            tempObject["DateTime Value"] = fieldInfo;
+            fieldInfo = new asiTableValObj("Numeric msec", TIMELOG[y]["Numeric msec"], readOnly);
+            tempObject["Numeric msec"] = fieldInfo;
+            tempArray.push(tempObject);
+        }
+    }
+
+	tempObject = new Array();
+	
+    fieldInfo = new asiTableValObj("Key", tableValueArray["Key"], readOnly);
+    tempObject["Key"] = fieldInfo;
+    fieldInfo = new asiTableValObj("Action", tableValueArray["Action"], readOnly);
+    tempObject["Action"] = fieldInfo;
+    fieldInfo = new asiTableValObj("Visit Index", tableValueArray["Visit Index"], readOnly);
+    tempObject["Visit Index"] = fieldInfo;
+    fieldInfo = new asiTableValObj("DateTime Value", tableValueArray["DateTime Value"], readOnly);
+    tempObject["DateTime Value"] = fieldInfo;
+    fieldInfo = new asiTableValObj("Numeric msec", tableValueArray["Numeric msec"], readOnly);
+    tempObject["Numeric msec"] = fieldInfo;
+
+    tempArray.push(tempObject);  // end of record
+
+    logDebug("EXIT: GetTimeLogAsitTableArray");
+    return tempArray;
+}
+function getVisitIndex(sKey, sAction) {
+    var nVisitIndex = 1;
+    if (typeof (TIMELOG) == "object") {
+        for (y in TIMELOG) {
+            if (TIMELOG[y]["Key"] + TIMELOG[y]["Action"] == sKey + sAction) {
+                nVisitIndex++;
+            }
+        }
+    }
+    return nVisitIndex;
+}
