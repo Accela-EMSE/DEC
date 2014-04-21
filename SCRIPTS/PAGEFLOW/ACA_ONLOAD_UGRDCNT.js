@@ -20,7 +20,7 @@
 var showMessage = false; 					// Set to true to see results in popup window
 var showDebug = false; 						// Set to true to see debug messages in popup window
 var preExecute = "PreExecuteForBeforeEvents"
-var controlString = "ACA ONSUBMIT BEFORE USER CREATION"; 	// Standard choice for control
+var controlString = "ACA ONLOAD UGRDCNT"; 	// Standard choice for control
 var documentOnly = false; 					// Document Only -- displays hierarchy of std choice steps
 var disableTokens = false; 					// turn off tokenizing of std choices (enables use of "{} and []")
 var useAppSpecificGroupName = false; 		// Use Group name when populating App Specific Info Values
@@ -110,7 +110,7 @@ loadAppSpecific4ACA(AInfo);
 //loadTaskSpecific(AInfo);						// Add task specific info
 //loadParcelAttributes(AInfo);						// Add parcel attributes
 //loadASITables();
-//loadASITables4ACA();
+loadASITables4ACA();
 
 logDebug("<B>EMSE Script Results for " + capIDString + "</B>");
 logDebug("capId = " + capId.getClass());
