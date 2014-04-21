@@ -424,7 +424,7 @@ function updateContacts() {
             }
         }
     }
-    if (appTypeString == 'Licenses/Sales/Application/Fishing' || appTypeString == 'Licenses/Sales/Application/Hunting' || appTypeString == 'Licenses/Sales/Application/Hunting and Fishing' || appTypeString == 'Licenses/Sales/Application/Trapping' || appTypeString == 'Licenses/Sales/Application/Lifetime' || appTypeString == 'Licenses/Sales/Application/Sporting' || appTypeString == 'Licenses/Sales/Application/Marine Registry') {
+    if (isExpressFlow()) {
         if (peopleSequenceNumber != null) {
             //Set contact ASI using cap asi
             var newAInfo = new Array();
@@ -616,7 +616,7 @@ function issueSelectedSalesItems(frm) {
     closeTask("Issuance", "Approved", "", "");
 
     //if (appMatch("Licenses/Annual/Application/NA")) {
-    if (appTypeString == 'Licenses/Annual/Application/NA' || appTypeString == 'Licenses/Sales/Application/Fishing' || appTypeString == 'Licenses/Sales/Application/Hunting' || appTypeString == 'Licenses/Sales/Application/Hunting and Fishing' || appTypeString == 'Licenses/Sales/Application/Trapping' || appTypeString == 'Licenses/Sales/Application/Lifetime' || appTypeString == 'Licenses/Sales/Application/Sporting' || appTypeString == 'Licenses/Sales/Application/Marine Registry') {
+    if (appTypeString == 'Licenses/Annual/Application/NA' || isExpressFlow()) {
         var seasonPeriod = GetDateRange(DEC_CONFIG, LICENSE_SEASON, frm.Year);
         clacFromDt = dateAdd(convertDate(seasonPeriod[1]), 0);
         setLicExpirationDate(capId, "", clacFromDt);
@@ -937,7 +937,7 @@ function issueSelectedSalesItems(frm) {
 
     distributeFeesAndPayments(capId, arryTargetCapAttrib, salesAgentInfoArray);
 
-    if (appTypeString == 'Licenses/Annual/Application/NA' || appTypeString == 'Licenses/Sales/Application/Fishing' || appTypeString == 'Licenses/Sales/Application/Hunting' || appTypeString == 'Licenses/Sales/Application/Hunting and Fishing' || appTypeString == 'Licenses/Sales/Application/Trapping' || appTypeString == 'Licenses/Sales/Application/Lifetime' || appTypeString == 'Licenses/Sales/Application/Sporting' || appTypeString == 'Licenses/Sales/Application/Marine Registry') {
+    if (appTypeString == 'Licenses/Annual/Application/NA' || isExpressFlow()) {
         updateContacts();
         if (!hmfulfilmmentCond.containsKey(fullfillCond)) {
             hmfulfilmmentCond.put(fullfillCond, fullfillCond);
@@ -4649,7 +4649,7 @@ function afterApplicationPrintFail(itemCapId, numberOfTries) {
     var contactTypeToAttach = ''; //Balnk = All
     appTypeString = itemCap.getCapType();
 
-    if (appTypeString == 'Licenses/Annual/Application/NA' || appTypeString == 'Licenses/Sales/Application/Fishing' || appTypeString == 'Licenses/Sales/Application/Hunting' || appTypeString == 'Licenses/Sales/Application/Hunting and Fishing' || appTypeString == 'Licenses/Sales/Application/Trapping' || appTypeString == 'Licenses/Sales/Application/Lifetime' || appTypeString == 'Licenses/Sales/Application/Sporting' || appTypeString == 'Licenses/Sales/Application/Marine Registry') {
+    if (appTypeString == 'Licenses/Annual/Application/NA' || isExpressFlow()) {
 
     }
     else if (appTypeString == 'Licenses/Sales/Reprint/Documents') {
@@ -5917,10 +5917,17 @@ function copyASIContactAppSpecificToRecordAppSpecific() {
             }
         }
     }
-
     var isNotValidToProceed = MSG_SUSPENSION;
 
-    var xArray = getApplicantArrayEx();
+    var uObj = new USEROBJ(publicUserID);
+
+    var xArray = new Array();
+    if (uObj.acctType == "CITIZEN") {
+        xArray = getApplicantArraybyPublicUserId(uObj.peopleSequenceNumber);
+    } else {
+        xArray = getApplicantArrayEx();
+    }
+
     var peopleSequenceNumber = null;
     var deceasedDate = null;
 
@@ -6110,35 +6117,36 @@ function copyASIContactAppSpecificToRecordAppSpecific() {
     if (isNull(AInfo["License Year"], '') != '') {
         var exmsg = '';
         var f = new form_OBJECT(GS2_SCRIPT, OPTZ_TYPE_ALLFEES);
-        if (appTypeString == 'Licenses/Sales/Application/Fishing' || appTypeString == 'Licenses/Sales/Application/Marine Registry') {
+
+        if (appTypeString == 'Licenses/Sales/Application/Fishing' || appTypeString == 'Licenses/Sales/Application/Marine Registry' || appTypeString == 'Licenses/Sales/Application/Fishing C' || appTypeString == 'Licenses/Sales/Application/Marine Registry C') {
             f.SetFishSaleExcludes();
             SetExpressformForSelectedLics(f);
             if (f.MessageFish != "") {
                 exmsg += f.MessageFish;
             }
         }
-        if (appTypeString == 'Licenses/Sales/Application/Hunting') {
+        if (appTypeString == 'Licenses/Sales/Application/Hunting' || appTypeString == 'Licenses/Sales/Application/Hunting C') {
             f.SetHuntSaleExcludes();
             SetExpressformForSelectedLics(f);
             if (f.MessageHunter != "") {
                 exmsg += f.MessageHunter;
             }
         }
-        if (appTypeString == 'Licenses/Sales/Application/Trapping') {
+        if (appTypeString == 'Licenses/Sales/Application/Trapping' || appTypeString == 'Licenses/Sales/Application/Trapping C') {
             f.SetTrapSaleExcludes();
             SetExpressformForSelectedLics(f);
             if (f.MessageHunter != "") {
                 exmsg += f.MessageHunter;
             }
         }
-        if (appTypeString == 'Licenses/Sales/Application/Lifetime') {
+        if (appTypeString == 'Licenses/Sales/Application/Lifetime' || appTypeString == 'Licenses/Sales/Application/Lifetime C') {
             f.SetLifeTimeSaleExcludes();
             SetExpressformForSelectedLics(f);
             if (f.MessageLifeTime != "") {
                 exmsg += f.MessageLifeTime;
             }
         }
-        if (appTypeString == 'Licenses/Sales/Application/Hunting and Fishing') {
+        if (appTypeString == 'Licenses/Sales/Application/Hunting and Fishing' || appTypeString == 'Licenses/Sales/Application/Hunting and Fishing C') {
             f.SetHuntAndFishSaleExcludes();
             SetExpressformForSelectedLics(f);
             if (f.MessageFish != "" && f.MessageHunter != "") {
@@ -6188,15 +6196,23 @@ function SetExpressformForSelectedLics(frm) {
 
     var isFishSection = (appTypeString == 'Licenses/Sales/Application/Fishing' || appTypeString == 'Licenses/Sales/Application/Hunting and Fishing' || appTypeString == 'Licenses/Sales/Application/Marine Registry');
     isFishSection = isFishSection || (appTypeString == 'Licenses/Sales/Application/Sporting');
+    isFishSection = isFishSection || (appTypeString == 'Licenses/Sales/Application/Fishing C' || appTypeString == 'Licenses/Sales/Application/Hunting and Fishing C' || appTypeString == 'Licenses/Sales/Application/Marine Registry C');
+    isFishSection = isFishSection || (appTypeString == 'Licenses/Sales/Application/Sporting C');
 
     var isHuntSection = (appTypeString == 'Licenses/Sales/Application/Hunting' || appTypeString == 'Licenses/Sales/Application/Hunting and Fishing');
     isHuntSection = isHuntSection || (appTypeString == 'Licenses/Sales/Application/Sporting');
+    isHuntSection = isHuntSection || (appTypeString == 'Licenses/Sales/Application/Hunting C' || appTypeString == 'Licenses/Sales/Application/Hunting and Fishing C');
+    isHuntSection = isHuntSection || (appTypeString == 'Licenses/Sales/Application/Sporting C');
 
     var isLifetimeSection = (appTypeString == 'Licenses/Sales/Application/Lifetime');
     isLifetimeSection = isLifetimeSection || (appTypeString == 'Licenses/Sales/Application/Sporting');
+    isLifetimeSection = isLifetimeSection || (appTypeString == 'Licenses/Sales/Application/Lifetime C');
+    isLifetimeSection = isLifetimeSection || (appTypeString == 'Licenses/Sales/Application/Sporting C');
 
     var isTrapSection = (appTypeString == 'Licenses/Sales/Application/Trapping');
     isTrapSection = isTrapSection || (appTypeString == 'Licenses/Sales/Application/Sporting');
+    isTrapSection = (appTypeString == 'Licenses/Sales/Application/Trapping C');
+    isTrapSection = isTrapSection || (appTypeString == 'Licenses/Sales/Application/Sporting C');
 
     if (isFishSection) {
         frm.SetSelected(LIC02_MARINE_REGISTRY, (AInfo["Marine Registry"] == "CHECKED"), 1);
@@ -6255,12 +6271,12 @@ function isValidBuyExpressRecord(pStep) {
     if (pStep == 'Step1') {
         msg = verifyAnyExpressSalesSelect();
         retMsg += msg;
-        if (appTypeString == 'Licenses/Sales/Application/Fishing' || appTypeString == 'Licenses/Sales/Application/Hunting and Fishing' || appTypeString == 'Licenses/Sales/Application/Sporting' || appTypeString == 'Licenses/Sales/Application/Marine Registry') {
+        if (appTypeString == 'Licenses/Sales/Application/Fishing' || appTypeString == 'Licenses/Sales/Application/Hunting and Fishing' || appTypeString == 'Licenses/Sales/Application/Sporting' || appTypeString == 'Licenses/Sales/Application/Marine Registry' || appTypeString == 'Licenses/Sales/Application/Fishing C' || appTypeString == 'Licenses/Sales/Application/Hunting and Fishing C' || appTypeString == 'Licenses/Sales/Application/Sporting C' || appTypeString == 'Licenses/Sales/Application/Marine Registry C') {
             logDebug("call validateFishingdates()...");
             msg = validateFishingdates();
             retMsg += msg;
         }
-        if (appTypeString == 'Licenses/Sales/Application/Hunting' || appTypeString == 'Licenses/Sales/Application/Hunting and Fishing' || appTypeString == 'Licenses/Sales/Application/Sporting') {
+        if (appTypeString == 'Licenses/Sales/Application/Hunting' || appTypeString == 'Licenses/Sales/Application/Hunting and Fishing' || appTypeString == 'Licenses/Sales/Application/Sporting' || appTypeString == 'Licenses/Sales/Application/Hunting C' || appTypeString == 'Licenses/Sales/Application/Hunting and Fishing C' || appTypeString == 'Licenses/Sales/Application/Sporting C') {
             msg = verifyDMPinfo();
             if (msg != '') {
                 retMsg += msg;
@@ -6271,7 +6287,7 @@ function isValidBuyExpressRecord(pStep) {
                 retMsg += msg;
             }
         }
-        if (appTypeString == 'Licenses/Sales/Application/Sporting') {
+        if (appTypeString == 'Licenses/Sales/Application/Sporting' || appTypeString == 'Licenses/Sales/Application/Sporting C') {
             logDebug("Check ASI fields for valid numeric value...");
             if (!isValidIntegerNumber(AInfo["Quantity Trail Supporter Patch"])) {
                 retMsg += 'Please enter valid integer number for Quantity Trail Supporter Patch.';
@@ -6302,7 +6318,7 @@ function isValidBuyExpressRecord(pStep) {
 function verifyAnyExpressSalesSelect() {
     var retMsg = ''
     var isChecked = false;
-    if (appTypeString == 'Licenses/Sales/Application/Hunting' || appTypeString == 'Licenses/Sales/Application/Hunting and Fishing' || appTypeString == 'Licenses/Sales/Application/Sporting') {
+    if (appTypeString == 'Licenses/Sales/Application/Hunting' || appTypeString == 'Licenses/Sales/Application/Hunting and Fishing' || appTypeString == 'Licenses/Sales/Application/Sporting' || appTypeString == 'Licenses/Sales/Application/Hunting C' || appTypeString == 'Licenses/Sales/Application/Hunting and Fishing C' || appTypeString == 'Licenses/Sales/Application/Sporting C') {
         isChecked = isChecked || (AInfo["Bowhunting Privilege"] == "CHECKED");
         //3-5 Year
         //isChecked = isChecked || (AInfo["3 Year Bowhunting Privilege"] == "CHECKED");
@@ -6321,14 +6337,14 @@ function verifyAnyExpressSalesSelect() {
         //isChecked = isChecked || (AInfo["3 Year Turkey Permit"] == "CHECKED");
         //isChecked = isChecked || (AInfo["5 Year Turkey Permit"] == "CHECKED");
     }
-    if (appTypeString == 'Licenses/Sales/Application/Trapping' || appTypeString == 'Licenses/Sales/Application/Sporting') {
+    if (appTypeString == 'Licenses/Sales/Application/Trapping' || appTypeString == 'Licenses/Sales/Application/Sporting' || appTypeString == 'Licenses/Sales/Application/Trapping C' || appTypeString == 'Licenses/Sales/Application/Sporting C') {
         isChecked = isChecked || (AInfo["Trapping License"] == "CHECKED");
         //3-5 Year
         //isChecked = isChecked || (AInfo["3 Year Trapping License"] == "CHECKED");
         //isChecked = isChecked || (AInfo["5 Year Trapping License"] == "CHECKED");
     }
 
-    if (appTypeString == 'Licenses/Sales/Application/Fishing' || appTypeString == 'Licenses/Sales/Application/Hunting and Fishing' || appTypeString == 'Licenses/Sales/Application/Sporting' || appTypeString == 'Licenses/Sales/Application/Marine Registry') {
+    if (appTypeString == 'Licenses/Sales/Application/Fishing' || appTypeString == 'Licenses/Sales/Application/Hunting and Fishing' || appTypeString == 'Licenses/Sales/Application/Sporting' || appTypeString == 'Licenses/Sales/Application/Marine Registry' || appTypeString == 'Licenses/Sales/Application/Fishing C' || appTypeString == 'Licenses/Sales/Application/Hunting and Fishing C' || appTypeString == 'Licenses/Sales/Application/Sporting C' || appTypeString == 'Licenses/Sales/Application/Marine Registry C') {
         isChecked = isChecked || (AInfo["Freshwater Fishing"] == "CHECKED");
         isChecked = isChecked || (AInfo["One Day Fishing License"] == "CHECKED");
         isChecked = isChecked || (AInfo["Seven Day Fishing License"] == "CHECKED");
@@ -6337,7 +6353,7 @@ function verifyAnyExpressSalesSelect() {
         //isChecked = isChecked || (AInfo["3 Year Freshwater Fishing"] == "CHECKED");
         //isChecked = isChecked || (AInfo["5 Year Freshwater Fishing"] == "CHECKED");
     }
-    if (appTypeString == 'Licenses/Sales/Application/Lifetime' || appTypeString == 'Licenses/Sales/Application/Sporting') {
+    if (appTypeString == 'Licenses/Sales/Application/Lifetime' || appTypeString == 'Licenses/Sales/Application/Sporting' || appTypeString == 'Licenses/Sales/Application/Lifetime C' || appTypeString == 'Licenses/Sales/Application/Sporting C') {
         isChecked = isChecked || (AInfo["Lifetime Bowhunting"] == "CHECKED");
         isChecked = isChecked || (AInfo["Lifetime Fishing"] == "CHECKED");
         isChecked = isChecked || (AInfo["Lifetime Muzzleloading"] == "CHECKED");
@@ -6348,7 +6364,7 @@ function verifyAnyExpressSalesSelect() {
         isChecked = isChecked || (AInfo["Add Lifetime to Driver License Re-Issue Immediately"] == "CHECKED");
         isChecked = isChecked || (AInfo["Add Lifetime to Driver License on Renewal"] == "CHECKED");
     }
-    if (appTypeString == 'Licenses/Sales/Application/Sporting') {
+    if (appTypeString == 'Licenses/Sales/Application/Sporting' || appTypeString == 'Licenses/Sales/Application/Sporting C') {
         isChecked = isChecked || (AInfo["Habitat/Access Stamp"] == "CHECKED");
         isChecked = isChecked || (AInfo["Venison Donation"] == "CHECKED");
         isChecked = isChecked || (AInfo["Conservation Fund"] == "CHECKED");
@@ -7541,8 +7557,8 @@ function GetTimeLogAsitTableArray(tableValueArray) {
     var fieldInfo;
     if (typeof (TIMELOG) == "object") {
         for (y in TIMELOG) {
-			tempObject = new Array();
-			
+            tempObject = new Array();
+
             fieldInfo = new asiTableValObj("Key", TIMELOG[y]["Key"], readOnly);
             tempObject["Key"] = fieldInfo;
             fieldInfo = new asiTableValObj("Action", TIMELOG[y]["Action"], readOnly);
@@ -7557,8 +7573,8 @@ function GetTimeLogAsitTableArray(tableValueArray) {
         }
     }
 
-	tempObject = new Array();
-	
+    tempObject = new Array();
+
     fieldInfo = new asiTableValObj("Key", tableValueArray["Key"], readOnly);
     tempObject["Key"] = fieldInfo;
     fieldInfo = new asiTableValObj("Action", tableValueArray["Action"], readOnly);
@@ -7585,4 +7601,95 @@ function getVisitIndex(sKey, sAction) {
         }
     }
     return nVisitIndex;
+}
+
+function getApplicantArraybyPublicUserId(peopleSequenceNumber) {
+    //TODO
+    var aArray = new Array();
+    return aArray;
+
+    aArray["lastName"] = capContactObj.getPeople().lastName;
+    aArray["firstName"] = capContactObj.getPeople().firstName;
+    aArray["middleName"] = capContactObj.getPeople().middleName;
+    aArray["businessName"] = capContactObj.getPeople().businessName;
+    aArray["contactSeqNumber"] = capContactObj.getPeople().contactSeqNumber;
+    if (capContactObj.getCapContactModel == undefined) {
+        aArray["refcontactSeqNumber"] = capContactObj.getRefContactNumber();
+    } else {
+        aArray["refcontactSeqNumber"] = capContactObj.getCapContactModel().getRefContactNumber();
+    }
+    aArray["contactType"] = capContactObj.getPeople().contactType;
+    aArray["relation"] = capContactObj.getPeople().relation;
+    aArray["phone1"] = capContactObj.getPeople().phone1;
+    aArray["phone2"] = capContactObj.getPeople().phone2;
+    aArray["email"] = capContactObj.getPeople().email;
+    aArray["addressLine1"] = capContactObj.getPeople().getCompactAddress().getAddressLine1();
+    aArray["addressLine2"] = capContactObj.getPeople().getCompactAddress().getAddressLine2();
+    aArray["city"] = capContactObj.getPeople().getCompactAddress().getCity();
+    aArray["state"] = capContactObj.getPeople().getCompactAddress().getState();
+    aArray["zip"] = capContactObj.getPeople().getCompactAddress().getZip();
+    aArray["fax"] = capContactObj.getPeople().fax;
+    aArray["notes"] = capContactObj.getPeople().notes;
+    aArray["country"] = capContactObj.getPeople().getCompactAddress().getCountry();
+    aArray["fullName"] = capContactObj.getPeople().fullName;
+    aArray["gender"] = capContactObj.getPeople().gender;
+    aArray["birthDate"] = capContactObj.getPeople().birthDate;
+    aArray["driverLicenseNbr"] = capContactObj.getPeople().driverLicenseNbr;
+    aArray["driverLicenseState"] = capContactObj.getPeople().driverLicenseState;
+    aArray["deceasedDate"] = capContactObj.getPeople().deceasedDate;
+    aArray["passportNumber"] = capContactObj.getPeople().passportNumber;
+    aArray["stateIDNbr"] = capContactObj.getPeople().stateIDNbr;
+
+    var pa;
+    if (arguments.length == 1 && !cap.isCompleteCap() && controlString != "ApplicationSubmitAfter" && controlString != "ConvertToRealCapAfter") // using capModel to get contacts
+    {
+        logDebug("getApplicantInfoArray: retrieving ASI from capModel");
+
+        var subGroupArray = getTemplateValueByFormArrays(capContactObj.people.getTemplate(), null, null);
+        for (var subGroupName in subGroupArray) {
+            var fieldArray = subGroupArray[subGroupName];
+            for (var f in fieldArray) {
+                aArray[f] = fieldArray[f];
+            }
+        }
+    } else {
+        logDebug("getApplicantInfoArray: retrieving from database");
+
+        if (capContactObj.getCapContactModel().getPeople().getAttributes() != null) {
+            pa = capContactObj.getCapContactModel().getPeople().getAttributes().toArray();
+            for (xx1 in pa) {
+                aArray[pa[xx1].attributeName] = pa[xx1].attributeValue;
+            }
+        }
+    }
+
+    return aArray;
+}
+function isExpressFlow() {
+    var isValid = false;
+    var verifyExpressArray = new Array();
+    verifyExpressArray.push('Licenses/Sales/Application/Fishing');
+    verifyExpressArray.push('Licenses/Sales/Application/Hunting');
+    verifyExpressArray.push('Licenses/Sales/Application/Hunting and Fishing');
+    verifyExpressArray.push('Licenses/Sales/Application/Trapping');
+    verifyExpressArray.push('Licenses/Sales/Application/Lifetime');
+    verifyExpressArray.push('Licenses/Sales/Application/Sporting');
+    verifyExpressArray.push('Licenses/Sales/Application/Marine Registry');
+
+    isValid = (exists(appTypeString, verifyExpressArray));
+    return isValid;
+}
+function isPublicExpressFlow() {
+    var isValid = false;
+    var verifyExpressArray = new Array();
+    verifyExpressArray.push('Licenses/Sales/Application/Fishing C');
+    verifyExpressArray.push('Licenses/Sales/Application/Hunting C');
+    verifyExpressArray.push('Licenses/Sales/Application/Hunting and Fishing C');
+    verifyExpressArray.push('Licenses/Sales/Application/Trapping C');
+    verifyExpressArray.push('Licenses/Sales/Application/Lifetime C');
+    verifyExpressArray.push('Licenses/Sales/Application/Sporting C');
+    verifyExpressArray.push('Licenses/Sales/Application/Marine Registry C');
+
+    isValid = (exists(appTypeString, verifyExpressArray));
+    return isValid;
 }
