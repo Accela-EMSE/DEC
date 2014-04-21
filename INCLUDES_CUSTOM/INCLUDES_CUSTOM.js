@@ -289,12 +289,12 @@ function copyLicASI(newCap, newAInfo) {
                     ignore = true;
                     break;
                 }
-            if (ignore)
-                continue;
-        }
-        editAppSpecific(newAInfo[item].FieldName, newAInfo[item].Value, newCap);
+        if (ignore)
+            continue;
     }
-    logDebug("EXIT: copyLicASI");
+    editAppSpecific(newAInfo[item].FieldName, newAInfo[item].Value, newCap);
+}
+logDebug("EXIT: copyLicASI");
 }
 function updateContacts() {
     logDebug("ENTER: updateContacts");
@@ -1892,33 +1892,33 @@ function updateFeeWithVersion(fcode, fsched, fversion, fperiod, fqty, finvoice, 
                 }
             }
 
-        for (feeNum in feeList)
-            if (feeList[feeNum].getFeeitemStatus().equals("NEW") && !feeUpdated)  // update this fee item
-            {
-                feeSeq = feeList[feeNum].getFeeSeqNbr();
-                var editResult = aa.finance.editFeeItemUnit(capId, fqty, feeSeq);
-                feeUpdated = true;
-                if (editResult.getSuccess()) {
-                    logDebug("Updated Qty on Existing Fee Item: " + fcode + " to Qty: " + fqty);
-                    if (finvoice == "Y") {
-                        feeSeqList.push(feeSeq);
-                        paymentPeriodList.push(fperiod);
-                    }
+    for (feeNum in feeList)
+        if (feeList[feeNum].getFeeitemStatus().equals("NEW") && !feeUpdated)  // update this fee item
+        {
+            feeSeq = feeList[feeNum].getFeeSeqNbr();
+            var editResult = aa.finance.editFeeItemUnit(capId, fqty, feeSeq);
+            feeUpdated = true;
+            if (editResult.getSuccess()) {
+                logDebug("Updated Qty on Existing Fee Item: " + fcode + " to Qty: " + fqty);
+                if (finvoice == "Y") {
+                    feeSeqList.push(feeSeq);
+                    paymentPeriodList.push(fperiod);
                 }
-                else
-                { logDebug("**ERROR: updating qty on fee item (" + fcode + "): " + editResult.getErrorMessage()); break }
             }
-    }
-    else
-    { logDebug("**ERROR: getting fee items (" + fcode + "): " + getFeeResult.getErrorMessage()) }
+            else
+            { logDebug("**ERROR: updating qty on fee item (" + fcode + "): " + editResult.getErrorMessage()); break }
+        }
+}
+else
+{ logDebug("**ERROR: getting fee items (" + fcode + "): " + getFeeResult.getErrorMessage()) }
 
-    // Add fee if no fee has been updated OR invoiced fee already exists and duplicates are allowed
-    if (!feeUpdated && adjustedQty != 0 && (!invFeeFound || invFeeFound && pDuplicate == "Y"))
-        feeSeq = addFeeWithVersion(fcode, fsched, fversion, fperiod, adjustedQty, finvoice);
-    else
-        feeSeq = null;
+// Add fee if no fee has been updated OR invoiced fee already exists and duplicates are allowed
+if (!feeUpdated && adjustedQty != 0 && (!invFeeFound || invFeeFound && pDuplicate == "Y"))
+    feeSeq = addFeeWithVersion(fcode, fsched, fversion, fperiod, adjustedQty, finvoice);
+else
+    feeSeq = null;
 
-    return feeSeq;
+return feeSeq;
 }
 
 function transferReceiptAndApply(receiptCapId, targetCapId) {
@@ -2021,8 +2021,8 @@ function addStdConditionWithComments(cType, cDesc, cShortComment, cLongComment) 
                     logDebug("**ERROR: adding condition (" + standardCondition.getConditionDesc() + "): " + addCapCondResult.getErrorMessage());
                 }
             }
-    }
-    logDebug("EXIT: addStdConditionWithComments");
+}
+logDebug("EXIT: addStdConditionWithComments");
 }
 
 function distributeFeesAndPayments(sourceCapId, arryTargetCapAttrib, pSalesAgentInfoArray) {
@@ -2065,167 +2065,167 @@ function distributeFeesAndPayments(sourceCapId, arryTargetCapAttrib, pSalesAgent
                     invoiceNbrArray.push(pfObj[ij].getInvoiceNbr());
                     feeAllocationArray.push(pfObj[ij].getFeeAllocation());
                 }
-        }
-
-
-        if (feeSeqArray.length > 0) {
-            z = aa.finance.applyRefund(capId, thisPay, feeSeqArray, invoiceNbrArray, feeAllocationArray, "FeeStat", "InvStat", "123");
-            if (z.getSuccess())
-                logDebug("Refund applied")
-            else
-                logDebug("Error applying refund " + z.getErrorMessage());
-        }
     }
 
-    //
-    // Step 2: void from the source
-    //
-    logDebug("Step 2:  void from the source");
 
-    feeA = loadFees()
-
-    var feeCapMessage = "";
-    for (x in feeA) {
-        thisFee = feeA[x];
-        logDebug("status is " + thisFee.status)
-        if (thisFee.status == "INVOICED") {
-            voidResult = aa.finance.voidFeeItem(capId, thisFee.sequence);
-            if (voidResult.getSuccess()) {
-                logDebug("Fee item " + thisFee.code + "(" + thisFee.sequence + ") has been voided")
-            }
-            else {
-                logDebug("**ERROR: voiding fee item " + thisFee.code + "(" + thisFee.sequence + ") " + voidResult.getErrorMessage());
-            }
-
-            var feeSeqArray = new Array();
-            var paymentPeriodArray = new Array();
-
-            feeSeqArray.push(thisFee.sequence);
-            paymentPeriodArray.push(thisFee.period);
-            var invoiceResult_L = aa.finance.createInvoice(capId, feeSeqArray, paymentPeriodArray);
-
-            if (!invoiceResult_L.getSuccess())
-                logDebug("**ERROR: Invoicing the fee items voided " + feeCapMessage + " was not successful.  Reason: " + invoiceResult_L.getErrorMessage());
-        }
-    }
-
-    //
-    // Step 3: add the fees to the target and transfer the funds from Source to each Target cap
-    //
-    logDebug("Step 3: transfer the funds from Source to each Target cap");
-
-    var unapplied = paymentGetNotAppliedTot()
-    for (var item in arryTargetCapAttrib) {
-        var targetCapId = arryTargetCapAttrib[item].targetCapId;
-        var targetfd = arryTargetCapAttrib[item].targetFeeInfo;
-        var isForceComboCharge = arryTargetCapAttrib[item].isForceComboCharge;
-
-        var targetfeeSeq_L = new Array();    // invoicing fees
-        var targetpaymentPeriod_L = new Array();   // invoicing pay period
-        var feeSeqAndPeriodArray = new Array(); //return values for fees and period after added
-
-        var amtAgentCharge = parseFloat(parseFloat(targetfd.feeUnit) * parseFloat(targetfd.formula));
-        var cmnsPerc = GetCommissionByUser(targetfd.Code3commission + "", pSalesAgentInfoArray);
-
-        if (cmnsPerc > 0 || isForceComboCharge) {
-            //JIRA: 17343. Changed comission calculation. Calculate per unit commision then add it.
-            var amtCommission = 0;
-            if (parseFloat(targetfd.feeUnit) > 1) {
-                var amtPerUnitCommission = cmnsPerc == 0 ? 0 : (cmnsPerc * parseFloat(targetfd.formula)) / 100;
-                amtPerUnitCommission = (Math.round(amtPerUnitCommission * 100) / 100);
-                amtCommission = (amtPerUnitCommission * parseFloat(targetfd.feeUnit));
-                amtAgentCharge = parseFloat(parseFloat(targetfd.feeUnit) * parseFloat(targetfd.formula));
-            } else {
-                amtCommission = cmnsPerc == 0 ? 0 : (cmnsPerc * amtAgentCharge) / 100;
-            }
-
-            amtCommission = (Math.round(amtCommission * 100) / 100);
-            amtAgentCharge -= amtCommission;
-            feeSeqAndPeriodArray = addFeeWithVersionAndReturnfeeSeq("AGENT_CHARGE", targetfd.feeschedule, targetfd.version, "FINAL", amtAgentCharge, "Y", targetCapId)
-
-            targetfeeSeq_L.push(feeSeqAndPeriodArray[0]);
-            targetpaymentPeriod_L.push(feeSeqAndPeriodArray[1]);
-
-            feeSeqAndPeriodArray = addFeeWithVersionAndReturnfeeSeq("COMMISSION", targetfd.feeschedule, targetfd.version, "FINAL", amtCommission, "Y", targetCapId)
-            targetfeeSeq_L.push(feeSeqAndPeriodArray[0]);
-            targetpaymentPeriod_L.push(feeSeqAndPeriodArray[1]);
-        } else {
-            feeSeqAndPeriodArray = addFeeWithVersionAndReturnfeeSeq(targetfd.feeCode, targetfd.feeschedule, targetfd.version, "FINAL", targetfd.feeUnit, "Y", targetCapId)
-            targetfeeSeq_L.push(feeSeqAndPeriodArray[0]);
-            targetpaymentPeriod_L.push(feeSeqAndPeriodArray[1]);
-        }
-
-        createInvoice(targetfeeSeq_L, targetpaymentPeriod_L, targetCapId);
-
-        balanceDue = parseFloat(parseFloat(targetfd.feeUnit) * parseFloat(targetfd.formula));
-
-        //No need to check in dec case
-        //        if (unapplied < balanceDue) {
-        //            logDebug("insufficient funds to do transfer from receipt record");
-        //            return false;
-        //        }
-
-        var xferResult = aa.finance.makeFundTransfer(capId, targetCapId, currentUserID, "", "", sysDate, sysDate, "", sysDate, balanceDue, "NA", "Fund Transfer", "NA", "R", null, "", "NA", "");
-        if (xferResult.getSuccess())
-            logDebug("Successfully did fund transfer to : " + targetCapId.getCustomID());
+    if (feeSeqArray.length > 0) {
+        z = aa.finance.applyRefund(capId, thisPay, feeSeqArray, invoiceNbrArray, feeAllocationArray, "FeeStat", "InvStat", "123");
+        if (z.getSuccess())
+            logDebug("Refund applied")
         else
-            logDebug("**ERROR: doing fund transfer to (" + targetCapId.getCustomID() + "): " + xferResult.getErrorMessage());
+            logDebug("Error applying refund " + z.getErrorMessage());
+    }
+}
 
-        //
-        // Step 4: On the target, loop through payments then invoices to auto-apply
-        //
+//
+// Step 2: void from the source
+//
+logDebug("Step 2:  void from the source");
 
-        var piresult = aa.finance.getPaymentByCapID(targetCapId, null).getOutput()
+feeA = loadFees()
 
-        for (ik in piresult) {
-            var feeSeqArray = new Array();
-            var invoiceNbrArray = new Array();
-            var feeAllocationArray = new Array();
+var feeCapMessage = "";
+for (x in feeA) {
+    thisFee = feeA[x];
+    logDebug("status is " + thisFee.status)
+    if (thisFee.status == "INVOICED") {
+        voidResult = aa.finance.voidFeeItem(capId, thisFee.sequence);
+        if (voidResult.getSuccess()) {
+            logDebug("Fee item " + thisFee.code + "(" + thisFee.sequence + ") has been voided")
+        }
+        else {
+            logDebug("**ERROR: voiding fee item " + thisFee.code + "(" + thisFee.sequence + ") " + voidResult.getErrorMessage());
+        }
+
+        var feeSeqArray = new Array();
+        var paymentPeriodArray = new Array();
+
+        feeSeqArray.push(thisFee.sequence);
+        paymentPeriodArray.push(thisFee.period);
+        var invoiceResult_L = aa.finance.createInvoice(capId, feeSeqArray, paymentPeriodArray);
+
+        if (!invoiceResult_L.getSuccess())
+            logDebug("**ERROR: Invoicing the fee items voided " + feeCapMessage + " was not successful.  Reason: " + invoiceResult_L.getErrorMessage());
+    }
+}
+
+//
+// Step 3: add the fees to the target and transfer the funds from Source to each Target cap
+//
+logDebug("Step 3: transfer the funds from Source to each Target cap");
+
+var unapplied = paymentGetNotAppliedTot()
+for (var item in arryTargetCapAttrib) {
+    var targetCapId = arryTargetCapAttrib[item].targetCapId;
+    var targetfd = arryTargetCapAttrib[item].targetFeeInfo;
+    var isForceComboCharge = arryTargetCapAttrib[item].isForceComboCharge;
+
+    var targetfeeSeq_L = new Array();    // invoicing fees
+    var targetpaymentPeriod_L = new Array();   // invoicing pay period
+    var feeSeqAndPeriodArray = new Array(); //return values for fees and period after added
+
+    var amtAgentCharge = parseFloat(parseFloat(targetfd.feeUnit) * parseFloat(targetfd.formula));
+    var cmnsPerc = GetCommissionByUser(targetfd.Code3commission + "", pSalesAgentInfoArray);
+
+    if (cmnsPerc > 0 || isForceComboCharge) {
+        //JIRA: 17343. Changed comission calculation. Calculate per unit commision then add it.
+        var amtCommission = 0;
+        if (parseFloat(targetfd.feeUnit) > 1) {
+            var amtPerUnitCommission = cmnsPerc == 0 ? 0 : (cmnsPerc * parseFloat(targetfd.formula)) / 100;
+            amtPerUnitCommission = (Math.round(amtPerUnitCommission * 100) / 100);
+            amtCommission = (amtPerUnitCommission * parseFloat(targetfd.feeUnit));
+            amtAgentCharge = parseFloat(parseFloat(targetfd.feeUnit) * parseFloat(targetfd.formula));
+        } else {
+            amtCommission = cmnsPerc == 0 ? 0 : (cmnsPerc * amtAgentCharge) / 100;
+        }
+
+        amtCommission = (Math.round(amtCommission * 100) / 100);
+        amtAgentCharge -= amtCommission;
+        feeSeqAndPeriodArray = addFeeWithVersionAndReturnfeeSeq("AGENT_CHARGE", targetfd.feeschedule, targetfd.version, "FINAL", amtAgentCharge, "Y", targetCapId)
+
+        targetfeeSeq_L.push(feeSeqAndPeriodArray[0]);
+        targetpaymentPeriod_L.push(feeSeqAndPeriodArray[1]);
+
+        feeSeqAndPeriodArray = addFeeWithVersionAndReturnfeeSeq("COMMISSION", targetfd.feeschedule, targetfd.version, "FINAL", amtCommission, "Y", targetCapId)
+        targetfeeSeq_L.push(feeSeqAndPeriodArray[0]);
+        targetpaymentPeriod_L.push(feeSeqAndPeriodArray[1]);
+    } else {
+        feeSeqAndPeriodArray = addFeeWithVersionAndReturnfeeSeq(targetfd.feeCode, targetfd.feeschedule, targetfd.version, "FINAL", targetfd.feeUnit, "Y", targetCapId)
+        targetfeeSeq_L.push(feeSeqAndPeriodArray[0]);
+        targetpaymentPeriod_L.push(feeSeqAndPeriodArray[1]);
+    }
+
+    createInvoice(targetfeeSeq_L, targetpaymentPeriod_L, targetCapId);
+
+    balanceDue = parseFloat(parseFloat(targetfd.feeUnit) * parseFloat(targetfd.formula));
+
+    //No need to check in dec case
+    //        if (unapplied < balanceDue) {
+    //            logDebug("insufficient funds to do transfer from receipt record");
+    //            return false;
+    //        }
+
+    var xferResult = aa.finance.makeFundTransfer(capId, targetCapId, currentUserID, "", "", sysDate, sysDate, "", sysDate, balanceDue, "NA", "Fund Transfer", "NA", "R", null, "", "NA", "");
+    if (xferResult.getSuccess())
+        logDebug("Successfully did fund transfer to : " + targetCapId.getCustomID());
+    else
+        logDebug("**ERROR: doing fund transfer to (" + targetCapId.getCustomID() + "): " + xferResult.getErrorMessage());
+
+    //
+    // Step 4: On the target, loop through payments then invoices to auto-apply
+    //
+
+    var piresult = aa.finance.getPaymentByCapID(targetCapId, null).getOutput()
+
+    for (ik in piresult) {
+        var feeSeqArray = new Array();
+        var invoiceNbrArray = new Array();
+        var feeAllocationArray = new Array();
 
 
-            var thisPay = piresult[ik];
-            var applyAmt = 0;
-            var unallocatedAmt = thisPay.getAmountNotAllocated()
+        var thisPay = piresult[ik];
+        var applyAmt = 0;
+        var unallocatedAmt = thisPay.getAmountNotAllocated()
 
-            if (unallocatedAmt > 0) {
+        if (unallocatedAmt > 0) {
 
-                var invArray = aa.finance.getInvoiceByCapID(targetCapId, null).getOutput()
+            var invArray = aa.finance.getInvoiceByCapID(targetCapId, null).getOutput()
 
-                for (var invCount in invArray) {
-                    var thisInvoice = invArray[invCount];
-                    var balDue = thisInvoice.getInvoiceModel().getBalanceDue();
-                    if (balDue > 0) {
-                        feeT = aa.invoice.getFeeItemInvoiceByInvoiceNbr(thisInvoice.getInvNbr()).getOutput();
+            for (var invCount in invArray) {
+                var thisInvoice = invArray[invCount];
+                var balDue = thisInvoice.getInvoiceModel().getBalanceDue();
+                if (balDue > 0) {
+                    feeT = aa.invoice.getFeeItemInvoiceByInvoiceNbr(thisInvoice.getInvNbr()).getOutput();
 
-                        for (targetFeeNum in feeT) {
-                            var thisTFee = feeT[targetFeeNum];
+                    for (targetFeeNum in feeT) {
+                        var thisTFee = feeT[targetFeeNum];
 
-                            if (thisTFee.getFee() > unallocatedAmt)
-                                applyAmt = unallocatedAmt;
-                            else
-                                applyAmt = thisTFee.getFee()   // use balance here?
+                        if (thisTFee.getFee() > unallocatedAmt)
+                            applyAmt = unallocatedAmt;
+                        else
+                            applyAmt = thisTFee.getFee()   // use balance here?
 
-                            unallocatedAmt = unallocatedAmt - applyAmt;
+                        unallocatedAmt = unallocatedAmt - applyAmt;
 
-                            feeSeqArray.push(thisTFee.getFeeSeqNbr());
-                            invoiceNbrArray.push(thisInvoice.getInvNbr());
-                            feeAllocationArray.push(applyAmt);
-                        }
+                        feeSeqArray.push(thisTFee.getFeeSeqNbr());
+                        invoiceNbrArray.push(thisInvoice.getInvNbr());
+                        feeAllocationArray.push(applyAmt);
                     }
                 }
-
-                applyResult = aa.finance.applyPayment(targetCapId, thisPay, feeSeqArray, invoiceNbrArray, feeAllocationArray, "PAYSTAT", "INVSTAT", "123")
-
-                if (applyResult.getSuccess())
-                    logDebug("Successfully applied payment");
-                else
-                    logDebug("**ERROR: applying payment to fee (" + thisTFee.getFeeDescription() + "): " + applyResult.getErrorMessage());
-
             }
+
+            applyResult = aa.finance.applyPayment(targetCapId, thisPay, feeSeqArray, invoiceNbrArray, feeAllocationArray, "PAYSTAT", "INVSTAT", "123")
+
+            if (applyResult.getSuccess())
+                logDebug("Successfully applied payment");
+            else
+                logDebug("**ERROR: applying payment to fee (" + thisTFee.getFeeDescription() + "): " + applyResult.getErrorMessage());
+
         }
     }
-    //logDebug("Elapsed Time: " + elapsed());
-    logDebug("EXIT: distributeFeesAndPayments");
+}
+//logDebug("Elapsed Time: " + elapsed());
+logDebug("EXIT: distributeFeesAndPayments");
 }
 function GenerateDocumentNumber(currentID) {
     logDebug("ENTER: GenerateDocumentNumber");
@@ -3909,15 +3909,15 @@ function verifyNotMilitaryAndDisabled() {
     if ((typeof (ANNUALDISABILITY) == "object"))
         for (var y in ANNUALDISABILITY) rowNum++;
 
-    var MilitaryServiceman = (AInfo["Military Serviceman"] == "Yes");
-    var PermanentDisability = (AInfo["Permanent Disability"] == "Yes");
-    var HasAnnualDisability = (rowNum > 0);
+var MilitaryServiceman = (AInfo["Military Serviceman"] == "Yes");
+var PermanentDisability = (AInfo["Permanent Disability"] == "Yes");
+var HasAnnualDisability = (rowNum > 0);
 
-    if ((MilitaryServiceman ? 1 : 0) + (PermanentDisability ? 1 : 0) + (HasAnnualDisability ? 1 : 0) > 1) {
-        retMsg += "Please choose only one of Military Service, Permanent Disability, or Annual Disability.";
-        retMsg += "<Br />";
-    }
-    return retMsg;
+if ((MilitaryServiceman ? 1 : 0) + (PermanentDisability ? 1 : 0) + (HasAnnualDisability ? 1 : 0) > 1) {
+    retMsg += "Please choose only one of Military Service, Permanent Disability, or Annual Disability.";
+    retMsg += "<Br />";
+}
+return retMsg;
 }
 
 
@@ -4982,8 +4982,8 @@ function addContactStdConditionWithComments(contSeqNum, cType, cDesc) {
                     }
                 }
             }
-    }
-    if (!foundCondition) logDebug("**WARNING: couldn't find standard condition for " + cType + " / " + cDesc);
+}
+if (!foundCondition) logDebug("**WARNING: couldn't find standard condition for " + cType + " / " + cDesc);
 }
 
 function arrayUnique(array) {
@@ -5772,113 +5772,113 @@ function transferFeesAndPayments(sourceCapId, targetCapId) {
                     invoiceNbrArray.push(pfObj[ij].getInvoiceNbr());
                     feeAllocationArray.push(pfObj[ij].getFeeAllocation());
                 }
-        }
-
-        if (feeSeqArray.length > 0) {
-            z = aa.finance.applyRefund(capId, thisPay, feeSeqArray, invoiceNbrArray, feeAllocationArray, "FeeStat", "InvStat", "123");
-            if (z.getSuccess()) {
-                logDebug("Refund applied");
-            } else {
-                logDebug("Error applying refund " + z.getErrorMessage());
-            }
-        }
     }
 
-    //
-    // Step 2: add the fees to the target and void from the source
-    //
+    if (feeSeqArray.length > 0) {
+        z = aa.finance.applyRefund(capId, thisPay, feeSeqArray, invoiceNbrArray, feeAllocationArray, "FeeStat", "InvStat", "123");
+        if (z.getSuccess()) {
+            logDebug("Refund applied");
+        } else {
+            logDebug("Error applying refund " + z.getErrorMessage());
+        }
+    }
+}
 
-    feeA = loadFees()
+//
+// Step 2: add the fees to the target and void from the source
+//
 
-    for (x in feeA) {
-        thisFee = feeA[x];
-        logDebug("status is " + thisFee.status)
-        if (thisFee.status == "INVOICED") {
-            addFee(thisFee.code, thisFee.sched, thisFee.period, thisFee.unit, "Y", targetCapId)
-            voidResult = aa.finance.voidFeeItem(capId, thisFee.sequence);
-            if (voidResult.getSuccess()) {
-                logDebug("Fee item " + thisFee.code + "(" + thisFee.sequence + ") has been voided")
-            }
-            else {
-                logDebug("**ERROR: voiding fee item " + thisFee.code + "(" + thisFee.sequence + ") " + voidResult.getErrorMessage());
-            }
+feeA = loadFees()
 
-            var feeSeqArray = new Array();
-            var paymentPeriodArray = new Array();
-
-            feeSeqArray.push(thisFee.sequence);
-            paymentPeriodArray.push(thisFee.period);
-            var invoiceResult_L = aa.finance.createInvoice(capId, feeSeqArray, paymentPeriodArray);
-
-            if (!invoiceResult_L.getSuccess())
-                logDebug("**ERROR: Invoicing the fee items voided " + feeCapMessage + " was not successful.  Reason: " + invoiceResult.getErrorMessage());
+for (x in feeA) {
+    thisFee = feeA[x];
+    logDebug("status is " + thisFee.status)
+    if (thisFee.status == "INVOICED") {
+        addFee(thisFee.code, thisFee.sched, thisFee.period, thisFee.unit, "Y", targetCapId)
+        voidResult = aa.finance.voidFeeItem(capId, thisFee.sequence);
+        if (voidResult.getSuccess()) {
+            logDebug("Fee item " + thisFee.code + "(" + thisFee.sequence + ") has been voided")
+        }
+        else {
+            logDebug("**ERROR: voiding fee item " + thisFee.code + "(" + thisFee.sequence + ") " + voidResult.getErrorMessage());
         }
 
-    }
-
-    //
-    // Step 3: transfer the funds from Source to Target
-    //
-
-    var unapplied = paymentGetNotAppliedTot()
-
-    var xferResult = aa.finance.makeFundTransfer(capId, targetCapId, currentUserID, "", "", sysDate, sysDate, "", sysDate, unapplied, "NA", "Fund Transfer", "NA", "R", null, "", "NA", "");
-    if (xferResult.getSuccess())
-        logDebug("Successfully did fund transfer to : " + targetCapId.getCustomID());
-    else
-        logDebug("**ERROR: doing fund transfer to (" + targetCapId.getCustomID() + "): " + xferResult.getErrorMessage());
-
-    //
-    // Step 4: On the target, loop through payments then invoices to auto-apply
-    //
-
-    var piresult = aa.finance.getPaymentByCapID(targetCapId, null).getOutput()
-
-    for (ik in piresult) {
         var feeSeqArray = new Array();
-        var invoiceNbrArray = new Array();
-        var feeAllocationArray = new Array();
+        var paymentPeriodArray = new Array();
 
-        var thisPay = piresult[ik];
-        var applyAmt = 0;
-        var unallocatedAmt = thisPay.getAmountNotAllocated()
+        feeSeqArray.push(thisFee.sequence);
+        paymentPeriodArray.push(thisFee.period);
+        var invoiceResult_L = aa.finance.createInvoice(capId, feeSeqArray, paymentPeriodArray);
 
-        if (unallocatedAmt > 0) {
+        if (!invoiceResult_L.getSuccess())
+            logDebug("**ERROR: Invoicing the fee items voided " + feeCapMessage + " was not successful.  Reason: " + invoiceResult.getErrorMessage());
+    }
 
-            var invArray = aa.finance.getInvoiceByCapID(targetCapId, null).getOutput()
+}
 
-            for (var invCount in invArray) {
-                var thisInvoice = invArray[invCount];
-                var balDue = thisInvoice.getInvoiceModel().getBalanceDue();
-                if (balDue > 0) {
-                    feeT = aa.invoice.getFeeItemInvoiceByInvoiceNbr(thisInvoice.getInvNbr()).getOutput();
+//
+// Step 3: transfer the funds from Source to Target
+//
 
-                    for (targetFeeNum in feeT) {
-                        var thisTFee = feeT[targetFeeNum];
+var unapplied = paymentGetNotAppliedTot()
 
-                        if (thisTFee.getFee() > unallocatedAmt)
-                            applyAmt = unallocatedAmt;
-                        else
-                            applyAmt = thisTFee.getFee() // use balance here?
+var xferResult = aa.finance.makeFundTransfer(capId, targetCapId, currentUserID, "", "", sysDate, sysDate, "", sysDate, unapplied, "NA", "Fund Transfer", "NA", "R", null, "", "NA", "");
+if (xferResult.getSuccess())
+    logDebug("Successfully did fund transfer to : " + targetCapId.getCustomID());
+else
+    logDebug("**ERROR: doing fund transfer to (" + targetCapId.getCustomID() + "): " + xferResult.getErrorMessage());
 
-                        unallocatedAmt = unallocatedAmt - applyAmt;
+//
+// Step 4: On the target, loop through payments then invoices to auto-apply
+//
 
-                        feeSeqArray.push(thisTFee.getFeeSeqNbr());
-                        invoiceNbrArray.push(thisInvoice.getInvNbr());
-                        feeAllocationArray.push(applyAmt);
-                    }
+var piresult = aa.finance.getPaymentByCapID(targetCapId, null).getOutput()
+
+for (ik in piresult) {
+    var feeSeqArray = new Array();
+    var invoiceNbrArray = new Array();
+    var feeAllocationArray = new Array();
+
+    var thisPay = piresult[ik];
+    var applyAmt = 0;
+    var unallocatedAmt = thisPay.getAmountNotAllocated()
+
+    if (unallocatedAmt > 0) {
+
+        var invArray = aa.finance.getInvoiceByCapID(targetCapId, null).getOutput()
+
+        for (var invCount in invArray) {
+            var thisInvoice = invArray[invCount];
+            var balDue = thisInvoice.getInvoiceModel().getBalanceDue();
+            if (balDue > 0) {
+                feeT = aa.invoice.getFeeItemInvoiceByInvoiceNbr(thisInvoice.getInvNbr()).getOutput();
+
+                for (targetFeeNum in feeT) {
+                    var thisTFee = feeT[targetFeeNum];
+
+                    if (thisTFee.getFee() > unallocatedAmt)
+                        applyAmt = unallocatedAmt;
+                    else
+                        applyAmt = thisTFee.getFee() // use balance here?
+
+                    unallocatedAmt = unallocatedAmt - applyAmt;
+
+                    feeSeqArray.push(thisTFee.getFeeSeqNbr());
+                    invoiceNbrArray.push(thisInvoice.getInvNbr());
+                    feeAllocationArray.push(applyAmt);
                 }
             }
-
-            applyResult = aa.finance.applyPayment(targetCapId, thisPay, feeSeqArray, invoiceNbrArray, feeAllocationArray, "PAYSTAT", "INVSTAT", "123")
-
-            if (applyResult.getSuccess())
-                logDebug("Successfully applied payment");
-            else
-                logDebug("**ERROR: applying payment to fee (" + thisTFee.getFeeDescription() + "): " + applyResult.getErrorMessage());
-
         }
+
+        applyResult = aa.finance.applyPayment(targetCapId, thisPay, feeSeqArray, invoiceNbrArray, feeAllocationArray, "PAYSTAT", "INVSTAT", "123")
+
+        if (applyResult.getSuccess())
+            logDebug("Successfully applied payment");
+        else
+            logDebug("**ERROR: applying payment to fee (" + thisTFee.getFeeDescription() + "): " + applyResult.getErrorMessage());
+
     }
+}
 }
 //JIRA-47037
 function isValidRecForCreateRef() {
@@ -5886,6 +5886,7 @@ function isValidRecForCreateRef() {
     var recTypeArray = new Array();
     recTypeArray.push("Licenses/Other/Sportsmen/DMV ID Request");
     recTypeArray.push("Licenses/Customer/Registration/Application");
+    //TODO
     //recTypeArray.push("Licenses/Sales/Upgrade/Lifetime");
     //recTypeArray.push("Licenses/Sales/Void/Documents");
     //recTypeArray.push("Licenses/Sales/Reprint/Documents");
@@ -7523,7 +7524,13 @@ function addTimeLog() {
     logDebug("ENTER: addTimeLog");
     var now = new Date();
     var sKey = controlString;
-    var sAction = "Action 2";
+    var sAction = null;
+
+    var keyObj = getKeyActionByControlString(controlString);
+    if (keyObj) {
+        sKey = keyObj.Key;
+        sAction = keyObj.Action;
+    }
     var nNumericMsec = now.getTime();
     var sDateTimeValue = now.format("MM/dd/yyyy h:mm:ss");
     var nVisitIndex = getVisitIndex(sKey, sAction);
@@ -7533,7 +7540,8 @@ function addTimeLog() {
         "Action": sAction,
         "Visit Index": nVisitIndex + "",
         "DateTime Value": sDateTimeValue,
-        "Numeric msec": nNumericMsec + ""
+        "Numeric msec": nNumericMsec + "",
+        "controlString": controlString
     };
 
     //save the latest reprint log to ASIT.
@@ -7569,6 +7577,8 @@ function GetTimeLogAsitTableArray(tableValueArray) {
             tempObject["DateTime Value"] = fieldInfo;
             fieldInfo = new asiTableValObj("Numeric msec", TIMELOG[y]["Numeric msec"], readOnly);
             tempObject["Numeric msec"] = fieldInfo;
+            fieldInfo = new asiTableValObj("controlString", TIMELOG[y]["controlString"], readOnly);
+            tempObject["controlString"] = fieldInfo;
             tempArray.push(tempObject);
         }
     }
@@ -7585,6 +7595,8 @@ function GetTimeLogAsitTableArray(tableValueArray) {
     tempObject["DateTime Value"] = fieldInfo;
     fieldInfo = new asiTableValObj("Numeric msec", tableValueArray["Numeric msec"], readOnly);
     tempObject["Numeric msec"] = fieldInfo;
+    fieldInfo = new asiTableValObj("controlString", tableValueArray["controlString"], readOnly);
+    tempObject["controlString"] = fieldInfo;
 
     tempArray.push(tempObject);  // end of record
 
@@ -7664,6 +7676,208 @@ function getApplicantArraybyPublicUserId(peopleSequenceNumber) {
     }
 
     return aArray;
+}
+function getKeyActionByControlString(controlString) {
+    var tArray = new Array();
+    if (appTypeString == 'Licenses/Customer/Registration/Application') {
+        tArray['ACA_ONLOAD_USER_CREATION'] = { 'Key': 'Registration >> Enter User Information', 'Action': 'Onload' };
+        tArray['ACA_ONLOAD_REGISTER'] = { 'Key': 'Registration >> Account Claim', 'Action': 'Onload' };
+        tArray['ACA_ONSUBMIT_BEFORE_USER_CREATION'] = { 'Key': 'Registration >> Enter User Information', 'Action': 'Before' };
+        tArray['ACA_ONSUBMIT_BEFORE_REGISTER'] = { 'Key': 'Registration >> Account Claim', 'Action': 'Before' };
+        tArray['ACA_ONSUBMIT_AFTER_USER_CREATION'] = { 'Key': 'Registration >> Enter User Information', 'Action': 'After' };
+        tArray['ACA_ONSUBMIT_AFTER_REGISTER'] = { 'Key': 'Registration >> Account Claim', 'Action': 'After' };
+    }
+    if (appTypeString == 'Licenses/Other/Sportsmen/DMV ID Request') {
+        tArray['ACA_ONLOAD_DMV_REQ'] = { 'Key': 'DMV ID Request Details >> DMV Request Information', 'Action': 'Onload' };
+        tArray['ACA_ONSUBMIT_BEFORE_DMV_REQ'] = { 'Key': 'DMV ID Request Details >> DMV Request Information', 'Action': 'Before' };
+        tArray['ACA_ONSUBMIT_AFTER_DMV_REQ'] = { 'Key': 'DMV ID Request Details >> DMV Request Information', 'Action': 'After' };
+    }
+
+    if (appTypeString == 'Licenses/Sales/Reprint/Documents') {
+        tArray['ACA_ONLOAD_PRINTSTEP1'] = { 'Key': 'Replace A license >> Replace a License', 'Action': 'Onload' };
+        tArray['ACA_ONSUBMIT_AFTER_CONTCTSELCT'] = { 'Key': 'Select Documents to Reprint >> Replace Documents', 'Action': 'Onload' };
+        tArray['ACA_ONSUBMIT_BEFORE_PRINTSTEP1'] = { 'Key': 'Replace A license >> Replace a License', 'Action': 'Before' };
+        tArray['ACA_ONSUBMIT_BEFORE_PRINTSELCT'] = { 'Key': 'Select Documents to Reprint >> Replace Documents', 'Action': 'Before' };
+        tArray['ACA_ONSUBMIT_AFTER_PRINTSTEP1'] = { 'Key': 'Replace A license >> Replace a License', 'Action': 'After' };
+        tArray['ACA_ONSUBMIT_AFTER_PRINTSELCT'] = { 'Key': 'Select Documents to Reprint >> Replace Documents', 'Action': 'After' };
+    }
+    if (appTypeString == 'Licenses/Sales/Application/Sporting') {
+        tArray['ACA_ONLOAD_EXPRESS_P1'] = { 'Key': 'License/permit Types >> Applicant Details', 'Action': 'Onload' };
+        tArray['ACA_ONLOAD_EXPRESS_P2'] = { 'Key': 'License/permit Types >> Select License Year', 'Action': 'Onload' };
+        tArray['ACA_ONLOAD_EXPRS_ITEM'] = { 'Key': 'License/permit Types >> Select License Type', 'Action': 'Onload' };
+        tArray['ACA_ONSUBMIT_BEFORE_EXPRESS_P1'] = { 'Key': 'License/permit Types >> Applicant Details', 'Action': 'Before' };
+        tArray['ACA_ONSUBMIT_BEFORE_EXPRESS_P2'] = { 'Key': 'License/permit Types >> Select License Year', 'Action': 'Before' };
+        tArray['ACA_ONSUBMIT_BEFORE_EXPRS_ITEM'] = { 'Key': 'License/permit Types >> Select License Type', 'Action': 'Before' };
+        tArray['ACA_ONSUBMIT_AFTER_EXPRESS_P1'] = { 'Key': 'License/permit Types >> Applicant Details', 'Action': 'After' };
+        tArray['ACA_ONSUBMIT_AFTER_EXPRESS_P2'] = { 'Key': 'License/permit Types >> Select License Year', 'Action': 'After' };
+        tArray['ACA_ONSUBMIT_AFTER_EXPRS_ITEM'] = { 'Key': 'License/permit Types >> Select License Type', 'Action': 'After' };
+    }
+    if (appTypeString == 'Licenses/Sales/Application/Sporting C') {
+        tArray['ACA_ONLOAD_EXPRS_ITEM'] = { 'Key': 'License/permit Types >> Select License Type', 'Action': 'Onload' };
+        tArray['ACA_ONLOAD_EXPRESS_P2'] = { 'Key': 'License/permit Types >> Select License Year', 'Action': 'Onload' };
+        tArray['ACA_ONSUBMIT_BEFORE_EXPRS_ITEM'] = { 'Key': 'License/permit Types >> Select License Type', 'Action': 'Before' };
+        tArray['ACA_ONSUBMIT_BEFORE_EXPRESS_P2'] = { 'Key': 'License/permit Types >> Select License Year', 'Action': 'Before' };
+        tArray['ACA_ONSUBMIT_AFTER_EXPRS_ITEM'] = { 'Key': 'License/permit Types >> Select License Type', 'Action': 'After' };
+        tArray['ACA_ONSUBMIT_AFTER_EXPRESS_P2'] = { 'Key': 'License/permit Types >> Select License Year', 'Action': 'After' };
+    }
+    if (appTypeString == 'Licenses/Sales/Application/Fishing' || appTypeString == 'Licenses/Sales/Application/Marine Registry') {
+        tArray['ACA_ONLOAD_EXPRESS_P2'] = { 'Key': 'License/permit Types >> Select License Year', 'Action': 'Onload' };
+        tArray['ACA_ONLOAD_EXPRESS_P1'] = { 'Key': 'License/permit Types >> Applicant Details', 'Action': 'Onload' };
+        tArray['ACA_ONLOAD_EXPRS_ITEM'] = { 'Key': 'License/permit Types >> Select License Type', 'Action': 'Onload' };
+        tArray['ACA_ONSUBMIT_BEFORE_EXPRESS_P2'] = { 'Key': 'License/permit Types >> Select License Year', 'Action': 'Before' };
+        tArray['ACA_ONSUBMIT_BEFORE_EXPRESS_P1'] = { 'Key': 'License/permit Types >> Applicant Details', 'Action': 'Before' };
+        tArray['ACA_ONSUBMIT_BEFORE_EXPRS_ITEM'] = { 'Key': 'License/permit Types >> Select License Type', 'Action': 'Before' };
+        tArray['ACA_ONSUBMIT_AFTER_EXPRESS_P2'] = { 'Key': 'License/permit Types >> Select License Year', 'Action': 'After' };
+        tArray['ACA_ONSUBMIT_AFTER_EXPRESS_P1'] = { 'Key': 'License/permit Types >> Applicant Details', 'Action': 'After' };
+        tArray['ACA_ONSUBMIT_AFTER_EXPRS_ITEM'] = { 'Key': 'License/permit Types >> Select License Type', 'Action': 'After' };
+    }
+    if (appTypeString == 'Licenses/Sales/Application/Fishing C' || appTypeString == 'Licenses/Sales/Application/Marine Registry C') {
+        tArray['ACA_ONLOAD_EXPRS_ITEM'] = { 'Key': 'License/permit Types >> Select License Type', 'Action': 'Onload' };
+        tArray['ACA_ONLOAD_EXPRESS_P2'] = { 'Key': 'License/permit Types >> Select License Year', 'Action': 'Onload' };
+        tArray['ACA_ONSUBMIT_BEFORE_EXPRS_ITEM'] = { 'Key': 'License/permit Types >> Select License Type', 'Action': 'Before' };
+        tArray['ACA_ONSUBMIT_BEFORE_EXPRESS_P2'] = { 'Key': 'License/permit Types >> Select License Year', 'Action': 'Before' };
+        tArray['ACA_ONSUBMIT_AFTER_EXPRS_ITEM'] = { 'Key': 'License/permit Types >> Select License Type', 'Action': 'After' };
+        tArray['ACA_ONSUBMIT_AFTER_EXPRESS_P2'] = { 'Key': 'License/permit Types >> Select License Year', 'Action': 'After' };
+    }
+
+    if (appTypeString == 'Licenses/Sales/Application/Hunting') {
+        tArray['ACA_ONLOAD_EXPRESS_P2'] = { 'Key': 'License/permit Types >> Select License Year', 'Action': 'Onload' };
+        tArray['ACA_ONLOAD_EXPRS_ITEM'] = { 'Key': 'License/permit Types >>  Select License Type', 'Action': 'Onload' };
+        tArray['ACA_ONLOAD_EXPRESS_P1'] = { 'Key': 'License/permit Types >> Applicant Details', 'Action': 'Onload' };
+        tArray['ACA_ONSUBMIT_BEFORE_EXPRESS_P2'] = { 'Key': 'License/permit Types >> Select License Year', 'Action': 'Before' };
+        tArray['ACA_ONSUBMIT_BEFORE_EXPRS_ITEM'] = { 'Key': 'License/permit Types >>  Select License Type', 'Action': 'Before' };
+        tArray['ACA_ONSUBMIT_BEFORE_EXPRESS_P1'] = { 'Key': 'License/permit Types >> Applicant Details', 'Action': 'Before' };
+        tArray['ACA_ONSUBMIT_AFTER_EXPRESS_P2'] = { 'Key': 'License/permit Types >> Select License Year', 'Action': 'After' };
+        tArray['ACA_ONSUBMIT_AFTER_EXPRS_ITEM'] = { 'Key': 'License/permit Types >>  Select License Type', 'Action': 'After' };
+        tArray['ACA_ONSUBMIT_AFTER_EXPRESS_P1'] = { 'Key': 'License/permit Types >> Applicant Details', 'Action': 'After' };
+    }
+
+    if (appTypeString == 'Licenses/Sales/Application/Hunting C') {
+        tArray['ACA_ONLOAD_EXPRS_ITEM'] = { 'Key': 'License/permit Types >> Select License Type', 'Action': 'Onload' };
+        tArray['ACA_ONLOAD_EXPRESS_P2'] = { 'Key': 'License/permit Types >> Select License Year', 'Action': 'Onload' };
+        tArray['ACA_ONSUBMIT_BEFORE_EXPRS_ITEM'] = { 'Key': 'License/permit Types >> Select License Type', 'Action': 'Before' };
+        tArray['ACA_ONSUBMIT_BEFORE_EXPRESS_P2'] = { 'Key': 'License/permit Types >> Select License Year', 'Action': 'Before' };
+        tArray['ACA_ONSUBMIT_AFTER_EXPRS_ITEM'] = { 'Key': 'License/permit Types >> Select License Type', 'Action': 'After' };
+        tArray['ACA_ONSUBMIT_AFTER_EXPRESS_P2'] = { 'Key': 'License/permit Types >> Select License Year', 'Action': 'After' };
+    }
+    if (appTypeString == 'Licenses/Sales/Application/Hunting and Fishing') {
+        tArray['ACA_ONLOAD_EXPRESS_P1'] = { 'Key': 'License/permit Types >> Applicant Details', 'Action': 'Onload' };
+        tArray['ACA_ONLOAD_EXPRESS_P2'] = { 'Key': 'License/permit Types >> Select License Year', 'Action': 'Onload' };
+        tArray['ACA_ONLOAD_EXPRS_ITEM'] = { 'Key': 'License/permit Types >> Select License Type', 'Action': 'Onload' };
+        tArray['ACA_ONSUBMIT_BEFORE_EXPRESS_P1'] = { 'Key': 'License/permit Types >> Applicant Details', 'Action': 'Before' };
+        tArray['ACA_ONSUBMIT_BEFORE_EXPRESS_P2'] = { 'Key': 'License/permit Types >> Select License Year', 'Action': 'Before' };
+        tArray['ACA_ONSUBMIT_BEFORE_EXPRS_ITEM'] = { 'Key': 'License/permit Types >> Select License Type', 'Action': 'Before' };
+        tArray['ACA_ONSUBMIT_AFTER_EXPRESS_P1'] = { 'Key': 'License/permit Types >> Applicant Details', 'Action': 'After' };
+        tArray['ACA_ONSUBMIT_AFTER_EXPRESS_P2'] = { 'Key': 'License/permit Types >> Select License Year', 'Action': 'After' };
+        tArray['ACA_ONSUBMIT_AFTER_EXPRS_ITEM'] = { 'Key': 'License/permit Types >> Select License Type', 'Action': 'After' };
+    }
+    if (appTypeString == 'Licenses/Sales/Application/Hunting and Fishing C') {
+        tArray['ACA_ONLOAD_EXPRESS_P2'] = { 'Key': 'License/permit Types >> Select License Year', 'Action': 'Onload' };
+        tArray['ACA_ONLOAD_EXPRS_ITEM'] = { 'Key': 'License/permit Types >> Select License Type', 'Action': 'Onload' };
+        tArray['ACA_ONSUBMIT_BEFORE_EXPRESS_P2'] = { 'Key': 'License/permit Types >> Select License Year', 'Action': 'Before' };
+        tArray['ACA_ONSUBMIT_BEFORE_EXPRS_ITEM'] = { 'Key': 'License/permit Types >> Select License Type', 'Action': 'Before' };
+        tArray['ACA_ONSUBMIT_AFTER_EXPRESS_P2'] = { 'Key': 'License/permit Types >> Select License Year', 'Action': 'After' };
+        tArray['ACA_ONSUBMIT_AFTER_EXPRS_ITEM'] = { 'Key': 'License/permit Types >> Select License Type', 'Action': 'After' };
+    }
+    if (appTypeString == 'Licenses/Annual/Application/NA') {
+        tArray['ACA_ONLOAD_FILL_CNTCT'] = { 'Key': 'Contact Details >> Applicant Details', 'Action': 'Onload' };
+        tArray['ACA_ONLOAD_TBL_UPDATE'] = { 'Key': 'Licensee Details >> Licensee Details', 'Action': 'Onload' };
+        tArray['ACA_ONLOAD_SALESELECT'] = { 'Key': 'License/permit Types >> Select License Type', 'Action': 'Onload' };
+        tArray['ACA_ONLOAD_FILL_FROM_CONTACT'] = { 'Key': 'Contact Details >> Applicant Details', 'Action': 'Before' };
+        tArray['ACA_ONSUBMIT_BEFORE_TBL_UPDATE'] = { 'Key': 'Licensee Details >> Licensee Details', 'Action': 'Before' };
+        tArray['ACA_ONSUBMIT_BEFORE_SALESELECT'] = { 'Key': 'License/permit Types >> Select License Type', 'Action': 'Before' };
+        tArray['ACA_ONSUBMIT_AFTER_FILL_CNTCT'] = { 'Key': 'Contact Details >> Applicant Details', 'Action': 'After' };
+        tArray['ACA_ONSUBMIT_AFTER_TBL_UPDATE'] = { 'Key': 'Licensee Details >> Licensee Details', 'Action': 'After' };
+        tArray['ACA_ONSUBMIT_AFTER_SALESSELECT'] = { 'Key': 'License/permit Types >> Select License Type', 'Action': 'After' };
+    }
+    if (appTypeString == 'Licenses/Other/Sales/Application') {
+        tArray['ACA_ONLOAD_OTHERSALES'] = { 'Key': 'Sales Item Selection >> Select Other Sales Item', 'Action': 'Onload' };
+        tArray['ACA_ONSUBMIT_BEFORE_OTHERSALES'] = { 'Key': 'Sales Item Selection >> Select Other Sales Item', 'Action': 'Before' };
+        tArray['ACA_ONSUBMIT_AFTER_OTHERSALES'] = { 'Key': 'Sales Item Selection >> Select Other Sales Item', 'Action': 'After' };
+    }
+    if (appTypeString == 'Licenses/Other/Sportsmen/Game Harvest') {
+        tArray['ACA_ONLOAD_CARCASSTAG'] = { 'Key': 'Report Game Harvest >> Carcass Tag Information', 'Action': 'Onload' };
+        tArray['ACA_ONLOAD_VERIFYTAG'] = { 'Key': 'Kill Information >> Kill Information', 'Action': 'Onload' };
+        tArray['ACA_ONSUBMIT_BEFORE_CARCASSTAG'] = { 'Key': 'Report Game Harvest >> Carcass Tag Information', 'Action': 'Before' };
+        tArray['ACA_ONSUBMIT_BEFORE_VERIFYTAG'] = { 'Key': 'Kill Information >> Kill Information', 'Action': 'Before' };
+        tArray['ACA_ONSUBMIT_AFTER_CARCASSTAG'] = { 'Key': 'Report Game Harvest >> Carcass Tag Information', 'Action': 'After' };
+        tArray['ACA_ONSUBMIT_AFTER_VERIFYTAG'] = { 'Key': 'Kill Information >> Kill Information', 'Action': 'After' };
+    }
+    if (appTypeString == 'Licenses/Other/Sportsmen/Profile') {
+        tArray['ACA_UPDATE ALSO KNOWN AS'] = { 'Key': 'Applicant Details >> Applicant Details', 'Action': 'Onload' };
+        tArray['ACA_ONLOAD_TBL_UPDATE'] = { 'Key': 'Sportsman Profile >> Sportsman Profile', 'Action': 'Onload' };
+        tArray['ACA_ONLOAD_FILL_FROM_CONTACT'] = { 'Key': 'Applicant Details >> Applicant Details', 'Action': 'Before' };
+        tArray['ACA_ONSUBMIT_BEFORE_TBL_UPDATE'] = { 'Key': 'Sportsman Profile >> Sportsman Profile', 'Action': 'Before' };
+        tArray['ACA_ONSUBMIT_AFTER_FILL_CNTCT'] = { 'Key': 'Applicant Details >> Applicant Details', 'Action': 'After' };
+        tArray['ACA_ONSUBMIT_AFTER_TBL_UPDATE'] = { 'Key': 'Sportsman Profile >> Sportsman Profile', 'Action': 'After' };
+    }
+    if (appTypeString == 'Licenses/Sales/Application/Transfer') {
+        tArray['ACA_ONLOAD_TXFR_P1'] = { 'Key': 'Contact Details >> Applicant Details', 'Action': 'Onload' };
+        tArray['ACA_ONLOAD_TRANSFER'] = { 'Key': 'Licensee Details >> Selected License', 'Action': 'Onload' };
+        tArray['ACA_ONSUBMIT_AFTER_TXFR_P1'] = { 'Key': 'Contact Details >> Applicant Details', 'Action': 'Before' };
+        tArray['ACA_ONSUBMIT_BEFORE_TRANSFER'] = { 'Key': 'Licensee Details >> Selected License', 'Action': 'Before' };
+        tArray['ACA_ONSUBMIT_AFTER_TXFR_P1'] = { 'Key': 'Contact Details >> Applicant Details', 'Action': 'After' };
+        tArray['ACA_ONSUBMIT_AFTER_TRANSFER'] = { 'Key': 'Licensee Details >> Selected License', 'Action': 'After' };
+    }
+    if (appTypeString == 'Licenses/Sales/Application/Trapping') {
+        tArray['ACA_ONLOAD_EXPRESS_P1'] = { 'Key': 'License/permit Types >> Applicant Details', 'Action': 'Onload' };
+        tArray['ACA_ONLOAD_EXPRS_ITEM'] = { 'Key': 'License/permit Types >> Select License Type', 'Action': 'Onload' };
+        tArray['ACA_ONLOAD_EXPRESS_P2'] = { 'Key': 'License/permit Types >> Select License Year', 'Action': 'Onload' };
+        tArray['ACA_ONSUBMIT_BEFORE_EXPRESS_P1'] = { 'Key': 'License/permit Types >> Applicant Details', 'Action': 'Before' };
+        tArray['ACA_ONSUBMIT_BEFORE_EXPRS_ITEM'] = { 'Key': 'License/permit Types >> Select License Type', 'Action': 'Before' };
+        tArray['ACA_ONSUBMIT_BEFORE_EXPRESS_P2'] = { 'Key': 'License/permit Types >> Select License Year', 'Action': 'Before' };
+        tArray['ACA_ONSUBMIT_AFTER_EXPRESS_P1'] = { 'Key': 'License/permit Types >> Applicant Details', 'Action': 'After' };
+        tArray['ACA_ONSUBMIT_AFTER_EXPRS_ITEM'] = { 'Key': 'License/permit Types >> Select License Type', 'Action': 'After' };
+        tArray['ACA_ONSUBMIT_AFTER_EXPRESS_P2'] = { 'Key': 'License/permit Types >> Select License Year', 'Action': 'After' };
+    }
+    if (appTypeString == 'Licenses/Sales/Application/Trapping C') {
+        tArray['ACA_ONLOAD_EXPRESS_P2'] = { 'Key': 'License/permit Types >> Select License Year', 'Action': 'Onload' };
+        tArray['ACA_ONLOAD_EXPRS_ITEM'] = { 'Key': 'License/permit Types >> Select License Type', 'Action': 'Onload' };
+        tArray['ACA_ONSUBMIT_BEFORE_EXPRESS_P2'] = { 'Key': 'License/permit Types >> Select License Year', 'Action': 'Before' };
+        tArray['ACA_ONSUBMIT_BEFORE_EXPRS_ITEM'] = { 'Key': 'License/permit Types >> Select License Type', 'Action': 'Before' };
+        tArray['ACA_ONSUBMIT_AFTER_EXPRESS_P2'] = { 'Key': 'License/permit Types >> Select License Year', 'Action': 'After' };
+        tArray['ACA_ONSUBMIT_AFTER_EXPRS_ITEM'] = { 'Key': 'License/permit Types >> Select License Type', 'Action': 'After' };
+    }
+    if (appTypeString == 'Licenses/Sales/Upgrade/Lifetime') {
+        tArray['ACA_ONLOAD_UGRDCNT'] = { 'Key': 'Customer >> Applicant', 'Action': 'Onload' };
+        tArray['ACA_ONLOAD_UGRDSTEP2'] = { 'Key': 'Upgrade Information >> Select License', 'Action': 'Onload' };
+        tArray['ACA_ONLOAD_UGRDSTEP2'] = { 'Key': 'Upgrade Information >> Verify Tags', 'Action': 'Onload' };
+        tArray['ACA_ONSUBMIT_BEFORE_UGRDSTEP1'] = { 'Key': 'Customer >> Applicant', 'Action': 'Before' };
+        tArray['ACA_ONSUBMIT_BEFORE_UGRDSTEP1'] = { 'Key': 'Upgrade Information >> Select License', 'Action': 'Before' };
+        tArray['ACA_ONSUBMIT_BEFORE_UGRDSTEP2'] = { 'Key': 'Upgrade Information >> Verify Tags', 'Action': 'Before' };
+        tArray['ACA_ONSUBMIT_AFTER_UGRDCNT'] = { 'Key': 'Customer >> Applicant', 'Action': 'After' };
+        tArray['ACA_ONSUBMIT_AFTER_UGRDSTEP1'] = { 'Key': 'Upgrade Information >> Select License', 'Action': 'After' };
+        tArray['ACA_ONSUBMIT_AFTER_UGRDSTEP2'] = { 'Key': 'Upgrade Information >> Verify Tags', 'Action': 'After' };
+    }
+    if (appTypeString == 'Licenses/Sales/Void/Documents') {
+        tArray['ACA_ONLOAD_VDSLSTEP1'] = { 'Key': 'Enter Customer >> Enter Customer', 'Action': 'Onload' };
+        tArray['ACA_ONLOAD_VDSLSTEP2'] = { 'Key': 'Select documents to void >> Select documents to void', 'Action': 'Onload' };
+        tArray['ACA_ONSUBMIT_BEFORE_VDSLSTEP1'] = { 'Key': 'Enter Customer >> Enter Customer', 'Action': 'Before' };
+        tArray['ACA_ONSUBMIT_BEFORE_VDSLSTEP2'] = { 'Key': 'Select documents to void >> Select documents to void', 'Action': 'Before' };
+        tArray['ACA_ONSUBMIT_AFTER_VDSLSTEP1'] = { 'Key': 'Enter Customer >> Enter Customer', 'Action': 'After' };
+        tArray['ACA_ONSUBMIT_AFTER_VDSLSTEP2'] = { 'Key': 'Select documents to void >> Select documents to void', 'Action': 'After' };
+    }
+    if (appTypeString == 'Licenses/Sales/Application/Lifetime') {
+        tArray['ACA_ONLOAD_EXPRS_ITEM'] = { 'Key': 'License/permit Types >> Select License Type', 'Action': 'Onload' };
+        tArray['ACA_ONLOAD_EXPRESS_P2'] = { 'Key': 'License/permit Types >> Select License Year', 'Action': 'Onload' };
+        tArray['ACA_ONLOAD_EXPRESS_P1'] = { 'Key': 'License/permit Types >> Applicant Details', 'Action': 'Onload' };
+        tArray['ACA_ONSUBMIT_BEFORE_EXPRS_ITEM'] = { 'Key': 'License/permit Types >> Select License Type', 'Action': 'Before' };
+        tArray['ACA_ONSUBMIT_BEFORE_EXPRESS_P2'] = { 'Key': 'License/permit Types >> Select License Year', 'Action': 'Before' };
+        tArray['ACA_ONSUBMIT_BEFORE_EXPRESS_P1'] = { 'Key': 'License/permit Types >> Applicant Details', 'Action': 'Before' };
+        tArray['ACA_ONSUBMIT_AFTER_EXPRS_ITEM'] = { 'Key': 'License/permit Types >> Select License Type', 'Action': 'After' };
+        tArray['ACA_ONSUBMIT_AFTER_EXPRESS_P2'] = { 'Key': 'License/permit Types >> Select License Year', 'Action': 'After' };
+        tArray['ACA_ONSUBMIT_AFTER_EXPRESS_P1'] = { 'Key': 'License/permit Types >> Applicant Details', 'Action': 'After' };
+    }
+    if (appTypeString == 'Licenses/Sales/Application/Lifetime C') {
+        tArray['ACA_ONLOAD_EXPRESS_P2'] = { 'Key': 'License/permit Types >> Select License Year', 'Action': 'Onload' };
+        tArray['ACA_ONLOAD_EXPRS_ITEM'] = { 'Key': 'License/permit Types >> Select License Type', 'Action': 'Onload' };
+        tArray['ACA_ONSUBMIT_BEFORE_EXPRESS_P2'] = { 'Key': 'License/permit Types >> Select License Year', 'Action': 'Before' };
+        tArray['ACA_ONSUBMIT_BEFORE_EXPRS_ITEM'] = { 'Key': 'License/permit Types >> Select License Type', 'Action': 'Before' };
+        tArray['ACA_ONSUBMIT_AFTER_EXPRESS_P2'] = { 'Key': 'License/permit Types >> Select License Year', 'Action': 'After' };
+        tArray['ACA_ONSUBMIT_AFTER_EXPRS_ITEM'] = { 'Key': 'License/permit Types >> Select License Type', 'Action': 'After' };
+    }
+
+    return tArray[controlString];
 }
 function isExpressFlow() {
     var isValid = false;
