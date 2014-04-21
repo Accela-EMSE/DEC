@@ -988,7 +988,26 @@ function ReprintDocuments() {
             if (!parentMap.containsKey(pId)) {
                 parentMap.put(pId, pId);
             }
-            if (appMatch("Licenses/Annual/Application/NA", pId) || appMatch("Licenses/Sales/Reprint/Documents", pId) || appMatch("Licenses/Sales/Application/Fishing", pId) || appMatch("Licenses/Sales/Application/Hunting", pId) || appMatch("Licenses/Sales/Application/Hunting and Fishing", pId) || appMatch("Licenses/Sales/Application/Trapping", pId) || appMatch("Licenses/Sales/Application/Lifetime", pId) || appMatch("Licenses/Sales/Application/Sporting", pId)) {
+
+            var isAppMatchPid = false;
+            isAppMatchPid = isAppMatchPid || appMatch("Licenses/Annual/Application/NA", pId);
+            isAppMatchPid = isAppMatchPid || appMatch("Licenses/Sales/Reprint/Documents", pId);
+            isAppMatchPid = isAppMatchPid || appMatch("Licenses/Sales/Application/Fishing", pId);
+            isAppMatchPid = isAppMatchPid || appMatch("Licenses/Sales/Application/Marine Registry", pId);
+            isAppMatchPid = isAppMatchPid || appMatch("Licenses/Sales/Application/Hunting", pId);
+            isAppMatchPid = isAppMatchPid || appMatch("Licenses/Sales/Application/Hunting and Fishing", pId);
+            isAppMatchPid = isAppMatchPid || appMatch("Licenses/Sales/Application/Trapping", pId);
+            isAppMatchPid = isAppMatchPid || appMatch("Licenses/Sales/Application/Lifetime", pId);
+            isAppMatchPid = isAppMatchPid || appMatch("Licenses/Sales/Application/Sporting", pId);
+            isAppMatchPid = isAppMatchPid || appMatch("Licenses/Sales/Application/Fishing C", pId);
+            isAppMatchPid = isAppMatchPid || appMatch("Licenses/Sales/Application/Marine Registry C", pId);
+            isAppMatchPid = isAppMatchPid || appMatch("Licenses/Sales/Application/Hunting C", pId);
+            isAppMatchPid = isAppMatchPid || appMatch("Licenses/Sales/Application/Hunting and Fishing C", pId);
+            isAppMatchPid = isAppMatchPid || appMatch("Licenses/Sales/Application/Trapping C", pId);
+            isAppMatchPid = isAppMatchPid || appMatch("Licenses/Sales/Application/Lifetime C", pId);
+            isAppMatchPid = isAppMatchPid || appMatch("Licenses/Sales/Application/Sporting C", pId);
+
+            if (isAppMatchPid) {
                 childArr = getChildren("Licenses/Tag/Document/Privilege Panel", pId);
                 if (childArr != null && childArr.length > 0) {
                     var ppCapId = childArr[0];
@@ -1852,11 +1871,29 @@ function getOriginalLTCapId(altId) {
         if (appMatch("Licenses/Sales/Reprint/Documents", itemCapId)) {
             //Ignore
         }
-        else if (appMatch("Licenses/Annual/Application/NA", itemCapId) || appMatch("Licenses/Sales/Application/Fishing", itemCapId) || appMatch("Licenses/Sales/Application/Hunting", itemCapId) || appMatch("Licenses/Sales/Application/Hunting and Fishing", itemCapId) || appMatch("Licenses/Sales/Application/Trapping", itemCapId) || appMatch("Licenses/Sales/Application/Lifetime", itemCapId) || appMatch("Licenses/Sales/Application/Sporting", itemCapId)) {
-            return parentAltId;
-        }
         else {
-            parentAltId = getOriginalLTCapId(pAltId)
+            var isappmatchcapid = false;
+            isappmatchcapid = isappmatchcapid || appMatch("Licenses/Annual/Application/NA", itemCapId);
+            isappmatchcapid = isappmatchcapid || appMatch("Licenses/Sales/Application/Fishing", itemCapId);
+            isappmatchcapid = isappmatchcapid || appMatch("Licenses/Sales/Application/Marine Registry", itemCapId);
+            isappmatchcapid = isappmatchcapid || appMatch("Licenses/Sales/Application/Hunting", itemCapId);
+            isappmatchcapid = isappmatchcapid || appMatch("Licenses/Sales/Application/Hunting and Fishing", itemCapId);
+            isappmatchcapid = isappmatchcapid || appMatch("Licenses/Sales/Application/Trapping", itemCapId);
+            isappmatchcapid = isappmatchcapid || appMatch("Licenses/Sales/Application/Lifetime", itemCapId);
+            isappmatchcapid = isappmatchcapid || appMatch("Licenses/Sales/Application/Sporting", itemCapId);
+            isappmatchcapid = isappmatchcapid || appMatch("Licenses/Sales/Application/Fishing C", itemCapId);
+            isappmatchcapid = isappmatchcapid || appMatch("Licenses/Sales/Application/Marine Registry C", itemCapId);
+            isappmatchcapid = isappmatchcapid || appMatch("Licenses/Sales/Application/Hunting C", itemCapId);
+            isappmatchcapid = isappmatchcapid || appMatch("Licenses/Sales/Application/Hunting and Fishing C", itemCapId);
+            isappmatchcapid = isappmatchcapid || appMatch("Licenses/Sales/Application/Trapping C", itemCapId);
+            isappmatchcapid = isappmatchcapid || appMatch("Licenses/Sales/Application/Lifetime C", itemCapId);
+            isappmatchcapid = isappmatchcapid || appMatch("Licenses/Sales/Application/Sporting C", itemCapId);
+            if (isappmatchcapid) {
+                return parentAltId;
+            }
+            else {
+                parentAltId = getOriginalLTCapId(pAltId)
+            }
         }
     }
     return parentAltId;
@@ -2373,6 +2410,14 @@ function GetDocsToVoidSale(peopleSequenceNumber) {
     applicationToChechArray.push('Licenses/Sales/Application/Trapping');
     applicationToChechArray.push('Licenses/Sales/Application/Lifetime');
     applicationToChechArray.push('Licenses/Sales/Application/Sporting');
+    applicationToChechArray.push('Licenses/Sales/Application/Marine Registry');
+    applicationToChechArray.push('Licenses/Sales/Application/Fishing C');
+    applicationToChechArray.push('Licenses/Sales/Application/Hunting C');
+    applicationToChechArray.push('Licenses/Sales/Application/Hunting and Fishing C');
+    applicationToChechArray.push('Licenses/Sales/Application/Trapping C');
+    applicationToChechArray.push('Licenses/Sales/Application/Lifetime C');
+    applicationToChechArray.push('Licenses/Sales/Application/Sporting C');
+    applicationToChechArray.push('Licenses/Sales/Application/Marine Registry C');
 
     for (var aRec in applicationToChechArray) {
         logDebug(applicationToChechArray[aRec]);
@@ -2519,7 +2564,25 @@ function VoidsSales() {
         logDebug("itemCapId is " + itemCapId.getCustomID());
         if (itemCapId) {
             pId = getParent(itemCapId);
-            if (appMatch("Licenses/Annual/Application/NA", pId) || appMatch("Licenses/Sales/Application/Fishing", pId) || appMatch("Licenses/Sales/Application/Hunting", pId) || appMatch("Licenses/Sales/Application/Hunting and Fishing", pId) || appMatch("Licenses/Sales/Application/Trapping", pId) || appMatch("Licenses/Sales/Application/Lifetime", pId) || appMatch("Licenses/Sales/Application/Sporting", pId)) {
+
+            var isAppMatchPid = false;
+            isAppMatchPid = isAppMatchPid || appMatch("Licenses/Annual/Application/NA", pId);
+            isAppMatchPid = isAppMatchPid || appMatch("Licenses/Sales/Application/Fishing", pId);
+            isAppMatchPid = isAppMatchPid || appMatch("Licenses/Sales/Application/Marine Registry", pId);
+            isAppMatchPid = isAppMatchPid || appMatch("Licenses/Sales/Application/Hunting", pId);
+            isAppMatchPid = isAppMatchPid || appMatch("Licenses/Sales/Application/Hunting and Fishing", pId);
+            isAppMatchPid = isAppMatchPid || appMatch("Licenses/Sales/Application/Trapping", pId);
+            isAppMatchPid = isAppMatchPid || appMatch("Licenses/Sales/Application/Lifetime", pId);
+            isAppMatchPid = isAppMatchPid || appMatch("Licenses/Sales/Application/Sporting", pId);
+            isAppMatchPid = isAppMatchPid || appMatch("Licenses/Sales/Application/Fishing C", pId);
+            isAppMatchPid = isAppMatchPid || appMatch("Licenses/Sales/Application/Marine Registry C", pId);
+            isAppMatchPid = isAppMatchPid || appMatch("Licenses/Sales/Application/Hunting C", pId);
+            isAppMatchPid = isAppMatchPid || appMatch("Licenses/Sales/Application/Hunting and Fishing C", pId);
+            isAppMatchPid = isAppMatchPid || appMatch("Licenses/Sales/Application/Trapping C", pId);
+            isAppMatchPid = isAppMatchPid || appMatch("Licenses/Sales/Application/Lifetime C", pId);
+            isAppMatchPid = isAppMatchPid || appMatch("Licenses/Sales/Application/Sporting C", pId);
+
+            if (isAppMatchPid) {
                 logDebug("parent record is  " + pId.getCustomID());
                 childArr = getChildren("Licenses/Tag/Document/Privilege Panel", pId);
                 logDebug("child array is  " + childArr.length);
@@ -2809,7 +2872,17 @@ function voidInternal() {
         // find privilege panel - it is a child of this records parent application
         logDebug("VoidInternal: Re-creating privilege panel");
         pId = getParent(capId);
-        if (appMatch("Licenses/Annual/Application/NA", pId) || appMatch("Licenses/Sales/Application/Fishing", pId) || appMatch("Licenses/Sales/Application/Hunting", pId) || appMatch("Licenses/Sales/Application/Hunting and Fishing", pId) || appMatch("Licenses/Sales/Application/Trapping", pId) || appMatch("Licenses/Sales/Application/Lifetime", pId) || appMatch("Licenses/Sales/Application/Sporting", pId)) {
+        var isAppMatchPid = false;
+        isAppMatchPid = isAppMatchPid || appMatch("Licenses/Annual/Application/NA", pId);
+        isAppMatchPid = isAppMatchPid || appMatch("Licenses/Sales/Application/Fishing", pId);
+        isAppMatchPid = isAppMatchPid || appMatch("Licenses/Sales/Application/Marine Registry", pId);
+        isAppMatchPid = isAppMatchPid || appMatch("Licenses/Sales/Application/Hunting", pId);
+        isAppMatchPid = isAppMatchPid || appMatch("Licenses/Sales/Application/Hunting and Fishing", pId);
+        isAppMatchPid = isAppMatchPid || appMatch("Licenses/Sales/Application/Trapping", pId);
+        isAppMatchPid = isAppMatchPid || appMatch("Licenses/Sales/Application/Lifetime", pId);
+        isAppMatchPid = isAppMatchPid || appMatch("Licenses/Sales/Application/Sporting", pId);
+
+        if (isAppMatchPid) {
             childArr = getChildren("Licenses/Tag/Document/Privilege Panel", pId);
             if (childArr != null && childArr.length > 0) {
                 ppCapId = childArr[0];
