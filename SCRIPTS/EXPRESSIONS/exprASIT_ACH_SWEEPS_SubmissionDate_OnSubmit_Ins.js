@@ -42,7 +42,7 @@ for(var rowIndex=0; rowIndex<totalRowCount; rowIndex++){
 	}
 
 	if (doValidation) {
-		if(SubmissionDate.value!=null && formatDate(SubmissionDate.value,'yyyy/MM/dd')<formatDate(todayDate.getValue() ,'yyyy/MM/dd')){
+		if(SubmissionDate.value!=null && formatDate(SubmissionDate.value,'yyyy/MM/dd')<=formatDate(todayDate.getValue() ,'yyyy/MM/dd')){
 			SubmissionDate.message="Submission Date cannot be in past. Please change the date.";
 			form.message="Submission Date cannot be in past. Please change the date.";
 			form.blockSubmit=true;
