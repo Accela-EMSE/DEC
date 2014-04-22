@@ -31,9 +31,10 @@ if (peopleModel.getTemplate()) {
 	oldValueArray = GetSubmissionDateArray(subGroupArray["ACH SWEEPS"]);
 }
 
+form.message = "";
+SubmissionDate.message="";
 var totalRowCount = expression.getTotalRowCount();
 for(var rowIndex=0; rowIndex<totalRowCount; rowIndex++){
-	SubmissionDate.message="";
 	SubmissionDate=expression.getValue(rowIndex, "REFCONTACTTPLTABLE::AGNT_TABLES::ACH SWEEPS::Submission Date");
 	var doValidation = true;
 
@@ -43,8 +44,8 @@ for(var rowIndex=0; rowIndex<totalRowCount; rowIndex++){
 
 	if (doValidation) {
 		if(SubmissionDate.value!=null && formatDate(SubmissionDate.value,'yyyy/MM/dd')<=formatDate(todayDate.getValue() ,'yyyy/MM/dd')){
-			SubmissionDate.message="Submission Date cannot be in past. Please change the date.";
-			form.message="Submission Date cannot be in past. Please change the date.";
+			SubmissionDate.message="Submission Date should not be a current or prior date. Please change the following date: " + SubmissionDate.value;
+			form.message+="Submission Date should not be a current or prior date. Please change the following date: " + SubmissionDate.value + "<BR>";
 			form.blockSubmit=true;
 		}
 	}
