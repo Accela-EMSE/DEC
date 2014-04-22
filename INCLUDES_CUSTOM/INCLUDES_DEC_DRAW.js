@@ -317,7 +317,7 @@ function verifyC2(drwParam) {
     var drw = drwParam;
     var bDisabledVet = (drw.IsDisableForYear && drw.IsMilitaryServiceman);
     var result = new DrawResult_OBJ(drw.Wmu, drw.DrawType, drw.ChoiceNum, drw.PreferencePoints, drw.IsLanOwner, bDisabledVet, drw.IsNyResiDent);
-    result.Selected = (drw.ChoiceNum == '1' && bDisabledVet && drw.IsNyResiDent);
+    result.Selected = (drw.ChoiceNum == '1' && (drw.IsLanOwner || (drw.IsNyResiDent && bDisabledVet)));
 
     return result;
 }
@@ -373,7 +373,7 @@ function verifyC9(drwParam) {
     var drw = drwParam;
     var bDisabledVet = (drw.IsDisableForYear && drw.IsMilitaryServiceman);
     var result = new DrawResult_OBJ(drw.Wmu, drw.DrawType, drw.ChoiceNum, drw.PreferencePoints, drw.IsLanOwner, bDisabledVet, drw.IsNyResiDent);
-    result.Selected = (drw.ChoiceNum == '2' && drw.IsLanOwner == 0 && drw.IsNyResiDent && bDisabledVet);
+    result.Selected = (drw.ChoiceNum == '2' && (drw.IsLanOwner || (drw.IsNyResiDent && bDisabledVet)));
 
     return result;
 }
