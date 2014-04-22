@@ -1843,7 +1843,8 @@ function form_OBJECT(identity) {
                                     isExist = foundDrawType;
                                 }
                                 //
-                                break;
+								if(isExist)
+									break;
                             }
                         }
                         if (reasonForCheck == "PREREQ") {
@@ -1855,7 +1856,8 @@ function form_OBJECT(identity) {
                                     var diff = dateDiff(new Date(this.ActiveHoldingsInfo[idx].ToDate), seasonPeriod[1]);
                                     isExist = isExist && (diff <= 0)
                                 }
-                                break;
+								if(isExist)
+									break;
                             }
                         }
                     }
@@ -1926,7 +1928,8 @@ function form_OBJECT(identity) {
                                     isExist = foundDrawType;
                                 }
                                 //
-                                break;
+								if(isExist)
+									break;
                             }
                         }
                         if (reasonForCheck == "PREREQ") {
@@ -1938,7 +1941,8 @@ function form_OBJECT(identity) {
                                     var diff = dateDiff(new Date(this.ActiveHoldingsInfo[idx].ToDate), seasonPeriod[1]);
                                     isExist = isExist && (diff <= 0)
                                 }
-                                break;
+								if(isExist)
+									break;
                             }
                         }
                     }
