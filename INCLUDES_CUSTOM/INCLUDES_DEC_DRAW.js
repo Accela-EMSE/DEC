@@ -104,7 +104,7 @@ function Draw_Obj(syear, swmu, schoicenum, sdrawtype, sapplyLandOwner) {
         var wmu = this.Wmu;
         var drawtype = this.DrawType;
         var ChoiceNum = this.ChoiceNum
-        var bDisabledVet = (this.IsDisableForYear && this.IsMilitaryServiceman);
+        var bDisabledVet = (this.IsDisableForYear); //&& this.IsMilitaryServiceman
 
         var drawResult = new DrawResult_OBJ();  //Result holder
         if (this.DrawType != DRAW_FCFS && this.DrawType != DRAW_INST && this.DrawType != DRAW_IBP) {
@@ -307,7 +307,7 @@ function DrawResult_OBJ(sWmu, sDrawType, sChoiceNum, nPreferencePoints, bLandown
 }
 function verifyC1(drwParam) {
     var drw = drwParam;
-    var bDisabledVet = (drw.IsDisableForYear && drw.IsMilitaryServiceman);
+    var bDisabledVet = (drw.IsDisableForYear); //&& drw.IsMilitaryServiceman
     var result = new DrawResult_OBJ(drw.Wmu, drw.DrawType, drw.ChoiceNum, drw.PreferencePoints, drw.IsLanOwner, bDisabledVet, drw.IsNyResiDent);
     result.Selected = (drw.ChoiceNum == '1' && drw.PreferencePoints >= 3);
 
@@ -315,7 +315,7 @@ function verifyC1(drwParam) {
 }
 function verifyC2(drwParam) {
     var drw = drwParam;
-    var bDisabledVet = (drw.IsDisableForYear && drw.IsMilitaryServiceman);
+    var bDisabledVet = (drw.IsDisableForYear); //&& drw.IsMilitaryServiceman
     var result = new DrawResult_OBJ(drw.Wmu, drw.DrawType, drw.ChoiceNum, drw.PreferencePoints, drw.IsLanOwner, bDisabledVet, drw.IsNyResiDent);
     result.Selected = (drw.ChoiceNum == '1' && (drw.IsLanOwner || (drw.IsNyResiDent && bDisabledVet)));
 
@@ -323,7 +323,7 @@ function verifyC2(drwParam) {
 }
 function verifyC3(drwParam) {
     var drw = drwParam;
-    var bDisabledVet = (drw.IsDisableForYear && drw.IsMilitaryServiceman);
+    var bDisabledVet = (drw.IsDisableForYear); //&& drw.IsMilitaryServiceman
     var result = new DrawResult_OBJ(drw.Wmu, drw.DrawType, drw.ChoiceNum, drw.PreferencePoints, drw.IsLanOwner, bDisabledVet, drw.IsNyResiDent);
     result.Selected = (drw.ChoiceNum == '1' && drw.PreferencePoints == 2 && drw.IsNyResiDent && drw.havedefinedItems);
 
@@ -331,7 +331,7 @@ function verifyC3(drwParam) {
 }
 function verifyC4(drwParam) {
     var drw = drwParam;
-    var bDisabledVet = (drw.IsDisableForYear && drw.IsMilitaryServiceman);
+    var bDisabledVet = (drw.IsDisableForYear); //&& drw.IsMilitaryServiceman
     var result = new DrawResult_OBJ(drw.Wmu, drw.DrawType, drw.ChoiceNum, drw.PreferencePoints, drw.IsLanOwner, bDisabledVet, drw.IsNyResiDent);
     result.Selected = (drw.ChoiceNum == '1' && drw.PreferencePoints == 1 && drw.IsNyResiDent && drw.havedefinedItems);
 
@@ -339,7 +339,7 @@ function verifyC4(drwParam) {
 }
 function verifyC5(drwParam) {
     var drw = drwParam;
-    var bDisabledVet = (drw.IsDisableForYear && drw.IsMilitaryServiceman);
+    var bDisabledVet = (drw.IsDisableForYear); //&& drw.IsMilitaryServiceman
     var result = new DrawResult_OBJ(drw.Wmu, drw.DrawType, drw.ChoiceNum, drw.PreferencePoints, drw.IsLanOwner, bDisabledVet, drw.IsNyResiDent);
     result.Selected = (drw.ChoiceNum == '1' && drw.PreferencePoints == 0 && drw.IsNyResiDent && drw.havedefinedItems);
 
@@ -347,7 +347,7 @@ function verifyC5(drwParam) {
 }
 function verifyC6(drwParam) {
     var drw = drwParam;
-    var bDisabledVet = (drw.IsDisableForYear && drw.IsMilitaryServiceman);
+    var bDisabledVet = (drw.IsDisableForYear); //&& drw.IsMilitaryServiceman
     var result = new DrawResult_OBJ(drw.Wmu, drw.DrawType, drw.ChoiceNum, drw.PreferencePoints, drw.IsLanOwner, bDisabledVet, drw.IsNyResiDent);
     result.Selected = (drw.ChoiceNum == '1' && drw.PreferencePoints == 2 && !drw.IsNyResiDent);
 
@@ -355,7 +355,7 @@ function verifyC6(drwParam) {
 }
 function verifyC7(drwParam) {
     var drw = drwParam;
-    var bDisabledVet = (drw.IsDisableForYear && drw.IsMilitaryServiceman);
+    var bDisabledVet = (drw.IsDisableForYear); //&& drw.IsMilitaryServiceman
     var result = new DrawResult_OBJ(drw.Wmu, drw.DrawType, drw.ChoiceNum, drw.PreferencePoints, drw.IsLanOwner, bDisabledVet, drw.IsNyResiDent);
     result.Selected = (drw.ChoiceNum == '1' && drw.PreferencePoints == 1 && !drw.IsNyResiDent);
 
@@ -363,7 +363,7 @@ function verifyC7(drwParam) {
 }
 function verifyC8(drwParam) {
     var drw = drwParam;
-    var bDisabledVet = (drw.IsDisableForYear && drw.IsMilitaryServiceman);
+    var bDisabledVet = (drw.IsDisableForYear); //&& drw.IsMilitaryServiceman
     var result = new DrawResult_OBJ(drw.Wmu, drw.DrawType, drw.ChoiceNum, drw.PreferencePoints, drw.IsLanOwner, bDisabledVet, drw.IsNyResiDent);
     result.Selected = (drw.ChoiceNum == '1' && drw.PreferencePoints == 0 && !drw.IsNyResiDent);
 
@@ -371,7 +371,7 @@ function verifyC8(drwParam) {
 }
 function verifyC9(drwParam) {
     var drw = drwParam;
-    var bDisabledVet = (drw.IsDisableForYear && drw.IsMilitaryServiceman);
+    var bDisabledVet = (drw.IsDisableForYear); //&& drw.IsMilitaryServiceman
     var result = new DrawResult_OBJ(drw.Wmu, drw.DrawType, drw.ChoiceNum, drw.PreferencePoints, drw.IsLanOwner, bDisabledVet, drw.IsNyResiDent);
     result.Selected = (drw.ChoiceNum == '2' && (drw.IsLanOwner || (drw.IsNyResiDent && bDisabledVet)));
 
@@ -379,7 +379,7 @@ function verifyC9(drwParam) {
 }
 function verifyC10(drwParam) {
     var drw = drwParam;
-    var bDisabledVet = (drw.IsDisableForYear && drw.IsMilitaryServiceman);
+    var bDisabledVet = (drw.IsDisableForYear); //&& drw.IsMilitaryServiceman
     var result = new DrawResult_OBJ(drw.Wmu, drw.DrawType, drw.ChoiceNum, drw.PreferencePoints, drw.IsLanOwner, bDisabledVet, drw.IsNyResiDent);
     result.Selected = (drw.ChoiceNum == '2' && drw.PreferencePoints >= 3 && drw.IsNyResiDent && drw.havedefinedItems);
 
@@ -387,7 +387,7 @@ function verifyC10(drwParam) {
 }
 function verifyC11(drwParam) {
     var drw = drwParam;
-    var bDisabledVet = (drw.IsDisableForYear && drw.IsMilitaryServiceman);
+    var bDisabledVet = (drw.IsDisableForYear); //&& drw.IsMilitaryServiceman
     var result = new DrawResult_OBJ(drw.Wmu, drw.DrawType, drw.ChoiceNum, drw.PreferencePoints, drw.IsLanOwner, bDisabledVet, drw.IsNyResiDent);
     result.Selected = (drw.ChoiceNum == '2' && drw.PreferencePoints == 2 && drw.IsNyResiDent && drw.havedefinedItems);
 
@@ -395,7 +395,7 @@ function verifyC11(drwParam) {
 }
 function verifyC12(drwParam) {
     var drw = drwParam;
-    var bDisabledVet = (drw.IsDisableForYear && drw.IsMilitaryServiceman);
+    var bDisabledVet = (drw.IsDisableForYear); //&& drw.IsMilitaryServiceman
     var result = new DrawResult_OBJ(drw.Wmu, drw.DrawType, drw.ChoiceNum, drw.PreferencePoints, drw.IsLanOwner, bDisabledVet, drw.IsNyResiDent);
     result.Selected = (drw.ChoiceNum == '2' && drw.PreferencePoints == 1 && drw.IsNyResiDent && drw.havedefinedItems);
 
@@ -403,7 +403,7 @@ function verifyC12(drwParam) {
 }
 function verifyC13(drwParam) {
     var drw = drwParam;
-    var bDisabledVet = (drw.IsDisableForYear && drw.IsMilitaryServiceman);
+    var bDisabledVet = (drw.IsDisableForYear); //&& drw.IsMilitaryServiceman
     var result = new DrawResult_OBJ(drw.Wmu, drw.DrawType, drw.ChoiceNum, drw.PreferencePoints, drw.IsLanOwner, bDisabledVet, drw.IsNyResiDent);
     result.Selected = (drw.ChoiceNum == '2' && drw.PreferencePoints == 0 && drw.IsNyResiDent && drw.havedefinedItems);
 
@@ -411,7 +411,7 @@ function verifyC13(drwParam) {
 }
 function verifyC14(drwParam) {
     var drw = drwParam;
-    var bDisabledVet = (drw.IsDisableForYear && drw.IsMilitaryServiceman);
+    var bDisabledVet = (drw.IsDisableForYear); //&& drw.IsMilitaryServiceman
     var result = new DrawResult_OBJ(drw.Wmu, drw.DrawType, drw.ChoiceNum, drw.PreferencePoints, drw.IsLanOwner, bDisabledVet, drw.IsNyResiDent);
     result.Selected = (drw.ChoiceNum == '2' && drw.PreferencePoints >= 3 && !drw.IsNyResiDent);
 
@@ -419,7 +419,7 @@ function verifyC14(drwParam) {
 }
 function verifyC15(drwParam) {
     var drw = drwParam;
-    var bDisabledVet = (drw.IsDisableForYear && drw.IsMilitaryServiceman);
+    var bDisabledVet = (drw.IsDisableForYear); //&& drw.IsMilitaryServiceman
     var result = new DrawResult_OBJ(drw.Wmu, drw.DrawType, drw.ChoiceNum, drw.PreferencePoints, drw.IsLanOwner, bDisabledVet, drw.IsNyResiDent);
     result.Selected = (drw.ChoiceNum == '2' && drw.PreferencePoints == 2 && !drw.IsNyResiDent);
 
@@ -427,7 +427,7 @@ function verifyC15(drwParam) {
 }
 function verifyC16(drwParam) {
     var drw = drwParam;
-    var bDisabledVet = (drw.IsDisableForYear && drw.IsMilitaryServiceman);
+    var bDisabledVet = (drw.IsDisableForYear); //&& drw.IsMilitaryServiceman
     var result = new DrawResult_OBJ(drw.Wmu, drw.DrawType, drw.ChoiceNum, drw.PreferencePoints, drw.IsLanOwner, bDisabledVet, drw.IsNyResiDent);
     result.Selected = (drw.ChoiceNum == '2' && drw.PreferencePoints == 1 && !drw.IsNyResiDent);
 
@@ -435,7 +435,7 @@ function verifyC16(drwParam) {
 }
 function verifyC17(drwParam) {
     var drw = drwParam;
-    var bDisabledVet = (drw.IsDisableForYear && drw.IsMilitaryServiceman);
+    var bDisabledVet = (drw.IsDisableForYear); //&& drw.IsMilitaryServiceman
     var result = new DrawResult_OBJ(drw.Wmu, drw.DrawType, drw.ChoiceNum, drw.PreferencePoints, drw.IsLanOwner, bDisabledVet, drw.IsNyResiDent);
     result.Selected = (drw.ChoiceNum == '2' && drw.PreferencePoints == 0 && !drw.IsNyResiDent);
 
