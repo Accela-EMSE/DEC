@@ -7252,10 +7252,8 @@ function createLegacyLoadLic() {
                 setLicExpirationDate(newLicId, "", expDate, null, true);
 
                 //TODO: Fee
-                var feeCharge = "1.00"; //Fee from cap
-                //1. add fee (Invoiced)
-                addFeeWithVersion("AGENT_CHARGE", "FEE_TRANSFER_SCHDL", 1, "FINAL", feeCharge, "Y", newLicId);
-
+                var feeCharge = LICENSEINFORMATION[y]["Fee"]
+                addFeeWithVersion("AGENT_CHARGE", feeschedule, 1, "FINAL", feeCharge, "Y", newLicId);
                 //2. Void Fee (Payment Void)
             }
         } else {
