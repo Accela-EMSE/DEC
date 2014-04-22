@@ -100,6 +100,7 @@ function Draw_Obj(syear, swmu, schoicenum, sdrawtype, sapplyLandOwner) {
         return ordbAinfo;
     }
     this.RunLottery = function () {
+		logDebug(elapsed());
         var year = this.Year;
         var wmu = this.Wmu;
         var drawtype = this.DrawType;
@@ -202,6 +203,7 @@ function Draw_Obj(syear, swmu, schoicenum, sdrawtype, sapplyLandOwner) {
         }
 
         this.DrawResult = drawResult
+		logDebug(elapsed());
         return drawResult;
     }
 }
