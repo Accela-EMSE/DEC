@@ -157,7 +157,7 @@ function setSalesItemASI(newCap, recordType, decCode, quantity, wmuResult, wmu2R
             if (newAsitArray && newAsitArray.length > 0) {
                 addASITable("DRAW RESULT", newAsitArray, newCap)
                 //Update Contact Attribute
-                peopTemplateAttribute.put("PREFERENCE POINTS", wmu1Result.RemainingPreferencePoints);
+                peopTemplateAttribute.put("PREFERENCE POINTS", wmu1Result.RemainingPreferencePoints + "");
                 AInfo["CODE.PREFERENCE POINTS"] = wmu1Result.RemainingPreferencePoints;
             }
         }
