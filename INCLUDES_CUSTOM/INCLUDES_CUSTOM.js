@@ -7699,201 +7699,201 @@ function getApplicantArraybyPublicUserId(peopleSequenceNumber) {
 function getKeyActionByControlString(controlString) {
     var tArray = new Array();
     if (appTypeString == 'Licenses/Customer/Registration/Application') {
-        tArray['ACA_ONLOAD_USER_CREATION'] = { 'Key': 'Registration >> Enter User Information', 'Action': 'Onload' };
-        tArray['ACA_ONLOAD_REGISTER'] = { 'Key': 'Registration >> Account Claim', 'Action': 'Onload' };
-        tArray['ACA_ONSUBMIT_BEFORE_USER_CREATION'] = { 'Key': 'Registration >> Enter User Information', 'Action': 'Before' };
-        tArray['ACA_ONSUBMIT_BEFORE_REGISTER'] = { 'Key': 'Registration >> Account Claim', 'Action': 'Before' };
-        tArray['ACA_ONSUBMIT_AFTER_USER_CREATION'] = { 'Key': 'Registration >> Enter User Information', 'Action': 'After' };
-        tArray['ACA_ONSUBMIT_AFTER_REGISTER'] = { 'Key': 'Registration >> Account Claim', 'Action': 'After' };
+        tArray['ACA ONLOAD USER CREATION'] = { 'Key': 'Registration >> Enter User Information', 'Action': 'Onload' };
+        tArray['ACA ONLOAD REGISTER'] = { 'Key': 'Registration >> Account Claim', 'Action': 'Onload' };
+        tArray['ACA ONSUBMIT BEFORE USER CREATION'] = { 'Key': 'Registration >> Enter User Information', 'Action': 'Before' };
+        tArray['ACA ONSUBMIT BEFORE REGISTER'] = { 'Key': 'Registration >> Account Claim', 'Action': 'Before' };
+        tArray['ACA ONSUBMIT AFTER USER CREATION'] = { 'Key': 'Registration >> Enter User Information', 'Action': 'After' };
+        tArray['ACA ONSUBMIT AFTER REGISTER'] = { 'Key': 'Registration >> Account Claim', 'Action': 'After' };
     }
     if (appTypeString == 'Licenses/Other/Sportsmen/DMV ID Request') {
-        tArray['ACA_ONLOAD_DMV_REQ'] = { 'Key': 'DMV ID Request Details >> DMV Request Information', 'Action': 'Onload' };
-        tArray['ACA_ONSUBMIT_BEFORE_DMV_REQ'] = { 'Key': 'DMV ID Request Details >> DMV Request Information', 'Action': 'Before' };
-        tArray['ACA_ONSUBMIT_AFTER_DMV_REQ'] = { 'Key': 'DMV ID Request Details >> DMV Request Information', 'Action': 'After' };
+        tArray['ACA ONLOAD DMV REQ'] = { 'Key': 'DMV ID Request Details >> DMV Request Information', 'Action': 'Onload' };
+        tArray['ACA ONSUBMIT BEFORE DMV REQ'] = { 'Key': 'DMV ID Request Details >> DMV Request Information', 'Action': 'Before' };
+        tArray['ACA ONSUBMIT AFTER DMV REQ'] = { 'Key': 'DMV ID Request Details >> DMV Request Information', 'Action': 'After' };
     }
 
     if (appTypeString == 'Licenses/Sales/Reprint/Documents') {
-        tArray['ACA_ONLOAD_PRINTSTEP1'] = { 'Key': 'Replace A license >> Replace a License', 'Action': 'Onload' };
-        tArray['ACA_ONSUBMIT_AFTER_CONTCTSELCT'] = { 'Key': 'Select Documents to Reprint >> Replace Documents', 'Action': 'Onload' };
-        tArray['ACA_ONSUBMIT_BEFORE_PRINTSTEP1'] = { 'Key': 'Replace A license >> Replace a License', 'Action': 'Before' };
-        tArray['ACA_ONSUBMIT_BEFORE_PRINTSELCT'] = { 'Key': 'Select Documents to Reprint >> Replace Documents', 'Action': 'Before' };
-        tArray['ACA_ONSUBMIT_AFTER_PRINTSTEP1'] = { 'Key': 'Replace A license >> Replace a License', 'Action': 'After' };
-        tArray['ACA_ONSUBMIT_AFTER_PRINTSELCT'] = { 'Key': 'Select Documents to Reprint >> Replace Documents', 'Action': 'After' };
+        tArray['ACA ONLOAD PRINTSTEP1'] = { 'Key': 'Replace A license >> Replace a License', 'Action': 'Onload' };
+        tArray['ACA ONSUBMIT AFTER CONTCTSELCT'] = { 'Key': 'Select Documents to Reprint >> Replace Documents', 'Action': 'Onload' };
+        tArray['ACA ONSUBMIT BEFORE PRINTSTEP1'] = { 'Key': 'Replace A license >> Replace a License', 'Action': 'Before' };
+        tArray['ACA ONSUBMIT BEFORE PRINTSELCT'] = { 'Key': 'Select Documents to Reprint >> Replace Documents', 'Action': 'Before' };
+        tArray['ACA ONSUBMIT AFTER PRINTSTEP1'] = { 'Key': 'Replace A license >> Replace a License', 'Action': 'After' };
+        tArray['ACA ONSUBMIT AFTER PRINTSELCT'] = { 'Key': 'Select Documents to Reprint >> Replace Documents', 'Action': 'After' };
     }
     if (appTypeString == 'Licenses/Sales/Application/Sporting') {
-        tArray['ACA_ONLOAD_EXPRESS_P1'] = { 'Key': 'License/permit Types >> Applicant Details', 'Action': 'Onload' };
-        tArray['ACA_ONLOAD_EXPRESS_P2'] = { 'Key': 'License/permit Types >> Select License Year', 'Action': 'Onload' };
-        tArray['ACA_ONLOAD_EXPRS_ITEM'] = { 'Key': 'License/permit Types >> Select License Type', 'Action': 'Onload' };
-        tArray['ACA_ONSUBMIT_BEFORE_EXPRESS_P1'] = { 'Key': 'License/permit Types >> Applicant Details', 'Action': 'Before' };
-        tArray['ACA_ONSUBMIT_BEFORE_EXPRESS_P2'] = { 'Key': 'License/permit Types >> Select License Year', 'Action': 'Before' };
-        tArray['ACA_ONSUBMIT_BEFORE_EXPRS_ITEM'] = { 'Key': 'License/permit Types >> Select License Type', 'Action': 'Before' };
-        tArray['ACA_ONSUBMIT_AFTER_EXPRESS_P1'] = { 'Key': 'License/permit Types >> Applicant Details', 'Action': 'After' };
-        tArray['ACA_ONSUBMIT_AFTER_EXPRESS_P2'] = { 'Key': 'License/permit Types >> Select License Year', 'Action': 'After' };
-        tArray['ACA_ONSUBMIT_AFTER_EXPRS_ITEM'] = { 'Key': 'License/permit Types >> Select License Type', 'Action': 'After' };
+        tArray['ACA ONLOAD EXPRESS P1'] = { 'Key': 'License/permit Types >> Applicant Details', 'Action': 'Onload' };
+        tArray['ACA ONLOAD EXPRESS P2'] = { 'Key': 'License/permit Types >> Select License Year', 'Action': 'Onload' };
+        tArray['ACA ONLOAD EXPRS ITEM'] = { 'Key': 'License/permit Types >> Select License Type', 'Action': 'Onload' };
+        tArray['ACA ONSUBMIT BEFORE EXPRESS P1'] = { 'Key': 'License/permit Types >> Applicant Details', 'Action': 'Before' };
+        tArray['ACA ONSUBMIT BEFORE EXPRESS P2'] = { 'Key': 'License/permit Types >> Select License Year', 'Action': 'Before' };
+        tArray['ACA ONSUBMIT BEFORE EXPRS ITEM'] = { 'Key': 'License/permit Types >> Select License Type', 'Action': 'Before' };
+        tArray['ACA ONSUBMIT AFTER EXPRESS P1'] = { 'Key': 'License/permit Types >> Applicant Details', 'Action': 'After' };
+        tArray['ACA ONSUBMIT AFTER EXPRESS P2'] = { 'Key': 'License/permit Types >> Select License Year', 'Action': 'After' };
+        tArray['ACA ONSUBMIT AFTER EXPRS ITEM'] = { 'Key': 'License/permit Types >> Select License Type', 'Action': 'After' };
     }
     if (appTypeString == 'Licenses/Sales/Application/Sporting C') {
-        tArray['ACA_ONLOAD_EXPRS_ITEM'] = { 'Key': 'License/permit Types >> Select License Type', 'Action': 'Onload' };
-        tArray['ACA_ONLOAD_EXPRESS_P2'] = { 'Key': 'License/permit Types >> Select License Year', 'Action': 'Onload' };
-        tArray['ACA_ONSUBMIT_BEFORE_EXPRS_ITEM'] = { 'Key': 'License/permit Types >> Select License Type', 'Action': 'Before' };
-        tArray['ACA_ONSUBMIT_BEFORE_EXPRESS_P2'] = { 'Key': 'License/permit Types >> Select License Year', 'Action': 'Before' };
-        tArray['ACA_ONSUBMIT_AFTER_EXPRS_ITEM'] = { 'Key': 'License/permit Types >> Select License Type', 'Action': 'After' };
-        tArray['ACA_ONSUBMIT_AFTER_EXPRESS_P2'] = { 'Key': 'License/permit Types >> Select License Year', 'Action': 'After' };
+        tArray['ACA ONLOAD EXPRS ITEM'] = { 'Key': 'License/permit Types >> Select License Type', 'Action': 'Onload' };
+        tArray['ACA ONLOAD EXPRESS P2'] = { 'Key': 'License/permit Types >> Select License Year', 'Action': 'Onload' };
+        tArray['ACA ONSUBMIT BEFORE EXPRS ITEM'] = { 'Key': 'License/permit Types >> Select License Type', 'Action': 'Before' };
+        tArray['ACA ONSUBMIT BEFORE EXPRESS P2'] = { 'Key': 'License/permit Types >> Select License Year', 'Action': 'Before' };
+        tArray['ACA ONSUBMIT AFTER EXPRS ITEM'] = { 'Key': 'License/permit Types >> Select License Type', 'Action': 'After' };
+        tArray['ACA ONSUBMIT AFTER EXPRESS P2'] = { 'Key': 'License/permit Types >> Select License Year', 'Action': 'After' };
     }
     if (appTypeString == 'Licenses/Sales/Application/Fishing' || appTypeString == 'Licenses/Sales/Application/Marine Registry') {
-        tArray['ACA_ONLOAD_EXPRESS_P2'] = { 'Key': 'License/permit Types >> Select License Year', 'Action': 'Onload' };
-        tArray['ACA_ONLOAD_EXPRESS_P1'] = { 'Key': 'License/permit Types >> Applicant Details', 'Action': 'Onload' };
-        tArray['ACA_ONLOAD_EXPRS_ITEM'] = { 'Key': 'License/permit Types >> Select License Type', 'Action': 'Onload' };
-        tArray['ACA_ONSUBMIT_BEFORE_EXPRESS_P2'] = { 'Key': 'License/permit Types >> Select License Year', 'Action': 'Before' };
-        tArray['ACA_ONSUBMIT_BEFORE_EXPRESS_P1'] = { 'Key': 'License/permit Types >> Applicant Details', 'Action': 'Before' };
-        tArray['ACA_ONSUBMIT_BEFORE_EXPRS_ITEM'] = { 'Key': 'License/permit Types >> Select License Type', 'Action': 'Before' };
-        tArray['ACA_ONSUBMIT_AFTER_EXPRESS_P2'] = { 'Key': 'License/permit Types >> Select License Year', 'Action': 'After' };
-        tArray['ACA_ONSUBMIT_AFTER_EXPRESS_P1'] = { 'Key': 'License/permit Types >> Applicant Details', 'Action': 'After' };
-        tArray['ACA_ONSUBMIT_AFTER_EXPRS_ITEM'] = { 'Key': 'License/permit Types >> Select License Type', 'Action': 'After' };
+        tArray['ACA ONLOAD EXPRESS P2'] = { 'Key': 'License/permit Types >> Select License Year', 'Action': 'Onload' };
+        tArray['ACA ONLOAD EXPRESS P1'] = { 'Key': 'License/permit Types >> Applicant Details', 'Action': 'Onload' };
+        tArray['ACA ONLOAD EXPRS ITEM'] = { 'Key': 'License/permit Types >> Select License Type', 'Action': 'Onload' };
+        tArray['ACA ONSUBMIT BEFORE EXPRESS P2'] = { 'Key': 'License/permit Types >> Select License Year', 'Action': 'Before' };
+        tArray['ACA ONSUBMIT BEFORE EXPRESS P1'] = { 'Key': 'License/permit Types >> Applicant Details', 'Action': 'Before' };
+        tArray['ACA ONSUBMIT BEFORE EXPRS ITEM'] = { 'Key': 'License/permit Types >> Select License Type', 'Action': 'Before' };
+        tArray['ACA ONSUBMIT AFTER EXPRESS P2'] = { 'Key': 'License/permit Types >> Select License Year', 'Action': 'After' };
+        tArray['ACA ONSUBMIT AFTER EXPRESS P1'] = { 'Key': 'License/permit Types >> Applicant Details', 'Action': 'After' };
+        tArray['ACA ONSUBMIT AFTER EXPRS ITEM'] = { 'Key': 'License/permit Types >> Select License Type', 'Action': 'After' };
     }
     if (appTypeString == 'Licenses/Sales/Application/Fishing C' || appTypeString == 'Licenses/Sales/Application/Marine Registry C') {
-        tArray['ACA_ONLOAD_EXPRS_ITEM'] = { 'Key': 'License/permit Types >> Select License Type', 'Action': 'Onload' };
-        tArray['ACA_ONLOAD_EXPRESS_P2'] = { 'Key': 'License/permit Types >> Select License Year', 'Action': 'Onload' };
-        tArray['ACA_ONSUBMIT_BEFORE_EXPRS_ITEM'] = { 'Key': 'License/permit Types >> Select License Type', 'Action': 'Before' };
-        tArray['ACA_ONSUBMIT_BEFORE_EXPRESS_P2'] = { 'Key': 'License/permit Types >> Select License Year', 'Action': 'Before' };
-        tArray['ACA_ONSUBMIT_AFTER_EXPRS_ITEM'] = { 'Key': 'License/permit Types >> Select License Type', 'Action': 'After' };
-        tArray['ACA_ONSUBMIT_AFTER_EXPRESS_P2'] = { 'Key': 'License/permit Types >> Select License Year', 'Action': 'After' };
+        tArray['ACA ONLOAD EXPRS ITEM'] = { 'Key': 'License/permit Types >> Select License Type', 'Action': 'Onload' };
+        tArray['ACA ONLOAD EXPRESS P2'] = { 'Key': 'License/permit Types >> Select License Year', 'Action': 'Onload' };
+        tArray['ACA ONSUBMIT BEFORE EXPRS ITEM'] = { 'Key': 'License/permit Types >> Select License Type', 'Action': 'Before' };
+        tArray['ACA ONSUBMIT BEFORE EXPRESS P2'] = { 'Key': 'License/permit Types >> Select License Year', 'Action': 'Before' };
+        tArray['ACA ONSUBMIT AFTER EXPRS ITEM'] = { 'Key': 'License/permit Types >> Select License Type', 'Action': 'After' };
+        tArray['ACA ONSUBMIT AFTER EXPRESS P2'] = { 'Key': 'License/permit Types >> Select License Year', 'Action': 'After' };
     }
 
     if (appTypeString == 'Licenses/Sales/Application/Hunting') {
-        tArray['ACA_ONLOAD_EXPRESS_P2'] = { 'Key': 'License/permit Types >> Select License Year', 'Action': 'Onload' };
-        tArray['ACA_ONLOAD_EXPRS_ITEM'] = { 'Key': 'License/permit Types >>  Select License Type', 'Action': 'Onload' };
-        tArray['ACA_ONLOAD_EXPRESS_P1'] = { 'Key': 'License/permit Types >> Applicant Details', 'Action': 'Onload' };
-        tArray['ACA_ONSUBMIT_BEFORE_EXPRESS_P2'] = { 'Key': 'License/permit Types >> Select License Year', 'Action': 'Before' };
-        tArray['ACA_ONSUBMIT_BEFORE_EXPRS_ITEM'] = { 'Key': 'License/permit Types >>  Select License Type', 'Action': 'Before' };
-        tArray['ACA_ONSUBMIT_BEFORE_EXPRESS_P1'] = { 'Key': 'License/permit Types >> Applicant Details', 'Action': 'Before' };
-        tArray['ACA_ONSUBMIT_AFTER_EXPRESS_P2'] = { 'Key': 'License/permit Types >> Select License Year', 'Action': 'After' };
-        tArray['ACA_ONSUBMIT_AFTER_EXPRS_ITEM'] = { 'Key': 'License/permit Types >>  Select License Type', 'Action': 'After' };
-        tArray['ACA_ONSUBMIT_AFTER_EXPRESS_P1'] = { 'Key': 'License/permit Types >> Applicant Details', 'Action': 'After' };
+        tArray['ACA ONLOAD EXPRESS P2'] = { 'Key': 'License/permit Types >> Select License Year', 'Action': 'Onload' };
+        tArray['ACA ONLOAD EXPRS ITEM'] = { 'Key': 'License/permit Types >>  Select License Type', 'Action': 'Onload' };
+        tArray['ACA ONLOAD EXPRESS P1'] = { 'Key': 'License/permit Types >> Applicant Details', 'Action': 'Onload' };
+        tArray['ACA ONSUBMIT BEFORE EXPRESS P2'] = { 'Key': 'License/permit Types >> Select License Year', 'Action': 'Before' };
+        tArray['ACA ONSUBMIT BEFORE EXPRS ITEM'] = { 'Key': 'License/permit Types >>  Select License Type', 'Action': 'Before' };
+        tArray['ACA ONSUBMIT BEFORE EXPRESS P1'] = { 'Key': 'License/permit Types >> Applicant Details', 'Action': 'Before' };
+        tArray['ACA ONSUBMIT AFTER EXPRESS P2'] = { 'Key': 'License/permit Types >> Select License Year', 'Action': 'After' };
+        tArray['ACA ONSUBMIT AFTER EXPRS ITEM'] = { 'Key': 'License/permit Types >>  Select License Type', 'Action': 'After' };
+        tArray['ACA ONSUBMIT AFTER EXPRESS P1'] = { 'Key': 'License/permit Types >> Applicant Details', 'Action': 'After' };
     }
 
     if (appTypeString == 'Licenses/Sales/Application/Hunting C') {
-        tArray['ACA_ONLOAD_EXPRS_ITEM'] = { 'Key': 'License/permit Types >> Select License Type', 'Action': 'Onload' };
-        tArray['ACA_ONLOAD_EXPRESS_P2'] = { 'Key': 'License/permit Types >> Select License Year', 'Action': 'Onload' };
-        tArray['ACA_ONSUBMIT_BEFORE_EXPRS_ITEM'] = { 'Key': 'License/permit Types >> Select License Type', 'Action': 'Before' };
-        tArray['ACA_ONSUBMIT_BEFORE_EXPRESS_P2'] = { 'Key': 'License/permit Types >> Select License Year', 'Action': 'Before' };
-        tArray['ACA_ONSUBMIT_AFTER_EXPRS_ITEM'] = { 'Key': 'License/permit Types >> Select License Type', 'Action': 'After' };
-        tArray['ACA_ONSUBMIT_AFTER_EXPRESS_P2'] = { 'Key': 'License/permit Types >> Select License Year', 'Action': 'After' };
+        tArray['ACA ONLOAD EXPRS ITEM'] = { 'Key': 'License/permit Types >> Select License Type', 'Action': 'Onload' };
+        tArray['ACA ONLOAD EXPRESS P2'] = { 'Key': 'License/permit Types >> Select License Year', 'Action': 'Onload' };
+        tArray['ACA ONSUBMIT BEFORE EXPRS ITEM'] = { 'Key': 'License/permit Types >> Select License Type', 'Action': 'Before' };
+        tArray['ACA ONSUBMIT BEFORE EXPRESS P2'] = { 'Key': 'License/permit Types >> Select License Year', 'Action': 'Before' };
+        tArray['ACA ONSUBMIT AFTER EXPRS ITEM'] = { 'Key': 'License/permit Types >> Select License Type', 'Action': 'After' };
+        tArray['ACA ONSUBMIT AFTER EXPRESS P2'] = { 'Key': 'License/permit Types >> Select License Year', 'Action': 'After' };
     }
     if (appTypeString == 'Licenses/Sales/Application/Hunting and Fishing') {
-        tArray['ACA_ONLOAD_EXPRESS_P1'] = { 'Key': 'License/permit Types >> Applicant Details', 'Action': 'Onload' };
-        tArray['ACA_ONLOAD_EXPRESS_P2'] = { 'Key': 'License/permit Types >> Select License Year', 'Action': 'Onload' };
-        tArray['ACA_ONLOAD_EXPRS_ITEM'] = { 'Key': 'License/permit Types >> Select License Type', 'Action': 'Onload' };
-        tArray['ACA_ONSUBMIT_BEFORE_EXPRESS_P1'] = { 'Key': 'License/permit Types >> Applicant Details', 'Action': 'Before' };
-        tArray['ACA_ONSUBMIT_BEFORE_EXPRESS_P2'] = { 'Key': 'License/permit Types >> Select License Year', 'Action': 'Before' };
-        tArray['ACA_ONSUBMIT_BEFORE_EXPRS_ITEM'] = { 'Key': 'License/permit Types >> Select License Type', 'Action': 'Before' };
-        tArray['ACA_ONSUBMIT_AFTER_EXPRESS_P1'] = { 'Key': 'License/permit Types >> Applicant Details', 'Action': 'After' };
-        tArray['ACA_ONSUBMIT_AFTER_EXPRESS_P2'] = { 'Key': 'License/permit Types >> Select License Year', 'Action': 'After' };
-        tArray['ACA_ONSUBMIT_AFTER_EXPRS_ITEM'] = { 'Key': 'License/permit Types >> Select License Type', 'Action': 'After' };
+        tArray['ACA ONLOAD EXPRESS P1'] = { 'Key': 'License/permit Types >> Applicant Details', 'Action': 'Onload' };
+        tArray['ACA ONLOAD EXPRESS P2'] = { 'Key': 'License/permit Types >> Select License Year', 'Action': 'Onload' };
+        tArray['ACA ONLOAD EXPRS ITEM'] = { 'Key': 'License/permit Types >> Select License Type', 'Action': 'Onload' };
+        tArray['ACA ONSUBMIT BEFORE EXPRESS P1'] = { 'Key': 'License/permit Types >> Applicant Details', 'Action': 'Before' };
+        tArray['ACA ONSUBMIT BEFORE EXPRESS P2'] = { 'Key': 'License/permit Types >> Select License Year', 'Action': 'Before' };
+        tArray['ACA ONSUBMIT BEFORE EXPRS ITEM'] = { 'Key': 'License/permit Types >> Select License Type', 'Action': 'Before' };
+        tArray['ACA ONSUBMIT AFTER EXPRESS P1'] = { 'Key': 'License/permit Types >> Applicant Details', 'Action': 'After' };
+        tArray['ACA ONSUBMIT AFTER EXPRESS P2'] = { 'Key': 'License/permit Types >> Select License Year', 'Action': 'After' };
+        tArray['ACA ONSUBMIT AFTER EXPRS ITEM'] = { 'Key': 'License/permit Types >> Select License Type', 'Action': 'After' };
     }
     if (appTypeString == 'Licenses/Sales/Application/Hunting and Fishing C') {
-        tArray['ACA_ONLOAD_EXPRESS_P2'] = { 'Key': 'License/permit Types >> Select License Year', 'Action': 'Onload' };
-        tArray['ACA_ONLOAD_EXPRS_ITEM'] = { 'Key': 'License/permit Types >> Select License Type', 'Action': 'Onload' };
-        tArray['ACA_ONSUBMIT_BEFORE_EXPRESS_P2'] = { 'Key': 'License/permit Types >> Select License Year', 'Action': 'Before' };
-        tArray['ACA_ONSUBMIT_BEFORE_EXPRS_ITEM'] = { 'Key': 'License/permit Types >> Select License Type', 'Action': 'Before' };
-        tArray['ACA_ONSUBMIT_AFTER_EXPRESS_P2'] = { 'Key': 'License/permit Types >> Select License Year', 'Action': 'After' };
-        tArray['ACA_ONSUBMIT_AFTER_EXPRS_ITEM'] = { 'Key': 'License/permit Types >> Select License Type', 'Action': 'After' };
+        tArray['ACA ONLOAD EXPRESS P2'] = { 'Key': 'License/permit Types >> Select License Year', 'Action': 'Onload' };
+        tArray['ACA ONLOAD EXPRS ITEM'] = { 'Key': 'License/permit Types >> Select License Type', 'Action': 'Onload' };
+        tArray['ACA ONSUBMIT BEFORE EXPRESS P2'] = { 'Key': 'License/permit Types >> Select License Year', 'Action': 'Before' };
+        tArray['ACA ONSUBMIT BEFORE EXPRS ITEM'] = { 'Key': 'License/permit Types >> Select License Type', 'Action': 'Before' };
+        tArray['ACA ONSUBMIT AFTER EXPRESS P2'] = { 'Key': 'License/permit Types >> Select License Year', 'Action': 'After' };
+        tArray['ACA ONSUBMIT AFTER EXPRS ITEM'] = { 'Key': 'License/permit Types >> Select License Type', 'Action': 'After' };
     }
     if (appTypeString == 'Licenses/Annual/Application/NA') {
-        tArray['ACA_ONLOAD_FILL_CNTCT'] = { 'Key': 'Contact Details >> Applicant Details', 'Action': 'Onload' };
-        tArray['ACA_ONLOAD_TBL_UPDATE'] = { 'Key': 'Licensee Details >> Licensee Details', 'Action': 'Onload' };
-        tArray['ACA_ONLOAD_SALESELECT'] = { 'Key': 'License/permit Types >> Select License Type', 'Action': 'Onload' };
-        tArray['ACA_ONLOAD_FILL_FROM_CONTACT'] = { 'Key': 'Contact Details >> Applicant Details', 'Action': 'Before' };
-        tArray['ACA_ONSUBMIT_BEFORE_TBL_UPDATE'] = { 'Key': 'Licensee Details >> Licensee Details', 'Action': 'Before' };
-        tArray['ACA_ONSUBMIT_BEFORE_SALESELECT'] = { 'Key': 'License/permit Types >> Select License Type', 'Action': 'Before' };
-        tArray['ACA_ONSUBMIT_AFTER_FILL_CNTCT'] = { 'Key': 'Contact Details >> Applicant Details', 'Action': 'After' };
-        tArray['ACA_ONSUBMIT_AFTER_TBL_UPDATE'] = { 'Key': 'Licensee Details >> Licensee Details', 'Action': 'After' };
-        tArray['ACA_ONSUBMIT_AFTER_SALESSELECT'] = { 'Key': 'License/permit Types >> Select License Type', 'Action': 'After' };
+        tArray['ACA ONLOAD FILL CNTCT'] = { 'Key': 'Contact Details >> Applicant Details', 'Action': 'Onload' };
+        tArray['ACA ONLOAD TBL UPDATE'] = { 'Key': 'Licensee Details >> Licensee Details', 'Action': 'Onload' };
+        tArray['ACA ONLOAD SALESELECT'] = { 'Key': 'License/permit Types >> Select License Type', 'Action': 'Onload' };
+        tArray['ACA ONLOAD FILL FROM CONTACT'] = { 'Key': 'Contact Details >> Applicant Details', 'Action': 'Before' };
+        tArray['ACA ONSUBMIT BEFORE TBL UPDATE'] = { 'Key': 'Licensee Details >> Licensee Details', 'Action': 'Before' };
+        tArray['ACA ONSUBMIT BEFORE SALESELECT'] = { 'Key': 'License/permit Types >> Select License Type', 'Action': 'Before' };
+        tArray['ACA ONSUBMIT AFTER FILL CNTCT'] = { 'Key': 'Contact Details >> Applicant Details', 'Action': 'After' };
+        tArray['ACA ONSUBMIT AFTER TBL UPDATE'] = { 'Key': 'Licensee Details >> Licensee Details', 'Action': 'After' };
+        tArray['ACA ONSUBMIT AFTER SALESSELECT'] = { 'Key': 'License/permit Types >> Select License Type', 'Action': 'After' };
     }
     if (appTypeString == 'Licenses/Other/Sales/Application') {
-        tArray['ACA_ONLOAD_OTHERSALES'] = { 'Key': 'Sales Item Selection >> Select Other Sales Item', 'Action': 'Onload' };
-        tArray['ACA_ONSUBMIT_BEFORE_OTHERSALES'] = { 'Key': 'Sales Item Selection >> Select Other Sales Item', 'Action': 'Before' };
-        tArray['ACA_ONSUBMIT_AFTER_OTHERSALES'] = { 'Key': 'Sales Item Selection >> Select Other Sales Item', 'Action': 'After' };
+        tArray['ACA ONLOAD OTHERSALES'] = { 'Key': 'Sales Item Selection >> Select Other Sales Item', 'Action': 'Onload' };
+        tArray['ACA ONSUBMIT BEFORE OTHERSALES'] = { 'Key': 'Sales Item Selection >> Select Other Sales Item', 'Action': 'Before' };
+        tArray['ACA ONSUBMIT AFTER OTHERSALES'] = { 'Key': 'Sales Item Selection >> Select Other Sales Item', 'Action': 'After' };
     }
     if (appTypeString == 'Licenses/Other/Sportsmen/Game Harvest') {
-        tArray['ACA_ONLOAD_CARCASSTAG'] = { 'Key': 'Report Game Harvest >> Carcass Tag Information', 'Action': 'Onload' };
-        tArray['ACA_ONLOAD_VERIFYTAG'] = { 'Key': 'Kill Information >> Kill Information', 'Action': 'Onload' };
-        tArray['ACA_ONSUBMIT_BEFORE_CARCASSTAG'] = { 'Key': 'Report Game Harvest >> Carcass Tag Information', 'Action': 'Before' };
-        tArray['ACA_ONSUBMIT_BEFORE_VERIFYTAG'] = { 'Key': 'Kill Information >> Kill Information', 'Action': 'Before' };
-        tArray['ACA_ONSUBMIT_AFTER_CARCASSTAG'] = { 'Key': 'Report Game Harvest >> Carcass Tag Information', 'Action': 'After' };
-        tArray['ACA_ONSUBMIT_AFTER_VERIFYTAG'] = { 'Key': 'Kill Information >> Kill Information', 'Action': 'After' };
+        tArray['ACA ONLOAD CARCASSTAG'] = { 'Key': 'Report Game Harvest >> Carcass Tag Information', 'Action': 'Onload' };
+        tArray['ACA ONLOAD VERIFYTAG'] = { 'Key': 'Kill Information >> Kill Information', 'Action': 'Onload' };
+        tArray['ACA ONSUBMIT BEFORE CARCASSTAG'] = { 'Key': 'Report Game Harvest >> Carcass Tag Information', 'Action': 'Before' };
+        tArray['ACA ONSUBMIT BEFORE VERIFYTAG'] = { 'Key': 'Kill Information >> Kill Information', 'Action': 'Before' };
+        tArray['ACA ONSUBMIT AFTER CARCASSTAG'] = { 'Key': 'Report Game Harvest >> Carcass Tag Information', 'Action': 'After' };
+        tArray['ACA ONSUBMIT AFTER VERIFYTAG'] = { 'Key': 'Kill Information >> Kill Information', 'Action': 'After' };
     }
     if (appTypeString == 'Licenses/Other/Sportsmen/Profile') {
-        tArray['ACA_UPDATE ALSO KNOWN AS'] = { 'Key': 'Applicant Details >> Applicant Details', 'Action': 'Onload' };
-        tArray['ACA_ONLOAD_TBL_UPDATE'] = { 'Key': 'Sportsman Profile >> Sportsman Profile', 'Action': 'Onload' };
-        tArray['ACA_ONLOAD_FILL_FROM_CONTACT'] = { 'Key': 'Applicant Details >> Applicant Details', 'Action': 'Before' };
-        tArray['ACA_ONSUBMIT_BEFORE_TBL_UPDATE'] = { 'Key': 'Sportsman Profile >> Sportsman Profile', 'Action': 'Before' };
-        tArray['ACA_ONSUBMIT_AFTER_FILL_CNTCT'] = { 'Key': 'Applicant Details >> Applicant Details', 'Action': 'After' };
-        tArray['ACA_ONSUBMIT_AFTER_TBL_UPDATE'] = { 'Key': 'Sportsman Profile >> Sportsman Profile', 'Action': 'After' };
+        tArray['ACA UPDATE ALSO KNOWN AS'] = { 'Key': 'Applicant Details >> Applicant Details', 'Action': 'Onload' };
+        tArray['ACA ONLOAD TBL UPDATE'] = { 'Key': 'Sportsman Profile >> Sportsman Profile', 'Action': 'Onload' };
+        tArray['ACA ONLOAD FILL FROM CONTACT'] = { 'Key': 'Applicant Details >> Applicant Details', 'Action': 'Before' };
+        tArray['ACA ONSUBMIT BEFORE TBL UPDATE'] = { 'Key': 'Sportsman Profile >> Sportsman Profile', 'Action': 'Before' };
+        tArray['ACA ONSUBMIT AFTER FILL CNTCT'] = { 'Key': 'Applicant Details >> Applicant Details', 'Action': 'After' };
+        tArray['ACA ONSUBMIT AFTER TBL UPDATE'] = { 'Key': 'Sportsman Profile >> Sportsman Profile', 'Action': 'After' };
     }
     if (appTypeString == 'Licenses/Sales/Application/Transfer') {
-        tArray['ACA_ONLOAD_TXFR_P1'] = { 'Key': 'Contact Details >> Applicant Details', 'Action': 'Onload' };
-        tArray['ACA_ONLOAD_TRANSFER'] = { 'Key': 'Licensee Details >> Selected License', 'Action': 'Onload' };
-        tArray['ACA_ONSUBMIT_AFTER_TXFR_P1'] = { 'Key': 'Contact Details >> Applicant Details', 'Action': 'Before' };
-        tArray['ACA_ONSUBMIT_BEFORE_TRANSFER'] = { 'Key': 'Licensee Details >> Selected License', 'Action': 'Before' };
-        tArray['ACA_ONSUBMIT_AFTER_TXFR_P1'] = { 'Key': 'Contact Details >> Applicant Details', 'Action': 'After' };
-        tArray['ACA_ONSUBMIT_AFTER_TRANSFER'] = { 'Key': 'Licensee Details >> Selected License', 'Action': 'After' };
+        tArray['ACA ONLOAD TXFR P1'] = { 'Key': 'Contact Details >> Applicant Details', 'Action': 'Onload' };
+        tArray['ACA ONLOAD TRANSFER'] = { 'Key': 'Licensee Details >> Selected License', 'Action': 'Onload' };
+        tArray['ACA ONSUBMIT BEFORE TXFR P1'] = { 'Key': 'Contact Details >> Applicant Details', 'Action': 'Before' };
+        tArray['ACA ONSUBMIT BEFORE TRANSFER'] = { 'Key': 'Licensee Details >> Selected License', 'Action': 'Before' };
+        tArray['ACA ONSUBMIT AFTER TXFR P1'] = { 'Key': 'Contact Details >> Applicant Details', 'Action': 'After' };
+        tArray['ACA ONSUBMIT AFTER TRANSFER'] = { 'Key': 'Licensee Details >> Selected License', 'Action': 'After' };
     }
     if (appTypeString == 'Licenses/Sales/Application/Trapping') {
-        tArray['ACA_ONLOAD_EXPRESS_P1'] = { 'Key': 'License/permit Types >> Applicant Details', 'Action': 'Onload' };
-        tArray['ACA_ONLOAD_EXPRS_ITEM'] = { 'Key': 'License/permit Types >> Select License Type', 'Action': 'Onload' };
-        tArray['ACA_ONLOAD_EXPRESS_P2'] = { 'Key': 'License/permit Types >> Select License Year', 'Action': 'Onload' };
-        tArray['ACA_ONSUBMIT_BEFORE_EXPRESS_P1'] = { 'Key': 'License/permit Types >> Applicant Details', 'Action': 'Before' };
-        tArray['ACA_ONSUBMIT_BEFORE_EXPRS_ITEM'] = { 'Key': 'License/permit Types >> Select License Type', 'Action': 'Before' };
-        tArray['ACA_ONSUBMIT_BEFORE_EXPRESS_P2'] = { 'Key': 'License/permit Types >> Select License Year', 'Action': 'Before' };
-        tArray['ACA_ONSUBMIT_AFTER_EXPRESS_P1'] = { 'Key': 'License/permit Types >> Applicant Details', 'Action': 'After' };
-        tArray['ACA_ONSUBMIT_AFTER_EXPRS_ITEM'] = { 'Key': 'License/permit Types >> Select License Type', 'Action': 'After' };
-        tArray['ACA_ONSUBMIT_AFTER_EXPRESS_P2'] = { 'Key': 'License/permit Types >> Select License Year', 'Action': 'After' };
+        tArray['ACA ONLOAD EXPRESS P1'] = { 'Key': 'License/permit Types >> Applicant Details', 'Action': 'Onload' };
+        tArray['ACA ONLOAD EXPRS ITEM'] = { 'Key': 'License/permit Types >> Select License Type', 'Action': 'Onload' };
+        tArray['ACA ONLOAD EXPRESS P2'] = { 'Key': 'License/permit Types >> Select License Year', 'Action': 'Onload' };
+        tArray['ACA ONSUBMIT BEFORE EXPRESS P1'] = { 'Key': 'License/permit Types >> Applicant Details', 'Action': 'Before' };
+        tArray['ACA ONSUBMIT BEFORE EXPRS ITEM'] = { 'Key': 'License/permit Types >> Select License Type', 'Action': 'Before' };
+        tArray['ACA ONSUBMIT BEFORE EXPRESS P2'] = { 'Key': 'License/permit Types >> Select License Year', 'Action': 'Before' };
+        tArray['ACA ONSUBMIT AFTER EXPRESS P1'] = { 'Key': 'License/permit Types >> Applicant Details', 'Action': 'After' };
+        tArray['ACA ONSUBMIT AFTER EXPRS ITEM'] = { 'Key': 'License/permit Types >> Select License Type', 'Action': 'After' };
+        tArray['ACA ONSUBMIT AFTER EXPRESS P2'] = { 'Key': 'License/permit Types >> Select License Year', 'Action': 'After' };
     }
     if (appTypeString == 'Licenses/Sales/Application/Trapping C') {
-        tArray['ACA_ONLOAD_EXPRESS_P2'] = { 'Key': 'License/permit Types >> Select License Year', 'Action': 'Onload' };
-        tArray['ACA_ONLOAD_EXPRS_ITEM'] = { 'Key': 'License/permit Types >> Select License Type', 'Action': 'Onload' };
-        tArray['ACA_ONSUBMIT_BEFORE_EXPRESS_P2'] = { 'Key': 'License/permit Types >> Select License Year', 'Action': 'Before' };
-        tArray['ACA_ONSUBMIT_BEFORE_EXPRS_ITEM'] = { 'Key': 'License/permit Types >> Select License Type', 'Action': 'Before' };
-        tArray['ACA_ONSUBMIT_AFTER_EXPRESS_P2'] = { 'Key': 'License/permit Types >> Select License Year', 'Action': 'After' };
-        tArray['ACA_ONSUBMIT_AFTER_EXPRS_ITEM'] = { 'Key': 'License/permit Types >> Select License Type', 'Action': 'After' };
+        tArray['ACA ONLOAD EXPRESS P2'] = { 'Key': 'License/permit Types >> Select License Year', 'Action': 'Onload' };
+        tArray['ACA ONLOAD EXPRS ITEM'] = { 'Key': 'License/permit Types >> Select License Type', 'Action': 'Onload' };
+        tArray['ACA ONSUBMIT BEFORE EXPRESS P2'] = { 'Key': 'License/permit Types >> Select License Year', 'Action': 'Before' };
+        tArray['ACA ONSUBMIT BEFORE EXPRS ITEM'] = { 'Key': 'License/permit Types >> Select License Type', 'Action': 'Before' };
+        tArray['ACA ONSUBMIT AFTER EXPRESS P2'] = { 'Key': 'License/permit Types >> Select License Year', 'Action': 'After' };
+        tArray['ACA ONSUBMIT AFTER EXPRS ITEM'] = { 'Key': 'License/permit Types >> Select License Type', 'Action': 'After' };
     }
     if (appTypeString == 'Licenses/Sales/Upgrade/Lifetime') {
-        tArray['ACA_ONLOAD_UGRDCNT'] = { 'Key': 'Customer >> Applicant', 'Action': 'Onload' };
-        tArray['ACA_ONLOAD_UGRDSTEP2'] = { 'Key': 'Upgrade Information >> Select License', 'Action': 'Onload' };
-        tArray['ACA_ONLOAD_UGRDSTEP2'] = { 'Key': 'Upgrade Information >> Verify Tags', 'Action': 'Onload' };
-        tArray['ACA_ONSUBMIT_BEFORE_UGRDCNT'] = { 'Key': 'Customer >> Applicant', 'Action': 'Before' };
-        tArray['ACA_ONSUBMIT_BEFORE_UGRDSTEP1'] = { 'Key': 'Upgrade Information >> Select License', 'Action': 'Before' };
-        tArray['ACA_ONSUBMIT_BEFORE_UGRDSTEP2'] = { 'Key': 'Upgrade Information >> Verify Tags', 'Action': 'Before' };
-        tArray['ACA_ONSUBMIT_AFTER_UGRDCNT'] = { 'Key': 'Customer >> Applicant', 'Action': 'After' };
-        tArray['ACA_ONSUBMIT_AFTER_UGRDSTEP1'] = { 'Key': 'Upgrade Information >> Select License', 'Action': 'After' };
-        tArray['ACA_ONSUBMIT_AFTER_UGRDSTEP2'] = { 'Key': 'Upgrade Information >> Verify Tags', 'Action': 'After' };
+        tArray['ACA ONLOAD UGRDCNT'] = { 'Key': 'Customer >> Applicant', 'Action': 'Onload' };
+        tArray['ACA ONLOAD UGRDSTEP1'] = { 'Key': 'Upgrade Information >> Select License', 'Action': 'Onload' };
+        tArray['ACA ONLOAD UGRDSTEP2'] = { 'Key': 'Upgrade Information >> Verify Tags', 'Action': 'Onload' };
+        tArray['ACA ONSUBMIT BEFORE UGRDCNT'] = { 'Key': 'Customer >> Applicant', 'Action': 'Before' };
+        tArray['ACA ONSUBMIT BEFORE UGRDSTEP1'] = { 'Key': 'Upgrade Information >> Select License', 'Action': 'Before' };
+        tArray['ACA ONSUBMIT BEFORE UGRDSTEP2'] = { 'Key': 'Upgrade Information >> Verify Tags', 'Action': 'Before' };
+        tArray['ACA ONSUBMIT AFTER UGRDCNT'] = { 'Key': 'Customer >> Applicant', 'Action': 'After' };
+        tArray['ACA ONSUBMIT AFTER UGRDSTEP1'] = { 'Key': 'Upgrade Information >> Select License', 'Action': 'After' };
+        tArray['ACA ONSUBMIT AFTER UGRDSTEP2'] = { 'Key': 'Upgrade Information >> Verify Tags', 'Action': 'After' };
     }
     if (appTypeString == 'Licenses/Sales/Void/Documents') {
-        tArray['ACA_ONLOAD_VDSLSTEP1'] = { 'Key': 'Enter Customer >> Enter Customer', 'Action': 'Onload' };
-        tArray['ACA_ONLOAD_VDSLSTEP2'] = { 'Key': 'Select documents to void >> Select documents to void', 'Action': 'Onload' };
-        tArray['ACA_ONSUBMIT_BEFORE_VDSLSTEP1'] = { 'Key': 'Enter Customer >> Enter Customer', 'Action': 'Before' };
-        tArray['ACA_ONSUBMIT_BEFORE_VDSLSTEP2'] = { 'Key': 'Select documents to void >> Select documents to void', 'Action': 'Before' };
-        tArray['ACA_ONSUBMIT_AFTER_VDSLSTEP1'] = { 'Key': 'Enter Customer >> Enter Customer', 'Action': 'After' };
-        tArray['ACA_ONSUBMIT_AFTER_VDSLSTEP2'] = { 'Key': 'Select documents to void >> Select documents to void', 'Action': 'After' };
+        tArray['ACA ONLOAD VDSLSTEP1'] = { 'Key': 'Enter Customer >> Enter Customer', 'Action': 'Onload' };
+        tArray['ACA ONLOAD VDSLSTEP2'] = { 'Key': 'Select documents to void >> Select documents to void', 'Action': 'Onload' };
+        tArray['ACA ONSUBMIT BEFORE VDSLSTEP1'] = { 'Key': 'Enter Customer >> Enter Customer', 'Action': 'Before' };
+        tArray['ACA ONSUBMIT BEFORE VDSLSTEP2'] = { 'Key': 'Select documents to void >> Select documents to void', 'Action': 'Before' };
+        tArray['ACA ONSUBMIT AFTER VDSLSTEP1'] = { 'Key': 'Enter Customer >> Enter Customer', 'Action': 'After' };
+        tArray['ACA ONSUBMIT AFTER VDSLSTEP2'] = { 'Key': 'Select documents to void >> Select documents to void', 'Action': 'After' };
     }
     if (appTypeString == 'Licenses/Sales/Application/Lifetime') {
-        tArray['ACA_ONLOAD_EXPRS_ITEM'] = { 'Key': 'License/permit Types >> Select License Type', 'Action': 'Onload' };
-        tArray['ACA_ONLOAD_EXPRESS_P2'] = { 'Key': 'License/permit Types >> Select License Year', 'Action': 'Onload' };
-        tArray['ACA_ONLOAD_EXPRESS_P1'] = { 'Key': 'License/permit Types >> Applicant Details', 'Action': 'Onload' };
-        tArray['ACA_ONSUBMIT_BEFORE_EXPRS_ITEM'] = { 'Key': 'License/permit Types >> Select License Type', 'Action': 'Before' };
-        tArray['ACA_ONSUBMIT_BEFORE_EXPRESS_P2'] = { 'Key': 'License/permit Types >> Select License Year', 'Action': 'Before' };
-        tArray['ACA_ONSUBMIT_BEFORE_EXPRESS_P1'] = { 'Key': 'License/permit Types >> Applicant Details', 'Action': 'Before' };
-        tArray['ACA_ONSUBMIT_AFTER_EXPRS_ITEM'] = { 'Key': 'License/permit Types >> Select License Type', 'Action': 'After' };
-        tArray['ACA_ONSUBMIT_AFTER_EXPRESS_P2'] = { 'Key': 'License/permit Types >> Select License Year', 'Action': 'After' };
-        tArray['ACA_ONSUBMIT_AFTER_EXPRESS_P1'] = { 'Key': 'License/permit Types >> Applicant Details', 'Action': 'After' };
+        tArray['ACA ONLOAD EXPRS ITEM'] = { 'Key': 'License/permit Types >> Select License Type', 'Action': 'Onload' };
+        tArray['ACA ONLOAD EXPRESS P2'] = { 'Key': 'License/permit Types >> Select License Year', 'Action': 'Onload' };
+        tArray['ACA ONLOAD EXPRESS P1'] = { 'Key': 'License/permit Types >> Applicant Details', 'Action': 'Onload' };
+        tArray['ACA ONSUBMIT BEFORE EXPRS ITEM'] = { 'Key': 'License/permit Types >> Select License Type', 'Action': 'Before' };
+        tArray['ACA ONSUBMIT BEFORE EXPRESS P2'] = { 'Key': 'License/permit Types >> Select License Year', 'Action': 'Before' };
+        tArray['ACA ONSUBMIT BEFORE EXPRESS P1'] = { 'Key': 'License/permit Types >> Applicant Details', 'Action': 'Before' };
+        tArray['ACA ONSUBMIT AFTER EXPRS ITEM'] = { 'Key': 'License/permit Types >> Select License Type', 'Action': 'After' };
+        tArray['ACA ONSUBMIT AFTER EXPRESS P2'] = { 'Key': 'License/permit Types >> Select License Year', 'Action': 'After' };
+        tArray['ACA ONSUBMIT AFTER EXPRESS P1'] = { 'Key': 'License/permit Types >> Applicant Details', 'Action': 'After' };
     }
     if (appTypeString == 'Licenses/Sales/Application/Lifetime C') {
-        tArray['ACA_ONLOAD_EXPRESS_P2'] = { 'Key': 'License/permit Types >> Select License Year', 'Action': 'Onload' };
-        tArray['ACA_ONLOAD_EXPRS_ITEM'] = { 'Key': 'License/permit Types >> Select License Type', 'Action': 'Onload' };
-        tArray['ACA_ONSUBMIT_BEFORE_EXPRESS_P2'] = { 'Key': 'License/permit Types >> Select License Year', 'Action': 'Before' };
-        tArray['ACA_ONSUBMIT_BEFORE_EXPRS_ITEM'] = { 'Key': 'License/permit Types >> Select License Type', 'Action': 'Before' };
-        tArray['ACA_ONSUBMIT_AFTER_EXPRESS_P2'] = { 'Key': 'License/permit Types >> Select License Year', 'Action': 'After' };
-        tArray['ACA_ONSUBMIT_AFTER_EXPRS_ITEM'] = { 'Key': 'License/permit Types >> Select License Type', 'Action': 'After' };
+        tArray['ACA ONLOAD EXPRESS P2'] = { 'Key': 'License/permit Types >> Select License Year', 'Action': 'Onload' };
+        tArray['ACA ONLOAD EXPRS ITEM'] = { 'Key': 'License/permit Types >> Select License Type', 'Action': 'Onload' };
+        tArray['ACA ONSUBMIT BEFORE EXPRESS P2'] = { 'Key': 'License/permit Types >> Select License Year', 'Action': 'Before' };
+        tArray['ACA ONSUBMIT BEFORE EXPRS ITEM'] = { 'Key': 'License/permit Types >> Select License Type', 'Action': 'Before' };
+        tArray['ACA ONSUBMIT AFTER EXPRESS P2'] = { 'Key': 'License/permit Types >> Select License Year', 'Action': 'After' };
+        tArray['ACA ONSUBMIT AFTER EXPRS ITEM'] = { 'Key': 'License/permit Types >> Select License Type', 'Action': 'After' };
     }
 
     return tArray[controlString];
