@@ -7861,7 +7861,7 @@ function getKeyActionByControlString(controlString) {
         tArray['ACA_ONLOAD_UGRDCNT'] = { 'Key': 'Customer >> Applicant', 'Action': 'Onload' };
         tArray['ACA_ONLOAD_UGRDSTEP2'] = { 'Key': 'Upgrade Information >> Select License', 'Action': 'Onload' };
         tArray['ACA_ONLOAD_UGRDSTEP2'] = { 'Key': 'Upgrade Information >> Verify Tags', 'Action': 'Onload' };
-        tArray['ACA_ONSUBMIT_BEFORE_UGRDSTEP1'] = { 'Key': 'Customer >> Applicant', 'Action': 'Before' };
+        tArray['ACA_ONSUBMIT_BEFORE_UGRDCNT'] = { 'Key': 'Customer >> Applicant', 'Action': 'Before' };
         tArray['ACA_ONSUBMIT_BEFORE_UGRDSTEP1'] = { 'Key': 'Upgrade Information >> Select License', 'Action': 'Before' };
         tArray['ACA_ONSUBMIT_BEFORE_UGRDSTEP2'] = { 'Key': 'Upgrade Information >> Verify Tags', 'Action': 'Before' };
         tArray['ACA_ONSUBMIT_AFTER_UGRDCNT'] = { 'Key': 'Customer >> Applicant', 'Action': 'After' };
