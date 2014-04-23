@@ -7349,10 +7349,10 @@ function searchCustomerBySql(lastname, firstname, birthDate, decid) {
         sql += " WHERE SERV_PROV_CODE = '" + aa.getServiceProviderCode() + "' ";
         sql += " AND G1_CONTACT_TYPE  = 'Individual' ";
         if (isNull(firstname, '') != '') {
-            sql += " AND G1_FNAME = '" + firstname + "' ";
+            sql += " AND upper(G1_FNAME) = upper('" + firstname + "'" + ")";
         }
         if (isNull(lastname, '') != '') {
-            sql += " AND G1_LNAME = '" + lastname + "' ";
+            sql += " AND upper(G1_LNAME) = upper('" + lastname + "'" + ")";
         }
         if (isNull(birthDate, '') != '') {
             sql += " AND trunc(L1_BIRTH_DATE) = trunc(TO_dATE('" + birthDate + "', 'MM/DD/YYYY')) ";
