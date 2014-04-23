@@ -1,0 +1,44 @@
+<p class="acahomeheader"><font color="#0000ff"><strong>Welcome to the new Department of Environmental Conservation Online Sporting License Sales and Game Harvest Reporting System</strong></font><br>		
+	</p>	
+	<p class="acahometext">
+		<br>You can purchase hunting, fishing, trapping licenses and associated permits; register to fish recreationally in New Yorks marine waters; report a harvested deer, bear or turkey; and update personal information - 24 hours a day, 7 days a week.
+ 		<br>
+ 		<br><strong>Please follow the basic steps below and read the Important Information section before proceeding.</strong>
+ 		<br>
+ 		<br>- If you’ve already registered, please <strong>LOGIN</strong> at the box to the right to access your account. 
+ 		<br>- First time users of this website who have previously held a New York sporting license, click the <strong>Have a NY Sporting License, Access you record</strong> button.
+ 		<br>- First time NY sporting license buyers, please click the <strong>First Time User? Register Here</strong> button.
+ 		<br>- If you wish to report a deer, bear or turkey harvest, please click the <strong>Report a Game Harvest</strong> button.
+ 	</p>
+	
+	<div id="call-to-actions" class="clearfix">
+		<div id="call-to-action-shadowTwo">
+			<a style="cursor: pointer;" href="/dec_config2/Cap/CapApplyDisclaimer.aspx?Module=Licenses&amp;CAPType=Licenses/Customer/Registration/Application">
+				<div id="call-to-action" class="inner-shadow">
+					<span id="header">Have a NY Sporting License, &nbsp; <br>Access you record
+					</span>
+					<div class="rightArrowImage"></div>
+				</div>
+			</a>
+		</div>
+		<div id="call-to-action-shadowTwo">
+			<a style="cursor: pointer;" href="/dec_uat/Account/RegisterDisclaimer.aspx">
+				<div id="call-to-action" class="inner-shadow">
+					<span id="header">First Time User?&nbsp; <br>Register
+						Here
+					</span>
+					<div class="rightArrowImage"></div>
+				</div>
+			</a>
+		</div>
+		<div id="call-to-action-shadowTwo">
+			<a style="cursor: pointer;" href="/dec_uat/Cap/CapApplyDisclaimer.aspx?Module=Licenses&amp;CAPType=Licenses/Other/Sportsmen/Game%20Harvest&amp;IsSkipDisclaimer=Y">
+				<div id="call-to-action" class="inner-shadow">
+					<span id="header">Report a Game Harvest</span>
+					<div class="rightArrowImage"></div>
+					<br>
+					<br>
+				</div>
+			</a>
+		</div>
+	</div>
