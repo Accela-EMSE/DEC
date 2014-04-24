@@ -37,7 +37,7 @@ for(var rowIndex=0; rowIndex<totalRowCount; rowIndex++){
 	variable1=expression.getValue(rowIndex, "REFCONTACTTPLTABLE::AGNT_TABLES::BANK INFORMATION::Effective Date");
 	variable0=expression.getValue(rowIndex, "REFCONTACTTPLTABLE::AGNT_TABLES::BANK INFORMATION::Modified Flag");
 	variable1.message="";
-	if(variable0.value!=null && variable0.value*1==toPrecision(1) && variable1.value!=null && formatDate(variable1.value,'yyyy/MM/dd')<formatDate(variable2.getValue() ,'yyyy/MM/dd')){
+	if(variable0.value!=null && variable0.value*1==toPrecision(1) && variable1.value!=null && formatDate(variable1.value,'yyyy/MM/dd')<=formatDate(variable2.getValue() ,'yyyy/MM/dd')){
 		variable1.message="Effective Date cannot be in past. Please change the date.";
 		form.message="Effective Date cannot be in past. Please change the date.";
 		form.blockSubmit=true;
