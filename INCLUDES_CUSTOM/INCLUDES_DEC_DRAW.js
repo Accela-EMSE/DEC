@@ -100,19 +100,20 @@ function Draw_Obj(syear, swmu, schoicenum, sdrawtype, sapplyLandOwner) {
         return ordbAinfo;
     }
     this.RunLottery = function () {
-		logDebug(elapsed());
+		logDebug("<font color=green>Elapsed time: " + elapsed() + "</font>");
         var year = this.Year;
         var wmu = this.Wmu;
         var drawtype = this.DrawType;
         var ChoiceNum = this.ChoiceNum
         var bDisabledVet = (this.IsDisableForYear); //&& this.IsMilitaryServiceman
 
+        logDebug("drawResult params = WMU:" + this.Wmu + ", DrawType:" + this.DrawType + ", ChoiceNum:" + this.ChoiceNum + ", PreferencePoints:" + this.PreferencePoints + ", IsLanOwner:" + this.IsLanOwner + ", bDisabledVet:" + bDisabledVet + ", IsNyResiDent:" + this.IsNyResiDent + ", havedefinedItems:" + this.havedefinedItems);
+
         var drawResult = new DrawResult_OBJ();  //Result holder
         if (this.DrawType != DRAW_FCFS && this.DrawType != DRAW_INST && this.DrawType != DRAW_IBP) {
             return drawResult;
         }
 
-        logDebug(this.DrawType);
         if (this.DrawType == DRAW_FCFS) {
             drawResult = new DrawResult_OBJ(this.Wmu, this.DrawType, this.ChoiceNum, this.PreferencePoints, this.IsLanOwner, bDisabledVet, this.IsNyResiDent);
             drawResult = verifyWmuConfiguration(year, wmu, drawtype, ChoiceNum, drawResult);
@@ -172,13 +173,11 @@ function Draw_Obj(syear, swmu, schoicenum, sdrawtype, sapplyLandOwner) {
             if (ctgArray.length > 0) {
                 sortCategoryArray(ctgArray);
 
-                logDebug("drawResult params = " + this.Wmu + "," + this.DrawType + "," + this.ChoiceNum + "," + this.PreferencePoints + "," + this.IsLanOwner + "," + bDisabledVet + "," + this.IsNyResiDent + "," + this.havedefinedItems);
-
                 for (var out = 0; out < ctgArray.length; out++) {
                     if (ctgArray[out].ChoiceType == ChoiceNum) {
                         if (this.DrawType == DRAW_INST) {
                             eval('drawResult = verify' + ctgArray[out].Name + '(this);');
-                            logDebug("drawResult = verify" + ctgArray[out].Name + "(this) = " + drawResult.Selected);
+                            //logDebug("drawResult = verify" + ctgArray[out].Name + "(this) = " + drawResult.Selected);
                         } else if (this.DrawType == DRAW_IBP) {
                             drawResult = new DrawResult_OBJ(this.Wmu, this.DrawType, this.ChoiceNum, this.PreferencePoints, this.IsLanOwner, bDisabledVet, this.IsNyResiDent);
                             drawResult.Selected = (this.PreferenceBucketForIbp == ctgArray[out].Index);
@@ -203,7 +202,7 @@ function Draw_Obj(syear, swmu, schoicenum, sdrawtype, sapplyLandOwner) {
         }
 
         this.DrawResult = drawResult
-		logDebug(elapsed());
+		logDebug("<font color=green>Elapsed time: " + elapsed() + "</font>");
         return drawResult;
     }
 }
