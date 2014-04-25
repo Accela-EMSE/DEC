@@ -196,7 +196,20 @@ function SetDailyFullfillmentLogic() {
     recordTypeArray.push("Licenses/Annual/Application/NA");
     recordTypeArray.push("Licenses/Sales/Reprint/Documents");
     recordTypeArray.push("Licenses/Sales/Upgrade/Lifetime");
-    //TODO
+    recordTypeArray.push('Licenses/Sales/Application/Fishing');
+    recordTypeArray.push('Licenses/Sales/Application/Hunting');
+    recordTypeArray.push('Licenses/Sales/Application/Hunting and Fishing');
+    recordTypeArray.push('Licenses/Sales/Application/Trapping');
+    recordTypeArray.push('Licenses/Sales/Application/Lifetime');
+    recordTypeArray.push('Licenses/Sales/Application/Sporting');
+    recordTypeArray.push('Licenses/Sales/Application/Marine Registry');
+    recordTypeArray.push('Licenses/Sales/Application/Fishing C');
+    recordTypeArray.push('Licenses/Sales/Application/Hunting C');
+    recordTypeArray.push('Licenses/Sales/Application/Hunting and Fishing C');
+    recordTypeArray.push('Licenses/Sales/Application/Trapping C');
+    recordTypeArray.push('Licenses/Sales/Application/Lifetime C');
+    recordTypeArray.push('Licenses/Sales/Application/Sporting C');
+    recordTypeArray.push('Licenses/Sales/Application/Marine Registry C');
 
     for (var yy in recordTypeArray) {
         var ats = recordTypeArray[yy];
