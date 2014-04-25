@@ -7312,6 +7312,7 @@ function verifyNewRegistrion() {
     var sdob = AInfo["Date of Birth"];
     var decid = AInfo["DECALS Customer Number"];
     var decalRefNumber = "";
+    var refContactId = "";
 
     var resultCount = searchCustomerBySql(lastname, firstname, sdob, decid);
 
@@ -7319,7 +7320,14 @@ function verifyNewRegistrion() {
         retmsg = "No match is found for the given information. Please Register for a New Account using the link at the top of the page." + "<BR>";
     }
     if (resultCount.length == 1) {
-        decalRefNumber = resultCount[0];
+        decalRefNumber = resultCount[0].sDecid;
+        refContactId = resultCount[0].sRefConId;
+
+        if (!decalRefNumber) {
+            if (refContactId) {
+                decalRefNumber = refContactId;
+            }
+        }
 
         // validation to check public user id already exists with DEC ID
         var lDecalRefNumber = aa.util.parseLong(decalRefNumber);
@@ -7345,7 +7353,7 @@ function searchCustomerBySql(lastname, firstname, birthDate, decid) {
     var retArry = new Array();
     var counter = 0;
     try {
-        var sql = " Select G1_PASSPORT_NBR from G3Contact ";
+        var sql = " Select G1_PASSPORT_NBR, G1_CONTACT_NBR from G3Contact ";
         sql += " WHERE SERV_PROV_CODE = '" + aa.getServiceProviderCode() + "' ";
         sql += " AND G1_CONTACT_TYPE  = 'Individual' ";
         if (isNull(firstname, '') != '') {
@@ -7370,7 +7378,11 @@ function searchCustomerBySql(lastname, firstname, birthDate, decid) {
         var rSet = sStmt.executeQuery();
         while (rSet.next()) {
             var sDecid = rSet.getString("G1_PASSPORT_NBR");
-            retArry.push(sDecid);
+            var sRefConId = rSet.getString("G1_CONTACT_NBR");
+            retArry.push({
+                "sDecid": sDecid, 
+                "sRefConId": sRefConId
+            });
             counter++;
             if (counter > 1) {
                 break;
@@ -7473,7 +7485,7 @@ function createNewRegPublicUserFromContact() {
         logDebug("(contactObj) Reset password for " + newRegEmail + "  sucessfully.");
         } else {
         logDebug("(contactObj **WARNING: Reset password for  " + newRegEmail + "  failure:" + resetPasswordResult.getErrorMessage());
-        }*/
+    }*/
 
         // send Activate email
         aa.publicUser.sendActivateEmail(userModel, true, true);
@@ -7486,6 +7498,13 @@ function createNewRegPublicUserFromContact() {
             aa.licenseScript.associateContactWithPublicUser(userModel.getUserSeqNum(), internalDecId);
 
             attachedContacts(internalDecId);
+            var peopleModel = getOutput(aa.people.getPeople(internalDecId), "");
+
+             //Set passport number if it is null
+             if (isNull(peopleModel.getPassportNumber(), '') == '') {
+                peopleModel.setPassportNumber(internalDecId);
+            }
+            aa.people.editPeople(peopleModel);
         }
     } else {
         retmsg = "Warning creating public user " + newRegUserName + "  failure: " + result.getErrorMessage();
