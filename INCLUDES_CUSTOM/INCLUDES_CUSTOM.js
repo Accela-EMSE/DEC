@@ -5894,10 +5894,12 @@ function isValidRecForCreateRef() {
     var recTypeArray = new Array();
     recTypeArray.push("Licenses/Other/Sportsmen/DMV ID Request");
     recTypeArray.push("Licenses/Customer/Registration/Application");
-    //TODO
-    //recTypeArray.push("Licenses/Sales/Upgrade/Lifetime");
-    //recTypeArray.push("Licenses/Sales/Void/Documents");
-    //recTypeArray.push("Licenses/Sales/Reprint/Documents");
+    recTypeArray.push("Licenses/Sales/Upgrade/Lifetime");
+    recTypeArray.push("Licenses/Sales/Void/Documents");
+    recTypeArray.push("Licenses/Sales/Reprint/Documents");
+    recTypeArray.push("Licenses/Sales/Application/Transfer");
+    recTypeArray.push("Licenses/Other/Sales/Application");
+    recTypeArray.push("Licenses/Other/Sportsmen/Game Harvest");
 
     for (y in recTypeArray) {
         if (appMatch(recTypeArray[y])) {
