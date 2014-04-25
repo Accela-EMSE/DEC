@@ -160,7 +160,7 @@ function isValidHarvestinfo(pStep) {
                 retMsg += '<Br />';
             }
             if (isNull(isNull(AInfo["County of Kill"]), '') == '') {
-                retMsg += 'Please select cointy of kill.';
+                retMsg += 'Please select county of kill.';
                 retMsg += '<Br />';
             }
             if (isNull(isNull(AInfo["Town"]), '') == '') {
