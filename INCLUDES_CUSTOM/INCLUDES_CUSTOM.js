@@ -5934,7 +5934,8 @@ function copyASIContactAppSpecificToRecordAppSpecific() {
 
     var xArray = new Array();
     if (uObj.acctType == "CITIZEN") {
-        xArray = getApplicantArraybyPublicUserId(uObj.peopleSequenceNumber);
+        //xArray = getApplicantArraybyPublicUserId(uObj.peopleSequenceNumber);
+        xArray = getApplicantArrayEx();
     } else {
         xArray = getApplicantArrayEx();
     }
