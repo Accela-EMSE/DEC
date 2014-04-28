@@ -1843,8 +1843,8 @@ function form_OBJECT(identity) {
                                     isExist = foundDrawType;
                                 }
                                 //
-								if(isExist)
-									break;
+                                if (isExist)
+                                    break;
                             }
                         }
                         if (reasonForCheck == "PREREQ") {
@@ -1856,8 +1856,8 @@ function form_OBJECT(identity) {
                                     var diff = dateDiff(new Date(this.ActiveHoldingsInfo[idx].ToDate), seasonPeriod[1]);
                                     isExist = isExist && (diff <= 0)
                                 }
-								if(isExist)
-									break;
+                                if (isExist)
+                                    break;
                             }
                         }
                     }
@@ -1928,8 +1928,8 @@ function form_OBJECT(identity) {
                                     isExist = foundDrawType;
                                 }
                                 //
-								if(isExist)
-									break;
+                                if (isExist)
+                                    break;
                             }
                         }
                         if (reasonForCheck == "PREREQ") {
@@ -1941,8 +1941,8 @@ function form_OBJECT(identity) {
                                     var diff = dateDiff(new Date(this.ActiveHoldingsInfo[idx].ToDate), seasonPeriod[1]);
                                     isExist = isExist && (diff <= 0)
                                 }
-								if(isExist)
-									break;
+                                if (isExist)
+                                    break;
                             }
                         }
                     }
@@ -2430,8 +2430,14 @@ function rulePARAMS(identity) {
         var isTagInActiveHodings = false;
         for (var idx = 0; idx < this.ActiveHoldingsInfo.length; idx++) {
             if (this.ActiveHoldingsInfo[idx].RecordType == tagRecType && this.ActiveHoldingsInfo[idx].ItemCode == tagtype) {
-                isTagInActiveHodings = true;
-                break;
+                var isActiveDmp = ((dateDiff(new Date(), convertDate(this.ActiveHoldingsInfo[idx].ToDate))) > 0);
+                var seasonPeriod = GetDateRange(DEC_CONFIG, LICENSE_SEASON, this.Year);
+                var diff = dateDiff(new Date(this.ActiveHoldingsInfo[idx].ToDate), seasonPeriod[1]);
+                isActiveDmp = isActiveDmp && (diff <= 0)
+                if (isActiveDmp) {
+                    isTagInActiveHodings = true;
+                    break;
+                }
             }
         }
         return isTagInActiveHodings;
