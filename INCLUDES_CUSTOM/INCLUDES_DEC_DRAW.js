@@ -100,7 +100,7 @@ function Draw_Obj(syear, swmu, schoicenum, sdrawtype, sapplyLandOwner) {
         return ordbAinfo;
     }
     this.RunLottery = function () {
-		logDebug("<font color=green>Elapsed time: " + elapsed() + "</font>");
+        logDebug("<font color=green>Elapsed time: " + elapsed() + "</font>");
         var year = this.Year;
         var wmu = this.Wmu;
         var drawtype = this.DrawType;
@@ -202,7 +202,7 @@ function Draw_Obj(syear, swmu, schoicenum, sdrawtype, sapplyLandOwner) {
         }
 
         this.DrawResult = drawResult
-		logDebug("<font color=green>Elapsed time: " + elapsed() + "</font>");
+        logDebug("<font color=green>Elapsed time: " + elapsed() + "</font>");
         return drawResult;
     }
 }
@@ -318,7 +318,7 @@ function verifyC2(drwParam) {
     var drw = drwParam;
     var bDisabledVet = (drw.IsDisableForYear); //&& drw.IsMilitaryServiceman
     var result = new DrawResult_OBJ(drw.Wmu, drw.DrawType, drw.ChoiceNum, drw.PreferencePoints, drw.IsLanOwner, bDisabledVet, drw.IsNyResiDent);
-    result.Selected = (drw.ChoiceNum == '1' && (drw.IsLanOwner || (drw.IsNyResiDent || drw.havedefinedItems) && bDisabledVet)));
+    result.Selected = (drw.ChoiceNum == '1' && (drw.IsLanOwner || (drw.IsNyResiDent || drw.havedefinedItems) && bDisabledVet));
 
     return result;
 }
@@ -374,7 +374,7 @@ function verifyC9(drwParam) {
     var drw = drwParam;
     var bDisabledVet = (drw.IsDisableForYear); //&& drw.IsMilitaryServiceman
     var result = new DrawResult_OBJ(drw.Wmu, drw.DrawType, drw.ChoiceNum, drw.PreferencePoints, drw.IsLanOwner, bDisabledVet, drw.IsNyResiDent);
-    result.Selected = (drw.ChoiceNum == '2' && (drw.IsLanOwner || (drw.IsNyResiDent || drw.havedefinedItems) && bDisabledVet)));
+    result.Selected = (drw.ChoiceNum == '2' && (drw.IsLanOwner || (drw.IsNyResiDent || drw.havedefinedItems) && bDisabledVet));
 
     return result;
 }
