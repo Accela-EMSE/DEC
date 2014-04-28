@@ -2536,7 +2536,7 @@ function VoidsSales() {
 
             arryAccumPrivilage.push(appTypeString)
             var associatedPrivilagesArray = getPrivilagesAssociatedToLicense(appTypeString);
-            if (arryAccumPrivilage != null) {
+            if (associatedPrivilagesArray != null) {
                 arryAccumPrivilage = arrayUnique(arryAccumPrivilage.concat(associatedPrivilagesArray));
             }
 
