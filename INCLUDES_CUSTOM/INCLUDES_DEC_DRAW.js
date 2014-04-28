@@ -318,7 +318,7 @@ function verifyC2(drwParam) {
     var drw = drwParam;
     var bDisabledVet = (drw.IsDisableForYear); //&& drw.IsMilitaryServiceman
     var result = new DrawResult_OBJ(drw.Wmu, drw.DrawType, drw.ChoiceNum, drw.PreferencePoints, drw.IsLanOwner, bDisabledVet, drw.IsNyResiDent);
-    result.Selected = (drw.ChoiceNum == '1' && (drw.IsLanOwner || (drw.IsNyResiDent && bDisabledVet)));
+    result.Selected = (drw.ChoiceNum == '1' && (drw.IsLanOwner || (drw.IsNyResiDent || drw.havedefinedItems) && bDisabledVet)));
 
     return result;
 }
@@ -326,7 +326,7 @@ function verifyC3(drwParam) {
     var drw = drwParam;
     var bDisabledVet = (drw.IsDisableForYear); //&& drw.IsMilitaryServiceman
     var result = new DrawResult_OBJ(drw.Wmu, drw.DrawType, drw.ChoiceNum, drw.PreferencePoints, drw.IsLanOwner, bDisabledVet, drw.IsNyResiDent);
-    result.Selected = (drw.ChoiceNum == '1' && drw.PreferencePoints == 2 && drw.IsNyResiDent && drw.havedefinedItems);
+    result.Selected = (drw.ChoiceNum == '1' && drw.PreferencePoints == 2 && (drw.IsNyResiDent || drw.havedefinedItems));
 
     return result;
 }
@@ -334,7 +334,7 @@ function verifyC4(drwParam) {
     var drw = drwParam;
     var bDisabledVet = (drw.IsDisableForYear); //&& drw.IsMilitaryServiceman
     var result = new DrawResult_OBJ(drw.Wmu, drw.DrawType, drw.ChoiceNum, drw.PreferencePoints, drw.IsLanOwner, bDisabledVet, drw.IsNyResiDent);
-    result.Selected = (drw.ChoiceNum == '1' && drw.PreferencePoints == 1 && drw.IsNyResiDent && drw.havedefinedItems);
+    result.Selected = (drw.ChoiceNum == '1' && drw.PreferencePoints == 1 && (drw.IsNyResiDent || drw.havedefinedItems));
 
     return result;
 }
@@ -342,7 +342,7 @@ function verifyC5(drwParam) {
     var drw = drwParam;
     var bDisabledVet = (drw.IsDisableForYear); //&& drw.IsMilitaryServiceman
     var result = new DrawResult_OBJ(drw.Wmu, drw.DrawType, drw.ChoiceNum, drw.PreferencePoints, drw.IsLanOwner, bDisabledVet, drw.IsNyResiDent);
-    result.Selected = (drw.ChoiceNum == '1' && drw.PreferencePoints == 0 && drw.IsNyResiDent && drw.havedefinedItems);
+    result.Selected = (drw.ChoiceNum == '1' && drw.PreferencePoints == 0 && (drw.IsNyResiDent || drw.havedefinedItems));
 
     return result;
 }
@@ -374,7 +374,7 @@ function verifyC9(drwParam) {
     var drw = drwParam;
     var bDisabledVet = (drw.IsDisableForYear); //&& drw.IsMilitaryServiceman
     var result = new DrawResult_OBJ(drw.Wmu, drw.DrawType, drw.ChoiceNum, drw.PreferencePoints, drw.IsLanOwner, bDisabledVet, drw.IsNyResiDent);
-    result.Selected = (drw.ChoiceNum == '2' && (drw.IsLanOwner || (drw.IsNyResiDent && bDisabledVet)));
+    result.Selected = (drw.ChoiceNum == '2' && (drw.IsLanOwner || (drw.IsNyResiDent || drw.havedefinedItems) && bDisabledVet)));
 
     return result;
 }
@@ -382,7 +382,7 @@ function verifyC10(drwParam) {
     var drw = drwParam;
     var bDisabledVet = (drw.IsDisableForYear); //&& drw.IsMilitaryServiceman
     var result = new DrawResult_OBJ(drw.Wmu, drw.DrawType, drw.ChoiceNum, drw.PreferencePoints, drw.IsLanOwner, bDisabledVet, drw.IsNyResiDent);
-    result.Selected = (drw.ChoiceNum == '2' && drw.PreferencePoints >= 3 && drw.IsNyResiDent && drw.havedefinedItems);
+    result.Selected = (drw.ChoiceNum == '2' && drw.PreferencePoints >= 3 && (drw.IsNyResiDent || drw.havedefinedItems));
 
     return result;
 }
@@ -390,7 +390,7 @@ function verifyC11(drwParam) {
     var drw = drwParam;
     var bDisabledVet = (drw.IsDisableForYear); //&& drw.IsMilitaryServiceman
     var result = new DrawResult_OBJ(drw.Wmu, drw.DrawType, drw.ChoiceNum, drw.PreferencePoints, drw.IsLanOwner, bDisabledVet, drw.IsNyResiDent);
-    result.Selected = (drw.ChoiceNum == '2' && drw.PreferencePoints == 2 && drw.IsNyResiDent && drw.havedefinedItems);
+    result.Selected = (drw.ChoiceNum == '2' && drw.PreferencePoints == 2 && (drw.IsNyResiDent || drw.havedefinedItems));
 
     return result;
 }
@@ -398,7 +398,7 @@ function verifyC12(drwParam) {
     var drw = drwParam;
     var bDisabledVet = (drw.IsDisableForYear); //&& drw.IsMilitaryServiceman
     var result = new DrawResult_OBJ(drw.Wmu, drw.DrawType, drw.ChoiceNum, drw.PreferencePoints, drw.IsLanOwner, bDisabledVet, drw.IsNyResiDent);
-    result.Selected = (drw.ChoiceNum == '2' && drw.PreferencePoints == 1 && drw.IsNyResiDent && drw.havedefinedItems);
+    result.Selected = (drw.ChoiceNum == '2' && drw.PreferencePoints == 1 && (drw.IsNyResiDent || drw.havedefinedItems));
 
     return result;
 }
@@ -406,7 +406,7 @@ function verifyC13(drwParam) {
     var drw = drwParam;
     var bDisabledVet = (drw.IsDisableForYear); //&& drw.IsMilitaryServiceman
     var result = new DrawResult_OBJ(drw.Wmu, drw.DrawType, drw.ChoiceNum, drw.PreferencePoints, drw.IsLanOwner, bDisabledVet, drw.IsNyResiDent);
-    result.Selected = (drw.ChoiceNum == '2' && drw.PreferencePoints == 0 && drw.IsNyResiDent && drw.havedefinedItems);
+    result.Selected = (drw.ChoiceNum == '2' && drw.PreferencePoints == 0 && (drw.IsNyResiDent || drw.havedefinedItems));
 
     return result;
 }
