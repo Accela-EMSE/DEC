@@ -2248,7 +2248,7 @@ function getIncl_NONRESIDENT_BOWHUNTING() {
 function getIncl_NONRESIDENT_SMALL_GAME() {
     var arryInc = new Array();
     arryInc.push(LIC31_NONRES_SUPER_SPORTSMAN);
-	//JIRA - 48190
+    //JIRA - 48190
     //arryInc.push(LIC06_HUNTING_LICENSE);
     return arryInc;
 }
@@ -2260,7 +2260,7 @@ function getIncl_JUNIOR_HUNTING() {
 function getIncl_SMALL_GAME() {
     var arryInc = new Array();
     //JIRA - 48190
-	//arryInc.push(LIC06_HUNTING_LICENSE);
+    //arryInc.push(LIC06_HUNTING_LICENSE);
     return arryInc;
 }
 function getIncl_JUNIOR_BOWHUNTING() {
@@ -2794,20 +2794,26 @@ function hasBaseDMP(activeHoldingsInfo) {
         if (exists(activeHoldingsInfo[idx].RecordType, validDmpRecArray)) {
             var itemCapString = activeHoldingsInfo[idx].Tag_or_DocumentID;
             if (activeHoldingsInfo[idx].RecordType == AA05_DEER_MANAGEMENT_PERMIT) {
-                if (isNull(itemCapString, '') != '') {
-                    var itemCapId = getCapId(itemCapString);
-                    //JIRA - 41760
-                    loadASITables(itemCapId);
-                    if (typeof (DRAWRESULT) == "object") {
-                        for (y in DRAWRESULT) {
-                            var drawType = DRAWRESULT[y]["DRAW TYPE"];
-                            if (drawType == "INSTANT") {
-                                isExist = true;
-                                break;
+                var isActiveDmp = ((dateDiff(new Date(), convertDate(activeHoldingsInfo[idx].ToDate))) > 0);
+                var seasonPeriod = GetDateRange(DEC_CONFIG, LICENSE_SEASON, this.Year);
+                var diff = dateDiff(new Date(activeHoldingsInfo[idx].ToDate), seasonPeriod[1]);
+                isActiveDmp = isActiveDmp && (diff <= 0)
+                if (isActiveDmp) {
+                    if (isNull(itemCapString, '') != '') {
+                        var itemCapId = getCapId(itemCapString);
+                        //JIRA - 41760
+                        loadASITables(itemCapId);
+                        if (typeof (DRAWRESULT) == "object") {
+                            for (y in DRAWRESULT) {
+                                var drawType = DRAWRESULT[y]["DRAW TYPE"];
+                                if (drawType == "INSTANT") {
+                                    isExist = true;
+                                    break;
+                                }
                             }
                         }
+                        //
                     }
-                    //
                 }
             } else if (activeHoldingsInfo[idx].RecordType == AA13_LIFETIME_SPORTSMAN) {
                 isExist = (dateDiff(convertDate("10/1/2009"), convertDate(activeHoldingsInfo[idx].FromDate)) <= 0);
@@ -2823,30 +2829,30 @@ function hasBaseDMP(activeHoldingsInfo) {
 function hasWmuDefinedItems(activeHoldingsInfo) {
     var isExist = false;
 
-	return true;
-	//No Need following Verfication since DMP available sfter rules validation
+    return true;
+    //No Need following Verfication since DMP available sfter rules validation
     var validRecArray = Array();
-	validRecArray.push(AA04_BOWHUNTING_PRIVILEGE);
-	validRecArray.push(AA06_HUNTING_LICENSE);
-	validRecArray.push(AA09_LIFETIME_BOWHUNTING);
+    validRecArray.push(AA04_BOWHUNTING_PRIVILEGE);
+    validRecArray.push(AA06_HUNTING_LICENSE);
+    validRecArray.push(AA09_LIFETIME_BOWHUNTING);
     validRecArray.push(AA11_LIFETIME_MUZZLELOADING);
-	validRecArray.push(AA12_LIFETIME_SMALL_AND_BIG_GAME);
-	validRecArray.push(AA13_LIFETIME_SPORTSMAN);
-	validRecArray.push(AA27_CONSERVATION_LEGACY);
-	validRecArray.push(AA28_JUNIOR_BOWHUNTING);
-	validRecArray.push(AA29_JUNIOR_HUNTING);
-	validRecArray.push(AA30_NONRES_MUZZLELOADING);
-	validRecArray.push(AA31_NONRES_SUPER_SPORTSMAN);
-	validRecArray.push(AA33_NONRESIDENT_BIG_GAME);
-	validRecArray.push(AA34_NONRESIDENT_BOWHUNTING);
-	validRecArray.push(AA37_SMALL_AND_BIG_GAME);
-	validRecArray.push(AA39_SPORTSMAN);
-	validRecArray.push(AA40_SUPER_SPORTSMAN);
-	validRecArray.push(AA42_TRAPPER_SUPER_SPORTSMAN);
+    validRecArray.push(AA12_LIFETIME_SMALL_AND_BIG_GAME);
+    validRecArray.push(AA13_LIFETIME_SPORTSMAN);
+    validRecArray.push(AA27_CONSERVATION_LEGACY);
+    validRecArray.push(AA28_JUNIOR_BOWHUNTING);
+    validRecArray.push(AA29_JUNIOR_HUNTING);
+    validRecArray.push(AA30_NONRES_MUZZLELOADING);
+    validRecArray.push(AA31_NONRES_SUPER_SPORTSMAN);
+    validRecArray.push(AA33_NONRESIDENT_BIG_GAME);
+    validRecArray.push(AA34_NONRESIDENT_BOWHUNTING);
+    validRecArray.push(AA37_SMALL_AND_BIG_GAME);
+    validRecArray.push(AA39_SPORTSMAN);
+    validRecArray.push(AA40_SUPER_SPORTSMAN);
+    validRecArray.push(AA42_TRAPPER_SUPER_SPORTSMAN);
 
 
-	
-	
+
+
     for (var idx = 0; idx < activeHoldingsInfo.length; idx++) {
         if (exists(activeHoldingsInfo[idx].RecordType, validRecArray)) {
             isExist = true;
