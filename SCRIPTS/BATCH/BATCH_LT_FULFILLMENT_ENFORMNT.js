@@ -222,7 +222,7 @@ function getRefContactsByEnforcemetLifted(ipRefContacts) {
                 var ata = appTypeString.split("/");
 
                 if (exists(appTypeString, getRevokHuntRecTypeArray()) && !isRevoked_Hunting) {
-                    if (ata[1] != "Lifetime") {
+                    if (ata[1] == "Lifetime") {
                         changeRecordStatus(itemCapId);
                     } else {
                         var newRecId = voidRecAndCreateNew(itemCapId, ata);
