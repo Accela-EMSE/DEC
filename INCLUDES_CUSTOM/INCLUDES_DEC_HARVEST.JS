@@ -2232,6 +2232,8 @@ function upgradeLifetimeLic() {
         var arryTargetCapAttrib = new Array();
         var recArr = frm.licObjARRAY;
         var ruleParams = frm.getRulesParam();
+		ruleParams.AgeLookAhead30Days = frm.getAge(dateAdd(new Date(frm.DOB), -30));
+		
         for (var item in recArr) {
             var oLic = recArr[item];
             if (oLic.IsSelected) {
