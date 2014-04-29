@@ -296,11 +296,11 @@ function runProcessRecords(ipRunArray) {
                     break;
                 }
                 var fvRefContact = fvRefContacts[fvCounter];
-				var fvNewRec = null;
-				if (ipRefsNewRec) {
-					//new Licenses created due enforcement lifted
-					fvNewRec = ipRefsNewRec.get(fvRefContact);
-				}			
+                var fvNewRec = null;
+                if (ipRefsNewRec) {
+                    //new Licenses created due enforcement lifted
+                    fvNewRec = ipRefsNewRec.get(fvRefContact);
+                }
                 var fvErrors = rebuildRefTags(fvRefContact, fvNewRec);
                 if (fvErrors) {
                     if (!opErrors)
@@ -335,7 +335,9 @@ function voidRecAndCreateNew(itemCapId, ata) {
     logDebug("ENTER: voidRecAndCreateNew " + itemCapId.getCustomID());
     updateAppStatus("Void", "Void", itemCapId);
     // now create a new one, 
-    var newCapId = createChildForDec(ata[0], ata[1], ata[2], ata[3], "");
+    var contactTypeToAttach = "Individual"; //Copy the Individual only as the DEC Agent may have changed and needs to be updated with current.
+
+    var newCapId = createChildForDec(ata[0], ata[1], ata[2], ata[3], null, itemCapId, contactTypeToAttach);
     copyASIFields(itemCapId, newCapId);
     updateAppStatus("Active", "Active", newCapId);
     activateTaskForRec("Report Game Harvest", "", newCapId);
