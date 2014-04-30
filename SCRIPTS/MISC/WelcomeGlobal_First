@@ -13,9 +13,9 @@
 	
 	<div id="call-to-actions" class="clearfix">
 		<div id="call-to-action-shadowTwo">
-			<a style="cursor: pointer;" href="/dec_config2/Cap/CapApplyDisclaimer.aspx?Module=Licenses&amp;CAPType=Licenses/Customer/Registration/Application">
+			<a style="cursor: pointer;" href="/dec_uat/Cap/CapApplyDisclaimer.aspx?Module=Licenses&amp;CAPType=Licenses/Customer/Registration/Application&amp;IsSkipDisclaimer=Y">
 				<div id="call-to-action" class="inner-shadow">
-					<span id="header">Have a NY Sporting License, &nbsp; <br>Access you record
+					<span id="header">Have a NY Sporting License, &nbsp; <br>Access your record
 					</span>
 					<div class="rightArrowImage"></div>
 				</div>
