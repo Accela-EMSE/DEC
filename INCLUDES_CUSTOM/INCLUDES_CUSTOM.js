@@ -5961,6 +5961,7 @@ function copyASIContactAppSpecificToRecordAppSpecific() {
 
     var peopleSequenceNumber = null;
     var deceasedDate = null;
+    var custProfileToCheckArray = new Array();
 
     for (ca in xArray) {
         var thisContact = xArray[ca];
@@ -6005,6 +6006,12 @@ function copyASIContactAppSpecificToRecordAppSpecific() {
                     if (subGroupName == "APPEARANCE") {
                         editAppSpecific4ACA("A_Legally Blind", isNull(fieldArray["Legally Blind"], '0'));
                         editAppSpecific4ACA("A_Permanent Disability", isNull(fieldArray["Permanent Disability"], '0'));
+
+                        custProfileToCheckArray.push(fieldArray["Height"]);
+                        custProfileToCheckArray.push(fieldArray["Height - inches"]);
+                        custProfileToCheckArray.push(fieldArray["Eye Color"]);
+                        custProfileToCheckArray.push(fieldArray["Legally Blind"]);
+                        custProfileToCheckArray.push(fieldArray["Permanent Disability"]);
                         continue;
                     } else {
                         //JIRA-15754
@@ -6012,6 +6019,7 @@ function copyASIContactAppSpecificToRecordAppSpecific() {
                         if (isCurrentAffidavit) {
                             editAppSpecific4ACA("A_Military Serviceman", isNull(fieldArray["Military Serviceman"], '0'));
                         }
+                        custProfileToCheckArray.push(fieldArray["Military Serviceman"]);
                         continue;
                     }
                 }
@@ -6089,6 +6097,21 @@ function copyASIContactAppSpecificToRecordAppSpecific() {
         }
         else {
             isNotValidToProceed = MSG_NO_AGENT_SALES;
+        }
+    }
+
+    //JIRA-50367
+    var isCustProfileLooksGood = true;
+    for (var t in custProfileToCheckArray) {
+        isCustProfileLooksGood = (isNull(custProfileToCheckArray[t], '') == '');
+        if (!isCustProfileLooksGood) {
+            if (isNotValidToProceed) {
+                isNotValidToProceed += "Information is missing from custoer profile. Please update customer profile.";
+            }
+            else {
+                isNotValidToProceed = "Information is missing from custoer profile. Please update customer profile.";
+            }
+            break;
         }
     }
 
