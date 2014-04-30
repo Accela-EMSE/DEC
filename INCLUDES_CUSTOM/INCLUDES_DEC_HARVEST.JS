@@ -335,7 +335,8 @@ function TAGOBJ(tagId) {
                 var peopleModel = getOutput(aa.people.getPeople(this.peopleSequenceNumber), "");
                 this.DecId = peopleModel.getPassportNumber();
                 if (peopleModel.getBirthDate() != null) {
-                    this.DOB = new Date((peopleModel.getBirthDate().getMonth() + 1) + "/" + peopleModel.getBirthDate().getDate() + "/" + peopleModel.getBirthDate().getYear());
+					var bda = peopleModel.getBirthDate().toString().split('-');
+                    this.DOB = new Date((peopleModel.getBirthDate().getMonth() + 1) + "/" + peopleModel.getBirthDate().getDate() + "/" + bda[0]);
                 }
             }
         }
