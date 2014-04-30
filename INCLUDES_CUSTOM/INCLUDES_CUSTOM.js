@@ -2743,11 +2743,13 @@ function isValidBuyRecord(pStep) {
         if (msg != '') {
             retMsg += msg;
         }
-        msg = verifyAnnulaDisability();
-        if (msg != '') {
-            retMsg += msg;
+		//JIRA-
+        if (AInfo["Permanent Disability"] == "Yes") {
+            msg = verifyAnnulaDisability();
+            if (msg != '') {
+                retMsg += msg;
+            }
         }
-
         msg = verifyNotMilitaryAndDisabled();
         if (msg != '') {
             retMsg += msg;
@@ -6733,7 +6735,8 @@ function transferLifetimeLicenses() {
         var peopleModel = getOutput(aa.people.getPeople(peopleSequenceNumber), "");
         if (peopleModel != null) {
             if (peopleModel.getBirthDate() != null) {
-                custDob = new Date((peopleModel.getBirthDate().getMonth() + 1) + "/" + peopleModel.getBirthDate().getDate() + "/" + peopleModel.getBirthDate().getYear());
+                var bda = peopleModel.getBirthDate().toString().split('-');
+                custDob = new Date((peopleModel.getBirthDate().getMonth() + 1) + "/" + peopleModel.getBirthDate().getDate() + "/" + bda[0]);
             }
         }
 
@@ -7210,7 +7213,8 @@ function createLegacyLoadLic() {
                 var peopleModel = getOutput(aa.people.getPeople(peopleSequenceNumber), "");
                 if (peopleModel != null) {
                     if (peopleModel.getBirthDate() != null) {
-                        custDob = new Date((peopleModel.getBirthDate().getMonth() + 1) + "/" + peopleModel.getBirthDate().getDate() + "/" + peopleModel.getBirthDate().getYear());
+						var bda = peopleModel.getBirthDate().toString().split('-');
+						custDob = new Date((peopleModel.getBirthDate().getMonth() + 1) + "/" + peopleModel.getBirthDate().getDate() + "/" + bda[0]);
                     }
                 }
                 break;
