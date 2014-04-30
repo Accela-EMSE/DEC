@@ -345,6 +345,7 @@ function updateContacts() {
             newAInfo.push(new NewTblDef("Parent Driver License Number", AInfo["A_Parent_Driver_License_Number"], subGroupName));
             newAInfo.push(new NewTblDef("NY Resident Proof Document", AInfo["A_NY_Resident_Proof_Document"], subGroupName));
             newAInfo.push(new NewTblDef("Are You New York Resident?", AInfo["A_IsNYResident"], subGroupName));
+
             //JIRA-50289
             if (isNull(peopTemplateAttribute.get("PREFERENCE POINTS"), '') == '') {
                 newAInfo.push(new NewTblDef("Preference Points", isNull(peopTemplateAttribute.get("PREFERENCE POINTS"), ''), subGroupName));
@@ -1401,6 +1402,7 @@ function copyContactAppSpecificToRecordAppSpecific() {
         editAppSpecific4ACA("A_Driver_License_State", thisContact["driverLicenseState"]);
         editAppSpecific4ACA("A_Driver_License_Number", thisContact["driverLicenseNbr"]);
         editAppSpecific4ACA("A_Non_Driver_License_Number", thisContact["stateIDNbr"]);
+		editAppSpecific4ACA("A_NY_Resident_Proof_Document", thisContact["NY Resident Proof Document"]);
 
         var strAnnual = null;
         var strPrev = null;
@@ -1425,7 +1427,7 @@ function copyContactAppSpecificToRecordAppSpecific() {
                     editAppSpecific4ACA("A_Preference_Points", isNull(fieldArray["Preference Points"], '0'));
                     editAppSpecific4ACA("Preference Points", isNull(fieldArray["Preference Points"], '0'));
                     editAppSpecific4ACA("A_Parent_Driver_License_Number", fieldArray["Parent Driver License Number"]);
-                    editAppSpecific4ACA("A_NY_Resident_Proof_Document", fieldArray["NY Resident Proof Document"]);
+                    //editAppSpecific4ACA("A_NY_Resident_Proof_Document", fieldArray["NY Resident Proof Document"]);
                     continue;
                 } else {
                     if (subGroupName == "MILITARY ACTIVE SERVICE STATUS") {
@@ -5978,6 +5980,7 @@ function copyASIContactAppSpecificToRecordAppSpecific() {
         editAppSpecific4ACA("A_Driver_License_State", thisContact["driverLicenseState"]);
         editAppSpecific4ACA("A_Driver_License_Number", thisContact["driverLicenseNbr"]);
         editAppSpecific4ACA("A_Non_Driver_License_Number", thisContact["stateIDNbr"]);
+		editAppSpecific4ACA("A_NY_Resident_Proof_Document", thisContact["NY Resident Proof Document"]);
 
         var strAnnual = null;
         var strPrev = null;
@@ -6002,7 +6005,7 @@ function copyASIContactAppSpecificToRecordAppSpecific() {
                     editAppSpecific4ACA("A_Preference_Points", isNull(fieldArray["Preference Points"], '0'));
                     editAppSpecific4ACA("Preference Points", isNull(fieldArray["Preference Points"], '0'));
                     editAppSpecific4ACA("A_Parent_Driver_License_Number", fieldArray["Parent Driver License Number"]);
-                    editAppSpecific4ACA("A_NY_Resident_Proof_Document", fieldArray["NY Resident Proof Document"]);
+                    //editAppSpecific4ACA("A_NY_Resident_Proof_Document", fieldArray["NY Resident Proof Document"]);
                     continue;
                 } else {
                     if (subGroupName == "APPEARANCE") {
