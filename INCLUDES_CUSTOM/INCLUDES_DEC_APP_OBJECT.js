@@ -1234,22 +1234,30 @@ function form_OBJECT(identity) {
         var arrayInActiveHold = new Array();
         for (var idx = 0; idx < this.ActiveHoldingsInfo.length; idx++) {
             if (isNull(this.ActiveHoldingsInfo[idx].RecordType, "") != "") {
-                if (oLic.RecordType == "" || true) { //priya: Need all bow priv record Types
-                    this.HasBowPriv = true;
+                var isExist = (isNull(this.ActiveHoldingsInfo[idx].ToDate, '') == '');
+                if (!isExist) {
+                    var seasonPeriod = GetDateRange(DEC_CONFIG, LICENSE_SEASON, this.Year);
+                    var diff = dateDiff(new Date(this.ActiveHoldingsInfo[idx].ToDate), seasonPeriod[1]);
+                    isExist = (diff <= 0)
                 }
-                if (oLic.RecordType == "" || true) { //priya: Need all muzz priv record Types
-                    this.HasMuzzPriv = true;
-                }
-                var ats = this.ActiveHoldingsInfo[idx].RecordType;
-                var ata = this.ActiveHoldingsInfo[idx].RecordType.split("/");
-                if (ata[1] != "Tag") {
-                    arrayInActiveHold.push(this.ActiveHoldingsInfo[idx].ItemCode)
-                }
-                if (ats == AA48_TAG_BOW_MUZZ_EITHER_SEX) {
-                    this.SetEitherOrAntler(4);
-                }
-                if (ats == AA49_TAG_BOW_MUZZ_ANTLERLESS) {
-                    this.SetEitherOrAntler(8);
+                if (isExist) {
+                    if (oLic.RecordType == "" || true) { //priya: Need all bow priv record Types
+                        this.HasBowPriv = true;
+                    }
+                    if (oLic.RecordType == "" || true) { //priya: Need all muzz priv record Types
+                        this.HasMuzzPriv = true;
+                    }
+                    var ats = this.ActiveHoldingsInfo[idx].RecordType;
+                    var ata = this.ActiveHoldingsInfo[idx].RecordType.split("/");
+                    if (ata[1] != "Tag") {
+                        arrayInActiveHold.push(this.ActiveHoldingsInfo[idx].ItemCode)
+                    }
+                    if (ats == AA48_TAG_BOW_MUZZ_EITHER_SEX) {
+                        this.SetEitherOrAntler(4);
+                    }
+                    if (ats == AA49_TAG_BOW_MUZZ_ANTLERLESS) {
+                        this.SetEitherOrAntler(8);
+                    }
                 }
             }
         }
