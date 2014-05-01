@@ -6108,10 +6108,10 @@ function copyASIContactAppSpecificToRecordAppSpecific() {
     }
 
     //JIRA-50367
-    var isCustProfileLooksGood = true;
+    var isCustProfileLooksGood = false;
     for (var t in custProfileToCheckArray) {
         isCustProfileLooksGood = (isNull(custProfileToCheckArray[t], '') == '');
-        if (!isCustProfileLooksGood) {
+        if (isCustProfileLooksGood) {
             if (isNotValidToProceed) {
                 isNotValidToProceed += "Information is missing from customer profile. Please update customer profile.";
             }
