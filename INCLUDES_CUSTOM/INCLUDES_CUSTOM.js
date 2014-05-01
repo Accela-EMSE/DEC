@@ -409,6 +409,8 @@ function updateContacts() {
             var groupName = "ASIT_APPLCNT";
             copyCapASIT(peopleModel, groupName, "LAND OWNER INFORMATION");
             copyCapASIT(peopleModel, groupName, "ANNUAL DISABILITY");
+			//JIRA-49638
+			deleteContactASIT(peopleModel, groupName, "ANNUAL DISABILITY");
             copyCapASIT(peopleModel, groupName, "SPORTSMAN EDUCATION");
             copyCapASIT(peopleModel, groupName, "PREVIOUS LICENSE");
 
@@ -6111,10 +6113,10 @@ function copyASIContactAppSpecificToRecordAppSpecific() {
         isCustProfileLooksGood = (isNull(custProfileToCheckArray[t], '') == '');
         if (!isCustProfileLooksGood) {
             if (isNotValidToProceed) {
-                isNotValidToProceed += "Information is missing from custoer profile. Please update customer profile.";
+                isNotValidToProceed += "Information is missing from customer profile. Please update customer profile.";
             }
             else {
-                isNotValidToProceed = "Information is missing from custoer profile. Please update customer profile.";
+                isNotValidToProceed = "Information is missing from customer profile. Please update customer profile.";
             }
             break;
         }
@@ -7998,4 +8000,42 @@ function isPublicExpressFlow() {
 
     isValid = (exists(appTypeString, verifyExpressArray));
     return isValid;
+}
+function deleteContactASIT(peopleModel, groupName, subGroupName) {
+    var appSpecificTableScript = aa.appSpecificTableScript.getAppSpecificTableModel(capId, subGroupName).getOutput();
+
+    if (appSpecificTableScript) {
+        var appSpecificTable = appSpecificTableScript.getAppSpecificTableModel();
+        var tableFields = appSpecificTable.getTableFields();
+        //var groupName = appSpecificTable.getGroupName();
+        //Contact ASIT subGroupName is equal to cap ASIT subGroupName
+
+        if (tableFields.size() == 0) {
+            deleteASITTableValues(peopleModel.getTemplate(), subGroupName);
+        }
+    }
+    else {
+        logDebug("deleteContactASIT: Can't delete table " + subGroupName + " because it doesn't exist on the record");
+    }
+}
+function deleteASITTableValues(templateModel, subGroupName) {
+    var vError = null;
+    try {
+        var templateGroups = templateModel.getTemplateTables();
+        var subGroups = templateGroups.get(0).getSubgroups();
+        for (var subGroupIndex = 0; subGroupIndex < subGroups.size(); subGroupIndex++) {
+            var subGroup = subGroups.get(subGroupIndex);
+            if (subGroupName == subGroup.getSubgroupName()) {
+                var flds = subGroup.fields;
+                for (var fidx = 0; fidx < flds.size(); fidx++) {
+                    var fld = flds.get(fidx);
+                    var ccb = aa.proxyInvoker.newInstance("com.accela.aa.template.GenericTemplateDaoOracle").getOutput();
+                    ccb.removeASITFieldValueByEntityType(fld);
+                }
+            }
+        }
+    }
+    catch (vError) {
+        logDebug("Runtime error occurred deleteASITTableValues: " + vError);
+    }
 }
