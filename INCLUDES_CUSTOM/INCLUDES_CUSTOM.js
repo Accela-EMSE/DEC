@@ -347,10 +347,10 @@ function updateContacts() {
             newAInfo.push(new NewTblDef("Are You New York Resident?", AInfo["A_IsNYResident"], subGroupName));
 
             //JIRA-50289
-            if (isNull(peopTemplateAttribute.get("PREFERENCE POINTS"), '') == '') {
+            if (isNull(peopTemplateAttribute.get("PREFERENCE POINTS"), '') != '') {
                 newAInfo.push(new NewTblDef("Preference Points", isNull(peopTemplateAttribute.get("PREFERENCE POINTS"), ''), subGroupName));
             }
-            if (isNull(peopTemplateAttribute.get("LIFETIME INSCRIPTION"), '') == '') {
+            if (isNull(peopTemplateAttribute.get("LIFETIME INSCRIPTION"), '') != '') {
                 newAInfo.push(new NewTblDef("Lifetime Inscription", peopTemplateAttribute.get("LIFETIME INSCRIPTION"), subGroupName));
             }
 
@@ -409,8 +409,8 @@ function updateContacts() {
             var groupName = "ASIT_APPLCNT";
             copyCapASIT(peopleModel, groupName, "LAND OWNER INFORMATION");
             copyCapASIT(peopleModel, groupName, "ANNUAL DISABILITY");
-			//JIRA-49638
-			deleteContactASIT(peopleModel, groupName, "ANNUAL DISABILITY");
+            //JIRA-49638
+            deleteContactASIT(peopleModel, groupName, "ANNUAL DISABILITY");
             copyCapASIT(peopleModel, groupName, "SPORTSMAN EDUCATION");
             copyCapASIT(peopleModel, groupName, "PREVIOUS LICENSE");
 
@@ -1404,7 +1404,7 @@ function copyContactAppSpecificToRecordAppSpecific() {
         editAppSpecific4ACA("A_Driver_License_State", thisContact["driverLicenseState"]);
         editAppSpecific4ACA("A_Driver_License_Number", thisContact["driverLicenseNbr"]);
         editAppSpecific4ACA("A_Non_Driver_License_Number", thisContact["stateIDNbr"]);
-		editAppSpecific4ACA("A_NY_Resident_Proof_Document", thisContact["NY Resident Proof Document"]);
+        editAppSpecific4ACA("A_NY_Resident_Proof_Document", thisContact["NY Resident Proof Document"]);
 
         var strAnnual = null;
         var strPrev = null;
@@ -2747,7 +2747,7 @@ function isValidBuyRecord(pStep) {
         if (msg != '') {
             retMsg += msg;
         }
-		//JIRA-
+        //JIRA-
         if (AInfo["Permanent Disability"] == "Yes") {
             msg = verifyAnnulaDisability();
             if (msg != '') {
@@ -5982,7 +5982,7 @@ function copyASIContactAppSpecificToRecordAppSpecific() {
         editAppSpecific4ACA("A_Driver_License_State", thisContact["driverLicenseState"]);
         editAppSpecific4ACA("A_Driver_License_Number", thisContact["driverLicenseNbr"]);
         editAppSpecific4ACA("A_Non_Driver_License_Number", thisContact["stateIDNbr"]);
-		editAppSpecific4ACA("A_NY_Resident_Proof_Document", thisContact["NY Resident Proof Document"]);
+        editAppSpecific4ACA("A_NY_Resident_Proof_Document", thisContact["NY Resident Proof Document"]);
 
         var strAnnual = null;
         var strPrev = null;
@@ -7218,8 +7218,8 @@ function createLegacyLoadLic() {
                 var peopleModel = getOutput(aa.people.getPeople(peopleSequenceNumber), "");
                 if (peopleModel != null) {
                     if (peopleModel.getBirthDate() != null) {
-						var bda = peopleModel.getBirthDate().toString().split('-');
-						custDob = new Date((peopleModel.getBirthDate().getMonth() + 1) + "/" + peopleModel.getBirthDate().getDate() + "/" + bda[0]);
+                        var bda = peopleModel.getBirthDate().toString().split('-');
+                        custDob = new Date((peopleModel.getBirthDate().getMonth() + 1) + "/" + peopleModel.getBirthDate().getDate() + "/" + bda[0]);
                     }
                 }
                 break;
