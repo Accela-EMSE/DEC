@@ -253,7 +253,7 @@ function isValidDecIdWithDOB(decId, dob) {
             if (peopleModel != null) {
                 if (peopleModel.getBirthDate() != null) {
                     if (dob != null) {
-						var bda = peopleModel.getBirthDate().toString().split('-');
+                        var bda = peopleModel.getBirthDate().toString().split('-');
                         var custDob = new Date((peopleModel.getBirthDate().getMonth() + 1) + "/" + peopleModel.getBirthDate().getDate() + "/" + bda[0]);
                         isValid = (dateDiff(new Date(dob), custDob) == 0);
                     } else {
@@ -335,7 +335,7 @@ function TAGOBJ(tagId) {
                 var peopleModel = getOutput(aa.people.getPeople(this.peopleSequenceNumber), "");
                 this.DecId = peopleModel.getPassportNumber();
                 if (peopleModel.getBirthDate() != null) {
-					var bda = peopleModel.getBirthDate().toString().split('-');
+                    var bda = peopleModel.getBirthDate().toString().split('-');
                     this.DOB = new Date((peopleModel.getBirthDate().getMonth() + 1) + "/" + peopleModel.getBirthDate().getDate() + "/" + bda[0]);
                 }
             }
@@ -2233,8 +2233,8 @@ function upgradeLifetimeLic() {
         var arryTargetCapAttrib = new Array();
         var recArr = frm.licObjARRAY;
         var ruleParams = frm.getRulesParam();
-		ruleParams.AgeLookAhead30Days = frm.getAge(dateAdd(new Date(frm.DOB), -30));
-		
+        ruleParams.AgeLookAhead30Days = frm.getAge(dateAdd(new Date(frm.DOB), -30));
+
         for (var item in recArr) {
             var oLic = recArr[item];
             if (oLic.IsSelected) {
