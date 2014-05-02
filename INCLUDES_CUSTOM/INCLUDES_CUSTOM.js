@@ -6178,7 +6178,7 @@ function copyASIContactAppSpecificToRecordAppSpecific() {
     if (isNull(AInfo["License Year"], '') != '') {
         var exmsg = '';
         var f = new form_OBJECT(GS2_SCRIPT, OPTZ_TYPE_ALLFEES);
-
+		f.RecordType = appTypeString;
         if (appTypeString == 'Licenses/Sales/Application/Fishing' || appTypeString == 'Licenses/Sales/Application/Marine Registry' || appTypeString == 'Licenses/Sales/Application/Fishing C' || appTypeString == 'Licenses/Sales/Application/Marine Registry C') {
             f.SetFishSaleExcludes();
             SetExpressformForSelectedLics(f);
@@ -6195,6 +6195,7 @@ function copyASIContactAppSpecificToRecordAppSpecific() {
         }
         if (appTypeString == 'Licenses/Sales/Application/Trapping' || appTypeString == 'Licenses/Sales/Application/Trapping C') {
             f.SetTrapSaleExcludes();
+			
             SetExpressformForSelectedLics(f);
             if (f.MessageHunter != "") {
                 exmsg += f.MessageHunter;
