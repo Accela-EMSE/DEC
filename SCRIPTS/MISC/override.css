@@ -110,3 +110,14 @@
 /* hide the collections link */
 #ctl00_HeaderNavigation_lblMyCollection { display:none; } 
 #ctl00_HeaderNavigation_collectionSplit { display:none; } 
+.DEC_Item_SubHeader
+{
+    color:#DF7401;
+    font-weight:bold;
+	font-size: 1.3em;
+	clear:both;
+	border-bottom-color: #DF7401;
+	border-bottom-width:1px;
+	border-bottom-style: solid;
+	font-family: Arial, sans-serif
+}
