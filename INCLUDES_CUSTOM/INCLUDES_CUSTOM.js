@@ -2747,13 +2747,10 @@ function isValidBuyRecord(pStep) {
         if (msg != '') {
             retMsg += msg;
         }
-        //JIRA-
-        if (AInfo["Permanent Disability"] == "Yes") {
-            msg = verifyAnnulaDisability();
-            if (msg != '') {
-                retMsg += msg;
-            }
-        }
+		msg = verifyAnnulaDisability();
+		if (msg != '') {
+			retMsg += msg;
+		}
         msg = verifyNotMilitaryAndDisabled();
         if (msg != '') {
             retMsg += msg;
