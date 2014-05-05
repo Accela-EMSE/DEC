@@ -2747,10 +2747,10 @@ function isValidBuyRecord(pStep) {
         if (msg != '') {
             retMsg += msg;
         }
-		msg = verifyAnnulaDisability();
-		if (msg != '') {
-			retMsg += msg;
-		}
+        msg = verifyAnnulaDisability();
+        if (msg != '') {
+            retMsg += msg;
+        }
         msg = verifyNotMilitaryAndDisabled();
         if (msg != '') {
             retMsg += msg;
@@ -6035,7 +6035,6 @@ function copyASIContactAppSpecificToRecordAppSpecific() {
             strPrev = GetContactASITDelimitedString(subGroupArray["PREVIOUS LICENSE"]);
             strLand = GetContactASITDelimitedString(subGroupArray["LAND OWNER INFORMATION"]);
             strEduc = GetContactASITDelimitedString(subGroupArray["SPORTSMAN EDUCATION"]);
-            //strActiveHoldings = GetContactASITDelimitedString(subGroupArray["ACTIVE HOLDINGS"]);
         }
 
         //----load ASITs
@@ -6043,7 +6042,6 @@ function copyASIContactAppSpecificToRecordAppSpecific() {
         editAppSpecific4ACA("A_Previous_License", strPrev);
         editAppSpecific4ACA("A_Land_Owner_Information", strLand);
         editAppSpecific4ACA("A_Sportsman_Education", strEduc);
-        //editAppSpecific4ACA("A_ActiveHoldings", strActiveHoldings);
 
         var asitModel;
         var new_asit;
@@ -6171,11 +6169,13 @@ function copyASIContactAppSpecificToRecordAppSpecific() {
         }
     }
 
+    createActiveHoldingTable();
     loadAppSpecific4ACA(AInfo);
+    var exmsg = '';
     if (isNull(AInfo["License Year"], '') != '') {
-        var exmsg = '';
+        appTypeString = cap.getCapType().toString();
         var f = new form_OBJECT(GS2_SCRIPT, OPTZ_TYPE_ALLFEES);
-		f.RecordType = appTypeString;
+        f.RecordType = appTypeString;
         if (appTypeString == 'Licenses/Sales/Application/Fishing' || appTypeString == 'Licenses/Sales/Application/Marine Registry' || appTypeString == 'Licenses/Sales/Application/Fishing C' || appTypeString == 'Licenses/Sales/Application/Marine Registry C') {
             f.SetFishSaleExcludes();
             SetExpressformForSelectedLics(f);
@@ -6192,7 +6192,7 @@ function copyASIContactAppSpecificToRecordAppSpecific() {
         }
         if (appTypeString == 'Licenses/Sales/Application/Trapping' || appTypeString == 'Licenses/Sales/Application/Trapping C') {
             f.SetTrapSaleExcludes();
-			
+
             SetExpressformForSelectedLics(f);
             if (f.MessageHunter != "") {
                 exmsg += f.MessageHunter;
@@ -6218,6 +6218,14 @@ function copyASIContactAppSpecificToRecordAppSpecific() {
                 exmsg += f.MessageFish;
             }
         }
+        if (isNotValidToProceed) {
+            isNotValidToProceed += exmsg
+        }
+        else {
+            isNotValidToProceed = exmsg;
+        }
+    } else {
+        exmsg += "Please enter license year.";
         if (isNotValidToProceed) {
             isNotValidToProceed += exmsg
         }
