@@ -7299,8 +7299,7 @@ function createLegacyLoadLic() {
                 newAInfo.push(new NewLicDef("Effective Date", effectiveDt));
                 copyLicASI(newLicId, newAInfo);
 
-                //TODO
-                if (false) {
+                if (LICENSEINFORMATION[y]["Has Document Number?"] == 'No') {
                     newDecDocId = GenerateDocumentNumber(newLicId.getCustomID(), "9989");
                 }
                 updateDocumentNumber(newDecDocId, newLicId);
@@ -7311,10 +7310,11 @@ function createLegacyLoadLic() {
                 var expDate = dateAddMonths(new Date(effectiveDt), (100 * 12));
                 setLicExpirationDate(newLicId, "", expDate, null, true);
 
-                //TODO: Fee
+                //Add fee
                 var feeCharge = LICENSEINFORMATION[y]["Fee"]
                 addFeeWithVersion("AGENT_CHARGE", feeschedule, 1, "FINAL", feeCharge, "Y", newLicId);
-                //2. Void Fee (Payment Void)
+                //Void Fee/Payment
+                voidFeeForTransfer();
             }
         } else {
             logDebug("**ERROR in createLegacyLoadLic: No row ia table.");
@@ -7322,6 +7322,35 @@ function createLegacyLoadLic() {
     }
     catch (err) {
         logDebug("**ERROR in createLegacyLoadLic:" + err.message);
+    }
+}
+function voidFeeForTransfer() {
+    logDebug(capId)
+    feeA = loadFees()
+
+    var feeCapMessage = "";
+    for (x in feeA) {
+        thisFee = feeA[x];
+        logDebug("status is " + thisFee.status)
+        if (thisFee.status == "INVOICED") {
+            voidResult = aa.finance.voidFeeItem(capId, thisFee.sequence);
+            if (voidResult.getSuccess()) {
+                logDebug("Fee item " + thisFee.code + "(" + thisFee.sequence + ") has been voided")
+            }
+            else {
+                logDebug("**ERROR: voiding fee item " + thisFee.code + "(" + thisFee.sequence + ") " + voidResult.getErrorMessage());
+            }
+
+            var feeSeqArray = new Array();
+            var paymentPeriodArray = new Array();
+
+            feeSeqArray.push(thisFee.sequence);
+            paymentPeriodArray.push(thisFee.period);
+            var invoiceResult_L = aa.finance.createInvoice(capId, feeSeqArray, paymentPeriodArray);
+
+            if (!invoiceResult_L.getSuccess())
+                logDebug("**ERROR: Invoicing the fee items voided " + feeCapMessage + " was not successful.  Reason: " + invoiceResult_L.getErrorMessage());
+        }
     }
 }
 function getValidLicToUpdateFileDate() {
@@ -7714,7 +7743,6 @@ function getVisitIndex(sKey, sAction) {
     }
     return nVisitIndex;
 }
-
 function getApplicantArraybyPublicUserId(peopleSequenceNumber) {
     //TODO
     var aArray = new Array();
