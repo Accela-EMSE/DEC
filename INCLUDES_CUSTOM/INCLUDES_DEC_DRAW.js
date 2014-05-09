@@ -236,16 +236,16 @@ function verifyWmuConfiguration(year, wmu, drawtype, choiceNum, drawResult) {
         if (wmuStatus == 'Open') {
             if (StatusApplicableTo == "Both" || StatusApplicableTo == 'WMU Choice ' + drawResult.ChoiceNum) {
                 if (drawtype == DRAW_INST || (now >= openDt && now <= closeDt)) {
-                    if (drawtype == DRAW_INST || prmitTarget > 0) {
+                    if (drawtype == DRAW_INST || (parseInt(prmitTarget, 10) - parseInt(usedCount, 10)) > 0) {
                         drawResult.Selected = true;
-                        prmitTarget--;
+                        //prmitTarget--;
                         usedCount++;
                         //Update Configuraion
                         var newAInfo = new Array();
                         newAInfo.push(new NewLicDef("Permit Target", prmitTarget));
                         newAInfo.push(new NewLicDef("Used Count", usedCount));
                         if (drawtype != DRAW_INST) {
-                            if (prmitTarget <= 0) {
+                            if ((parseInt(prmitTarget, 10) - parseInt(usedCount, 10)) <= 0) {
                                 newAInfo.push(new NewLicDef("Status", "Closed"));
                                 newAInfo.push(new NewLicDef("Status Effecctive Date", formatMMDDYYYY(now)));
                             }
