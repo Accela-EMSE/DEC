@@ -6172,7 +6172,7 @@ function copyASIContactAppSpecificToRecordAppSpecific() {
     createActiveHoldingTable();
     loadAppSpecific4ACA(AInfo);
     var exmsg = '';
-    if (isNull(AInfo["License Year"], '') != '') {
+    //if (isNull(AInfo["License Year"], '') != '') {
         appTypeString = cap.getCapType().toString();
         var f = new form_OBJECT(GS2_SCRIPT, OPTZ_TYPE_ALLFEES);
         f.RecordType = appTypeString;
@@ -6224,15 +6224,15 @@ function copyASIContactAppSpecificToRecordAppSpecific() {
         else {
             isNotValidToProceed = exmsg;
         }
-    } else {
-        exmsg += "Please enter license year.";
-        if (isNotValidToProceed) {
-            isNotValidToProceed += exmsg
-        }
-        else {
-            isNotValidToProceed = exmsg;
-        }
-    }
+    //} else {
+    //    exmsg += "Please enter license year.";
+    //    if (isNotValidToProceed) {
+    //        isNotValidToProceed += exmsg
+    //    }
+    //    else {
+    //        isNotValidToProceed = exmsg;
+    //    }
+    //}
     logDebug("EXIT: copyASIContactAppSpecificToRecordAppSpecific");
 
     return isNotValidToProceed;
@@ -6278,7 +6278,7 @@ function SetExpressformForSelectedLics(frm) {
 
     var isTrapSection = (appTypeString == 'Licenses/Sales/Application/Trapping');
     isTrapSection = isTrapSection || (appTypeString == 'Licenses/Sales/Application/Sporting');
-    isTrapSection = (appTypeString == 'Licenses/Sales/Application/Trapping C');
+    isTrapSection = isTrapSection || (appTypeString == 'Licenses/Sales/Application/Trapping C');
     isTrapSection = isTrapSection || (appTypeString == 'Licenses/Sales/Application/Sporting C');
 
     if (isFishSection) {
@@ -6326,7 +6326,18 @@ function SetExpressformForSelectedLics(frm) {
         //frm.SetSelected(LIC64_TRAPPING_LICENSE_3Y, (AInfo["3 Year Trapping License"] == "CHECKED"), 1);
         //frm.SetSelected(LIC65_TRAPPING_LICENSE_5Y, (AInfo["5 Year Trapping License"] == "CHECKED"), 1);
     }
-
+    var isBuySporting = (appTypeString == 'Licenses/Sales/Application/Sporting');
+    isBuySporting = isBuySporting || (appTypeString == 'Licenses/Sales/Application/Sporting C');
+    if (isBuySporting) {
+		frm.SetSelected(LIC16_HABITAT_ACCESS_STAMP, (AInfo["Habitat/Access Stamp"] == "CHECKED"), 1);
+		frm.SetSelected(LIC17_VENISON_DONATION, (AInfo["Venison Donation"] == "CHECKED"), 1);
+		frm.SetSelected(LIC18_CONSERVATION_FUND, (AInfo["Conservation Fund"] == "CHECKED"), 1);
+		frm.SetSelected(LIC19_TRAIL_SUPPORTER_PATCH, (AInfo["Trail Supporter Patch"] == "CHECKED"), 1);
+		frm.SetSelected(LIC20_CONSERVATIONIST_MAGAZINE, (AInfo["Conservationist Magazine"] == "CHECKED"), 1);
+		frm.SetSelected(LIC21_CONSERVATION_PATRON, (AInfo["Conservation Patron"] == "CHECKED"), 1);
+		frm.SetSelected(LIC43_LIFETIME_CARD_REPLACE, (AInfo["Lifetime Card Replace"] == "CHECKED"), 1);
+		frm.SetSelected(LIC44_SPORTSMAN_ED_CERTIFICATION, (AInfo["Sportsman Ed Certification"] == "CHECKED"), 1);
+	}
     frm.ExecuteBoRuleEngine();
     logDebug("EXIT: SetExpressformForSelectedLics");
 }
