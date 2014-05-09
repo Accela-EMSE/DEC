@@ -196,7 +196,7 @@ function form_OBJECT(identity) {
         for (var idx = 0; idx < this.AnnualDisablity.length; idx++) {
             var yearplus1 = parseInt(year, 10) + 1;
             if ((this.AnnualDisablity[idx].Year + "" == year + "") || (this.AnnualDisablity[idx].Year + "" == yearplus1 + "")) {
-                retisDisableForYear = ((this.AnnualDisablity[idx].FourtyPrcentMilitaryDisabled + "").toLowerCase() == "yes");
+                retisDisableForYear = (isYesOnSelected(this.AnnualDisablity[idx].FourtyPrcentMilitaryDisabled + ""));
                 if (retisDisableForYear) {
                     break;
                 }
@@ -501,14 +501,14 @@ function form_OBJECT(identity) {
         return retValue;
     }
     this.SetEnforcementAttrib = function (sSuspended, sRevokedHunting, sRevokedTrapping, sRevokedFishing) {
-        this.Suspended = ((sSuspended + "").toLowerCase() == "yes");
-        this.Revoked_Hunting = ((sRevokedHunting + "").toLowerCase() == "yes");
-        this.Revoked_Trapping = ((sRevokedTrapping + "").toLowerCase() == "yes");
-        this.Revoked_Fishing = ((sRevokedFishing + "").toLowerCase() == "yes");
+        this.Suspended = isYesOnSelected(sSuspended + "");
+        this.Revoked_Hunting = isYesOnSelected(sRevokedHunting + "");
+        this.Revoked_Trapping = isYesOnSelected(sRevokedTrapping + "");
+        this.Revoked_Fishing = isYesOnSelected(sRevokedFishing + "");
     }
     this.SetFulfillmentAttrib = function (sAgedIn, sNeedHuntEd) {
-        this.AgedIn = ((sAgedIn + "").toLowerCase() == "yes");
-        this.NeedHuntEd = ((sNeedHuntEd + "").toLowerCase() == "yes");
+        this.AgedIn = isYesOnSelected(sAgedIn + "");
+        this.NeedHuntEd = isYesOnSelected(sNeedHuntEd + "");
     }
 
     this.CountHunterGroup = new Number(0);
@@ -585,14 +585,14 @@ function form_OBJECT(identity) {
 
         ruleParams.Age = this.getAge(this.DOB);
         ruleParams.Gender = this.Gender;
-        ruleParams.IsLegallyBlind = (isNull(this.IsLegallyBlind, '').toLowerCase() == "yes");
-        ruleParams.IsPermanentDisabled = (isNull(this.IsPermanentDisabled, '').toLowerCase() == "yes");
-        ruleParams.IsMinor = (this.IsMinor ? isNull(this.IsMinor, '').toLowerCase() == "yes" : false);
-        ruleParams.IsNyResiDent = (this.IsNyResiDent ? isNull(this.IsNyResiDent, '').toLowerCase() == "yes" : false);
+        ruleParams.IsLegallyBlind = isYesOnSelected(isNull(this.IsLegallyBlind, ''));
+        ruleParams.IsPermanentDisabled = isYesOnSelected(isNull(this.IsPermanentDisabled, ''));
+        ruleParams.IsMinor = (this.IsMinor ? isYesOnSelected(isNull(this.IsMinor, '')) : false);
+        ruleParams.IsNyResiDent = (this.IsNyResiDent ? isYesOnSelected(isNull(this.IsNyResiDent, '')) : false);
         ruleParams.PreferencePoints = this.PreferencePoints;
         ruleParams.IsDisableForYear = ruleParams.IsPermanentDisabled || this.IsDisableForYear(this.Year);
-        ruleParams.IsMilitaryServiceman = (this.IsMilitaryServiceman ? isNull(this.IsMilitaryServiceman, '').toLowerCase() == "yes" : false);
-        ruleParams.IsNativeAmerican = (this.isNYSDEC_HQ || this.isNative_American_Agency) && (this.IsNativeAmerican ? isNull(this.IsNativeAmerican, '').toLowerCase() == "yes" : false);
+        ruleParams.IsMilitaryServiceman = (this.IsMilitaryServiceman ? isYesOnSelected(isNull(this.IsMilitaryServiceman, '')) : false);
+        ruleParams.IsNativeAmerican = (this.isNYSDEC_HQ || this.isNative_American_Agency) && (this.IsNativeAmerican ? isYesOnSelected(isNull(this.IsNativeAmerican, '')) : false);
         ruleParams.HasHuntEd = this.HasHuntEd();
         ruleParams.HasBowHunt = this.HasBowHunt();
         ruleParams.HasTrapEd = this.HasTrapEd();
@@ -993,25 +993,25 @@ function form_OBJECT(identity) {
         scArray.push("IsNyResiDent : ");
         sbArray.push(this.IsNyResiDent);
         scArray.push("IsNyResiDent Decode : ");
-        sbArray.push(this.IsNyResiDent ? isNull(this.IsNyResiDent, '').toLowerCase() == "yes" : false);
+        sbArray.push(this.IsNyResiDent ? isYesOnSelected(isNull(this.IsNyResiDent, '')) : false);
         scArray.push("IsMinor : ");
         sbArray.push(this.IsMinor);
         scArray.push("IsMinor Dcode : ");
-        sbArray.push(this.IsMinor ? isNull(this.IsMinor, '').toLowerCase() == "yes" : false);
+        sbArray.push(this.IsMinor ? isYesOnSelected(isNull(this.IsMinor, '')) : false);
         scArray.push("IsLegallyBlind : ");
         sbArray.push(this.IsLegallyBlind);
         scArray.push("IsLegallyBlind Decode : ");
-        sbArray.push(isNull(this.IsLegallyBlind, '').toLowerCase() == "yes");
+        sbArray.push(isYesOnSelected(isNull(this.IsLegallyBlind, '')));
         scArray.push("IsPermanentDisabled : ");
         sbArray.push(this.IsPermanentDisabled);
         scArray.push("IsDisableForYear : ");
         sbArray.push(this.IsDisableForYear(this.Year));
         scArray.push("IsPermanentDisabled Decode : ");
-        sbArray.push(isNull(this.IsPermanentDisabled, '').toLowerCase() == "yes");
+        sbArray.push(isYesOnSelected(isNull(this.IsPermanentDisabled, '')));
         scArray.push("IsNativeAmerican : ");
         sbArray.push(this.IsNativeAmerican);
         scArray.push("IsNativeAmerican Decode : ");
-        sbArray.push((this.isNYSDEC_HQ || this.isNative_American_Agency) && (this.IsNativeAmerican ? isNull(this.IsNativeAmerican, '').toLowerCase() == "yes" : false));
+        sbArray.push((this.isNYSDEC_HQ || this.isNative_American_Agency) && (this.IsNativeAmerican ? isYesOnSelected(isNull(this.IsNativeAmerican, '')) : false));
         scArray.push("PreferencePoints : ");
         sbArray.push(this.PreferencePoints);
 
@@ -1019,7 +1019,7 @@ function form_OBJECT(identity) {
         scArray.push("IsMilitaryServiceman :");
         sbArray.push(this.IsMilitaryServiceman);
         scArray.push("IsMilitaryServiceman Decode : ");
-        sbArray.push(this.IsMilitaryServiceman ? isNull(this.IsMilitaryServiceman, '').toLowerCase() == "yes" : false);
+        sbArray.push(this.IsMilitaryServiceman ? isYesOnSelected(isNull(this.IsMilitaryServiceman, '')) : false);
 
         //APPEARANCE
         scArray.push("Height : ");
@@ -3116,4 +3116,7 @@ function monthDiff(d1, d2) {
     var d2M = d2.getMonth();
 
     return (d2M + 12 * d2Y) - (d1M + 12 * d1Y) + 1;
+}
+function isYesOnSelected(spassvalue) {
+    return (spassvalue.equalsIgnoreCase('YES') || spassvalue.equalsIgnoreCase('Y') || spassvalue.equalsIgnoreCase('CHECKED') || spassvalue.equalsIgnoreCase('SELECTED') || spassvalue.equalsIgnoreCase('TRUE') || spassvalue.equalsIgnoreCase('ON'));
 }
