@@ -2213,6 +2213,7 @@ function getIncl_LIFETM_SPRT(ruleParams) {
     arryInc.push(LIC40_SUPER_SPORTSMAN);
     arryInc.push(LIC27_CONSERVATION_LEGACY);
     arryInc.push(LIC06_HUNTING_LICENSE);
+    arryInc.push(LIC08_TURKEY_PERMIT);
     return arryInc;
 }
 function getIncl_LIFETM_MUZZ(ruleParams) {
