@@ -1499,7 +1499,7 @@ function isRuleForSelectable_ONEDAY_FISH_2012(ruleParams) {
 }
 function isRuleForSelectable_ONEDAY_FISH_2014(ruleParams) {
     var isSelectable = false;
-    if (!ruleParams.IsLegallyBlind && !(ruleParams.hasSaleLicMilitaryDisable || hasBaseLicMilitaryDisable(ruleParams.ActiveHoldingsInfo))) {
+    if (!ruleParams.IsLegallyBlind && !ruleParams.IsDisableForYear) {
         isSelectable = ((ruleParams.IsNyResiDent || ruleParams.HasLifetimeFish()) && ruleParams.Age >= 16 && ruleParams.Age <= 69 && !ruleParams.IsMilitaryServiceman);
     }
     isSelectable = isSelectable || (!(ruleParams.IsNyResiDent || ruleParams.HasLifetimeFish()) && ruleParams.Age >= 16);
@@ -1614,7 +1614,7 @@ function isRuleForSelectable_SEVEN_DAY_FISHING_LICENSE_2012(ruleParams) {
 function isRuleForSelectable_SEVEN_DAY_FISHING_LICENSE_2014(ruleParams) {
     var isSelectable = false;
 
-    if (!ruleParams.IsLegallyBlind && !(ruleParams.hasSaleLicMilitaryDisable || hasBaseLicMilitaryDisable(ruleParams.ActiveHoldingsInfo))) {
+    if (!ruleParams.IsLegallyBlind && !ruleParams.IsDisableForYear) {
         isSelectable = ((ruleParams.IsNyResiDent || ruleParams.HasLifetimeFish()) && ruleParams.Age >= 16 && ruleParams.Age <= 69 && !ruleParams.IsMilitaryServiceman);
     }
     isSelectable = isSelectable || (!(ruleParams.IsNyResiDent || ruleParams.HasLifetimeFish()) && ruleParams.Age >= 16);
