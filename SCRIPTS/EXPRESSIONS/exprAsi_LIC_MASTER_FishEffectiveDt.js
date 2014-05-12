@@ -69,7 +69,7 @@ if (msg == '') {
     var sUserIdEB = vUserID.getValue();
 
     //Init 
-    var f = new form_OBJECT(GS2_EXPR, OPTZ_TYPE_CTRC);
+    var f = new form_OBJECT(GS2_EXPR, OPTZ_TYPE_ALLFEES);
 
     f.Year = aYear.value;
     f.DOB = abirthDate.value;
@@ -96,6 +96,7 @@ if (msg == '') {
     f.FromACA = aIsFromACA.value;
     f.UserIdEB = sUserIdEB;
     //
+	f.ExecuteBoRuleEngine();
 
     msg = f.isActiveFishingLic(oEffDt.getValue(), '')
     oEffDt.message = msg;
