@@ -64,7 +64,7 @@ if (msg == '') {
     var oRecordType = expression.getValue("CAP::capType");
 
     //Init 
-    var f = new form_OBJECT(GS2_EXPR, OPTZ_TYPE_CTRC);
+    var f = new form_OBJECT(GS2_EXPR, OPTZ_TYPE_ALLFEES);
 
     f.Year = aYear.value;
     f.DOB = abirthDate.value;
@@ -86,7 +86,9 @@ if (msg == '') {
     f.UserIdEB = sUserIdEB;
     f.RecordType = oRecordType.getValue();
     //
-
+	//Set Fish lience Exclude sale
+	f.SetFishSaleExcludes();
+	f.ExecuteBoRuleEngine();
 
     msg = f.isActiveFishingLic(oEffDt.getValue(), '')
     oEffDt.message = msg;
