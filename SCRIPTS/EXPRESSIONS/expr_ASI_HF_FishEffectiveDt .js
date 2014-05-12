@@ -65,7 +65,7 @@ if (msg == '') {
 
 
     //Init 
-    var f = new form_OBJECT(GS2_EXPR, OPTZ_TYPE_CTRC);
+    var f = new form_OBJECT(GS2_EXPR, OPTZ_TYPE_ALLFEES);
 
     f.Year = aYear.value;
     f.DOB = abirthDate.value;
@@ -87,6 +87,8 @@ if (msg == '') {
     f.UserIdEB = sUserIdEB;
     f.RecordType = oRecordType.getValue();
     //
+	f.SetHuntAndFishSaleExcludes();
+	f.ExecuteBoRuleEngine();
 
     msg = f.isActiveFishingLic(oEffDt.getValue(), '')
     oEffDt.message = msg;
