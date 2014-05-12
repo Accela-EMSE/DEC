@@ -106,9 +106,9 @@ for (var idx = 0; idx < f.licObjARRAY.length; idx++) {
 }
 ////
 
-//conrol Refeshment to commit applied settings TRAPING LICENSES
+//conrol Refeshment to commit applied settings TRAPPING LICENSES
 var myLicObj = new Array();
-myLicObj[myLicObj.length] = expression.getValue("ASI::TRAPING LICENSES::Trapping License");
-myLicObj[myLicObj.length] = expression.getValue("ASI::TRAPING LICENSES::3 Year Trapping License");
-myLicObj[myLicObj.length] = expression.getValue("ASI::TRAPING LICENSES::5 Year Trapping License");
+myLicObj[myLicObj.length] = expression.getValue("ASI::TRAPPING LICENSES::Trapping License");
+myLicObj[myLicObj.length] = expression.getValue("ASI::TRAPPING LICENSES::3 Year Trapping License");
+myLicObj[myLicObj.length] = expression.getValue("ASI::TRAPPING LICENSES::5 Year Trapping License");
 //
