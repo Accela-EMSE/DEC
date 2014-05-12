@@ -1168,7 +1168,7 @@ function form_OBJECT(identity) {
         return arrayFeeText.join("\n");
     }
     this.getAge = function getAGE(argbirthDate) {
-        var now = new Date();
+        var now = new Date(dateAdd(new Date(), 1));
         var birthDate = new Date(argbirthDate);
 
         function isLeap(year) {
