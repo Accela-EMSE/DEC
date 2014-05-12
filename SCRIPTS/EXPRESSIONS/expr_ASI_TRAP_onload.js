@@ -114,11 +114,11 @@ for (var idx = 0; idx < f.licObjARRAY.length; idx++) {
 //conrol Refeshment to commit applied settings
 var myLicObj = new Array();
 
-myLicObj[myLicObj.length] = expression.getValue("ASI::TRAPING LICENSES::Trapping License");
+myLicObj[myLicObj.length] = expression.getValue("ASI::TRAPPING LICENSES::Trapping License");
 ////
 
 //
-var oTExplanation = expression.getValue("ASI::TRAPING LICENSES::Explanation");
+var oTExplanation = expression.getValue("ASI::TRAPPING LICENSES::Explanation");
 oTExplanation.value = String(f.MessageHunter);
 oTExplanation.readOnly = true;
 if (f.MessageHunter == "") {
