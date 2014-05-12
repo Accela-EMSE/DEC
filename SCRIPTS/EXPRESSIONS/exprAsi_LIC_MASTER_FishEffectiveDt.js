@@ -23,14 +23,14 @@ var oToday = expression.getValue("$$today$$");
 
 var totalRowCount = expression.getTotalRowCount();
 var msg = "";
-dd =  diffDate(oToday.getValue(), oEffDt.getValue());
+dd = diffDate(oToday.getValue(), oEffDt.getValue());
 if (dd < 0) {
-	msg =  "Effective Date cannot be prior to today's date";  
-	oEffDt.value = "";
+    msg = "Effective Date cannot be prior to today's date";
+    oEffDt.value = "";
 }
 if (dd > 60) {
-	msg =  "Effective Date cannot be more than 60 days into the future" ;
-	oEffDt.value = "";
+    msg = "Effective Date cannot be more than 60 days into the future";
+    oEffDt.value = "";
 }
 oEffDt.message = msg;
 expression.setReturn(oEffDt);
@@ -68,76 +68,80 @@ if (msg == '') {
     var vUserID = expression.getValue("$$userID$$");
     var sUserIdEB = vUserID.getValue();
 
-    if (isNull(aActiveHoldings.value, '') != '') {
-        //Init 
-        var f = new form_OBJECT(GS2_EXPR, OPTZ_TYPE_CTRC);
+    //Init 
+    var f = new form_OBJECT(GS2_EXPR, OPTZ_TYPE_CTRC);
 
-        f.Year = aYear.value;
-        f.DOB = abirthDate.value;
-        f.Email = aemail.value;
-        f.IsNyResiDent = aIsNYResident.value;
-        f.IsMilitaryServiceman = aIsMilitaryServiceman.value;
-        f.IsLegallyBlind = aIsLegallyBlind.value;
-        f.IsNativeAmerican = (aIsNativeAmerican.value);
-        f.PreferencePoints = aPreferencePoints.value;
-        f.SetAnnualDisability(aAnnualDisability.value);
-        f.SetPriorLicense(aPreviousLicense.value);
-        f.SetSportsmanEducation(aSportsmanEducation.value);
-        f.SetLandOwnerInfo(aLandOwnerInformation.value);
-        f.Quantity_Trail_Supporter_Patch = aQuantity_Trail_Supporter_Patch.value
-        f.Quantity_Venison_Donation = aQuantity_Venison_Donation.value
-        f.Quantity_Conservation_Patron = aQuantity_Conservation_Patron.value
-        f.Quantity_Conservation_Fund = aQuantity_Conservation_Fund.value
-        f.Quantity_Conservationist_Magazine = aQuantity_Conservationist_Magazine.value
-        f.Quantity_Habitat_Stamp = aQuantity_Habitat_Stamp.value
-        f.IsPermanentDisabled = aPermanentDisability.value;
-        f.SetActiveHoldingsInfo(aActiveHoldings.value);
-        f.SetEnforcementAttrib(aSuspended.value, aRevokedHunting.value, aRevokedTrapping.value, aRevokedFishing.value);
-        f.SetFulfillmentAttrib(aAgedIn.value, aNeedHuntEd.value);
-        f.FromACA = aIsFromACA.value;
-        f.UserIdEB = sUserIdEB;
-        //
+    f.Year = aYear.value;
+    f.DOB = abirthDate.value;
+    f.Email = aemail.value;
+    f.IsNyResiDent = aIsNYResident.value;
+    f.IsMilitaryServiceman = aIsMilitaryServiceman.value;
+    f.IsLegallyBlind = aIsLegallyBlind.value;
+    f.IsNativeAmerican = (aIsNativeAmerican.value);
+    f.PreferencePoints = aPreferencePoints.value;
+    f.SetAnnualDisability(aAnnualDisability.value);
+    f.SetPriorLicense(aPreviousLicense.value);
+    f.SetSportsmanEducation(aSportsmanEducation.value);
+    f.SetLandOwnerInfo(aLandOwnerInformation.value);
+    f.Quantity_Trail_Supporter_Patch = aQuantity_Trail_Supporter_Patch.value
+    f.Quantity_Venison_Donation = aQuantity_Venison_Donation.value
+    f.Quantity_Conservation_Patron = aQuantity_Conservation_Patron.value
+    f.Quantity_Conservation_Fund = aQuantity_Conservation_Fund.value
+    f.Quantity_Conservationist_Magazine = aQuantity_Conservationist_Magazine.value
+    f.Quantity_Habitat_Stamp = aQuantity_Habitat_Stamp.value
+    f.IsPermanentDisabled = aPermanentDisability.value;
+    f.SetActiveHoldingsInfo(aActiveHoldings.value);
+    f.SetEnforcementAttrib(aSuspended.value, aRevokedHunting.value, aRevokedTrapping.value, aRevokedFishing.value);
+    f.SetFulfillmentAttrib(aAgedIn.value, aNeedHuntEd.value);
+    f.FromACA = aIsFromACA.value;
+    f.UserIdEB = sUserIdEB;
+    //
 
+    msg = f.isActiveFishingLic(oEffDt.getValue(), '')
+    oEffDt.message = msg;
+    expression.setReturn(oEffDt);
 
-        msg = f.isActiveFishingLic(oEffDt.getValue(), '')
-        oEffDt.message = msg;
-        expression.setReturn(oEffDt);
+    var isDD7 = (dd >= 7);
+    var isDD1 = (dd > 0);
+
+    var oFish1Day = expression.getValue("ASI::FISHING LICENSES::One Day Fishing License");
+    var oNonresFish1Day = expression.getValue("ASI::FISHING LICENSES::Nonresident 1 Day Fishing");
+    var oFish7Day = expression.getValue("ASI::FISHING LICENSES::Seven Day Fishing License");
+    var oNonResFish7Day = expression.getValue("ASI::FISHING LICENSES::Nonresident 7 Day Fishing");
+
+    if (f.licObjARRAY[f.licensesNameArray[LIC03_ONE_DAY_FISHING_LICENSE]].IsSelectable) {
+        oFish1Day.hidden = !isDD1;
+        if (!isDD1) {
+            oFish1Day.value = false;
+        }
+        expression.setReturn(oFish1Day);
     }
+    if (f.licObjARRAY[f.licensesNameArray[LIC24_NONRESIDENT_1_DAY_FISHING]].IsSelectable) {
+        oNonresFish1Day.hidden = !isDD1;
+        if (!isDD1) {
+            oNonresFish1Day.value = false;
+        }
+        expression.setReturn(oNonresFish1Day);
+    }
+
+    if (f.licObjARRAY[f.licensesNameArray[LIC26_SEVEN_DAY_FISHING_LICENSE]].IsSelectable) {
+        oFish7Day.hidden = !isDD7;
+        if (!isDD7) {
+            oFish7Day.value = false;
+        }
+        expression.setReturn(oFish7Day);
+    }
+
+    if (f.licObjARRAY[f.licensesNameArray[LIC25_NONRESIDENT_7_DAY_FISHING]].IsSelectable) {
+        oNonResFish7Day.hidden = !isDD7;
+        if (!isDD7) {
+            oNonResFish7Day.value = false;
+        }
+        expression.setReturn(oNonResFish7Day);
+    }
+    //
 }
 
-var isDD7 = (dd >= 7); 
-var isDD1 = (dd > 0); 
-
-var oFish1Day = expression.getValue("ASI::FISHING LICENSES::One Day Fishing License");
-var oNonresFish1Day = expression.getValue("ASI::FISHING LICENSES::Nonresident 1 Day Fishing");
-var oFish7Day = expression.getValue("ASI::FISHING LICENSES::Seven Day Fishing License");
-var oNonResFish7Day = expression.getValue("ASI::FISHING LICENSES::Nonresident 7 Day Fishing");
-
-oFish1Day.hidden = !isDD1;
-if(!isDD1){
-	oFish1Day.value = false;
-}
-expression.setReturn(oFish1Day);
-
-oNonresFish1Day.hidden = !isDD1;
-if(!isDD1){
-	oNonresFish1Day.value = false;
-}
-expression.setReturn(oNonresFish1Day);
-
-oFish7Day.hidden = !isDD7;
-if(!isDD7){
-	oFish7Day.value = false;
-}
-expression.setReturn(oFish7Day);
-
-oNonResFish7Day.hidden = !isDD7;
-if(!isDD7){
-	oNonResFish7Day.value = false;
-}
-expression.setReturn(oNonResFish7Day);
-
-//
 var isFish1Day = ((oFish1Day.value != null && (oFish1Day.value.equalsIgnoreCase('YES') || oFish1Day.value.equalsIgnoreCase('Y') || oFish1Day.value.equalsIgnoreCase('CHECKED') || oFish1Day.value.equalsIgnoreCase('SELECTED') || oFish1Day.value.equalsIgnoreCase('TRUE') || oFish1Day.value.equalsIgnoreCase('ON'))));
 var isNonResFish1Day = ((oNonresFish1Day.value != null && (oNonresFish1Day.value.equalsIgnoreCase('YES') || oNonresFish1Day.value.equalsIgnoreCase('Y') || oNonresFish1Day.value.equalsIgnoreCase('CHECKED') || oNonresFish1Day.value.equalsIgnoreCase('SELECTED') || oNonresFish1Day.value.equalsIgnoreCase('TRUE') || oNonresFish1Day.value.equalsIgnoreCase('ON'))));
 var o1DayEffDt = expression.getValue("ASI::FISHING LICENSES::Effective Date One Day Fishing");
@@ -156,7 +160,7 @@ var isFish7Day = ((oFish7Day.value != null && (oFish7Day.value.equalsIgnoreCase(
 var isNonResFish7Day = ((oNonResFish7Day.value != null && (oNonResFish7Day.value.equalsIgnoreCase('YES') || oNonResFish7Day.value.equalsIgnoreCase('Y') || oNonResFish7Day.value.equalsIgnoreCase('CHECKED') || oNonResFish7Day.value.equalsIgnoreCase('SELECTED') || oNonResFish7Day.value.equalsIgnoreCase('TRUE') || oNonResFish7Day.value.equalsIgnoreCase('ON'))));
 var o7DayEffDt = expression.getValue("ASI::FISHING LICENSES::Effective Date Seven Day Fishing");
 
-o7DayEffDt.required = !(!isFish7Day && !isNonResFish7Day) ;
+o7DayEffDt.required = !(!isFish7Day && !isNonResFish7Day);
 //o7DayEffDt.readOnly = !isFish7Day && !isNonResFish7Day;
 o7DayEffDt.hidden = !isFish7Day && !isNonResFish7Day;
 if (!isFish7Day && !isNonResFish7Day) {
@@ -164,3 +168,4 @@ if (!isFish7Day && !isNonResFish7Day) {
 }
 expression.setReturn(o7DayEffDt);
 ////
+
