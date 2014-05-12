@@ -1476,7 +1476,7 @@ function form_OBJECT(identity) {
         this.SetExprFieldName(LIC12_LIFETIME_SMALL_AND_BIG_GAME, "");
         this.SetExprFieldName(LIC13_LIFETIME_SPORTSMAN, "");
         this.SetExprFieldName(LIC14_LIFETIME_TRAPPING, "");
-        this.SetExprFieldName(LIC15_TRAPPING_LICENSE, "ASI::TRAPING LICENSES::Trapping License");
+        this.SetExprFieldName(LIC15_TRAPPING_LICENSE, "ASI::TRAPPING LICENSES::Trapping License");
         this.SetExprFieldName(LIC16_HABITAT_ACCESS_STAMP, "");
         this.SetExprFieldName(LIC17_VENISON_DONATION, "");
         this.SetExprFieldName(LIC18_CONSERVATION_FUND, "");
@@ -1517,8 +1517,8 @@ function form_OBJECT(identity) {
         this.SetExprFieldName(LIC61_BOWHUNTING_PRIVILEGE_5Y, "");
         this.SetExprFieldName(LIC62_MUZZLELOADING_PRIVILEGE_3Y, "");
         this.SetExprFieldName(LIC63_MUZZLELOADING_PRIVILEGE_5Y, "");
-        this.SetExprFieldName(LIC64_TRAPPING_LICENSE_3Y, "ASI::TRAPING LICENSES::3 Year Trapping License");
-        this.SetExprFieldName(LIC65_TRAPPING_LICENSE_5Y, "ASI::TRAPING LICENSES::5 Year Trapping License");
+        this.SetExprFieldName(LIC64_TRAPPING_LICENSE_3Y, "ASI::TRAPPING LICENSES::3 Year Trapping License");
+        this.SetExprFieldName(LIC65_TRAPPING_LICENSE_5Y, "ASI::TRAPPING LICENSES::5 Year Trapping License");
         this.SetExprFieldName(LIC66_FRESHWATER_FISHING_3Y, "");
         this.SetExprFieldName(LIC67_FRESHWATER_FISHING_5Y, "");
         this.SetExprFieldName(LIC68_TURKEY_PERMIT_3Y, "");
