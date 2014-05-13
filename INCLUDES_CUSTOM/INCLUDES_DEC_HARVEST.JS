@@ -1969,6 +1969,7 @@ function getOriginalLTCapId(altId) {
             isappmatchcapid = isappmatchcapid || appMatch("Licenses/Sales/Application/Trapping C", itemCapId);
             isappmatchcapid = isappmatchcapid || appMatch("Licenses/Sales/Application/Lifetime C", itemCapId);
             isappmatchcapid = isappmatchcapid || appMatch("Licenses/Sales/Application/Sporting C", itemCapId);
+            isappmatchcapid = isappmatchcapid || appMatch("Licenses/Sales/Application/Legacy Load", itemCapId);
             if (isappmatchcapid) {
                 return parentAltId;
             }
