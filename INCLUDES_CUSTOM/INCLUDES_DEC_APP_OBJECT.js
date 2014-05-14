@@ -1168,24 +1168,23 @@ function form_OBJECT(identity) {
         return arrayFeeText.join("\n");
     }
     this.getAge = function getAGE(argbirthDate) {
-        var now = new Date(dateAdd(new Date(), 1));
-        var birthDate = new Date(argbirthDate);
+        var arrbirthdata = argbirthDate.split("/");
+        var birthMonth = arrbirthdata[0];
+        var birthDay = arrbirthdata[1];
+        var birthYear = arrbirthdata[2];
 
-        function isLeap(year) {
-            return year % 4 == 0 && (year % 100 != 0 || year % 400 == 0);
+        todayDate = new Date();
+        todayYear = todayDate.getFullYear();
+        todayMonth = todayDate.getMonth();
+        todayDay = todayDate.getDate();
+        age = todayYear - birthYear;
+
+        if (todayMonth < birthMonth - 1) {
+            age--;
         }
 
-        // days since the birthdate    
-        var days = Math.floor((now.getTime() - birthDate.getTime()) / 1000 / 60 / 60 / 24);
-        var age = 0;
-        // iterate the years
-        for (var y = birthDate.getFullYear(); y <= now.getFullYear(); y++) {
-            var daysInYear = isLeap(y) ? 366 : 365;
-            if (days >= daysInYear) {
-                days -= daysInYear;
-                age++;
-                // increment the age only if there are available enough days for the year.
-            }
+        if (birthMonth - 1 == todayMonth && todayDay < birthDay) {
+            age--;
         }
         return age;
     }
