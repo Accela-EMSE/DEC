@@ -24,7 +24,6 @@ var servProvCode=expression.getValue("$$servProvCode$$").value;
 var dl = expression.getValue("REFCONTACT::driverLicenseNbr");
 var nonDL = expression.getValue("REFCONTACT::stateIDNbr");
 var dlState =expression.getValue("REFCONTACT::driverLicenseState");
-var dlLast = expression.getValue("REFCONTACT::lastName");
 var dlDOB = expression.getValue("REFCONTACT::birthDate");
 
 var form = expression.getValue("REFCONTACT::FORM");
@@ -45,17 +44,13 @@ if (valueToValidate) {
 
 	form.blockSubmit = false;
 	
-	var searchLast = "";
-	if (String(dlLast.value).length > 0 ){
-		searchLast = String(dlLast.value).substring(0,1).toUpperCase();
-	}
 	var dt = new Date(dlDOB.getValue());
 	var yyyymmdd = dt.getFullYear() + ("00" + String(dt.getMonth() + 1)).slice(-2) + String("00" + dt.getDate()).slice(-2);
 
 	var pattern = /^\d{4}((0\d)|(1[012]))(([012]\d)|3[01])$/ ;
 
 	if (pattern.test(yyyymmdd)) {
-		var vOut = CIDVerify(dmvUserID,dmvUserPwd,valueToValidate.value,searchLast,yyyymmdd);
+		var vOut = CIDVerify(dmvUserID,dmvUserPwd,valueToValidate.value,yyyymmdd);
 		
 		if( !vOut.valid ){
 			form.blockSubmit = true;
@@ -89,10 +84,9 @@ CIDVerify Function
 vUser = DMV User_ID
 VPass = DMV Passowrd
 vLicNbr = DMV ID number
-vLast = DMV ID last name (this will wild card match)
 vDOB = DMV ID Date of Birth in YYYYMMDD format.
 *********************************************************************************************/
-function CIDVerify(vUser,vPass,vLicNbr,vLast,vDOB){
+function CIDVerify(vUser,vPass,vLicNbr,vDOB){
 
 	//change to proper environment
 	var wsURL = dmvWsURL;
@@ -122,8 +116,7 @@ function CIDVerify(vUser,vPass,vLicNbr,vLast,vDOB){
 					<DMV_CLIENT_ID></DMV_CLIENT_ID>
 				</LOOKUP>
 				<VERIFY>
-					<TEST name="DMV_CLIENT_LAST_NAME" type="WILDCARD" data="" />
-					<TEST name="DMV_CLIENT_DOB" type="EXACT" data="" />
+				               <TEST name="DMV_CLIENT_DOB" type="EXACT" data="" />
 				</VERIFY>
 			</DMVTRAN>;
 
@@ -134,8 +127,7 @@ function CIDVerify(vUser,vPass,vLicNbr,vLast,vDOB){
 	dmvTran.ADMIN_USER.PASSWORD = vPass;
 	dmvTran.CIDVERIFY_TRANS_DATA.END_USER_ID = vUser;
 	dmvTran.LOOKUP.DMV_CLIENT_ID = vLicNbr;
-	dmvTran.VERIFY.TEST[0].@data = vLast + "*";
-	dmvTran.VERIFY.TEST[1].@data = vDOB;
+	dmvTran.VERIFY.TEST[0].@data = vDOB;
 	dmvSOAPenv = dmvSOAPenv.replace("$$MYXML$$",dmvTran.toString());
 
 	//Invoke Web Service
