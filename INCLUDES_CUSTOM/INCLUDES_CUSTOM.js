@@ -941,7 +941,6 @@ function issueSelectedSalesItems(frm) {
     var tagPropArray = new Array();
     for (var t in arryAccumTags) {
         var tagProp = tagsMap.get(arryAccumTags[t]);
-        logDebug(tagProp.TagType);
         if (tagProp.TagType != TAG_TYPE_4_DMP_DEER_TAG) {
             tagPropArray.push(tagProp);
         }
