@@ -62,7 +62,7 @@ var sHWmuChoice1 = oHWmuChoice1.value;
 var sHWmuChoice2 = oHWmuChoice2.value;
 
 var msg = '';
-if ((sHWmuChoice1!=sHWmuChoice2)isYesApplyLO1 && isYesApplyLO2) {
+if ((sHWmuChoice1!=sHWmuChoice2) && isYesApplyLO1 && isYesApplyLO2) {
     msg = "Landownership can only be applied to one WMU per license year.";
 }
 vApplyLO1.message = msg;
