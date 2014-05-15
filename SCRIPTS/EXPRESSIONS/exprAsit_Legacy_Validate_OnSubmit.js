@@ -9,10 +9,8 @@ var strControl = "DD_LEGACY_LICENSE_TYPE";
 var bizDomScriptResult = aa.bizDomain.getBizDomain(strControl);
 
 var EffectiveDate = expression.getValue("ASIT::LICENSE INFORMATION::Effective Date");
-var DocumentNumber = expression.getValue("ASIT::LICENSE INFORMATION::Document Number");
 var LicenseType = expression.getValue("ASIT::LICENSE INFORMATION::License Type");
 var LicenseYear = expression.getValue("ASIT::LICENSE INFORMATION::License Year");
-var hasDocNumber=expression.getValue("ASIT::LICENSE INFORMATION::Has Document Number?");
 
 if (bizDomScriptResult.getSuccess()) {
     bizDomScriptArray = bizDomScriptResult.getOutput().toArray()
@@ -40,8 +38,6 @@ if (bizDomScriptResult.getSuccess()) {
 for (var rowIndex = 0; rowIndex < totalRowCount; rowIndex++) {
     form = expression.getValue(rowIndex, "ASIT::LICENSE INFORMATION::FORM");
     LicenseYear = expression.getValue(rowIndex, "ASIT::LICENSE INFORMATION::License Year");
-    DocumentNumber = expression.getValue(rowIndex, "ASIT::LICENSE INFORMATION::Document Number");
-	hasDocNumber=expression.getValue(rowIndex, "ASIT::LICENSE INFORMATION::Has Document Number?");
     if (LicenseYear.value != null && LicenseYear.value != '') {
         var Pattern = /^\d{4}$/;
         isValid = Pattern.test(LicenseYear.value);
@@ -50,44 +46,6 @@ for (var rowIndex = 0; rowIndex < totalRowCount; rowIndex++) {
             expression.setReturn(rowIndex, form);
             LicenseYear.message = "Please enter a valid year";
             expression.setReturn(rowIndex, LicenseYear);
-        }
-    }
-    
-	var isYesHasDocNumber = ((hasDocNumber.value!=null && (hasDocNumber.value.equalsIgnoreCase('YES') || hasDocNumber.value.equalsIgnoreCase('Y') || hasDocNumber.value.equalsIgnoreCase('CHECKED') || hasDocNumber.value.equalsIgnoreCase('SELECTED') || hasDocNumber.value.equalsIgnoreCase('TRUE') || hasDocNumber.value.equalsIgnoreCase('ON'))));
-
-	if(isYesHasDocNumber) {
-		if (DocumentNumber.value == null || DocumentNumber.value == "") {
-			form.message = "Document Number is required.";
-			form.blockSubmit = true;
-			expression.setReturn(rowIndex, form);
-		}
-		if (DocumentNumber.value.length() != 12) {
-			DocumentNumber.message = "The document number should not be greater than 12 characters.";
-			expression.setReturn(rowIndex, DocumentNumber);
-			form.blockSubmit = true;
-			expression.setReturn(rowIndex, form);
-		}
-		if (DocumentNumber.value != null && FindExistingDocument(DocumentNumber.value) != null) {
-			DocumentNumber.message = "This document already exists";
-			expression.setReturn(rowIndex, DocumentNumber);
-			form.blockSubmit = true;
-			expression.setReturn(rowIndex, form);
-		}
-	} else {
-		if (DocumentNumber.value != null && DocumentNumber.value != "") {
-			form.message = "Please verify selection of Has Document Number.";
-			form.blockSubmit = true;
-			expression.setReturn(rowIndex, form);
-		}
-	}
-    for (var rowIndex2 = rowIndex + 1; rowIndex2 < totalRowCount; rowIndex2++) {
-        var _documentNumber = expression.getValue(rowIndex2, "ASIT::LICENSE INFORMATION::Document Number");
-        if (DocumentNumber.value.equals(_documentNumber.value)) {
-            DocumentNumber.message = "Duplicate document number.";
-            expression.setReturn(rowIndex, DocumentNumber);
-
-            form.blockSubmit = true;
-            expression.setReturn(rowIndex, form);
         }
     }
     EffectiveDate = expression.getValue(rowIndex, "ASIT::LICENSE INFORMATION::Effective Date");
