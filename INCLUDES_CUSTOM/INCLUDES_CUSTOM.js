@@ -6171,67 +6171,69 @@ function copyASIContactAppSpecificToRecordAppSpecific() {
     createActiveHoldingTable();
     loadAppSpecific4ACA(AInfo);
     var exmsg = '';
-    //if (isNull(AInfo["License Year"], '') != '') {
-    appTypeString = cap.getCapType().toString();
-    var f = new form_OBJECT(GS2_SCRIPT, OPTZ_TYPE_ALLFEES);
-    f.RecordType = appTypeString;
-    if (appTypeString == 'Licenses/Sales/Application/Fishing' || appTypeString == 'Licenses/Sales/Application/Marine Registry' || appTypeString == 'Licenses/Sales/Application/Fishing C' || appTypeString == 'Licenses/Sales/Application/Marine Registry C') {
-        f.SetFishSaleExcludes();
-        SetExpressformForSelectedLics(f);
-        if (f.MessageFish != "") {
-            exmsg += f.MessageFish;
-        }
-    }
-    if (appTypeString == 'Licenses/Sales/Application/Hunting' || appTypeString == 'Licenses/Sales/Application/Hunting C') {
-        f.SetHuntSaleExcludes();
-        SetExpressformForSelectedLics(f);
-        if (f.MessageHunter != "") {
-            exmsg += f.MessageHunter;
-        }
-    }
-    if (appTypeString == 'Licenses/Sales/Application/Trapping' || appTypeString == 'Licenses/Sales/Application/Trapping C') {
-        f.SetTrapSaleExcludes();
+    if (controlString != 'ACA ONSUBMIT BEFORE EXPRESS P1') {
+        if (isNull(AInfo["License Year"], '') == '') {
+            exmsg += "Please enter license year.";
+            if (isNotValidToProceed) {
+                isNotValidToProceed += exmsg
+            }
+            else {
+                isNotValidToProceed = exmsg;
+            }
+        } else {
+            appTypeString = cap.getCapType().toString();
+            var f = new form_OBJECT(GS2_SCRIPT, OPTZ_TYPE_ALLFEES);
+            f.RecordType = appTypeString;
+            if (appTypeString == 'Licenses/Sales/Application/Fishing' || appTypeString == 'Licenses/Sales/Application/Marine Registry' || appTypeString == 'Licenses/Sales/Application/Fishing C' || appTypeString == 'Licenses/Sales/Application/Marine Registry C') {
+                f.SetFishSaleExcludes();
+                SetExpressformForSelectedLics(f);
+                if (f.MessageFish != "") {
+                    exmsg += f.MessageFish;
+                }
+            }
+            if (appTypeString == 'Licenses/Sales/Application/Hunting' || appTypeString == 'Licenses/Sales/Application/Hunting C') {
+                f.SetHuntSaleExcludes();
+                SetExpressformForSelectedLics(f);
+                if (f.MessageHunter != "") {
+                    exmsg += f.MessageHunter;
+                }
+            }
+            if (appTypeString == 'Licenses/Sales/Application/Trapping' || appTypeString == 'Licenses/Sales/Application/Trapping C') {
+                f.SetTrapSaleExcludes();
 
-        SetExpressformForSelectedLics(f);
-        if (f.MessageHunter != "") {
-            exmsg += f.MessageHunter;
+                SetExpressformForSelectedLics(f);
+                if (f.MessageHunter != "") {
+                    exmsg += f.MessageHunter;
+                }
+            }
+            if (appTypeString == 'Licenses/Sales/Application/Lifetime' || appTypeString == 'Licenses/Sales/Application/Lifetime C') {
+                f.SetLifeTimeSaleExcludes();
+                SetExpressformForSelectedLics(f);
+                if (f.MessageLifeTime != "") {
+                    exmsg += f.MessageLifeTime;
+                }
+            }
+            if (appTypeString == 'Licenses/Sales/Application/Hunting and Fishing' || appTypeString == 'Licenses/Sales/Application/Hunting and Fishing C') {
+                f.SetHuntAndFishSaleExcludes();
+                SetExpressformForSelectedLics(f);
+                if (f.MessageFish != "" && f.MessageHunter != "") {
+                    exmsg += f.MessageFish;
+                }
+            }
+            if (appTypeString == 'Licenses/Sales/Application/Sporting') {
+                SetExpressformForSelectedLics(f);
+                if (f.MessageFish != "" && f.MessageHunter != "" && f.MessageLifeTime != "") {
+                    exmsg += f.MessageFish;
+                }
+            }
+            if (isNotValidToProceed) {
+                isNotValidToProceed += exmsg
+            }
+            else {
+                isNotValidToProceed = exmsg;
+            }
         }
     }
-    if (appTypeString == 'Licenses/Sales/Application/Lifetime' || appTypeString == 'Licenses/Sales/Application/Lifetime C') {
-        f.SetLifeTimeSaleExcludes();
-        SetExpressformForSelectedLics(f);
-        if (f.MessageLifeTime != "") {
-            exmsg += f.MessageLifeTime;
-        }
-    }
-    if (appTypeString == 'Licenses/Sales/Application/Hunting and Fishing' || appTypeString == 'Licenses/Sales/Application/Hunting and Fishing C') {
-        f.SetHuntAndFishSaleExcludes();
-        SetExpressformForSelectedLics(f);
-        if (f.MessageFish != "" && f.MessageHunter != "") {
-            exmsg += f.MessageFish;
-        }
-    }
-    if (appTypeString == 'Licenses/Sales/Application/Sporting') {
-        SetExpressformForSelectedLics(f);
-        if (f.MessageFish != "" && f.MessageHunter != "" && f.MessageLifeTime != "") {
-            exmsg += f.MessageFish;
-        }
-    }
-    if (isNotValidToProceed) {
-        isNotValidToProceed += exmsg
-    }
-    else {
-        isNotValidToProceed = exmsg;
-    }
-    //} else {
-    //    exmsg += "Please enter license year.";
-    //    if (isNotValidToProceed) {
-    //        isNotValidToProceed += exmsg
-    //    }
-    //    else {
-    //        isNotValidToProceed = exmsg;
-    //    }
-    //}
     logDebug("EXIT: copyASIContactAppSpecificToRecordAppSpecific");
 
     return isNotValidToProceed;
