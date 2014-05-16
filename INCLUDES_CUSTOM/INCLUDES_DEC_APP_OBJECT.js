@@ -108,7 +108,7 @@ function form_OBJECT(identity) {
     this.LastName = "";
     this.FullName = "";
 
-    this.DOB = new Date();
+    this.DOB = jsDateToMMDDYYYY(new Date());
     this.Gender = "";
 
     this.Country = "";
