@@ -175,10 +175,12 @@ function getRefContactsByEnforcemetLifted(ipRefContacts) {
             logDebug("In Suspension:");
             var sql = "SELECT A.SERV_PROV_CODE,A.B1_PER_ID1,A.B1_PER_ID2,A.B1_PER_ID3,A.B1_PER_GROUP, A.B1_PER_TYPE, A.B1_PER_SUB_TYPE, A.B1_PER_CATEGORY  FROM B1PERMIT A ";
             sql += "INNER JOIN B3CONTACT D ON A.SERV_PROV_CODE = D.SERV_PROV_CODE AND A.B1_PER_ID1 = D.B1_PER_ID1 AND A.B1_PER_ID2 = D.B1_PER_ID2 AND A.B1_PER_ID3 = D.B1_PER_ID3 ";
+			sql += "LEFT JOIN B1_EXPIRATION E ON A.SERV_PROV_CODE= E.SERV_PROV_CODE AND A.B1_PER_ID1 = E.B1_PER_ID1 AND A.B1_PER_ID2 =E.B1_PER_ID2 AND A.B1_PER_ID3 = E.B1_PER_ID3 "; 
             sql += "WHERE A.SERV_PROV_CODE = '" + aa.getServiceProviderCode() + "' ";
             sql += "AND D.g1_contact_nbr = " + fvRefContactNumber + " ";
             sql += "AND A.rec_status = 'A' AND D.rec_status = 'A' AND A.b1_module_name = 'Licenses' ";
             sql += "AND A.b1_appl_status = 'Suspended' ";
+			sql += "AND (E.EXPIRATION_DATE is NULL OR E.EXPIRATION_DATE > SYSDATE) ";
 
             var sStmt = conn.prepareStatement(sql);
             var recSet = sStmt.executeQuery();
@@ -205,10 +207,12 @@ function getRefContactsByEnforcemetLifted(ipRefContacts) {
             logDebug("In Revokation:");
             var sql = "SELECT A.SERV_PROV_CODE,A.B1_PER_ID1,A.B1_PER_ID2,A.B1_PER_ID3,A.B1_PER_GROUP, A.B1_PER_TYPE, A.B1_PER_SUB_TYPE, A.B1_PER_CATEGORY  FROM B1PERMIT A ";
             sql += "INNER JOIN B3CONTACT D ON A.SERV_PROV_CODE = D.SERV_PROV_CODE AND A.B1_PER_ID1 = D.B1_PER_ID1 AND A.B1_PER_ID2 = D.B1_PER_ID2 AND A.B1_PER_ID3 = D.B1_PER_ID3 ";
+			sql += "LEFT JOIN B1_EXPIRATION E ON A.SERV_PROV_CODE= E.SERV_PROV_CODE AND A.B1_PER_ID1 = E.B1_PER_ID1 AND A.B1_PER_ID2 =E.B1_PER_ID2 AND A.B1_PER_ID3 = E.B1_PER_ID3 "; 
             sql += "WHERE A.SERV_PROV_CODE = '" + aa.getServiceProviderCode() + "' ";
             sql += "AND D.g1_contact_nbr = " + fvRefContactNumber + " ";
             sql += "AND A.rec_status = 'A' AND D.rec_status = 'A' AND A.b1_module_name = 'Licenses' ";
             sql += "AND A.b1_appl_status = 'Revoked' ";
+			sql += "AND (E.EXPIRATION_DATE is NULL OR E.EXPIRATION_DATE > SYSDATE) ";
 
             var sStmt = conn.prepareStatement(sql);
             var recSet = sStmt.executeQuery();
