@@ -976,8 +976,10 @@ function getDmpTagToCorrect(drawtype, wmu, choicenumber) {
             var status = currcap.getCapStatus();
             //logDebug(status);
             if (status == "Active") {
+				useAppSpecificGroupName = true;
                 loadAppSpecific(tagAinfo, childCapId);
-                if (tagAinfo["WMU"] == drawtype && tagAinfo["Draw Type"] == wmu && tagAinfo["Choice"] == choicenumber) {
+				useAppSpecificGroupName = false;
+                if (tagAinfo["WMU INFORMATION.WMU"] == drawtype && tagAinfo["WMU INFORMATION.Draw Type"] == wmu && tagAinfo["WMU INFORMATION.Choice"] == choicenumber) {
                     retCapId = childCapId;
                 } else {
                     logDebug("Not Found");
