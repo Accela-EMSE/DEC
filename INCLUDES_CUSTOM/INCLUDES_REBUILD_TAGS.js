@@ -13,7 +13,7 @@
 |                           Create the Tags which are not there and Create an parent application for these tags.
 |                           The Status of the Application should be "Approved" and put the Condition "Auto-Generated Applications" on this application.
 /------------------------------------------------------------------------------------------------------*/
-
+var useffrectype = false;
 function rebuildAllTagsforaRefContact(ipRefContact, ipEffDate) {
     var fvNewRec = null;
     if (arguments.length > 2) {
@@ -490,10 +490,10 @@ function createNewTags(ipRefContact, ipStartDate, ipExpDate, ipEligibleTags, ipN
 function createParentTagApp(ipRefContact, ipStartDate, ipExpDate) {
     logDebug("In createParentTagApp " + ipRefContact + ", " + ipStartDate + ", " + ipExpDate);
     var fvGroup = "Licenses";
-    var fvType = "Annual";
-    var fvSubType = "Application";
-    var fvCategory = "NA";
-    var fvDesc = "Buy Sporting License(s)";
+    var fvType = useffrectype ? "Annual" : "Annual";
+    var fvSubType = useffrectype ? "Application" : "Application";
+    var fvCategory = useffrectype ? "NA" : "NA" ;
+    var fvDesc = useffrectype ? "Fulfillment" : "Buy Sporting License(s)";
     var fvAppCreateResult = aa.cap.createApp(fvGroup, fvType, fvSubType, fvCategory, fvDesc);
     if (fvAppCreateResult.getSuccess()) {
         logDebug("created record " + fvGroup + ", " + fvType + ", " + fvSubType + ", " + fvCategory + ", " + fvDesc);
