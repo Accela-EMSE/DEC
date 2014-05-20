@@ -350,9 +350,13 @@ function SetDailyFullfillmentLogic() {
     updateSetStatusX(setResult.setID, setResult.setID, "FULLFILLMENT", "Successfully processed", "Ready For Fullfillment", "Ready For Fullfillment");
 
     logDebug("ENTER: Pass 2 to create missing documenets in EDMS.");
-    for (y in setNameArray) {
-        logDebug("GenerateMissingReportForSets for - " + setNameArray[y]);
-        GenerateMissingReportForSets(setNameArray[y] + "");
+    var counter = 2;
+    while (counter > 0) {
+        for (y in setNameArray) {
+            logDebug("GenerateMissingReportForSets for - " + setNameArray[y]);
+            GenerateMissingReportForSets(setNameArray[y] + "");
+        }
+        counter--;
     }
     logDebug("EXIT: Pass 2 to create missing documenets in EDMS.");
 
