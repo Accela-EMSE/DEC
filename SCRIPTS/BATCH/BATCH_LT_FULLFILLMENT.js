@@ -225,7 +225,7 @@ function SetLTFullfillmentLogic() {
                             if (fvMailStop)
                                 continue;
                             uniqueCapIdArray.put(recId, recId);
-							altId = itemCapId.getCustomID();
+                            altId = itemCapId.getCustomID();
                             var isSuccess = generateReport(itemCapId);
                             if (setPrefix.length > 0) {
                                 addCapSetMemberX(itemCapId, setResult);
@@ -255,9 +255,13 @@ function SetLTFullfillmentLogic() {
     }
 
     logDebug("ENTER: Pass 2 to create missing documenets in EDMS.");
-    for (y in setNameArray) {
-        logDebug("GenerateMissingReportForSets for - " + setNameArray[y]);
-        GenerateMissingReportForSets(setNameArray[y] + "");
+    var counter = 2;
+    while (counter > 0) {
+        for (y in setNameArray) {
+            logDebug("GenerateMissingReportForSets for - " + setNameArray[y]);
+            GenerateMissingReportForSets(setNameArray[y] + "");
+        }
+        counter--;
     }
     logDebug("EXIT: Pass 2 to create missing documenets in EDMS.");
 
