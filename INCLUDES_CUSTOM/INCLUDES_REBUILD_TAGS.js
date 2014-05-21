@@ -14,6 +14,7 @@
 |                           The Status of the Application should be "Approved" and put the Condition "Auto-Generated Applications" on this application.
 /------------------------------------------------------------------------------------------------------*/
 var useffrectype = false;
+var annualFulfillment = false;
 function rebuildAllTagsforaRefContact(ipRefContact, ipEffDate) {
     var fvNewRec = null;
     if (arguments.length > 2) {
@@ -135,14 +136,14 @@ function getCompletedAge(ipBirthDate, ipEffDate) {
 }
 
 function getSpEd(ipRefContact) {
-	//JIRA:49706
+    //JIRA:49706
     var fvSubGroupName = "SPORTSMAN EDUCATION";
     var fvFieldNameType = "Sportsman Education Type";
     var fvFieldNameRevoked = "Revoked";
 
     var fvPriorSubGroupName = "PREVIOUS LICENSE";
     var fvPriorFieldNameType = "Previous License Type";
-	
+
     var fvPeopleModel = aa.people.getPeople(ipRefContact).getOutput();
 
     var fvSpEdArray = aa.util.newHashMap();
@@ -186,8 +187,8 @@ function getSpEd(ipRefContact) {
                     }
                     break;
                 }
-			}
-		}
+            }
+        }
     }
 
     return fvSpEdArray;
@@ -232,7 +233,8 @@ function getLifetimeLicenses(ipRefContact) {
 
         if (fvCapType.getGroup() != "Licenses" || fvCapType.getType() != "Lifetime")
             continue;
-        if (fvCapType.getSubType() == "Other" || fvCapType.getSubType() == "Fishing")
+        //if (fvCapType.getSubType() == "Other" || fvCapType.getSubType() == "Fishing")
+        if (fvCapType.getSubType() == "Other")
             continue;
         if (fvCapM.getCapStatus() != "Active" && fvCapM.getCapStatus() != "Approved")
             continue;
@@ -252,26 +254,37 @@ function calculateEligTags(ipLifeLic, ipSpEd, ipAge, ipEnforcements, spProcessYe
             if (ipAge >= 12 && ipAge < 16)
                 fvTags = "Privilege Panel,Back,Either Sex";
             else if (ipAge >= 16)
-                fvTags = "Privilege Panel,Either Sex";
+                fvTags = "Either Sex";
         }
         if (fvLicType == "Muzzleloading" && ipSpEd.containsKey("Hunter Ed") && !ipEnforcements.revocationHunting) {
-            if (ipAge >= 14)
+            if (ipAge >= 14 && ipAge < 16)
                 fvTags = "Privilege Panel,Either Sex";
+            if (ipAge >= 16)
+                fvTags = "Either Sex";
         }
         if (fvLicType == "Small & Big Game" && ipSpEd.containsKey("Hunter Ed") && !ipEnforcements.revocationHunting) {
             if (ipAge >= 12 && ipAge < 14)
                 fvTags = "Privilege Panel,Back";
-            else if (ipAge >= 14)
+            else if (ipAge >= 14 && ipAge < 16)
                 fvTags = "Privilege Panel,Back,Deer,Bear";
+            else if (ipAge >= 16)
+                fvTags = "Back,Deer,Bear";
         }
         if (fvLicType == "Sportsman" && ipSpEd.containsKey("Hunter Ed") && !ipEnforcements.revocationHunting) {
             if (ipAge >= 12 && ipAge < 14)
                 fvTags = "Privilege Panel,Back,Turkey";
-            else if (ipAge >= 14)
+            else if (ipAge >= 14 && ipAge < 16)
+                fvTags = "Privilege Panel,Back,Turkey,Deer,Bear";
+            else if (ipAge >= 16)
                 fvTags = "Privilege Panel,Back,Turkey,Deer,Bear";
         }
         if (fvLicType == "Trapping License" && ipSpEd.containsKey("Trapper Ed") && !ipEnforcements.revocationTrapping) {
-            fvTags = "Privilege Panel";
+            if (ipAge < 16)
+                fvTags = "Privilege Panel";
+        }
+        if (fvLicType == "Fishing License") {
+            if (ipAge < 16)
+                fvTags = "Privilege Panel";
         }
         ipLifeLic.put(fvLicType, fvTags);
     }
@@ -419,7 +432,6 @@ function createNewTags(ipRefContact, ipStartDate, ipExpDate, ipEligibleTags, ipN
 
     var isPrivPanel = ipEligibleTags.containsKey("Privilege Panel");
     if (!isPrivPanel && fvNewLic > 0) {
-        logDebug("I am in add Privilege Panel");
         ipEligibleTags.put("Privilege Panel", 1);
     }
 
@@ -430,11 +442,7 @@ function createNewTags(ipRefContact, ipStartDate, ipExpDate, ipEligibleTags, ipN
         var fvTag = fvTagObj.getKey();
         logDebug(fvTag);
         var fvTagQty = parseInt(fvTagObj.getValue(), 10);
-        if ((fvTagQty > 0 && fvTag != "TOTAL") && fvTag != "Privilege Panel") {
-            realTagQty++;
-        }
-        if (fvNewLic > 0 && fvTag == "Privilege Panel") {
-            logDebug("I am Here Privilege Panel");
+        if (fvTagQty > 0 && fvTag != "TOTAL") {
             realTagQty++;
         }
     }
@@ -490,9 +498,9 @@ function createNewTags(ipRefContact, ipStartDate, ipExpDate, ipEligibleTags, ipN
 function createParentTagApp(ipRefContact, ipStartDate, ipExpDate) {
     logDebug("In createParentTagApp " + ipRefContact + ", " + ipStartDate + ", " + ipExpDate);
     var fvGroup = "Licenses";
-    var fvType = useffrectype ? "Annual" : "Annual";
-    var fvSubType = useffrectype ? "Application" : "Application";
-    var fvCategory = useffrectype ? "NA" : "NA" ;
+    var fvType = useffrectype ? "Sales" : "Annual";
+    var fvSubType = useffrectype ? "fulfill" : "Application";
+    var fvCategory = useffrectype ? "Documents" : "NA";
     var fvDesc = useffrectype ? "Fulfillment" : "Buy Sporting License(s)";
     var fvAppCreateResult = aa.cap.createApp(fvGroup, fvType, fvSubType, fvCategory, fvDesc);
     if (fvAppCreateResult.getSuccess()) {
@@ -536,7 +544,12 @@ function createParentTagApp(ipRefContact, ipStartDate, ipExpDate) {
         updateAppStatus("Approved", "Auto-Gen", newId);
 
         var fvCondFulfill = new COND_FULLFILLMENT();
-        addFullfillmentCondition(newId, fvCondFulfill.Condition_AutoGenAppl);
+        if (annualFulfillment) {
+            addFullfillmentCondition(newId, fvCondFulfill.Condition_YearlyLifetime);
+        }
+        else {
+            addFullfillmentCondition(newId, fvCondFulfill.Condition_AutoGenAppl);
+        }
         return newId;
     }
 }
