@@ -12,7 +12,7 @@
 //aa.env.setValue("setPrefix", "IBP");
 //aa.env.setValue("emailAddress", "");
 //aa.env.setValue("showDebug", "Y");
-//aa.env.setValue("ReportName", "1 - ApplicationType");
+//aa.env.setValue("ReportName", "DMP Tags");
 /*------------------------------------------------------------------------------------------------------/
 | END: TEST PARAMETERS
 /------------------------------------------------------------------------------------------------------*/
@@ -159,7 +159,7 @@ function SetIBPFullfillmentLogic() {
     if (!isValid) {
         return false;
     }
-    
+
     var uniqueCapIdArray = aa.util.newHashMap();
     var counter = 0;
     var recId;
@@ -181,81 +181,70 @@ function SetIBPFullfillmentLogic() {
         }
     }
     var ffConitions = new COND_FULLFILLMENT();
-    var ffCondArray = new Array()
-    ffCondArray.push(ffConitions.Condition_IBPTag)
 
-    var recordTypeArray = new Array()
-    recordTypeArray.push("Licenses/Annual/Hunting/Deer Management Permit");
+    //var recordTypeArray = new Array()
+    //recordTypeArray.push("Licenses/Annual/Hunting/Deer Management Permit");
 
-    for (var yy in recordTypeArray) {
-        var ats = recordTypeArray[yy];
-        //logDebug(ats);
-        var ata = ats.split("/");
+    var sql = " SELECT B1.b1_per_id1, B1.b1_per_id2, B1.b1_per_id3 ";
+    sql += " FROM b1permit B1 ";
+    sql += " INNER JOIN B6CONDIT B6 ";
+    sql += " ON B1.serv_prov_code = B6.serv_prov_code ";
+    sql += " AND B1.b1_per_id1 = B6.b1_per_id1 ";
+    sql += " AND B1.b1_per_id2 = B6.b1_per_id2 ";
+    sql += " AND B1.b1_per_id3 = B6.b1_per_id3 ";
+    sql += " WHERE B1.serv_prov_code = '" + aa.getServiceProviderCode() + "' ";
+    sql += " AND B1_PER_GROUP = 'Licenses' ";
+    sql += " AND B1_PER_TYPE = 'Annual' ";
+    sql += " AND B1_PER_SUB_TYPE = 'Hunting' ";
+    sql += " AND B1_PER_CATEGORY = 'Deer Management Permit' ";
+    sql += " AND b1_CON_GROUP = '" + ffConitions.ConditionGroup + "' ";
+    sql += " AND b1_CON_TYP = '" + ffConitions.ConditionType + "' ";
+    sql += " AND b1_CON_DES = '" + ffConitions.Condition_IBPTag + "' ";
+    sql += " AND B1_CON_STATUS = 'Applied' ";
+    sql += " AND B1_APPL_STATUS = 'Active' ";
 
-        var emptyCm = aa.cap.getCapModel().getOutput();
-        var emptyCt = emptyCm.getCapType();
-        emptyCt.setGroup(ata[0]);
-        emptyCt.setType(ata[1]);
-        emptyCt.setSubType(ata[2]);
-        emptyCt.setCategory(ata[3]);
+    logDebug(sql);
 
-        emptyCm.setCapType(emptyCt);
-        emptyCm.setCapStatus("Active");
+    var initialContext = aa.proxyInvoker.newInstance("javax.naming.InitialContext", null).getOutput();
+    var ds = initialContext.lookup("java:/AA");
+    var conn = ds.getConnection();
 
-        for (var ff in ffCondArray) {
-            var emCondm = ffConitions.getConditionByFullfillmentType(ffCondArray[ff]);
-            emCondm.setConditionStatus("Applied");
-            emCondm.setConditionStatusType("Applied");
+    var sStmt = conn.prepareStatement(sql);
+    var rSet = sStmt.executeQuery();
 
-            if (emCondm != null) {
-                emptyCm.setCapConditionModel(emCondm);
+    while (rSet.next()) {
+        var itemCapId = aa.cap.getCapID(rSet.getString("B1_PER_ID1"), rSet.getString("B1_PER_ID2"), rSet.getString("B1_PER_ID3")).getOutput();
+        recId = itemCapId;
 
-                var res = aa.cap.getCapIDListByCapModel(emptyCm);
-                if (res.getSuccess()) {
-                    var vCapList = res.getOutput();
-                    for (thisCap in vCapList) {
-                        if (elapsed() > maxSeconds) // only continue if time hasn't expired
-                        {
-                            isPartialSuccess = true;
-                            showDebug = true;
-                            logDebug("A script timeout has caused partial completion of this process.  Please re-run.  " + elapsed() + " seconds elapsed, " + maxSeconds + " allowed.");
-                            timeExpired = true;
-                            break;
-                        }
-
-                        recId = vCapList[thisCap].getCapID();
-                        if (!uniqueCapIdArray.containsKey(recId)) {
-                            uniqueCapIdArray.put(recId, recId);
-                            var recca = String(recId).split("-");
-                            var itemCapId = aa.cap.getCapID(recca[0], recca[1], recca[2]).getOutput();
-                            var itemCap = aa.cap.getCap(itemCapId).getOutput();
-                            altId = itemCapId.getCustomID();
-                            //appTypeResult = itemCap.getCapType();
-                            //appTypeString = appTypeResult.toString();
-                            var reportFileName = GenerateReport(itemCapId, altId);
-                            //logDebug(reportFileName);
-                            if (setPrefix.length > 0) {
-                                addCapSetMember(itemCapId, setResult);
-                            }
-                            counter++;
-                        }
-                        editCapConditionStatus("Fulfillment", ffCondArray[ff], "Verified", "Not Applied", "", itemCapId);
-                        removeFullfillmentCapCondition(itemCapId, ffCondArray[ff]);
-                        if (counter >= CONST_RECORDS_PER_SET && setPrefix.length > 0) {
-                            (!isPartialSuccess)
-                            {
-                                updateSetStatus(setResult.setID, setResult.setID, "Successfully processed", "Ready For Fullfillment", "Ready For Fullfillment");
-
-                                setResult = createFullfillmentSet(setPrefix);
-                                updateSetStatus(setResult.setID, setResult.setID, "Processing", "Pending", "Pending");
-                                uniqueCapIdArray = aa.util.newHashMap();
-                            }
-                            counter = 0;
-                        }
-                    }
-                }
+        if (!uniqueCapIdArray.containsKey(recId)) {
+            uniqueCapIdArray.put(recId, recId);
+            var recca = String(recId).split("-");
+            var itemCapId = aa.cap.getCapID(recca[0], recca[1], recca[2]).getOutput();
+            var itemCap = aa.cap.getCap(itemCapId).getOutput();
+            altId = itemCapId.getCustomID();
+            //appTypeResult = itemCap.getCapType();
+            //appTypeString = appTypeResult.toString();
+            var reportFileName = GenerateReport(itemCapId, altId);
+            //logDebug(reportFileName);
+            if (setPrefix.length > 0) {
+                addCapSetMember(itemCapId, setResult);
             }
+            counter++;
         }
+        editCapConditionStatus("Fulfillment", ffConitions.Condition_IBPTag, "Verified", "Not Applied", "", itemCapId);
+        removeFullfillmentCapCondition(itemCapId, ffConitions.Condition_IBPTag);
+        if (counter >= CONST_RECORDS_PER_SET && setPrefix.length > 0) {
+            (!isPartialSuccess)
+            {
+                updateSetStatus(setResult.setID, setResult.setID, "Successfully processed", "Ready For Fullfillment", "Ready For Fullfillment");
+
+                setResult = createFullfillmentSet(setPrefix);
+                updateSetStatus(setResult.setID, setResult.setID, "Processing", "Pending", "Pending");
+                uniqueCapIdArray = aa.util.newHashMap();
+            }
+            counter = 0;
+        }
+
     }
 
     if (setPrefix.length > 0) {
