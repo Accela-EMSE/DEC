@@ -320,8 +320,7 @@ function getRefContactsBySql(ipRefContacts) {
     sql += " AND A.b1_per_type = 'Lifetime' ";
     sql += " AND A.B1_PER_SUB_TYPE = 'Hunting' ";
     sql += " AND A.b1_appl_status = 'Active' ";
-    //Priya
-    sql += " AND rownum < 100 ";
+    //sql += " AND rownum < 100 ";
     sql += " AND b1_contact_type = 'Individual') v ";
 
     var initialContext = aa.proxyInvoker.newInstance("javax.naming.InitialContext", null).getOutput();
@@ -494,7 +493,7 @@ function getRefContactsBySqlusingGroupRange(ipRefContacts, ipFromGroupNumber, ip
     sql += " AND TO_NUMBER(G1_UDF1) Between  " + ipFromGroupNumber;
     sql += " AND " + ipToGroupNumber;
     sql += " AND nvl(G1_UDF2, 1) = 1 ";
-    sql += " AND rownum < 10 ";
+    //sql += " AND rownum < 10 ";
 
     var initialContext = aa.proxyInvoker.newInstance("javax.naming.InitialContext", null).getOutput();
     var ds = initialContext.lookup("java:/AA");
