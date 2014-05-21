@@ -11,7 +11,6 @@
 /------------------------------------------------------------------------------------------------------*/
 //aa.env.setValue("emailAddress", "");
 aa.env.setValue("showDebug", "Y");
-//aa.env.setValue("Year", "2014");
 /*------------------------------------------------------------------------------------------------------/
 | END: TEST PARAMETERS
 /------------------------------------------------------------------------------------------------------*/
@@ -147,7 +146,7 @@ function checkBatch() {
 }
 
 function callIBPlogic() {
-
+    /*
     var seasonPeriod = GetLicenseSeasonPeriod();
     var overLapPeriod = GetOverLapPeriod();
     var fromDate = aa.date.parseDate(jsDateToMMDDYYYY(overLapPeriod[0]));
@@ -156,12 +155,11 @@ function callIBPlogic() {
     logDebug("License Year : " + currYear);
     logDebug("Seseon sales start date : " + fromDate);
     logDebug("Seseon sales end date : " + toDate);
-
-    var drw = new Draw_Obj(currYear, 'NA', 0, DRAW_IBP, false);
+    */
+    var drw = new Draw_Obj(sYear, 'NA', 0, DRAW_IBP, false);
     ordAinfo = drw.getPreorderAinfo();  //used to set preference bucket order
 
     var sql = getRecordsToProcess(sYear);
-    logDebug(sql);
 
     var initialContext = aa.proxyInvoker.newInstance("javax.naming.InitialContext", null).getOutput();
     var ds = initialContext.lookup("java:/AA");
@@ -175,20 +173,22 @@ function callIBPlogic() {
         var sPreferenceBucket = rSet.getString("Preference_Bucket");
         var sChoiceNumber = rSet.getString("Choice_Number");
         var swmu = rSet.getString("WMU");
-        var sDrawResult = rSet.getString("DrawResult");
-        var sIsCorrect = rSet.getString("IsCorrect");
+        var sDrawResult = rSet.getString("Result");
+        var sIsCorrect = rSet.getString("Correct");
+        var sIsNew = rSet.getString("New_1");
         var sApplyLandOwner = rSet.getString("Apply_Land_Owner");
 
         var dmpCapId = aa.cap.getCapID(rSet.getString("B1_PER_ID1"), rSet.getString("B1_PER_ID2"), rSet.getString("B1_PER_ID3")).getOutput();
         var dmpCap = aa.cap.getCap(dmpCapId).getOutput();
         var dmpAltId = dmpCapId.getCustomID();
+
         var dmpStatus = dmpCap.getCapStatus();
         appTypeResult = dmpCap.getCapType();
         appTypeString = appTypeResult.toString();
         var dmpAinfo = new Array();
         loadAppSpecific(dmpAinfo, dmpCapId);
 
-		var spreferencePoint = getPrefpoint(dmpCapId); 
+        var spreferencePoint = getPrefpoint(dmpCapId);
 
         var newIbpRec = new IBPREC_OBJ(dmpAinfo["Year"]);
         newIbpRec.appTypeString = appTypeString;
@@ -209,12 +209,94 @@ function callIBPlogic() {
         newIbpRec.WMU = swmu;
         newIbpRec.ApplyLandowner = (sApplyLandOwner == "CHECKED");
 
-        RunIBPlotteryForDMP(newIbpRec,ordAinfo);
+        //RunIBPlotteryForDMP(newIbpRec,ordAinfo);
     }
     conn.close();
 }
 
 function getRecordsToProcess(year) {
+    var sql = " SELECT D.g1_contact_nbr, A.serv_prov_code, A.b1_per_id1, A.b1_per_id2, A.b1_per_id3, ";
+    sql += " A.b1_per_group, A.b1_per_type, A.b1_per_sub_type, A.b1_per_category, ";
+    sql += " T.ROW_INDEX, DRAW_TYPE, WMU, Apply_Land_Owner, Choice_Number, Correct, New_1, ";
+    sql += " Land_Owner, Preference_Bucket, Preference_Points_After, ";
+    sql += " Preference_Points_Given, Result, table_name  ";
+    sql += " FROM b1permit A ";
+    sql += " INNER JOIN bchckbox B ";
+    sql += " ON A.serv_prov_code = B.serv_prov_code ";
+    sql += " AND A.b1_per_id1 = B.b1_per_id1 ";
+    sql += " AND A.b1_per_id2 = B.b1_per_id2 ";
+    sql += " AND A.b1_per_id3 = B.b1_per_id3 ";
+    sql += " AND B.SERV_PROV_CODE = '" + aa.getServiceProviderCode() + "' ";
+    sql += " AND UPPER(B.B1_CHECKBOX_DESC) ='YEAR' ";
+    sql += " AND UPPER(B.B1_CHECKLIST_COMMENT) = '" + year + "' ";
+    sql += " AND B.B1_CHECKBOX_TYPE = 'BASIC INFORMATION' ";
+    sql += " INNER JOIN b3contact D ";
+    sql += " ON A.serv_prov_code = D.serv_prov_code ";
+    sql += " AND A.b1_per_id1 = D.b1_per_id1 ";
+    sql += " AND A.b1_per_id2 = D.b1_per_id2 ";
+    sql += " AND A.b1_per_id3 = D.b1_per_id3 ";
+    sql += " INNER JOIN ";
+    sql += " (SELECT DMPChoice1.ROW_INDEX, ";
+    sql += " SERV_PROV_CODE, ";
+    sql += " B1_PER_ID1, ";
+    sql += " B1_PER_ID2, ";
+    sql += " B1_PER_ID3, ";
+    sql += " MAX(DECODE(column_name,'Apply Land Owner',attribute_value,NULL))            AS Apply_Land_Owner, ";
+    sql += " MAX(DECODE(column_name,'Choice Number',attribute_value,NULL))               AS Choice_Number, ";
+    sql += " MAX(DECODE(column_name,'Correct?',attribute_value,NULL))                    AS Correct, ";
+    sql += " MAX(DECODE(column_name,'DRAW TYPE',attribute_value,NULL))                   AS DRAW_TYPE, ";
+    sql += " MAX(DECODE(column_name,'Land Owner?',attribute_value,NULL))                 AS Land_Owner, ";
+    sql += " MAX(DECODE(column_name,'Preference Bucket',attribute_value,NULL))           AS Preference_Bucket, ";
+    sql += " MAX(DECODE(column_name,'Preference Points After',attribute_value,NULL))     AS Preference_Points_After, ";
+    sql += " MAX(DECODE(column_name,'Preference Points Corrected',attribute_value,NULL)) AS Preference_Points_Corrected, ";
+    sql += " MAX(DECODE(column_name,'Preference Points Given',attribute_value,NULL))     AS Preference_Points_Given, ";
+    sql += " MAX(DECODE(column_name,'Result',attribute_value,NULL))                      AS Result, ";
+    sql += " MAX(DECODE(column_name,'WMU',attribute_value,NULL))                         AS WMU, ";
+    sql += " MAX(DECODE(column_name,'New?',attribute_value,NULL))                        AS New_1, ";
+    sql += " table_name ";
+    sql += " FROM bappspectable_value DMPChoice1 ";
+    sql += " GROUP BY DMPChoice1.ROW_INDEX, ";
+    sql += " DMPChoice1.SERV_PROV_CODE, ";
+    sql += " DMPChoice1.B1_PER_ID1, ";
+    sql += " DMPChoice1.B1_PER_ID2, ";
+    sql += " DMPChoice1.B1_PER_ID3, ";
+    sql += " table_name ";
+    sql += " ) T ";
+    sql += " ON A.serv_prov_code = T.serv_prov_code ";
+    sql += " AND A.b1_per_id1 = T.b1_per_id1 ";
+    sql += " AND A.b1_per_id2 = T.b1_per_id2 ";
+    sql += " AND A.b1_per_id3 = T.b1_per_id3 ";
+    sql += " AND T.DRAW_TYPE = 'INSTANT' ";
+    sql += " AND T.Result = 'LOST' ";
+    sql += " WHERE A.serv_prov_code = '" + aa.getServiceProviderCode() + "' ";
+    sql += " AND A.rec_status = 'A' ";
+    sql += " AND D.rec_status = 'A' ";
+    sql += " AND A.b1_module_name = 'Licenses' ";
+    sql += " AND A.b1_per_group = 'Licenses' ";
+    sql += " AND A.b1_per_type = 'Annual' ";
+    sql += " AND A.b1_per_sub_type = 'Hunting' ";
+    sql += " AND A.b1_per_category = 'Deer Management Permit' ";
+    sql += " AND A.b1_appl_status = 'Active' ";
+    sql += " AND b1_contact_type = 'Individual' ";
+    sql += " AND NOT EXISTS ";
+    sql += " (SELECT 1 ";
+    sql += " FROM bappspectable_value I ";
+    sql += " WHERE I.serv_prov_code = A.serv_prov_code ";
+    sql += " AND I.b1_per_id1 = A.b1_per_id1 ";
+    sql += " AND I.b1_per_id2 = A.b1_per_id2 ";
+    sql += " AND I.b1_per_id3 = A.b1_per_id3 ";
+    sql += " AND I.rec_status = 'A' ";
+    sql += " AND Upper(I.column_name) = Upper('DRAW TYPE') ";
+    sql += " AND I.table_name = T.table_name ";
+    sql += " AND I.attribute_value = 'IBP') ";
+    sql += " ORDER BY Preference_Bucket, ";
+    sql += " A.rec_date ";
+
+    return sql;
+}
+
+
+function getRecordsToProcessOld(year) {
     var sql = " SELECT D.g1_contact_nbr, A.serv_prov_code, A.b1_per_id1, A.b1_per_id2, A.b1_per_id3, ";
     sql += " A.b1_per_group, A.b1_per_type, A.b1_per_sub_type, A.b1_per_category, ";
     sql += " T.attribute_value AS DRAW_TYPE, ";
@@ -353,6 +435,7 @@ function getRecordsToProcess(year) {
 
     return sql;
 }
+
 function RunIBPlotteryForDMP(dmpIbpItem, orderInfo) {
 
     var ibpRec = dmpIbpItem;
@@ -373,7 +456,7 @@ function RunIBPlotteryForDMP(dmpIbpItem, orderInfo) {
     fullfillCond = condFulfill.Condition_IBPTag;
 
     wmu1Result = drw.RunLottery();
-	logDebug(wmu1Result);
+    logDebug(wmu1Result);
     logDebug("Lottery result: " + wmu1Result.Selected);
 
     if (wmu1Result.Selected) {
@@ -478,19 +561,19 @@ function IBPREC_OBJ(year) {
 }
 
 function getPrefpoint(itemcapId) {
-	var prefPoints  = 0;
+    var prefPoints = 0;
     var c = getContactObj(itemcapId, "Individual");
     if (c && c.refSeqNumber) {
         var p = aa.people.getPeople(c.refSeqNumber).getOutput();
-		var subGroupArray = getTemplateValueByFormArrays(p.getTemplate(), null, null);
-		GetAllASI(subGroupArray);
-            for (var subGroupName in subGroupArray) {
-                var fieldArray = subGroupArray[subGroupName];
-                if (subGroupName == "ADDITIONAL INFO") {
-                    prefPoints = isNull(fieldArray["Preference Points"], 0);
-					break;
-				}
-			}
-	}
-	return prefPoints;
+        var subGroupArray = getTemplateValueByFormArrays(p.getTemplate(), null, null);
+        GetAllASI(subGroupArray);
+        for (var subGroupName in subGroupArray) {
+            var fieldArray = subGroupArray[subGroupName];
+            if (subGroupName == "ADDITIONAL INFO") {
+                prefPoints = isNull(fieldArray["Preference Points"], 0);
+                break;
+            }
+        }
+    }
+    return prefPoints;
 }
