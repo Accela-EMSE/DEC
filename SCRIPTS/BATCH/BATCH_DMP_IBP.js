@@ -10,7 +10,8 @@
 | START: TEST PARAMETERS
 /------------------------------------------------------------------------------------------------------*/
 //aa.env.setValue("emailAddress", "");
-aa.env.setValue("showDebug", "Y");
+//aa.env.setValue("showDebug", "Y");
+//aa.env.setValue("Year", "Y");
 /*------------------------------------------------------------------------------------------------------/
 | END: TEST PARAMETERS
 /------------------------------------------------------------------------------------------------------*/
@@ -146,16 +147,6 @@ function checkBatch() {
 }
 
 function callIBPlogic() {
-    /*
-    var seasonPeriod = GetLicenseSeasonPeriod();
-    var overLapPeriod = GetOverLapPeriod();
-    var fromDate = aa.date.parseDate(jsDateToMMDDYYYY(overLapPeriod[0]));
-    var toDate = aa.date.parseDate(jsDateToMMDDYYYY(seasonPeriod[1]));
-    var currYear = seasonPeriod[0].getFullYear();
-    logDebug("License Year : " + currYear);
-    logDebug("Seseon sales start date : " + fromDate);
-    logDebug("Seseon sales end date : " + toDate);
-    */
     var drw = new Draw_Obj(sYear, 'NA', 0, DRAW_IBP, false);
     ordAinfo = drw.getPreorderAinfo();  //used to set preference bucket order
 
@@ -177,7 +168,6 @@ function callIBPlogic() {
         var sIsCorrect = rSet.getString("Correct");
         var sIsNew = rSet.getString("New_1");
         var sApplyLandOwner = rSet.getString("Apply_Land_Owner");
-
         var dmpCapId = aa.cap.getCapID(rSet.getString("B1_PER_ID1"), rSet.getString("B1_PER_ID2"), rSet.getString("B1_PER_ID3")).getOutput();
         var dmpCap = aa.cap.getCap(dmpCapId).getOutput();
         var dmpAltId = dmpCapId.getCustomID();
@@ -210,6 +200,7 @@ function callIBPlogic() {
         newIbpRec.ApplyLandowner = (sApplyLandOwner == "CHECKED");
 
         //RunIBPlotteryForDMP(newIbpRec,ordAinfo);
+		break;
     }
     conn.close();
 }
