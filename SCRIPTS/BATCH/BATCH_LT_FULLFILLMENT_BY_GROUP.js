@@ -318,7 +318,6 @@ function getRefContactsBySql(ipRefContacts) {
     sql += " AND A.b1_module_name = 'Licenses' ";
     sql += " AND A.b1_per_group = 'Licenses' ";
     sql += " AND A.b1_per_type = 'Lifetime' ";
-    sql += " AND A.B1_PER_SUB_TYPE = 'Hunting' ";
     sql += " AND A.b1_appl_status = 'Active' ";
     //sql += " AND rownum < 100 ";
     sql += " AND b1_contact_type = 'Individual') v ";
