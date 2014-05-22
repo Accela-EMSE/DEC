@@ -177,15 +177,16 @@ function getSpEd(ipRefContact) {
                             for (var fvCounter = 0; fvCounter < fvRows.size(); fvCounter++) {
                                 var fvRow = fvRows.get(fvCounter);
                                 var fvRowValues = fvRow.getValues();
-                                var fvValueRevoked = fvRowValues.get(fvFieldPosRevoked);
-                                if (fvValueRevoked.value == "CHECKED")
-                                    continue;
+                                if (fvFieldPosRevoked > -1) {
+                                    var fvValueRevoked = fvRowValues.get(fvFieldPosRevoked);
+                                    if (fvValueRevoked.value == "CHECKED")
+                                        continue;
+                                }
                                 var fvValueType = fvRowValues.get(fvFieldPosType);
                                 fvSpEdArray.put(fvValueType.value, fvValueType.value);
                             }
                         }
                     }
-                    break;
                 }
             }
         }
@@ -250,19 +251,19 @@ function calculateEligTags(ipLifeLic, ipSpEd, ipAge, ipEnforcements, spProcessYe
 
         var fvLicType = fvLL.getKey();
         var fvTags = "";
-        if (fvLicType == "Bowhunting" && ipSpEd.containsKey("Hunter Ed") && ipSpEd.containsKey("Bowhunter Ed (IBEP)") && !ipEnforcements.revocationHunting) {
+        if (fvLicType == "Bowhunting" && (ipSpEd.containsKey("Hunter Ed") || ipSpEd.containsKey("Hunting")) && (ipSpEd.containsKey("Bowhunter Ed (IBEP)") || ipSpEd.containsKey("Bowhunter Ed") || ipSpEd.containsKey("Bowhunting")) && !ipEnforcements.revocationHunting) {
             if (ipAge >= 12 && ipAge < 16)
                 fvTags = "Privilege Panel,Back,Either Sex";
             else if (ipAge >= 16)
                 fvTags = "Either Sex";
         }
-        if (fvLicType == "Muzzleloading" && ipSpEd.containsKey("Hunter Ed") && !ipEnforcements.revocationHunting) {
+        if (fvLicType == "Muzzleloading" && (ipSpEd.containsKey("Hunter Ed") || ipSpEd.containsKey("Hunting")) && !ipEnforcements.revocationHunting) {
             if (ipAge >= 14 && ipAge < 16)
                 fvTags = "Privilege Panel,Either Sex";
             if (ipAge >= 16)
                 fvTags = "Either Sex";
         }
-        if (fvLicType == "Small & Big Game" && ipSpEd.containsKey("Hunter Ed") && !ipEnforcements.revocationHunting) {
+        if (fvLicType == "Small & Big Game" && (ipSpEd.containsKey("Hunter Ed") || ipSpEd.containsKey("Hunting")) && !ipEnforcements.revocationHunting) {
             if (ipAge >= 12 && ipAge < 14)
                 fvTags = "Privilege Panel,Back";
             else if (ipAge >= 14 && ipAge < 16)
@@ -270,7 +271,7 @@ function calculateEligTags(ipLifeLic, ipSpEd, ipAge, ipEnforcements, spProcessYe
             else if (ipAge >= 16)
                 fvTags = "Back,Deer,Bear";
         }
-        if (fvLicType == "Sportsman" && ipSpEd.containsKey("Hunter Ed") && !ipEnforcements.revocationHunting) {
+        if (fvLicType == "Sportsman" && (ipSpEd.containsKey("Hunter Ed") || ipSpEd.containsKey("Hunting")) && !ipEnforcements.revocationHunting) {
             if (ipAge >= 12 && ipAge < 14)
                 fvTags = "Privilege Panel,Back,Turkey";
             else if (ipAge >= 14 && ipAge < 16)
@@ -278,7 +279,7 @@ function calculateEligTags(ipLifeLic, ipSpEd, ipAge, ipEnforcements, spProcessYe
             else if (ipAge >= 16)
                 fvTags = "Privilege Panel,Back,Turkey,Deer,Bear";
         }
-        if (fvLicType == "Trapping License" && ipSpEd.containsKey("Trapper Ed") && !ipEnforcements.revocationTrapping) {
+        if (fvLicType == "Trapping License" && (ipSpEd.containsKey("Trapper Ed") || ipSpEd.containsKey("Trapping")) && !ipEnforcements.revocationTrapping) {
             if (ipAge < 16)
                 fvTags = "Privilege Panel";
         }
