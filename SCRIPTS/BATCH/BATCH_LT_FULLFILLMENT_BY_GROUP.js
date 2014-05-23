@@ -12,8 +12,8 @@
 //aa.env.setValue("emailAddress", "lalit@accela.com");
 //aa.env.setValue("LookAheadDays", 30);
 //aa.env.setValue("showDebug", "Y");
-//aa.env.setValue("FromGroupNumber", "1");
-//aa.env.setValue("ToGroupNumber", "1");
+//aa.env.setValue("FromGroupNumber", "0");
+//aa.env.setValue("ToGroupNumber", "0");
 /*------------------------------------------------------------------------------------------------------/
 | END: TEST PARAMETERS
 /------------------------------------------------------------------------------------------------------*/
