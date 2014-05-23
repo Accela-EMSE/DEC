@@ -6553,7 +6553,7 @@ function isVerifyTransferLifetimeLicense() {
             //var subGroupArray = getTemplateValueByFormArrays(peopleModel.getTemplate(), null, null);
             //GetAllASI(subGroupArray);
 
-            var availableActiveItems = getActiveHoldings(peopleSequenceNumber, AInfo["License Year"]);
+            var availableActiveItems = getActiveHoldings(peopleSequenceNumber);
             var verifyLicArray = new Array();
             verifyLicArray.push(AA09_LIFETIME_BOWHUNTING);
             verifyLicArray.push(AA10_LIFETIME_FISHING);
@@ -8104,4 +8104,28 @@ function updateDecID(peopleSequenceNumber) {
 
         aa.people.editPeople(peopleModel);
     }
+}
+function createActiveHoldingTableForTxfr() {
+    logDebug("ENTER: createActiveHoldingTable");
+    var xArray = getApplicantArrayEx();
+    var peopleSequenceNumber = null;
+    for (ca in xArray) {
+        var thisContact = xArray[ca];
+        peopleSequenceNumber = thisContact["refcontactSeqNumber"]
+        if (peopleSequenceNumber != null) {
+            var asitModel;
+            var new_asit;
+            var availableActiveItems = getActiveHoldings(peopleSequenceNumber);
+            var newAsitArray = GetActiveHoldingsAsitTableArray(availableActiveItems);
+
+            asitModel = cap.getAppSpecificTableGroupModel();
+            new_asit = addASITable4ACAPageFlow(asitModel, "ACTIVE HOLDINGS", newAsitArray);
+
+            var strAllHolding = GetASITDelimitedString("ACTIVEHOLDINGS", newAsitArray);
+            editAppSpecific4ACA("A_ActiveHoldings", strAllHolding);
+            editAppSpecific4ACA("A_PrintConsignedLines", isPrivPanleWithConsignedLinesFound(availableActiveItems) ? 'N' : 'Y');
+        }
+        break;
+    }
+    logDebug("EXIT: createActiveHoldingTable");
 }
