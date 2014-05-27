@@ -137,7 +137,7 @@ function updateRefContactsUdf34() {
     var CONST_GROUP_COUNT = 1000;
 
     var sql = " UPDATE g3Contact ";
-	sql += " SET G1_UDF3 = ( ( (rownum-1) - MOD((rownum-1) , 1000) ) / 1000 ) + 1, ";
+	sql += " SET G1_UDF3 = ( ( (rownum-1) - MOD((rownum-1) , "+ CONST_GROUP_COUNT + ") ) / " + CONST_GROUP_COUNT + " ) + 1, ";
 	sql += " G1_UDF4 = 1 ";
 	sql += " WHERE EXISTS ";
 	sql += " (SELECT 1 ";
