@@ -23,7 +23,7 @@ var otDecId = expression.getValue("ASI::TRANSFER INFORMATION::Transfer Lifetime 
 var isDecIDExist = isValidDecIdForTansfer(otDecId.value);
 var msg = "";
 if(!isDecIDExist){
-    msg="Customer ID (DEC ID) is not exit or is died.";
+    msg="Customer ID (DEC ID) does not exist or is deceased";
 	otDecId.value = "";
  }
 otDecId.message = msg;
