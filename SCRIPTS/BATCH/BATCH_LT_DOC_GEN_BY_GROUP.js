@@ -10,11 +10,11 @@
 | START: TEST PARAMETERS
 /------------------------------------------------------------------------------------------------------*/
 //aa.env.setValue("setPrefix", "AF");
-//aa.env.setValue("emailAddress", "laxmikant@gcomsoft.com");
+//aa.env.setValue("emailAddress", "lalit@gcomsoft.com");
 //aa.env.setValue("showDebug", "Y");
 //aa.env.setValue("ReportName", "License Tags");
-//aa.env.setValue("FromGroupNumber", "1");
-//aa.env.setValue("ToGroupNumber", "1");
+//aa.env.setValue("FromGroupNumber", "0");
+//aa.env.setValue("ToGroupNumber", "0");
 /*------------------------------------------------------------------------------------------------------/
 | END: TEST PARAMETERS
 /------------------------------------------------------------------------------------------------------*/
@@ -236,7 +236,7 @@ function SetLTFullfillmentLogic() {
             altId = itemCapId.getCustomID();
             logDebug(altId);
             var isSuccess = generateReport(itemCapId);
-            updateRefContactsUdf3(altId)
+            updateRefContactsUdf4(altId, 2)
             if (setPrefix.length > 0) {
                 addCapSetMemberX(itemCapId, setResult);
             }
@@ -415,12 +415,12 @@ function GenerateMissingReportForSets(pSetName) {
 
     return isReportGenerated;
 }
-function updateRefContactsUdf3(altid, nRecStatus) {
+function updateRefContactsUdf4(altid, nRecStatus) {
     var initialContext = aa.proxyInvoker.newInstance("javax.naming.InitialContext", null).getOutput();
     var ds = initialContext.lookup("java:/AA");
     var conn = ds.getConnection();
 
-    var usql = " Update G3CONTACT Set G1_UDF3 = " + nRecStatus + " Where EXISTS ";
+    var usql = " Update G3CONTACT Set G1_UDF4 = " + nRecStatus + " Where EXISTS (";
     usql += " SELECT 1 ";
     usql += " FROM b1permit B1 ";
     usql += " INNER JOIN b3contact D ";
@@ -430,10 +430,10 @@ function updateRefContactsUdf3(altid, nRecStatus) {
     usql += " AND B1.b1_per_id3 = D.b1_per_id3 ";
     usql += " WHERE B1.serv_prov_code = '" + aa.getServiceProviderCode() + "' ";
     usql += " AND B1.B1_ALT_ID = '" + altid + "' ";
-    usql += " AND G3CONTACT.g1_contact_nbr = D.g1_contact_nbr ";
+    usql += " AND G3CONTACT.g1_contact_nbr = D.g1_contact_nbr )";
 
     var sStmt1 = conn.prepareStatement(usql);
     var rret = sStmt1.executeQuery();
     conn.close();
-    logDebug('Updated ' + refNum + ' With ' + nRecStatus);
+    logDebug('Updated ref for alt id ' + altid + ' With ' + nRecStatus);
 }
