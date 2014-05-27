@@ -236,7 +236,7 @@ function SetLTFullfillmentLogic() {
             altId = itemCapId.getCustomID();
             logDebug(altId);
             var isSuccess = generateReport(itemCapId);
-            updateRefContactsUdf4(altId, 2)
+            //updateRefContactsUdf4(altId, 2)
             if (setPrefix.length > 0) {
                 addCapSetMemberX(itemCapId, setResult);
             }
