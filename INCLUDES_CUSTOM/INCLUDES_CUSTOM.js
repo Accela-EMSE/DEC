@@ -6570,13 +6570,30 @@ function isVerifyTransferLifetimeLicense() {
                     break;
                 }
             }
-            if (!isAvailableLT) {
+
+            var txfrmsg = '';
+            if (deceasedDate) {
+                if (!isAvailableLT) {
+                    txfrmsg += "User does not have Lifetime License";
+                    txfrmsg += " so cannot continue Transfer.";
+                }
+            } else {
+                if (!isAvailableLT) {
+                    txfrmsg += "User does not have Lifetime License";
+                    txfrmsg += " and/or ";
+                    txfrmsg += " the selected Applicant is not deceased";
+                } else {
+                    txfrmsg += "The selected Applicant is not deceased";
+                    txfrmsg += ", so cannot continue Transfer.";
+                }
+            }
+            if (txfrmsg != '') {
                 if (isNotValidToProceed) {
-                    isNotValidToProceed += '<br />';
-                    isNotValidToProceed += "User do not have lifetime licenses";
+                    isNotValidToProceed += "<Br />";
+                    isNotValidToProceed += txfrmsg;
                 }
                 else {
-                    isNotValidToProceed = "User do not have lifetime licenses";
+                    isNotValidToProceed = txfrmsg;
                 }
             }
         }
@@ -6591,16 +6608,6 @@ function isVerifyTransferLifetimeLicense() {
             }
         }
         break;
-    }
-    if (deceasedDate) {
-        //Good
-    } else {
-        if (isNotValidToProceed) {
-            isNotValidToProceed += "Cannot continue transfer, the selected applicant is not deceased.";
-        }
-        else {
-            isNotValidToProceed = "Cannot continue transfer, the selected applicant is not deceased.";
-        }
     }
 
     logDebug("EXIT: isVerifyNYDECHQUser");
@@ -6637,7 +6644,7 @@ function isVerifyLifetimeLicense(pStep) {
     var decId = AInfo["Transfer Lifetime License To"];
     var isExitUser = isValidDecIdForTansfer(decId);
     if (!isExitUser) {
-        retMsg += "Customer ID to which transfering lifetime license(s) is not exit or is died.";
+        retMsg += "Customer ID to which transfering lifetime license(s) is not exit or is deceased.";
         retMsg += "<Br />";
     }
     //Started-Checking Transfer ID should not be equal to Applicant.
@@ -6686,11 +6693,13 @@ function isVerifyLifetimeLicense(pStep) {
         for (y in LICENSESTOTRANSFER) {
             isSelected = isSelected || (LICENSESTOTRANSFER[y]["Select"] == 'Yes' || LICENSESTOTRANSFER[y]["Select"] == 'Y');
 
-            hasLTBasePriv = hasLTBasePriv || (LICENSESTOTRANSFER[y]["RecordType"] == AA12_LIFETIME_SMALL_AND_BIG_GAME);
-            hasLTBasePriv = hasLTBasePriv || (LICENSESTOTRANSFER[y]["RecordType"] == AA13_LIFETIME_SPORTSMAN);
+            if (LICENSESTOTRANSFER[y]["Select"] == 'Yes' || LICENSESTOTRANSFER[y]["Select"] == 'Y') {
+                hasLTBasePriv = hasLTBasePriv || (LICENSESTOTRANSFER[y]["RecordType"] == AA12_LIFETIME_SMALL_AND_BIG_GAME);
+                hasLTBasePriv = hasLTBasePriv || (LICENSESTOTRANSFER[y]["RecordType"] == AA13_LIFETIME_SPORTSMAN);
 
-            hasSelectedLTPriv = hasSelectedLTPriv || (LICENSESTOTRANSFER[y]["RecordType"] == AA09_LIFETIME_BOWHUNTING);
-            hasSelectedLTPriv = hasSelectedLTPriv || (LICENSESTOTRANSFER[y]["RecordType"] == AA11_LIFETIME_MUZZLELOADING);
+                hasSelectedLTPriv = hasSelectedLTPriv || (LICENSESTOTRANSFER[y]["RecordType"] == AA09_LIFETIME_BOWHUNTING);
+                hasSelectedLTPriv = hasSelectedLTPriv || (LICENSESTOTRANSFER[y]["RecordType"] == AA11_LIFETIME_MUZZLELOADING);
+            }
         }
     }
     if (!isSelected) {
