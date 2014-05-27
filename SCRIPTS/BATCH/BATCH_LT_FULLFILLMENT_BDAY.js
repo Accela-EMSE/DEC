@@ -327,13 +327,8 @@ function getRefContactsByRecTypeByStatusByDOB(ipGroup,ipType,ipSubType,ipCategor
 
 function shouldContinue(ipContact,ipStartDate,ipEndDate) {
     var fvBirthDate = ipContact.getBirthDate();
-	var fvBDtArr = fvBirthDate.split(" ");
-	fvBDtStr = fvBDtArr[0];
-	fvBDtArr = fvBDtStr.split("-");
-	fvBDtStr = fvBDtArr[1].toString() + "/" + fvBDtArr[2].toString() + "/" + fvBDtArr[0].toString();
-    fvBirthDate = new Date(fvBDtStr);
-    //var fvBDStr = fvBirthDate.getMonth().toString() + "/" + fvBirthDate.getDate().toString() + "/" + ipStartDate.getFullYear().toString();
-    //fvBirthDate = new Date(fvBDStr);
+    var fvBDStr = fvBirthDate.getMonth().toString() + "/" + fvBirthDate.getDate().toString() + "/" + ipStartDate.getFullYear().toString();
+    fvBirthDate = new Date(fvBDStr);
     if (fvBirthDate.getTime() > ipEndDate.getTime())
         return true;
     if (fvBirthDate.getTime() < ipStartDate.getTime()) {
