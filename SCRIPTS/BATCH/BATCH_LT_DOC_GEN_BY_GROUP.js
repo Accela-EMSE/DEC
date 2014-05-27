@@ -82,7 +82,7 @@ var sysDateMMDDYYYY = dateFormatted(sysDate.getMonth(), sysDate.getDayOfMonth(),
 var currentUser = aa.person.getCurrentUser().getOutput();
 var currentUserID = currentUser == null ? "ADMIN" : currentUser.getUserID().toString()
 var capId = null;
-var CONST_RECORDS_PER_SET = 50;
+var CONST_RECORDS_PER_SET = 1000;
 
 logDebug("Start of Job");
 
