@@ -623,6 +623,11 @@ function createWmuConfiguration(year, wmu, drawtype) {
             var newAInfo = new Array();
             if (srcCapId != null) {
                 copyASIFields(srcCapId, newCapId);
+                var srcAInfo = new Array();
+                loadAppSpecific(srcAInfo, srcCapId);
+                var srcPermitTarget = parseInt(isNull(srcAInfo["Permit Target"], 0));
+                var srcUsedCount = parseInt(isNull(srcAInfo["Used Count"], 0));
+                var remainingCount = srcPermitTarget - srcUsedCount;
 
                 newAInfo.push(new NewLicDef("Draw Type", drawtype));
                 newAInfo.push(new NewLicDef("License Year", year));
@@ -632,6 +637,7 @@ function createWmuConfiguration(year, wmu, drawtype) {
                 newAInfo.push(new NewLicDef("Status Effecctive Date", jsDateToASIDate(now)));
                 newAInfo.push(new NewLicDef("Status Applicable To", 'Both'));
                 newAInfo.push(new NewLicDef("Used Count", 0));
+                newAInfo.push(new NewLicDef("Permit Target", remainingCount));
 
                 copyLicASI(newCapId, newAInfo);
 
@@ -920,9 +926,10 @@ function processCorrection() {
     var isAnyCorrection = false;
     for (i in drawTable) {
         var dmpASITinfo = drawTable[i];
-        if (dmpASITinfo["New?"] == "CHECKED") {
+        var newDmpCapId = null;
+        if (dmpASITinfo["New?"] == "CHECKED" && dmpASITinfo["DRAW TYPE"] == "CORRECTION") {
 
-            var newDmpCapId = createNewDmpTag(capId);
+            newDmpCapId = createNewDmpTag(capId);
 
             if (isNull(dmpASITinfo["Preference Points Corrected"], '-1') != '-1') {
                 if (parseInt(dmpASITinfo["Preference Points Corrected"], 10) > correctedPreferencePoints) {
@@ -932,24 +939,24 @@ function processCorrection() {
             isAnyCorrection = isAnyCorrection || true;
         }
 
-        if (dmpASITinfo["Correct?"] == "CHECKED") {
+        if (dmpASITinfo["Correct?"] == "CHECKED" && dmpASITinfo["DRAW TYPE"] != "CORRECTION") {
             var dmpCapId = getDmpTagToCorrect(dmpASITinfo["WMU"], dmpASITinfo["DRAW TYPE"], dmpASITinfo["Choice Number"]);
             if (dmpCapId) {
                 var tagAinfo = new Array();
                 var currcap = aa.cap.getCap(dmpCapId).getOutput();
                 loadAppSpecific(tagAinfo, dmpCapId);
-                //logGlobals(tagAinfo);
 
-                var newDmpCapId = voidDmpAndCreateNew(dmpCapId, capId);
-                if (newDmpCapId) {
-                    var newAsitArray = GetWmuAsitArrayAfterCorrection(DRAWRESULT, dmpASITinfo);
-                    if (newAsitArray && newAsitArray.length > 0) {
-                        addASITable("DRAW RESULT", newAsitArray, capId)
-                    }
-                    //loadASITables();
-                }
-                isAnyCorrection = isAnyCorrection || true;
+                newDmpCapId = voidDmpAndCreateNew(dmpCapId, capId);
+            } else {
+                newDmpCapId = createNewDmpTag(capId);
             }
+            if (newDmpCapId) {
+                var newAsitArray = GetWmuAsitArrayAfterCorrection(DRAWRESULT, dmpASITinfo);
+                if (newAsitArray && newAsitArray.length > 0) {
+                    addASITable("DRAW RESULT", newAsitArray, capId)
+                }
+            }
+            isAnyCorrection = isAnyCorrection || true;
             if (isNull(dmpASITinfo["Preference Points Corrected"], '-1') != '-1') {
                 if (parseInt(dmpASITinfo["Preference Points Corrected"], 10) > correctedPreferencePoints) {
                     correctedPreferencePoints = parseInt(dmpASITinfo["Preference Points Corrected"], 10);
@@ -976,9 +983,9 @@ function getDmpTagToCorrect(drawtype, wmu, choicenumber) {
             var status = currcap.getCapStatus();
             //logDebug(status);
             if (status == "Active") {
-				useAppSpecificGroupName = true;
+                useAppSpecificGroupName = true;
                 loadAppSpecific(tagAinfo, childCapId);
-				useAppSpecificGroupName = false;
+                useAppSpecificGroupName = false;
                 if (tagAinfo["WMU INFORMATION.WMU"] == drawtype && tagAinfo["WMU INFORMATION.Draw Type"] == wmu && tagAinfo["WMU INFORMATION.Choice"] == choicenumber) {
                     retCapId = childCapId;
                 } else {
