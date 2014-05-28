@@ -9,11 +9,13 @@
 /*------------------------------------------------------------------------------------------------------/
 | START: TEST PARAMETERS
 /------------------------------------------------------------------------------------------------------*/
+/*
 aa.env.setValue("emailAddress", "");
 aa.env.setValue("LookAheadDays", 30);
 aa.env.setValue("showDebug", "Y");
 aa.env.setValue("RecordLimit", 0);
-aa.env.setValue("TimeOut", 270);
+aa.env.setValue("TimeOut", 0);
+*/
 /*------------------------------------------------------------------------------------------------------/
 | END: TEST PARAMETERS
 /------------------------------------------------------------------------------------------------------*/
@@ -306,7 +308,6 @@ function getRefContactsByRecTypeByStatusByDOB(ipGroup,ipType,ipSubType,ipCategor
                                 continue;
                             
                             if (fvFileDate != null && fvEndFileDate != null) {
-								logDebug(fvEndFileDate);
                                 var fvContinue = shouldContinue(fvContact,fvFileDate,fvEndFileDate);
                                 if (fvContinue)
                                     continue;
@@ -325,17 +326,9 @@ function getRefContactsByRecTypeByStatusByDOB(ipGroup,ipType,ipSubType,ipCategor
 }
 
 function shouldContinue(ipContact,ipStartDate,ipEndDate) {
-	logDebug("ENTER: shouldContinue");
     var fvBirthDate = ipContact.getBirthDate();
-	logDebug(fvBirthDate);
-	var fvBDtArr = fvBirthDate.split(" ");
-	logDebug(fvBDtArr);
-	fvBDtStr = fvBDtArr[0];
-	fvBDtArr = fvBDtStr.split("-");
-	fvBDtStr = fvBDtArr[1].toString() + "/" + fvBDtArr[2].toString() + "/" + fvBDtArr[0].toString();
-    fvBirthDate = new Date(fvBDtStr);
-    //var fvBDStr = fvBirthDate.getMonth().toString() + "/" + fvBirthDate.getDate().toString() + "/" + ipStartDate.getFullYear().toString();
-    //fvBirthDate = new Date(fvBDStr);
+    var fvBDStr = fvBirthDate.getMonth().toString() + "/" + fvBirthDate.getDate().toString() + "/" + ipStartDate.getFullYear().toString();
+    fvBirthDate = new Date(fvBDStr);
     if (fvBirthDate.getTime() > ipEndDate.getTime())
         return true;
     if (fvBirthDate.getTime() < ipStartDate.getTime()) {
@@ -344,7 +337,6 @@ function shouldContinue(ipContact,ipStartDate,ipEndDate) {
         if (fvBirthDate.getTime() > ipEndDate.getTime())
             return true;
     }
-	logDebug("EXIT: shouldContinue");
     return false;
 }
 
