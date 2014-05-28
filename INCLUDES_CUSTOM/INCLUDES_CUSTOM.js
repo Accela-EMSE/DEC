@@ -7230,7 +7230,7 @@ function createLegacyLoadLic() {
         var capContactArray = new Array();
 
         if (!contactSeqNumber) {
-            logDebug("**WARNING updateContacts could not fund an applicant/individual");
+            logDebug("**WARNING createLegacyLoadLic could not fund an applicant/individual");
         }
         else {
             capContactArray = getOutput(aa.people.getCapContactByContactID(contactSeqNumber));
@@ -7286,7 +7286,7 @@ function createLegacyLoadLic() {
                 var seasonPeriod = GetLicenseSeasonPeriod();
                 f.Year = seasonPeriod[0].getFullYear();
                 f.IsNyResiDent = "Yes"; //logically is/was NYS resident
-                f.DOB = custDob;
+                f.DOB = jsDateToMMDDYYYY(custDob);
 
                 f.ExecuteBoRuleEngine();
 
