@@ -172,45 +172,47 @@ function callIBPlogic() {
         var dmpCap = aa.cap.getCap(dmpCapId).getOutput();
         var dmpAltId = dmpCapId.getCustomID();
 
-        var dmpStatus = dmpCap.getCapStatus();
-        appTypeResult = dmpCap.getCapType();
-        appTypeString = appTypeResult.toString();
-        var dmpAinfo = new Array();
-        loadAppSpecific(dmpAinfo, dmpCapId);
+        if (isNull(sIsCorrect, '') != 'CHECKED') {
+            var dmpStatus = dmpCap.getCapStatus();
+            appTypeResult = dmpCap.getCapType();
+            appTypeString = appTypeResult.toString();
+            var dmpAinfo = new Array();
+            loadAppSpecific(dmpAinfo, dmpCapId);
 
-        var spreferencePoint = getPrefpoint(dmpCapId);
+            var spreferencePoint = getPrefpoint(dmpCapId);
 
-        var newIbpRec = new IBPREC_OBJ(dmpAinfo["Year"]);
-        newIbpRec.appTypeString = appTypeString;
-        newIbpRec.CapStatus = dmpStatus;
-        newIbpRec.DisabledVet = (dmpAinfo["Military Disabled"] == "CHECKED");
-        newIbpRec.dmpCap = dmpCap;
-        newIbpRec.dmpCapId = dmpCapId;
-        newIbpRec.dmpId = dmpCapId;
-        newIbpRec.dmpAltId = dmpAltId;
-        newIbpRec.DrawType = sDrawResult;
-        newIbpRec.Landowner = (dmpAinfo["Landowner"] == "CHECKED");
-        newIbpRec.PreferencePoints = spreferencePoint;
-        newIbpRec.PreferenceBucket = sPreferenceBucket;
-        newIbpRec.Resident = (dmpAinfo["Resident"] == "CHECKED");
-        newIbpRec.ItemCode = dmpAinfo["Item Code"];
-        newIbpRec.Order = getOrderForBucket(newIbpRec.PreferenceBucket, ordAinfo);
-        newIbpRec.ChoiceNum = sChoiceNumber;
-        newIbpRec.WMU = swmu;
-        newIbpRec.ApplyLandowner = (sApplyLandOwner == "CHECKED");
-
-        //RunIBPlotteryForDMP(newIbpRec,ordAinfo);
-		break;
+            var newIbpRec = new IBPREC_OBJ(dmpAinfo["Year"]);
+            newIbpRec.appTypeString = appTypeString;
+            newIbpRec.CapStatus = dmpStatus;
+            newIbpRec.DisabledVet = (dmpAinfo["Military Disabled"] == "CHECKED");
+            newIbpRec.dmpCap = dmpCap;
+            newIbpRec.dmpCapId = dmpCapId;
+            newIbpRec.dmpId = dmpCapId;
+            newIbpRec.dmpAltId = dmpAltId;
+            newIbpRec.DrawType = sDrawResult;
+            newIbpRec.Landowner = (dmpAinfo["Landowner"] == "CHECKED");
+            newIbpRec.PreferencePoints = spreferencePoint;
+            newIbpRec.PreferenceBucket = sPreferenceBucket;
+            newIbpRec.Resident = (dmpAinfo["Resident"] == "CHECKED");
+            newIbpRec.ItemCode = dmpAinfo["Item Code"];
+            newIbpRec.Order = getOrderForBucket(newIbpRec.PreferenceBucket, ordAinfo);
+            newIbpRec.ChoiceNum = sChoiceNumber;
+            newIbpRec.WMU = swmu;
+            newIbpRec.ApplyLandowner = (sApplyLandOwner == "CHECKED");
+            RunIBPlotteryForDMP(newIbpRec,ordAinfo);
+        }
     }
     conn.close();
 }
 
 function getRecordsToProcess(year) {
-    var sql = " SELECT D.g1_contact_nbr, A.serv_prov_code, A.b1_per_id1, A.b1_per_id2, A.b1_per_id3, ";
+    var sql = "SELECT g1_contact_nbr, b1_per_id1,  b1_per_id2, b1_per_id3, DRAW_TYPE, WMU, Apply_Land_Owner, Choice_Number, Correct, ";
+    sql += " New_1, Land_Owner, Preference_Bucket, Preference_Points_After, Preference_Points_Given, Result ";
+    sql += " from (SELECT D.g1_contact_nbr, A.serv_prov_code, A.b1_per_id1, A.b1_per_id2, A.b1_per_id3, ";
     sql += " A.b1_per_group, A.b1_per_type, A.b1_per_sub_type, A.b1_per_category, ";
     sql += " T.ROW_INDEX, DRAW_TYPE, WMU, Apply_Land_Owner, Choice_Number, Correct, New_1, ";
     sql += " Land_Owner, Preference_Bucket, Preference_Points_After, ";
-    sql += " Preference_Points_Given, Result, table_name  ";
+    sql += " Preference_Points_Given, Result, table_name, A.REC_DATE  ";
     sql += " FROM b1permit A ";
     sql += " INNER JOIN bchckbox B ";
     sql += " ON A.serv_prov_code = B.serv_prov_code ";
@@ -279,9 +281,23 @@ function getRecordsToProcess(year) {
     sql += " AND I.rec_status = 'A' ";
     sql += " AND Upper(I.column_name) = Upper('DRAW TYPE') ";
     sql += " AND I.table_name = T.table_name ";
-    sql += " AND I.attribute_value = 'IBP') ";
-    sql += " ORDER BY Preference_Bucket, ";
-    sql += " A.rec_date ";
+    sql += " AND I.attribute_value = 'IBP')) v ";
+    sql += " INNER JOIN ";
+    sql += " (Select po.b1_alt_id as po_alt_id, ";
+    sql += " substr(BC2.B1_CheckBOX_DESC, 2) as po_Preference_Bucket, ";
+    sql += " BC2.b1_checklist_comment as Preference_Order ";
+    sql += " from b1permit po ";
+    sql += " Inner join bchckbox BC2 on ";
+    sql += " po.serv_prov_code = BC2.serv_prov_code ";
+    sql += " AND po.b1_per_id1 = BC2.b1_per_id1 ";
+    sql += " AND po.b1_per_id2 = BC2.b1_per_id2 ";
+    sql += " AND po.b1_per_id3 = BC2.b1_per_id3 ";
+    sql += " AND BC2.b1_checkbox_type = 'PREFERENCE ORDER' ";
+    sql += " Where po.b1_alt_id =  '" + year + " Pref Order' ";
+    sql += " AND po.serv_prov_code = '" + aa.getServiceProviderCode() + "' ";
+    sql += " ) pref ";
+    sql += " ON v.Preference_Bucket = pref.po_Preference_Bucket ";
+    sql += " ORDER BY Choice_Number, to_number(Preference_Order), rec_date ";
 
     return sql;
 }
@@ -568,3 +584,4 @@ function getPrefpoint(itemcapId) {
     }
     return prefPoints;
 }
+
