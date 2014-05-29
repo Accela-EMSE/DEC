@@ -161,7 +161,7 @@ function SetLTFullfillmentLogic() {
         return false;
     }
 
-    var uniqueCapIdArray = aa.util.newHashMap();
+    //var uniqueCapIdArray = aa.util.newHashMap();
     var counter = 0;
     var recId;
     var setNameArray = new Array();
@@ -173,18 +173,22 @@ function SetLTFullfillmentLogic() {
     if (counter == 0 && setPrefix.length > 0) {
         setResult = createFullfillmentSet(setPrefix);
         id = setResult.setID;
+
         setNameArray.push(setResult.setID);
         updateSetStatusX(setResult.setID, setResult.setID, "FULLFILLMENT", "Processing", "Pending", "Pending");
+        /*
         uniqueCapIdArray = aa.util.newHashMap();
         var settprocess = new capSet(setResult.setID);
         var vSetMembers = settprocess.members;
         for (thisCap in vSetMembers) {
-            recId = vSetMembers[thisCap]
-            if (!uniqueCapIdArray.containsKey(recId)) {
-                uniqueCapIdArray.put(recId, recId);
-            }
+        recId = vSetMembers[thisCap]
+        if (!uniqueCapIdArray.containsKey(recId)) {
+        uniqueCapIdArray.put(recId, recId);
         }
+        }
+        */
     }
+
     var ffConitions = new COND_FULLFILLMENT();
 
     var sql = " SELECT B1.b1_per_id1, B1.b1_per_id2, B1.b1_per_id3 ";
@@ -227,21 +231,21 @@ function SetLTFullfillmentLogic() {
     while (rSet.next()) {
         var itemCapId = aa.cap.getCapID(rSet.getString("B1_PER_ID1"), rSet.getString("B1_PER_ID2"), rSet.getString("B1_PER_ID3")).getOutput();
         recId = itemCapId;
-        if (!uniqueCapIdArray.containsKey(recId)) {
-            var itemCap = aa.cap.getCap(itemCapId).getOutput();
-            var fvMailStop = getMailStop(itemCapId);
-            if (fvMailStop)
-                continue;
-            uniqueCapIdArray.put(recId, recId);
-            altId = itemCapId.getCustomID();
-            logDebug(altId);
-            var isSuccess = generateReport(itemCapId);
-            //updateRefContactsUdf4(altId, 2)
-            if (setPrefix.length > 0) {
-                addCapSetMemberX(itemCapId, setResult);
-            }
-            counter++;
+        //if (!uniqueCapIdArray.containsKey(recId)) {
+        var itemCap = aa.cap.getCap(itemCapId).getOutput();
+        var fvMailStop = getMailStop(itemCapId);
+        if (fvMailStop)
+            continue;
+        //uniqueCapIdArray.put(recId, recId);
+        altId = itemCapId.getCustomID();
+        logDebug(altId);
+        var isSuccess = generateReport(itemCapId);
+        //updateRefContactsUdf4(altId, 2)
+        if (setPrefix.length > 0) {
+            addCapSetMemberX(itemCapId, setResult);
         }
+        counter++;
+        //}
         editCapConditionStatus("Fulfillment", ffConitions.Condition_YearlyLifetime, "Verified", "Not Applied", "", itemCapId);
         removeFullfillmentCapCondition(itemCapId, ffConitions.Condition_YearlyLifetime);
         if (counter >= CONST_RECORDS_PER_SET && setPrefix.length > 0) {
@@ -250,7 +254,7 @@ function SetLTFullfillmentLogic() {
                 setResult = createFullfillmentSet(setPrefix);
                 setNameArray.push(setResult.setID);
                 updateSetStatusX(setResult.setID, setResult.setID, "FULLFILLMENT", "Processing", "Pending", "Pending");
-                uniqueCapIdArray = aa.util.newHashMap();
+                //uniqueCapIdArray = aa.util.newHashMap();
             }
             counter = 0;
         }
@@ -262,9 +266,13 @@ function SetLTFullfillmentLogic() {
     }
 
     logDebug("ENTER: Pass 2 to create missing documenets in EDMS.");
-    for (y in setNameArray) {
-        logDebug("GenerateMissingReportForSets for - " + setNameArray[y]);
-        GenerateMissingReportForSets(setNameArray[y] + "");
+    var counter = 2;
+    while (counter > 0) {
+        for (y in setNameArray) {
+            logDebug("GenerateMissingReportForSets for - " + setNameArray[y]);
+            GenerateMissingReportForSets(setNameArray[y] + "");
+        }
+        counter--;
     }
     logDebug("EXIT: Pass 2 to create missing documenets in EDMS.");
 
