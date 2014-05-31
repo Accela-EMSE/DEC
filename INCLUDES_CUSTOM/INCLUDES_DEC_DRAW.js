@@ -942,8 +942,8 @@ function processCorrection() {
 
             newDmpCapId = createNewDmpTag(capId);
             var newAInfo = new Array();
-            newAInfo.push(new NewLicDef("BASIC INFORMATION.WMU", AInfo["Year"]));
-            newAInfo.push(new NewLicDef("BASIC INFORMATION.WMU", AInfo["Year Description"]));
+            newAInfo.push(new NewLicDef("BASIC INFORMATION.Year", AInfo["Year"]));
+            newAInfo.push(new NewLicDef("BASIC INFORMATION.Year Description", AInfo["Year Description"]));
             newAInfo.push(new NewLicDef("BASIC INFORMATION.Tag Type", "4"));
             newAInfo.push(new NewLicDef("WMU INFORMATION.WMU", dmpASITinfo["WMU To Correct"]));
             newAInfo.push(new NewLicDef("WMU INFORMATION.Choice", dmpASITinfo["Choice Number"]));
@@ -978,8 +978,8 @@ function processCorrection() {
             } else {
                 newDmpCapId = createNewDmpTag(capId);
                 var newAInfo = new Array();
-                newAInfo.push(new NewLicDef("BASIC INFORMATION.WMU", AInfo["Year"]));
-                newAInfo.push(new NewLicDef("BASIC INFORMATION.WMU", AInfo["Year Description"]));
+                newAInfo.push(new NewLicDef("BASIC INFORMATION.Year", AInfo["Year"]));
+                newAInfo.push(new NewLicDef("BASIC INFORMATION.Year Description", AInfo["Year Description"]));
                 newAInfo.push(new NewLicDef("BASIC INFORMATION.Tag Type", "4"));
                 newAInfo.push(new NewLicDef("WMU INFORMATION.WMU", dmpASITinfo["WMU To Correct"]));
                 newAInfo.push(new NewLicDef("WMU INFORMATION.Choice", dmpASITinfo["Choice Number"]));
@@ -1175,6 +1175,8 @@ function GetWmuAsitArrayAfterCorrection(tblDrawResult, dmpASITinfo) {
     tempObject["WMU To Correct"] = fieldInfo;
     fieldInfo = new asiTableValObj("Preference Points Corrected", "", "N");
     tempObject["Preference Points Corrected"] = fieldInfo;
+    fieldInfo = new asiTableValObj("Corrected", "Y", "N");
+    tempObject["Corrected"] = fieldInfo;
     tempArray.push(tempObject);
 
     logDebug("EXIT: GetWmuAsitTableArray");
