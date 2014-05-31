@@ -463,7 +463,7 @@ function RunIBPlotteryForDMP(dmpIbpItem, orderInfo) {
     fullfillCond = condFulfill.Condition_IBPTag;
 
     wmu1Result = drw.RunLottery();
-    logDebug(wmu1Result);
+    //debugObject(wmu1Result);
     logDebug("Lottery result: " + wmu1Result.Selected);
 
     if (wmu1Result.Selected) {
@@ -487,7 +487,8 @@ function RunIBPlotteryForDMP(dmpIbpItem, orderInfo) {
         }
 
         newLicId = createNewTag(parentCapId, startDate, clacExpDt, "DMP Deer", null);
-        updateDocumentNumber(tagAgentPrefix + newLicId.getCustomID(), newLicId);
+        var newDecDocId = GenerateDocumentNumber(newLicId.getCustomID(), "9998");
+
         editAppSpecific("Tag Type", TAG_TYPE_4_DMP_DEER_TAG, parentCapId);
         var newAInfo = new Array();
         newAInfo.push(new NewLicDef("Tag Type", TAG_TYPE_4_DMP_DEER_TAG));
@@ -501,9 +502,9 @@ function RunIBPlotteryForDMP(dmpIbpItem, orderInfo) {
         copyLicASI(newLicId, newAInfo);
 
         if (ibpRec.ChoiceNum == 1) {
-            addStdConditionWithComments("DMP Application Result", "WMU Choice 1 IBP", " - " + ibpRec.WMU + ":  SELECTED", newLicId.getCustomID(), ibpRec.dmpCapId);
+            addStdConditionWithComments("DMP Application Result", "WMU Choice 1 IBP", " - " + ibpRec.WMU + ":  SELECTED", newDecDocId, ibpRec.dmpCapId);
         } else if (ibpRec.ChoiceNum == 2) {
-            addStdConditionWithComments("DMP Application Result", "WMU Choice 2 IBP", " - " + ibpRec.WMU + ":  SELECTED", newLicId.getCustomID(), ibpRec.dmpCapId);
+            addStdConditionWithComments("DMP Application Result", "WMU Choice 2 IBP", " - " + ibpRec.WMU + ":  SELECTED", newDecDocId, ibpRec.dmpCapId);
         }
 
         var result = aa.cap.createAppHierarchy(ibpRec.dmpCapId, newLicId);
@@ -514,6 +515,7 @@ function RunIBPlotteryForDMP(dmpIbpItem, orderInfo) {
             logDebug("Could not link DMP" + result.getErrorMessage());
         }
     }
+	/*
     else {
         if (ibpRec.ChoiceNum == 1) {
             addStdConditionWithComments("DMP Application Result", "WMU Choice 1 IBP", " - " + ibpRec.WMU + ":  NOT SELECTED", "", ibpRec.dmpCapId);
@@ -521,6 +523,7 @@ function RunIBPlotteryForDMP(dmpIbpItem, orderInfo) {
             addStdConditionWithComments("DMP Application Result", "WMU Choice 2 IBP", " - " + ibpRec.WMU + ":  NOT SELECTED", "", ibpRec.dmpCapId);
         }
     }
+	*/
 
     logDebug("wmu1Result : " + wmu1Result.DrawType + "," + wmu1Result.WMU + "," + wmu1Result.Result() + "," + wmu1Result.Landowner);
     var tempObject = new Array();
