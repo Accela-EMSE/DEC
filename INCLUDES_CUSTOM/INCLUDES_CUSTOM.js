@@ -7289,6 +7289,7 @@ function createLegacyLoadLic() {
                 var effectiveDt = LICENSEINFORMATION[y]["Effective Date"];
                 var syear = LICENSEINFORMATION[y]["License Year"];
                 var sYearDesc = "September 1, " + syear + " - August 31, " + (parseInt(syear, 10) + 1);
+                var sNotes = LICENSEINFORMATION[y]["Notes"];
 
                 var f = new form_OBJECT(GS2_SCRIPT, OPTZ_TYPE_ALLFEES);
                 var seasonPeriod = GetLicenseSeasonPeriod();
@@ -7325,6 +7326,7 @@ function createLegacyLoadLic() {
                 newAInfo.push(new NewLicDef("Item Code", decCode));
                 newAInfo.push(new NewLicDef("Quantity", "1"));
                 newAInfo.push(new NewLicDef("Effective Date", effectiveDt));
+                newAInfo.push(new NewLicDef(" Notes", sNotes));
                 copyLicASI(newLicId, newAInfo);
 
                 var newDecDocId = GenerateDocumentNumber(newLicId.getCustomID(), "1004");
