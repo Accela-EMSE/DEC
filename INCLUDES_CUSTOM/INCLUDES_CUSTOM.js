@@ -242,6 +242,14 @@ function GetWmuAsitTableArray(wmu1Result, wmu2Result) {
         tempObject["Land Owner?"] = fieldInfo;
         fieldInfo = new asiTableValObj("Correct?", "", "N");
         tempObject["Correct?"] = fieldInfo;
+		fieldInfo = new asiTableValObj("New?", "", "N");
+		tempObject["New?"] = fieldInfo;
+		fieldInfo = new asiTableValObj("WMU To Correct", "", "N");
+		tempObject["WMU To Correct"] = fieldInfo;
+		fieldInfo = new asiTableValObj("Preference Points Corrected", "", "N");
+		tempObject["Preference Points Corrected"] = fieldInfo;
+		fieldInfo = new asiTableValObj("Corrected", "N", "N");
+		tempObject["Corrected"] = fieldInfo;
         tempArray.push(tempObject);
     }
     //Choice 2 Result
