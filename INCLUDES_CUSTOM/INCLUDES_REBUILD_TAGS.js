@@ -234,7 +234,7 @@ function getLifetimeLicenses(ipRefContact) {
 
         if (fvCapType.getGroup() != "Licenses" || fvCapType.getType() != "Lifetime")
             continue;
-        if (fvCapType.getSubType() == "Other" || fvCapType.getSubType() == "Fishing" || fvCapType.getSubType() == "Fishing") //Priya
+        if (fvCapType.getSubType() == "Other" || fvCapType.getSubType() == "Fishing" || fvCapType.getSubType() == "Trapping")
             continue;
         if (fvCapM.getCapStatus() != "Active" && fvCapM.getCapStatus() != "Approved")
             continue;
