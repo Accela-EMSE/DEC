@@ -28,6 +28,8 @@ var AA_Configuration = "Licenses/WMU/Draw/Configure";
 var AA_Probability = "Licenses/WMU/Draw/Probability";
 var AA_wmu_Process_create = "Licenses/WMU/Process/Create";
 
+var WMU_ADMIN_AGENT_ID = "2564";
+
 function Category(index, nOrder, nProbability, nChoiceType) {
     this.Index = index;
     this.Name = "C" + this.Index.toString();
@@ -1059,7 +1061,7 @@ function createNewDmpTag(parentCapId) {
     var tagCodeDescription = GetTagTypedesc(TAG_TYPE_4_DMP_DEER_TAG);
     editAppName(tagCodeDescription, newDmpId);
 
-    var newDecDocId = GenerateDocumentNumber(newDmpId.getCustomID(), "2564");
+    var newDecDocId = GenerateDocumentNumber(newDmpId.getCustomID(), WMU_ADMIN_AGENT_ID);
     updateDocumentNumber(newDecDocId, newDmpId);
 
     var result = aa.cap.createAppHierarchy(capId, newDmpId);
@@ -1175,7 +1177,7 @@ function GetWmuAsitArrayAfterCorrection(tblDrawResult, dmpASITinfo) {
     tempObject["WMU To Correct"] = fieldInfo;
     fieldInfo = new asiTableValObj("Preference Points Corrected", "", "N");
     tempObject["Preference Points Corrected"] = fieldInfo;
-    fieldInfo = new asiTableValObj("Corrected", "Y", "N");
+    fieldInfo = new asiTableValObj("Corrected", "N", "N");
     tempObject["Corrected"] = fieldInfo;
     tempArray.push(tempObject);
 
