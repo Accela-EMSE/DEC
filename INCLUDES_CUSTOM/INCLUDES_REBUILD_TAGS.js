@@ -272,14 +272,14 @@ function calculateEligTags(ipLifeLic, ipSpEd, ipAge, ipEnforcements, spProcessYe
             else if (ipAge >= 14)
                 fvTags = "Privilege Panel,Back,Turkey,Deer,Bear";
         }
-		/*
+        /*
         if (fvLicType == "Trapping License" && (ipSpEd.containsKey("Trapper Ed") || ipSpEd.containsKey("Trapping")) && !ipEnforcements.revocationTrapping) {
-			fvTags = "Privilege Panel";
+        fvTags = "Privilege Panel";
         }
         if (fvLicType == "Fishing License") {
-			fvTags = "Privilege Panel";
+        fvTags = "Privilege Panel";
         }
-		*/
+        */
         ipLifeLic.put(fvLicType, fvTags);
     }
     var opAllTags = aa.util.newHashMap();
@@ -441,6 +441,7 @@ function createNewTags(ipRefContact, ipStartDate, ipExpDate, ipEligibleTags, ipN
         }
         if (fvNewLic > 0 && fvTag == "Privilege Panel") {
             realTagQty++;
+        }
     }
 
     if (realTagQty > 0) {
