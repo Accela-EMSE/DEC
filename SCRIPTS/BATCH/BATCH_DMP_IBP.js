@@ -181,7 +181,7 @@ function callIBPlogic() {
 
             var spreferencePoint = getPrefpoint(dmpCapId);
 
-            var newIbpRec = new IBPREC_OBJ(dmpAinfo["Year"]);
+            var newIbpRec = new IBPREC_OBJ(dmpAinfo["Year"], dmpAinfo["Year Description"]);
             newIbpRec.appTypeString = appTypeString;
             newIbpRec.CapStatus = dmpStatus;
             newIbpRec.DisabledVet = (dmpAinfo["Military Disabled"] == "CHECKED");
@@ -302,147 +302,6 @@ function getRecordsToProcess(year) {
     return sql;
 }
 
-
-function getRecordsToProcessOld(year) {
-    var sql = " SELECT D.g1_contact_nbr, A.serv_prov_code, A.b1_per_id1, A.b1_per_id2, A.b1_per_id3, ";
-    sql += " A.b1_per_group, A.b1_per_type, A.b1_per_sub_type, A.b1_per_category, ";
-    sql += " T.attribute_value AS DRAW_TYPE, ";
-    sql += " (SELECT X.attribute_value ";
-    sql += " FROM   bappspectable_value X ";
-    sql += " WHERE  X.serv_prov_code = A.serv_prov_code ";
-    sql += " AND X.b1_per_id1 = A.b1_per_id1 ";
-    sql += " AND X.b1_per_id2 = A.b1_per_id2 ";
-    sql += " AND X.b1_per_id3 = A.b1_per_id3 ";
-    sql += " AND X.rec_status = 'A' ";
-    sql += " AND Upper(X.column_name) = Upper('Choice Number') ";
-    sql += " AND X.row_index = T.row_index ";
-    sql += " AND X.table_name = T.table_name ";
-    sql += " AND ROWNUM < 2) AS Choice_Number, ";
-    sql += " (SELECT X.attribute_value ";
-    sql += " FROM   bappspectable_value X ";
-    sql += " WHERE  X.serv_prov_code = A.serv_prov_code ";
-    sql += " AND X.b1_per_id1 = A.b1_per_id1 ";
-    sql += " AND X.b1_per_id2 = A.b1_per_id2 ";
-    sql += " AND X.b1_per_id3 = A.b1_per_id3 ";
-    sql += " AND X.rec_status = 'A' ";
-    sql += " AND Upper(X.column_name) = Upper('WMU') ";
-    sql += " AND X.row_index = T.row_index ";
-    sql += " AND X.table_name = T.table_name ";
-    sql += " AND ROWNUM < 2) AS WMU, ";
-    sql += " (SELECT X.attribute_value ";
-    sql += " FROM   bappspectable_value X ";
-    sql += " WHERE  X.serv_prov_code = A.serv_prov_code ";
-    sql += " AND X.b1_per_id1 = A.b1_per_id1 ";
-    sql += " AND X.b1_per_id2 = A.b1_per_id2 ";
-    sql += " AND X.b1_per_id3 = A.b1_per_id3 ";
-    sql += " AND X.rec_status = 'A' ";
-    sql += " AND Upper(X.column_name) = Upper('Preference Bucket') ";
-    sql += " AND X.row_index = T.row_index ";
-    sql += " AND X.table_name = T.table_name ";
-    sql += " AND ROWNUM < 2) AS Preference_Bucket, ";
-    sql += " (SELECT X.attribute_value ";
-    sql += " FROM   bappspectable_value X ";
-    sql += " WHERE  X.serv_prov_code = A.serv_prov_code ";
-    sql += " AND X.b1_per_id1 = A.b1_per_id1 ";
-    sql += " AND X.b1_per_id2 = A.b1_per_id2 ";
-    sql += " AND X.b1_per_id3 = A.b1_per_id3 ";
-    sql += " AND X.rec_status = 'A' ";
-    sql += " AND Upper(X.column_name) = Upper('Result') ";
-    sql += " AND X.row_index = T.row_index ";
-    sql += " AND X.table_name = T.table_name ";
-    sql += " AND ROWNUM < 2) AS DrawResult, ";
-    sql += " (SELECT X.attribute_value ";
-    sql += " FROM   bappspectable_value X ";
-    sql += " WHERE  X.serv_prov_code = A.serv_prov_code ";
-    sql += " AND X.b1_per_id1 = A.b1_per_id1 ";
-    sql += " AND X.b1_per_id2 = A.b1_per_id2 ";
-    sql += " AND X.b1_per_id3 = A.b1_per_id3 ";
-    sql += " AND X.rec_status = 'A' ";
-    sql += " AND Upper(X.column_name) = Upper('Correct?') ";
-    sql += " AND X.row_index = T.row_index ";
-    sql += " AND X.table_name = T.table_name ";
-    sql += " AND ROWNUM < 2) AS IsCorrect, ";
-    sql += " (SELECT X.attribute_value ";
-    sql += " FROM bappspectable_value X ";
-    sql += " WHERE X.serv_prov_code   = A.serv_prov_code ";
-    sql += " AND X.b1_per_id1 = A.b1_per_id1 ";
-    sql += " AND X.b1_per_id2 = A.b1_per_id2 ";
-    sql += " AND X.b1_per_id3 = A.b1_per_id3 ";
-    sql += " AND X.rec_status = 'A' ";
-    sql += " AND Upper(X.column_name) = Upper('Apply Land Owner') ";
-    sql += " AND X.row_index = T.row_index ";
-    sql += " AND X.table_name = T.table_name ";
-    sql += " AND ROWNUM < 2 ) AS Apply_Land_Owner ";
-    sql += " FROM   b1permit A ";
-    sql += " inner join b3contact D ";
-    sql += " ON A.serv_prov_code = D.serv_prov_code ";
-    sql += " AND A.b1_per_id1 = D.b1_per_id1 ";
-    sql += " AND A.b1_per_id2 = D.b1_per_id2 ";
-    sql += " AND A.b1_per_id3 = D.b1_per_id3 ";
-    sql += " inner join bchckbox B ";
-    sql += " ON A.serv_prov_code = B.serv_prov_code ";
-    sql += " AND A.b1_per_id1 = B.b1_per_id1 ";
-    sql += " AND A.b1_per_id2 = B.b1_per_id2 ";
-    sql += " AND A.b1_per_id3 = B.b1_per_id3 ";
-    sql += " inner join bappspectable_value T ";
-    sql += " ON A.serv_prov_code = T.serv_prov_code ";
-    sql += " AND A.b1_per_id1 = T.b1_per_id1 ";
-    sql += " AND A.b1_per_id2 = T.b1_per_id2 ";
-    sql += " AND A.b1_per_id3 = T.b1_per_id3 ";
-    sql += " WHERE  A.serv_prov_code = '" + aa.getServiceProviderCode() + "' ";
-    sql += " AND A.rec_status = 'A' ";
-    sql += " AND D.rec_status = 'A' ";
-    sql += " AND A.b1_module_name = 'Licenses' ";
-    sql += " AND A.b1_per_group = 'Licenses' ";
-    sql += " AND A.b1_per_type = 'Annual' ";
-    sql += " AND A.b1_per_sub_type = 'Hunting' ";
-    sql += " AND A.b1_per_category = 'Deer Management Permit' ";
-    sql += " AND A.b1_appl_status = 'Active' ";
-    sql += " AND b1_contact_type = 'Individual' ";
-    sql += " AND B.b1_checkbox_desc = 'Year' ";
-    sql += " AND B.b1_checkbox_group = 'APPLICATION' ";
-    sql += " AND b1_checklist_comment = " + year;
-    sql += " AND T.column_name = 'DRAW TYPE' ";
-    sql += " AND T.attribute_value = 'INSTANT' ";
-    sql += " AND NOT EXISTS (SELECT 1 ";
-    sql += " FROM   bappspectable_value I ";
-    sql += " WHERE  I.serv_prov_code = A.serv_prov_code ";
-    sql += " AND I.b1_per_id1 = A.b1_per_id1 ";
-    sql += " AND I.b1_per_id2 = A.b1_per_id2 ";
-    sql += " AND I.b1_per_id3 = A.b1_per_id3 ";
-    sql += " AND I.rec_status = 'A' ";
-    sql += " AND Upper(I.column_name) = Upper('DRAW TYPE') ";
-    sql += " AND I.row_index = T.row_index ";
-    sql += " AND I.table_name = T.table_name ";
-    sql += " AND I.attribute_value = 'IBP') ";
-    sql += " AND EXISTS (SELECT 1 ";
-    sql += " FROM   bappspectable_value I ";
-    sql += " WHERE  I.serv_prov_code = A.serv_prov_code ";
-    sql += " AND I.b1_per_id1 = A.b1_per_id1 ";
-    sql += " AND I.b1_per_id2 = A.b1_per_id2 ";
-    sql += " AND I.b1_per_id3 = A.b1_per_id3 ";
-    sql += " AND I.rec_status = 'A' ";
-    sql += " AND Upper(I.column_name) = Upper('Result') ";
-    sql += " AND I.row_index = T.row_index ";
-    sql += " AND I.table_name = T.table_name ";
-    sql += " AND I.attribute_value = 'LOST') ";
-    //sql += " AND rownum < 51 ";
-    sql += " ORDER  BY (SELECT X.attribute_value ";
-    sql += " FROM   bappspectable_value X ";
-    sql += " WHERE  X.serv_prov_code = A.serv_prov_code ";
-    sql += " AND X.b1_per_id1 = A.b1_per_id1 ";
-    sql += " AND X.b1_per_id2 = A.b1_per_id2 ";
-    sql += " AND X.b1_per_id3 = A.b1_per_id3 ";
-    sql += " AND X.rec_status = 'A' ";
-    sql += " AND Upper(X.column_name) = Upper('Preference Bucket') ";
-    sql += " AND X.row_index = T.row_index ";
-    sql += " AND X.table_name = T.table_name ";
-    sql += " AND ROWNUM < 2), ";
-    sql += " A.rec_date ";
-
-    return sql;
-}
-
 function RunIBPlotteryForDMP(dmpIbpItem, orderInfo) {
 
     var ibpRec = dmpIbpItem;
@@ -491,15 +350,16 @@ function RunIBPlotteryForDMP(dmpIbpItem, orderInfo) {
 
         editAppSpecific("Tag Type", TAG_TYPE_4_DMP_DEER_TAG, parentCapId);
         var newAInfo = new Array();
-        newAInfo.push(new NewLicDef("Tag Type", TAG_TYPE_4_DMP_DEER_TAG));
-        newAInfo.push(new NewLicDef("WMU", wmu1Result.WMU));
-        newAInfo.push(new NewLicDef("Draw Type", wmu1Result.DrawType));
-        newAInfo.push(new NewLicDef("Choice", wmu1Result.ChoiceNum));
-        newAInfo.push(new NewLicDef("PreferencePoints", wmu1Result.PreferencePoints));
-        newAInfo.push(new NewLicDef("Landowner", wmu1Result.Landowner));
-        newAInfo.push(new NewLicDef("Military Disabled", wmu1Result.DisabledVet));
-        newAInfo.push(new NewLicDef("Resident", wmu1Result.Resident));
+		newAInfo.push(new NewLicDef("BASIC INFORMATION.Year", ibpRec.Year));
+		newAInfo.push(new NewLicDef("BASIC INFORMATION.Year Description", ibpRec.YearDesc));
+		newAInfo.push(new NewLicDef("BASIC INFORMATION.Tag Type", TAG_TYPE_4_DMP_DEER_TAG));
+		newAInfo.push(new NewLicDef("WMU INFORMATION.WMU", wmu1Result.WMU));
+		newAInfo.push(new NewLicDef("WMU INFORMATION.Choice", wmu1Result.ChoiceNum));
+		newAInfo.push(new NewLicDef("WMU INFORMATION.Draw Type", wmu1Result.DrawType));
+
+		useAppSpecificGroupName = true;
         copyLicASI(newLicId, newAInfo);
+		useAppSpecificGroupName = false;
 
         if (ibpRec.ChoiceNum == 1) {
             addStdConditionWithComments("DMP Application Result", "WMU Choice 1 IBP", " - " + ibpRec.WMU + ":  SELECTED", newDecDocId, ibpRec.dmpCapId);
@@ -547,10 +407,19 @@ function RunIBPlotteryForDMP(dmpIbpItem, orderInfo) {
     tempObject["Land Owner?"] = fieldInfo;
     fieldInfo = new asiTableValObj("Correct?", "", "N");
     tempObject["Correct?"] = fieldInfo;
+    fieldInfo = new asiTableValObj("New?", "", "N");
+    tempObject["New?"] = fieldInfo;
+    fieldInfo = new asiTableValObj("WMU To Correct", "", "N");
+    tempObject["WMU To Correct"] = fieldInfo;
+    fieldInfo = new asiTableValObj("Preference Points Corrected", "", "N");
+    tempObject["Preference Points Corrected"] = fieldInfo;
+    fieldInfo = new asiTableValObj("Corrected", "N", "N");
+    tempObject["Corrected"] = fieldInfo;
     addToASITable("DRAW RESULT", tempObject, ibpRec.dmpCapId)
 }
-function IBPREC_OBJ(year) {
+function IBPREC_OBJ(year, yearDesc) {
     this.Year = year;
+    this.YearDesc = yearDesc;
     this.WMU = null;
     this.DrawType = null;
     this.ChoiceNum = null;
