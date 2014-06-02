@@ -2327,17 +2327,10 @@ function upgradeLifetimeLic() {
                     var newLicId = issueSubLicense(ata[0], ata[1], ata[2], ata[3], "Active");
                     editAppName(oLic.CodeDescription, newLicId);
 
-                    var effectiveDt;
-                    var seasonPeriod = GetDateRange(DEC_CONFIG, LICENSE_SEASON, syear);
-                    var diff = dateDiff(new Date(), seasonPeriod[0])
+                    //var effectiveDt;
                     setLicExpirationDate(newLicId, dateAdd(null, 0)); // defect 13656
-                    if (diff > 0) {
-                        AInfo["CODE.Effective Date"] = jsDateToMMDDYYYY(seasonPeriod[0]);
-                        editFileDate(newLicId, seasonPeriod[0]);
-                    } else {
-                        AInfo["CODE.Effective Date"] = jsDateToMMDDYYYY(new Date());
-                        editFileDate(newLicId, new Date());
-                    }
+					AInfo["CODE.Effective Date"] = jsDateToMMDDYYYY(new Date());
+					editFileDate(newLicId, new Date());
 
                     setSalesItemASI(newLicId, oLic.RecordType, oLic.DecCode, oLic.feeUnit, null, null);
 
