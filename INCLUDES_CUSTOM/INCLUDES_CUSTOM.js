@@ -7435,28 +7435,30 @@ function callWebServiceForANS(agentId) {
 }
 function verifyNewRegistrion() {
     var retmsg = '';
-    var firstname = AInfo["First"];
-    var lastname = AInfo["Last"];
     var sdob = AInfo["Date of Birth"];
     var decid = AInfo["DECALS Customer Number"];
+    var driverLicNumber = AInfo["Driver's License Number"];
     var decalRefNumber = "";
     var refContactId = "";
 
-    var resultCount = searchCustomerBySql(lastname, firstname, sdob, decid);
+    if ((driverLicNumber == "" || driverLicNumber == null) && (decid == "" || decid == null)) {
+        retmsg += "You have to either enter the combination of Date of Birth and Driver's License Number or Date of Birth and DECALS Customer Number to continue." + "<BR>";      
+    }else{
 
-    if (resultCount.length == 0) {
-        retmsg = "No match is found for the given information. Please Register for a New Account using the link at the top of the page." + "<BR>";
-    }
-    if (resultCount.length == 1) {
-        decalRefNumber = resultCount[0].sDecid;
-        refContactId = resultCount[0].sRefConId;
+        var resultCount = searchCustomerBySql(sdob, driverLicNumber, decid);
 
-        if (!decalRefNumber) {
-            if (refContactId) {
-                decalRefNumber = refContactId;
-            }
+        if (resultCount.length == 0) {
+            retmsg += "No match is found for the given information. Please Register for a New Account using the link at the top of the page." + "<BR>";
         }
+        if (resultCount.length == 1) {
+            decalRefNumber = resultCount[0].sDecid;
+            refContactId = resultCount[0].sRefConId;
 
+            if (!decalRefNumber) {
+                if (refContactId) {
+                    decalRefNumber = refContactId;
+                }
+            }
         // validation to check public user id already exists with DEC ID
         var lDecalRefNumber = aa.util.parseLong(decalRefNumber);
         var publicUserListByContact = aa.publicUser.getPublicUserListByContactNBR(lDecalRefNumber);
@@ -7464,31 +7466,29 @@ function verifyNewRegistrion() {
             var contactList = publicUserListByContact.getOutput();
             if (contactList.size() > 0) {
                 logDebug(contactList);
-                retmsg += "Public User Id already exists for " + firstname + " " + lastname + "<BR>";
+                retmsg += "Public User Id already exists."  + "<BR>";
             }
         }
         editAppSpecific4ACA("Internal Decid", decalRefNumber);
     }
     if (resultCount.length > 1) {
-        retmsg = "Multiple match is found for the given information. Please enter your DECALS Customer Number." + "<BR>";
+        retmsg += "Multiple match is found for the given information. Please enter your DECALS Customer Number." + "<BR>";
     }
     if (retmsg != '') {
         retmsg += '<Br />'
     }
-    return retmsg;
 }
-function searchCustomerBySql(lastname, firstname, birthDate, decid) {
+return retmsg;
+}
+function searchCustomerBySql(birthDate, licNumber, decid) {
     var retArry = new Array();
     var counter = 0;
     try {
         var sql = " Select G1_PASSPORT_NBR, G1_CONTACT_NBR from G3Contact ";
         sql += " WHERE SERV_PROV_CODE = '" + aa.getServiceProviderCode() + "' ";
         sql += " AND G1_CONTACT_TYPE  = 'Individual' ";
-        if (isNull(firstname, '') != '') {
-            sql += " AND upper(G1_FNAME) = upper('" + firstname + "'" + ")";
-        }
-        if (isNull(lastname, '') != '') {
-            sql += " AND upper(G1_LNAME) = upper('" + lastname + "'" + ")";
+        if (isNull(licNumber, '') != '') {
+            sql += " AND upper(G1_DRIVER_LICENSE_NBR) = upper('" + licNumber + "'" + ")";
         }
         if (isNull(birthDate, '') != '') {
             sql += " AND trunc(L1_BIRTH_DATE) = trunc(TO_dATE('" + birthDate + "', 'MM/DD/YYYY')) ";
@@ -7508,9 +7508,9 @@ function searchCustomerBySql(lastname, firstname, birthDate, decid) {
             var sDecid = rSet.getString("G1_PASSPORT_NBR");
             var sRefConId = rSet.getString("G1_CONTACT_NBR");
             retArry.push({
-                "sDecid": sDecid,
-                "sRefConId": sRefConId
-            });
+               "sDecid": sDecid,
+               "sRefConId": sRefConId
+           });
             counter++;
             if (counter > 1) {
                 break;
