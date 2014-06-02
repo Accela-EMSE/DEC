@@ -182,6 +182,7 @@ function Draw_Obj(syear, swmu, schoicenum, sdrawtype, sapplyLandOwner) {
                             //logDebug("drawResult = verify" + ctgArray[out].Name + "(this) = " + drawResult.Selected);
                         } else if (this.DrawType == DRAW_IBP) {
                             drawResult = new DrawResult_OBJ(this.Wmu, this.DrawType, this.ChoiceNum, this.PreferencePoints, this.IsLanOwner, bDisabledVet, this.IsNyResiDent);
+                            drawResult.PreferenceBucket = this.PreferenceBucketForIbp;
                             drawResult.Selected = (this.PreferenceBucketForIbp == ctgArray[out].Index);
                         }
                         if (drawResult.Selected) {
