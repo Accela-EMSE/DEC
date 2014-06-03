@@ -215,17 +215,17 @@ function InitLicenseFilingYear() {
     }
 
     //Disable Future Years added for testing;
-    var n = appYear[0];
+    var n = appYear[appYear.length - 1];
     while (true) {
         n++;
         var bizDomObj = aa.bizDomain.getBizDomainByValue(SHARED_DDLIST, n);
         if (bizDomObj.getSuccess()) {
-            editLookupAuditStatus(SHARED_DDLIST, n, "A");
-            editLookupAuditStatus(SHARED_DDLIST, n, "A");
+            editLookupAuditStatus(SHARED_DDLIST, n, "I");
+            editLookupAuditStatus(SHARED_DDLIST, n, "I");
             startY = n;
             endY = startY + 1;
-            editLookupAuditStatus(SHARED_DDLIST_DESC, startMonth + " 1, " + startY + " - " + endMonth + " " + endDay + ", " + endY, "A");
-            editLookupAuditStatus(SHARED_DDLIST_DESC, startMonth + " 1, " + startY + " - " + endMonth + " " + endDay + ", " + endY, "A");
+            editLookupAuditStatus(SHARED_DDLIST_DESC, startMonth + " 1, " + startY + " - " + endMonth + " " + endDay + ", " + endY, "I");
+            editLookupAuditStatus(SHARED_DDLIST_DESC, startMonth + " 1, " + startY + " - " + endMonth + " " + endDay + ", " + endY, "I");
         }
         break;
     }
