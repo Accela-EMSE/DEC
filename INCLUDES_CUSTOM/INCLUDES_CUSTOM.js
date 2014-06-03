@@ -854,7 +854,7 @@ function issueSelectedSalesItems(frm) {
                         editFileDate(newLicId, effectiveDt);
                         AInfo["CODE.Effective Date"] = effectiveDt;
                         //JIRA: 48336
-                        clacFromDt = dateAdd(convertDate(effectiveDt), 0);
+                        //clacFromDt = dateAdd(convertDate(effectiveDt), 0);
                         clacFromDt = dateAdd(convertDate(effectiveDt), -1);
                         setLicExpirationDate(newLicId, clacFromDt);
                         //
@@ -7326,7 +7326,7 @@ function createLegacyLoadLic() {
                 newAInfo.push(new NewLicDef("Item Code", decCode));
                 newAInfo.push(new NewLicDef("Quantity", "1"));
                 newAInfo.push(new NewLicDef("Effective Date", effectiveDt));
-                newAInfo.push(new NewLicDef(" Notes", sNotes));
+                newAInfo.push(new NewLicDef("Notes", sNotes));
                 copyLicASI(newLicId, newAInfo);
 
                 var newDecDocId = GenerateDocumentNumber(newLicId.getCustomID(), "1004");
