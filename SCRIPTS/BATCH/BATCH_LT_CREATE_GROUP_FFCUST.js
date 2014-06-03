@@ -159,7 +159,8 @@ function updateRefContactsUdf12() {
     sql += " AND A.b1_module_name = 'Licenses' ";
     sql += " AND A.b1_per_group = 'Licenses' ";
     sql += " AND A.b1_per_type = 'Lifetime' ";
-    sql += " AND b1_contact_type = 'Individual' ";
+    sql += " AND A.b1_per_sub_type = 'Hunting' ";
+	sql += " AND b1_contact_type = 'Individual' ";
     sql += " AND g3Contact.g1_contact_nbr = D.g1_contact_nbr) ";
 
     var initialContext = aa.proxyInvoker.newInstance("javax.naming.InitialContext", null).getOutput();
