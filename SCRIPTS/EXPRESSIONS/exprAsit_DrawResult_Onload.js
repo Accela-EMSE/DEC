@@ -12,7 +12,7 @@ var oCorrect = expression.getValue("ASIT::DRAW RESULT::Correct?");
 var oNew = expression.getValue("ASIT::DRAW RESULT::New?");
 var oWmuToCorrect = expression.getValue("ASIT::DRAW RESULT::WMU To Correct");
 var oPrefCorrect = expression.getValue("ASIT::DRAW RESULT::Preference Points Corrected");
-
+var oCorrected = expression.getValue("ASIT::DRAW RESULT::Corrected");
 
 var totalRowCount = expression.getTotalRowCount();
 for (var rowIndex = 0; rowIndex < totalRowCount; rowIndex++) {
@@ -23,10 +23,13 @@ for (var rowIndex = 0; rowIndex < totalRowCount; rowIndex++) {
     oApplyLand = expression.getValue(rowIndex, "ASIT::DRAW RESULT::Apply Land Owner");
     oChoiceNum = expression.getValue(rowIndex, "ASIT::DRAW RESULT::Choice Number");
     oDrawType = expression.getValue(rowIndex, "ASIT::DRAW RESULT::DRAW TYPE");
+	oCorrect = expression.getValue(rowIndex, "ASIT::DRAW RESULT::Correct?");
     oNew = expression.getValue(rowIndex, "ASIT::DRAW RESULT::New?");
     oResult = expression.getValue(rowIndex, "ASIT::DRAW RESULT::Result");
     oPrefGiven = expression.getValue(rowIndex, "ASIT::DRAW RESULT::Preference Points Given");
     oPrefAfter = expression.getValue(rowIndex, "ASIT::DRAW RESULT::Preference Points After");
+	oCorrected = expression.getValue(rowIndex, "ASIT::DRAW RESULT::Corrected");
+
 
     oApplyLand.readOnly = true;
     expression.setReturn(rowIndex, oApplyLand);
@@ -74,13 +77,22 @@ for (var rowIndex = 0; rowIndex < totalRowCount; rowIndex++) {
     
 	if (isYesNew) {
         oNew.readOnly = (isYesNew);
+		oNew.value = false;
         expression.setReturn(rowIndex, oNew);
     }
+    oCorrect.message = (isYesCorrect);
     if (isYesCorrect) {
         oCorrect.readOnly = (isYesCorrect);
         expression.setReturn(rowIndex, oCorrect);
 
         oNew.readOnly = (isYesCorrect);
         expression.setReturn(rowIndex, oNew);
+		
+		oCorrected.value = "Yes";
+	} else {
+		oCorrected.value = "No";
 	}
+	oCorrected.readOnly = true;
+	expression.setReturn(rowIndex, oCorrected);
 }
+
