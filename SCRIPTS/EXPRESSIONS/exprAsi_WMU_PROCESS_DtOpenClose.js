@@ -16,17 +16,21 @@ function diffDate(iDate1, iDate2) {
 }
 
 var servProvCode = expression.getValue("$$servProvCode$$").value;
-var oOpenDt = expression.getValue("ASI::CONFIGURATION::Open Date");
-var oCloseDt = expression.getValue("ASI::CONFIGURATION::Close Date");
+var isNew = (sCapStatus.value != null && sCapStatus.value.equals(String("")));
+var isCapClosed = (sCapStatus.value != null && sCapStatus.value.equals(String("Closed")));
 
-var totalRowCount = expression.getTotalRowCount();
+if (!(isNew || isCapClosed)) {
+    var oOpenDt = expression.getValue("ASI::CONFIGURATION::Open Date");
+    var oCloseDt = expression.getValue("ASI::CONFIGURATION::Close Date");
 
-if (isNull(oOpenDt.value, '') != '' && isNull(oCloseDt.value, '') != '') {
-    var msg = "Close date cannot be prior to open date";
-    oCloseDt.message = diffDate(oOpenDt.getValue(), oCloseDt.getValue()) < 0 ? msg : '';
-} else {
-    oCloseDt.message = '';
+    var totalRowCount = expression.getTotalRowCount();
+
+    if (isNull(oOpenDt.value, '') != '' && isNull(oCloseDt.value, '') != '') {
+        var msg = "Close date cannot be prior to open date";
+        oCloseDt.message = diffDate(oOpenDt.getValue(), oCloseDt.getValue()) < 0 ? msg : '';
+    } else {
+        oCloseDt.message = '';
+    }
+    oCloseDt.required = true;
+    expression.setReturn(oCloseDt);
 }
-expression.setReturn(oCloseDt);
-
-
