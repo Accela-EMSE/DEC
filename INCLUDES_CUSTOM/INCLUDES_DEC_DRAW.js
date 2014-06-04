@@ -941,8 +941,7 @@ function processCorrection() {
     for (i in drawTable) {
         var dmpASITinfo = drawTable[i];
         var newDmpCapId = null;
-        if (dmpASITinfo["New?"] == "CHECKED" && dmpASITinfo["DRAW TYPE"] == "CORRECTION") {
-
+        if (!isYesOnSelected(dmpASITinfo["Corrected"]) && dmpASITinfo["New?"] == "CHECKED" && dmpASITinfo["DRAW TYPE"] == "CORRECTION") {
             newDmpCapId = createNewDmpTag(capId);
             var newAInfo = new Array();
             newAInfo.push(new NewLicDef("BASIC INFORMATION.Year", AInfo["Year"]));
@@ -964,7 +963,7 @@ function processCorrection() {
             isAnyCorrection = isAnyCorrection || true;
         }
 
-        if (dmpASITinfo["Correct?"] == "CHECKED" && dmpASITinfo["DRAW TYPE"] != "CORRECTION") {
+        if (!isYesOnSelected(dmpASITinfo["Corrected"]) && dmpASITinfo["Correct?"] == "CHECKED" && dmpASITinfo["DRAW TYPE"] != "CORRECTION") {
             var dmpCapId = getDmpTagToCorrect(dmpASITinfo["DRAW TYPE"], dmpASITinfo["WMU"], dmpASITinfo["Choice Number"]);
             if (dmpCapId) {
                 var tagAinfo = new Array();
@@ -1078,7 +1077,7 @@ function voidDmpAndCreateNew(dmpCapId, parentCapId) {
     closeTaskForRec("Suspension", "", "", "", "", dmpCapId);
 
     // now create a new one, 
-    var newDmpId = createChildForDec("Licenses", "Tag", "Hunting", "DMP Deer", "", parentCapId);
+    var newDmpId = createChildForDec("Licenses", "Tag", "Hunting", "DMP Deer", "", dmpCapId);
     copyASIFields(dmpCapId, newDmpId);
     updateAppStatus("Active", "Active", newDmpId);
     activateTaskForRec("Report Game Harvest", "", newDmpId);
