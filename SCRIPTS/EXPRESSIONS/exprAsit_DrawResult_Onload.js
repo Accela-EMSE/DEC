@@ -80,7 +80,6 @@ for (var rowIndex = 0; rowIndex < totalRowCount; rowIndex++) {
 		oNew.value = false;
         expression.setReturn(rowIndex, oNew);
     }
-    oCorrect.message = (isYesCorrect);
     if (isYesCorrect) {
         oCorrect.readOnly = (isYesCorrect);
         expression.setReturn(rowIndex, oCorrect);
