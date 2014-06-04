@@ -1,5 +1,5 @@
 /*------------------------------------------------------------------------------------------------------/
-| Program:  BATCH_LT_FULLFILLMENT.js  Trigger: Batch
+| Program:  BATCH_LT_DOC_GEN_BY_GROUP.js  Trigger: Batch
 | Event   : N/A
 | Usage   : Batch job (Daily)
 | Agency  : DEC
