@@ -975,7 +975,7 @@ function createPrivilagePanel(ruleParams) {
     CreateTags(arryTags_Priv, ruleParams, null, '');
 }
 function RunDMPLottery(frm, syear, swmu, schoicenum, isApplyLO, activeHoldings, nPreferencePoints) {
-    var currDrawType = getDrawTypeByPeriod(syear);
+    var currDrawType = getDrawTypeByPeriod(syear, frm);
 
     var ruleParams = frm.getRulesParam();
 
