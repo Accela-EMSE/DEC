@@ -20,7 +20,7 @@ var OPTZ_TYPE_ALLFEES = 1; //Optimizer pass from caller to get fee information i
 var OPTZ_TYPE_SELECTED_FEES = 2; //Optimizer pass from caller to get fee information for selected information in engne rule;
 var OPTZ_TYPE_CTRC = 3; //Optimizer pass from caller to avod unnecessary processing in engne rule
 
-var CONST_INSTANT_GRACE_PERIOD = 10;
+var CONST_INSTANT_GRACE_PERIOD = -10;
 
 var allTableNames = new Array();
 var allTableRefLink = new Array();
@@ -598,7 +598,7 @@ function form_OBJECT(identity) {
         ruleParams.HasTrapEd = this.HasTrapEd();
         ruleParams.HasNYSSportEd = this.HasNYSSportEd();
         ruleParams.ActiveHoldingsInfo = this.ActiveHoldingsInfo;
-        ruleParams.currDrawType = getDrawTypeByPeriod(this.Year);
+        ruleParams.currDrawType = getDrawTypeByPeriod(this.Year, this);
         ruleParams.Year = this.Year;
         ruleParams.AgedIn = this.AgedIn;
         ruleParams.NeedHuntEd = this.NeedHuntEd;
@@ -644,8 +644,8 @@ function form_OBJECT(identity) {
         this.CountFishGroup = 0;
         this.CountLifeTimeGroup = 0;
         this.CountOtherSaleGroup = 0;
-        this.currDrawType = getDrawTypeByPeriod(this.Year);
         this.setLoginUserType();
+        this.currDrawType = getDrawTypeByPeriod(this.Year, this);
         var couterhasSaleLicMilitaryDisable = 0;
 
         var shuntsubheader = "not set";
@@ -2838,13 +2838,15 @@ function GetTagTypedesc(TagType) {
 
     return desc;
 }
-function getDrawTypeByPeriod(year) {
+function getDrawTypeByPeriod(year, ofrm) {
     var now = new Date(jsDateToMMDDYYYY(new Date()));
     var retArray = GetDateRange("DEC_CONFIG", "DMP_INSTANT_LOTTERY_PERIOD", year)
 
     var currDrawType = '';
-    if (this.isNYSDEC_HQ) {
-        now = dateAdd(now, CONST_INSTANT_GRACE_PERIOD);
+
+    if (ofrm.isNYSDEC_HQ) {
+        var d = dateAdd(now, (CONST_INSTANT_GRACE_PERIOD + 1));
+        now = new Date(d)
     }
     if ((now >= retArray[0] && now <= retArray[1])) {
         currDrawType = DRAW_INST;
