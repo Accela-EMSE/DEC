@@ -7342,7 +7342,7 @@ function createLegacyLoadLic() {
                 var feeCharge = LICENSEINFORMATION[y]["Fee"]
                 addFeeWithVersion("AGENT_CHARGE", feeschedule, 1, "FINAL", feeCharge, "Y", newLicId);
                 //Void Fee/Payment
-                voidFeeForTransfer(newLicId);
+                //voidFeeForTransfer(newLicId);
 
                 updateDecID(peopleSequenceNumber)
 
