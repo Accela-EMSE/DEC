@@ -941,7 +941,7 @@ function processCorrection() {
     for (i in drawTable) {
         var dmpASITinfo = drawTable[i];
         var newDmpCapId = null;
-        if (!isYesOnSelected(dmpASITinfo["Corrected"]) && dmpASITinfo["New?"] == "CHECKED" && dmpASITinfo["DRAW TYPE"] == "CORRECTION") {
+        if (!isYesOnSelected(dmpASITinfo["Corrected"] + "") && dmpASITinfo["New?"] == "CHECKED" && dmpASITinfo["DRAW TYPE"] == "CORRECTION") {
             newDmpCapId = createNewDmpTag(capId);
             var newAInfo = new Array();
             newAInfo.push(new NewLicDef("BASIC INFORMATION.Year", AInfo["Year"]));
@@ -963,7 +963,7 @@ function processCorrection() {
             isAnyCorrection = isAnyCorrection || true;
         }
 
-        if (!isYesOnSelected(dmpASITinfo["Corrected"]) && dmpASITinfo["Correct?"] == "CHECKED" && dmpASITinfo["DRAW TYPE"] != "CORRECTION") {
+        if (!isYesOnSelected(dmpASITinfo["Corrected"] + "") && dmpASITinfo["Correct?"] == "CHECKED" && dmpASITinfo["DRAW TYPE"] != "CORRECTION") {
             var dmpCapId = getDmpTagToCorrect(dmpASITinfo["DRAW TYPE"], dmpASITinfo["WMU"], dmpASITinfo["Choice Number"]);
             if (dmpCapId) {
                 var tagAinfo = new Array();
@@ -1030,7 +1030,7 @@ function getDmpTagToCorrect(drawtype, wmu, choicenumber) {
                 useAppSpecificGroupName = false;
                 if (tagAinfo["WMU INFORMATION.WMU"] + "" == wmu + "" && tagAinfo["WMU INFORMATION.Draw Type"] + "" == drawtype + "" && tagAinfo["WMU INFORMATION.Choice"] == choicenumber + "") {
                     retCapId = childCapId;
-					break;
+                    break;
                 } else {
                     logDebug("Not Found");
                 }
