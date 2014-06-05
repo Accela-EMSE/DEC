@@ -11,7 +11,7 @@
 /------------------------------------------------------------------------------------------------------*/
 //aa.env.setValue("emailAddress", "");
 //aa.env.setValue("showDebug", "Y");
-//aa.env.setValue("Year", "Y");
+//aa.env.setValue("Year", "2014");
 /*------------------------------------------------------------------------------------------------------/
 | END: TEST PARAMETERS
 /------------------------------------------------------------------------------------------------------*/
@@ -346,6 +346,10 @@ function RunIBPlotteryForDMP(dmpIbpItem, orderInfo) {
         }
 
         newLicId = createNewTag(parentCapId, startDate, clacExpDt, "DMP Deer", null);
+
+		var tagCodeDescription = GetTagTypedesc(TAG_TYPE_4_DMP_DEER_TAG);
+		editAppName(tagCodeDescription, newLicId);
+
         var newDecDocId = GenerateDocumentNumber(newLicId.getCustomID(), "9998");
 
         editAppSpecific("Tag Type", TAG_TYPE_4_DMP_DEER_TAG, parentCapId);
