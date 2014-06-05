@@ -1078,6 +1078,10 @@ function voidDmpAndCreateNew(dmpCapId, parentCapId) {
 
     // now create a new one, 
     var newDmpId = createChildForDec("Licenses", "Tag", "Hunting", "DMP Deer", "", dmpCapId);
+
+    var tagCodeDescription = GetTagTypedesc(TAG_TYPE_4_DMP_DEER_TAG);
+    editAppName(tagCodeDescription, newDmpId);
+
     copyASIFields(dmpCapId, newDmpId);
     updateAppStatus("Active", "Active", newDmpId);
     activateTaskForRec("Report Game Harvest", "", newDmpId);
