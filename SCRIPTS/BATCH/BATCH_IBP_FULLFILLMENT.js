@@ -12,7 +12,7 @@
 //aa.env.setValue("setPrefix", "IBP");
 //aa.env.setValue("emailAddress", "");
 //aa.env.setValue("showDebug", "Y");
-//aa.env.setValue("ReportName", "DMP Tags");
+//aa.env.setValue("ReportName", "DMP IBP Tags EDMS");
 /*------------------------------------------------------------------------------------------------------/
 | END: TEST PARAMETERS
 /------------------------------------------------------------------------------------------------------*/
@@ -80,7 +80,7 @@ var currentUserID = currentUser == null ? "ADMIN" : currentUser.getUserID().toSt
 //var AInfo = new Array();
 var capId = null;
 //var useAppSpecificGroupName = false; // Use Group name when populating App Specific Info Values
-var CONST_RECORDS_PER_SET = 50;
+var CONST_RECORDS_PER_SET = 1000;
 
 logDebug("Start of Job");
 
@@ -203,48 +203,55 @@ function SetIBPFullfillmentLogic() {
     sql += " AND B1_CON_STATUS = 'Applied' ";
     sql += " AND B1_APPL_STATUS = 'Active' ";
 
-    logDebug(sql);
+    try {
+        var initialContext = aa.proxyInvoker.newInstance("javax.naming.InitialContext", null).getOutput();
+        var ds = initialContext.lookup("java:/AA");
+        var conn = ds.getConnection();
 
-    var initialContext = aa.proxyInvoker.newInstance("javax.naming.InitialContext", null).getOutput();
-    var ds = initialContext.lookup("java:/AA");
-    var conn = ds.getConnection();
+        var sStmt = conn.prepareStatement(sql);
+        var rSet = sStmt.executeQuery();
 
-    var sStmt = conn.prepareStatement(sql);
-    var rSet = sStmt.executeQuery();
+        while (rSet.next()) {
+            var itemCapId = aa.cap.getCapID(rSet.getString("B1_PER_ID1"), rSet.getString("B1_PER_ID2"), rSet.getString("B1_PER_ID3")).getOutput();
+            recId = itemCapId;
 
-    while (rSet.next()) {
-        var itemCapId = aa.cap.getCapID(rSet.getString("B1_PER_ID1"), rSet.getString("B1_PER_ID2"), rSet.getString("B1_PER_ID3")).getOutput();
-        recId = itemCapId;
-
-        if (!uniqueCapIdArray.containsKey(recId)) {
-            uniqueCapIdArray.put(recId, recId);
-            var recca = String(recId).split("-");
-            var itemCapId = aa.cap.getCapID(recca[0], recca[1], recca[2]).getOutput();
-            var itemCap = aa.cap.getCap(itemCapId).getOutput();
-            altId = itemCapId.getCustomID();
-            //appTypeResult = itemCap.getCapType();
-            //appTypeString = appTypeResult.toString();
-            var reportFileName = GenerateReport(itemCapId, altId);
-            //logDebug(reportFileName);
-            if (setPrefix.length > 0) {
-                addCapSetMember(itemCapId, setResult);
+            if (!uniqueCapIdArray.containsKey(recId)) {
+                uniqueCapIdArray.put(recId, recId);
+                var recca = String(recId).split("-");
+                var itemCapId = aa.cap.getCapID(recca[0], recca[1], recca[2]).getOutput();
+                var itemCap = aa.cap.getCap(itemCapId).getOutput();
+                altId = itemCapId.getCustomID();
+                //appTypeResult = itemCap.getCapType();
+                //appTypeString = appTypeResult.toString();
+                var reportFileName = generateReport(itemCapId, altId);
+                //logDebug(reportFileName);
+                if (setPrefix.length > 0) {
+                    addCapSetMember(itemCapId, setResult);
+                }
+                counter++;
             }
-            counter++;
-        }
-        editCapConditionStatus("Fulfillment", ffConitions.Condition_IBPTag, "Verified", "Not Applied", "", itemCapId);
-        removeFullfillmentCapCondition(itemCapId, ffConitions.Condition_IBPTag);
-        if (counter >= CONST_RECORDS_PER_SET && setPrefix.length > 0) {
-            (!isPartialSuccess)
-            {
-                updateSetStatus(setResult.setID, setResult.setID, "Successfully processed", "Ready For Fullfillment", "Ready For Fullfillment");
+            editCapConditionStatus("Fulfillment", ffConitions.Condition_IBPTag, "Verified", "Not Applied", "", itemCapId);
+            removeFullfillmentCapCondition(itemCapId, ffConitions.Condition_IBPTag);
+            if (counter >= CONST_RECORDS_PER_SET && setPrefix.length > 0) {
+                (!isPartialSuccess)
+                {
+                    updateSetStatus(setResult.setID, setResult.setID, "Successfully processed", "Ready For Fullfillment", "Ready For Fullfillment");
 
-                setResult = createFullfillmentSet(setPrefix);
-                updateSetStatus(setResult.setID, setResult.setID, "Processing", "Pending", "Pending");
-                uniqueCapIdArray = aa.util.newHashMap();
+                    setResult = createFullfillmentSet(setPrefix);
+                    updateSetStatus(setResult.setID, setResult.setID, "Processing", "Pending", "Pending");
+                    uniqueCapIdArray = aa.util.newHashMap();
+                }
+                counter = 0;
             }
-            counter = 0;
         }
-
+    } catch (vError) {
+        logDebug("Runtime error occurred: " + vError);
+        if (conn) {
+            conn.close();
+        }
+    }
+    if (conn) {
+        conn.close();
     }
 
     if (setPrefix.length > 0) {
@@ -267,16 +274,43 @@ function createFullfillmentSet(recordType) {
 }
 
 // Generate Report.
-function GenerateReport(itemCapId, altID) {
-    var reportFileName = null;
-    var repService = new ReportHelper(servProvCode, reportName);
-    repService.ReportUser = currentUser == null ? "ADMIN" : currentUser.getUserID().toString()
-    repService.CapID = itemCapId;
-    repService.altID = altID;
-    repService.isEDMS = true;
-    if (repService.ExecuteReport()) {
-        reportFileName = repService.ReportFileName;
-    }
-    return reportFileName;
-}
+function generateReport(itemCapId) {
+    var isSuccess = false;
+    try {
+        var parameters = aa.util.newHashMap();
+        parameters.put("RECORD_ID", itemCapId.getCustomID());
+        parameters.put("EDMS_YN", "Y");
 
+        var report = aa.reportManager.getReportInfoModelByName(reportName);
+        report = report.getOutput();
+        //aa.print(report);
+        report.setCapId(itemCapId.toString());
+        report.setModule("Licenses");
+        report.setReportParameters(parameters);
+        // set the alt-id as that's what the EDMS is using.
+        report.getEDMSEntityIdModel().setAltId(itemCapId.getCustomID());
+        var checkPermission = aa.reportManager.hasPermission(reportName, "admin");
+        logDebug("Permission for report: " + checkPermission.getOutput().booleanValue());
+
+        if (checkPermission.getOutput().booleanValue()) {
+            logDebug("User has permission");
+            var reportResult = aa.reportManager.getReportResult(report);
+            if (reportResult) {
+                isSuccess = true;
+            }
+            logDebug("Suceess :" + isSuccess);
+            // not needed as the report is set up for EDMS
+            if (false) {
+                reportResult = reportResult.getOutput();
+                logDebug("Report result: " + reportResult);
+                reportFile = aa.reportManager.storeReportToDisk(reportResult);
+                reportFile = reportFile.getOutput();
+                logDebug("Report File: " + reportFile);
+            }
+        }
+    }
+    catch (vError) {
+        logDebug("Runtime error occurred: " + vError);
+    }
+    return isSuccess;
+}
