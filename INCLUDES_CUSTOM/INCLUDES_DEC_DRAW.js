@@ -947,7 +947,7 @@ function processCorrection() {
             newAInfo.push(new NewLicDef("BASIC INFORMATION.Year", AInfo["Year"]));
             newAInfo.push(new NewLicDef("BASIC INFORMATION.Year Description", AInfo["Year Description"]));
             newAInfo.push(new NewLicDef("BASIC INFORMATION.Tag Type", "4"));
-            newAInfo.push(new NewLicDef("WMU INFORMATION.WMU", dmpASITinfo["WMU To Correct"]));
+            newAInfo.push(new NewLicDef("WMU INFORMATION.WMU", dmpASITinfo["WMU"]));
             newAInfo.push(new NewLicDef("WMU INFORMATION.Choice", dmpASITinfo["Choice Number"]));
             newAInfo.push(new NewLicDef("WMU INFORMATION.Draw Type", "CORRECTION"));
             useAppSpecificGroupName = true;
@@ -963,7 +963,7 @@ function processCorrection() {
             isAnyCorrection = isAnyCorrection || true;
         }
 
-        if (!isYesOnSelected(dmpASITinfo["Corrected"] + "") && dmpASITinfo["Correct?"] == "CHECKED" && dmpASITinfo["DRAW TYPE"] != "CORRECTION") {
+        if (!isYesOnSelected(dmpASITinfo["Corrected"] + "") && dmpASITinfo["Correct?"] == "CHECKED") {
             var dmpCapId = getDmpTagToCorrect(dmpASITinfo["DRAW TYPE"], dmpASITinfo["WMU"], dmpASITinfo["Choice Number"]);
             if (dmpCapId) {
                 var tagAinfo = new Array();
