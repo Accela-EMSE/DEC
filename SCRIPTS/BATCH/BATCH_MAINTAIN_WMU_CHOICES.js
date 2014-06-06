@@ -142,7 +142,10 @@ function MaintainWMUchoices() {
     var retArray = GetDateRangeForWMU("DEC_CONFIG", "OVERLAP_SEASON", currYear, month)
     currYear = (retArray[0]).getFullYear();
 
-    var currDrawtype = getDrawTypeByPeriod(currYear);
+    var f = new form_OBJECT(GS2_SCRIPT);
+    f.isNYSDEC_HQ = true; //force
+
+    var currDrawtype = getDrawTypeByPeriod(currYear, f);
     var strControl = "WMU";
     var bizDomScriptResult = aa.bizDomain.getBizDomain(strControl);
     if (bizDomScriptResult.getSuccess()) {
