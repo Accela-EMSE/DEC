@@ -153,100 +153,49 @@ function getRefContactsByEnforcemetLifted(ipRefContacts) {
     var sql = "SELECT DISTINCT L1_ENTITY_ID FROM L3COMMON_CONDIT ";
     sql += "WHERE L1_CON_STATUS_TYP = 'Not Applied' and REC_DATE >= (trunc(sysdate) - " + lookBackDays + ")";
 
-    var initialContext = aa.proxyInvoker.newInstance("javax.naming.InitialContext", null).getOutput();
-    var ds = initialContext.lookup("java:/AA");
-    var conn = ds.getConnection();
+    var vError = '';
+    var conn = null;
+    try {
+        var initialContext = aa.proxyInvoker.newInstance("javax.naming.InitialContext", null).getOutput();
+        var ds = initialContext.lookup("java:/AA");
+        conn = ds.getConnection();
 
-    var sStmt = conn.prepareStatement(sql);
-    var rSet = sStmt.executeQuery();
+        var sStmt = conn.prepareStatement(sql);
+        var rSet = sStmt.executeQuery();
 
-    while (rSet.next()) {
-        var isReafyForFullfillement = false;
-        var fvRefContactNumber = rSet.getString("L1_ENTITY_ID");
-        logDebug("fvRefContactNumber : " + fvRefContactNumber);
-        var contactCondArray = getContactCondutions(fvRefContactNumber);
-        var isRevoked_Hunting = isRevocationHunting(contactCondArray);
-        var isRevoked_Trapping = isRevocationTrapping(contactCondArray);
-        var isRevoked_Fishing = isRevocationFishing(contactCondArray);
-        var isAnySuspension = isSuspension(contactCondArray);
-        var newRecArray = new Array();
+        while (rSet.next()) {
+            var isReafyForFullfillement = false;
+            var fvRefContactNumber = rSet.getString("L1_ENTITY_ID");
+            logDebug("fvRefContactNumber : " + fvRefContactNumber);
+            var contactCondArray = getContactCondutions(fvRefContactNumber);
+            var isRevoked_Hunting = isRevocationHunting(contactCondArray);
+            var isRevoked_Trapping = isRevocationTrapping(contactCondArray);
+            var isRevoked_Fishing = isRevocationFishing(contactCondArray);
+            var isAnySuspension = isSuspension(contactCondArray);
+            var newRecArray = new Array();
 
-        if (!isAnySuspension) {
-            logDebug("In Suspension:");
-            var sql = "SELECT A.SERV_PROV_CODE,A.B1_PER_ID1,A.B1_PER_ID2,A.B1_PER_ID3,A.B1_PER_GROUP, A.B1_PER_TYPE, A.B1_PER_SUB_TYPE, A.B1_PER_CATEGORY  FROM B1PERMIT A ";
-            sql += "INNER JOIN B3CONTACT D ON A.SERV_PROV_CODE = D.SERV_PROV_CODE AND A.B1_PER_ID1 = D.B1_PER_ID1 AND A.B1_PER_ID2 = D.B1_PER_ID2 AND A.B1_PER_ID3 = D.B1_PER_ID3 ";
-			sql += "LEFT JOIN B1_EXPIRATION E ON A.SERV_PROV_CODE= E.SERV_PROV_CODE AND A.B1_PER_ID1 = E.B1_PER_ID1 AND A.B1_PER_ID2 =E.B1_PER_ID2 AND A.B1_PER_ID3 = E.B1_PER_ID3 "; 
-            sql += "WHERE A.SERV_PROV_CODE = '" + aa.getServiceProviderCode() + "' ";
-            sql += "AND D.g1_contact_nbr = " + fvRefContactNumber + " ";
-            sql += "AND A.rec_status = 'A' AND D.rec_status = 'A' AND A.b1_module_name = 'Licenses' ";
-            sql += "AND A.b1_appl_status = 'Suspended' ";
-			sql += "AND (E.EXPIRATION_DATE is NULL OR E.EXPIRATION_DATE > SYSDATE) ";
+            if (!isAnySuspension) {
+                logDebug("In Suspension:");
+                var sql = "SELECT A.SERV_PROV_CODE,A.B1_PER_ID1,A.B1_PER_ID2,A.B1_PER_ID3,A.B1_PER_GROUP, A.B1_PER_TYPE, A.B1_PER_SUB_TYPE, A.B1_PER_CATEGORY  FROM B1PERMIT A ";
+                sql += "INNER JOIN B3CONTACT D ON A.SERV_PROV_CODE = D.SERV_PROV_CODE AND A.B1_PER_ID1 = D.B1_PER_ID1 AND A.B1_PER_ID2 = D.B1_PER_ID2 AND A.B1_PER_ID3 = D.B1_PER_ID3 ";
+                sql += "LEFT JOIN B1_EXPIRATION E ON A.SERV_PROV_CODE= E.SERV_PROV_CODE AND A.B1_PER_ID1 = E.B1_PER_ID1 AND A.B1_PER_ID2 =E.B1_PER_ID2 AND A.B1_PER_ID3 = E.B1_PER_ID3 ";
+                sql += "WHERE A.SERV_PROV_CODE = '" + aa.getServiceProviderCode() + "' ";
+                sql += "AND D.g1_contact_nbr = " + fvRefContactNumber + " ";
+                sql += "AND A.rec_status = 'A' AND D.rec_status = 'A' AND A.b1_module_name = 'Licenses' ";
+                sql += "AND A.b1_appl_status = 'Suspended' ";
+                sql += "AND (E.EXPIRATION_DATE is NULL OR E.EXPIRATION_DATE > SYSDATE) ";
 
-            var sStmt = conn.prepareStatement(sql);
-            var recSet = sStmt.executeQuery();
+                var sStmt = conn.prepareStatement(sql);
+                var recSet = sStmt.executeQuery();
 
-            while (recSet.next()) {
-                var capIdModel = aa.cap.getCapID(recSet.getString("B1_PER_ID1"), recSet.getString("B1_PER_ID2"), recSet.getString("B1_PER_ID3")).getOutput();
-                var itemCap = aa.cap.getCapBasicInfo(capIdModel).getOutput();
-                var itemCapId = itemCap.getCapID();
-                appTypeResult = itemCap.getCapType();
+                while (recSet.next()) {
+                    var capIdModel = aa.cap.getCapID(recSet.getString("B1_PER_ID1"), recSet.getString("B1_PER_ID2"), recSet.getString("B1_PER_ID3")).getOutput();
+                    var itemCap = aa.cap.getCapBasicInfo(capIdModel).getOutput();
+                    var itemCapId = itemCap.getCapID();
+                    appTypeResult = itemCap.getCapType();
 
-                appTypeString = appTypeResult.toString();
-                var ata = appTypeString.split("/");
-                if (ata[1] == "Lifetime") {
-                    changeRecordStatus(itemCapId);
-                } else {
-                    var newRecId = voidRecAndCreateNew(itemCapId, ata);
-                    newRecArray.push(newRecId);
-                }
-                isReafyForFullfillement = isReafyForFullfillement || true;
-            }
-        }
-
-        if (!(isRevoked_Hunting && isRevoked_Trapping && isRevoked_Fishing)) {
-            logDebug("In Revokation:");
-            var sql = "SELECT A.SERV_PROV_CODE,A.B1_PER_ID1,A.B1_PER_ID2,A.B1_PER_ID3,A.B1_PER_GROUP, A.B1_PER_TYPE, A.B1_PER_SUB_TYPE, A.B1_PER_CATEGORY  FROM B1PERMIT A ";
-            sql += "INNER JOIN B3CONTACT D ON A.SERV_PROV_CODE = D.SERV_PROV_CODE AND A.B1_PER_ID1 = D.B1_PER_ID1 AND A.B1_PER_ID2 = D.B1_PER_ID2 AND A.B1_PER_ID3 = D.B1_PER_ID3 ";
-			sql += "LEFT JOIN B1_EXPIRATION E ON A.SERV_PROV_CODE= E.SERV_PROV_CODE AND A.B1_PER_ID1 = E.B1_PER_ID1 AND A.B1_PER_ID2 =E.B1_PER_ID2 AND A.B1_PER_ID3 = E.B1_PER_ID3 "; 
-            sql += "WHERE A.SERV_PROV_CODE = '" + aa.getServiceProviderCode() + "' ";
-            sql += "AND D.g1_contact_nbr = " + fvRefContactNumber + " ";
-            sql += "AND A.rec_status = 'A' AND D.rec_status = 'A' AND A.b1_module_name = 'Licenses' ";
-            sql += "AND A.b1_appl_status = 'Revoked' ";
-			sql += "AND (E.EXPIRATION_DATE is NULL OR E.EXPIRATION_DATE > SYSDATE) ";
-
-            var sStmt = conn.prepareStatement(sql);
-            var recSet = sStmt.executeQuery();
-
-            while (recSet.next()) {
-                var capIdModel = aa.cap.getCapID(recSet.getString("B1_PER_ID1"), recSet.getString("B1_PER_ID2"), recSet.getString("B1_PER_ID3")).getOutput();
-                var itemCap = aa.cap.getCapBasicInfo(capIdModel).getOutput();
-                var itemCapId = itemCap.getCapID();
-                appTypeResult = itemCap.getCapType();
-                appTypeString = appTypeResult.toString();
-                var ata = appTypeString.split("/");
-
-                if (exists(appTypeString, getRevokHuntRecTypeArray()) && !isRevoked_Hunting) {
-                    if (ata[1] == "Lifetime") {
-                        changeRecordStatus(itemCapId);
-                    } else {
-                        var newRecId = voidRecAndCreateNew(itemCapId, ata);
-                        newRecArray.push(newRecId);
-                    }
-                    isReafyForFullfillement = isReafyForFullfillement || true;
-                }
-
-                if (exists(appTypeString, getRevokFishRecTypeArray()) && !isRevoked_Fishing) {
-                    if (ata[1] == "Lifetime") {
-                        changeRecordStatus(itemCapId);
-                    } else {
-                        var newRecId = voidRecAndCreateNew(itemCapId, ata);
-                        newRecArray.push(newRecId);
-                    }
-                    isReafyForFullfillement = isReafyForFullfillement || true;
-
-                }
-
-                if (exists(appTypeString, getRevokTrapRecTypeArray()) && !isRevoked_Trapping) {
+                    appTypeString = appTypeResult.toString();
+                    var ata = appTypeString.split("/");
                     if (ata[1] == "Lifetime") {
                         changeRecordStatus(itemCapId);
                     } else {
@@ -256,16 +205,79 @@ function getRefContactsByEnforcemetLifted(ipRefContacts) {
                     isReafyForFullfillement = isReafyForFullfillement || true;
                 }
             }
+
+            if (!(isRevoked_Hunting && isRevoked_Trapping && isRevoked_Fishing)) {
+                logDebug("In Revokation:");
+                var sql = "SELECT A.SERV_PROV_CODE,A.B1_PER_ID1,A.B1_PER_ID2,A.B1_PER_ID3,A.B1_PER_GROUP, A.B1_PER_TYPE, A.B1_PER_SUB_TYPE, A.B1_PER_CATEGORY  FROM B1PERMIT A ";
+                sql += "INNER JOIN B3CONTACT D ON A.SERV_PROV_CODE = D.SERV_PROV_CODE AND A.B1_PER_ID1 = D.B1_PER_ID1 AND A.B1_PER_ID2 = D.B1_PER_ID2 AND A.B1_PER_ID3 = D.B1_PER_ID3 ";
+                sql += "LEFT JOIN B1_EXPIRATION E ON A.SERV_PROV_CODE= E.SERV_PROV_CODE AND A.B1_PER_ID1 = E.B1_PER_ID1 AND A.B1_PER_ID2 =E.B1_PER_ID2 AND A.B1_PER_ID3 = E.B1_PER_ID3 ";
+                sql += "WHERE A.SERV_PROV_CODE = '" + aa.getServiceProviderCode() + "' ";
+                sql += "AND D.g1_contact_nbr = " + fvRefContactNumber + " ";
+                sql += "AND A.rec_status = 'A' AND D.rec_status = 'A' AND A.b1_module_name = 'Licenses' ";
+                sql += "AND A.b1_appl_status = 'Revoked' ";
+                sql += "AND (E.EXPIRATION_DATE is NULL OR E.EXPIRATION_DATE > SYSDATE) ";
+
+                var sStmt = conn.prepareStatement(sql);
+                var recSet = sStmt.executeQuery();
+
+                while (recSet.next()) {
+                    var capIdModel = aa.cap.getCapID(recSet.getString("B1_PER_ID1"), recSet.getString("B1_PER_ID2"), recSet.getString("B1_PER_ID3")).getOutput();
+                    var itemCap = aa.cap.getCapBasicInfo(capIdModel).getOutput();
+                    var itemCapId = itemCap.getCapID();
+                    appTypeResult = itemCap.getCapType();
+                    appTypeString = appTypeResult.toString();
+                    var ata = appTypeString.split("/");
+
+                    if (exists(appTypeString, getRevokHuntRecTypeArray()) && !isRevoked_Hunting) {
+                        if (ata[1] == "Lifetime") {
+                            changeRecordStatus(itemCapId);
+                        } else {
+                            var newRecId = voidRecAndCreateNew(itemCapId, ata);
+                            newRecArray.push(newRecId);
+                        }
+                        isReafyForFullfillement = isReafyForFullfillement || true;
+                    }
+
+                    if (exists(appTypeString, getRevokFishRecTypeArray()) && !isRevoked_Fishing) {
+                        if (ata[1] == "Lifetime") {
+                            changeRecordStatus(itemCapId);
+                        } else {
+                            var newRecId = voidRecAndCreateNew(itemCapId, ata);
+                            newRecArray.push(newRecId);
+                        }
+                        isReafyForFullfillement = isReafyForFullfillement || true;
+
+                    }
+
+                    if (exists(appTypeString, getRevokTrapRecTypeArray()) && !isRevoked_Trapping) {
+                        if (ata[1] == "Lifetime") {
+                            changeRecordStatus(itemCapId);
+                        } else {
+                            var newRecId = voidRecAndCreateNew(itemCapId, ata);
+                            newRecArray.push(newRecId);
+                        }
+                        isReafyForFullfillement = isReafyForFullfillement || true;
+                    }
+                }
+            }
+            logDebug("isReafyForFullfillement : " + isReafyForFullfillement);
+            if (isReafyForFullfillement) {
+                logDebug("Adding in a list " + fvRefContactNumber + " based on enforcement lifted.");
+                opRefContacts.put(fvRefContactNumber, fvRefContactNumber);
+                opRefContactsRecNeedToAttach.put(fvRefContactNumber, newRecArray);
+            }
         }
-        logDebug("isReafyForFullfillement : " + isReafyForFullfillement);
-        if (isReafyForFullfillement) {
-            logDebug("Adding in a list " + fvRefContactNumber + " based on enforcement lifted.");
-            opRefContacts.put(fvRefContactNumber, fvRefContactNumber);
-            opRefContactsRecNeedToAttach.put(fvRefContactNumber, newRecArray);
+
+    } catch (vError) {
+        logDebug("Runtime error occurred: " + vError);
+        if (conn) {
+            conn.close();
         }
     }
 
-    conn.close();
+    if (conn) {
+        conn.close();
+    }
 
     returnArray.push(opRefContacts);
     returnArray.push(opRefContactsRecNeedToAttach);

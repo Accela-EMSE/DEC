@@ -476,20 +476,31 @@ function GenerateMissingReportForSets(pSetName) {
     sql += " AND bd.rec_status = 'A') ";
 
     logDebug(sql);
-    var initialContext = aa.proxyInvoker.newInstance("javax.naming.InitialContext", null).getOutput();
-    var ds = initialContext.lookup("java:/AA");
-    var conn = ds.getConnection();
+    var vError = '';
+    var conn = null;
+    try {
+        var initialContext = aa.proxyInvoker.newInstance("javax.naming.InitialContext", null).getOutput();
+        var ds = initialContext.lookup("java:/AA");
+        conn = ds.getConnection();
 
-    var sStmt = conn.prepareStatement(sql);
-    var rSet = sStmt.executeQuery();
-    while (rSet.next()) {
-        var itemCapId = aa.cap.getCapID(rSet.getString("B1_PER_ID1"), rSet.getString("B1_PER_ID2"), rSet.getString("B1_PER_ID3")).getOutput();
-        logDebug(itemCapId);
-        //var itemCap = aa.cap.getCap(itemCapId).getOutput();
-        var isSuccess = generateReport(itemCapId);
+        var sStmt = conn.prepareStatement(sql);
+        var rSet = sStmt.executeQuery();
+        while (rSet.next()) {
+            var itemCapId = aa.cap.getCapID(rSet.getString("B1_PER_ID1"), rSet.getString("B1_PER_ID2"), rSet.getString("B1_PER_ID3")).getOutput();
+            logDebug(itemCapId);
+            //var itemCap = aa.cap.getCap(itemCapId).getOutput();
+            var isSuccess = generateReport(itemCapId);
+        }
+    } catch (vError) {
+        logDebug("Runtime error occurred: " + vError);
+        if (conn) {
+            conn.close();
+        }
     }
 
-    conn.close();
 
+    if (conn) {
+        conn.close();
+    }
     return isReportGenerated;
 }
