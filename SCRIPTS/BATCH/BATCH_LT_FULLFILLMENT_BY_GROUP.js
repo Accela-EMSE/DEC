@@ -322,32 +322,48 @@ function getRefContactsBySql(ipRefContacts) {
     //sql += " AND rownum < 100 ";
     sql += " AND b1_contact_type = 'Individual') v ";
 
-    var initialContext = aa.proxyInvoker.newInstance("javax.naming.InitialContext", null).getOutput();
-    var ds = initialContext.lookup("java:/AA");
-    var conn = ds.getConnection();
+    var vError = '';
+    var conn = null;
+    try {
+        var initialContext = aa.proxyInvoker.newInstance("javax.naming.InitialContext", null).getOutput();
+        var ds = initialContext.lookup("java:/AA");
+        conn = ds.getConnection();
 
-    var sStmt = conn.prepareStatement(sql);
-    var rSet = sStmt.executeQuery();
+        var sStmt = conn.prepareStatement(sql);
+        var rSet = sStmt.executeQuery();
 
-    while (rSet.next()) {
-        var fvRefContactNumber = rSet.getString("g1_contact_nbr");
-        if (!fvRefContactNumber || fvRefContactNumber == "")
-            continue;
-        var fvRefContactQry = aa.people.getPeople(fvRefContactNumber);
-        if (!fvRefContactQry || !fvRefContactQry.getSuccess())
-            continue;
-        var fvRefContact = fvRefContactQry.getOutput();
-        if (!fvRefContact)
-            continue;
-        if (fvRefContact.contactType != "Individual")
-            continue;
-        if (fvRefContact.getDeceasedDate())
-            continue;
-        if (!ipRefContacts.containsKey(fvRefContactNumber)) {
-            if (fvRefContactNumber)
-                ipRefContacts.put(fvRefContactNumber, fvRefContactNumber);
+        while (rSet.next()) {
+            var fvRefContactNumber = rSet.getString("g1_contact_nbr");
+            if (!fvRefContactNumber || fvRefContactNumber == "")
+                continue;
+            var fvRefContactQry = aa.people.getPeople(fvRefContactNumber);
+            if (!fvRefContactQry || !fvRefContactQry.getSuccess())
+                continue;
+            var fvRefContact = fvRefContactQry.getOutput();
+            if (!fvRefContact)
+                continue;
+            if (fvRefContact.contactType != "Individual")
+                continue;
+            if (fvRefContact.getDeceasedDate())
+                continue;
+            if (!ipRefContacts.containsKey(fvRefContactNumber)) {
+                if (fvRefContactNumber)
+                    ipRefContacts.put(fvRefContactNumber, fvRefContactNumber);
+            }
+        }
+    } catch (vError) {
+        logDebug("Runtime error occurred: " + vError);
+        if (conn) {
+            conn.close();
         }
     }
+
+
+    if (conn) {
+        conn.close();
+    }
+
+
     return ipRefContacts;
 }
 
@@ -432,18 +448,32 @@ function getMaxThreadCount() {
     sql += " WHERE serv_prov_code = '" + aa.getServiceProviderCode() + "' ";
     sql += " AND nvl(G1_UDF2, 1) = 1 ";
     sql += " AND G1_UDF1 is Not Null ";
-    var initialContext = aa.proxyInvoker.newInstance("javax.naming.InitialContext", null).getOutput();
-    var ds = initialContext.lookup("java:/AA");
-    var conn = ds.getConnection();
-
-    var sStmt = conn.prepareStatement(sql);
-    var rSet = sStmt.executeQuery();
-
     var nThreadCount = -1;
-    while (rSet.next()) {
-        nThreadCount = rSet.getString("maxThreadCount");
+
+    var vError = '';
+    var conn = null;
+    try {
+        var initialContext = aa.proxyInvoker.newInstance("javax.naming.InitialContext", null).getOutput();
+        var ds = initialContext.lookup("java:/AA");
+        conn = ds.getConnection();
+
+        var sStmt = conn.prepareStatement(sql);
+        var rSet = sStmt.executeQuery();
+
+        while (rSet.next()) {
+            nThreadCount = rSet.getString("maxThreadCount");
+        }
+    } catch (vError) {
+        logDebug("Runtime error occurred: " + vError);
+        if (conn) {
+            conn.close();
+        }
     }
-    conn.close();
+
+
+    if (conn) {
+        conn.close();
+    }
 
     return nThreadCount;
 }
@@ -455,31 +485,43 @@ function getRefContactsBySqlusingGroup(ipRefContacts, ipGroupNumber) {
     sql += " AND G1_UDF1 =  " + ipGroupNumber;
     sql += " AND nvl(G1_UDF2, 1) = 1 ";
 
-    var initialContext = aa.proxyInvoker.newInstance("javax.naming.InitialContext", null).getOutput();
-    var ds = initialContext.lookup("java:/AA");
-    var conn = ds.getConnection();
+    var vError = '';
+    var conn = null;
+    try {
+        var initialContext = aa.proxyInvoker.newInstance("javax.naming.InitialContext", null).getOutput();
+        var ds = initialContext.lookup("java:/AA");
+        conn = ds.getConnection();
 
-    var sStmt = conn.prepareStatement(sql);
-    var rSet = sStmt.executeQuery();
+        var sStmt = conn.prepareStatement(sql);
+        var rSet = sStmt.executeQuery();
 
-    while (rSet.next()) {
-        var fvRefContactNumber = rSet.getString("G1_CONTACT_NBR");
-        if (!fvRefContactNumber || fvRefContactNumber == "")
-            continue;
-        var fvRefContactQry = aa.people.getPeople(fvRefContactNumber);
-        if (!fvRefContactQry || !fvRefContactQry.getSuccess())
-            continue;
-        var fvRefContact = fvRefContactQry.getOutput();
-        if (!fvRefContact)
-            continue;
-        if (fvRefContact.contactType != "Individual")
-            continue;
-        if (fvRefContact.getDeceasedDate())
-            continue;
-        if (!ipRefContacts.containsKey(fvRefContactNumber)) {
-            if (fvRefContactNumber)
-                ipRefContacts.put(fvRefContactNumber, fvRefContactNumber);
+        while (rSet.next()) {
+            var fvRefContactNumber = rSet.getString("G1_CONTACT_NBR");
+            if (!fvRefContactNumber || fvRefContactNumber == "")
+                continue;
+            var fvRefContactQry = aa.people.getPeople(fvRefContactNumber);
+            if (!fvRefContactQry || !fvRefContactQry.getSuccess())
+                continue;
+            var fvRefContact = fvRefContactQry.getOutput();
+            if (!fvRefContact)
+                continue;
+            if (fvRefContact.contactType != "Individual")
+                continue;
+            if (fvRefContact.getDeceasedDate())
+                continue;
+            if (!ipRefContacts.containsKey(fvRefContactNumber)) {
+                if (fvRefContactNumber)
+                    ipRefContacts.put(fvRefContactNumber, fvRefContactNumber);
+            }
         }
+    } catch (vError) {
+        logDebug("Runtime error occurred: " + vError);
+        if (conn) {
+            conn.close();
+        }
+    }
+    if (conn) {
+        conn.close();
     }
     return ipRefContacts;
 }
@@ -494,31 +536,45 @@ function getRefContactsBySqlusingGroupRange(ipRefContacts, ipFromGroupNumber, ip
     sql += " AND nvl(G1_UDF2, 1) = 1 ";
     //sql += " AND rownum < 10 ";
 
-    var initialContext = aa.proxyInvoker.newInstance("javax.naming.InitialContext", null).getOutput();
-    var ds = initialContext.lookup("java:/AA");
-    var conn = ds.getConnection();
+    var vError = '';
+    var conn = null;
+    try {
+        var initialContext = aa.proxyInvoker.newInstance("javax.naming.InitialContext", null).getOutput();
+        var ds = initialContext.lookup("java:/AA");
+        conn = ds.getConnection();
 
-    var sStmt = conn.prepareStatement(sql);
-    var rSet = sStmt.executeQuery();
+        var sStmt = conn.prepareStatement(sql);
+        var rSet = sStmt.executeQuery();
 
-    while (rSet.next()) {
-        var fvRefContactNumber = rSet.getString("G1_CONTACT_NBR");
-        if (!fvRefContactNumber || fvRefContactNumber == "")
-            continue;
-        var fvRefContactQry = aa.people.getPeople(fvRefContactNumber);
-        if (!fvRefContactQry || !fvRefContactQry.getSuccess())
-            continue;
-        var fvRefContact = fvRefContactQry.getOutput();
-        if (!fvRefContact)
-            continue;
-        if (fvRefContact.contactType != "Individual")
-            continue;
-        if (fvRefContact.getDeceasedDate())
-            continue;
-        if (!ipRefContacts.containsKey(fvRefContactNumber)) {
-            if (fvRefContactNumber)
-                ipRefContacts.put(fvRefContactNumber, fvRefContactNumber);
+        while (rSet.next()) {
+            var fvRefContactNumber = rSet.getString("G1_CONTACT_NBR");
+            if (!fvRefContactNumber || fvRefContactNumber == "")
+                continue;
+            var fvRefContactQry = aa.people.getPeople(fvRefContactNumber);
+            if (!fvRefContactQry || !fvRefContactQry.getSuccess())
+                continue;
+            var fvRefContact = fvRefContactQry.getOutput();
+            if (!fvRefContact)
+                continue;
+            if (fvRefContact.contactType != "Individual")
+                continue;
+            if (fvRefContact.getDeceasedDate())
+                continue;
+            if (!ipRefContacts.containsKey(fvRefContactNumber)) {
+                if (fvRefContactNumber)
+                    ipRefContacts.put(fvRefContactNumber, fvRefContactNumber);
+            }
         }
+    } catch (vError) {
+        logDebug("Runtime error occurred: " + vError);
+        if (conn) {
+            conn.close();
+        }
+    }
+
+
+    if (conn) {
+        conn.close();
     }
     return ipRefContacts;
 }
@@ -616,35 +672,60 @@ function updateRefContactsUdf(nRecStatus) {
     sql += " ) v ";
     //logDebug(sql);
 
-    var initialContext = aa.proxyInvoker.newInstance("javax.naming.InitialContext", null).getOutput();
-    var ds = initialContext.lookup("java:/AA");
-    var conn = ds.getConnection();
+    var vError = '';
+    var conn = null;
+    try {
+        var initialContext = aa.proxyInvoker.newInstance("javax.naming.InitialContext", null).getOutput();
+        var ds = initialContext.lookup("java:/AA");
+        conn = ds.getConnection();
 
-    var sStmt = conn.prepareStatement(sql);
-    var rSet = sStmt.executeQuery();
+        var sStmt = conn.prepareStatement(sql);
+        var rSet = sStmt.executeQuery();
 
-    while (rSet.next()) {
-        var fvRefContactNumber = rSet.getString("g1_contact_nbr");
-        var fvGroupNum = rSet.getString("ThreadNum");
-        var usql = " Update G3CONTACT Set G1_UDF1 = " + fvGroupNum + ", G1_UDF2 = " + nRecStatus + " Where g1_contact_nbr = " + fvRefContactNumber;
+        while (rSet.next()) {
+            var fvRefContactNumber = rSet.getString("g1_contact_nbr");
+            var fvGroupNum = rSet.getString("ThreadNum");
+            var usql = " Update G3CONTACT Set G1_UDF1 = " + fvGroupNum + ", G1_UDF2 = " + nRecStatus + " Where g1_contact_nbr = " + fvRefContactNumber;
 
-        var sStmt1 = conn.prepareStatement(usql);
-        var rret = sStmt1.executeQuery();
+            var sStmt1 = conn.prepareStatement(usql);
+            var rret = sStmt1.executeQuery();
+        }
+    } catch (vError) {
+        logDebug("Runtime error occurred: " + vError);
+        if (conn) {
+            conn.close();
+        }
     }
-    conn.close();
 
+
+    if (conn) {
+        conn.close();
+    }
     logDebug('Done');
 
 }
 
 function updateRefContactsUdf2(refNum, nRecStatus) {
-    var initialContext = aa.proxyInvoker.newInstance("javax.naming.InitialContext", null).getOutput();
-    var ds = initialContext.lookup("java:/AA");
-    var conn = ds.getConnection();
+    var vError = '';
+    var conn = null
+    try {
+        var initialContext = aa.proxyInvoker.newInstance("javax.naming.InitialContext", null).getOutput();
+        var ds = initialContext.lookup("java:/AA");
+        conn = ds.getConnection();
 
-    var usql = " Update G3CONTACT Set G1_UDF2 = " + nRecStatus + " Where g1_contact_nbr = " + refNum;
-    var sStmt1 = conn.prepareStatement(usql);
-    var rret = sStmt1.executeQuery();
-    conn.close();
-	logDebug('Updated ' + refNum + ' With ' + nRecStatus);
+        var usql = " Update G3CONTACT Set G1_UDF2 = " + nRecStatus + " Where g1_contact_nbr = " + refNum;
+        var sStmt1 = conn.prepareStatement(usql);
+        var rret = sStmt1.executeQuery();
+    } catch (vError) {
+        logDebug("Runtime error occurred: " + vError);
+        if (conn) {
+            conn.close();
+        }
+    }
+
+
+    if (conn) {
+        conn.close();
+    }
+    logDebug('Updated ' + refNum + ' With ' + nRecStatus);
 }
