@@ -152,55 +152,67 @@ function callIBPlogic() {
 
     var sql = getRecordsToProcess(sYear);
 
-    var initialContext = aa.proxyInvoker.newInstance("javax.naming.InitialContext", null).getOutput();
-    var ds = initialContext.lookup("java:/AA");
-    var conn = ds.getConnection();
+    var vError = '';
+    var conn = null;
+    try {
+        var initialContext = aa.proxyInvoker.newInstance("javax.naming.InitialContext", null).getOutput();
+        var ds = initialContext.lookup("java:/AA");
+        conn = ds.getConnection();
 
-    var sStmt = conn.prepareStatement(sql);
-    var rSet = sStmt.executeQuery();
+        var sStmt = conn.prepareStatement(sql);
+        var rSet = sStmt.executeQuery();
 
-    while (rSet.next()) {
-        var fvRefContactNumber = rSet.getString("g1_contact_nbr");
-        var sPreferenceBucket = rSet.getString("Preference_Bucket");
-        var sChoiceNumber = rSet.getString("Choice_Number");
-        var swmu = rSet.getString("WMU");
-        var sDrawResult = rSet.getString("Result");
-        var sIsCorrect = rSet.getString("Correct");
-        var sIsNew = rSet.getString("New_1");
-        var sApplyLandOwner = rSet.getString("Apply_Land_Owner");
-        var dmpCapId = aa.cap.getCapID(rSet.getString("B1_PER_ID1"), rSet.getString("B1_PER_ID2"), rSet.getString("B1_PER_ID3")).getOutput();
-        var dmpCap = aa.cap.getCap(dmpCapId).getOutput();
-        var dmpAltId = dmpCapId.getCustomID();
+        while (rSet.next()) {
+            var fvRefContactNumber = rSet.getString("g1_contact_nbr");
+            var sPreferenceBucket = rSet.getString("Preference_Bucket");
+            var sChoiceNumber = rSet.getString("Choice_Number");
+            var swmu = rSet.getString("WMU");
+            var sDrawResult = rSet.getString("Result");
+            var sIsCorrect = rSet.getString("Correct");
+            var sIsNew = rSet.getString("New_1");
+            var sApplyLandOwner = rSet.getString("Apply_Land_Owner");
+            var dmpCapId = aa.cap.getCapID(rSet.getString("B1_PER_ID1"), rSet.getString("B1_PER_ID2"), rSet.getString("B1_PER_ID3")).getOutput();
+            var dmpCap = aa.cap.getCap(dmpCapId).getOutput();
+            var dmpAltId = dmpCapId.getCustomID();
 
-        if (isNull(sIsCorrect, '') != 'CHECKED') {
-            var dmpStatus = dmpCap.getCapStatus();
-            appTypeResult = dmpCap.getCapType();
-            appTypeString = appTypeResult.toString();
-            var dmpAinfo = new Array();
-            loadAppSpecific(dmpAinfo, dmpCapId);
+            if (isNull(sIsCorrect, '') != 'CHECKED') {
+                var dmpStatus = dmpCap.getCapStatus();
+                appTypeResult = dmpCap.getCapType();
+                appTypeString = appTypeResult.toString();
+                var dmpAinfo = new Array();
+                loadAppSpecific(dmpAinfo, dmpCapId);
 
-            var spreferencePoint = getPrefpoint(dmpCapId);
+                var spreferencePoint = getPrefpoint(dmpCapId);
 
-            var newIbpRec = new IBPREC_OBJ(dmpAinfo["Year"], dmpAinfo["Year Description"]);
-            newIbpRec.appTypeString = appTypeString;
-            newIbpRec.CapStatus = dmpStatus;
-            newIbpRec.DisabledVet = (dmpAinfo["Military Disabled"] == "CHECKED");
-            newIbpRec.dmpCap = dmpCap;
-            newIbpRec.dmpCapId = dmpCapId;
-            newIbpRec.dmpId = dmpCapId;
-            newIbpRec.dmpAltId = dmpAltId;
-            newIbpRec.DrawType = sDrawResult;
-            newIbpRec.Landowner = (dmpAinfo["Landowner"] == "CHECKED");
-            newIbpRec.PreferencePoints = spreferencePoint;
-            newIbpRec.PreferenceBucket = sPreferenceBucket;
-            newIbpRec.Resident = (dmpAinfo["Resident"] == "CHECKED");
-            newIbpRec.ItemCode = dmpAinfo["Item Code"];
-            newIbpRec.Order = getOrderForBucket(newIbpRec.PreferenceBucket, ordAinfo);
-            newIbpRec.ChoiceNum = sChoiceNumber;
-            newIbpRec.WMU = swmu;
-            newIbpRec.ApplyLandowner = (sApplyLandOwner == "CHECKED");
-            RunIBPlotteryForDMP(newIbpRec,ordAinfo);
+                var newIbpRec = new IBPREC_OBJ(dmpAinfo["Year"], dmpAinfo["Year Description"]);
+                newIbpRec.appTypeString = appTypeString;
+                newIbpRec.CapStatus = dmpStatus;
+                newIbpRec.DisabledVet = (dmpAinfo["Military Disabled"] == "CHECKED");
+                newIbpRec.dmpCap = dmpCap;
+                newIbpRec.dmpCapId = dmpCapId;
+                newIbpRec.dmpId = dmpCapId;
+                newIbpRec.dmpAltId = dmpAltId;
+                newIbpRec.DrawType = sDrawResult;
+                newIbpRec.Landowner = (dmpAinfo["Landowner"] == "CHECKED");
+                newIbpRec.PreferencePoints = spreferencePoint;
+                newIbpRec.PreferenceBucket = sPreferenceBucket;
+                newIbpRec.Resident = (dmpAinfo["Resident"] == "CHECKED");
+                newIbpRec.ItemCode = dmpAinfo["Item Code"];
+                newIbpRec.Order = getOrderForBucket(newIbpRec.PreferenceBucket, ordAinfo);
+                newIbpRec.ChoiceNum = sChoiceNumber;
+                newIbpRec.WMU = swmu;
+                newIbpRec.ApplyLandowner = (sApplyLandOwner == "CHECKED");
+                RunIBPlotteryForDMP(newIbpRec, ordAinfo);
+            }
         }
+    } catch (vError) {
+        logDebug("Runtime error occurred: " + vError);
+        if (conn) {
+            conn.close();
+        }
+    }
+    if (conn) {
+        conn.close();
     }
     conn.close();
 }
@@ -347,23 +359,23 @@ function RunIBPlotteryForDMP(dmpIbpItem, orderInfo) {
 
         newLicId = createNewTag(parentCapId, startDate, clacExpDt, "DMP Deer", null);
 
-		var tagCodeDescription = GetTagTypedesc(TAG_TYPE_4_DMP_DEER_TAG);
-		editAppName(tagCodeDescription, newLicId);
+        var tagCodeDescription = GetTagTypedesc(TAG_TYPE_4_DMP_DEER_TAG);
+        editAppName(tagCodeDescription, newLicId);
 
         var newDecDocId = GenerateDocumentNumber(newLicId.getCustomID(), "9998");
 
         editAppSpecific("Tag Type", TAG_TYPE_4_DMP_DEER_TAG, parentCapId);
         var newAInfo = new Array();
-		newAInfo.push(new NewLicDef("BASIC INFORMATION.Year", ibpRec.Year));
-		newAInfo.push(new NewLicDef("BASIC INFORMATION.Year Description", ibpRec.YearDesc));
-		newAInfo.push(new NewLicDef("BASIC INFORMATION.Tag Type", TAG_TYPE_4_DMP_DEER_TAG));
-		newAInfo.push(new NewLicDef("WMU INFORMATION.WMU", wmu1Result.WMU));
-		newAInfo.push(new NewLicDef("WMU INFORMATION.Choice", wmu1Result.ChoiceNum));
-		newAInfo.push(new NewLicDef("WMU INFORMATION.Draw Type", wmu1Result.DrawType));
+        newAInfo.push(new NewLicDef("BASIC INFORMATION.Year", ibpRec.Year));
+        newAInfo.push(new NewLicDef("BASIC INFORMATION.Year Description", ibpRec.YearDesc));
+        newAInfo.push(new NewLicDef("BASIC INFORMATION.Tag Type", TAG_TYPE_4_DMP_DEER_TAG));
+        newAInfo.push(new NewLicDef("WMU INFORMATION.WMU", wmu1Result.WMU));
+        newAInfo.push(new NewLicDef("WMU INFORMATION.Choice", wmu1Result.ChoiceNum));
+        newAInfo.push(new NewLicDef("WMU INFORMATION.Draw Type", wmu1Result.DrawType));
 
-		useAppSpecificGroupName = true;
+        useAppSpecificGroupName = true;
         copyLicASI(newLicId, newAInfo);
-		useAppSpecificGroupName = false;
+        useAppSpecificGroupName = false;
 
         if (ibpRec.ChoiceNum == 1) {
             addStdConditionWithComments("DMP Application Result", "WMU Choice 1 IBP", " - " + ibpRec.WMU + ":  SELECTED", newDecDocId, ibpRec.dmpCapId);
@@ -379,15 +391,15 @@ function RunIBPlotteryForDMP(dmpIbpItem, orderInfo) {
             logDebug("Could not link DMP" + result.getErrorMessage());
         }
     }
-	/*
+    /*
     else {
-        if (ibpRec.ChoiceNum == 1) {
-            addStdConditionWithComments("DMP Application Result", "WMU Choice 1 IBP", " - " + ibpRec.WMU + ":  NOT SELECTED", "", ibpRec.dmpCapId);
-        } else if (ibpRec.ChoiceNum == 2) {
-            addStdConditionWithComments("DMP Application Result", "WMU Choice 2 IBP", " - " + ibpRec.WMU + ":  NOT SELECTED", "", ibpRec.dmpCapId);
-        }
+    if (ibpRec.ChoiceNum == 1) {
+    addStdConditionWithComments("DMP Application Result", "WMU Choice 1 IBP", " - " + ibpRec.WMU + ":  NOT SELECTED", "", ibpRec.dmpCapId);
+    } else if (ibpRec.ChoiceNum == 2) {
+    addStdConditionWithComments("DMP Application Result", "WMU Choice 2 IBP", " - " + ibpRec.WMU + ":  NOT SELECTED", "", ibpRec.dmpCapId);
     }
-	*/
+    }
+    */
 
     logDebug("wmu1Result : " + wmu1Result.DrawType + "," + wmu1Result.WMU + "," + wmu1Result.Result() + "," + wmu1Result.Landowner);
     var tempObject = new Array();
