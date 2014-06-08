@@ -2904,23 +2904,37 @@ function getActiveHoldings(peopleSequenceNumber, year) {
         sql += "OR E.expiration_date > SYSDATE ) ";
     }
 
-    var initialContext = aa.proxyInvoker.newInstance("javax.naming.InitialContext", null).getOutput();
-    var ds = initialContext.lookup("java:/AA");
-    var conn = ds.getConnection();
+    var vError = '';
+    var conn = null;
+    try {
+        var initialContext = aa.proxyInvoker.newInstance("javax.naming.InitialContext", null).getOutput();
+        var ds = initialContext.lookup("java:/AA");
+        conn = ds.getConnection();
 
-    var sStmt = conn.prepareStatement(sql);
-    var rSet = sStmt.executeQuery();
+        var sStmt = conn.prepareStatement(sql);
+        var rSet = sStmt.executeQuery();
 
-    while (rSet.next()) {
-        var capIdModel = aa.cap.getCapID(rSet.getString("B1_PER_ID1"), rSet.getString("B1_PER_ID2"), rSet.getString("B1_PER_ID3")).getOutput();
-        var itemCap = aa.cap.getCapBasicInfo(capIdModel).getOutput();
-        var itemCapId = itemCap.getCapID();
-        appTypeResult = itemCap.getCapType();
-        appTypeString = appTypeResult.toString();
-        if (exists(appTypeString, validActiveholdingsArray)) {
-            var newActiveTag = new ACTIVE_ITEM(itemCapId, itemCap, appTypeString);
-            availableActiveItems.push(newActiveTag);
+        while (rSet.next()) {
+            var capIdModel = aa.cap.getCapID(rSet.getString("B1_PER_ID1"), rSet.getString("B1_PER_ID2"), rSet.getString("B1_PER_ID3")).getOutput();
+            var itemCap = aa.cap.getCapBasicInfo(capIdModel).getOutput();
+            var itemCapId = itemCap.getCapID();
+            appTypeResult = itemCap.getCapType();
+            appTypeString = appTypeResult.toString();
+            if (exists(appTypeString, validActiveholdingsArray)) {
+                var newActiveTag = new ACTIVE_ITEM(itemCapId, itemCap, appTypeString);
+                availableActiveItems.push(newActiveTag);
+            }
         }
+    } catch (vError) {
+        logDebug("Runtime error occurred: " + vError);
+        if (conn) {
+            conn.close();
+        }
+    }
+
+
+    if (conn) {
+        conn.close();
     }
 
     return availableActiveItems;

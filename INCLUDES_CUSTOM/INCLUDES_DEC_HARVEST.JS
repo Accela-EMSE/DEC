@@ -518,36 +518,48 @@ function GetTagsForHarvestReport(peopleSequenceNumber, isDeer, isBear, isFallTur
     sql += "AND A.b1_per_type = 'Tag' ";
     sql += "AND A.b1_per_sub_type = 'Hunting' ";
 
-    var initialContext = aa.proxyInvoker.newInstance("javax.naming.InitialContext", null).getOutput();
-    var ds = initialContext.lookup("java:/AA");
-    var conn = ds.getConnection();
+    var vError = '';
+    var conn = null;
+    try {
+        var initialContext = aa.proxyInvoker.newInstance("javax.naming.InitialContext", null).getOutput();
+        var ds = initialContext.lookup("java:/AA");
+        conn = ds.getConnection();
 
-    var sStmt = conn.prepareStatement(sql);
-    var rSet = sStmt.executeQuery();
+        var sStmt = conn.prepareStatement(sql);
+        var rSet = sStmt.executeQuery();
 
 
-    while (rSet.next()) {
-        var capIdModel = aa.cap.getCapID(rSet.getString("B1_PER_ID1"), rSet.getString("B1_PER_ID2"), rSet.getString("B1_PER_ID3")).getOutput();
-        var itemCap = aa.cap.getCapBasicInfo(capIdModel).getOutput();
-        var itemCapId = itemCap.getCapID();
-        appTypeResult = itemCap.getCapType();
-        appTypeString = appTypeResult.toString();
-        if (exists(appTypeString, validTagTypeArray)) {
-            var tagAltID = itemCapId.getCustomID();
-            var tagStatus = itemCap.getCapStatus();
-            var tagSpecialText = itemCap.getSpecialText();
-            var tagAinfo = new Array();
-            useAppSpecificGroupName = true;
-            loadAppSpecific(tagAinfo, itemCapId);
-            var sWmu = isNull(tagAinfo["WMU INFORMATION.WMU"], '');
-            if (sWmu != '') {
-                sWmu = ' - ' + sWmu;
+        while (rSet.next()) {
+            var capIdModel = aa.cap.getCapID(rSet.getString("B1_PER_ID1"), rSet.getString("B1_PER_ID2"), rSet.getString("B1_PER_ID3")).getOutput();
+            var itemCap = aa.cap.getCapBasicInfo(capIdModel).getOutput();
+            var itemCapId = itemCap.getCapID();
+            appTypeResult = itemCap.getCapType();
+            appTypeString = appTypeResult.toString();
+            if (exists(appTypeString, validTagTypeArray)) {
+                var tagAltID = itemCapId.getCustomID();
+                var tagStatus = itemCap.getCapStatus();
+                var tagSpecialText = itemCap.getSpecialText();
+                var tagAinfo = new Array();
+                useAppSpecificGroupName = true;
+                loadAppSpecific(tagAinfo, itemCapId);
+                var sWmu = isNull(tagAinfo["WMU INFORMATION.WMU"], '');
+                if (sWmu != '') {
+                    sWmu = ' - ' + sWmu;
+                }
+                var neAvailTag = new AVAILABLE_TAGS_OBJ(tagAinfo["BASIC INFORMATION.Year"], tagAltID, tagSpecialText + sWmu, tagStatus);
+                availableTags.push(neAvailTag);
             }
-            var neAvailTag = new AVAILABLE_TAGS_OBJ(tagAinfo["BASIC INFORMATION.Year"], tagAltID, tagSpecialText + sWmu, tagStatus);
-            availableTags.push(neAvailTag);
+        }
+    } catch (vError) {
+        logDebug("Runtime error occurred: " + vError);
+        if (conn) {
+            conn.close();
         }
     }
 
+    if (conn) {
+        conn.close();
+    }
     return availableTags;
 }
 function GetTagsForHarvestReportOld(peopleSequenceNumber, isDeer, isBear, isFallTurkey, isSpringTurkey, isConsignedDMPtag) {
@@ -967,8 +979,8 @@ function ReprintDocuments() {
                 if (appTypeString != AA02_MARINE_REGISTRY) {
                     arryLic.push(newLicId);
                 } else {
-					arryNoFeeLic.push(newLicId);
-				}
+                    arryNoFeeLic.push(newLicId);
+                }
             }
 
             var result = aa.cap.createAppHierarchy(capId, newLicId);
@@ -1938,45 +1950,60 @@ function getOriginalLTCapId(altId) {
     sql += " AND APPREF.B1_PER_ID3 = PERM.B1_PER_ID3";
     sql += " Where PERM.B1_ALT_ID = '" + altId + "'";
 
-    var initialContext = aa.proxyInvoker.newInstance("javax.naming.InitialContext", null).getOutput();
-    var ds = initialContext.lookup("java:/AA");
-    var conn = ds.getConnection();
+    var vError = '';
+    var conn = null;
+    try {
+        var initialContext = aa.proxyInvoker.newInstance("javax.naming.InitialContext", null).getOutput();
+        var ds = initialContext.lookup("java:/AA");
+        conn = ds.getConnection();
 
-    var sStmt = conn.prepareStatement(sql);
-    var rSet = sStmt.executeQuery();
-    while (rSet.next()) {
-        var pAltId = rSet.getString("B1_ALT_ID");
-        var itemCapId = getCapId(pAltId);
-        var itemcap = aa.cap.getCap(itemCapId).getOutput();
-        appTypeString = itemcap.getCapType().toString();
-        if (appMatch("Licenses/Sales/Reprint/Documents", itemCapId)) {
-            //Ignore
-        }
-        else {
-            var isappmatchcapid = false;
-            isappmatchcapid = isappmatchcapid || appMatch("Licenses/Annual/Application/NA", itemCapId);
-            isappmatchcapid = isappmatchcapid || appMatch("Licenses/Sales/Application/Fishing", itemCapId);
-            isappmatchcapid = isappmatchcapid || appMatch("Licenses/Sales/Application/Marine Registry", itemCapId);
-            isappmatchcapid = isappmatchcapid || appMatch("Licenses/Sales/Application/Hunting", itemCapId);
-            isappmatchcapid = isappmatchcapid || appMatch("Licenses/Sales/Application/Hunting and Fishing", itemCapId);
-            isappmatchcapid = isappmatchcapid || appMatch("Licenses/Sales/Application/Trapping", itemCapId);
-            isappmatchcapid = isappmatchcapid || appMatch("Licenses/Sales/Application/Lifetime", itemCapId);
-            isappmatchcapid = isappmatchcapid || appMatch("Licenses/Sales/Application/Sporting", itemCapId);
-            isappmatchcapid = isappmatchcapid || appMatch("Licenses/Sales/Application/Fishing C", itemCapId);
-            isappmatchcapid = isappmatchcapid || appMatch("Licenses/Sales/Application/Marine Registry C", itemCapId);
-            isappmatchcapid = isappmatchcapid || appMatch("Licenses/Sales/Application/Hunting C", itemCapId);
-            isappmatchcapid = isappmatchcapid || appMatch("Licenses/Sales/Application/Hunting and Fishing C", itemCapId);
-            isappmatchcapid = isappmatchcapid || appMatch("Licenses/Sales/Application/Trapping C", itemCapId);
-            isappmatchcapid = isappmatchcapid || appMatch("Licenses/Sales/Application/Lifetime C", itemCapId);
-            isappmatchcapid = isappmatchcapid || appMatch("Licenses/Sales/Application/Sporting C", itemCapId);
-            isappmatchcapid = isappmatchcapid || appMatch("Licenses/Sales/Application/Legacy Load", itemCapId);
-            if (isappmatchcapid) {
-                return parentAltId;
+        var sStmt = conn.prepareStatement(sql);
+        var rSet = sStmt.executeQuery();
+        while (rSet.next()) {
+            var pAltId = rSet.getString("B1_ALT_ID");
+            var itemCapId = getCapId(pAltId);
+            var itemcap = aa.cap.getCap(itemCapId).getOutput();
+            appTypeString = itemcap.getCapType().toString();
+            if (appMatch("Licenses/Sales/Reprint/Documents", itemCapId)) {
+                //Ignore
             }
             else {
-                parentAltId = getOriginalLTCapId(pAltId)
+                var isappmatchcapid = false;
+                isappmatchcapid = isappmatchcapid || appMatch("Licenses/Annual/Application/NA", itemCapId);
+                isappmatchcapid = isappmatchcapid || appMatch("Licenses/Sales/Application/Fishing", itemCapId);
+                isappmatchcapid = isappmatchcapid || appMatch("Licenses/Sales/Application/Marine Registry", itemCapId);
+                isappmatchcapid = isappmatchcapid || appMatch("Licenses/Sales/Application/Hunting", itemCapId);
+                isappmatchcapid = isappmatchcapid || appMatch("Licenses/Sales/Application/Hunting and Fishing", itemCapId);
+                isappmatchcapid = isappmatchcapid || appMatch("Licenses/Sales/Application/Trapping", itemCapId);
+                isappmatchcapid = isappmatchcapid || appMatch("Licenses/Sales/Application/Lifetime", itemCapId);
+                isappmatchcapid = isappmatchcapid || appMatch("Licenses/Sales/Application/Sporting", itemCapId);
+                isappmatchcapid = isappmatchcapid || appMatch("Licenses/Sales/Application/Fishing C", itemCapId);
+                isappmatchcapid = isappmatchcapid || appMatch("Licenses/Sales/Application/Marine Registry C", itemCapId);
+                isappmatchcapid = isappmatchcapid || appMatch("Licenses/Sales/Application/Hunting C", itemCapId);
+                isappmatchcapid = isappmatchcapid || appMatch("Licenses/Sales/Application/Hunting and Fishing C", itemCapId);
+                isappmatchcapid = isappmatchcapid || appMatch("Licenses/Sales/Application/Trapping C", itemCapId);
+                isappmatchcapid = isappmatchcapid || appMatch("Licenses/Sales/Application/Lifetime C", itemCapId);
+                isappmatchcapid = isappmatchcapid || appMatch("Licenses/Sales/Application/Sporting C", itemCapId);
+                isappmatchcapid = isappmatchcapid || appMatch("Licenses/Sales/Application/Legacy Load", itemCapId);
+                if (isappmatchcapid) {
+                    return parentAltId;
+                }
+                else {
+                    parentAltId = getOriginalLTCapId(pAltId)
+                }
             }
         }
+
+    } catch (vError) {
+        logDebug("Runtime error occurred: " + vError);
+        if (conn) {
+            conn.close();
+        }
+    }
+
+
+    if (conn) {
+        conn.close();
     }
     return parentAltId;
 }
@@ -2329,8 +2356,8 @@ function upgradeLifetimeLic() {
 
                     //var effectiveDt;
                     setLicExpirationDate(newLicId, dateAdd(null, 0)); // defect 13656
-					AInfo["CODE.Effective Date"] = jsDateToMMDDYYYY(new Date());
-					editFileDate(newLicId, new Date());
+                    AInfo["CODE.Effective Date"] = jsDateToMMDDYYYY(new Date());
+                    editFileDate(newLicId, new Date());
 
                     setSalesItemASI(newLicId, oLic.RecordType, oLic.DecCode, oLic.feeUnit, null, null);
 

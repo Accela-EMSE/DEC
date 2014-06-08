@@ -242,14 +242,14 @@ function GetWmuAsitTableArray(wmu1Result, wmu2Result) {
         tempObject["Land Owner?"] = fieldInfo;
         fieldInfo = new asiTableValObj("Correct?", "", "N");
         tempObject["Correct?"] = fieldInfo;
-		fieldInfo = new asiTableValObj("New?", "", "N");
-		tempObject["New?"] = fieldInfo;
-		fieldInfo = new asiTableValObj("WMU To Correct", "", "N");
-		tempObject["WMU To Correct"] = fieldInfo;
-		fieldInfo = new asiTableValObj("Preference Points Corrected", "", "N");
-		tempObject["Preference Points Corrected"] = fieldInfo;
-		fieldInfo = new asiTableValObj("Corrected", "N", "N");
-		tempObject["Corrected"] = fieldInfo;
+        fieldInfo = new asiTableValObj("New?", "", "N");
+        tempObject["New?"] = fieldInfo;
+        fieldInfo = new asiTableValObj("WMU To Correct", "", "N");
+        tempObject["WMU To Correct"] = fieldInfo;
+        fieldInfo = new asiTableValObj("Preference Points Corrected", "", "N");
+        tempObject["Preference Points Corrected"] = fieldInfo;
+        fieldInfo = new asiTableValObj("Corrected", "N", "N");
+        tempObject["Corrected"] = fieldInfo;
         tempArray.push(tempObject);
     }
     //Choice 2 Result
@@ -7442,8 +7442,8 @@ function verifyNewRegistrion() {
     var refContactId = "";
 
     if ((driverLicNumber == "" || driverLicNumber == null) && (decid == "" || decid == null)) {
-        retmsg += "You have to either enter the combination of Date of Birth and Driver's License Number or Date of Birth and DECALS Customer Number to continue." + "<BR>";      
-    }else{
+        retmsg += "You have to either enter the combination of Date of Birth and Driver's License Number or Date of Birth and DECALS Customer Number to continue." + "<BR>";
+    } else {
 
         var resultCount = searchCustomerBySql(sdob, driverLicNumber, decid);
 
@@ -7459,30 +7459,32 @@ function verifyNewRegistrion() {
                     decalRefNumber = refContactId;
                 }
             }
-        // validation to check public user id already exists with DEC ID
-        var lDecalRefNumber = aa.util.parseLong(decalRefNumber);
-        var publicUserListByContact = aa.publicUser.getPublicUserListByContactNBR(lDecalRefNumber);
-        if (publicUserListByContact.getSuccess()) {
-            var contactList = publicUserListByContact.getOutput();
-            if (contactList.size() > 0) {
-                logDebug(contactList);
-                retmsg += "Public User Id already exists."  + "<BR>";
+            // validation to check public user id already exists with DEC ID
+            var lDecalRefNumber = aa.util.parseLong(decalRefNumber);
+            var publicUserListByContact = aa.publicUser.getPublicUserListByContactNBR(lDecalRefNumber);
+            if (publicUserListByContact.getSuccess()) {
+                var contactList = publicUserListByContact.getOutput();
+                if (contactList.size() > 0) {
+                    logDebug(contactList);
+                    retmsg += "Public User Id already exists." + "<BR>";
+                }
             }
+            editAppSpecific4ACA("Internal Decid", decalRefNumber);
         }
-        editAppSpecific4ACA("Internal Decid", decalRefNumber);
+        if (resultCount.length > 1) {
+            retmsg += "Multiple match is found for the given information. Please enter your DECALS Customer Number." + "<BR>";
+        }
+        if (retmsg != '') {
+            retmsg += '<Br />'
+        }
     }
-    if (resultCount.length > 1) {
-        retmsg += "Multiple match is found for the given information. Please enter your DECALS Customer Number." + "<BR>";
-    }
-    if (retmsg != '') {
-        retmsg += '<Br />'
-    }
-}
-return retmsg;
+    return retmsg;
 }
 function searchCustomerBySql(birthDate, licNumber, decid) {
     var retArry = new Array();
     var counter = 0;
+    var vError = '';
+    var conn = null;
     try {
         var sql = " Select G1_PASSPORT_NBR, G1_CONTACT_NBR from G3Contact ";
         sql += " WHERE SERV_PROV_CODE = '" + aa.getServiceProviderCode() + "' ";
@@ -7500,7 +7502,7 @@ function searchCustomerBySql(birthDate, licNumber, decid) {
 
         var initialContext = aa.proxyInvoker.newInstance("javax.naming.InitialContext", null).getOutput();
         var ds = initialContext.lookup("java:/AA");
-        var conn = ds.getConnection();
+        conn = ds.getConnection();
 
         var sStmt = conn.prepareStatement(sql);
         var rSet = sStmt.executeQuery();
@@ -7508,18 +7510,23 @@ function searchCustomerBySql(birthDate, licNumber, decid) {
             var sDecid = rSet.getString("G1_PASSPORT_NBR");
             var sRefConId = rSet.getString("G1_CONTACT_NBR");
             retArry.push({
-               "sDecid": sDecid,
-               "sRefConId": sRefConId
-           });
+                "sDecid": sDecid,
+                "sRefConId": sRefConId
+            });
             counter++;
             if (counter > 1) {
                 break;
             }
         }
-        conn.close();
     }
     catch (vError) {
         logDebug("Runtime error occurred: " + vError);
+        if (conn) {
+            conn.close();
+        }
+    }
+    if (conn) {
+        conn.close();
     }
     return retArry;
 }
