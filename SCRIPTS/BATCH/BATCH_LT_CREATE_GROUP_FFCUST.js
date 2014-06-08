@@ -160,17 +160,28 @@ function updateRefContactsUdf12() {
     sql += " AND A.b1_per_group = 'Licenses' ";
     sql += " AND A.b1_per_type = 'Lifetime' ";
     sql += " AND A.b1_per_sub_type = 'Hunting' ";
-	sql += " AND b1_contact_type = 'Individual' ";
+    sql += " AND b1_contact_type = 'Individual' ";
     sql += " AND g3Contact.g1_contact_nbr = D.g1_contact_nbr) ";
 
-    var initialContext = aa.proxyInvoker.newInstance("javax.naming.InitialContext", null).getOutput();
-    var ds = initialContext.lookup("java:/AA");
-    var conn = ds.getConnection();
+    var conn = null;
+    var vError = '';
+    try {
+        var initialContext = aa.proxyInvoker.newInstance("javax.naming.InitialContext", null).getOutput();
+        var ds = initialContext.lookup("java:/AA");
+        conn = ds.getConnection();
 
-    var sStmt = conn.prepareStatement(sql);
-    var rSet = sStmt.executeQuery();
+        var sStmt = conn.prepareStatement(sql);
+        var rSet = sStmt.executeQuery();
 
-    conn.close();
+    } catch (vError) {
+        logDebug("Runtime error occurred: " + vError);
+        if (conn) {
+            conn.close();
+        }
+    }
+    if (conn) {
+        conn.close();
+    }
 }
 
 function getMaxGroupNumber() {
@@ -181,16 +192,29 @@ function getMaxGroupNumber() {
     sql += " AND NVL(G1_UDF2, 1) = 1 ";
     sql += " AND G1_UDF1 IS NOT NULL ";
 
-    var initialContext = aa.proxyInvoker.newInstance("javax.naming.InitialContext", null).getOutput();
-    var ds = initialContext.lookup("java:/AA");
-    var conn = ds.getConnection();
+    var vError = '';
+    var conn = null;
+    try {
+        var initialContext = aa.proxyInvoker.newInstance("javax.naming.InitialContext", null).getOutput();
+        var ds = initialContext.lookup("java:/AA");
+        conn = ds.getConnection();
 
-    var sStmt = conn.prepareStatement(sql);
-    var rSet = sStmt.executeQuery();
+        var sStmt = conn.prepareStatement(sql);
+        rSet = sStmt.executeQuery();
 
-    while (rSet.next()) {
-        maggroupNum = rSet.getString("maxGroupNum");
+        while (rSet.next()) {
+            maggroupNum = rSet.getString("maxGroupNum");
+        }
+    } catch (vError) {
+        logDebug("Runtime error occurred: " + vError);
+        if (conn) {
+            conn.close();
+        }
     }
-    conn.close();
+
+
+    if (conn) {
+        conn.close();
+    }
     return maggroupNum;
 }
