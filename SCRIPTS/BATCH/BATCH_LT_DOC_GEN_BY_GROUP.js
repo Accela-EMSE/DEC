@@ -221,46 +221,58 @@ function SetLTFullfillmentLogic() {
     sql += " AND C.g1_contact_nbr = D.g1_contact_nbr ";
     sql += " AND nvl(G1_UDF4, 1) = 1 )";
 
-    var initialContext = aa.proxyInvoker.newInstance("javax.naming.InitialContext", null).getOutput();
-    var ds = initialContext.lookup("java:/AA");
-    var conn = ds.getConnection();
+    var vError = '';
+    var conn = null;
+    try {
+        var initialContext = aa.proxyInvoker.newInstance("javax.naming.InitialContext", null).getOutput();
+        var ds = initialContext.lookup("java:/AA");
+        conn = ds.getConnection();
 
-    var sStmt = conn.prepareStatement(sql);
-    var rSet = sStmt.executeQuery();
+        var sStmt = conn.prepareStatement(sql);
+        var rSet = sStmt.executeQuery();
 
-    while (rSet.next()) {
-        var itemCapId = aa.cap.getCapID(rSet.getString("B1_PER_ID1"), rSet.getString("B1_PER_ID2"), rSet.getString("B1_PER_ID3")).getOutput();
-        recId = itemCapId;
-        //if (!uniqueCapIdArray.containsKey(recId)) {
-        var itemCap = aa.cap.getCap(itemCapId).getOutput();
-        var fvMailStop = getMailStop(itemCapId);
-        if (fvMailStop)
-            continue;
-        //uniqueCapIdArray.put(recId, recId);
-        altId = itemCapId.getCustomID();
-        logDebug(altId);
-        var isSuccess = generateReport(itemCapId);
-        updateRefContactsUdf4(altId, 2)
-        if (setPrefix.length > 0) {
-            addCapSetMemberX(itemCapId, setResult);
-        }
-        counter++;
-        //}
-        editCapConditionStatus("Fulfillment", ffConitions.Condition_YearlyLifetime, "Verified", "Not Applied", "", itemCapId);
-        removeFullfillmentCapCondition(itemCapId, ffConitions.Condition_YearlyLifetime);
-        if (counter >= CONST_RECORDS_PER_SET && setPrefix.length > 0) {
-            if (!isPartialSuccess) {
-                updateSetStatusX(setResult.setID, setResult.setID, "FULLFILLMENT", "Successfully processed", "Ready For Fullfillment", "Ready For Fullfillment");
-                setResult = createFullfillmentSet(setPrefix);
-                setNameArray.push(setResult.setID);
-                updateSetStatusX(setResult.setID, setResult.setID, "FULLFILLMENT", "Processing", "Pending", "Pending");
-                //uniqueCapIdArray = aa.util.newHashMap();
+        while (rSet.next()) {
+            var itemCapId = aa.cap.getCapID(rSet.getString("B1_PER_ID1"), rSet.getString("B1_PER_ID2"), rSet.getString("B1_PER_ID3")).getOutput();
+            recId = itemCapId;
+            //if (!uniqueCapIdArray.containsKey(recId)) {
+            var itemCap = aa.cap.getCap(itemCapId).getOutput();
+            var fvMailStop = getMailStop(itemCapId);
+            if (fvMailStop)
+                continue;
+            //uniqueCapIdArray.put(recId, recId);
+            altId = itemCapId.getCustomID();
+            logDebug(altId);
+            var isSuccess = generateReport(itemCapId);
+            updateRefContactsUdf4(altId, 2)
+            if (setPrefix.length > 0) {
+                addCapSetMemberX(itemCapId, setResult);
             }
-            counter = 0;
+            counter++;
+            //}
+            editCapConditionStatus("Fulfillment", ffConitions.Condition_YearlyLifetime, "Verified", "Not Applied", "", itemCapId);
+            removeFullfillmentCapCondition(itemCapId, ffConitions.Condition_YearlyLifetime);
+            if (counter >= CONST_RECORDS_PER_SET && setPrefix.length > 0) {
+                if (!isPartialSuccess) {
+                    updateSetStatusX(setResult.setID, setResult.setID, "FULLFILLMENT", "Successfully processed", "Ready For Fullfillment", "Ready For Fullfillment");
+                    setResult = createFullfillmentSet(setPrefix);
+                    setNameArray.push(setResult.setID);
+                    updateSetStatusX(setResult.setID, setResult.setID, "FULLFILLMENT", "Processing", "Pending", "Pending");
+                    //uniqueCapIdArray = aa.util.newHashMap();
+                }
+                counter = 0;
+            }
+        }
+    } catch (vError) {
+        logDebug("Runtime error occurred: " + vError);
+        if (conn) {
+            conn.close();
         }
     }
-    conn.close();
 
+
+    if (conn) {
+        conn.close();
+    }
     if (!isPartialSuccess) {
         updateSetStatusX(setResult.setID, setResult.setID, "FULLFILLMENT", "Successfully processed", "Ready For Fullfillment", "Ready For Fullfillment");
     }
@@ -406,42 +418,68 @@ function GenerateMissingReportForSets(pSetName) {
     sql += " AND bd.rec_status = 'A') ";
 
     logDebug(sql);
-    var initialContext = aa.proxyInvoker.newInstance("javax.naming.InitialContext", null).getOutput();
-    var ds = initialContext.lookup("java:/AA");
-    var conn = ds.getConnection();
+    var vError = '';
+    var conn = null;
+    try {
+        var initialContext = aa.proxyInvoker.newInstance("javax.naming.InitialContext", null).getOutput();
+        var ds = initialContext.lookup("java:/AA");
+        conn = ds.getConnection();
 
-    var sStmt = conn.prepareStatement(sql);
-    var rSet = sStmt.executeQuery();
-    while (rSet.next()) {
-        var itemCapId = aa.cap.getCapID(rSet.getString("B1_PER_ID1"), rSet.getString("B1_PER_ID2"), rSet.getString("B1_PER_ID3")).getOutput();
-        logDebug(itemCapId);
-        //var itemCap = aa.cap.getCap(itemCapId).getOutput();
-        var isSuccess = generateReport(itemCapId);
+        var sStmt = conn.prepareStatement(sql);
+        var rSet = sStmt.executeQuery();
+        while (rSet.next()) {
+            var itemCapId = aa.cap.getCapID(rSet.getString("B1_PER_ID1"), rSet.getString("B1_PER_ID2"), rSet.getString("B1_PER_ID3")).getOutput();
+            logDebug(itemCapId);
+            //var itemCap = aa.cap.getCap(itemCapId).getOutput();
+            var isSuccess = generateReport(itemCapId);
+        }
+
+    } catch (vError) {
+        logDebug("Runtime error occurred: " + vError);
+        if (conn) {
+            conn.close();
+        }
     }
 
-    conn.close();
 
+    if (conn) {
+        conn.close();
+    }
     return isReportGenerated;
 }
 function updateRefContactsUdf4(altid, nRecStatus) {
-    var initialContext = aa.proxyInvoker.newInstance("javax.naming.InitialContext", null).getOutput();
-    var ds = initialContext.lookup("java:/AA");
-    var conn = ds.getConnection();
+    var vError = '';
+    var conn = null;
+    try {
+        var initialContext = aa.proxyInvoker.newInstance("javax.naming.InitialContext", null).getOutput();
+        var ds = initialContext.lookup("java:/AA");
+        conn = ds.getConnection();
 
-    var usql = " Update G3CONTACT Set G1_UDF4 = " + nRecStatus + " Where EXISTS (";
-    usql += " SELECT 1 ";
-    usql += " FROM b1permit B1 ";
-    usql += " INNER JOIN b3contact D ";
-    usql += " ON B1.serv_prov_code = D.serv_prov_code ";
-    usql += " AND B1.b1_per_id1 = D.b1_per_id1 ";
-    usql += " AND B1.b1_per_id2 = D.b1_per_id2 ";
-    usql += " AND B1.b1_per_id3 = D.b1_per_id3 ";
-    usql += " WHERE B1.serv_prov_code = '" + aa.getServiceProviderCode() + "' ";
-    usql += " AND B1.B1_ALT_ID = '" + altid + "' ";
-    usql += " AND G3CONTACT.g1_contact_nbr = D.g1_contact_nbr )";
+        var usql = " Update G3CONTACT Set G1_UDF4 = " + nRecStatus + " Where EXISTS (";
+        usql += " SELECT 1 ";
+        usql += " FROM b1permit B1 ";
+        usql += " INNER JOIN b3contact D ";
+        usql += " ON B1.serv_prov_code = D.serv_prov_code ";
+        usql += " AND B1.b1_per_id1 = D.b1_per_id1 ";
+        usql += " AND B1.b1_per_id2 = D.b1_per_id2 ";
+        usql += " AND B1.b1_per_id3 = D.b1_per_id3 ";
+        usql += " WHERE B1.serv_prov_code = '" + aa.getServiceProviderCode() + "' ";
+        usql += " AND B1.B1_ALT_ID = '" + altid + "' ";
+        usql += " AND G3CONTACT.g1_contact_nbr = D.g1_contact_nbr )";
 
-    var sStmt1 = conn.prepareStatement(usql);
-    var rret = sStmt1.executeQuery();
-    conn.close();
+        var sStmt1 = conn.prepareStatement(usql);
+        var rret = sStmt1.executeQuery();
+    } catch (vError) {
+        logDebug("Runtime error occurred: " + vError);
+        if (conn) {
+            conn.close();
+        }
+    }
+
+
+    if (conn) {
+        conn.close();
+    }
+
     logDebug('Updated ref for alt id ' + altid + ' With ' + nRecStatus);
 }

@@ -204,7 +204,7 @@ function SetIBPFullfillmentLogic() {
     sql += " AND B1_APPL_STATUS = 'Active' ";
 
     var vError = '';
-	var conn= null;
+    var conn = null;
     try {
         var initialContext = aa.proxyInvoker.newInstance("javax.naming.InitialContext", null).getOutput();
         var ds = initialContext.lookup("java:/AA");

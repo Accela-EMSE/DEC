@@ -137,43 +137,56 @@ function updateRefContactsUdf34() {
     var CONST_GROUP_COUNT = 1000;
 
     var sql = " UPDATE g3Contact ";
-	sql += " SET G1_UDF3 = ( ( (rownum-1) - MOD((rownum-1) , "+ CONST_GROUP_COUNT + ") ) / " + CONST_GROUP_COUNT + " ) + 1, ";
-	sql += " G1_UDF4 = 1 ";
-	sql += " WHERE EXISTS ";
-	sql += " (SELECT 1 ";
-	sql += " FROM b1permit B1 ";
-	sql += " INNER JOIN B6CONDIT B6 ";
-	sql += " ON B1.serv_prov_code = B6.serv_prov_code ";
-	sql += " AND B1.b1_per_id1 = B6.b1_per_id1 ";
-	sql += " AND B1.b1_per_id2 = B6.b1_per_id2 ";
-	sql += " AND B1.b1_per_id3 = B6.b1_per_id3 ";
-	sql += " INNER JOIN b3contact D ";
-	sql += " ON B1.serv_prov_code = D.serv_prov_code ";
-	sql += " AND B1.b1_per_id1 = D.b1_per_id1 ";
-	sql += " AND B1.b1_per_id2 = D.b1_per_id2 ";
-	sql += " AND B1.b1_per_id3 = D.b1_per_id3 ";
-	sql += " WHERE B1.serv_prov_code = '" + aa.getServiceProviderCode() + "' ";
-	sql += " AND b1_Alt_id LIKE 'DEC-FM%' ";
-	sql += " AND B1_PER_GROUP = 'Licenses' ";
-	sql += " AND B1_PER_TYPE = 'Sales' ";
-	sql += " AND B1_PER_SUB_TYPE = 'fulfill' ";
-	sql += " AND B1_PER_CATEGORY = 'Documents' ";
-	sql += " AND b1_CON_GROUP = 'Fulfillment' ";
-	sql += " AND b1_CON_TYP = 'Fulfillment' ";
-	sql += " AND b1_CON_DES = 'Yearly Lifetime' ";
-	sql += " AND B1_CON_STATUS = 'Applied' ";
-	sql += " AND B1_APPL_STATUS = 'Approved' ";
-	sql += " AND g3Contact.g1_contact_nbr = D.g1_contact_nbr) ";
-	logDebug(sql);
-	
-    var initialContext = aa.proxyInvoker.newInstance("javax.naming.InitialContext", null).getOutput();
-    var ds = initialContext.lookup("java:/AA");
-    var conn = ds.getConnection();
+    sql += " SET G1_UDF3 = ( ( (rownum-1) - MOD((rownum-1) , " + CONST_GROUP_COUNT + ") ) / " + CONST_GROUP_COUNT + " ) + 1, ";
+    sql += " G1_UDF4 = 1 ";
+    sql += " WHERE EXISTS ";
+    sql += " (SELECT 1 ";
+    sql += " FROM b1permit B1 ";
+    sql += " INNER JOIN B6CONDIT B6 ";
+    sql += " ON B1.serv_prov_code = B6.serv_prov_code ";
+    sql += " AND B1.b1_per_id1 = B6.b1_per_id1 ";
+    sql += " AND B1.b1_per_id2 = B6.b1_per_id2 ";
+    sql += " AND B1.b1_per_id3 = B6.b1_per_id3 ";
+    sql += " INNER JOIN b3contact D ";
+    sql += " ON B1.serv_prov_code = D.serv_prov_code ";
+    sql += " AND B1.b1_per_id1 = D.b1_per_id1 ";
+    sql += " AND B1.b1_per_id2 = D.b1_per_id2 ";
+    sql += " AND B1.b1_per_id3 = D.b1_per_id3 ";
+    sql += " WHERE B1.serv_prov_code = '" + aa.getServiceProviderCode() + "' ";
+    sql += " AND b1_Alt_id LIKE 'DEC-FM%' ";
+    sql += " AND B1_PER_GROUP = 'Licenses' ";
+    sql += " AND B1_PER_TYPE = 'Sales' ";
+    sql += " AND B1_PER_SUB_TYPE = 'fulfill' ";
+    sql += " AND B1_PER_CATEGORY = 'Documents' ";
+    sql += " AND b1_CON_GROUP = 'Fulfillment' ";
+    sql += " AND b1_CON_TYP = 'Fulfillment' ";
+    sql += " AND b1_CON_DES = 'Yearly Lifetime' ";
+    sql += " AND B1_CON_STATUS = 'Applied' ";
+    sql += " AND B1_APPL_STATUS = 'Approved' ";
+    sql += " AND g3Contact.g1_contact_nbr = D.g1_contact_nbr) ";
+    logDebug(sql);
 
-    var sStmt = conn.prepareStatement(sql);
-    var rSet = sStmt.executeQuery();
+    var vError = '';
+    var conn = null;
+    try {
+        var initialContext = aa.proxyInvoker.newInstance("javax.naming.InitialContext", null).getOutput();
+        var ds = initialContext.lookup("java:/AA");
+        conn = ds.getConnection();
 
-    conn.close();
+        var sStmt = conn.prepareStatement(sql);
+        var rSet = sStmt.executeQuery();
+
+    } catch (vError) {
+        logDebug("Runtime error occurred: " + vError);
+        if (conn) {
+            conn.close();
+        }
+    }
+
+
+    if (conn) {
+        conn.close();
+    }
 }
 
 function getMaxGroupNumber() {
@@ -184,16 +197,29 @@ function getMaxGroupNumber() {
     sql += " AND NVL(G1_UDF4, 1) = 1 ";
     sql += " AND G1_UDF3 IS NOT NULL ";
 
-    var initialContext = aa.proxyInvoker.newInstance("javax.naming.InitialContext", null).getOutput();
-    var ds = initialContext.lookup("java:/AA");
-    var conn = ds.getConnection();
+    var vError = '';
+    var conn = null;
+    try {
+        var initialContext = aa.proxyInvoker.newInstance("javax.naming.InitialContext", null).getOutput();
+        var ds = initialContext.lookup("java:/AA");
+        conn = ds.getConnection();
 
-    var sStmt = conn.prepareStatement(sql);
-    var rSet = sStmt.executeQuery();
+        var sStmt = conn.prepareStatement(sql);
+        var rSet = sStmt.executeQuery();
 
-    while (rSet.next()) {
-        maggroupNum = rSet.getString("maxGroupNum");
+        while (rSet.next()) {
+            maggroupNum = rSet.getString("maxGroupNum");
+        }
+    } catch (vError) {
+        logDebug("Runtime error occurred: " + vError);
+        if (conn) {
+            conn.close();
+        }
     }
-    conn.close();
+
+
+    if (conn) {
+        conn.close();
+    }
     return maggroupNum;
 }

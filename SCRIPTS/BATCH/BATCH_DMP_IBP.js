@@ -214,7 +214,6 @@ function callIBPlogic() {
     if (conn) {
         conn.close();
     }
-    conn.close();
 }
 
 function getRecordsToProcess(year) {
