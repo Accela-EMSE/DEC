@@ -2906,13 +2906,15 @@ function getActiveHoldings(peopleSequenceNumber, year) {
 
     var vError = '';
     var conn = null;
+    var sStmt = null;
+    var rSet = null;
     try {
         var initialContext = aa.proxyInvoker.newInstance("javax.naming.InitialContext", null).getOutput();
         var ds = initialContext.lookup("java:/AA");
         conn = ds.getConnection();
 
-        var sStmt = conn.prepareStatement(sql);
-        var rSet = sStmt.executeQuery();
+        sStmt = conn.prepareStatement(sql);
+        rSet = sStmt.executeQuery();
 
         while (rSet.next()) {
             var capIdModel = aa.cap.getCapID(rSet.getString("B1_PER_ID1"), rSet.getString("B1_PER_ID2"), rSet.getString("B1_PER_ID3")).getOutput();
@@ -2927,15 +2929,8 @@ function getActiveHoldings(peopleSequenceNumber, year) {
         }
     } catch (vError) {
         logDebug("Runtime error occurred: " + vError);
-        if (conn) {
-            conn.close();
-        }
     }
-
-
-    if (conn) {
-        conn.close();
-    }
+    closeDBQueryObject(rSet, sStmt, conn);
 
     return availableActiveItems;
 }
