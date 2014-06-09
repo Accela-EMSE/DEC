@@ -155,8 +155,8 @@ function getRefContactsByEnforcemetLifted(ipRefContacts) {
 
     var vError = '';
     var conn = null;
-	var sStmt = null;
-	var rSet = null;
+    var sStmt = null;
+    var rSet = null;
     try {
         var initialContext = aa.proxyInvoker.newInstance("javax.naming.InitialContext", null).getOutput();
         var ds = initialContext.lookup("java:/AA");
@@ -273,8 +273,8 @@ function getRefContactsByEnforcemetLifted(ipRefContacts) {
     } catch (vError) {
         logDebug("Runtime error occurred: " + vError);
     }
-	closeDBQueryObject(rSet, sStmt, conn);
-	
+    closeDBQueryObject(rSet, sStmt, conn);
+
     returnArray.push(opRefContacts);
     returnArray.push(opRefContactsRecNeedToAttach);
     return returnArray;

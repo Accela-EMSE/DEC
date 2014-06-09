@@ -223,9 +223,9 @@ function SetLTFullfillmentLogic() {
 
     var vError = '';
     var conn = null;
-	var sStmt = null;
-	var rSet = null;
-	
+    var sStmt = null;
+    var rSet = null;
+
     try {
         var initialContext = aa.proxyInvoker.newInstance("javax.naming.InitialContext", null).getOutput();
         var ds = initialContext.lookup("java:/AA");
@@ -268,7 +268,7 @@ function SetLTFullfillmentLogic() {
     } catch (vError) {
         logDebug("Runtime error occurred: " + vError);
     }
-	closeDBQueryObject(rSet, sStmt, conn);
+    closeDBQueryObject(rSet, sStmt, conn);
 
     if (!isPartialSuccess) {
         updateSetStatusX(setResult.setID, setResult.setID, "FULLFILLMENT", "Successfully processed", "Ready For Fullfillment", "Ready For Fullfillment");
@@ -417,8 +417,8 @@ function GenerateMissingReportForSets(pSetName) {
     logDebug(sql);
     var vError = '';
     var conn = null;
-	var sStmt = null;
-	var rSet = null;
+    var sStmt = null;
+    var rSet = null;
     try {
         var initialContext = aa.proxyInvoker.newInstance("javax.naming.InitialContext", null).getOutput();
         var ds = initialContext.lookup("java:/AA");
@@ -436,15 +436,15 @@ function GenerateMissingReportForSets(pSetName) {
     } catch (vError) {
         logDebug("Runtime error occurred: " + vError);
     }
-	closeDBQueryObject(rSet, sStmt, conn);
+    closeDBQueryObject(rSet, sStmt, conn);
 
     return isReportGenerated;
 }
 function updateRefContactsUdf4(altid, nRecStatus) {
     var vError = '';
     var conn = null;
-	var sStmt1 = null;
-	var rret = null;
+    var sStmt1 = null;
+    var rret = null;
     try {
         var initialContext = aa.proxyInvoker.newInstance("javax.naming.InitialContext", null).getOutput();
         var ds = initialContext.lookup("java:/AA");
@@ -467,7 +467,7 @@ function updateRefContactsUdf4(altid, nRecStatus) {
     } catch (vError) {
         logDebug("Runtime error occurred: " + vError);
     }
-	closeDBQueryObject(rret, sStmt1, conn);
+    closeDBQueryObject(rret, sStmt1, conn);
 
     logDebug('Updated ref for alt id ' + altid + ' With ' + nRecStatus);
 }
