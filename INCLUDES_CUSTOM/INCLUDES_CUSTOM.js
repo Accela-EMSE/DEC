@@ -7555,14 +7555,14 @@ function validatePublicUserCreation() {
     var getUserResult = aa.publicUser.getPublicUserByUserId(newRegUserName);
     if (getUserResult.getSuccess() && getUserResult.getOutput()) {
         userModel = getUserResult.getOutput();
-        retmsg += "Found an existing public user with User Id " + userModel.getUserID() + "<BR>";
+        retmsg += "Found an existing public user with User Id "  + userModel.getUserID() +  ". Please click on login above with your UserID and password to purchase a sporting license." + "<BR>";
     }
 
     // check to see if public user exists already based on email address
     var getUserResult = aa.publicUser.getPublicUserByEmail(newRegEmail);
     if (getUserResult.getSuccess() && getUserResult.getOutput()) {
         userModel = getUserResult.getOutput();
-        retmsg += "Found an existing public user with email address " + newRegEmail + "<BR>";
+        retmsg += "Found an existing public user with email address " + newRegEmail + ". Please click on login above with your UserID and password to purchase a sporting license." + "<BR>";
     }
     return retmsg;
 }
