@@ -84,8 +84,8 @@ if (set.statusComment) { // we can only do anything if the set comment has the r
 
         var vError = '';
         var conn = null;
-		var sStmt = null;
-		var rSet = null;
+        var sStmt = null;
+        var rSet = null;
         try {
             var initialContext = aa.proxyInvoker.newInstance("javax.naming.InitialContext", null).getOutput();
             var ds = initialContext.lookup("java:/AA");
@@ -133,7 +133,7 @@ if (set.statusComment) { // we can only do anything if the set comment has the r
         } catch (vError) {
             logDebug("Runtime error occurred: " + vError);
         }
-		closeDBQueryObject(rSet, sStmt, conn);
+        closeDBQueryObject(rSet, sStmt, conn);
     }
 }
 
@@ -247,4 +247,3 @@ function addTableValuesToTemplateSubGroup(templateSubgroup, valuesMapByField) {
     // add the new row templateSubGroup
     templateSubgroup.getRows().add(templateRow);
 }
-

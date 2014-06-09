@@ -84,8 +84,8 @@ if (set.statusComment && !set.status.equals("Sweep Failed")) { // we can only do
 
         var vError = '';
         var conn = null;
-		var sStmt = null;
-		var rSet = null;
+        var sStmt = null;
+        var rSet = null;
         try {
 
             var initialContext = aa.proxyInvoker.newInstance("javax.naming.InitialContext", null).getOutput();
@@ -132,7 +132,7 @@ if (set.statusComment && !set.status.equals("Sweep Failed")) { // we can only do
         } catch (vError) {
             logDebug("Runtime error occurred: " + vError);
         }
-		closeDBQueryObject(rSet, sStmt, conn);
+        closeDBQueryObject(rSet, sStmt, conn);
     }
 }
 else {

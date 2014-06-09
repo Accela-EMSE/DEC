@@ -164,8 +164,8 @@ function updateRefContactsUdf12() {
     sql += " AND g3Contact.g1_contact_nbr = D.g1_contact_nbr) ";
 
     var conn = null;
-	var sStmt = null;
-	var rSet = null;
+    var sStmt = null;
+    var rSet = null;
     var vError = '';
     try {
         var initialContext = aa.proxyInvoker.newInstance("javax.naming.InitialContext", null).getOutput();
@@ -178,7 +178,7 @@ function updateRefContactsUdf12() {
     } catch (vError) {
         logDebug("Runtime error occurred: " + vError);
     }
-	closeDBQueryObject(rSet, sStmt, conn);
+    closeDBQueryObject(rSet, sStmt, conn);
 }
 
 function getMaxGroupNumber() {
@@ -191,8 +191,8 @@ function getMaxGroupNumber() {
 
     var vError = '';
     var conn = null;
-	var sStmt = null;
-	var rSet = null;
+    var sStmt = null;
+    var rSet = null;
     try {
         var initialContext = aa.proxyInvoker.newInstance("javax.naming.InitialContext", null).getOutput();
         var ds = initialContext.lookup("java:/AA");
@@ -207,7 +207,7 @@ function getMaxGroupNumber() {
     } catch (vError) {
         logDebug("Runtime error occurred: " + vError);
     }
-	closeDBQueryObject(rSet, sStmt, conn);
-	
+    closeDBQueryObject(rSet, sStmt, conn);
+
     return maggroupNum;
 }
