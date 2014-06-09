@@ -223,13 +223,16 @@ function SetLTFullfillmentLogic() {
 
     var vError = '';
     var conn = null;
+	var sStmt = null;
+	var rSet = null;
+	
     try {
         var initialContext = aa.proxyInvoker.newInstance("javax.naming.InitialContext", null).getOutput();
         var ds = initialContext.lookup("java:/AA");
         conn = ds.getConnection();
 
-        var sStmt = conn.prepareStatement(sql);
-        var rSet = sStmt.executeQuery();
+        sStmt = conn.prepareStatement(sql);
+        rSet = sStmt.executeQuery();
 
         while (rSet.next()) {
             var itemCapId = aa.cap.getCapID(rSet.getString("B1_PER_ID1"), rSet.getString("B1_PER_ID2"), rSet.getString("B1_PER_ID3")).getOutput();
@@ -264,15 +267,9 @@ function SetLTFullfillmentLogic() {
         }
     } catch (vError) {
         logDebug("Runtime error occurred: " + vError);
-        if (conn) {
-            conn.close();
-        }
     }
+	closeDBQueryObject(rSet, sStmt, conn);
 
-
-    if (conn) {
-        conn.close();
-    }
     if (!isPartialSuccess) {
         updateSetStatusX(setResult.setID, setResult.setID, "FULLFILLMENT", "Successfully processed", "Ready For Fullfillment", "Ready For Fullfillment");
     }
@@ -420,13 +417,15 @@ function GenerateMissingReportForSets(pSetName) {
     logDebug(sql);
     var vError = '';
     var conn = null;
+	var sStmt = null;
+	var rSet = null;
     try {
         var initialContext = aa.proxyInvoker.newInstance("javax.naming.InitialContext", null).getOutput();
         var ds = initialContext.lookup("java:/AA");
         conn = ds.getConnection();
 
-        var sStmt = conn.prepareStatement(sql);
-        var rSet = sStmt.executeQuery();
+        sStmt = conn.prepareStatement(sql);
+        rSet = sStmt.executeQuery();
         while (rSet.next()) {
             var itemCapId = aa.cap.getCapID(rSet.getString("B1_PER_ID1"), rSet.getString("B1_PER_ID2"), rSet.getString("B1_PER_ID3")).getOutput();
             logDebug(itemCapId);
@@ -436,20 +435,16 @@ function GenerateMissingReportForSets(pSetName) {
 
     } catch (vError) {
         logDebug("Runtime error occurred: " + vError);
-        if (conn) {
-            conn.close();
-        }
     }
+	closeDBQueryObject(rSet, sStmt, conn);
 
-
-    if (conn) {
-        conn.close();
-    }
     return isReportGenerated;
 }
 function updateRefContactsUdf4(altid, nRecStatus) {
     var vError = '';
     var conn = null;
+	var sStmt1 = null;
+	var rret = null;
     try {
         var initialContext = aa.proxyInvoker.newInstance("javax.naming.InitialContext", null).getOutput();
         var ds = initialContext.lookup("java:/AA");
@@ -467,19 +462,12 @@ function updateRefContactsUdf4(altid, nRecStatus) {
         usql += " AND B1.B1_ALT_ID = '" + altid + "' ";
         usql += " AND G3CONTACT.g1_contact_nbr = D.g1_contact_nbr )";
 
-        var sStmt1 = conn.prepareStatement(usql);
-        var rret = sStmt1.executeQuery();
+        sStmt1 = conn.prepareStatement(usql);
+        rret = sStmt1.executeQuery();
     } catch (vError) {
         logDebug("Runtime error occurred: " + vError);
-        if (conn) {
-            conn.close();
-        }
     }
-
-
-    if (conn) {
-        conn.close();
-    }
+	closeDBQueryObject(rret, sStmt1, conn);
 
     logDebug('Updated ref for alt id ' + altid + ' With ' + nRecStatus);
 }
