@@ -84,18 +84,19 @@ if (set.statusComment && !set.status.equals("Sweep Failed")) { // we can only do
 
         var vError = '';
         var conn = null;
+		var sStmt = null;
+		var rSet = null;
         try {
 
             var initialContext = aa.proxyInvoker.newInstance("javax.naming.InitialContext", null).getOutput();
             var ds = initialContext.lookup("java:/AA");
             conn = ds.getConnection();
 
-
             var s = "SELECT b.B1_ALT_ID from b1permit b, b3contact g WHERE b.b1_per_id1 = g.b1_per_id1 and b.b1_per_id2 = g.b1_per_id2 and b.b1_per_id3 = g.b1_per_id3 and b.serv_prov_code = 'DEC' and b.b1_per_group = 'Licenses' and	b.b1_per_type = 'DEC Internal' and	b.b1_per_sub_type = 'Revenue Management' and b.b1_per_category = 'ACH Status' ";
             s += " and g.g1_contact_nbr = " + agentSeqNbr + " order by b.b1_file_dd desc";
             logDebug(s);
-            var sStmt = conn.prepareStatement(s);
-            var rSet = sStmt.executeQuery();
+            sStmt = conn.prepareStatement(s);
+            rSet = sStmt.executeQuery();
             var counter = 0;
 
             if (rSet.next()) {
@@ -130,16 +131,8 @@ if (set.statusComment && !set.status.equals("Sweep Failed")) { // we can only do
 
         } catch (vError) {
             logDebug("Runtime error occurred: " + vError);
-            if (conn) {
-                conn.close();
-            }
         }
-
-
-        if (conn) {
-            conn.close();
-        }
-
+		closeDBQueryObject(rSet, sStmt, conn);
     }
 }
 else {

@@ -154,13 +154,15 @@ function callIBPlogic() {
 
     var vError = '';
     var conn = null;
+	var sStmt = null;
+	var rSet = null;
     try {
         var initialContext = aa.proxyInvoker.newInstance("javax.naming.InitialContext", null).getOutput();
         var ds = initialContext.lookup("java:/AA");
         conn = ds.getConnection();
 
-        var sStmt = conn.prepareStatement(sql);
-        var rSet = sStmt.executeQuery();
+        sStmt = conn.prepareStatement(sql);
+        rSet = sStmt.executeQuery();
 
         while (rSet.next()) {
             var fvRefContactNumber = rSet.getString("g1_contact_nbr");
@@ -207,13 +209,8 @@ function callIBPlogic() {
         }
     } catch (vError) {
         logDebug("Runtime error occurred: " + vError);
-        if (conn) {
-            conn.close();
-        }
     }
-    if (conn) {
-        conn.close();
-    }
+	closeDBQueryObject(rSet, sStmt, conn);
 }
 
 function getRecordsToProcess(year) {

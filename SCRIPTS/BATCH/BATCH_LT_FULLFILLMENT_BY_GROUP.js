@@ -324,13 +324,15 @@ function getRefContactsBySql(ipRefContacts) {
 
     var vError = '';
     var conn = null;
+	var sStmt = null;
+	var rSet = null;
     try {
         var initialContext = aa.proxyInvoker.newInstance("javax.naming.InitialContext", null).getOutput();
         var ds = initialContext.lookup("java:/AA");
         conn = ds.getConnection();
 
-        var sStmt = conn.prepareStatement(sql);
-        var rSet = sStmt.executeQuery();
+        sStmt = conn.prepareStatement(sql);
+        rSet = sStmt.executeQuery();
 
         while (rSet.next()) {
             var fvRefContactNumber = rSet.getString("g1_contact_nbr");
@@ -353,16 +355,8 @@ function getRefContactsBySql(ipRefContacts) {
         }
     } catch (vError) {
         logDebug("Runtime error occurred: " + vError);
-        if (conn) {
-            conn.close();
-        }
     }
-
-
-    if (conn) {
-        conn.close();
-    }
-
+	closeDBQueryObject(rSet, sStmt, conn);
 
     return ipRefContacts;
 }
@@ -452,28 +446,23 @@ function getMaxThreadCount() {
 
     var vError = '';
     var conn = null;
+	var sStmt = null;
+	var rSet = null;
     try {
         var initialContext = aa.proxyInvoker.newInstance("javax.naming.InitialContext", null).getOutput();
         var ds = initialContext.lookup("java:/AA");
         conn = ds.getConnection();
 
-        var sStmt = conn.prepareStatement(sql);
-        var rSet = sStmt.executeQuery();
+        sStmt = conn.prepareStatement(sql);
+        rSet = sStmt.executeQuery();
 
         while (rSet.next()) {
             nThreadCount = rSet.getString("maxThreadCount");
         }
     } catch (vError) {
         logDebug("Runtime error occurred: " + vError);
-        if (conn) {
-            conn.close();
-        }
     }
-
-
-    if (conn) {
-        conn.close();
-    }
+	closeDBQueryObject(rSet, sStmt, conn);
 
     return nThreadCount;
 }
@@ -487,13 +476,15 @@ function getRefContactsBySqlusingGroup(ipRefContacts, ipGroupNumber) {
 
     var vError = '';
     var conn = null;
+	var sStmt = null;
+	var rSet = null;
     try {
         var initialContext = aa.proxyInvoker.newInstance("javax.naming.InitialContext", null).getOutput();
         var ds = initialContext.lookup("java:/AA");
         conn = ds.getConnection();
 
-        var sStmt = conn.prepareStatement(sql);
-        var rSet = sStmt.executeQuery();
+        sStmt = conn.prepareStatement(sql);
+        rSet = sStmt.executeQuery();
 
         while (rSet.next()) {
             var fvRefContactNumber = rSet.getString("G1_CONTACT_NBR");
@@ -516,13 +507,9 @@ function getRefContactsBySqlusingGroup(ipRefContacts, ipGroupNumber) {
         }
     } catch (vError) {
         logDebug("Runtime error occurred: " + vError);
-        if (conn) {
-            conn.close();
-        }
     }
-    if (conn) {
-        conn.close();
-    }
+	closeDBQueryObject(rSet, sStmt, conn);
+	
     return ipRefContacts;
 }
 
@@ -538,13 +525,15 @@ function getRefContactsBySqlusingGroupRange(ipRefContacts, ipFromGroupNumber, ip
 
     var vError = '';
     var conn = null;
+	var sStmt = null;
+	var rSet = null;
     try {
         var initialContext = aa.proxyInvoker.newInstance("javax.naming.InitialContext", null).getOutput();
         var ds = initialContext.lookup("java:/AA");
         conn = ds.getConnection();
 
-        var sStmt = conn.prepareStatement(sql);
-        var rSet = sStmt.executeQuery();
+        sStmt = conn.prepareStatement(sql);
+        rSet = sStmt.executeQuery();
 
         while (rSet.next()) {
             var fvRefContactNumber = rSet.getString("G1_CONTACT_NBR");
@@ -567,15 +556,9 @@ function getRefContactsBySqlusingGroupRange(ipRefContacts, ipFromGroupNumber, ip
         }
     } catch (vError) {
         logDebug("Runtime error occurred: " + vError);
-        if (conn) {
-            conn.close();
-        }
     }
+	closeDBQueryObject(rSet, sStmt, conn);
 
-
-    if (conn) {
-        conn.close();
-    }
     return ipRefContacts;
 }
 //Obsolete Function 
@@ -674,13 +657,15 @@ function updateRefContactsUdf(nRecStatus) {
 
     var vError = '';
     var conn = null;
+	var sStmt = null;
+	var rSet = null;
     try {
         var initialContext = aa.proxyInvoker.newInstance("javax.naming.InitialContext", null).getOutput();
         var ds = initialContext.lookup("java:/AA");
         conn = ds.getConnection();
 
-        var sStmt = conn.prepareStatement(sql);
-        var rSet = sStmt.executeQuery();
+        sStmt = conn.prepareStatement(sql);
+        rSet = sStmt.executeQuery();
 
         while (rSet.next()) {
             var fvRefContactNumber = rSet.getString("g1_contact_nbr");
@@ -692,15 +677,9 @@ function updateRefContactsUdf(nRecStatus) {
         }
     } catch (vError) {
         logDebug("Runtime error occurred: " + vError);
-        if (conn) {
-            conn.close();
-        }
     }
+	closeDBQueryObject(rSet, sStmt, conn);
 
-
-    if (conn) {
-        conn.close();
-    }
     logDebug('Done');
 
 }
@@ -708,24 +687,20 @@ function updateRefContactsUdf(nRecStatus) {
 function updateRefContactsUdf2(refNum, nRecStatus) {
     var vError = '';
     var conn = null
+	var sStmt1 = null;
+	var rret = null;
     try {
         var initialContext = aa.proxyInvoker.newInstance("javax.naming.InitialContext", null).getOutput();
         var ds = initialContext.lookup("java:/AA");
         conn = ds.getConnection();
 
         var usql = " Update G3CONTACT Set G1_UDF2 = " + nRecStatus + " Where g1_contact_nbr = " + refNum;
-        var sStmt1 = conn.prepareStatement(usql);
-        var rret = sStmt1.executeQuery();
+        sStmt1 = conn.prepareStatement(usql);
+        rret = sStmt1.executeQuery();
     } catch (vError) {
         logDebug("Runtime error occurred: " + vError);
-        if (conn) {
-            conn.close();
-        }
     }
+	closeDBQueryObject(rret, sStmt1, conn);
 
-
-    if (conn) {
-        conn.close();
-    }
     logDebug('Updated ' + refNum + ' With ' + nRecStatus);
 }
