@@ -888,7 +888,7 @@ function getAllFeeCodeByRuleFor_ANNUAL_DMP(ruleParams, feeSched) {
     }
 
     if (feeItemCodes.length) {
-        if (hasBaseDMP(rp.ActiveHoldingsInfo)) {
+        if (hasBaseDMP(rp.ActiveHoldingsInfo, rp.Year)) {
             if (rp.currDrawType == DRAW_INST) { feeItemCodes.push(new FeeCodeProp(ADMP_5_FREE, "000")); }
             if (rp.currDrawType == DRAW_FCFS) { feeItemCodes.push(new FeeCodeProp(ADMP_5_FREEF, "000")); }
         }
@@ -2780,7 +2780,7 @@ function hasSaleLicMilitaryDisable(recordType) {
     }
     return isExist;
 }
-function hasBaseDMP(activeHoldingsInfo) {
+function hasBaseDMP(activeHoldingsInfo, sYear) {
     var isExist = false;
     //Verify Recordtype required ActiveHolding Checking to display selection
     var validDmpRecArray = Array();
@@ -2795,8 +2795,9 @@ function hasBaseDMP(activeHoldingsInfo) {
         if (exists(activeHoldingsInfo[idx].RecordType, validDmpRecArray)) {
             var itemCapString = activeHoldingsInfo[idx].Tag_or_DocumentID;
             if (activeHoldingsInfo[idx].RecordType == AA05_DEER_MANAGEMENT_PERMIT) {
-                var isActiveDmp = ((dateDiff(new Date(), convertDate(activeHoldingsInfo[idx].ToDate))) > 0);
-                var seasonPeriod = GetDateRange(DEC_CONFIG, LICENSE_SEASON, this.Year);
+                //var isActiveDmp = ((dateDiff(new Date(), convertDate(activeHoldingsInfo[idx].ToDate))) > 0);
+                var isActiveDmp = true;
+                var seasonPeriod = GetDateRange(DEC_CONFIG, LICENSE_SEASON, sYear);
                 var diff = dateDiff(new Date(activeHoldingsInfo[idx].ToDate), seasonPeriod[1]);
                 isActiveDmp = isActiveDmp && (diff <= 0)
                 if (isActiveDmp) {
