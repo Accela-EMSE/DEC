@@ -149,12 +149,12 @@ function SetLTFullfillmentLogic() {
     var isValid = true;
     if (reportName == '') {
         showDebug = true;
-        logDebug("ReportName parameter is not blank. ");
+        logDebug("ReportName parameter is blank. ");
         isValid = false;
     }
     if (setPrefix == '') {
         showDebug = true;
-        logDebug("setPrefix parameter is not blank. ");
+        logDebug("setPrefix parameter is blank. ");
         isValid = false;
     }
     if (!isValid) {
@@ -170,6 +170,10 @@ function SetLTFullfillmentLogic() {
     //Set Status: Initialized, Pending, Completed
     var setResult;
     var id;
+	setPrefix += "_"; 
+	setPrefix += FromGroupNumber;
+	setPrefix += "_"; 
+	
     if (counter == 0 && setPrefix.length > 0) {
         setResult = createFullfillmentSet(setPrefix);
         id = setResult.setID;
