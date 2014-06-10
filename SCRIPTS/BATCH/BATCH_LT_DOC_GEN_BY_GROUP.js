@@ -171,7 +171,7 @@ function SetLTFullfillmentLogic() {
     var setResult;
     var id;
 	setPrefix += "_"; 
-	setPrefix += FromGroupNumber;
+	setPrefix += fromGroupNumber;
 	setPrefix += "_"; 
 	
     if (counter == 0 && setPrefix.length > 0) {
