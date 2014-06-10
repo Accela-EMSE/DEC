@@ -569,7 +569,12 @@ function CreateTags(tagsArray, ruleParams, decCode, fullfilmentCondition) {
                                 }
 
                                 AInfo["CODE.TAG_TYPE"] = tagProp.TagType;
-                                AInfo["CODE.NEW_DOC_CAP_ID"] = newLicId;
+                                var newDmpTagArray = new Array();
+                                if (AInfo["CODE.NEW_DOC_CAP_ID"]) {
+                                    newDmpTagArray = AInfo["CODE.NEW_DOC_CAP_ID"];
+                                }
+                                newDmpTagArray.push(newLicId);
+                                AInfo["CODE.NEW_DOC_CAP_ID"] = newDmpTagArray;
                                 setSalesItemASI(newLicId, tagProp.RecordType, decCode, 1, wmuResult, null);
 
                                 var newDecDocId = GenerateDocumentNumber(newLicId.getCustomID());
@@ -886,13 +891,22 @@ function issueSelectedSalesItems(frm) {
 
                     if (ats == AA05_DEER_MANAGEMENT_PERMIT) {
                         //connect tag to DMP record
-                        if (AInfo["CODE.NEW_DOC_CAP_ID"] != undefined && isNull(AInfo["CODE.NEW_DOC_CAP_ID"], '') != '') {
-                            var result = aa.cap.createAppHierarchy(newLicId, AInfo["CODE.NEW_DOC_CAP_ID"]);
-                            if (result.getSuccess()) {
-                                logDebug("Parent DMP successfully linked");
-                            }
-                            else {
-                                logDebug("Could not link DMP" + result.getErrorMessage());
+                        if (AInfo["CODE.NEW_DOC_CAP_ID"]) {
+                            var newDmpTagArray = AInfo["CODE.NEW_DOC_CAP_ID"];
+                            for (y in newDmpTagArray) {
+                                var newTagRecId = newDmpTagArray[y];
+                                if (newTagRecId != undefined && isNull(newTagRecId, '') != '') {
+                                    logDebug("---");
+                                    logDebug(newTagRecId)
+                                    logDebug("-----");
+                                    var result = aa.cap.createAppHierarchy(newLicId, newTagRecId);
+                                    if (result.getSuccess()) {
+                                        logDebug("Parent DMP successfully linked");
+                                    }
+                                    else {
+                                        logDebug("Could not link DMP" + result.getErrorMessage());
+                                    }
+                                }
                             }
                         }
 
