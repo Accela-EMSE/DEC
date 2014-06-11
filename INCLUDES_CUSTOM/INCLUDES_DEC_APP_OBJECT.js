@@ -2839,6 +2839,9 @@ function GetTagTypedesc(TagType) {
     return desc;
 }
 function getDrawTypeByPeriod(year, ofrm) {
+    if (year == "OTHERSALE")
+        return '';
+
     var now = new Date(jsDateToMMDDYYYY(new Date()));
     var retArray = GetDateRange("DEC_CONFIG", "DMP_INSTANT_LOTTERY_PERIOD", year)
 
