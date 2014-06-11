@@ -247,7 +247,7 @@ function verifyWmuConfiguration(year, wmu, drawtype, choiceNum, drawResult) {
                         var newAInfo = new Array();
                         newAInfo.push(new NewLicDef("Permit Target", prmitTarget));
                         newAInfo.push(new NewLicDef("Used Count", usedCount));
-                        if (drawtype != DRAW_INST) {
+                        if (drawtype != DRAW_INST && drawtype != DRAW_FCFS) {
                             if ((parseInt(prmitTarget, 10) - parseInt(usedCount, 10)) <= 0) {
                                 newAInfo.push(new NewLicDef("Status", "Closed"));
                                 newAInfo.push(new NewLicDef("Status Effecctive Date", formatMMDDYYYY(now)));
