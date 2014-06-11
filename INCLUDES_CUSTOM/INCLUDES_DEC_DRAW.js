@@ -238,8 +238,8 @@ function verifyWmuConfiguration(year, wmu, drawtype, choiceNum, drawResult) {
         logDebug("verifyWmuConfiguration: prmitTarget > 0 : " + (prmitTarget > 0));
         if (wmuStatus == 'Open') {
             if (StatusApplicableTo == "Both" || StatusApplicableTo == 'WMU Choice ' + drawResult.ChoiceNum) {
-                if (drawtype == DRAW_INST || (now >= openDt && now <= closeDt)) {
-                    if (drawtype == DRAW_INST || (parseInt(prmitTarget, 10) - parseInt(usedCount, 10)) > 0) {
+                if (drawtype == DRAW_INST || drawtype == DRAW_FCFS || (now >= openDt && now <= closeDt)) {
+                    if (drawtype == DRAW_INST || drawtype == DRAW_FCFS || (parseInt(prmitTarget, 10) - parseInt(usedCount, 10)) > 0) {
                         drawResult.Selected = true;
                         //prmitTarget--;
                         usedCount++;
@@ -255,8 +255,8 @@ function verifyWmuConfiguration(year, wmu, drawtype, choiceNum, drawResult) {
                         }
                         copyLicASI(cnfgCapId, newAInfo);
 
-                        if (drawtype != DRAW_INST) {
-                            if (prmitTarget <= 0) {
+                        if (drawtype != DRAW_INST && drawtype != DRAW_FCFS) {
+                            if ((parseInt(prmitTarget, 10) - parseInt(usedCount, 10)) <= 0) {
                                 updateWMUChoiceStatus(wmu, choiceNum, false, true);
                             }
                         }
