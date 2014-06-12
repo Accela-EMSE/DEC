@@ -32,6 +32,44 @@ function getCustomScriptText(vScriptName) {
     return emseScript.getScriptText() + "";
 }
 
+function getLastAnnaulFulfilmentRunDate() {
+    var svalue = lookup("DEC_CONFIG", "LIFETIME_LASTRUNDATE_BATCH_NUM");
+    var d = new Date()
+    if (isNull(svalue, '') != '' && isNull(svalue, '') != 'null') {
+        d = new Date(lookup("DEC_CONFIG", "LIFETIME_LASTRUNDATE_BATCH_NUM").toString());
+    }
+    return d;
+}
+
+function getStringOfDate(ipDate) {
+    logDebug(ipDate)
+    var fvMonth = ipDate.getMonth() + 1;
+    var fvDay = ipDate.getDate();
+    var fvYear = ipDate.getFullYear();
+    var fvString = fvMonth.toString() + "/" + fvDay.toString() + "/" + fvYear.toString();
+    return fvString;
+}
+
+function buildTagsforNextYear(vContactSeqNum) {
+    var fvLastRunDate = getLastAnnaulFulfilmentRunDate();
+    var sRunDate = getStringOfDate(fvLastRunDate);
+    var dToDate = new Date();
+    var diff = dateDiff(dToDate, new Date(sRunDate));
+    if (diff < 0) {
+        var currDate = new Date();
+        var seasonPeriod = GetDateRange(DEC_CONFIG, LICENSE_SEASON, fvLastRunDate.getFullYear());
+        diff = dateDiff(dToDate, seasonPeriod[0]);
+        if (diff > 0) {
+            var vEffday = seasonPeriod[0];
+            vEffday.setHours(0);
+            vEffday.setMinutes(0);
+            vEffday.setSeconds(0);
+
+            rebuildAllTagsforaRefContact(vContactSeqNum, vEffday);
+        }
+    }
+}
+
 var vToday = new Date();
 vToday.setHours(0);
 vToday.setMinutes(0);
@@ -61,6 +99,8 @@ var showMessage = false;
 if (contactType == "Individual" && !vRefContact.getDeceasedDate()) {
     updateDecID(vContactSeqNum);
     rebuildAllTagsforaRefContact(vContactSeqNum, vToday);
+    buildTagsforNextYear(vContactSeqNum);
+
 }
 if (contactType == "DEC Agent")
     callWebServiceForANS(vContactSeqNum);
