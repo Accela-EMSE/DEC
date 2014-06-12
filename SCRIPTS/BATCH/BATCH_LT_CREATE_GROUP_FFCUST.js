@@ -110,6 +110,7 @@ function mainProcess() {
         var maxGroupNum = getMaxGroupNumber();
 
         editLookup("DEC_CONFIG", "LIFETIME_LAST_BATCH_NUM", maxGroupNum);
+		editLookup("DEC_CONFIG", "LIFETIME_LASTRUNDATE_BATCH_NUM", getStringOfDate(new Date()));
 
         var bodyText = "Last Group Number is " + maxGroupNum
         aa.sendMail("noreply@accela.com", emailAddress, "", batchJobName + ": Last group number notification.", bodyText);
@@ -210,4 +211,12 @@ function getMaxGroupNumber() {
     closeDBQueryObject(rSet, sStmt, conn);
 
     return maggroupNum;
+}
+function getStringOfDate(ipDate) {
+	logDebug(ipDate)
+    var fvMonth = ipDate.getMonth() + 1;
+    var fvDay = ipDate.getDate();
+    var fvYear = ipDate.getFullYear();
+    var fvString = fvMonth.toString() + "/" + fvDay.toString() + "/" + fvYear.toString();
+    return fvString;
 }
