@@ -258,7 +258,7 @@ function SetLTFullfillmentLogic() {
             //}
             editCapConditionStatus("Fulfillment", ffConitions.Condition_YearlyLifetime, "Verified", "Not Applied", "", itemCapId);
             removeFullfillmentCapCondition(itemCapId, ffConitions.Condition_YearlyLifetime);
-            if (counter >= CONST_RECORDS_PER_SET && setPrefix.length > 0) {
+            if (counter > CONST_RECORDS_PER_SET && setPrefix.length > 0) {
                 if (!isPartialSuccess) {
                     updateSetStatusX(setResult.setID, setResult.setID, "FULLFILLMENT", "Successfully processed", "Ready For Fullfillment", "Ready For Fullfillment");
                     setResult = createFullfillmentSet(setPrefix);
