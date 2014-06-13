@@ -6983,10 +6983,10 @@ function closeLTlicenseAndCreateNew(itemCapId, parentCapId, custDob) {
 
         var expDate = oldLicObj.b1ExpDate;
         if (custDob != null) {
-            expDate = dateAddMonths(convertDate(custDob), (101 * 12));
+            expDate = dateAddMonths(convertDate(custDob), (100 * 12));
         }
         var newExpDate = expDate;
-        setLicExpirationDate(newLicId, null, newExpDate);
+		setLicExpirationDate(newLicId, null, newExpDate, null, true);
     }
     var newDecDocId = GenerateDocumentNumber(newLicId.getCustomID());
     updateDocumentNumber(newDecDocId, newLicId);
