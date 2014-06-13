@@ -1,3 +1,33 @@
+================ACA ONLOAD CARCASSTAG
+showMessage=false;
+showDebug=false;
+addTimeLog();
+aa.env.setValue("CapModel",cap);
+================ACA ONLOAD DMV REQ
+showMessage=false;
+showDebug=false;
+addTimeLog();
+aa.env.setValue("CapModel",cap);
+================ACA ONLOAD EXPRESS P1
+showMessage=false;
+showDebug=false;
+addTimeLog();
+aa.env.setValue("CapModel",cap);
+================ACA ONLOAD EXPRESS P2
+showMessage=false;
+showDebug=false;
+addTimeLog();
+aa.env.setValue("CapModel",cap);
+================ACA ONLOAD EXPRS ITEM
+showMessage=false;
+showDebug=false;
+addTimeLog();
+aa.env.setValue("CapModel",cap);
+================ACA ONLOAD FILL CNTCT
+showMessage=false;
+showDebug=false;
+addTimeLog();
+aa.env.setValue("CapModel",cap);
 ================ACA ONLOAD FILL FROM CONTACT
 showMessage=false;
 showDebug=false;
@@ -7,11 +37,188 @@ if (isCancel) {
 	showMessage=true;
 	comment(isCancel);
 	}
-================ACA ONSUBMIT AFTER CARCASSTAG
+
+addTimeLog();
+aa.env.setValue("CapModel",cap);
+================ACA ONLOAD FISH
+showMessage=false;
+showDebug=false;
+var isCancel =copyASIContactAppSpecificToRecordAppSpecific();
+if (isCancel) {
+	cancel = true;
+	showMessage=true;
+	comment(isCancel);
+	} else {
+	createActiveHoldingTable();
+	aa.env.setValue("CapModel",cap);
+	}
+================ACA ONLOAD HUNTING
+showMessage=false;
+showDebug=false;
+var isCancel =copyASIContactAppSpecificToRecordAppSpecific();
+if (isCancel) {
+	cancel = true;
+	showMessage=true;
+	comment(isCancel);
+	} else {
+	createActiveHoldingTable();
+	aa.env.setValue("CapModel",cap);
+	}
+================ACA ONLOAD HUNTINGFISHING
+showMessage=false;
+showDebug=false;
+var isCancel =copyASIContactAppSpecificToRecordAppSpecific();
+if (isCancel) {
+	cancel = true;
+	showMessage=true;
+	comment(isCancel);
+	} else {
+	createActiveHoldingTable();
+	aa.env.setValue("CapModel",cap);
+	}
+================ACA ONLOAD LIFETIME
+showMessage=false;
+showDebug=false;
+var isCancel =copyASIContactAppSpecificToRecordAppSpecific();
+if (isCancel) {
+	cancel = true;
+	showMessage=true;
+	comment(isCancel);
+	} else {
+	createActiveHoldingTable();
+	aa.env.setValue("CapModel",cap);
+	}
+================ACA ONLOAD OTHERSALES
+showMessage=false;
+showDebug=false;
+addTimeLog();
+aa.env.setValue("CapModel",cap);
+================ACA ONLOAD PRINTSTEP1
+showMessage=false;
+showDebug=false;
+addTimeLog();
+aa.env.setValue("CapModel",cap);
+================ACA ONLOAD REGISTER
+showMessage=false;
+showDebug=false;
+addTimeLog();
+aa.env.setValue("CapModel",cap);
+================ACA ONLOAD SALESELECT
+showMessage=false;
+showDebug=false;
+addTimeLog();
+aa.env.setValue("CapModel",cap);
+================ACA ONLOAD SPORTING
+showMessage=false;
+showDebug=false;
+var isCancel =copyASIContactAppSpecificToRecordAppSpecific();
+if (isCancel) {
+	cancel = true;
+	showMessage=true;
+	comment(isCancel);
+	} else {
+	createActiveHoldingTable();
+	aa.env.setValue("CapModel",cap);
+	}
+================ACA ONLOAD TBL UPDATE
+showMessage=false;
+showDebug=false;
+addTimeLog();
+aa.env.setValue("CapModel",cap);
+================ACA ONLOAD TRANSFER
+showMessage=false;
+showDebug=false;
+addTimeLog();
+aa.env.setValue("CapModel",cap);
+================ACA ONLOAD TRAP
+showMessage=false;
+showDebug=false;
+var isCancel =copyASIContactAppSpecificToRecordAppSpecific();
+if (isCancel) {
+	cancel = true;
+	showMessage=true;
+	comment(isCancel);
+	} else {
+	createActiveHoldingTable();
+	aa.env.setValue("CapModel",cap);
+	}
+================ACA ONLOAD TXFR P1
+showMessage=false;
+showDebug=false;
+addTimeLog();
+aa.env.setValue("CapModel",cap);
+================ACA ONLOAD UGRDCNT
+showMessage=false;
+showDebug=false;
+addTimeLog();
+aa.env.setValue("CapModel",cap);
+================ACA ONLOAD UGRDSTEP1
+showMessage=false;
+showDebug=false;
+addTimeLog();
+aa.env.setValue("CapModel",cap);
+================ACA ONLOAD UGRDSTEP2
+showMessage=false;
+showDebug=false;
+addTimeLog();
+aa.env.setValue("CapModel",cap);
+================ACA ONLOAD USER CREATION
+showMessage=false;
+showDebug=false;
+addTimeLog();
+aa.env.setValue("CapModel",cap);
+================ACA ONLOAD VDSLSTEP1
+showMessage=false;
+showDebug=false;
+addTimeLog();
+aa.env.setValue("CapModel",cap);
+================ACA ONLOAD VDSLSTEP2
+showMessage=false;
+showDebug=false;
+cancel = false;
+loadDocumentToVoid();
+addTimeLog();
+aa.env.setValue("CapModel",cap);
+================ACA ONLOAD VERIFYTAG
 showMessage=false;
 showDebug=false;
 cancel = false;
 loadHarvestInfo();
+addTimeLog();
+aa.env.setValue("CapModel",cap);
+================ACA ONSUBMIT AFTER CARCASSTAG
+showMessage=false;
+showDebug=false;
+addTimeLog();
+aa.env.setValue("CapModel",cap);
+================ACA ONSUBMIT AFTER DMV REQ
+showMessage=false;
+showDebug=false;
+addTimeLog();
+aa.env.setValue("CapModel",cap);
+================ACA ONSUBMIT AFTER EXPRESS P1
+showMessage=false;
+showDebug=false;
+addTimeLog();
+aa.env.setValue("CapModel",cap);
+================ACA ONSUBMIT AFTER EXPRESS P2
+showMessage=false;
+showDebug=false;
+addTimeLog();
+aa.env.setValue("CapModel",cap);
+================ACA ONSUBMIT AFTER EXPRS ITEM
+showMessage=false;
+showDebug=false;
+//branch("EMSE:GlobalFlags");
+frm = new form_OBJECT(GS2_SCRIPT, OPTZ_TYPE_SELECTED_FEES);
+SetExpressformForSelectedLics(frm);
+addFeeAndSetAsitForFeetxfer(frm);
+addTimeLog();
+aa.env.setValue("CapModel",cap);
+================ACA ONSUBMIT AFTER FILL CNTCT
+showMessage=false;
+showDebug=false;
+addTimeLog();
 aa.env.setValue("CapModel",cap);
 ================ACA ONSUBMIT AFTER LICYEAR
 showMessage=false;
@@ -25,12 +232,23 @@ showDebug=false;
 frm = new form_OBJECT(GS2_SCRIPT, OPTZ_TYPE_SELECTED_FEES);
 SetOtherformForSelectedLics(frm);
 addFeeAndSetAsitForFeetxfer(frm);
+addTimeLog();
 aa.env.setValue("CapModel",cap);
 ================ACA ONSUBMIT AFTER PRINTSELCT
 showMessage=false;
 showDebug=false;
 //branch("EMSE:GlobalFlags");
 addRepritFees();
+aa.env.setValue("CapModel",cap);
+================ACA ONSUBMIT AFTER PRINTSTEP1
+showMessage=false;
+showDebug=false;
+addTimeLog();
+aa.env.setValue("CapModel",cap);
+================ACA ONSUBMIT AFTER REGISTER
+showMessage=false;
+showDebug=false;
+addTimeLog();
 aa.env.setValue("CapModel",cap);
 ================ACA ONSUBMIT AFTER SALESSELECT
 showMessage=false;
@@ -39,6 +257,55 @@ showDebug=false;
 frm = new form_OBJECT(GS2_SCRIPT, OPTZ_TYPE_SELECTED_FEES);
 SetformForSelectedLics(frm);
 addFeeAndSetAsitForFeetxfer(frm);
+addTimeLog();
+aa.env.setValue("CapModel",cap);
+================ACA ONSUBMIT AFTER SEL FISH
+showMessage=false;
+showDebug=false;
+//branch("EMSE:GlobalFlags");
+frm = new form_OBJECT(GS2_SCRIPT, OPTZ_TYPE_SELECTED_FEES);
+SetExpressformForSelectedLics(frm);
+addFeeAndSetAsitForFeetxfer(frm);
+aa.env.setValue("CapModel",cap);
+================ACA ONSUBMIT AFTER SEL HF
+showMessage=false;
+showDebug=false;
+//branch("EMSE:GlobalFlags");
+frm = new form_OBJECT(GS2_SCRIPT, OPTZ_TYPE_SELECTED_FEES);
+SetExpressformForSelectedLics(frm);
+addFeeAndSetAsitForFeetxfer(frm);
+aa.env.setValue("CapModel",cap);
+================ACA ONSUBMIT AFTER SEL HUNT
+showMessage=false;
+showDebug=false;
+//branch("EMSE:GlobalFlags");
+frm = new form_OBJECT(GS2_SCRIPT, OPTZ_TYPE_SELECTED_FEES);
+SetExpressformForSelectedLics(frm);
+addFeeAndSetAsitForFeetxfer(frm);
+aa.env.setValue("CapModel",cap);
+================ACA ONSUBMIT AFTER SEL LT
+showMessage=false;
+showDebug=false;
+//branch("EMSE:GlobalFlags");
+frm = new form_OBJECT(GS2_SCRIPT, OPTZ_TYPE_SELECTED_FEES);
+SetExpressformForSelectedLics(frm);
+addFeeAndSetAsitForFeetxfer(frm);
+aa.env.setValue("CapModel",cap);
+================ACA ONSUBMIT AFTER SEL SPORT
+showMessage=false;
+showDebug=false;
+//branch("EMSE:GlobalFlags");
+frm = new form_OBJECT(GS2_SCRIPT, OPTZ_TYPE_SELECTED_FEES);
+SetExpressformForSelectedLics(frm);
+addFeeAndSetAsitForFeetxfer(frm);
+aa.env.setValue("CapModel",cap);
+================ACA ONSUBMIT AFTER SEL TRAP
+showMessage=false;
+showDebug=false;
+//branch("EMSE:GlobalFlags");
+frm = new form_OBJECT(GS2_SCRIPT, OPTZ_TYPE_SELECTED_FEES);
+SetExpressformForSelectedLics(frm);
+addFeeAndSetAsitForFeetxfer(frm);
 aa.env.setValue("CapModel",cap);
 ================ACA ONSUBMIT AFTER TBL UPDATE
 showMessage=false;
@@ -46,6 +313,19 @@ showDebug=false;
 //branch("EMSE:GlobalFlags");
 SetTableStringFields();
 createActiveHoldingTable();
+addTimeLog();
+aa.env.setValue("CapModel",cap);
+================ACA ONSUBMIT AFTER TRANSFER
+showMessage=false;
+showDebug=false;
+//branch("EMSE:GlobalFlags");
+addFeeAndSetAsitForTransferlifetime();
+addTimeLog();
+aa.env.setValue("CapModel",cap);
+================ACA ONSUBMIT AFTER TXFR P1
+showMessage=false;
+showDebug=false;
+addTimeLog();
 aa.env.setValue("CapModel",cap);
 ================ACA ONSUBMIT AFTER UGRDCNT
 showMessage=false;
@@ -59,17 +339,48 @@ if (isNotValidMsg  !='') {
 	} else {
 	aa.env.setValue("CapModel",cap);
 	}
+
+addTimeLog();
+aa.env.setValue("CapModel",cap);
 ================ACA ONSUBMIT AFTER UGRDSTEP2
 showMessage=false;
 showDebug=false;
 cancel = false;
 addFeeForUpgrade();
 aa.env.setValue("CapModel",cap);
+================ACA ONSUBMIT AFTER USER CREATION
+showMessage=false;
+showDebug=false;
+var resultMsg= createNewRegPublicUserFromContact();
+if (resultMsg!='') {
+	cancel = true;
+	showMessage=true;
+	comment(resultMsg);
+	} else {
+	cancel = true;
+	showMessage=true;
+	comment('Your account has been created successfully. Please click on Login above, and enter your new User Name and Password to make a purchase.');
+	}
+
+addTimeLog();
+aa.env.setValue("CapModel",cap);
+cancel = true;
 ================ACA ONSUBMIT AFTER VDSLSTEP1
 showMessage=false;
 showDebug=false;
 cancel = false;
 loadDocumentToVoid();
+addTimeLog();
+aa.env.setValue("CapModel",cap);
+================ACA ONSUBMIT AFTER VDSLSTEP2
+showMessage=false;
+showDebug=false;
+addTimeLog();
+aa.env.setValue("CapModel",cap);
+================ACA ONSUBMIT AFTER VERIFYTAG
+showMessage=false;
+showDebug=false;
+addTimeLog();
 aa.env.setValue("CapModel",cap);
 ================ACA ONSUBMIT BEFORE CARCASSTAG
 showMessage=false;
@@ -80,6 +391,59 @@ if (isNotValidMsg !='') {
 	showMessage=true;
 	comment(isNotValidMsg);
 	}
+
+addTimeLog();
+aa.env.setValue("CapModel",cap);
+================ACA ONSUBMIT BEFORE DMV REQ
+showMessage=false;
+showDebug=false;
+addTimeLog();
+aa.env.setValue("CapModel",cap);
+================ACA ONSUBMIT BEFORE EXPRESS P1
+showMessage=false;
+showDebug=false;
+addTimeLog();
+var isCancel =copyASIContactAppSpecificToRecordAppSpecific();
+if (isCancel) {
+	cancel = true;
+	showMessage=true;
+	comment(isCancel);
+	} else {
+	createActiveHoldingTable();
+	}
+
+aa.env.setValue("CapModel",cap);
+================ACA ONSUBMIT BEFORE EXPRESS P2
+showMessage=false;
+showDebug=false;
+addTimeLog();
+var isCancel =copyASIContactAppSpecificToRecordAppSpecific();
+if (isCancel) {
+	cancel = true;
+	showMessage=true;
+	comment(isCancel);
+	} else {
+	createActiveHoldingTable();
+	}
+
+aa.env.setValue("CapModel",cap);
+================ACA ONSUBMIT BEFORE EXPRS ITEM
+showMessage=false;
+showDebug=false;
+addTimeLog();
+var isNotValidMsg = isValidBuyExpressRecord('Step1');
+if (isNotValidMsg !='') {
+	cancel = true;
+	showMessage=true;
+	comment(isNotValidMsg);
+	}
+
+aa.env.setValue("CapModel",cap);
+================ACA ONSUBMIT BEFORE OTHERSALES
+showMessage=false;
+showDebug=false;
+addTimeLog();
+aa.env.setValue("CapModel",cap);
 ================ACA ONSUBMIT BEFORE PRINTSELCT
 showMessage=false;
 showDebug=false;
@@ -89,6 +453,9 @@ if (isNotValidMsg !='') {
 	showMessage=true;
 	comment(isNotValidMsg);
 	}
+
+addTimeLog();
+aa.env.setValue("CapModel",cap);
 ================ACA ONSUBMIT BEFORE PRINTSTEP1
 showMessage=false;
 showDebug=false;
@@ -98,10 +465,83 @@ if (isNotValidMsg !='') {
 	showMessage=true;
 	comment(isNotValidMsg);
 	}
+
+addTimeLog();
+aa.env.setValue("CapModel",cap);
+================ACA ONSUBMIT BEFORE REGISTER
+showMessage=false;
+showDebug=false;
+var resultPeopeArray= verifyNewRegistrion();
+aa.env.setValue("CapModel",cap);
+if (resultPeopeArray!='') {
+	cancel = true;
+	showMessage=true;
+	comment(resultPeopeArray);
+	}
+
+addTimeLog();
+aa.env.setValue("CapModel",cap);
 ================ACA ONSUBMIT BEFORE SALESELECT
 showMessage=false;
 showDebug=false;
 var isNotValidMsg = isValidBuyRecord('Step3');
+if (isNotValidMsg !='') {
+	cancel = true;
+	showMessage=true;
+	comment(isNotValidMsg);
+	}
+
+addTimeLog();
+aa.env.setValue("CapModel",cap);
+================ACA ONSUBMIT BEFORE SEL FISH
+showMessage=false;
+showDebug=false;
+var isNotValidMsg = isValidBuyExpressRecord('Step1');
+if (isNotValidMsg !='') {
+	cancel = true;
+	showMessage=true;
+	comment(isNotValidMsg);
+	}
+================ACA ONSUBMIT BEFORE SEL HF
+showMessage=false;
+showDebug=false;
+var isNotValidMsg = isValidBuyExpressRecord('Step1');
+if (isNotValidMsg !='') {
+	cancel = true;
+	showMessage=true;
+	comment(isNotValidMsg);
+	}
+================ACA ONSUBMIT BEFORE SEL HUNT
+showMessage=false;
+showDebug=false;
+var isNotValidMsg = isValidBuyExpressRecord('Step1');
+if (isNotValidMsg !='') {
+	cancel = true;
+	showMessage=true;
+	comment(isNotValidMsg);
+	}
+================ACA ONSUBMIT BEFORE SEL LT
+showMessage=false;
+showDebug=false;
+var isNotValidMsg = isValidBuyExpressRecord('Step1');
+if (isNotValidMsg !='') {
+	cancel = true;
+	showMessage=true;
+	comment(isNotValidMsg);
+	}
+================ACA ONSUBMIT BEFORE SEL SPORT
+showMessage=false;
+showDebug=false;
+var isNotValidMsg = isValidBuyExpressRecord('Step1');
+if (isNotValidMsg !='') {
+	cancel = true;
+	showMessage=true;
+	comment(isNotValidMsg);
+	}
+================ACA ONSUBMIT BEFORE SEL TRAP
+showMessage=false;
+showDebug=false;
+var isNotValidMsg = isValidBuyExpressRecord('Step1');
 if (isNotValidMsg !='') {
 	cancel = true;
 	showMessage=true;
@@ -116,6 +556,41 @@ if (isNotValidMsg !='') {
 	showMessage=true;
 	comment(isNotValidMsg);
 	}
+
+addTimeLog();
+aa.env.setValue("CapModel",cap);
+================ACA ONSUBMIT BEFORE TRANSFER
+showMessage=false;
+showDebug=false;
+var isNotValidMsg = isVerifyLifetimeLicense('Step1');
+if (isNotValidMsg !='') {
+	cancel = true;
+	showMessage=true;
+	comment(isNotValidMsg);
+	}
+
+addTimeLog();
+aa.env.setValue("CapModel",cap);
+================ACA ONSUBMIT BEFORE TXFR P1
+showMessage=false;
+showDebug=false;
+var isCancel =isVerifyTransferLifetimeLicense();
+if (isCancel) {
+	cancel = true;
+	showMessage=true;
+	comment(isCancel);
+	} else {
+	createActiveHoldingTableForTxfr();
+	createTransferLicTable();
+	}
+
+addTimeLog();
+aa.env.setValue("CapModel",cap);
+================ACA ONSUBMIT BEFORE UGRDCNT
+showMessage=false;
+showDebug=false;
+addTimeLog();
+aa.env.setValue("CapModel",cap);
 ================ACA ONSUBMIT BEFORE UGRDSTEP1
 showMessage=false;
 showDebug=false;
@@ -126,6 +601,9 @@ if (isNotValidMsg !='') {
 	showMessage=true;
 	comment(isNotValidMsg);
 	}
+
+addTimeLog();
+aa.env.setValue("CapModel",cap);
 ================ACA ONSUBMIT BEFORE UGRDSTEP2
 showMessage=false;
 showDebug=false;
@@ -136,6 +614,21 @@ if (isNotValidMsg !='') {
 	showMessage=true;
 	comment(isNotValidMsg);
 	}
+
+addTimeLog();
+aa.env.setValue("CapModel",cap);
+================ACA ONSUBMIT BEFORE USER CREATION
+showMessage=false;
+showDebug=false;
+var resultPublicUser= validatePublicUserCreation();
+if (resultPublicUser!='') {
+	cancel = true;
+	showMessage=true;
+	comment(resultPublicUser);
+	}
+
+addTimeLog();
+aa.env.setValue("CapModel",cap);
 ================ACA ONSUBMIT BEFORE VDSLSTEP1
 showMessage=false;
 showDebug=false;
@@ -145,6 +638,9 @@ if (isNotValidMsg !='') {
 	showMessage=true;
 	comment(isNotValidMsg);
 	}
+
+addTimeLog();
+aa.env.setValue("CapModel",cap);
 ================ACA ONSUBMIT BEFORE VDSLSTEP2
 showMessage=false;
 showDebug=false;
@@ -154,6 +650,9 @@ if (isNotValidMsg !='') {
 	showMessage=true;
 	comment(isNotValidMsg);
 	}
+
+addTimeLog();
+aa.env.setValue("CapModel",cap);
 ================ACA ONSUBMIT BEFORE VERIFYTAG
 showMessage=false;
 showDebug=false;
@@ -176,6 +675,9 @@ if (verifyDateMsg !='') {
 	showMessage=true;
 	comment(verifyDateMsg);
 	}
+
+addTimeLog();
+aa.env.setValue("CapModel",cap);
 ================ACA_ONSUBMIT_AFTER_LICENSENUMBERCHECK
 showMessage=true;
 showDebug= true;
@@ -189,9 +691,18 @@ prefix = "CMN";
 if (!publicUser) {
 	branch("EMSE_VariableBranching");
 	}
+================ASA:Licenses/Sales/Application/Legacy Load
+var contactsToUpdateArray = new Array();
+contactsToUpdateArray.push("Individual");
+createRefContactsFromCapContactsAndLink(capId,null,null,false,true,comparePeopleGeneric);
+createLegacyLoadLic();
 ================ASA:Licenses/WMU/Process/Create
 prefix = "WTUA";
 branch("EMSE_VariableBranching");
+================ASIUA:Licenses/*/*/*
+updateEffectiveDate();
+================ASIUA:Licenses/Annual/Hunting/Deer Management Permit
+processCorrection();
 ================ASIUA:Licenses/WMU/Process/Create
 processMutpleupdate();
 ================AdditionalInfoUpdateAfter
@@ -261,7 +772,64 @@ if (appTypeString == 'Licenses/Other/Sales/Application') {
 	SetOtherformForSelectedLics(frm);
 	}
 
+if (appTypeString == 'Licenses/Sales/Application/Fishing') {
+	SetExpressformForSelectedLics(frm);
+	}
+
+if (appTypeString == 'Licenses/Sales/Application/Hunting') {
+	SetExpressformForSelectedLics(frm);
+	}
+
+if (appTypeString == 'Licenses/Sales/Application/Trapping') {
+	SetExpressformForSelectedLics(frm);
+	}
+
+if (appTypeString == 'Licenses/Sales/Application/Lifetime') {
+	SetExpressformForSelectedLics(frm);
+	}
+
+if (appTypeString == 'Licenses/Sales/Application/Hunting and Fishing') {
+	SetExpressformForSelectedLics(frm);
+	}
+
+if (appTypeString == 'Licenses/Sales/Application/Sporting') {
+	SetExpressformForSelectedLics(frm);
+	}
+
+if (appTypeString == 'Licenses/Sales/Application/Marine Registry') {
+	SetExpressformForSelectedLics(frm);
+	}
+
+if (appTypeString == 'Licenses/Sales/Application/Fishing C') {
+	SetExpressformForSelectedLics(frm);
+	}
+
+if (appTypeString == 'Licenses/Sales/Application/Hunting C') {
+	SetExpressformForSelectedLics(frm);
+	}
+
+if (appTypeString == 'Licenses/Sales/Application/Trapping C') {
+	SetExpressformForSelectedLics(frm);
+	}
+
+if (appTypeString == 'Licenses/Sales/Application/Lifetime C') {
+	SetExpressformForSelectedLics(frm);
+	}
+
+if (appTypeString == 'Licenses/Sales/Application/Hunting and Fishing C') {
+	SetExpressformForSelectedLics(frm);
+	}
+
+if (appTypeString == 'Licenses/Sales/Application/Sporting C') {
+	SetExpressformForSelectedLics(frm);
+	}
+
+if (appTypeString == 'Licenses/Sales/Application/Marine Registry C') {
+	SetExpressformForSelectedLics(frm);
+	}
+
 issueSelectedSalesItems(frm);
+addTimeLog();
 ================CMN_MOVE_WKFLOW_AFTER_PAYMENT
 if (balanceDue == 0) {
 	closeTask ("Review", "Approved","","");
@@ -271,9 +839,12 @@ if (appMatch("Licenses/Other/Sportsmen/Profile")) {
 	processProfileUpdate();
 	}
 
-var contactsToUpdateArray = new Array();
-contactsToUpdateArray.push("Individual");
-createRefContactsFromCapContactsAndLink(capId,null,null,false,true,comparePeopleGeneric);
+if (isValidRecForCreateRef()) {
+	var contactsToUpdateArray = new Array();
+	contactsToUpdateArray.push("Individual");
+	createRefContactsFromCapContactsAndLink(capId,null,null,false,true,comparePeopleGeneric);
+	}
+
 if (appMatch("Licenses/Other/Sportsmen/Profile")) {
 	updateContacts();
 	}
@@ -281,27 +852,76 @@ if (appMatch("Licenses/Other/Sportsmen/Profile")) {
 showDebug = false;
 showMessage=false;
 branch ("CMN_CREATE_LICENSE");
+================CTRCA:Licenses/Customer/Registration/Application
+showDebug = false;
+showMessage=false;
+var resultMsg= createNewRegPublicUserFromContact();
+if (resultMsg!='') {
+	cancel = true;
+	showMessage=true;
+	comment(resultMsg);
+	}
+
+addTimeLog();
 ================CTRCA:Licenses/Other/Sales/Application
 showDebug = false;
 showMessage=false;
 branch ("CMN_CREATE_LICENSE");
 ================CTRCA:Licenses/Other/Sportsmen/DMV ID Request
 ctrcaForDMVRequest();
+addTimeLog();
 ================CTRCA:Licenses/Other/Sportsmen/Game Harvest
 prefix = "CMN";
 branch("EMSE_VariableBranching");
+addTimeLog();
+================CTRCA:Licenses/Sales/Application/Fishing
+showDebug = false;
+showMessage=false;
+branch ("CMN_CREATE_LICENSE");
+================CTRCA:Licenses/Sales/Application/Hunting
+showDebug = false;
+showMessage=false;
+branch ("CMN_CREATE_LICENSE");
+================CTRCA:Licenses/Sales/Application/Hunting and Fishing
+showDebug = false;
+showMessage=false;
+branch ("CMN_CREATE_LICENSE");
+================CTRCA:Licenses/Sales/Application/Lifetime
+showDebug = false;
+showMessage=false;
+branch ("CMN_CREATE_LICENSE");
+================CTRCA:Licenses/Sales/Application/Marine Registry
+showDebug = false;
+showMessage=false;
+branch ("CMN_CREATE_LICENSE");
+================CTRCA:Licenses/Sales/Application/Sporting
+showDebug = false;
+showMessage=false;
+branch ("CMN_CREATE_LICENSE");
+================CTRCA:Licenses/Sales/Application/Transfer
+showDebug = false;
+showMessage=false;
+transferLifetimeLicenses();
+addTimeLog();
+================CTRCA:Licenses/Sales/Application/Trapping
+showDebug = false;
+showMessage=false;
+branch ("CMN_CREATE_LICENSE");
 ================CTRCA:Licenses/Sales/Reprint/Documents
 showDebug = false;
 showMessage=false;
 ReprintDocuments();
+addTimeLog();
 ================CTRCA:Licenses/Sales/Upgrade/Lifetime
 showDebug = false;
 showMessage=false;
 upgradeLifetimeLic();
+addTimeLog();
 ================CTRCA:Licenses/Sales/Void/Documents
 showDebug = false;
 showMessage=false;
 VoidsSales();
+addTimeLog();
 ================ContactAddAfter
 prefix = "CAA";
 branch("EMSE_VariableBranching");
@@ -393,10 +1013,10 @@ if (exportDECACHdata) {
 if (exportDECACHdata) {
 	}
 
-if (http://170.123.132.84:80/NYSELS-DEC-ACHJOB/services/ANSFailureService?wsdl) {
+if (http://170.123.132.70:80/NYSELS-DEC-ACHJOB/services/ANSFailureService?wsdl) {
 	}
 
-if (http://170.123.132.84:80/NYSELS-DEC-ACHJOB/services/ANSService?wsdl) {
+if (http://170.123.132.70:80/NYSELS-DEC-ACHJOB/services/ANSService?wsdl) {
 	}
 
 if (createDailySplitFailure) {
@@ -408,7 +1028,7 @@ if (createDailysplit) {
 if (AccelaAdmin@Accela.com) {
 	}
 
-if (Venkatabalaji.Yadalla@nttdata.com;jimmy.batra@elicensing.ny.gov) {
+if (Venkatabalaji.Yadalla@nttdata.com;jimmy.batra@nttdata.com) {
 	}
 
 if (AccelaAdmin@Accela.com) {
@@ -417,67 +1037,67 @@ if (AccelaAdmin@Accela.com) {
 if (D:\\Accela\\av.biz\\ACH\\) {
 	}
 
-if (Venkatabalaji.Yadalla@nttdata.com;jimmy.batra@elicensing.ny.gov) {
+if (Venkatabalaji.Yadalla@nttdata.com;jimmy.batra@nttdata.com) {
 	}
 
 if (AccelaAdmin@Accela.com) {
 	}
 
-if (Venkatabalaji.Yadalla@nttdata.com;jimmy.batra@elicensing.ny.gov) {
+if (Venkatabalaji.Yadalla@nttdata.com;jimmy.batra@nttdata.com) {
 	}
 
-if (Venkatabalaji.Yadalla@nttdata.com;jimmy.batra@elicensing.ny.gov) {
+if (Venkatabalaji.Yadalla@nttdata.com;jimmy.batra@nttdata.com) {
 	}
 
-if (http://170.123.132.84:80/NYSELS-DEC-ACHJOB/services/DECACHManualService?wsdl) {
+if (http://170.123.132.70:80/NYSELS-DEC-ACHJOB/services/DECACHManualService?wsdl) {
 	}
 
-if (Venkatabalaji.Yadalla@nttdata.com;jimmy.batra@elicensing.ny.gov) {
+if (Venkatabalaji.Yadalla@nttdata.com;jimmy.batra@nttdata.com) {
 	}
 
-if (http://170.123.132.84:80/NYSELS-DEC-ACHJOB/services/DECACHService?wsdl) {
-	}
-
-if (AccelaAdmin@Accela.com) {
+if (http://170.123.132.70:80/NYSELS-DEC-ACHJOB/services/DECACHService?wsdl) {
 	}
 
 if (AccelaAdmin@Accela.com) {
 	}
 
-if (Venkatabalaji.Yadalla@nttdata.com;jimmy.batra@elicensing.ny.gov) {
+if (AccelaAdmin@Accela.com) {
 	}
 
-if (Venkatabalaji.Yadalla@nttdata.com;jimmy.batra@elicensing.ny.gov) {
+if (Venkatabalaji.Yadalla@nttdata.com;jimmy.batra@nttdata.com) {
 	}
 
-if (Venkatabalaji.Yadalla@nttdata.com;jimmy.batra@elicensing.ny.gov) {
+if (Venkatabalaji.Yadalla@nttdata.com;jimmy.batra@nttdata.com) {
 	}
 
-if (Venkatabalaji.Yadalla@nttdata.com;jimmy.batra@elicensing.ny.gov) {
+if (Venkatabalaji.Yadalla@nttdata.com;jimmy.batra@nttdata.com) {
 	}
 
-if (Venkatabalaji.Yadalla@nttdata.com;jimmy.batra@elicensing.ny.gov) {
+if (Venkatabalaji.Yadalla@nttdata.com;jimmy.batra@nttdata.com) {
 	}
 
-if (Venkatabalaji.Yadalla@nttdata.com;jimmy.batra@elicensing.ny.gov) {
+if (Venkatabalaji.Yadalla@nttdata.com;jimmy.batra@nttdata.com) {
 	}
 
-if (Venkatabalaji.Yadalla@nttdata.com;jimmy.batra@elicensing.ny.gov) {
+if (Venkatabalaji.Yadalla@nttdata.com;jimmy.batra@nttdata.com) {
 	}
 
-if (Venkatabalaji.Yadalla@nttdata.com;jimmy.batra@elicensing.ny.gov) {
+if (Venkatabalaji.Yadalla@nttdata.com;jimmy.batra@nttdata.com) {
+	}
+
+if (Venkatabalaji.Yadalla@nttdata.com;jimmy.batra@nttdata.com) {
 	}
 
 if (AccelaAdmin@Accela.com) {
 	}
 
-if (Venkatabalaji.Yadalla@nttdata.com;jimmy.batra@elicensing.ny.gov) {
+if (Venkatabalaji.Yadalla@nttdata.com;jimmy.batra@nttdata.com) {
 	}
 
 if (AccelaAdmin@Accela.com) {
 	}
 
-if (Venkatabalaji.Yadalla@nttdata.com;jimmy.batra@elicensing.ny.gov) {
+if (Venkatabalaji.Yadalla@nttdata.com;jimmy.batra@nttdata.com) {
 	}
 
 if (DEC DMV Fullfillment BatchJob has been triggered.) {
@@ -486,7 +1106,7 @@ if (DEC DMV Fullfillment BatchJob has been triggered.) {
 if (AccelaAdmin@Accela.com) {
 	}
 
-if (Venkatabalaji.Yadalla@nttdata.com;jimmy.batra@elicensing.ny.gov) {
+if (Venkatabalaji.Yadalla@nttdata.com;jimmy.batra@nttdata.com) {
 	}
 
 if (DEC_DMV) {
@@ -495,34 +1115,34 @@ if (DEC_DMV) {
 if (AccelaAdmin@Accela.com) {
 	}
 
-if (xxVenkatabalaji.Yadalla@eLicensing.ny.gov;xxnaveen.nallannagari@nttdata.com;xxlalitha.nekkanti@nttdata.com;xxRajasekhar.Mutyala@eLicensing.ny.gov;xxjimmy.batra@elicensing.ny.gov) {
+if (Venkatabalaji.Yadalla@nttdata.com;jimmy.batra@nttdata.com) {
 	}
 
 if (export) {
 	}
 
-if (http://170.123.132.84:80/NYSELS-DEC-BATCHJOB/services/DECDMVExportService?wsdl) {
+if (http://170.123.132.70:80/NYSELS-DEC-BATCHJOB/services/DECDMVExportService?wsdl) {
 	}
 
-if (http://170.123.132.84:80/NYSELS-DEC-BATCHJOB/services/DailyPrintingExportService?wsdl) {
+if (http://170.123.132.70:80/NYSELS-DEC-BATCHJOB/services/DailyPrintingExportService?wsdl) {
 	}
 
-if (http://170.123.132.84:80/NYSELS-DEC-ACHJOB/services/DailySplitFailureService?wsdl) {
+if (http://170.123.132.70:80/NYSELS-DEC-ACHJOB/services/DailySplitFailureService?wsdl) {
 	}
 
-if (http://170.123.132.84:80/NYSELS-DEC-ACHJOB/services/DailySplitService?wsdl) {
+if (http://170.123.132.70:80/NYSELS-DEC-ACHJOB/services/DailySplitService?wsdl) {
 	}
 
 if (AccelaAdmin@Accela.com) {
 	}
 
-if (Venkatabalaji.Yadalla@nttdata.com;jimmy.batra@elicensing.ny.gov) {
+if (Venkatabalaji.Yadalla@nttdata.com;jimmy.batra@nttdata.com) {
 	}
 
-if (Venkatabalaji.Yadalla@nttdata.com;jimmy.batra@elicensing.ny.gov) {
+if (Venkatabalaji.Yadalla@nttdata.com;jimmy.batra@nttdata.com) {
 	}
 
-if (http://170.123.132.84:80/NYSELS-DEC-BATCHJOB/services/IBPPrintingExportService?wsdl) {
+if (http://170.123.132.70:80/NYSELS-DEC-BATCHJOB/services/IBPPrintingExportService?wsdl) {
 	}
 
 if (Hunting Revocation) {
@@ -534,46 +1154,49 @@ if (Revocation) {
 if (AccelaAdmin@Accela.com) {
 	}
 
-if (Venkatabalaji.Yadalla@nttdata.com;jimmy.batra@elicensing.ny.gov) {
+if (Venkatabalaji.Yadalla@nttdata.com;jimmy.batra@nttdata.com) {
 	}
 
 if (AccelaAdmin@Accela.com) {
 	}
 
-if (Venkatabalaji.Yadalla@nttdata.com;jimmy.batra@elicensing.ny.gov) {
+if (Venkatabalaji.Yadalla@nttdata.com;jimmy.batra@nttdata.com) {
 	}
 
 if (loadLawEnforcementData) {
 	}
 
-if (http://170.123.132.84:80/NYSELS-DEC-BATCHJOB/services/LawEnforcementService?wsdl) {
+if (http://170.123.132.70:80/NYSELS-DEC-BATCHJOB/services/LawEnforcementService?wsdl) {
 	}
 
 if (AccelaAdmin@Accela.com) {
 	}
 
-if (Venkatabalaji.Yadalla@nttdata.com;jimmy.batra@elicensing.ny.gov) {
+if (Venkatabalaji.Yadalla@nttdata.com;jimmy.batra@nttdata.com) {
 	}
 
-if (Venkatabalaji.Yadalla@nttdata.com;jimmy.batra@elicensing.ny.gov) {
+if (Venkatabalaji.Yadalla@nttdata.com;jimmy.batra@nttdata.com) {
 	}
 
-if (http://170.123.132.84:80/NYSELS-DEC-BATCHJOB/services/LTPrintingExportService?wsdl) {
+if (http://170.123.132.70:80/NYSELS-DEC-BATCHJOB/services/LTPrintingExportService?wsdl) {
 	}
 
-if (AccelaAdmin@Accela.com) {
-	}
-
-if (Venkatabalaji.Yadalla@nttdata.com;jimmy.batra@elicensing.ny.gov) {
+if (Venkatabalaji.Yadalla@nttdata.com;xxvendorfiles@cds-global.com) {
 	}
 
 if (AccelaAdmin@Accela.com) {
 	}
 
-if (Venkatabalaji.Yadalla@nttdata.com;jimmy.batra@elicensing.ny.gov) {
+if (Venkatabalaji.Yadalla@nttdata.com;jimmy.batra@nttdata.com) {
 	}
 
-if (http://170.123.132.84:80/NYSELS-DEC-BATCHJOB/services/MagazineExportService?wsdl) {
+if (AccelaAdmin@Accela.com) {
+	}
+
+if (Venkatabalaji.Yadalla@nttdata.com;jimmy.batra@nttdata.com) {
+	}
+
+if (http://170.123.132.70:80/NYSELS-DEC-BATCHJOB/services/MagazineExportService?wsdl) {
 	}
 
 if (/app/jboss/Enterpriseplatform-6.0.0/jboss-eap-6.0/logs) {
@@ -585,19 +1208,19 @@ if (AccelaAdmin@Accela.com) {
 if (D:\\Accela\\av.biz\\ACH\\) {
 	}
 
-if (Venkatabalaji.Yadalla@nttdata.com;jimmy.batra@elicensing.ny.gov) {
+if (Venkatabalaji.Yadalla@nttdata.com;jimmy.batra@nttdata.com) {
 	}
 
 if (AccelaAdmin@Accela.com) {
 	}
 
-if (Venkatabalaji.Yadalla@nttdata.com;jimmy.batra@elicensing.ny.gov) {
+if (Venkatabalaji.Yadalla@nttdata.com;jimmy.batra@nttdata.com) {
 	}
 
-if (Venkatabalaji.Yadalla@nttdata.com;jimmy.batra@elicensing.ny.gov) {
+if (Venkatabalaji.Yadalla@nttdata.com;jimmy.batra@nttdata.com) {
 	}
 
-if (http://170.123.132.84:80/NYSELS-DEC-BATCHJOB/services/PreNoteExportService?wsdl) {
+if (http://170.123.132.70:80/NYSELS-DEC-BATCHJOB/services/PreNoteExportService?wsdl) {
 	}
 
 if (exportPrintData) {
@@ -621,16 +1244,16 @@ if (DECSFTP) {
 if (AccelaAdmin@Accela.com) {
 	}
 
-if (Venkatabalaji.Yadalla@nttdata.com;jimmy.batra@elicensing.ny.gov) {
+if (Venkatabalaji.Yadalla@nttdata.com;jimmy.batra@nttdata.com) {
 	}
 
 if (AccelaAdmin@Accela.com) {
 	}
 
-if (Venkatabalaji.Yadalla@nttdata.com;jimmy.batra@elicensing.ny.gov) {
+if (Venkatabalaji.Yadalla@nttdata.com;jimmy.batra@nttdata.com) {
 	}
 
-if (http://170.123.132.84:80/NYSELS-DEC-BATCHJOB/services/OTDAService?wsdl) {
+if (http://170.123.132.70:80/NYSELS-DEC-BATCHJOB/services/OTDAService?wsdl) {
 	}
 
 if (exportPreNoteData) {
@@ -676,6 +1299,9 @@ branch("EMSE_VariableBranching");
 ================REF_CONTACT_CREATION_RULES
 if (F) {
 	}
+================RegistrationSubmitAfter
+showDebug = 3;
+copyMailAddToContactForPU();
 ================RenewalInfoUpdateAfter
 prefix = "RIUA";
 branch("EMSE_VariableBranching");
