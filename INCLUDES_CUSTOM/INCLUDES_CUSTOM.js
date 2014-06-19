@@ -282,6 +282,15 @@ function GetWmuAsitTableArray(wmu1Result, wmu2Result) {
 
     return tempArray;
 }
+
+function copyLicASIInNewTrx(newCap, newAInfo) {
+    logDebug("ENTER: copyLicASIInNewTrx");
+	aa.batchJob.beginTransaction(10);   
+	copyLicASI(newCap, newAInfo);
+	aa.batchJob.commitTransaction();
+    logDebug("EXIT: copyLicASIInNewTrx");
+}
+
 function copyLicASI(newCap, newAInfo) {
     logDebug("ENTER: copyLicASI");
     var ignoreArr = new Array();
