@@ -283,14 +283,6 @@ function GetWmuAsitTableArray(wmu1Result, wmu2Result) {
     return tempArray;
 }
 
-function copyLicASIInNewTrx(newCap, newAInfo) {
-	logDebug("ENTER: copyLicASIInNewTrx");
-	aa.env.setValue("cap",newCap);
-	aa.env.setValue("info",newAInfo);
-	aa.runScriptInNewTransaction("COPYLICASI");
-    logDebug("EXIT: copyLicASIInNewTrx");
-}
-
 function copyLicASI(newCap, newAInfo) {
     logDebug("ENTER: copyLicASI");
     var ignoreArr = new Array();
@@ -311,10 +303,15 @@ function copyLicASI(newCap, newAInfo) {
             if (ignore)
                 continue;
         }
-        editAppSpecific(newAInfo[item].FieldName, newAInfo[item].Value, newCap);
+        //editAppSpecific(newAInfo[item].FieldName, newAInfo[item].Value, newCap);
+		aa.env.setValue("cap",newCap);
+		aa.env.setValue("item",newAInfo[item].FieldName);
+		aa.env.setValue("value",newAInfo[item].Value);
+		aa.runScriptInNewTransaction("COPYLICASI");
     }
     logDebug("EXIT: copyLicASI");
 }
+
 function updateContacts() {
     logDebug("ENTER: updateContacts");
     //logDebug("Elapsed Time: " + elapsed());
