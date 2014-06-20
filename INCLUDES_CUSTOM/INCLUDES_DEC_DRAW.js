@@ -253,7 +253,7 @@ function verifyWmuConfiguration(year, wmu, drawtype, choiceNum, drawResult) {
                                 newAInfo.push(new NewLicDef("Status Effecctive Date", formatMMDDYYYY(now)));
                             }
                         }
-                        copyLicASIInNewTrx(cnfgCapId, newAInfo);
+                        copyLicASI(cnfgCapId, newAInfo);
 
                         if (drawtype != DRAW_INST && drawtype != DRAW_FCFS) {
                             if ((parseInt(prmitTarget, 10) - parseInt(usedCount, 10)) <= 0) {
@@ -539,7 +539,7 @@ function createPreorder(year, drawtype) {
                 copyASIFields(srcCapId, newCapId);
 
                 newAInfo.push(new NewLicDef("License Year", year));
-                copyLicASIInNewTrx(newCapId, newAInfo);
+                copyLicASI(newCapId, newAInfo);
             } else {
                 newAInfo.push(new NewLicDef("License Year", year));
 
@@ -560,7 +560,7 @@ function createPreorder(year, drawtype) {
                 newAInfo.push(new NewLicDef("C15", 15));
                 newAInfo.push(new NewLicDef("C16", 16));
                 newAInfo.push(new NewLicDef("C17", 17));
-                copyLicASIInNewTrx(newCapId, newAInfo);
+                copyLicASI(newCapId, newAInfo);
             }
             var newCustomId = GenerateAltId(ats, year, "", drawtype);
             updateDocumentNumber(newCustomId, newCapId);
@@ -654,7 +654,7 @@ function createWmuConfiguration(year, wmu, drawtype) {
                     newAInfo.push(new NewLicDef("Status", srcAInfo["Status"] + ""));
                 }
 
-                copyLicASIInNewTrx(newCapId, newAInfo);
+                copyLicASI(newCapId, newAInfo);
 
                 if (drawtype == DRAW_IBP || drawtype == DRAW_FCFS) {
                     closeTaskForRec("Open", "Closed", "", "", "", srcCapId);
@@ -673,7 +673,7 @@ function createWmuConfiguration(year, wmu, drawtype) {
                 newAInfo.push(new NewLicDef("Status Applicable To", 'Both'));
                 newAInfo.push(new NewLicDef("Used Count", 0));
 
-                copyLicASIInNewTrx(newCapId, newAInfo);
+                copyLicASI(newCapId, newAInfo);
             }
             var newCustomId = GenerateAltId(ats, year, wmu, drawtype);
             updateDocumentNumber(newCustomId, newCapId);
@@ -717,7 +717,7 @@ function createWmuProbability(year, wmu, drawtype) {
 
                 newAInfo.push(new NewLicDef("Draw Type", drawtype));
                 newAInfo.push(new NewLicDef("License Year", year));
-                copyLicASIInNewTrx(newCapId, newAInfo);
+                copyLicASI(newCapId, newAInfo);
                 if (drawtype == DRAW_IBP || drawtype == DRAW_FCFS) {
                     closeTaskForRec("Open", "Closed", "", "", "", srcCapId);
                 }
@@ -743,7 +743,7 @@ function createWmuProbability(year, wmu, drawtype) {
                 newAInfo.push(new NewLicDef("C15", 1));
                 newAInfo.push(new NewLicDef("C16", 1));
                 newAInfo.push(new NewLicDef("C17", 1));
-                copyLicASIInNewTrx(newCapId, newAInfo);
+                copyLicASI(newCapId, newAInfo);
             }
             var newCustomId = GenerateAltId(ats, year, wmu, drawtype);
             updateDocumentNumber(newCustomId, newCapId);
@@ -919,7 +919,7 @@ function processMutpleupdate(year) {
                         if (AInfo[wmu] == "CHECKED") {
                             var searchCapId = GenerateAltId(AA_Configuration, year, wmu, drawtype);
                             var currCapId = getCapId(searchCapId);
-                            copyLicASIInNewTrx(currCapId, newAInfo);
+                            copyLicASI(currCapId, newAInfo);
                         }
                     }
                 }
@@ -951,7 +951,7 @@ function processCorrection() {
             newAInfo.push(new NewLicDef("WMU INFORMATION.Choice", dmpASITinfo["Choice Number"]));
             newAInfo.push(new NewLicDef("WMU INFORMATION.Draw Type", "CORRECTION"));
             useAppSpecificGroupName = true;
-            copyLicASIInNewTrx(newDmpCapId, newAInfo);
+            copyLicASI(newDmpCapId, newAInfo);
             useAppSpecificGroupName = false;
 
             verifyWmuConfigAfterCorrection(AInfo["Year"], dmpASITinfo["WMU"], dmpASITinfo["DRAW TYPE"], dmpASITinfo["Choice Number"], true);
@@ -975,7 +975,7 @@ function processCorrection() {
                 newAInfo.push(new NewLicDef("WMU INFORMATION.WMU", dmpASITinfo["WMU To Correct"]));
                 newAInfo.push(new NewLicDef("WMU INFORMATION.Draw Type", "CORRECTION"));
                 useAppSpecificGroupName = true;
-                copyLicASIInNewTrx(newDmpCapId, newAInfo);
+                copyLicASI(newDmpCapId, newAInfo);
                 useAppSpecificGroupName = false;
             } else {
                 newDmpCapId = createNewDmpTag(capId);
@@ -987,7 +987,7 @@ function processCorrection() {
                 newAInfo.push(new NewLicDef("WMU INFORMATION.Choice", dmpASITinfo["Choice Number"]));
                 newAInfo.push(new NewLicDef("WMU INFORMATION.Draw Type", "CORRECTION"));
                 useAppSpecificGroupName = true;
-                copyLicASIInNewTrx(newDmpCapId, newAInfo);
+                copyLicASI(newDmpCapId, newAInfo);
                 useAppSpecificGroupName = false;
             }
             if (newDmpCapId) {
@@ -1224,7 +1224,7 @@ function verifyWmuConfigAfterCorrection(year, wmu, drawtype, choiceNum, isIncrem
                 newAInfo.push(new NewLicDef("Status Effecctive Date", formatMMDDYYYY(now)));
             }
         }
-        copyLicASIInNewTrx(cnfgCapId, newAInfo);
+        copyLicASI(cnfgCapId, newAInfo);
 
         if (drawtype != DRAW_INST) {
             if (prmitTarget <= 0) {
