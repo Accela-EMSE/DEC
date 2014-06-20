@@ -284,10 +284,10 @@ function GetWmuAsitTableArray(wmu1Result, wmu2Result) {
 }
 
 function copyLicASIInNewTrx(newCap, newAInfo) {
-    logDebug("ENTER: copyLicASIInNewTrx");
-	aa.batchJob.beginTransaction(10);   
-	copyLicASI(newCap, newAInfo);
-	aa.batchJob.commitTransaction();
+	logDebug("ENTER: copyLicASIInNewTrx");
+	aa.env.setValue("cap",newCap);
+	aa.env.setValue("info",newAInfo);
+	aa.runScriptInNewTransaction("COPYLICASI");
     logDebug("EXIT: copyLicASIInNewTrx");
 }
 
