@@ -304,10 +304,13 @@ function copyLicASI(newCap, newAInfo) {
                 continue;
         }
         //editAppSpecific(newAInfo[item].FieldName, newAInfo[item].Value, newCap);
-		aa.env.setValue("cap",newCap);
-		aa.env.setValue("item",newAInfo[item].FieldName);
-		aa.env.setValue("value",newAInfo[item].Value);
-		aa.runScriptInNewTransaction("COPYLICASI");
+	var scriptName = "COPYLICASI";
+	var envParameters = aa.util.newHashMap();
+	envParameters.put("cap",newCap);
+	envParameters.put("item",newAInfo[item].FieldName);
+	envParameters.put("value",newAInfo[item].Value);
+	aa.runAsyncScript(scriptName, envParameters);
+	logDebug("Setting " + newCap.getCustomID() + " ASI field " + newAInfo[item].FieldName + " to " + newAInfo[item].Value);
     }
     logDebug("EXIT: copyLicASI");
 }
