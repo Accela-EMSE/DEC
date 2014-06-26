@@ -48,8 +48,10 @@ try {
         expression.setReturn(rowIndex, vMainCtrl);
 
         msg = "License Date cannot be after today's date";
-        vLicdt.message = diffDate(oToday.getValue(), vLicdt.value) > 0 ? msg : '';
-        expression.setReturn(rowIndex, vLicdt);
+        if (vLicdt.getValue()) {
+            vLicdt.message = diffDate(oToday.getValue(), vLicdt.getValue()) > 0 ? msg : '';
+            expression.setReturn(rowIndex, vLicdt);
+        }
     }
 }
 catch (err) {
