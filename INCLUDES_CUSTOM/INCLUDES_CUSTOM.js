@@ -7486,7 +7486,7 @@ function verifyNewRegistrion() {
     var refContactId = "";
 
     if ((driverLicNumber == "" || driverLicNumber == null) && (decid == "" || decid == null)) {
-        retmsg += "You have to either enter the combination of Date of Birth and Driver's License Number or Date of Birth and DECALS Customer Number to continue." + "<BR>";
+        retmsg += "You have to either enter the combination of Date of Birth and Driver's License Number or Date of Birth and DEC Customer ID # to continue." + "<BR>";
     } else {
 
         var resultCount = searchCustomerBySql(sdob, driverLicNumber, decid);
@@ -7516,7 +7516,7 @@ function verifyNewRegistrion() {
             editAppSpecific4ACA("Internal Decid", decalRefNumber);
         }
         if (resultCount.length > 1) {
-            retmsg += "Multiple match is found for the given information. Please enter your DECALS Customer Number." + "<BR>";
+            retmsg += "Multiple match is found for the given information. Please enter your DEC Customer ID #." + "<BR>";
         }
         if (retmsg != '') {
             retmsg += '<Br />'
@@ -7752,12 +7752,12 @@ function addTimeLog() {
     var nVisitIndex = getVisitIndex(sKey, sAction);
 
     var tableValueArray = {
-        "Key": sKey,
-        "Action": sAction,
+        "Key": sKey + "",
+        "Action": sAction + "",
         "Visit Index": nVisitIndex + "",
-        "DateTime Value": sDateTimeValue,
+        "DateTime Value": sDateTimeValue + "",
         "Numeric msec": nNumericMsec + "",
-        "controlString": controlString
+        "controlString": controlString + ""
     };
 
     //save the latest reprint log to ASIT.
