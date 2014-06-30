@@ -57,6 +57,8 @@ function getScriptText(vScriptName) {
 | END Includes
 /------------------------------------------------------------------------------------------------------*/
 
+try {
+
 if (documentOnly) {
     doStandardChoiceActions(controlString, false, 0);
     aa.env.setValue("ScriptReturnCode", "0");
@@ -166,6 +168,13 @@ if (feeSeqList.length) {
 | <===========END=Main=Loop================>
 /-----------------------------------------------------------------------------------------------------*/
 
+}
+
+catch(err) {
+	logDebug("ERROR: " + err.message + " In " + " Line " + err.lineNumber);
+    logDebug("Stack: " + err.stack);
+	}
+	
 if (debug.indexOf("**ERROR") > 0) {
     aa.env.setValue("ErrorCode", "1");
     aa.env.setValue("ErrorMessage", debug);
