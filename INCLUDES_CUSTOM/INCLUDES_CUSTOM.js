@@ -1727,7 +1727,7 @@ function editAppSpecific4ACA(itemName, itemValue) {
             while (iteFields.hasNext()) {
                 var field = iteFields.next();
                 if ((useAppSpecificGroupName && itemName.equals(field.getCheckboxType() + "." + field.getCheckboxDesc())) || itemName.equals(field.getCheckboxDesc())) {
-                    field.setChecklistComment(itemValue);
+                    field.setChecklistComment(itemValue + "");
                 }
             }
         }
@@ -7767,6 +7767,7 @@ function addTimeLog() {
         var newAsitArray = GetTimeLogAsitTableArray(tableValueArray);
 
         var asitModel = cap.getAppSpecificTableGroupModel();
+		
         var new_asit = addASITable4ACAPageFlow(asitModel, "TIME LOG", newAsitArray);
     }
     logDebug("EXIT: addTimeLog");
