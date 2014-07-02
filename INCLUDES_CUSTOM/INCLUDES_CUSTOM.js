@@ -6139,10 +6139,10 @@ function copyASIContactAppSpecificToRecordAppSpecific() {
         isCustProfileLooksGood = (isNull(custProfileToCheckArray[t], '') == '');
         if (isCustProfileLooksGood) {
             if (isNotValidToProceed) {
-                isNotValidToProceed += "Information is missing from customer profile. Please update customer profile.";
+                isNotValidToProceed += "Please update missing customer profile information. If you have selected express flows, you will need to select license purchase with profile updates.";
             }
             else {
-                isNotValidToProceed = "Information is missing from customer profile. Please update customer profile.";
+                isNotValidToProceed = "Please update missing customer profile information. If you have selected express flows, you will need to select license purchase with profile updates.";
             }
             break;
         }
