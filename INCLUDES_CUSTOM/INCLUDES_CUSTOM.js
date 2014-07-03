@@ -306,7 +306,7 @@ function copyLicASI(newCap, newAInfo) {
         //editAppSpecific(newAInfo[item].FieldName, newAInfo[item].Value, newCap);
 	var scriptName = "COPYLICASI";
 	var envParameters = aa.util.newHashMap();
-	envParameters.put("cap",newCap);
+	envParameters.put("cap",newCap.getCustomID());
 	envParameters.put("item",newAInfo[item].FieldName);
 	envParameters.put("value",newAInfo[item].Value);
 	aa.runAsyncScript(scriptName, envParameters);
