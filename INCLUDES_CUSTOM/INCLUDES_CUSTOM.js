@@ -5080,6 +5080,10 @@ function addASITable4ACAPageFlow(destinationTableGroupModel, tableName, tableVal
     if (arguments.length > 3)
         itemCap = arguments[3]; // use cap ID specified in args
 
+	if (!destinationTableGroupModel) {
+		return false;
+		}
+		
     var tam = destinationTableGroupModel.getTablesMap();
 	if (!tam) {
 		return false;
