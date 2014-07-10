@@ -2848,8 +2848,8 @@ function getDrawTypeByPeriod(year, ofrm) {
     var currDrawType = '';
 
     if (ofrm.isNYSDEC_HQ) {
-        var d = dateAdd(now, (CONST_INSTANT_GRACE_PERIOD + 1));
-        now = new Date(d)
+        var d = dateAdd(retArray[1], 10);
+        retArray[1] = new Date(d);
     }
     if ((now >= retArray[0] && now <= retArray[1])) {
         currDrawType = DRAW_INST;
