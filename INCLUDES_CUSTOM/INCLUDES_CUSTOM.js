@@ -303,18 +303,19 @@ function copyLicASI(newCap, newAInfo) {
             if (ignore)
                 continue;
         }
-    //editAppSpecific(newAInfo[item].FieldName, newAInfo[item].Value, newCap);
+    editAppSpecific(newAInfo[item].FieldName, newAInfo[item].Value, newCap);
 	
 	
 	// Re-enable for further testing
-	
+	/*
 	var scriptName = "COPYLICASI";
 	var envParameters = aa.util.newHashMap();
 	envParameters.put("cap",newCap.getCustomID());
 	envParameters.put("item",newAInfo[item].FieldName);
 	envParameters.put("value",newAInfo[item].Value);
 	aa.runAsyncScript(scriptName, envParameters);
-
+	*/
+	
 	logDebug("Setting " + newCap.getCustomID() + " ASI field " + newAInfo[item].FieldName + " to " + newAInfo[item].Value);
     }
     logDebug("EXIT: copyLicASI");
@@ -8422,4 +8423,123 @@ function loadASITables4ACA() {
 
 	}
 
+ function updateWMURecordWrapper(capidstring,boolIncrementUsedCount,boolIsClosed,boolUpdateEffectiveDate) {
+	eval(getScriptText("INCLUDES_EMSE_WS_GLOBALS")); 
+ 
+	if (APP_URL && APP_LOGIN && APP_PASS) {
+		//Authenticate with Accela Automation
+		var mySSOID = authenticateUser(aa.getServiceProviderCode(),SOAP_AUTH,SOAP_SIGNON, APP_LOGIN, APP_PASS,"", APP_URL);
+		logDebug("sso id is " + mySSOID);
+		if (mySSOID) {
+		var emseResponse = updateWMURecord(aa.getServiceProviderCode(),APP_URL,SOAP_TRIGGER,APP_LOGIN,mySSOID,"UPDATE_WMU_RECORD_ASYNC",capidstring,boolIncrementUsedCount,boolIsClosed,boolUpdateEffectiveDate);
+		logDebug("emse response is " + emseResponse);
+		}
+	}
+	else {
+	emseResponse = "ERROR: INTERFACE:CONFIGS,AUTH_BIZ_SERVER_INFO not set up correctly with biz server url, username and password";
+	}
+	
+	return emseResponse;
+}
+
+function updateWMURecord(agency,url,SOAP_TRIGGER,user,ssoid,script,capidstring,boolIncrementUsedCount,boolIsClosed,boolUpdateEffectiveDate){
+ 	var svcURL = url + "av-biz-ws-0.9/services/EMSEService"; //the Govxml Servlet 
+ 	var soapTrigger = SOAP_TRIGGER.toString();
+ 	var httpResp = null;
+ 	try{
+ 		 		
+ 		//create our SOAP Envelope
+ 		soapTrigger = soapTrigger.replace("$$AGENCY$$",agency.toUpperCase());
+ 		soapTrigger = soapTrigger.replace("$$USERID$$",user.toUpperCase());
+ 		soapTrigger = soapTrigger.replace("$$SSOID$$",ssoid);
+ 		soapTrigger = soapTrigger.replace("$$SCRIPT$$",script);
+ 		soapTrigger = soapTrigger.replace("$$KEY1$$","capidstring");
+ 		soapTrigger = soapTrigger.replace("$$VALUE1$$",capidstring);
+ 		soapTrigger = soapTrigger.replace("$$KEY2$$","boolIncrementUsedCount");
+ 		soapTrigger = soapTrigger.replace("$$VALUE2$$",boolIncrementUsedCount);
+ 		soapTrigger = soapTrigger.replace("$$KEY3$$","boolIsClosed");
+ 		soapTrigger = soapTrigger.replace("$$VALUE3$$",boolIsClosed);
+ 		soapTrigger = soapTrigger.replace("$$KEY4$$","boolUpdateEffectiveDate");
+ 		soapTrigger = soapTrigger.replace("$$VALUE4$$",boolUpdateEffectiveDate);
+ 		
+ 		logDebug(soapTrigger);
+ 		//Make our web service call
+		httpResp = aa.util.httpPostToSoapWebService(svcURL,soapTrigger,null,null,"").getOutput();
+		return(httpResp);	
+		
+ 	}
+ 	catch(err){
+		//Catch any errors
+		logDebug("error in triggerScript : " + err);
+		httpResp = null;
+	}
+	return httpResp;
+ }
+
+	
+function authenticateUser(agency, SOAP_AUTH,SOAP_SIGNON, userid, password, ssoid, url){
+	var httpResp = null; //our response string
+	var ssoUrl = url + "av-biz-ws-0.9/services/SSOService";
+	var soapAuth = SOAP_AUTH.toString();
+	var soapSignOn = SOAP_SIGNON.toString();
+	
+	//encapsulate our actions in a try catch
+	try{
+		if(ssoid != null && ssoid != ""){ //Check if user already has ssoid, if ssoid was provided then authentiate first to see if still valid
+			soapAuth = soapAuth.replace("$$USERID$$",userid);
+			soapAuth = soapAuth.replace("$$SSOID$$",ssoid);
+			
+			httpResp = aa.util.httpPostToSoapWebService(ssoUrl,soapAuth,null,null,"").getOutput();
+			
+			//Check we have our envelope
+			if(httpResp != null && httpResp != ""){
+				//Remove XML header so we can use XML Object parser
+				httpResp = httpResp.replace('<?xml version="1.0" encoding="utf-8"?>',"");
+				
+				//Declare Namespaces and popualte our XML Object
+				var soap = new Namespace("http://schemas.xmlsoap.org/soap/envelope/");
+				var ns1 = new Namespace("http://service.ws.accela.com");
+				eval("var oXML = " + httpResp.toString() + ";"); //Eval it as XML
+				
+				//Get our SSOID from the reponse
+				ssoid = oXML.soap::Body.ns1::authenticateResponse.authenticateReturn + "";
+			}
+			else{
+				ssoid = null;
+			}
+		}
+		if(ssoid == null || ssoid == ""){ //Check to see if user is invalid, if so then try to sign on			
+			soapSignOn = soapSignOn.replace("$$AGENCY$$",agency);
+			soapSignOn = soapSignOn.replace("$$USERID$$",userid);
+			soapSignOn = soapSignOn.replace("$$PASSWORD$$",password);
+			
+			//Make our web service call
+			httpResp = aa.util.httpPostToSoapWebService(ssoUrl,soapSignOn,null,null,"").getOutput();
+			
+			//Check we have our envelope
+			if(httpResp != null && httpResp != ""){
+				//Remove XML header so we can use XML Object parser
+				httpResp = httpResp.replace('<?xml version="1.0" encoding="utf-8"?>',"");
+				
+				//Declare Namespaces and popualte our XML Object
+				var soap = new Namespace("http://schemas.xmlsoap.org/soap/envelope/");
+				var ns1 = new Namespace("http://service.ws.accela.com");
+				eval("var oXML = " + httpResp.toString() + ";"); //Eval it as XML
+				
+				//Get our SSOID from the reponse
+				ssoid = oXML.soap::Body.ns1::signonResponse.signonReturn + "";
+			}
+			else{
+				ssoid = null;
+			}
+		}		
+	}
+	catch(err){
+		//Catch any errors
+		logDebug("error in authenticateUser : " + err);
+		ssoid = null;
+	}
+	return ssoid;
+}
+	
  
