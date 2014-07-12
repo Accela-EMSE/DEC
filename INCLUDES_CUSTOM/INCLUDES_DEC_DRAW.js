@@ -245,10 +245,7 @@ function verifyWmuConfiguration(year, wmu, drawtype, choiceNum, drawResult) {
                         usedCount++;
                         //Update Configuraion
 						
-						// using async code
-						/*
-                        var newAInfo = new Array();
-                        newAInfo.push(new NewLicDef("Permit Target", prmitTarget));
+						var newAInfo = new Array();
                         newAInfo.push(new NewLicDef("Used Count", usedCount));
                         if (drawtype != DRAW_INST && drawtype != DRAW_FCFS) {
                             if ((parseInt(prmitTarget, 10) - parseInt(usedCount, 10)) <= 0) {
@@ -257,8 +254,9 @@ function verifyWmuConfiguration(year, wmu, drawtype, choiceNum, drawResult) {
                             }
                         }
                         copyLicASI(cnfgCapId, newAInfo);
-						*/
 						
+
+						/*
 						// async code.   will increment the asi field by one, based on the current value.
 						
                         if (drawtype != DRAW_INST && drawtype != DRAW_FCFS) {
@@ -269,7 +267,8 @@ function verifyWmuConfiguration(year, wmu, drawtype, choiceNum, drawResult) {
 						else {
 							logDebug("updateWMURecordWrapper : " + updateWMURecordWrapper(cnfgCapId.getCustomID(),"YES","NO","NO"));
 							}
-							
+						
+						*/
                         if (drawtype != DRAW_INST && drawtype != DRAW_FCFS) {
                             if ((parseInt(prmitTarget, 10) - parseInt(usedCount, 10)) <= 0) {
                                 updateWMUChoiceStatus(wmu, choiceNum, false, true);
@@ -1231,8 +1230,7 @@ function verifyWmuConfigAfterCorrection(year, wmu, drawtype, choiceNum, isIncrem
             usedCount--;
         }
 		
-		/*
-		// using async code below
+		
         //Update Configuraion
         var newAInfo = new Array();
         newAInfo.push(new NewLicDef("Used Count", usedCount));
@@ -1243,9 +1241,11 @@ function verifyWmuConfigAfterCorrection(year, wmu, drawtype, choiceNum, isIncrem
             }
         }
         copyLicASI(cnfgCapId, newAInfo);
-		*/
+		
 		
 		// async code.   will increment the asi field by one, based on the current value.
+		
+		/* //disable async code
 		
 		if (drawtype != DRAW_INST) {
             if ((parseInt(prmitTarget, 10) - parseInt(usedCount, 10)) <= 0) {
@@ -1255,6 +1255,8 @@ function verifyWmuConfigAfterCorrection(year, wmu, drawtype, choiceNum, isIncrem
 		else {
 			logDebug("updateWMURecordWrapper : " + updateWMURecordWrapper(cnfgCapId.getCustomID(),"YES","NO","NO"));
 			}
+		
+		*/
 		
         if (drawtype != DRAW_INST) {
             if (prmitTarget <= 0) {
