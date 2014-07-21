@@ -1,6 +1,9 @@
-/*
- * GLOBAL XML VARIABLES
- */
+/*------------------------------------------------------------------------------------------------------/
+| Program : INCLUDES_EMSE_WS_GLOBAL.js
+| Event   : N/A
+|
+| Usage   : SOAP calls and authentication for callbacks to EMSE web service (async) 
+/------------------------------------------------------------------------------------------------------*/
 
 //Base URL for application server, needs to be updated when environment changes
 var authdata = lookup("INTERFACE:CONFIGS","AUTH_BIZ_SERVER_INFO").split("|");
