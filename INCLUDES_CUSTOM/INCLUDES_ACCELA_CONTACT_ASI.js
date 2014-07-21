@@ -355,6 +355,12 @@ function getTemplateValueByTableArrays(templateModel) {
     logDebug("ENTER: getTemplateValueByTableArrays");
 
     var gArray = new Array();
+	
+	// Jira NYELS-44461
+	if (!templateModel) {
+		return gArray
+		}
+		
     var templateGroups = templateModel.getTemplateTables();
     var subGroups = templateGroups.get(0).getSubgroups();
     for (var subGroupIndex = 0; subGroupIndex < subGroups.size(); subGroupIndex++) {
