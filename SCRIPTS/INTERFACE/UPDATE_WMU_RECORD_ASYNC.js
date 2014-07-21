@@ -1,3 +1,10 @@
+/*------------------------------------------------------------------------------------------------------/
+| Program : UPDATE_WMU_RECORD_ASYNC.js
+| Event   : N/A
+|
+| Usage   : Asynchronously update the WMU record using EMSE web services to avoid row locking in the database
+/------------------------------------------------------------------------------------------------------*/
+
 var capidstring = aa.env.getValue("capidstring");
 var boolIncrementUsedCount = ""+aa.env.getValue("boolIncrementUsedCount");
 var boolIsClosed = "" + aa.env.getValue("boolIsClosed");
