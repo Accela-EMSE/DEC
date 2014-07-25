@@ -1614,6 +1614,64 @@ function copyContactAppSpecificToRecordAppSpecific() {
                 }
             }
         }
+        if (pmcal) {
+            var addressErrorCount = 0;
+            var countyValidationSuccessful = false;
+            var addresses = pmcal.toArray();
+            contactAddressModelArr = aa.util.newArrayList();            
+            if (addresses) {
+                for(var y in addresses){
+                    var thisAddr = addresses[y];
+                    var countyASI = AInfo["County"];
+                    var addrType = thisAddr.getAddressType();                    
+                    var county = thisAddr.getAddressLine3();
+                    var stateValue = thisAddr.getState();
+                    var isNyState = ("NY" == thisAddr.getState());
+                    if (stateValue != null && stateValue != "") {                        
+                        if (stateValue == "NY" && (county.equalsIgnoreCase("Albany") || county.equalsIgnoreCase("Allegany") || county.equalsIgnoreCase("Bronx") || county.equalsIgnoreCase("Broome") || 
+                            county.equalsIgnoreCase("Cattaraugus") || county.equalsIgnoreCase("Cayuga") || county.equalsIgnoreCase("Chautauqua") || county.equalsIgnoreCase("Chemung") || county.equalsIgnoreCase("Chenango") || county.equalsIgnoreCase("Clinton") || 
+                            county.equalsIgnoreCase("Columbia") || county.equalsIgnoreCase("Cortland") || county.equalsIgnoreCase("Delaware") || county.equalsIgnoreCase("Dutchess") || county.equalsIgnoreCase("Erie") || county.equalsIgnoreCase("Essex") || 
+                            county.equalsIgnoreCase("Franklin") || county.equalsIgnoreCase("Fulton") || county.equalsIgnoreCase("Genessee") || county.equalsIgnoreCase("Greene") || county.equalsIgnoreCase("Hamilton") || county.equalsIgnoreCase("Herkimer") || 
+                            county.equalsIgnoreCase("Jefferson") || county.equalsIgnoreCase("Kings") || county.equalsIgnoreCase("Lewis") || county.equalsIgnoreCase("Livingston") || county.equalsIgnoreCase("Madison") || county.equalsIgnoreCase("Monroe") ||
+                            county.equalsIgnoreCase("Montgomery") || county.equalsIgnoreCase("Nassau") || county.equalsIgnoreCase("New York") || county.equalsIgnoreCase("Niagara") || county.equalsIgnoreCase("Oneida") || county.equalsIgnoreCase("Onondaga") || 
+                            county.equalsIgnoreCase("Ontario") || county.equalsIgnoreCase("Orange") || county.equalsIgnoreCase("Orleans") || county.equalsIgnoreCase("Oswego") || county.equalsIgnoreCase("Otsego") || county.equalsIgnoreCase("Putnam") || county.equalsIgnoreCase("Queens") || 
+                            county.equalsIgnoreCase("Rensselaer") || county.equalsIgnoreCase("Richmond") || county.equalsIgnoreCase("Rockland") || county.equalsIgnoreCase("Saratoga") || county.equalsIgnoreCase("Schenectady") || county.equalsIgnoreCase("Schoharie") ||
+                            county.equalsIgnoreCase("Schuyler") || county.equalsIgnoreCase("Seneca") || county.equalsIgnoreCase("St. Lawrence") || county.equalsIgnoreCase("Steuben") || county.equalsIgnoreCase("Suffolk") || county.equalsIgnoreCase("Sullivan") || 
+                            county.equalsIgnoreCase("Tioga") || county.equalsIgnoreCase("Tompkins") || county.equalsIgnoreCase("Ulster") || county.equalsIgnoreCase("Warren") || county.equalsIgnoreCase("Washington") || county.equalsIgnoreCase("Wayne") || county.equalsIgnoreCase("Westchester") || 
+                            county.equalsIgnoreCase("Wyoming") || county.equalsIgnoreCase("Yates")) && (countyASI == null || countyASI == "")) {                            
+                                countyValidationSuccessful = false;                            
+                        }else{
+                            if (stateValue == "NY" && (countyASI == null || countyASI == "")) {
+                                addressErrorCount ++;
+                                if (addressErrorCount == 1) {
+                                    if (county != "" && county != null) {
+                                        isNotValidToProceed = "Please select a valid County of Residence for New York State address from the Drop Down below. " + county + " is not a valid County.";
+                                    }else{
+                                        isNotValidToProceed = "Please select a valid County of Residence for New York State address from the Drop Down below.";
+                                    }
+                                }
+                                if (addressErrorCount == 2) {
+                                    if (county != "" && county != null) {
+                                        isNotValidToProceed = "Please select a valid County of Residence for New York State address from the Drop Down below.";
+                                    }else{
+                                        isNotValidToProceed = "Please select a valid County of Residence for New York State address from the Drop Down below.";
+                                    }
+                                }
+                            }else{
+                                if (isNyState) {
+                                    countyValidationSuccessful = true;
+                                    thisAddr.setAddressLine3(countyASI);                                                             
+                                }                                
+                            }
+                        }
+                        contactAddressModelArr.add(thisAddr);                    
+                    }
+                }
+                if (countyValidationSuccessful) {
+                    capContact.getPeople().setContactAddressList(contactAddressModelArr);
+                }
+            }
+        }
     }
 
     logDebug("EXIT: copyContactAppSpecificToRecordAppSpecific");
@@ -6154,10 +6212,10 @@ function copyASIContactAppSpecificToRecordAppSpecific() {
         isCustProfileLooksGood = (isNull(custProfileToCheckArray[t], '') == '');
         if (isCustProfileLooksGood) {
             if (isNotValidToProceed) {
-                isNotValidToProceed += "Please update missing customer profile information. If you have selected express flows, you will need to select license purchase with profile updates.";
+                isNotValidToProceed += "Please update missing customer profile information. If you have selected express flows and logged in as an individual customer, you will need to log off and log in back and select license purchase with profile updates (For Agents- please select locate customer option)";
             }
             else {
-                isNotValidToProceed = "Please update missing customer profile information. If you have selected express flows, you will need to select license purchase with profile updates.";
+                isNotValidToProceed = "Please update missing customer profile information. If you have selected express flows and logged in as an individual customer, you will need to log off and log in back and select license purchase with profile updates (For Agents- please select locate customer option)";
             }
             break;
         }
