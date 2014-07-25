@@ -2523,6 +2523,8 @@ function GetDocsToVoidSale(peopleSequenceNumber) {
         for (var ccp in allContactCaps) {
             var itemCapId = allContactCaps[ccp];
             var itemCap = aa.cap.getCap(itemCapId).getOutput();
+			// Jira 51337
+			if (!itemCap) continue;
             appTypeString = itemCap.getCapType().toString();
             var appRec = new ACTIVE_ITEM(itemCapId, itemCap, appTypeString);
             if (appRec.isOpenToday()) {
@@ -2532,6 +2534,8 @@ function GetDocsToVoidSale(peopleSequenceNumber) {
                     for (y in capArray) {
                         var childCapId = capArray[y];
                         var itemCap = aa.cap.getCap(childCapId).getOutput();
+						// Jira 51337
+						if (!itemCap) continue;
                         appTypeString = itemCap.getCapType().toString();
                         var ata = appTypeString.split("/");
 
