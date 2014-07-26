@@ -253,10 +253,8 @@ function verifyWmuConfiguration(year, wmu, drawtype, choiceNum, drawResult) {
                                 newAInfo.push(new NewLicDef("Status Effecctive Date", formatMMDDYYYY(now)));
                             }
                         }
-                        copyLicASI(cnfgCapId, newAInfo);
-						
-
-						/*
+                        
+						//copyLicASI(cnfgCapId, newAInfo);
 						// async code.   will increment the asi field by one, based on the current value.
 						
                         if (drawtype != DRAW_INST && drawtype != DRAW_FCFS) {
@@ -268,7 +266,6 @@ function verifyWmuConfiguration(year, wmu, drawtype, choiceNum, drawResult) {
 							logDebug("updateWMURecordWrapper : " + updateWMURecordWrapper(cnfgCapId.getCustomID(),"YES","NO","NO"));
 							}
 						
-						*/
                         if (drawtype != DRAW_INST && drawtype != DRAW_FCFS) {
                             if ((parseInt(prmitTarget, 10) - parseInt(usedCount, 10)) <= 0) {
                                 updateWMUChoiceStatus(wmu, choiceNum, false, true);
@@ -1240,13 +1237,11 @@ function verifyWmuConfigAfterCorrection(year, wmu, drawtype, choiceNum, isIncrem
                 newAInfo.push(new NewLicDef("Status Effecctive Date", formatMMDDYYYY(now)));
             }
         }
-        copyLicASI(cnfgCapId, newAInfo);
-		
-		
+        
+		//copyLicASI(cnfgCapId, newAInfo);
 		// async code.   will increment the asi field by one, based on the current value.
 		
-		/* //disable async code
-		
+			
 		if (drawtype != DRAW_INST) {
             if ((parseInt(prmitTarget, 10) - parseInt(usedCount, 10)) <= 0) {
 				logDebug("updateWMURecordWrapper : " + updateWMURecordWrapper(cnfgCapId.getCustomID(),"YES","YES","YES"));
@@ -1256,7 +1251,6 @@ function verifyWmuConfigAfterCorrection(year, wmu, drawtype, choiceNum, isIncrem
 			logDebug("updateWMURecordWrapper : " + updateWMURecordWrapper(cnfgCapId.getCustomID(),"YES","NO","NO"));
 			}
 		
-		*/
 		
         if (drawtype != DRAW_INST) {
             if (prmitTarget <= 0) {
