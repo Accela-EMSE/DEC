@@ -58,7 +58,7 @@ while(keys.hasMoreElements())
 {
  key = keys.nextElement();
  eval("var " + key + " = aa.env.getValue(\"" + key + "\");");
- aa.debug("REPORTRUNBEFOREINACA","Loaded Env Variable: " + key + " = " + aa.env.getValue(key));
+ logDebug("REPORTRUNBEFOREINACA Loaded Env Variable: " + key + " = " + aa.env.getValue(key));
 }
 
 var reportInfo = aa.env.getValue("ReportInfoModel");
@@ -75,26 +75,26 @@ if (reportDetail) {
 
 var capIDModel;
 
-aa.debug("REPORTRUNBEFOREINACA", "reportInfo = " + reportInfo);
+logDebug("REPORTRUNBEFOREINACA reportInfo = " + reportInfo);
 
 if (reportInfo) {
 	var reportParameters = reportInfo.getReportParameters();
 	var callerId = reportInfo.getCallerId();
-	aa.debug("REPORTRUNBEFOREINACA", "callerId = " + callerId);
+	logDebug("REPORTRUNBEFOREINACA callerId = " + callerId);
 	var agentId = getAgentID(aa.publicUser.getPublicUser(parseInt(callerId.replace("PUBLICUSER",""))).getOutput().getUserID());
-	aa.debug("REPORTRUNBEFOREINACA", "agentId = " + agentId);
+	logDebug("REPORTRUNBEFOREINACA agentId = " + agentId);
 	var reportName = reportDetail.getReportName();
-	aa.debug("REPORTRUNBEFOREINACA", "reportName = " + reportName);
+	logDebug("REPORTRUNBEFOREINACA reportName = " + reportName);
 	var edmsEntityModel = reportInfo.getEDMSEntityIdModel();
-	aa.debug("REPORTRUNBEFOREINACA", "edmsEntityModel = " + edmsEntityModel);
+	logDebug("REPORTRUNBEFOREINACA edmsEntityModel = " + edmsEntityModel);
 
 	if (reportName == "ANS" && agentId) {
 		var rs = aa.wsConsumer.consume("http://infweb.licensecenter.ny.gov/NYSELS-DEC-ANSREGWS/services/ReANS?wsdl", "regANS", ["DEC_ACH", agentId]);
 		if (rs.getSuccess()) {
 			var resp = rs.getOutput();
-			aa.debug("REPORTRUNBEFOREINACA", "resp[0] = " + resp[0]);
+			logDebug("REPORTRUNBEFOREINACA resp[0] = " + resp[0]);
 		} else {
-			aa.debug("REPORTRUNBEFOREINACA", "web service call failed: " + rs.getErrorMessage());
+			logDebug("REPORTRUNBEFOREINACA web service call failed: " + rs.getErrorMessage());
 		}
 	}
 
@@ -102,7 +102,7 @@ if (reportInfo) {
 		if (edmsEntityModel) {
 			// build cap id model
 			capIDModel = getCapIdBycapIDString(edmsEntityModel.getCapId());
-			aa.debug("REPORTRUNBEFOREINACA", "capIDModel = " + capIDModel);
+			logDebug("REPORTRUNBEFOREINACA capIDModel = " + capIDModel);
 			if (capIDModel) {
 				var result = aa.appSpecificTableScript.getAppSpecificTableModel(capIDModel, rePrintLogTableName);
 				if (result.getSuccess()) {
@@ -111,7 +111,7 @@ if (reportInfo) {
 						// because we insert one row into reprint log table every print,
 						// so the print times should be the record numbers in print log table.
 						var rePrintTimes = asit.getTableField().size() / asit.getColumns().size();
-						aa.debug("REPORTRUNBEFOREINACA", "rePrintTimes = " + rePrintTimes);
+						logDebug("REPORTRUNBEFOREINACA rePrintTimes = " + rePrintTimes);
 
 						// commenting out for now see 13ACC-12217
 						//
@@ -158,13 +158,13 @@ function afterApplicationPrintFailDebug(itemCapId, numberOfTries) {
 		}
 	}
 
-	aa.debug("afterApplicationPrintFailDebug", "peopleSequenceNumber = " + peopleSequenceNumber);
+	logDebug("afterApplicationPrintFailDebug peopleSequenceNumber = " + peopleSequenceNumber);
 	salesAgentInfoArray = getAgentInfoByPeopleSeqNum(peopleSequenceNumber);
 
 	var searchAppTypeString = "Licenses/*/*/*";
 	var capArray = getChildren(searchAppTypeString, itemCapId);
 	if (capArray == null) {
-		aa.debug("afterApplicationPrintFailDebug", "no children found");
+		logDebug("afterApplicationPrintFailDebug no children found");
 		return;
 	}
 
@@ -175,10 +175,10 @@ function afterApplicationPrintFailDebug(itemCapId, numberOfTries) {
 		var currcap = aa.cap.getCap(childCapId).getOutput();
 		appTypeString = currcap.getCapType().toString();
 		var ata = appTypeString.split("/");
-		aa.debug("afterApplicationPrintFailDebug", "appTypeString = " + appTypeString);
+		logDebug("afterApplicationPrintFailDebug appTypeString = " + appTypeString);
 
-		aa.debug("afterApplicationPrintFailDebug", "isVoidAll = " + isVoidAll);
-		aa.debug("afterApplicationPrintFailDebug", "currcap.getCapStatus() = " + currcap.getCapStatus());
+		logDebug("afterApplicationPrintFailDebug isVoidAll = " + isVoidAll);
+		logDebug("afterApplicationPrintFailDebug currcap.getCapStatus() = " + currcap.getCapStatus());
 		if (isVoidAll) {
 			if (currcap.getCapStatus() == "Active" || currcap.getCapStatus() == "Returnable") {
 				updateAppStatus("Void", "Void", childCapId);
