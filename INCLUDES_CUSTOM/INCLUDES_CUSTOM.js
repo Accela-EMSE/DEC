@@ -8793,3 +8793,36 @@ function createRefContactsFromCapContactsAndLink(pCapId, contactTypeArray, ignor
 	    }  // end if user hand entered contact
 	}  // end for each CAP contact
 } 
+
+
+function logDebug(dstr) {
+	vLevel = 1
+	if (arguments.length > 1)
+		vLevel = arguments[1];
+	if ((showDebug & vLevel) == vLevel || vLevel == 1)
+		debug += dstr + br;
+	if ((showDebug & vLevel) == vLevel)
+		aa.debug(aa.getServiceProviderCode() + " : " + aa.env.getValue("CurrentUserID"), dstr);
+		
+	try {
+	if (String(dstr).indexOf("**ERROR") > -1) {
+		var errorEmail = lookup("DEC_CONFIG","SCRIPT_ERROR_EMAILS");
+		if (errorEmail) {
+			if (typeof(capId) == "object") {
+				var subject = "Script Error on Record " + capId.getCustomID();
+				}
+			else
+				var subject = "Script Error";
+				}
+				
+			var msg = "Event Name :" + aa.env.getValue("EventName") + "<br>";
+			msg+= "Script Code:" + aa.env.getValue("ScriptCode") + "<br>";
+			msg+= "User ID    :" + aa.env.getValue("CurrentUserID") + "<br>";
+			msg+= "Error      :" + dstr;
+			
+			aa.sendMail("noreply@accela.com", errorEmail, "", subject, msg);
+		}
+	}
+	catch(err) { aa.debug("emse","couldn't send email for script error : " + err.message) }
+	
+}
