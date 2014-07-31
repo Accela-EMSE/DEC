@@ -8818,7 +8818,9 @@ function logDebug(dstr) {
 			var msg = "Event Name :" + aa.env.getValue("EventName") + "<br>";
 			msg+= "Script Code:" + aa.env.getValue("ScriptCode") + "<br>";
 			msg+= "User ID    :" + aa.env.getValue("CurrentUserID") + "<br>";
-			msg+= "Error      :" + dstr;
+			msg+= "Error      :" + dstr + "<br>";
+			msg+= "Stack Trace<br><br>";
+			msg+=debug;
 			
 			aa.sendMail("noreply@accela.com", errorEmail, "", subject, msg);
 		}
