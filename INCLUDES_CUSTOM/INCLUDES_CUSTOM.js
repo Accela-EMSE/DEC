@@ -8809,10 +8809,10 @@ function logDebug(dstr) {
 		var errorEmail = lookup("DEC_CONFIG","SCRIPT_ERROR_EMAILS");
 		if (errorEmail) {
 			if (typeof(capId) == "object") {
-				var subject = "Script Error on Record " + capId.getCustomID();
+				var subject = "Script Error on Record:" + capId.getCustomID() + " Site:" + lookup("ACA_CONFIGS","ACA_SITE");
 				}
 			else
-				var subject = "Script Error";
+				var subject = "Script Error Site:" + lookup("ACA_CONFIGS","ACA_SITE");
 				}
 				
 			var msg = "Event Name :" + aa.env.getValue("EventName") + "<br>";
