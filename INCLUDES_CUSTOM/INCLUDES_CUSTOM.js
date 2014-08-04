@@ -1216,27 +1216,33 @@ function addFeeAndSetAsitForFeetxfer(frm) {
     var tempObject = new Array();
     var newAsitArray = new Array();
     for (item in feeArr) {
-        //logDebug(feeArr[item].feeschedule + " " + feeArr[item].feeCode + " " + feeArr[item].version + " " + feeArr[item].feeUnit);
-        addFeeWithVersion(feeArr[item].feeCode, feeArr[item].feeschedule, feeArr[item].version, "FINAL", feeArr[item].feeUnit.toString(), "N");
+		if (!feeArr[item].feeCode) {
+			logDebug("**INFODEBUG Null fee item found");
+			logDebug("**INFODEBUG frm dump: " + frm.toString());
+			}
+		else { 
+			//logDebug(feeArr[item].feeschedule + " " + feeArr[item].feeCode + " " + feeArr[item].version + " " + feeArr[item].feeUnit);
+			addFeeWithVersion(feeArr[item].feeCode, feeArr[item].feeschedule, feeArr[item].version, "FINAL", feeArr[item].feeUnit.toString(), "N");
 
-        tempObject = new Array();
-        var fieldInfo = new asiTableValObj("feeschedule", feeArr[item].feeschedule, "Y");
-        tempObject["feeschedule"] = fieldInfo;
-        fieldInfo = new asiTableValObj("feecode", feeArr[item].feeCode, "Y");
-        tempObject["feecode"] = fieldInfo;
-        fieldInfo = new asiTableValObj("formula", feeArr[item].formula, "Y");
-        tempObject["formula"] = fieldInfo;
-        fieldInfo = new asiTableValObj("feeUnit", feeArr[item].feeUnit.toString(), "Y");
-        tempObject["feeUnit"] = fieldInfo;
-        fieldInfo = new asiTableValObj("comments", feeArr[item].comments, "Y");
-        tempObject["comments"] = fieldInfo;
-        fieldInfo = new asiTableValObj("feeDesc", feeArr[item].feeDesc, "Y");
-        tempObject["feeDesc"] = fieldInfo;
-        fieldInfo = new asiTableValObj("feeversion", feeArr[item].version, "Y");
-        tempObject["feeversion"] = fieldInfo;
-        fieldInfo = new asiTableValObj("Code3commission", feeArr[item].Code3commission, "Y");
-        tempObject["Code3commission"] = fieldInfo;
-        newAsitArray.push(tempObject);  // end of record
+			tempObject = new Array();
+			var fieldInfo = new asiTableValObj("feeschedule", feeArr[item].feeschedule, "Y");
+			tempObject["feeschedule"] = fieldInfo;
+			fieldInfo = new asiTableValObj("feecode", feeArr[item].feeCode, "Y");
+			tempObject["feecode"] = fieldInfo;
+			fieldInfo = new asiTableValObj("formula", feeArr[item].formula, "Y");
+			tempObject["formula"] = fieldInfo;
+			fieldInfo = new asiTableValObj("feeUnit", feeArr[item].feeUnit.toString(), "Y");
+			tempObject["feeUnit"] = fieldInfo;
+			fieldInfo = new asiTableValObj("comments", feeArr[item].comments, "Y");
+			tempObject["comments"] = fieldInfo;
+			fieldInfo = new asiTableValObj("feeDesc", feeArr[item].feeDesc, "Y");
+			tempObject["feeDesc"] = fieldInfo;
+			fieldInfo = new asiTableValObj("feeversion", feeArr[item].version, "Y");
+			tempObject["feeversion"] = fieldInfo;
+			fieldInfo = new asiTableValObj("Code3commission", feeArr[item].Code3commission, "Y");
+			tempObject["Code3commission"] = fieldInfo;
+			newAsitArray.push(tempObject);  // end of record
+		}
     }
     asitModel = cap.getAppSpecificTableGroupModel();
     new_asit = addASITable4ACAPageFlow(asitModel, "FEES TO TRANSFER", newAsitArray);
@@ -8805,7 +8811,7 @@ function logDebug(dstr) {
 		aa.debug(aa.getServiceProviderCode() + " : " + aa.env.getValue("CurrentUserID"), dstr);
 		
 	try {
-	if (String(dstr).indexOf("**ERROR") > -1) {
+	if ((String(dstr).indexOf("**ERROR") > -1) || (String(dstr).indexOf("**INFODEBUG") > -1)) {
 		var errorEmail = lookup("DEC_CONFIG","SCRIPT_ERROR_EMAILS");
 		if (errorEmail) {
 			if (typeof(capId) == "object") {
