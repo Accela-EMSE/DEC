@@ -2564,6 +2564,11 @@ function getTag_LIFETM_SPRT(ruleParams) {
             arryTags.push(TAG_TYPE_3_REG_SEASON_DEER);
             arryTags.push(TAG_TYPE_2_BEAR_TAG);
         }
+        if (rp.AgeLookAhead30Days >= 12 && rp.AgeLookAhead30Days <= 13 && rp.HasBowHunt) {
+        	if ((AInfo["Lifetime Sportsman"] == "CHECKED") && (AInfo["Lifetime Bowhunting"] == "CHECKED")) {
+        		arryTags.push(TAG_TYPE_2_BEAR_TAG);		
+        	}
+    	}
     } else {
         var cndFul = new COND_FULLFILLMENT();
         if (rp.AgeLookAhead30Days < 12) {
@@ -2660,6 +2665,12 @@ function getTag_ANNUAL_HUNT(ruleParams) {
         arryTags.push(TAG_TYPE_3_REG_SEASON_DEER);
         arryTags.push(TAG_TYPE_2_BEAR_TAG);
     }
+
+    if (rp.AgeLookAhead30Days >= 12 && rp.AgeLookAhead30Days <= 13) {
+    	if (rp.HasHuntEd && rp.HasBowHunt && (AInfo["Bowhunting Privilege"] == "CHECKED") && (AInfo["Hunting License"] == "CHECKED")) {
+    		arryTags.push(TAG_TYPE_2_BEAR_TAG);		
+    	}
+    }    
 
     return arryTags;
 }
@@ -2831,7 +2842,7 @@ function hasBaseDMP(activeHoldingsInfo, sYear) {
 function hasWmuDefinedItems(activeHoldingsInfo) {
     var isExist = false;
 
-    return true;
+    return false;
     //No Need following Verfication since DMP available sfter rules validation
     var validRecArray = Array();
     validRecArray.push(AA04_BOWHUNTING_PRIVILEGE);
