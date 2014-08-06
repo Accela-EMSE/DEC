@@ -1448,6 +1448,7 @@ function copyContactAppSpecificToRecordAppSpecific() {
         editAppSpecific4ACA("A_Driver_License_Number", thisContact["driverLicenseNbr"]);
         editAppSpecific4ACA("A_Non_Driver_License_Number", thisContact["stateIDNbr"]);
         editAppSpecific4ACA("A_NY_Resident_Proof_Document", thisContact["NY Resident Proof Document"]);
+		editAppSpecific4ACA("A_Parent_Driver_License_Number", thisContact["Parent Driver License Number"]);
 
         var strAnnual = null;
         var strPrev = null;
@@ -1471,7 +1472,7 @@ function copyContactAppSpecificToRecordAppSpecific() {
                     //editAppSpecific4ACA("A_IsNYResident", fieldArray["Are You New York Resident?"]);
                     editAppSpecific4ACA("A_Preference_Points", isNull(fieldArray["Preference Points"], '0'));
                     editAppSpecific4ACA("Preference Points", isNull(fieldArray["Preference Points"], '0'));
-                    editAppSpecific4ACA("A_Parent_Driver_License_Number", fieldArray["Parent Driver License Number"]);
+                    //editAppSpecific4ACA("A_Parent_Driver_License_Number", fieldArray["Parent Driver License Number"]);
                     //editAppSpecific4ACA("A_NY_Resident_Proof_Document", fieldArray["NY Resident Proof Document"]);
                     continue;
                 } else {
