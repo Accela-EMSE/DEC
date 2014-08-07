@@ -2770,26 +2770,28 @@ function getSaleLicMilitaryDisable() {
     return validRecTypeArray;
 }
 function hasBaseLicMilitaryDisable(activeHoldingsInfo) {
-    var isExist = false;
+	var isExist = false;
     //Verify Recordtype required ActiveHolding Checking to display selection
     var validBaseLicArray = getBaseLicMilitaryDisable();
     for (var idx = 0; idx < activeHoldingsInfo.length; idx++) {
-        if (exists(activeHoldingsInfo[idx].RecordType, validBaseLicArray)) {
-            isExist = true;
-            break;
-        }
+    	if (activeHoldingsInfo[idx].LicenseYear == AInfo["License Year"]) {
+    		if (exists(activeHoldingsInfo[idx].RecordType, validBaseLicArray)) {
+    			isExist = true;
+    			break;
+    		}
+    	}
     }
 
     return isExist;
 }
 //JIRA - 44607
 function hasSaleLicMilitaryDisable(recordType) {
-    var isExist = false;
-    var validBaseLicArray = getSaleLicMilitaryDisable();
-    if (exists(recordType, validBaseLicArray)) {
-        isExist = true;
-    }
-    return isExist;
+	var isExist = false;
+	var validBaseLicArray = getSaleLicMilitaryDisable();
+	if (exists(recordType, validBaseLicArray)) {
+		isExist = true;
+	}
+	return isExist;
 }
 function hasBaseDMP(activeHoldingsInfo, sYear) {
     var isExist = false;
