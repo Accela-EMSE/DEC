@@ -304,19 +304,19 @@ function copyLicASI(newCap, newAInfo) {
                 continue;
         }
     editAppSpecific(newAInfo[item].FieldName, newAInfo[item].Value, newCap);
-    
-    
-    // Re-enable for further testing
-    /*
-    var scriptName = "COPYLICASI";
-    var envParameters = aa.util.newHashMap();
-    envParameters.put("cap",newCap.getCustomID());
-    envParameters.put("item",newAInfo[item].FieldName);
-    envParameters.put("value",newAInfo[item].Value);
-    aa.runAsyncScript(scriptName, envParameters);
-    */
-    
-    logDebug("Setting " + newCap.getCustomID() + " ASI field " + newAInfo[item].FieldName + " to " + newAInfo[item].Value);
+	
+	
+	// Re-enable for further testing
+	/*
+	var scriptName = "COPYLICASI";
+	var envParameters = aa.util.newHashMap();
+	envParameters.put("cap",newCap.getCustomID());
+	envParameters.put("item",newAInfo[item].FieldName);
+	envParameters.put("value",newAInfo[item].Value);
+	aa.runAsyncScript(scriptName, envParameters);
+	*/
+	
+	logDebug("Setting " + newCap.getCustomID() + " ASI field " + newAInfo[item].FieldName + " to " + newAInfo[item].Value);
     }
     logDebug("EXIT: copyLicASI");
 }
@@ -1220,33 +1220,33 @@ function addFeeAndSetAsitForFeetxfer(frm) {
     var tempObject = new Array();
     var newAsitArray = new Array();
     for (item in feeArr) {
-        if (!feeArr[item].feeCode) {
-            logDebug("**INFODEBUG Null fee item found");
-            logDebug("**INFODEBUG frm dump: " + frm.toString());
-            }
-        else { 
-            //logDebug(feeArr[item].feeschedule + " " + feeArr[item].feeCode + " " + feeArr[item].version + " " + feeArr[item].feeUnit);
-            addFeeWithVersion(feeArr[item].feeCode, feeArr[item].feeschedule, feeArr[item].version, "FINAL", feeArr[item].feeUnit.toString(), "N");
+		if (!feeArr[item].feeCode) {
+			logDebug("**INFODEBUG Null fee item found");
+			logDebug("**INFODEBUG frm dump: " + frm.toString());
+			}
+		else { 
+			//logDebug(feeArr[item].feeschedule + " " + feeArr[item].feeCode + " " + feeArr[item].version + " " + feeArr[item].feeUnit);
+			addFeeWithVersion(feeArr[item].feeCode, feeArr[item].feeschedule, feeArr[item].version, "FINAL", feeArr[item].feeUnit.toString(), "N");
 
-            tempObject = new Array();
-            var fieldInfo = new asiTableValObj("feeschedule", feeArr[item].feeschedule, "Y");
-            tempObject["feeschedule"] = fieldInfo;
-            fieldInfo = new asiTableValObj("feecode", feeArr[item].feeCode, "Y");
-            tempObject["feecode"] = fieldInfo;
-            fieldInfo = new asiTableValObj("formula", feeArr[item].formula, "Y");
-            tempObject["formula"] = fieldInfo;
-            fieldInfo = new asiTableValObj("feeUnit", feeArr[item].feeUnit.toString(), "Y");
-            tempObject["feeUnit"] = fieldInfo;
-            fieldInfo = new asiTableValObj("comments", feeArr[item].comments, "Y");
-            tempObject["comments"] = fieldInfo;
-            fieldInfo = new asiTableValObj("feeDesc", feeArr[item].feeDesc, "Y");
-            tempObject["feeDesc"] = fieldInfo;
-            fieldInfo = new asiTableValObj("feeversion", feeArr[item].version, "Y");
-            tempObject["feeversion"] = fieldInfo;
-            fieldInfo = new asiTableValObj("Code3commission", feeArr[item].Code3commission, "Y");
-            tempObject["Code3commission"] = fieldInfo;
-            newAsitArray.push(tempObject);  // end of record
-        }
+			tempObject = new Array();
+			var fieldInfo = new asiTableValObj("feeschedule", feeArr[item].feeschedule, "Y");
+			tempObject["feeschedule"] = fieldInfo;
+			fieldInfo = new asiTableValObj("feecode", feeArr[item].feeCode, "Y");
+			tempObject["feecode"] = fieldInfo;
+			fieldInfo = new asiTableValObj("formula", feeArr[item].formula, "Y");
+			tempObject["formula"] = fieldInfo;
+			fieldInfo = new asiTableValObj("feeUnit", feeArr[item].feeUnit.toString(), "Y");
+			tempObject["feeUnit"] = fieldInfo;
+			fieldInfo = new asiTableValObj("comments", feeArr[item].comments, "Y");
+			tempObject["comments"] = fieldInfo;
+			fieldInfo = new asiTableValObj("feeDesc", feeArr[item].feeDesc, "Y");
+			tempObject["feeDesc"] = fieldInfo;
+			fieldInfo = new asiTableValObj("feeversion", feeArr[item].version, "Y");
+			tempObject["feeversion"] = fieldInfo;
+			fieldInfo = new asiTableValObj("Code3commission", feeArr[item].Code3commission, "Y");
+			tempObject["Code3commission"] = fieldInfo;
+			newAsitArray.push(tempObject);  // end of record
+		}
     }
     asitModel = cap.getAppSpecificTableGroupModel();
     new_asit = addASITable4ACAPageFlow(asitModel, "FEES TO TRANSFER", newAsitArray);
@@ -1452,7 +1452,7 @@ function copyContactAppSpecificToRecordAppSpecific() {
         editAppSpecific4ACA("A_Driver_License_Number", thisContact["driverLicenseNbr"]);
         editAppSpecific4ACA("A_Non_Driver_License_Number", thisContact["stateIDNbr"]);
         editAppSpecific4ACA("A_NY_Resident_Proof_Document", thisContact["NY Resident Proof Document"]);
-        editAppSpecific4ACA("A_Parent_Driver_License_Number", thisContact["Parent Driver License Number"]);
+		editAppSpecific4ACA("A_Parent_Driver_License_Number", thisContact["Parent Driver License Number"]);
 
         var strAnnual = null;
         var strPrev = null;
@@ -1639,7 +1639,7 @@ function copyContactAppSpecificToRecordAppSpecific() {
                     var stateValue = thisAddr.getState();
                     var isNyState = ("NY" == thisAddr.getState());
                     if (stateValue != null && stateValue != "") {                        
-                        if (stateValue == "NY" && (county != "" && county != null) && (county.equalsIgnoreCase("Albany") || county.equalsIgnoreCase("Allegany") || county.equalsIgnoreCase("Bronx") || county.equalsIgnoreCase("Broome") || 
+                        if (stateValue == "NY" && (county.equalsIgnoreCase("Albany") || county.equalsIgnoreCase("Allegany") || county.equalsIgnoreCase("Bronx") || county.equalsIgnoreCase("Broome") || 
                             county.equalsIgnoreCase("Cattaraugus") || county.equalsIgnoreCase("Cayuga") || county.equalsIgnoreCase("Chautauqua") || county.equalsIgnoreCase("Chemung") || county.equalsIgnoreCase("Chenango") || county.equalsIgnoreCase("Clinton") || 
                             county.equalsIgnoreCase("Columbia") || county.equalsIgnoreCase("Cortland") || county.equalsIgnoreCase("Delaware") || county.equalsIgnoreCase("Dutchess") || county.equalsIgnoreCase("Erie") || county.equalsIgnoreCase("Essex") || 
                             county.equalsIgnoreCase("Franklin") || county.equalsIgnoreCase("Fulton") || county.equalsIgnoreCase("Genessee") || county.equalsIgnoreCase("Greene") || county.equalsIgnoreCase("Hamilton") || county.equalsIgnoreCase("Herkimer") || 
@@ -5150,16 +5150,16 @@ function addASITable4ACAPageFlow(destinationTableGroupModel, tableName, tableVal
     if (arguments.length > 3)
         itemCap = arguments[3]; // use cap ID specified in args
 
-    if (!destinationTableGroupModel) {
-        return false;
-        }
-        
+	if (!destinationTableGroupModel) {
+		return false;
+		}
+		
     var tam = destinationTableGroupModel.getTablesMap();
-    if (!tam) {
-        return false;
-        }
-    
-    var ta = tam.values();
+	if (!tam) {
+		return false;
+		}
+	
+	var ta = tam.values();
     var tai = ta.iterator();
 
     var found = false;
@@ -6095,6 +6095,7 @@ function copyASIContactAppSpecificToRecordAppSpecific() {
         editAppSpecific4ACA("A_Driver_License_Number", thisContact["driverLicenseNbr"]);
         editAppSpecific4ACA("A_Non_Driver_License_Number", thisContact["stateIDNbr"]);
         editAppSpecific4ACA("A_NY_Resident_Proof_Document", thisContact["NY Resident Proof Document"]);
+        editAppSpecific4ACA("A_Parent_Driver_License_Number", thisContact["Parent Driver License Number"]);
 
         var strAnnual = null;
         var strPrev = null;
@@ -6913,13 +6914,13 @@ function transferLifetimeLicenses() {
         }
 
         distributeFeesForTransfer(capId, arryLic, salesAgentInfoArray);
-        
-        //Build Tags to mail out will be print in nightly job
-        var vToday = new Date();
-        vToday.setHours(0);
-        vToday.setMinutes(0);
-        vToday.setSeconds(0);
-        rebuildAllTagsforaRefContact(txfrCustomerId, vToday);
+		
+		//Build Tags to mail out will be print in nightly job
+		var vToday = new Date();
+		vToday.setHours(0);
+		vToday.setMinutes(0);
+		vToday.setSeconds(0);
+		rebuildAllTagsforaRefContact(txfrCustomerId, vToday);
 
     }
     catch (err) {
@@ -7851,7 +7852,7 @@ function addTimeLog() {
         var newAsitArray = GetTimeLogAsitTableArray(tableValueArray);
 
         var asitModel = cap.getAppSpecificTableGroupModel();
-        
+		
         var new_asit = addASITable4ACAPageFlow(asitModel, "TIME LOG", newAsitArray);
     }
     logDebug("EXIT: addTimeLog");
@@ -8431,411 +8432,411 @@ function makePaymentForLegacy(feeAmount) {
  
 function loadASITables4ACA() {
 
-    //
-    // Loads App Specific tables into their own array of arrays.  Creates global array objects
-    //
-    // Optional parameter, cap ID to load from.  If no CAP Id specified, use the capModel
-    //
+ 	//
+ 	// Loads App Specific tables into their own array of arrays.  Creates global array objects
+	//
+	// Optional parameter, cap ID to load from.  If no CAP Id specified, use the capModel
+	//
 
-    var itemCap = capId;
-    if (arguments.length == 1) {
-        itemCap = arguments[0]; // use cap ID specified in args
-        var gm = aa.appSpecificTableScript.getAppSpecificTableGroupModel(itemCap).getOutput();
-        }
-    else {
-        var gm = cap.getAppSpecificTableGroupModel()
-        }
+	var itemCap = capId;
+	if (arguments.length == 1) {
+		itemCap = arguments[0]; // use cap ID specified in args
+		var gm = aa.appSpecificTableScript.getAppSpecificTableGroupModel(itemCap).getOutput();
+		}
+	else {
+		var gm = cap.getAppSpecificTableGroupModel()
+		}
 
-    if (!gm) {
-        return false;
-        }
-        
-    var ta = gm.getTablesMap();
-    var tai = ta.values().iterator();
+	if (!gm) {
+		return false;
+		}
+		
+	var ta = gm.getTablesMap();
+	var tai = ta.values().iterator();
 
-    while (tai.hasNext())  {
-      var tsm = tai.next();
+	while (tai.hasNext())  {
+	  var tsm = tai.next();
 
-      if (tsm.rowIndex.isEmpty()) continue;  // empty table
+	  if (tsm.rowIndex.isEmpty()) continue;  // empty table
 
-      var tempObject = new Array();
-      var tempArray = new Array();
-      var tn = tsm.getTableName();
+	  var tempObject = new Array();
+	  var tempArray = new Array();
+	  var tn = tsm.getTableName();
 
-      tn = String(tn).replace(/[^a-zA-Z0-9]+/g,'');
+	  tn = String(tn).replace(/[^a-zA-Z0-9]+/g,'');
 
-      if (!isNaN(tn.substring(0,1))) tn = "TBL" + tn  // prepend with TBL if it starts with a number
+	  if (!isNaN(tn.substring(0,1))) tn = "TBL" + tn  // prepend with TBL if it starts with a number
 
-      var tsmfldi = tsm.getTableField().iterator();
-      var tsmcoli = tsm.getColumns().iterator();
-      var numrows = 1;
+  	  var tsmfldi = tsm.getTableField().iterator();
+	  var tsmcoli = tsm.getColumns().iterator();
+	  var numrows = 1;
 
-      while (tsmfldi.hasNext())  // cycle through fields
-        {
-        if (!tsmcoli.hasNext())  // cycle through columns
-            {
+	  while (tsmfldi.hasNext())  // cycle through fields
+		{
+		if (!tsmcoli.hasNext())  // cycle through columns
+			{
 
-            var tsmcoli = tsm.getColumns().iterator();
-            tempArray.push(tempObject);  // end of record
-            var tempObject = new Array();  // clear the temp obj
-            numrows++;
-            }
-        var tcol = tsmcoli.next();
-        var tval = tsmfldi.next().getInputValue();
-        tempObject[tcol.getColumnName()] = tval;
-        }
-      tempArray.push(tempObject);  // end of record
-      var copyStr = "" + tn + " = tempArray";
-      logDebug("ASI Table Array : " + tn + " (" + numrows + " Rows)");
-      eval(copyStr);  // move to table name
-      }
+			var tsmcoli = tsm.getColumns().iterator();
+			tempArray.push(tempObject);  // end of record
+			var tempObject = new Array();  // clear the temp obj
+			numrows++;
+			}
+		var tcol = tsmcoli.next();
+		var tval = tsmfldi.next().getInputValue();
+		tempObject[tcol.getColumnName()] = tval;
+		}
+	  tempArray.push(tempObject);  // end of record
+	  var copyStr = "" + tn + " = tempArray";
+	  logDebug("ASI Table Array : " + tn + " (" + numrows + " Rows)");
+	  eval(copyStr);  // move to table name
+	  }
 
-    }
+	}
 
  function updateWMURecordWrapper(capidstring,boolIncrementUsedCount,boolIsClosed,boolUpdateEffectiveDate) {
-    eval(getScriptText("INCLUDES_EMSE_WS_GLOBALS")); 
+	eval(getScriptText("INCLUDES_EMSE_WS_GLOBALS")); 
  
-    if (APP_URL && APP_LOGIN && APP_PASS) {
-        //Authenticate with Accela Automation
-        var mySSOID = authenticateUser(aa.getServiceProviderCode(),SOAP_AUTH,SOAP_SIGNON, APP_LOGIN, APP_PASS,"", APP_URL);
-        logDebug("sso id is " + mySSOID);
-        if (mySSOID) {
-        var emseResponse = updateWMURecord(aa.getServiceProviderCode(),APP_URL,SOAP_TRIGGER,APP_LOGIN,mySSOID,"UPDATE_WMU_RECORD_ASYNC",capidstring,boolIncrementUsedCount,boolIsClosed,boolUpdateEffectiveDate);
-        logDebug("emse response is " + emseResponse);
-        }
-    }
-    else {
-    emseResponse = "ERROR: INTERFACE:CONFIGS,AUTH_BIZ_SERVER_INFO not set up correctly with biz server url, username and password";
-    }
-    
-    return emseResponse;
+	if (APP_URL && APP_LOGIN && APP_PASS) {
+		//Authenticate with Accela Automation
+		var mySSOID = authenticateUser(aa.getServiceProviderCode(),SOAP_AUTH,SOAP_SIGNON, APP_LOGIN, APP_PASS,"", APP_URL);
+		logDebug("sso id is " + mySSOID);
+		if (mySSOID) {
+		var emseResponse = updateWMURecord(aa.getServiceProviderCode(),APP_URL,SOAP_TRIGGER,APP_LOGIN,mySSOID,"UPDATE_WMU_RECORD_ASYNC",capidstring,boolIncrementUsedCount,boolIsClosed,boolUpdateEffectiveDate);
+		logDebug("emse response is " + emseResponse);
+		}
+	}
+	else {
+	emseResponse = "ERROR: INTERFACE:CONFIGS,AUTH_BIZ_SERVER_INFO not set up correctly with biz server url, username and password";
+	}
+	
+	return emseResponse;
 }
 
 function updateWMURecord(agency,url,SOAP_TRIGGER,user,ssoid,script,capidstring,boolIncrementUsedCount,boolIsClosed,boolUpdateEffectiveDate){
-    var svcURL = url + "av-biz-ws-0.9/services/EMSEService"; //the Govxml Servlet 
-    var soapTrigger = SOAP_TRIGGER.toString();
-    var httpResp = null;
-    try{
-                
-        //create our SOAP Envelope
-        soapTrigger = soapTrigger.replace("$$AGENCY$$",agency.toUpperCase());
-        soapTrigger = soapTrigger.replace("$$USERID$$",user.toUpperCase());
-        soapTrigger = soapTrigger.replace("$$SSOID$$",ssoid);
-        soapTrigger = soapTrigger.replace("$$SCRIPT$$",script);
-        soapTrigger = soapTrigger.replace("$$KEY1$$","capidstring");
-        soapTrigger = soapTrigger.replace("$$VALUE1$$",capidstring);
-        soapTrigger = soapTrigger.replace("$$KEY2$$","boolIncrementUsedCount");
-        soapTrigger = soapTrigger.replace("$$VALUE2$$",boolIncrementUsedCount);
-        soapTrigger = soapTrigger.replace("$$KEY3$$","boolIsClosed");
-        soapTrigger = soapTrigger.replace("$$VALUE3$$",boolIsClosed);
-        soapTrigger = soapTrigger.replace("$$KEY4$$","boolUpdateEffectiveDate");
-        soapTrigger = soapTrigger.replace("$$VALUE4$$",boolUpdateEffectiveDate);
-        
-        logDebug(soapTrigger);
-        //Make our web service call
-        httpResp = aa.util.httpPostToSoapWebService(svcURL,soapTrigger,null,null,"").getOutput();
-        return(httpResp);   
-        
-    }
-    catch(err){
-        //Catch any errors
-        logDebug("error in triggerScript : " + err);
-        httpResp = null;
-    }
-    return httpResp;
+ 	var svcURL = url + "av-biz-ws-0.9/services/EMSEService"; //the Govxml Servlet 
+ 	var soapTrigger = SOAP_TRIGGER.toString();
+ 	var httpResp = null;
+ 	try{
+ 		 		
+ 		//create our SOAP Envelope
+ 		soapTrigger = soapTrigger.replace("$$AGENCY$$",agency.toUpperCase());
+ 		soapTrigger = soapTrigger.replace("$$USERID$$",user.toUpperCase());
+ 		soapTrigger = soapTrigger.replace("$$SSOID$$",ssoid);
+ 		soapTrigger = soapTrigger.replace("$$SCRIPT$$",script);
+ 		soapTrigger = soapTrigger.replace("$$KEY1$$","capidstring");
+ 		soapTrigger = soapTrigger.replace("$$VALUE1$$",capidstring);
+ 		soapTrigger = soapTrigger.replace("$$KEY2$$","boolIncrementUsedCount");
+ 		soapTrigger = soapTrigger.replace("$$VALUE2$$",boolIncrementUsedCount);
+ 		soapTrigger = soapTrigger.replace("$$KEY3$$","boolIsClosed");
+ 		soapTrigger = soapTrigger.replace("$$VALUE3$$",boolIsClosed);
+ 		soapTrigger = soapTrigger.replace("$$KEY4$$","boolUpdateEffectiveDate");
+ 		soapTrigger = soapTrigger.replace("$$VALUE4$$",boolUpdateEffectiveDate);
+ 		
+ 		logDebug(soapTrigger);
+ 		//Make our web service call
+		httpResp = aa.util.httpPostToSoapWebService(svcURL,soapTrigger,null,null,"").getOutput();
+		return(httpResp);	
+		
+ 	}
+ 	catch(err){
+		//Catch any errors
+		logDebug("error in triggerScript : " + err);
+		httpResp = null;
+	}
+	return httpResp;
  }
 
-    
+	
 function authenticateUser(agency, SOAP_AUTH,SOAP_SIGNON, userid, password, ssoid, url){
-    var httpResp = null; //our response string
-    var ssoUrl = url + "av-biz-ws-0.9/services/SSOService";
-    var soapAuth = SOAP_AUTH.toString();
-    var soapSignOn = SOAP_SIGNON.toString();
-    
-    //encapsulate our actions in a try catch
-    try{
-        if(ssoid != null && ssoid != ""){ //Check if user already has ssoid, if ssoid was provided then authentiate first to see if still valid
-            soapAuth = soapAuth.replace("$$USERID$$",userid);
-            soapAuth = soapAuth.replace("$$SSOID$$",ssoid);
-            
-            httpResp = aa.util.httpPostToSoapWebService(ssoUrl,soapAuth,null,null,"").getOutput();
-            
-            //Check we have our envelope
-            if(httpResp != null && httpResp != ""){
-                //Remove XML header so we can use XML Object parser
-                httpResp = httpResp.replace('<?xml version="1.0" encoding="utf-8"?>',"");
-                
-                //Declare Namespaces and popualte our XML Object
-                var soap = new Namespace("http://schemas.xmlsoap.org/soap/envelope/");
-                var ns1 = new Namespace("http://service.ws.accela.com");
-                eval("var oXML = " + httpResp.toString() + ";"); //Eval it as XML
-                
-                //Get our SSOID from the reponse
-                ssoid = oXML.soap::Body.ns1::authenticateResponse.authenticateReturn + "";
-            }
-            else{
-                ssoid = null;
-            }
-        }
-        if(ssoid == null || ssoid == ""){ //Check to see if user is invalid, if so then try to sign on          
-            soapSignOn = soapSignOn.replace("$$AGENCY$$",agency);
-            soapSignOn = soapSignOn.replace("$$USERID$$",userid);
-            soapSignOn = soapSignOn.replace("$$PASSWORD$$",password);
-            
-            //Make our web service call
-            httpResp = aa.util.httpPostToSoapWebService(ssoUrl,soapSignOn,null,null,"").getOutput();
-            
-            //Check we have our envelope
-            if(httpResp != null && httpResp != ""){
-                //Remove XML header so we can use XML Object parser
-                httpResp = httpResp.replace('<?xml version="1.0" encoding="utf-8"?>',"");
-                
-                //Declare Namespaces and popualte our XML Object
-                var soap = new Namespace("http://schemas.xmlsoap.org/soap/envelope/");
-                var ns1 = new Namespace("http://service.ws.accela.com");
-                eval("var oXML = " + httpResp.toString() + ";"); //Eval it as XML
-                
-                //Get our SSOID from the reponse
-                ssoid = oXML.soap::Body.ns1::signonResponse.signonReturn + "";
-            }
-            else{
-                ssoid = null;
-            }
-        }       
-    }
-    catch(err){
-        //Catch any errors
-        logDebug("error in authenticateUser : " + err);
-        ssoid = null;
-    }
-    return ssoid;
+	var httpResp = null; //our response string
+	var ssoUrl = url + "av-biz-ws-0.9/services/SSOService";
+	var soapAuth = SOAP_AUTH.toString();
+	var soapSignOn = SOAP_SIGNON.toString();
+	
+	//encapsulate our actions in a try catch
+	try{
+		if(ssoid != null && ssoid != ""){ //Check if user already has ssoid, if ssoid was provided then authentiate first to see if still valid
+			soapAuth = soapAuth.replace("$$USERID$$",userid);
+			soapAuth = soapAuth.replace("$$SSOID$$",ssoid);
+			
+			httpResp = aa.util.httpPostToSoapWebService(ssoUrl,soapAuth,null,null,"").getOutput();
+			
+			//Check we have our envelope
+			if(httpResp != null && httpResp != ""){
+				//Remove XML header so we can use XML Object parser
+				httpResp = httpResp.replace('<?xml version="1.0" encoding="utf-8"?>',"");
+				
+				//Declare Namespaces and popualte our XML Object
+				var soap = new Namespace("http://schemas.xmlsoap.org/soap/envelope/");
+				var ns1 = new Namespace("http://service.ws.accela.com");
+				eval("var oXML = " + httpResp.toString() + ";"); //Eval it as XML
+				
+				//Get our SSOID from the reponse
+				ssoid = oXML.soap::Body.ns1::authenticateResponse.authenticateReturn + "";
+			}
+			else{
+				ssoid = null;
+			}
+		}
+		if(ssoid == null || ssoid == ""){ //Check to see if user is invalid, if so then try to sign on			
+			soapSignOn = soapSignOn.replace("$$AGENCY$$",agency);
+			soapSignOn = soapSignOn.replace("$$USERID$$",userid);
+			soapSignOn = soapSignOn.replace("$$PASSWORD$$",password);
+			
+			//Make our web service call
+			httpResp = aa.util.httpPostToSoapWebService(ssoUrl,soapSignOn,null,null,"").getOutput();
+			
+			//Check we have our envelope
+			if(httpResp != null && httpResp != ""){
+				//Remove XML header so we can use XML Object parser
+				httpResp = httpResp.replace('<?xml version="1.0" encoding="utf-8"?>',"");
+				
+				//Declare Namespaces and popualte our XML Object
+				var soap = new Namespace("http://schemas.xmlsoap.org/soap/envelope/");
+				var ns1 = new Namespace("http://service.ws.accela.com");
+				eval("var oXML = " + httpResp.toString() + ";"); //Eval it as XML
+				
+				//Get our SSOID from the reponse
+				ssoid = oXML.soap::Body.ns1::signonResponse.signonReturn + "";
+			}
+			else{
+				ssoid = null;
+			}
+		}		
+	}
+	catch(err){
+		//Catch any errors
+		logDebug("error in authenticateUser : " + err);
+		ssoid = null;
+	}
+	return ssoid;
 }
-    
+	
 function createRefContactsFromCapContactsAndLink(pCapId, contactTypeArray, ignoreAttributeArray, replaceCapContact, overwriteRefContact, refContactExists)
-    {
+	{
 
-    // contactTypeArray is either null (all), or an array or contact types to process
-    //
-    // ignoreAttributeArray is either null (none), or an array of attributes to ignore when creating a REF contact
-    //
-    // replaceCapContact not implemented yet
-    //
-    // overwriteRefContact -- if true, will refresh linked ref contact with CAP contact data
-    //
-    // refContactExists is a function for REF contact comparisons.
-    //
-    // Version 2.0 Update:   This function will now check for the presence of a standard choice "REF_CONTACT_CREATION_RULES".
-    // This setting will determine if the reference contact will be created, as well as the contact type that the reference contact will
-    // be created with.  If this setting is configured, the contactTypeArray parameter will be ignored.   The "Default" in this standard
-    // choice determines the default action of all contact types.   Other types can be configured separately.
-    // Each contact type can be set to "I" (create ref as individual), "O" (create ref as organization),
-    // "F" (follow the indiv/org flag on the cap contact), "D" (Do not create a ref contact), and "U" (create ref using transaction contact type).
+	// contactTypeArray is either null (all), or an array or contact types to process
+	//
+	// ignoreAttributeArray is either null (none), or an array of attributes to ignore when creating a REF contact
+	//
+	// replaceCapContact not implemented yet
+	//
+	// overwriteRefContact -- if true, will refresh linked ref contact with CAP contact data
+	//
+	// refContactExists is a function for REF contact comparisons.
+	//
+	// Version 2.0 Update:   This function will now check for the presence of a standard choice "REF_CONTACT_CREATION_RULES".
+	// This setting will determine if the reference contact will be created, as well as the contact type that the reference contact will
+	// be created with.  If this setting is configured, the contactTypeArray parameter will be ignored.   The "Default" in this standard
+	// choice determines the default action of all contact types.   Other types can be configured separately.
+	// Each contact type can be set to "I" (create ref as individual), "O" (create ref as organization),
+	// "F" (follow the indiv/org flag on the cap contact), "D" (Do not create a ref contact), and "U" (create ref using transaction contact type).
 
-    var standardChoiceForBusinessRules = "REF_CONTACT_CREATION_RULES";
-
-
-    var ingoreArray = new Array();
-    if (arguments.length > 1) ignoreArray = arguments[1];
-
-    var defaultContactFlag = lookup(standardChoiceForBusinessRules,"Default");
-
-    var c = aa.people.getCapContactByCapID(pCapId).getOutput()
-    var cCopy = aa.people.getCapContactByCapID(pCapId).getOutput()  // must have two working datasets
-
-    for (var i in c)
-       {
-       var ruleForRefContactType = "U"; // default behavior is create the ref contact using transaction contact type
-       var con = c[i];
-
-       var p = con.getPeople();
-
-       var contactFlagForType = lookup(standardChoiceForBusinessRules,p.getContactType());
-
-       if (!defaultContactFlag && !contactFlagForType) // standard choice not used for rules, check the array passed
-        {
-        if (contactTypeArray && !exists(p.getContactType(),contactTypeArray))
-            continue;  // not in the contact type list.  Move along.
-        }
-
-       if (!contactFlagForType && defaultContactFlag) // explicit contact type not used, use the default
-        {
-        ruleForRefContactType = defaultContactFlag;
-        }
-
-       if (contactFlagForType) // explicit contact type is indicated
-        {
-        ruleForRefContactType = contactFlagForType;
-        }
-
-       if (ruleForRefContactType.equals("D"))
-        continue;
-
-       var refContactType = "";
-
-       switch(ruleForRefContactType)
-        {
-           case "U":
-             refContactType = p.getContactType();
-             break;
-           case "I":
-             refContactType = "Individual";
-             break;
-           case "O":
-             refContactType = "Organization";
-             break;
-           case "F":
-             if (p.getContactTypeFlag() && p.getContactTypeFlag().equals("organization"))
-                refContactType = "Organization";
-             else
-                refContactType = "Individual";
-             break;
-        }
-
-       var refContactNum = con.getCapContactModel().getRefContactNumber();
-
-       if (refContactNum)  // This is a reference contact.   Let's refresh or overwrite as requested in parms.
-        {
-        if (overwriteRefContact)
-            {
-            p.setContactSeqNumber(refContactNum);  // set the ref seq# to refresh
-            p.setContactType(refContactType);
-
-                            var a = p.getAttributes();
-
-                            if (a)
-                                {
-                                var ai = a.iterator();
-                                while (ai.hasNext())
-                                    {
-                                    var xx = ai.next();
-                                    xx.setContactNo(refContactNum);
-                                    }
-                    }
-
-            // custom for DEC, since we aren't using attributes JIRA-51495
-            var r = aa.people.editPeople(p);
-
-            if (!r.getSuccess())
-                logDebug("WARNING: couldn't refresh reference people : " + r.getErrorMessage());
-            else
-                logDebug("Successfully refreshed ref contact #" + refContactNum + " with CAP contact data");
-            }
-
-        if (replaceCapContact)
-            {
-                // To Be Implemented later.   Is there a use case?
-            }
-
-        }
-        else  // user entered the contact freehand.   Let's create or link to ref contact.
-        {
-            var ccmSeq = p.getContactSeqNumber();
-
-            var existingContact = refContactExists(p);  // Call the custom function to see if the REF contact exists
-
-            var p = cCopy[i].getPeople();  // get a fresh version, had to mangle the first for the search
-
-            if (existingContact)  // we found a match with our custom function.  Use this one.
-                {
-                    refPeopleId = existingContact;
-                }
-            else  // did not find a match, let's create one
-                {
-
-                var a = p.getAttributes();
-
-                if (a)
-                    {
-                    //
-                    // Clear unwanted attributes
-                    var ai = a.iterator();
-                    while (ai.hasNext())
-                        {
-                        var xx = ai.next();
-                        if (ignoreAttributeArray && exists(xx.getAttributeName().toUpperCase(),ignoreAttributeArray))
-                            ai.remove();
-                        }
-                    }
-
-                p.setContactType(refContactType);
-                var r = aa.people.createPeople(p);
-
-                if (!r.getSuccess())
-                    {logDebug("WARNING: couldn't create reference people : " + r.getErrorMessage()); continue; }
-
-                //
-                // createPeople is nice and updates the sequence number to the ref seq
-                //
-
-                var p = cCopy[i].getPeople();
-                var refPeopleId = p.getContactSeqNumber();
-
-                logDebug("Successfully created reference contact #" + refPeopleId);
-
-                // Need to link to an existing public user.
-
-                var getUserResult = aa.publicUser.getPublicUserByEmail(con.getEmail())
-                if (getUserResult.getSuccess() && getUserResult.getOutput()) {
-                    var userModel = getUserResult.getOutput();
-                    logDebug("createRefContactsFromCapContactsAndLink: Found an existing public user: " + userModel.getUserID());
-
-                    if (refPeopleId)    {
-                        logDebug("createRefContactsFromCapContactsAndLink: Linking this public user with new reference contact : " + refPeopleId);
-                        aa.licenseScript.associateContactWithPublicUser(userModel.getUserSeqNum(), refPeopleId);
-                        }
-                    }
-                }
-
-            //
-            // now that we have the reference Id, we can link back to reference
-            //
-
-            var ccm = aa.people.getCapContactByPK(pCapId,ccmSeq).getOutput().getCapContactModel();
-
-            ccm.setRefContactNumber(refPeopleId);
-            r = aa.people.editCapContact(ccm);
-
-            if (!r.getSuccess())
-                { logDebug("WARNING: error updating cap contact model : " + r.getErrorMessage()); }
-            else
-                { logDebug("Successfully linked ref contact " + refPeopleId + " to cap contact " + ccmSeq);}
+	var standardChoiceForBusinessRules = "REF_CONTACT_CREATION_RULES";
 
 
-        }  // end if user hand entered contact
-    }  // end for each CAP contact
+	var ingoreArray = new Array();
+	if (arguments.length > 1) ignoreArray = arguments[1];
+
+	var defaultContactFlag = lookup(standardChoiceForBusinessRules,"Default");
+
+	var c = aa.people.getCapContactByCapID(pCapId).getOutput()
+	var cCopy = aa.people.getCapContactByCapID(pCapId).getOutput()  // must have two working datasets
+
+	for (var i in c)
+	   {
+	   var ruleForRefContactType = "U"; // default behavior is create the ref contact using transaction contact type
+	   var con = c[i];
+
+	   var p = con.getPeople();
+
+	   var contactFlagForType = lookup(standardChoiceForBusinessRules,p.getContactType());
+
+	   if (!defaultContactFlag && !contactFlagForType) // standard choice not used for rules, check the array passed
+	   	{
+	   	if (contactTypeArray && !exists(p.getContactType(),contactTypeArray))
+			continue;  // not in the contact type list.  Move along.
+		}
+
+	   if (!contactFlagForType && defaultContactFlag) // explicit contact type not used, use the default
+	   	{
+	   	ruleForRefContactType = defaultContactFlag;
+	   	}
+
+	   if (contactFlagForType) // explicit contact type is indicated
+	   	{
+	   	ruleForRefContactType = contactFlagForType;
+	   	}
+
+	   if (ruleForRefContactType.equals("D"))
+	   	continue;
+
+	   var refContactType = "";
+
+	   switch(ruleForRefContactType)
+	   	{
+		   case "U":
+		     refContactType = p.getContactType();
+		     break;
+		   case "I":
+		     refContactType = "Individual";
+		     break;
+		   case "O":
+		     refContactType = "Organization";
+		     break;
+		   case "F":
+		     if (p.getContactTypeFlag() && p.getContactTypeFlag().equals("organization"))
+		     	refContactType = "Organization";
+		     else
+		     	refContactType = "Individual";
+		     break;
+		}
+
+	   var refContactNum = con.getCapContactModel().getRefContactNumber();
+
+	   if (refContactNum)  // This is a reference contact.   Let's refresh or overwrite as requested in parms.
+	   	{
+	   	if (overwriteRefContact)
+	   		{
+	   		p.setContactSeqNumber(refContactNum);  // set the ref seq# to refresh
+	   		p.setContactType(refContactType);
+
+	   						var a = p.getAttributes();
+
+							if (a)
+								{
+								var ai = a.iterator();
+								while (ai.hasNext())
+									{
+									var xx = ai.next();
+									xx.setContactNo(refContactNum);
+									}
+					}
+
+			// custom for DEC, since we aren't using attributes JIRA-51495
+	   		var r = aa.people.editPeople(p);
+
+			if (!r.getSuccess())
+				logDebug("WARNING: couldn't refresh reference people : " + r.getErrorMessage());
+			else
+				logDebug("Successfully refreshed ref contact #" + refContactNum + " with CAP contact data");
+			}
+
+	   	if (replaceCapContact)
+	   		{
+				// To Be Implemented later.   Is there a use case?
+			}
+
+	   	}
+	   	else  // user entered the contact freehand.   Let's create or link to ref contact.
+	   	{
+			var ccmSeq = p.getContactSeqNumber();
+
+			var existingContact = refContactExists(p);  // Call the custom function to see if the REF contact exists
+
+			var p = cCopy[i].getPeople();  // get a fresh version, had to mangle the first for the search
+
+			if (existingContact)  // we found a match with our custom function.  Use this one.
+				{
+					refPeopleId = existingContact;
+				}
+			else  // did not find a match, let's create one
+				{
+
+				var a = p.getAttributes();
+
+				if (a)
+					{
+					//
+					// Clear unwanted attributes
+					var ai = a.iterator();
+					while (ai.hasNext())
+						{
+						var xx = ai.next();
+						if (ignoreAttributeArray && exists(xx.getAttributeName().toUpperCase(),ignoreAttributeArray))
+							ai.remove();
+						}
+					}
+
+				p.setContactType(refContactType);
+				var r = aa.people.createPeople(p);
+
+				if (!r.getSuccess())
+					{logDebug("WARNING: couldn't create reference people : " + r.getErrorMessage()); continue; }
+
+				//
+				// createPeople is nice and updates the sequence number to the ref seq
+				//
+
+				var p = cCopy[i].getPeople();
+				var refPeopleId = p.getContactSeqNumber();
+
+				logDebug("Successfully created reference contact #" + refPeopleId);
+
+				// Need to link to an existing public user.
+
+			    var getUserResult = aa.publicUser.getPublicUserByEmail(con.getEmail())
+			    if (getUserResult.getSuccess() && getUserResult.getOutput()) {
+			        var userModel = getUserResult.getOutput();
+			        logDebug("createRefContactsFromCapContactsAndLink: Found an existing public user: " + userModel.getUserID());
+
+					if (refPeopleId)	{
+						logDebug("createRefContactsFromCapContactsAndLink: Linking this public user with new reference contact : " + refPeopleId);
+						aa.licenseScript.associateContactWithPublicUser(userModel.getUserSeqNum(), refPeopleId);
+						}
+					}
+				}
+
+			//
+			// now that we have the reference Id, we can link back to reference
+			//
+
+		    var ccm = aa.people.getCapContactByPK(pCapId,ccmSeq).getOutput().getCapContactModel();
+
+		    ccm.setRefContactNumber(refPeopleId);
+		    r = aa.people.editCapContact(ccm);
+
+		    if (!r.getSuccess())
+				{ logDebug("WARNING: error updating cap contact model : " + r.getErrorMessage()); }
+			else
+				{ logDebug("Successfully linked ref contact " + refPeopleId + " to cap contact " + ccmSeq);}
+
+
+	    }  // end if user hand entered contact
+	}  // end for each CAP contact
 } 
 
 
 function logDebug(dstr) {
-    vLevel = 1
-    if (arguments.length > 1)
-        vLevel = arguments[1];
-    if ((showDebug & vLevel) == vLevel || vLevel == 1)
-        debug += dstr + br;
-    if ((showDebug & vLevel) == vLevel)
-        aa.debug(aa.getServiceProviderCode() + " : " + aa.env.getValue("CurrentUserID"), dstr);
-        
-    try {
-    if (String(dstr).indexOf("**ERROR") > -1) {
-        var errorEmail = lookup("DEC_CONFIG","SCRIPT_ERROR_EMAILS");
-        if (errorEmail) {
-            if (typeof(capId) == "object") {
-                var subject = "Script Error on Record:" + capId.getCustomID() + " Site:" + lookup("ACA_CONFIGS","ACA_SITE");
-                }
-            else
-                var subject = "Script Error Site:" + lookup("ACA_CONFIGS","ACA_SITE");
-                }
-                
-            var msg = "Event Name :" + aa.env.getValue("EventName") + "<br>";
-            msg+= "Script Code:" + aa.env.getValue("ScriptCode") + "<br>";
-            msg+= "User ID    :" + aa.env.getValue("CurrentUserID") + "<br>";
-            msg+= "Error      :" + dstr + "<br>";
-            msg+= "Stack Trace<br><br>";
-            msg+=debug;
-            
-            aa.sendMail("noreply@accela.com", errorEmail, "", subject, msg);
-        }
-    }
-    catch(err) { aa.debug("emse","couldn't send email for script error : " + err.message) }
-    
+	vLevel = 1
+	if (arguments.length > 1)
+		vLevel = arguments[1];
+	if ((showDebug & vLevel) == vLevel || vLevel == 1)
+		debug += dstr + br;
+	if ((showDebug & vLevel) == vLevel)
+		aa.debug(aa.getServiceProviderCode() + " : " + aa.env.getValue("CurrentUserID"), dstr);
+		
+	try {
+	if ((String(dstr).indexOf("**ERROR") > -1) || (String(dstr).indexOf("**INFODEBUG") > -1)) {
+		var errorEmail = lookup("DEC_CONFIG","SCRIPT_ERROR_EMAILS");
+		if (errorEmail) {
+			if (typeof(capId) == "object") {
+				var subject = "Script Error on Record:" + capId.getCustomID() + " Site:" + lookup("ACA_CONFIGS","ACA_SITE");
+				}
+			else
+				var subject = "Script Error Site:" + lookup("ACA_CONFIGS","ACA_SITE");
+				}
+				
+			var msg = "Event Name :" + aa.env.getValue("EventName") + "<br>";
+			msg+= "Script Code:" + aa.env.getValue("ScriptCode") + "<br>";
+			msg+= "User ID    :" + aa.env.getValue("CurrentUserID") + "<br>";
+			msg+= "Error      :" + dstr + "<br>";
+			msg+= "Stack Trace<br><br>";
+			msg+=debug;
+			
+			aa.sendMail("noreply@accela.com", errorEmail, "", subject, msg);
+		}
+	}
+	catch(err) { aa.debug("emse","couldn't send email for script error : " + err.message) }
+	
 }
