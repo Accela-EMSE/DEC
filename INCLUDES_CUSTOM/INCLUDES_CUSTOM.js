@@ -1639,7 +1639,7 @@ function copyContactAppSpecificToRecordAppSpecific() {
                     var stateValue = thisAddr.getState();
                     var isNyState = ("NY" == thisAddr.getState());
                     if (stateValue != null && stateValue != "") {                        
-                        if (stateValue == "NY" && (county.equalsIgnoreCase("Albany") || county.equalsIgnoreCase("Allegany") || county.equalsIgnoreCase("Bronx") || county.equalsIgnoreCase("Broome") || 
+                        if (stateValue == "NY" && (county != "" && county != null) && (county.equalsIgnoreCase("Albany") || county.equalsIgnoreCase("Allegany") || county.equalsIgnoreCase("Bronx") || county.equalsIgnoreCase("Broome") || 
                             county.equalsIgnoreCase("Cattaraugus") || county.equalsIgnoreCase("Cayuga") || county.equalsIgnoreCase("Chautauqua") || county.equalsIgnoreCase("Chemung") || county.equalsIgnoreCase("Chenango") || county.equalsIgnoreCase("Clinton") || 
                             county.equalsIgnoreCase("Columbia") || county.equalsIgnoreCase("Cortland") || county.equalsIgnoreCase("Delaware") || county.equalsIgnoreCase("Dutchess") || county.equalsIgnoreCase("Erie") || county.equalsIgnoreCase("Essex") || 
                             county.equalsIgnoreCase("Franklin") || county.equalsIgnoreCase("Fulton") || county.equalsIgnoreCase("Genessee") || county.equalsIgnoreCase("Greene") || county.equalsIgnoreCase("Hamilton") || county.equalsIgnoreCase("Herkimer") || 
