@@ -6378,6 +6378,12 @@ function SetExpressformForSelectedLics(frm) {
     frm.DriverLicenseState = AInfo["A_Driver_License_State"];
     frm.DriverLicenseNumber = AInfo["A_Driver_License_Number"];
     frm.NonDriverLicenseNumber = AInfo["A_Non_Driver_License_Number"];
+    frm.Quantity_Trail_Supporter_Patch = AInfo["Quantity Trail Supporter Patch"];
+    frm.Quantity_Venison_Donation = AInfo["Quantity Venison Donation"];
+    frm.Quantity_Conservation_Patron = AInfo["Quantity Conservation Patron"];
+    frm.Quantity_Conservation_Fund = AInfo["Quantity Conservation Fund"];
+    frm.Quantity_Conservationist_Magazine = AInfo["Quantity Conservationist Magazine"];
+    frm.Quantity_Habitat_Stamp = AInfo["Quantity Habitat/Access Stamp"];
 
     var isFishSection = (appTypeString == 'Licenses/Sales/Application/Fishing' || appTypeString == 'Licenses/Sales/Application/Hunting and Fishing' || appTypeString == 'Licenses/Sales/Application/Marine Registry');
     isFishSection = isFishSection || (appTypeString == 'Licenses/Sales/Application/Sporting');
