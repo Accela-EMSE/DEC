@@ -443,6 +443,9 @@ function updateContacts() {
                 peopleModel.setPassportNumber(peopleSequenceNumber);
             }
 
+			//Set non-driver license number JIRA 51683
+			peopleModel.setStateIDNbr(AInfo["A_Non_Driver_License_Number"]);
+			
             aa.people.editPeople(peopleModel);
 
             //var subGroupArray = getTemplateValueByFormArrays(peopleModel.getTemplate(), null, null);
