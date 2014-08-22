@@ -64,15 +64,17 @@ if (capTypeExpr.getValue() != "Licenses/DEC Internal/Enforcement/Enforcement Req
 
     if (isCitizen) {
         var msg = "";
-        dd = diffDate(oToday.getValue(), bDate.getValue());
-        if (dd > 0)
-            msg = "Birth Date cannot be in the future";
-        if (dd < -36524)
-            msg = "Birth Date cannot be more than 100 years into the past";
-        bDate.message = msg;
-        if (msg != "")
-            bDate.value = ""
-        expression.setReturn(bDate);
+        if (bDate.getValue()) {
+            dd = diffDate(oToday.getValue(), bDate.getValue());
+            if (dd > 0)
+                msg = "Birth Date cannot be in the future";
+            if (dd < -36524)
+                msg = "Birth Date cannot be more than 100 years into the past";
+            bDate.message = msg;
+            if (msg != "")
+                bDate.value = ""
+            expression.setReturn(bDate);
+        }
         dlState.required = false;
 
         if (bDate.getValue() && getAGE(bDate.getValue()) < 16) {			// under 16
