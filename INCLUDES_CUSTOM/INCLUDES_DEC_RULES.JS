@@ -739,10 +739,20 @@ function getAllFeeCodeByRuleFor_ANNUAL_HUNT(ruleParams, feeSched) {
     var feeItemCodes = new Array();
     var rp = ruleParams;
 
+    //sanket
     //Annual Hunting License: NYS Res having age 12-13
-    if ((rp.IsNyResiDent || rp.HasLifetimeHunt()) && rp.Age >= 12 && rp.Age <= 13) { feeItemCodes.push(new FeeCodeProp(AHL_1_RES, "000")); }
+    if ((rp.IsNyResiDent || rp.HasLifetimeHunt()) && rp.IsNativeAmerican && rp.Age >= 12 && rp.Age <= 13){ 
+    	feeItemCodes.push(new FeeCodeProp(AJH_3_RES, "000"));
+    }else if((rp.IsNyResiDent || rp.HasLifetimeHunt()) && rp.Age >= 12 && rp.Age <= 13){
+    	feeItemCodes.push(new FeeCodeProp(AHL_1_RES, "000")); 
+    }
     //Annual Hunting License: Non-Res having age 12-13
-    if (!(rp.IsNyResiDent || rp.HasLifetimeHunt()) && rp.Age >= 12 && rp.Age <= 13) { feeItemCodes.push(new FeeCodeProp(AHL_2_NORES, "000")); }
+    if (!(rp.IsNyResiDent || rp.HasLifetimeHunt()) && rp.IsNativeAmerican && rp.Age >= 12 && rp.Age <= 13){
+    	feeItemCodes.push(new FeeCodeProp(AJH_3_RES, "000")); 
+    }else if(!(rp.IsNyResiDent || rp.HasLifetimeHunt()) && rp.Age >= 12 && rp.Age <= 13){
+    	feeItemCodes.push(new FeeCodeProp(AHL_2_NORES, "000")); 
+    }
+
     //Annual Hunting License fee for NYS Resident having age  16-69
     if ((rp.IsNyResiDent || rp.HasLifetimeHunt()) && rp.Age >= 16 && rp.Age <= 69) { feeItemCodes.push(new FeeCodeProp(AHL_3_RES, "000")); }
     //Annual Hunting License fee for Non-Resident having age  16+
@@ -795,10 +805,20 @@ function getAllFeeCodeByRuleFor_ANNUAL_BOWH_2014(ruleParams, feeSched) {
     var feeItemCodes = new Array();
     var rp = ruleParams;
 
+        //sanket
     //Annual Bowhunting Privilege fee for NYS Res having age  12-15
-    if ((rp.IsNyResiDent || rp.HasLifetimeHunt()) && rp.Age >= 12 && rp.Age <= 15) { feeItemCodes.push(new FeeCodeProp(ABHP_1_RES, "000")); }
+    if ((rp.IsNyResiDent || rp.HasLifetimeHunt()) && rp.IsNativeAmerican && rp.Age >= 12 && rp.Age <= 15){
+    	feeItemCodes.push(new FeeCodeProp(AJBH_2_RESNA, "000")); 
+    }else if ((rp.IsNyResiDent || rp.HasLifetimeHunt()) && rp.Age >= 12 && rp.Age <= 15) {
+    	feeItemCodes.push(new FeeCodeProp(ABHP_1_RES, "000")); 
+    }
     //Annual Bowhunting Privilege fee for Non-Res having age  12-15
-    if (!(rp.IsNyResiDent || rp.HasLifetimeHunt()) && rp.Age >= 12 && rp.Age <= 15) { feeItemCodes.push(new FeeCodeProp(ABHP_2_NORES, "000")); }
+    if (!(rp.IsNyResiDent || rp.HasLifetimeHunt()) && rp.IsNativeAmerican && rp.Age >= 12 && rp.Age <= 15){ 
+    	feeItemCodes.push(new FeeCodeProp(ABHP_2_NORES, "000")); 
+    }else if (!(rp.IsNyResiDent || rp.HasLifetimeHunt()) && rp.Age >= 12 && rp.Age <= 15) {
+    	feeItemCodes.push(new FeeCodeProp(ABHP_2_NORES, "000")); 
+    }
+
     //Annual Bowhunting Privilege fee for NYS Resident having age  16-69
     if ((rp.IsNyResiDent || rp.HasLifetimeHunt()) && rp.Age >= 16 && rp.Age <= 69) { feeItemCodes.push(new FeeCodeProp(ABHP_3_RES, "000")); }
     //Annual Bowhunting Privilege fee for Non-Resident having age  16+
@@ -2468,6 +2488,13 @@ function getTag_LIFETM_BOWH(ruleParams) {
         } else if ((rp.EitherOrAntler & 8) == 0) {
             arryTags.push(TAG_TYPE_20_ANTLERLESS_DEER_TAG);
         }
+
+        if (rp.AgeLookAhead30Days >= 12 && rp.AgeLookAhead30Days <= 13 && rp.HasBowHunt && rp.HasHuntEd && rp.HasLifetimeHunt()) {
+        	if ((AInfo["Lifetime Bowhunting"] == "CHECKED") || (AInfo["Bowhunting Privilege"] == "CHECKED")){
+        		arryTags.push(TAG_TYPE_2_BEAR_TAG);		
+        	}
+    	}
+
     } else {
         var cndFul = new COND_FULLFILLMENT();
         if (rp.AgeLookAhead30Days < 12) {
@@ -2492,6 +2519,13 @@ function getTag_ANNUAL_BOWH_2014(ruleParams) {
     } else if ((rp.EitherOrAntler & 8) == 0) {
         arryTags.push(TAG_TYPE_20_ANTLERLESS_DEER_TAG);
     }
+
+    if (rp.AgeLookAhead30Days >= 12 && rp.AgeLookAhead30Days <= 13) {
+    	if (rp.HasHuntEd && rp.HasBowHunt && ((AInfo["Bowhunting Privilege"] == "CHECKED") || (AInfo["Lifetime Bowhunting"] == "CHECKED")) && (rp.HasJrHuntLic() || rp.HasLifetimeHunt())) {
+    		arryTags.push(TAG_TYPE_2_BEAR_TAG);		
+    	}
+    }
+    
     return arryTags;
 }
 function getTag_CONSERVATION_LEGACY(ruleParams) {
