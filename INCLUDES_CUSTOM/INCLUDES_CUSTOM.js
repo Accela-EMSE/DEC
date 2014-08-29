@@ -4422,7 +4422,7 @@ function isPrivPanleWithConsignedLinesFound(availableActiveItems) {
     var isFound = false;
     for (var tidx in availableActiveItems) {
         var tObj = availableActiveItems[tidx];
-        if (tObj.RecordType == AA54_TAG_PRIV_PANEL) {
+        if (tObj.RecordType != AA54_TAG_PRIV_PANEL) {
             isFound = (tObj.PrintConsignedLines == 'Yes' || tObj.PrintConsignedLines == 'Y');
             if (isFound) {
                 break;
