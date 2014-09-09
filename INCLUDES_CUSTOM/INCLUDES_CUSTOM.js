@@ -434,7 +434,7 @@ function updateContacts() {
             copyCapASIT(peopleModel, groupName, "LAND OWNER INFORMATION");
             copyCapASIT(peopleModel, groupName, "ANNUAL DISABILITY");
             //JIRA-49638
-            deleteContactASIT(peopleModel, groupName, "ANNUAL DISABILITY");
+            //deleteContactASIT(peopleModel, groupName, "ANNUAL DISABILITY");
             copyCapASIT(peopleModel, groupName, "SPORTSMAN EDUCATION");
             copyCapASIT(peopleModel, groupName, "PREVIOUS LICENSE");
 
@@ -8769,6 +8769,54 @@ function createRefContactsFromCapContactsAndLink(pCapId, contactTypeArray, ignor
 
 				p.setContactType(refContactType);
 				var r = aa.people.createPeople(p);
+
+                //sanket jadhav
+                var peopleSequenceNumberX = null;
+                if (r.getSuccess()) {
+                    var peopResult = aa.people.getPeopleByPeopleModel(p)
+                    var peops = peopResult.getOutput();
+                    logDebug("Successfully created reference contact: " + peops[0].contactSeqNumber);  
+                    peopleSequenceNumberX = peops[0].contactSeqNumber;
+                } else {
+                    logDebug("**ERROR: " + r.getErrorMessage());                    
+                }
+
+                var capContactAddressToCopy = getContactObjs(pCapId);
+
+                if (capContactAddressToCopy) {                    
+                    for(var y in capContactAddressToCopy){                        
+                        var thisContact = capContactAddressToCopy[y];
+                        if (thisContact) {
+                            var addresses = thisContact.addresses;
+                            for ( var i in addresses) {                                
+
+                                //Adding Contact Address
+                                var contactAddressScriptModel = aa.address.createContactAddressModel().getOutput();
+                                contactAddressScriptModel.setServiceProviderCode("DEC");
+                                contactAddressScriptModel.setAuditStatus("A");
+                                contactAddressScriptModel.setAuditID("ADMIN");
+                                var contactAddressModel = contactAddressScriptModel.getContactAddressModel();                                                            
+                                contactAddressModel.setEntityID(aa.util.parseLong(peopleSequenceNumberX));                                
+                                contactAddressModel.setEntityType("CONTACT");
+                                contactAddressModel.setAddressType("Mailing");
+                                contactAddressModel.setAddressLine1(addresses[i].getAddressLine1());
+                                contactAddressModel.setAddressLine2(addresses[i].getAddressLine2());
+                                contactAddressModel.setAddressLine3(addresses[i].getAddressLine3());
+                                contactAddressModel.setCity(addresses[i].getCity());
+                                contactAddressModel.setState(addresses[i].getState());                                
+                                contactAddressModel.setCountryCode("US");
+                                contactAddressModel.setZip(addresses[i].getZip());
+                                var contactAddressModel = contactAddressScriptModel.getContactAddressModel();
+                                var a = aa.address.createContactAddress(contactAddressModel);
+                                if (a.getSuccess()) {
+                                    logDebug(">>>>>> a :" + a.getOutput().getAddressID());
+                                }else{
+                                    logDebug(">>>>> Error Message : " + a.getErrorMessage());
+                                }                                                            
+                            }
+                        }
+                    }
+                }
 
 				if (!r.getSuccess())
 					{logDebug("WARNING: couldn't create reference people : " + r.getErrorMessage()); continue; }
