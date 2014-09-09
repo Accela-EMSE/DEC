@@ -739,18 +739,17 @@ function getAllFeeCodeByRuleFor_ANNUAL_HUNT(ruleParams, feeSched) {
     var feeItemCodes = new Array();
     var rp = ruleParams;
 
-    //sanket
     //Annual Hunting License: NYS Res having age 12-13
     if ((rp.IsNyResiDent || rp.HasLifetimeHunt()) && rp.IsNativeAmerican && rp.Age >= 12 && rp.Age <= 13){ 
-    	feeItemCodes.push(new FeeCodeProp(AJH_3_RES, "000"));
+        feeItemCodes.push(new FeeCodeProp(AJH_3_RES, "000"));
     }else if((rp.IsNyResiDent || rp.HasLifetimeHunt()) && rp.Age >= 12 && rp.Age <= 13){
-    	feeItemCodes.push(new FeeCodeProp(AHL_1_RES, "000")); 
+        feeItemCodes.push(new FeeCodeProp(AHL_1_RES, "000")); 
     }
     //Annual Hunting License: Non-Res having age 12-13
     if (!(rp.IsNyResiDent || rp.HasLifetimeHunt()) && rp.IsNativeAmerican && rp.Age >= 12 && rp.Age <= 13){
-    	feeItemCodes.push(new FeeCodeProp(AJH_3_RES, "000")); 
+        feeItemCodes.push(new FeeCodeProp(AHL_2_NORES, "000")); 
     }else if(!(rp.IsNyResiDent || rp.HasLifetimeHunt()) && rp.Age >= 12 && rp.Age <= 13){
-    	feeItemCodes.push(new FeeCodeProp(AHL_2_NORES, "000")); 
+        feeItemCodes.push(new FeeCodeProp(AHL_2_NORES, "000")); 
     }
 
     //Annual Hunting License fee for NYS Resident having age  16-69
@@ -805,20 +804,19 @@ function getAllFeeCodeByRuleFor_ANNUAL_BOWH_2014(ruleParams, feeSched) {
     var feeItemCodes = new Array();
     var rp = ruleParams;
 
-        //sanket
     //Annual Bowhunting Privilege fee for NYS Res having age  12-15
     if ((rp.IsNyResiDent || rp.HasLifetimeHunt()) && rp.IsNativeAmerican && rp.Age >= 12 && rp.Age <= 15){
-    	feeItemCodes.push(new FeeCodeProp(AJBH_2_RESNA, "000")); 
+        feeItemCodes.push(new FeeCodeProp(AJBH_2_RESNA, "000")); 
     }else if ((rp.IsNyResiDent || rp.HasLifetimeHunt()) && rp.Age >= 12 && rp.Age <= 15) {
-    	feeItemCodes.push(new FeeCodeProp(ABHP_1_RES, "000")); 
+        feeItemCodes.push(new FeeCodeProp(ABHP_1_RES, "000")); 
     }
     //Annual Bowhunting Privilege fee for Non-Res having age  12-15
-    if (!(rp.IsNyResiDent || rp.HasLifetimeHunt()) && rp.IsNativeAmerican && rp.Age >= 12 && rp.Age <= 15){ 
-    	feeItemCodes.push(new FeeCodeProp(ABHP_2_NORES, "000")); 
-    }else if (!(rp.IsNyResiDent || rp.HasLifetimeHunt()) && rp.Age >= 12 && rp.Age <= 15) {
-    	feeItemCodes.push(new FeeCodeProp(ABHP_2_NORES, "000")); 
+     if (!(rp.IsNyResiDent || rp.HasLifetimeHunt()) && rp.IsNativeAmerican && rp.Age >= 12 && rp.Age <= 15){ 
+        feeItemCodes.push(new FeeCodeProp(ABHP_2_NORES, "000")); 
+    } else if (!(rp.IsNyResiDent || rp.HasLifetimeHunt()) && rp.Age >= 12 && rp.Age <= 15) {
+        feeItemCodes.push(new FeeCodeProp(ABHP_2_NORES, "000")); 
     }
-
+    
     //Annual Bowhunting Privilege fee for NYS Resident having age  16-69
     if ((rp.IsNyResiDent || rp.HasLifetimeHunt()) && rp.Age >= 16 && rp.Age <= 69) { feeItemCodes.push(new FeeCodeProp(ABHP_3_RES, "000")); }
     //Annual Bowhunting Privilege fee for Non-Resident having age  16+
