@@ -92,7 +92,7 @@ function GetOverLapPeriod() {
     if (bizObj.getSuccess()) {
         var sItemVal = bizObj.getOutput().getDescription();
         var monthArray = new Array();
-        monthArray = sItemVal.toString().split("-");
+        monthArray = sItemVal.toString().split("\\|")[0].split("-");
         if (monthArray.length != 2) {
             logDebug("**ERROR :DEC_CONFIG >> OVERLAP_SEASON is not set up properly");
         } else {
