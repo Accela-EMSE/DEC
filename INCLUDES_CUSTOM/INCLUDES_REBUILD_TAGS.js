@@ -251,7 +251,11 @@ function calculateEligTags(ipLifeLic, ipSpEd, ipAge, ipEnforcements, spProcessYe
         var fvLicType = fvLL.getKey();
         var fvTags = "";
         if (fvLicType == "Bowhunting" && (ipSpEd.containsKey("Hunter Ed") || ipSpEd.containsKey("Hunting")) && (ipSpEd.containsKey("Bowhunter Ed (IBEP)") || ipSpEd.containsKey("Bowhunter Ed") || ipSpEd.containsKey("Bowhunting")) && !ipEnforcements.revocationHunting) {
-            if (ipAge >= 12 && ipAge < 16)
+            
+            if (ipAge >= 12 && ipAge <= 13) {
+                fvTags = "Privilege Panel,Back,Either Sex,Bear";
+            }
+            else if (ipAge >= 14 && ipAge < 16)
                 fvTags = "Privilege Panel,Back,Either Sex";
             else if (ipAge >= 16)
                 fvTags = "Privilege Panel,Either Sex";
