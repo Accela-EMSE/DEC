@@ -473,7 +473,7 @@ function updateContacts() {
 
             if (isNull(peopTemplateAttribute.get("PREFERENCE POINTS"), '') != '') {
                 newAInfo.push(new NewTblDef("Preference Points", isNull(peopTemplateAttribute.get("PREFERENCE POINTS"), ''), subGroupName));
-            }
+            }            
 
             var peopleModel = getOutput(aa.people.getPeople(peopleSequenceNumber), "");
             setContactASI(peopleModel.getTemplate(), newAInfo);
@@ -6164,7 +6164,7 @@ function copyASIContactAppSpecificToRecordAppSpecific() {
 
         var asitModel;
         var new_asit;
-        if (appTypeString == 'Licenses/Sales/Application/Hunting' || appTypeString == 'Licenses/Sales/Application/Hunting and Fishing') {
+        if (appTypeString == 'Licenses/Sales/Application/Sporting' || appTypeString == 'Licenses/Sales/Application/Hunting' || appTypeString == 'Licenses/Sales/Application/Hunting and Fishing') {
             if (!(typeof (LANDOWNERINFORMATION) == "object")) {
                 var newLandOwnerInfo = GetTableValueArrayByDelimitedString("LANDOWNERINFORMATION", strLand)
                 asitModel = cap.getAppSpecificTableGroupModel();
