@@ -474,120 +474,120 @@ arryTrapEd.push("Trapping");
 var isAfterSwitchDateFlag = "not set"; // JHS 10/18/2013  Cache the date flag after we get it the first time
 
 function GetAllSalesItemsNames() {
-    var RecordTypeArray = new Array();
+	var RecordTypeArray = new Array();
 
-    RecordTypeArray[RecordTypeArray.length] = LIC01_JUNIOR_HUNTING_TAGS;
-    RecordTypeArray[RecordTypeArray.length] = LIC02_MARINE_REGISTRY;
-    RecordTypeArray[RecordTypeArray.length] = LIC03_ONE_DAY_FISHING_LICENSE;
-    RecordTypeArray[RecordTypeArray.length] = LIC04_BOWHUNTING_PRIVILEGE;
-    RecordTypeArray[RecordTypeArray.length] = LIC05_DEER_MANAGEMENT_PERMIT;
-    RecordTypeArray[RecordTypeArray.length] = LIC06_HUNTING_LICENSE;
-    RecordTypeArray[RecordTypeArray.length] = LIC07_MUZZLELOADING_PRIVILEGE;
-    RecordTypeArray[RecordTypeArray.length] = LIC08_TURKEY_PERMIT;
-    RecordTypeArray[RecordTypeArray.length] = LIC09_LIFETIME_BOWHUNTING;
-    RecordTypeArray[RecordTypeArray.length] = LIC10_LIFETIME_FISHING;
-    RecordTypeArray[RecordTypeArray.length] = LIC11_LIFETIME_MUZZLELOADING;
-    RecordTypeArray[RecordTypeArray.length] = LIC12_LIFETIME_SMALL_AND_BIG_GAME;
-    RecordTypeArray[RecordTypeArray.length] = LIC13_LIFETIME_SPORTSMAN;
-    RecordTypeArray[RecordTypeArray.length] = LIC14_LIFETIME_TRAPPING;
-    RecordTypeArray[RecordTypeArray.length] = LIC15_TRAPPING_LICENSE;
-    RecordTypeArray[RecordTypeArray.length] = LIC16_HABITAT_ACCESS_STAMP;
-    RecordTypeArray[RecordTypeArray.length] = LIC17_VENISON_DONATION;
-    RecordTypeArray[RecordTypeArray.length] = LIC18_CONSERVATION_FUND;
-    RecordTypeArray[RecordTypeArray.length] = LIC19_TRAIL_SUPPORTER_PATCH;
-    RecordTypeArray[RecordTypeArray.length] = LIC20_CONSERVATIONIST_MAGAZINE;
-    RecordTypeArray[RecordTypeArray.length] = LIC21_CONSERVATION_PATRON;
-    RecordTypeArray[RecordTypeArray.length] = LIC22_FRESHWATER_FISHING;
-    RecordTypeArray[RecordTypeArray.length] = LIC23_NONRES_FRESHWATER_FISHING;
-    RecordTypeArray[RecordTypeArray.length] = LIC24_NONRESIDENT_1_DAY_FISHING;
-    RecordTypeArray[RecordTypeArray.length] = LIC25_NONRESIDENT_7_DAY_FISHING;
-    RecordTypeArray[RecordTypeArray.length] = LIC26_SEVEN_DAY_FISHING_LICENSE;
-    RecordTypeArray[RecordTypeArray.length] = LIC27_CONSERVATION_LEGACY;
-    RecordTypeArray[RecordTypeArray.length] = LIC28_JUNIOR_BOWHUNTING;
-    RecordTypeArray[RecordTypeArray.length] = LIC29_JUNIOR_HUNTING;
-    RecordTypeArray[RecordTypeArray.length] = LIC30_NONRES_MUZZLELOADING;
-    RecordTypeArray[RecordTypeArray.length] = LIC31_NONRES_SUPER_SPORTSMAN;
-    RecordTypeArray[RecordTypeArray.length] = LIC32_NONRESIDENT_BEAR_TAG;
-    RecordTypeArray[RecordTypeArray.length] = LIC33_NONRESIDENT_BIG_GAME;
-    RecordTypeArray[RecordTypeArray.length] = LIC34_NONRESIDENT_BOWHUNTING;
-    RecordTypeArray[RecordTypeArray.length] = LIC35_NONRESIDENT_SMALL_GAME;
-    RecordTypeArray[RecordTypeArray.length] = LIC36_NONRESIDENT_TURKEY;
-    RecordTypeArray[RecordTypeArray.length] = LIC37_SMALL_AND_BIG_GAME;
-    RecordTypeArray[RecordTypeArray.length] = LIC38_SMALL_GAME;
-    RecordTypeArray[RecordTypeArray.length] = LIC39_SPORTSMAN;
-    RecordTypeArray[RecordTypeArray.length] = LIC40_SUPER_SPORTSMAN;
-    RecordTypeArray[RecordTypeArray.length] = LIC41_NONRESIDENT_TRAPPING;
-    RecordTypeArray[RecordTypeArray.length] = LIC42_TRAPPER_SUPER_SPORTSMAN;
-    RecordTypeArray[RecordTypeArray.length] = LIC43_LIFETIME_CARD_REPLACE;
-    RecordTypeArray[RecordTypeArray.length] = LIC44_SPORTSMAN_ED_CERTIFICATION;
-    RecordTypeArray[RecordTypeArray.length] = LIC45_LIFETIME_INSCRIPTION;
+	RecordTypeArray[RecordTypeArray.length] = LIC01_JUNIOR_HUNTING_TAGS;
+	RecordTypeArray[RecordTypeArray.length] = LIC02_MARINE_REGISTRY;
+	RecordTypeArray[RecordTypeArray.length] = LIC03_ONE_DAY_FISHING_LICENSE;
+	RecordTypeArray[RecordTypeArray.length] = LIC04_BOWHUNTING_PRIVILEGE;
+	RecordTypeArray[RecordTypeArray.length] = LIC05_DEER_MANAGEMENT_PERMIT;
+	RecordTypeArray[RecordTypeArray.length] = LIC06_HUNTING_LICENSE;
+	RecordTypeArray[RecordTypeArray.length] = LIC07_MUZZLELOADING_PRIVILEGE;
+	RecordTypeArray[RecordTypeArray.length] = LIC08_TURKEY_PERMIT;
+	RecordTypeArray[RecordTypeArray.length] = LIC09_LIFETIME_BOWHUNTING;
+	RecordTypeArray[RecordTypeArray.length] = LIC10_LIFETIME_FISHING;
+	RecordTypeArray[RecordTypeArray.length] = LIC11_LIFETIME_MUZZLELOADING;
+	RecordTypeArray[RecordTypeArray.length] = LIC12_LIFETIME_SMALL_AND_BIG_GAME;
+	RecordTypeArray[RecordTypeArray.length] = LIC13_LIFETIME_SPORTSMAN;
+	RecordTypeArray[RecordTypeArray.length] = LIC14_LIFETIME_TRAPPING;
+	RecordTypeArray[RecordTypeArray.length] = LIC15_TRAPPING_LICENSE;
+	RecordTypeArray[RecordTypeArray.length] = LIC16_HABITAT_ACCESS_STAMP;
+	RecordTypeArray[RecordTypeArray.length] = LIC17_VENISON_DONATION;
+	RecordTypeArray[RecordTypeArray.length] = LIC18_CONSERVATION_FUND;
+	RecordTypeArray[RecordTypeArray.length] = LIC19_TRAIL_SUPPORTER_PATCH;
+	RecordTypeArray[RecordTypeArray.length] = LIC20_CONSERVATIONIST_MAGAZINE;
+	RecordTypeArray[RecordTypeArray.length] = LIC21_CONSERVATION_PATRON;
+	RecordTypeArray[RecordTypeArray.length] = LIC22_FRESHWATER_FISHING;
+	RecordTypeArray[RecordTypeArray.length] = LIC23_NONRES_FRESHWATER_FISHING;
+	RecordTypeArray[RecordTypeArray.length] = LIC24_NONRESIDENT_1_DAY_FISHING;
+	RecordTypeArray[RecordTypeArray.length] = LIC25_NONRESIDENT_7_DAY_FISHING;
+	RecordTypeArray[RecordTypeArray.length] = LIC26_SEVEN_DAY_FISHING_LICENSE;
+	RecordTypeArray[RecordTypeArray.length] = LIC27_CONSERVATION_LEGACY;
+	RecordTypeArray[RecordTypeArray.length] = LIC28_JUNIOR_BOWHUNTING;
+	RecordTypeArray[RecordTypeArray.length] = LIC29_JUNIOR_HUNTING;
+	RecordTypeArray[RecordTypeArray.length] = LIC30_NONRES_MUZZLELOADING;
+	RecordTypeArray[RecordTypeArray.length] = LIC31_NONRES_SUPER_SPORTSMAN;
+	RecordTypeArray[RecordTypeArray.length] = LIC32_NONRESIDENT_BEAR_TAG;
+	RecordTypeArray[RecordTypeArray.length] = LIC33_NONRESIDENT_BIG_GAME;
+	RecordTypeArray[RecordTypeArray.length] = LIC34_NONRESIDENT_BOWHUNTING;
+	RecordTypeArray[RecordTypeArray.length] = LIC35_NONRESIDENT_SMALL_GAME;
+	RecordTypeArray[RecordTypeArray.length] = LIC36_NONRESIDENT_TURKEY;
+	RecordTypeArray[RecordTypeArray.length] = LIC37_SMALL_AND_BIG_GAME;
+	RecordTypeArray[RecordTypeArray.length] = LIC38_SMALL_GAME;
+	RecordTypeArray[RecordTypeArray.length] = LIC39_SPORTSMAN;
+	RecordTypeArray[RecordTypeArray.length] = LIC40_SUPER_SPORTSMAN;
+	RecordTypeArray[RecordTypeArray.length] = LIC41_NONRESIDENT_TRAPPING;
+	RecordTypeArray[RecordTypeArray.length] = LIC42_TRAPPER_SUPER_SPORTSMAN;
+	RecordTypeArray[RecordTypeArray.length] = LIC43_LIFETIME_CARD_REPLACE;
+	RecordTypeArray[RecordTypeArray.length] = LIC44_SPORTSMAN_ED_CERTIFICATION;
+	RecordTypeArray[RecordTypeArray.length] = LIC45_LIFETIME_INSCRIPTION;
     //RecordTypeArray[RecordTypeArray.length] = LIC55_TAG_DRIV_LIC;
     RecordTypeArray[RecordTypeArray.length] = LIC56_TAG_DRIV_LIC_IMM;
     RecordTypeArray[RecordTypeArray.length] = LIC57_TAG_DRIV_LIC_REN;
     return RecordTypeArray;
 }
 function SalesItemProp(identity, recordType, feeSched, feeVersion, fnFeeRule, fnIsSelectableRule, fnprereqisiteArray, fnIncludesArray, fntagsArray, verifyRevokedHunting, verifyRevokedTrapping, verifyRevokedFishing) {
-    this.Identity = identity;
-    this.RecordType = recordType;
-    this.feeschedule = feeSched;
-    this.feeversion = feeVersion;
-    this.FNfeeRule = fnFeeRule;
-    this.FNIsSelectableRule = fnIsSelectableRule;
-    this.FNPrereqisiteArray = fnprereqisiteArray;
-    this.FNIncludesArray = fnIncludesArray;
-    this.FNTagsArray = fntagsArray;
-    this.VerifyRevokedHunting = verifyRevokedHunting;
-    this.VerifyRevokedTrapping = verifyRevokedTrapping;
-    this.VerifyRevokedFishing = verifyRevokedFishing;
+	this.Identity = identity;
+	this.RecordType = recordType;
+	this.feeschedule = feeSched;
+	this.feeversion = feeVersion;
+	this.FNfeeRule = fnFeeRule;
+	this.FNIsSelectableRule = fnIsSelectableRule;
+	this.FNPrereqisiteArray = fnprereqisiteArray;
+	this.FNIncludesArray = fnIncludesArray;
+	this.FNTagsArray = fntagsArray;
+	this.VerifyRevokedHunting = verifyRevokedHunting;
+	this.VerifyRevokedTrapping = verifyRevokedTrapping;
+	this.VerifyRevokedFishing = verifyRevokedFishing;
 }
 function FeeCodeProp(feecode, decCode) {
-    this.feecode = feecode;
-    this.DecCode = decCode;
+	this.feecode = feecode;
+	this.DecCode = decCode;
 }
 function TagProp(identity, recordType, fnIsRule, tagType, issuecount) {
-    this.Identity = identity;
-    this.RecordType = recordType;
-    this.TagType = tagType;
-    this.FMIsRule = fnIsRule;
-    if (this.FMIsRule == null) {
-        this.FMIsRule = "checkRuletoCreateTag";
-    }
-    this.issuecount = issuecount;
-    if (this.issuecount == null) {
-        this.issuecount = 1;
-    }
+	this.Identity = identity;
+	this.RecordType = recordType;
+	this.TagType = tagType;
+	this.FMIsRule = fnIsRule;
+	if (this.FMIsRule == null) {
+		this.FMIsRule = "checkRuletoCreateTag";
+	}
+	this.issuecount = issuecount;
+	if (this.issuecount == null) {
+		this.issuecount = 1;
+	}
 }
 function GetVersionMap() {
-    var dmVersion = new DecMapper('allVesrons');
-    dmVersion.Add("2012", SetVesrionSalesItems2012());
-    dmVersion.Add("2013", SetVesrionSalesItems2014());
-    dmVersion.Add("OTHERSALE", SetVesrionSalesItemsOtherSale());
+	var dmVersion = new DecMapper('allVesrons');
+	dmVersion.Add("2012", SetVesrionSalesItems2012());
+	dmVersion.Add("2013", SetVesrionSalesItems2014());
+	dmVersion.Add("OTHERSALE", SetVesrionSalesItemsOtherSale());
 
-    return dmVersion;
+	return dmVersion;
 }
 function SetVesrionSalesItemsOtherSale() {
-    var emptyArray = new Array();
+	var emptyArray = new Array();
 
-    emptyArray.push(new SalesItemProp(LIC16_HABITAT_ACCESS_STAMP, AA16_HABITAT_ACCESS_STAMP, FEE_OTHER_SL_HABITATACES_SCHDL, "1", "getAllFeeCodeByRuleFor_OTHER_SALE_HABITAT_ACCESS_SCHDL", "isRuleForSelectable_OTHER_SALE_HABITAT_ACCESS_SCHDL", null, null, null, false, false, false));
-    emptyArray.push(new SalesItemProp(LIC17_VENISON_DONATION, AA17_VENISON_DONATION, FEE_OTHER_SL_VENISONDNTN_SCHDL, "1", "getAllFeeCodeByRuleFor_OTHER_SALE_VENISON_DONATION_SCHDL", "isRuleForSelectable_OTHER_SALE_VENISON_DONATION_SCHDL", null, null, null, false, false, false));
-    emptyArray.push(new SalesItemProp(LIC18_CONSERVATION_FUND, AA18_CONSERVATION_FUND, FEE_OTHER_SL_CONSERVFUND_SCHDL, "1", "getAllFeeCodeByRuleFor_OTHER_SALE_CONSERVATION_FUND", "isRuleForSelectable_OTHER_SALE_CONSERVATION_FUND", null, null, null, false, false, false));
-    emptyArray.push(new SalesItemProp(LIC19_TRAIL_SUPPORTER_PATCH, AA19_TRAIL_SUPPORTER_PATCH, FEE_OTHER_SL_TRAILSUPP_SCHDL, "1", "getAllFeeCodeByRuleFor_OTHER_SALE_TRAIL_SUPPORTER_PATCH_SCHDL", "isRuleForSelectable_OTHER_SALE_TRAIL_SUPPORTER_PATCH_SCHDL", null, null, null, false, false, false));
-    return emptyArray;
+	emptyArray.push(new SalesItemProp(LIC16_HABITAT_ACCESS_STAMP, AA16_HABITAT_ACCESS_STAMP, FEE_OTHER_SL_HABITATACES_SCHDL, "1", "getAllFeeCodeByRuleFor_OTHER_SALE_HABITAT_ACCESS_SCHDL", "isRuleForSelectable_OTHER_SALE_HABITAT_ACCESS_SCHDL", null, null, null, false, false, false));
+	emptyArray.push(new SalesItemProp(LIC17_VENISON_DONATION, AA17_VENISON_DONATION, FEE_OTHER_SL_VENISONDNTN_SCHDL, "1", "getAllFeeCodeByRuleFor_OTHER_SALE_VENISON_DONATION_SCHDL", "isRuleForSelectable_OTHER_SALE_VENISON_DONATION_SCHDL", null, null, null, false, false, false));
+	emptyArray.push(new SalesItemProp(LIC18_CONSERVATION_FUND, AA18_CONSERVATION_FUND, FEE_OTHER_SL_CONSERVFUND_SCHDL, "1", "getAllFeeCodeByRuleFor_OTHER_SALE_CONSERVATION_FUND", "isRuleForSelectable_OTHER_SALE_CONSERVATION_FUND", null, null, null, false, false, false));
+	emptyArray.push(new SalesItemProp(LIC19_TRAIL_SUPPORTER_PATCH, AA19_TRAIL_SUPPORTER_PATCH, FEE_OTHER_SL_TRAILSUPP_SCHDL, "1", "getAllFeeCodeByRuleFor_OTHER_SALE_TRAIL_SUPPORTER_PATCH_SCHDL", "isRuleForSelectable_OTHER_SALE_TRAIL_SUPPORTER_PATCH_SCHDL", null, null, null, false, false, false));
+	return emptyArray;
 }
 function SetVesrionSalesItems2012() {
-    var emptyArray = new Array();
+	var emptyArray = new Array();
     // identity, recordType, feeSched, feeVersion, fnFeeRule, fnIsSelectableRule, fnprereqisiteArray, fnIncludesArray, fntagsArray, verifyRevokedHunting, verifyRevokedTrapping, verifyRevokedFishing) 
-    emptyArray.push(new SalesItemProp(LIC08_TURKEY_PERMIT, AA08_TURKEY_PERMIT, FEE_ANNUAL_TURKEY_PERMIT_SCHDL, "1", "getAllFeeCodeByRuleFor_ANNUAL_TRKY_2012", "isRuleForSelectable_ANNUAL_TRKY_2012", "getPrereq_ANNUAL_TRKY_2012", null, "getTag_ANNUAL_TRKY_2012", true, false, false));
-    emptyArray.push(new SalesItemProp(LIC07_MUZZLELOADING_PRIVILEGE, AA07_MUZZLELOADING_PRIVILEGE, FEE_ANNUAL_MUZZLELOADING_SCHDL, "1", "getAllFeeCodeByRuleFor_ANNUAL_MUZZ_2012", "isRuleForSelectable_ANNUAL_MUZZ_2012", "getPrereq_ANNUAL_MUZZ_2012", null, "getTag_ANNUAL_MUZZ_2012", true, false, false));
-    emptyArray.push(new SalesItemProp(LIC05_DEER_MANAGEMENT_PERMIT, AA05_DEER_MANAGEMENT_PERMIT, FEE_ANNUAL_DMP_SCHDL, "1", "getAllFeeCodeByRuleFor_ANNUAL_DMP", "isRuleForSelectable_ANNUAL_DMP_2012", "getPrereq_ANNUAL_DMP_2012", null, "getTag_ANNUAL_DMP_2012", true, false, false));
-    emptyArray.push(new SalesItemProp(LIC04_BOWHUNTING_PRIVILEGE, AA04_BOWHUNTING_PRIVILEGE, FEE_ANNUAL_BOWHUNTING_SCHDL, "1", "getAllFeeCodeByRuleFor_ANNUAL_BOWH_2012", "isRuleForSelectable_ANNUAL_BOWH_2012", "getPrereq_ANNUAL_BOWH_2012", null, "getTag_ANNUAL_BOWH_2012", true, false, false));
-    emptyArray.push(new SalesItemProp(LIC27_CONSERVATION_LEGACY, AA27_CONSERVATION_LEGACY, FEE_ANL_CONSERV_LEGACY_SCHDL, "1", "getAllFeeCodeByRuleFor_CONSERVATION_LEGACY", "isRuleForSelectable_CONSERVATION_LEGACY", null, "getIncl_CONSERVATION_LEGACY", "getTag_CONSERVATION_LEGACY", true, false, true));
-    emptyArray.push(new SalesItemProp(LIC28_JUNIOR_BOWHUNTING, AA28_JUNIOR_BOWHUNTING, FEE_ANL_JUNIOR_BOWHUNT_SCHDL, "1", "getAllFeeCodeByRuleFor_JUNIOR_BOWHUNTING", "isRuleForSelectable_JUNIOR_BOWHUNTING", null, "getIncl_JUNIOR_BOWHUNTING", "getTag_JUNIOR_BOWHUNTING", true, false, false));
-    emptyArray.push(new SalesItemProp(LIC29_JUNIOR_HUNTING, AA29_JUNIOR_HUNTING, FEE_ANL_JUNIOR_HUNTING_SCHDL, "1", "getAllFeeCodeByRuleFor_JUNIOR_HUNTING", "isRuleForSelectable_JUNIOR_HUNTING", null, "getIncl_JUNIOR_HUNTING", "getTag_JUNIOR_HUNTING", true, false, false));
-    emptyArray.push(new SalesItemProp(LIC01_JUNIOR_HUNTING_TAGS, AA57_JUNIOR_HUNTING_TAGS, FEE_ANL_JUNIOR_HUNT_TAG_SCHDL, "1", "getAllFeeCodeByRuleFor_JUNIOR_HUNT_TAGS", "isRuleForSelectable_JUNIOR_HUNT_TAGS", null, null, "getTag_JUNIOR_HUNT_TAGS", true, false, false));
-    emptyArray.push(new SalesItemProp(LIC33_NONRESIDENT_BIG_GAME, AA33_NONRESIDENT_BIG_GAME, FEE_ANL_NONRES_BIGGAME_SCHDL, "1", "getAllFeeCodeByRuleFor_NONRESIDENT_BIG_GAME", "isRuleForSelectable_NONRESIDENT_BIG_GAME", null, null, "getTag_NONRESIDENT_BIG_GAME", true, false, true));
-    emptyArray.push(new SalesItemProp(LIC34_NONRESIDENT_BOWHUNTING, AA34_NONRESIDENT_BOWHUNTING, FEE_ANL_NONRES_BOWHUNT_SCHDL, "1", "getAllFeeCodeByRuleFor_NONRESIDENT_BOWHUNTING", "isRuleForSelectable_NONRESIDENT_BOWHUNTING", null, "getIncl_NONRESIDENT_BOWHUNTING", "getTag_NONRESIDENT_BOWHUNTING", true, false, false));
-    emptyArray.push(new SalesItemProp(LIC35_NONRESIDENT_SMALL_GAME, AA35_NONRESIDENT_SMALL_GAME, FEE_ANL_NONRES_SMALLGAME_SCHDL, "1", "getAllFeeCodeByRuleFor_NONRESIDENT_SMALL_GAME", "isRuleForSelectable_NONRESIDENT_SMALL_GAME", null, "getIncl_NONRESIDENT_SMALL_GAME", "getTag_NONRESIDENT_SMALL_GAME", true, false, false));
+emptyArray.push(new SalesItemProp(LIC08_TURKEY_PERMIT, AA08_TURKEY_PERMIT, FEE_ANNUAL_TURKEY_PERMIT_SCHDL, "1", "getAllFeeCodeByRuleFor_ANNUAL_TRKY_2012", "isRuleForSelectable_ANNUAL_TRKY_2012", "getPrereq_ANNUAL_TRKY_2012", null, "getTag_ANNUAL_TRKY_2012", true, false, false));
+emptyArray.push(new SalesItemProp(LIC07_MUZZLELOADING_PRIVILEGE, AA07_MUZZLELOADING_PRIVILEGE, FEE_ANNUAL_MUZZLELOADING_SCHDL, "1", "getAllFeeCodeByRuleFor_ANNUAL_MUZZ_2012", "isRuleForSelectable_ANNUAL_MUZZ_2012", "getPrereq_ANNUAL_MUZZ_2012", null, "getTag_ANNUAL_MUZZ_2012", true, false, false));
+emptyArray.push(new SalesItemProp(LIC05_DEER_MANAGEMENT_PERMIT, AA05_DEER_MANAGEMENT_PERMIT, FEE_ANNUAL_DMP_SCHDL, "1", "getAllFeeCodeByRuleFor_ANNUAL_DMP", "isRuleForSelectable_ANNUAL_DMP_2012", "getPrereq_ANNUAL_DMP_2012", null, "getTag_ANNUAL_DMP_2012", true, false, false));
+emptyArray.push(new SalesItemProp(LIC04_BOWHUNTING_PRIVILEGE, AA04_BOWHUNTING_PRIVILEGE, FEE_ANNUAL_BOWHUNTING_SCHDL, "1", "getAllFeeCodeByRuleFor_ANNUAL_BOWH_2012", "isRuleForSelectable_ANNUAL_BOWH_2012", "getPrereq_ANNUAL_BOWH_2012", null, "getTag_ANNUAL_BOWH_2012", true, false, false));
+emptyArray.push(new SalesItemProp(LIC27_CONSERVATION_LEGACY, AA27_CONSERVATION_LEGACY, FEE_ANL_CONSERV_LEGACY_SCHDL, "1", "getAllFeeCodeByRuleFor_CONSERVATION_LEGACY", "isRuleForSelectable_CONSERVATION_LEGACY", null, "getIncl_CONSERVATION_LEGACY", "getTag_CONSERVATION_LEGACY", true, false, true));
+emptyArray.push(new SalesItemProp(LIC28_JUNIOR_BOWHUNTING, AA28_JUNIOR_BOWHUNTING, FEE_ANL_JUNIOR_BOWHUNT_SCHDL, "1", "getAllFeeCodeByRuleFor_JUNIOR_BOWHUNTING", "isRuleForSelectable_JUNIOR_BOWHUNTING", null, "getIncl_JUNIOR_BOWHUNTING", "getTag_JUNIOR_BOWHUNTING", true, false, false));
+emptyArray.push(new SalesItemProp(LIC29_JUNIOR_HUNTING, AA29_JUNIOR_HUNTING, FEE_ANL_JUNIOR_HUNTING_SCHDL, "1", "getAllFeeCodeByRuleFor_JUNIOR_HUNTING", "isRuleForSelectable_JUNIOR_HUNTING", null, "getIncl_JUNIOR_HUNTING", "getTag_JUNIOR_HUNTING", true, false, false));
+emptyArray.push(new SalesItemProp(LIC01_JUNIOR_HUNTING_TAGS, AA57_JUNIOR_HUNTING_TAGS, FEE_ANL_JUNIOR_HUNT_TAG_SCHDL, "1", "getAllFeeCodeByRuleFor_JUNIOR_HUNT_TAGS", "isRuleForSelectable_JUNIOR_HUNT_TAGS", null, null, "getTag_JUNIOR_HUNT_TAGS", true, false, false));
+emptyArray.push(new SalesItemProp(LIC33_NONRESIDENT_BIG_GAME, AA33_NONRESIDENT_BIG_GAME, FEE_ANL_NONRES_BIGGAME_SCHDL, "1", "getAllFeeCodeByRuleFor_NONRESIDENT_BIG_GAME", "isRuleForSelectable_NONRESIDENT_BIG_GAME", null, null, "getTag_NONRESIDENT_BIG_GAME", true, false, true));
+emptyArray.push(new SalesItemProp(LIC34_NONRESIDENT_BOWHUNTING, AA34_NONRESIDENT_BOWHUNTING, FEE_ANL_NONRES_BOWHUNT_SCHDL, "1", "getAllFeeCodeByRuleFor_NONRESIDENT_BOWHUNTING", "isRuleForSelectable_NONRESIDENT_BOWHUNTING", null, "getIncl_NONRESIDENT_BOWHUNTING", "getTag_NONRESIDENT_BOWHUNTING", true, false, false));
+emptyArray.push(new SalesItemProp(LIC35_NONRESIDENT_SMALL_GAME, AA35_NONRESIDENT_SMALL_GAME, FEE_ANL_NONRES_SMALLGAME_SCHDL, "1", "getAllFeeCodeByRuleFor_NONRESIDENT_SMALL_GAME", "isRuleForSelectable_NONRESIDENT_SMALL_GAME", null, "getIncl_NONRESIDENT_SMALL_GAME", "getTag_NONRESIDENT_SMALL_GAME", true, false, false));
     //Added fnprerequisiteArray to NONRES_MUZZLELOADING
     emptyArray.push(new SalesItemProp(LIC30_NONRES_MUZZLELOADING, AA30_NONRES_MUZZLELOADING, FEE_ANL_NONRESMUZZLELOAD_SCHDL, "1", "getAllFeeCodeByRuleFor_NONRES_MUZZLELOADING", "isRuleForSelectable_NONRES_MUZZLELOADING", "getPrereq_NONRES_MUZZLELOADING", "getIncl_NONRES_MUZZLELOADING", "getTag_NONRES_MUZZLELOADING", true, false, false));
     emptyArray.push(new SalesItemProp(LIC31_NONRES_SUPER_SPORTSMAN, AA31_NONRES_SUPER_SPORTSMAN, FEE_ANL_NONRES_SUPSPORTS_SCHDL, "1", "getAllFeeCodeByRuleFor_NONRES_SUPER_SPORTSMAN", "isRuleForSelectable_NONRES_SUPER_SPORTSMAN", null, "getIncl_NONRES_SUPER_SPORTSMAN", "getTag_NONRES_SUPER_SPORTSMAN", true, false, true));
@@ -632,11 +632,11 @@ function SetVesrionSalesItems2012() {
     return emptyArray;
 }
 function SetVesrionSalesItems2014() {
-    var emptyArray = new Array();
+	var emptyArray = new Array();
 
-    emptyArray.push(new SalesItemProp(LIC06_HUNTING_LICENSE, AA06_HUNTING_LICENSE, FEE_ANNUAL_HUNTING_SCHDL, "1", "getAllFeeCodeByRuleFor_ANNUAL_HUNT", "isRuleForSelectable_ANNUAL_HUNT", null, null, "getTag_ANNUAL_HUNT", true, false, false));
-    emptyArray.push(new SalesItemProp(LIC04_BOWHUNTING_PRIVILEGE, AA04_BOWHUNTING_PRIVILEGE, FEE_ANNUAL_BOWHUNTING_SCHDL, "2", "getAllFeeCodeByRuleFor_ANNUAL_BOWH_2014", "isRuleForSelectable_ANNUAL_BOWH_2014", "getPrereq_ANNUAL_BOWH_2014", null, "getTag_ANNUAL_BOWH_2014", true, false, false));
-    emptyArray.push(new SalesItemProp(LIC07_MUZZLELOADING_PRIVILEGE, AA07_MUZZLELOADING_PRIVILEGE, FEE_ANNUAL_MUZZLELOADING_SCHDL, "2", "getAllFeeCodeByRuleFor_ANNUAL_MUZZ_2014", "isRuleForSelectable_ANNUAL_MUZZ_2014", "getPrereq_ANNUAL_MUZZ_2014", null, "getTag_ANNUAL_MUZZ_2014", true, false, false));
+	emptyArray.push(new SalesItemProp(LIC06_HUNTING_LICENSE, AA06_HUNTING_LICENSE, FEE_ANNUAL_HUNTING_SCHDL, "1", "getAllFeeCodeByRuleFor_ANNUAL_HUNT", "isRuleForSelectable_ANNUAL_HUNT", null, null, "getTag_ANNUAL_HUNT", true, false, false));
+	emptyArray.push(new SalesItemProp(LIC04_BOWHUNTING_PRIVILEGE, AA04_BOWHUNTING_PRIVILEGE, FEE_ANNUAL_BOWHUNTING_SCHDL, "2", "getAllFeeCodeByRuleFor_ANNUAL_BOWH_2014", "isRuleForSelectable_ANNUAL_BOWH_2014", "getPrereq_ANNUAL_BOWH_2014", null, "getTag_ANNUAL_BOWH_2014", true, false, false));
+	emptyArray.push(new SalesItemProp(LIC07_MUZZLELOADING_PRIVILEGE, AA07_MUZZLELOADING_PRIVILEGE, FEE_ANNUAL_MUZZLELOADING_SCHDL, "2", "getAllFeeCodeByRuleFor_ANNUAL_MUZZ_2014", "isRuleForSelectable_ANNUAL_MUZZ_2014", "getPrereq_ANNUAL_MUZZ_2014", null, "getTag_ANNUAL_MUZZ_2014", true, false, false));
     //RV - 11/25 - Original code had no record type (param 2). I'm not sure the sales item below is currently being used.  When testing for season beginning Oct 2013 -, the logic was being called from the 2012 version() salesItemProp() above.
     emptyArray.push(new SalesItemProp(LIC01_JUNIOR_HUNTING_TAGS, AA57_JUNIOR_HUNTING_TAGS, FEE_ANL_JUNIOR_HUNT_TAG_SCHDL, "1", "getAllFeeCodeByRuleFor_JUNIOR_HUNT_TAGS", "isRuleForSelectable_JUNIOR_HUNT_TAGS", null, null, "getTag_JUNIOR_HUNT_TAGS", true, false, false));
     emptyArray.push(new SalesItemProp(LIC08_TURKEY_PERMIT, AA08_TURKEY_PERMIT, FEE_ANNUAL_TURKEY_PERMIT_SCHDL, "2", "getAllFeeCodeByRuleFor_ANNUAL_TRKY_2014", "isRuleForSelectable_ANNUAL_TRKY_2014", "getPrereq_ANNUAL_TRKY_2014", null, "getTag_ANNUAL_TRKY_2014", true, false, false));
@@ -671,8 +671,8 @@ function SetVesrionSalesItems2014() {
     return emptyArray;
 }
 function getAllFeeCodeByRuleFor_ONEDAY_FISH_2012(ruleParams, feeSched) {
-    var feeItemCodes = new Array();
-    var rp = ruleParams;
+	var feeItemCodes = new Array();
+	var rp = ruleParams;
 
     //Annual One Day Fishing License fee for NYS Resident having age  16+
     if ((rp.IsNyResiDent || rp.HasLifetimeFish()) && rp.Age >= 16) { feeItemCodes.push(new FeeCodeProp(AODFL_A1_RES, "000")); }
@@ -681,8 +681,8 @@ function getAllFeeCodeByRuleFor_ONEDAY_FISH_2012(ruleParams, feeSched) {
     return feeItemCodes;
 }
 function getAllFeeCodeByRuleFor_ONEDAY_FISH_2014(ruleParams, feeSched) {
-    var feeItemCodes = new Array();
-    var rp = ruleParams;
+	var feeItemCodes = new Array();
+	var rp = ruleParams;
 
     //Annual One Day Fishing License fee for NYS Resident having age  16+
     if ((rp.IsNyResiDent || rp.HasLifetimeFish()) && rp.Age >= 16) { feeItemCodes.push(new FeeCodeProp(AODFL_A1_RES, "000")); }
@@ -693,8 +693,8 @@ function getAllFeeCodeByRuleFor_ONEDAY_FISH_2014(ruleParams, feeSched) {
     return feeItemCodes;
 }
 function getAllFeeCodeByRuleFor_FRESHWATER_FISHING_2014(ruleParams, feeSched) {
-    var feeItemCodes = new Array();
-    var rp = ruleParams;
+	var feeItemCodes = new Array();
+	var rp = ruleParams;
 
     //Annual Fishing License fee for NYS Resident having age  16-69
     if ((rp.IsNyResiDent || rp.HasLifetimeFish()) && rp.Age >= 16 && rp.Age <= 69) { feeItemCodes.push(new FeeCodeProp(AFF_1_RES, "000")); }
@@ -704,10 +704,10 @@ function getAllFeeCodeByRuleFor_FRESHWATER_FISHING_2014(ruleParams, feeSched) {
     if (!(rp.IsNyResiDent || rp.HasLifetimeFish()) && rp.Age >= 16) { feeItemCodes.push(new FeeCodeProp(AFF_7_NORES, "000")); }
     //Annual Fishing License fee for NYS Res Mil. Disabled having age  16+
     if ((rp.IsNyResiDent || rp.HasLifetimeFish()) && rp.Age >= 16 && rp.IsDisableForYear) {
-        feeItemCodes.push(new FeeCodeProp(AFF_5_RESMD, "000"));
+    	feeItemCodes.push(new FeeCodeProp(AFF_5_RESMD, "000"));
         //Military disabled persons will only be charged one $5 fee per license year for the their base licenses (trap, hunt, fish) whether they purchase one or all three.
         if (rp.hasSaleLicMilitaryDisable || hasBaseLicMilitaryDisable(rp.ActiveHoldingsInfo)) {
-            feeItemCodes.push(new FeeCodeProp(RESMD_FREE, "000"));
+        	feeItemCodes.push(new FeeCodeProp(RESMD_FREE, "000"));
         }
     }
     //Annual Fishing License fee for Patriot having age  16+
@@ -724,8 +724,8 @@ function getAllFeeCodeByRuleFor_FRESHWATER_FISHING_2014(ruleParams, feeSched) {
     return feeItemCodes;
 }
 function getAllFeeCodeByRuleFor_ANNUAL_MRIN(ruleParams, feeSched) {
-    var feeItemCodes = new Array();
-    var rp = ruleParams;
+	var feeItemCodes = new Array();
+	var rp = ruleParams;
 
     //Annual Marine Registry fee for NYS Res having age  16+
     if ((rp.IsNyResiDent || rp.HasLifetimeFish()) && rp.Age >= 16) { feeItemCodes.push(new FeeCodeProp(AMR_1_RES, "000")); }
@@ -736,20 +736,20 @@ function getAllFeeCodeByRuleFor_ANNUAL_MRIN(ruleParams, feeSched) {
     return feeItemCodes;
 }
 function getAllFeeCodeByRuleFor_ANNUAL_HUNT(ruleParams, feeSched) {
-    var feeItemCodes = new Array();
-    var rp = ruleParams;
+	var feeItemCodes = new Array();
+	var rp = ruleParams;
 
     //Annual Hunting License: NYS Res having age 12-13
     if ((rp.IsNyResiDent || rp.HasLifetimeHunt()) && rp.IsNativeAmerican && rp.Age >= 12 && rp.Age <= 13){ 
-        feeItemCodes.push(new FeeCodeProp(AJH_3_RES, "000"));
+    	feeItemCodes.push(new FeeCodeProp(AJH_3_RES, "000"));
     }else if((rp.IsNyResiDent || rp.HasLifetimeHunt()) && rp.Age >= 12 && rp.Age <= 13){
-        feeItemCodes.push(new FeeCodeProp(AHL_1_RES, "000")); 
+    	feeItemCodes.push(new FeeCodeProp(AHL_1_RES, "000")); 
     }
     //Annual Hunting License: Non-Res having age 12-13
     if (!(rp.IsNyResiDent || rp.HasLifetimeHunt()) && rp.IsNativeAmerican && rp.Age >= 12 && rp.Age <= 13){
-        feeItemCodes.push(new FeeCodeProp(AHL_2_NORES, "000")); 
+    	feeItemCodes.push(new FeeCodeProp(AHL_2_NORES, "000")); 
     }else if(!(rp.IsNyResiDent || rp.HasLifetimeHunt()) && rp.Age >= 12 && rp.Age <= 13){
-        feeItemCodes.push(new FeeCodeProp(AHL_2_NORES, "000")); 
+    	feeItemCodes.push(new FeeCodeProp(AHL_2_NORES, "000")); 
     }
 
     //Annual Hunting License fee for NYS Resident having age  16-69
@@ -760,10 +760,10 @@ function getAllFeeCodeByRuleFor_ANNUAL_HUNT(ruleParams, feeSched) {
     if ((rp.IsNyResiDent || rp.HasLifetimeHunt()) && rp.Age >= 70) { feeItemCodes.push(new FeeCodeProp(AHL_5_RES, "000")); }
     //Annual Hunting License fee for NYS Res Mil. Disabled having age  16+
     if ((rp.IsNyResiDent || rp.HasLifetimeHunt()) && rp.Age >= 16 && rp.IsDisableForYear) {
-        feeItemCodes.push(new FeeCodeProp(AHL_6_RESMD, "000"));
+    	feeItemCodes.push(new FeeCodeProp(AHL_6_RESMD, "000"));
         //Military disabled persons will only be charged one $5 fee per license year for the their base licenses (trap, hunt, fish) whether they purchase one or all three.
         if (rp.hasSaleLicMilitaryDisable || hasBaseLicMilitaryDisable(rp.ActiveHoldingsInfo)) {
-            feeItemCodes.push(new FeeCodeProp(RESMD_FREE, "000"));
+        	feeItemCodes.push(new FeeCodeProp(RESMD_FREE, "000"));
         }
     }
     //Annual Hunting License fee for Native American having age  16+
@@ -779,8 +779,8 @@ function getAllFeeCodeByRuleFor_ANNUAL_HUNT(ruleParams, feeSched) {
     return feeItemCodes;
 }
 function getAllFeeCodeByRuleFor_ANNUAL_BOWH_2012(ruleParams, feeSched) {
-    var feeItemCodes = new Array();
-    var rp = ruleParams;
+	var feeItemCodes = new Array();
+	var rp = ruleParams;
 
     //Annual Bowhunting Privilege fee for NYS Resident having age  16-69
     if ((rp.IsNyResiDent || rp.HasLifetimeHunt()) && rp.Age >= 16 && rp.Age <= 69) { feeItemCodes.push(new FeeCodeProp(ABHP_3_RES, "000")); }
@@ -788,10 +788,10 @@ function getAllFeeCodeByRuleFor_ANNUAL_BOWH_2012(ruleParams, feeSched) {
     if ((rp.IsNyResiDent || rp.HasLifetimeHunt()) && rp.Age >= 70) { feeItemCodes.push(new FeeCodeProp(ABHP_5_RES, "000")); }
     //Annual Bowhunting Privilege fee for NYS Res Mil. Disabled having age  16+
     if ((rp.IsNyResiDent || rp.HasLifetimeHunt()) && rp.Age >= 16 && rp.IsDisableForYear) {
-        feeItemCodes.push(new FeeCodeProp(ABHP_6_RESMD, "000"));
+    	feeItemCodes.push(new FeeCodeProp(ABHP_6_RESMD, "000"));
         //Military disabled persons will only be charged one $5 fee per license year for the their base licenses (trap, hunt, fish) whether they purchase one or all three.
         if (rp.hasSaleLicMilitaryDisable || hasBaseLicMilitaryDisable(rp.ActiveHoldingsInfo)) {
-            feeItemCodes.push(new FeeCodeProp(RESMD_FREE, "000"));
+        	feeItemCodes.push(new FeeCodeProp(RESMD_FREE, "000"));
         }
     }
     //Annual Bowhunting Privilege fee for Native American having age  16+
@@ -801,20 +801,20 @@ function getAllFeeCodeByRuleFor_ANNUAL_BOWH_2012(ruleParams, feeSched) {
     return feeItemCodes;
 }
 function getAllFeeCodeByRuleFor_ANNUAL_BOWH_2014(ruleParams, feeSched) {
-    var feeItemCodes = new Array();
-    var rp = ruleParams;
+	var feeItemCodes = new Array();
+	var rp = ruleParams;
 
     //Annual Bowhunting Privilege fee for NYS Res having age  12-15
     if ((rp.IsNyResiDent || rp.HasLifetimeHunt()) && rp.IsNativeAmerican && rp.Age >= 12 && rp.Age <= 15){
-        feeItemCodes.push(new FeeCodeProp(AJBH_2_RESNA, "000")); 
+    	feeItemCodes.push(new FeeCodeProp(AJBH_2_RESNA, "000")); 
     }else if ((rp.IsNyResiDent || rp.HasLifetimeHunt()) && rp.Age >= 12 && rp.Age <= 15) {
-        feeItemCodes.push(new FeeCodeProp(ABHP_1_RES, "000")); 
+    	feeItemCodes.push(new FeeCodeProp(ABHP_1_RES, "000")); 
     }
     //Annual Bowhunting Privilege fee for Non-Res having age  12-15
-     if (!(rp.IsNyResiDent || rp.HasLifetimeHunt()) && rp.IsNativeAmerican && rp.Age >= 12 && rp.Age <= 15){ 
-        feeItemCodes.push(new FeeCodeProp(ABHP_2_NORES, "000")); 
+    if (!(rp.IsNyResiDent || rp.HasLifetimeHunt()) && rp.IsNativeAmerican && rp.Age >= 12 && rp.Age <= 15){ 
+    	feeItemCodes.push(new FeeCodeProp(ABHP_2_NORES, "000")); 
     } else if (!(rp.IsNyResiDent || rp.HasLifetimeHunt()) && rp.Age >= 12 && rp.Age <= 15) {
-        feeItemCodes.push(new FeeCodeProp(ABHP_2_NORES, "000")); 
+    	feeItemCodes.push(new FeeCodeProp(ABHP_2_NORES, "000")); 
     }
     
     //Annual Bowhunting Privilege fee for NYS Resident having age  16-69
@@ -825,10 +825,10 @@ function getAllFeeCodeByRuleFor_ANNUAL_BOWH_2014(ruleParams, feeSched) {
     if ((rp.IsNyResiDent || rp.HasLifetimeHunt()) && rp.Age >= 70) { feeItemCodes.push(new FeeCodeProp(ABHP_5_RES, "000")); }
     //Annual Bowhunting Privilege fee for NYS Res Mil. Disabled having age  16+
     if ((rp.IsNyResiDent || rp.HasLifetimeHunt()) && rp.Age >= 16 && rp.IsDisableForYear) {
-        feeItemCodes.push(new FeeCodeProp(ABHP_6_RESMD, "000"));
+    	feeItemCodes.push(new FeeCodeProp(ABHP_6_RESMD, "000"));
         //Military disabled persons will only be charged one $5 fee per license year for the their base licenses (trap, hunt, fish) whether they purchase one or all three.
         if (rp.hasSaleLicMilitaryDisable || hasBaseLicMilitaryDisable(rp.ActiveHoldingsInfo)) {
-            feeItemCodes.push(new FeeCodeProp(RESMD_FREE, "000"));
+        	feeItemCodes.push(new FeeCodeProp(RESMD_FREE, "000"));
         }
     }
     //Annual Bowhunting Privilege fee for Native American having age  16+
@@ -838,8 +838,8 @@ function getAllFeeCodeByRuleFor_ANNUAL_BOWH_2014(ruleParams, feeSched) {
     return feeItemCodes;
 }
 function getAllFeeCodeByRuleFor_ANNUAL_MUZZ_2012(ruleParams, feeSched) {
-    var feeItemCodes = new Array();
-    var rp = ruleParams;
+	var feeItemCodes = new Array();
+	var rp = ruleParams;
 
     //Annual Muzzleloading Privilege: NYS Resident having age 14-69
     if ((rp.IsNyResiDent || rp.HasLifetimeHunt()) && rp.Age >= 14 && rp.Age <= 69) { feeItemCodes.push(new FeeCodeProp(AMP_3_RES, "000")); }
@@ -847,10 +847,10 @@ function getAllFeeCodeByRuleFor_ANNUAL_MUZZ_2012(ruleParams, feeSched) {
     if ((rp.IsNyResiDent || rp.HasLifetimeHunt()) && rp.Age >= 70) { feeItemCodes.push(new FeeCodeProp(AMP_5_RES, "000")); }
     //Annual Muzzleloading Privilege: NYS Res Mil. Disabled having age 14+
     if ((rp.IsNyResiDent || rp.HasLifetimeHunt()) && rp.Age >= 14 && rp.IsDisableForYear) {
-        feeItemCodes.push(new FeeCodeProp(AMP_6_RESMD, "000"));
+    	feeItemCodes.push(new FeeCodeProp(AMP_6_RESMD, "000"));
         //Military disabled persons will only be charged one $5 fee per license year for the their base licenses (trap, hunt, fish) whether they purchase one or all three.
         if (rp.hasSaleLicMilitaryDisable || hasBaseLicMilitaryDisable(rp.ActiveHoldingsInfo)) {
-            feeItemCodes.push(new FeeCodeProp(RESMD_FREE, "000"));
+        	feeItemCodes.push(new FeeCodeProp(RESMD_FREE, "000"));
         }
     }
     //Annual Muzzleloading Privilege: Native American having age 14+
@@ -860,8 +860,8 @@ function getAllFeeCodeByRuleFor_ANNUAL_MUZZ_2012(ruleParams, feeSched) {
     return feeItemCodes;
 }
 function getAllFeeCodeByRuleFor_ANNUAL_MUZZ_2014(ruleParams, feeSched) {
-    var feeItemCodes = new Array();
-    var rp = ruleParams;
+	var feeItemCodes = new Array();
+	var rp = ruleParams;
 
     //Annual Muzzleloading Privilege: NYS Resident having age 14-69
     if ((rp.IsNyResiDent || rp.HasLifetimeHunt()) && rp.Age >= 14 && rp.Age <= 69) { feeItemCodes.push(new FeeCodeProp(AMP_3_RES, "000")); }
@@ -871,10 +871,10 @@ function getAllFeeCodeByRuleFor_ANNUAL_MUZZ_2014(ruleParams, feeSched) {
     if ((rp.IsNyResiDent || rp.HasLifetimeHunt()) && rp.Age >= 70) { feeItemCodes.push(new FeeCodeProp(AMP_5_RES, "000")); }
     //Annual Muzzleloading Privilege: NYS Res Mil. Disabled having age 14+
     if ((rp.IsNyResiDent || rp.HasLifetimeHunt()) && rp.Age >= 14 && rp.IsDisableForYear) {
-        feeItemCodes.push(new FeeCodeProp(AMP_6_RESMD, "000"));
+    	feeItemCodes.push(new FeeCodeProp(AMP_6_RESMD, "000"));
         //Military disabled persons will only be charged one $5 fee per license year for the their base licenses (trap, hunt, fish) whether they purchase one or all three.
         if (rp.hasSaleLicMilitaryDisable || hasBaseLicMilitaryDisable(rp.ActiveHoldingsInfo)) {
-            feeItemCodes.push(new FeeCodeProp(RESMD_FREE, "000"));
+        	feeItemCodes.push(new FeeCodeProp(RESMD_FREE, "000"));
         }
     }
     //Annual Muzzleloading Privilege: Native American having age 14+
@@ -884,8 +884,8 @@ function getAllFeeCodeByRuleFor_ANNUAL_MUZZ_2014(ruleParams, feeSched) {
     return feeItemCodes;
 }
 function getAllFeeCodeByRuleFor_ANNUAL_DMP(ruleParams, feeSched) {
-    var feeItemCodes = new Array();
-    var rp = ruleParams;
+	var feeItemCodes = new Array();
+	var rp = ruleParams;
 
     //Annual Deer Management Permit: NYS Res having age age 12-16
     if ((rp.IsNyResiDent || rp.HasLifetimeHunt()) && rp.Age >= 12 && rp.Age < 16 && rp.currDrawType == DRAW_INST) { feeItemCodes.push(new FeeCodeProp(ADMP_1_RES, "000")); }
@@ -901,21 +901,21 @@ function getAllFeeCodeByRuleFor_ANNUAL_DMP(ruleParams, feeSched) {
     if (!(rp.IsNyResiDent || rp.HasLifetimeHunt()) && rp.Age >= 16 && rp.currDrawType == DRAW_FCFS) { feeItemCodes.push(new FeeCodeProp(ADMP_7_NRF, "000")); }
 
     if (feeItemCodes.length == 0) {
-        if (rp.currDrawType == DRAW_INST) { feeItemCodes.push(new FeeCodeProp(ADMP_4_NORES, "000")); }
-        if (rp.currDrawType == DRAW_FCFS) { feeItemCodes.push(new FeeCodeProp(ADMP_7_NRF, "000")); }
+    	if (rp.currDrawType == DRAW_INST) { feeItemCodes.push(new FeeCodeProp(ADMP_4_NORES, "000")); }
+    	if (rp.currDrawType == DRAW_FCFS) { feeItemCodes.push(new FeeCodeProp(ADMP_7_NRF, "000")); }
     }
 
     if (feeItemCodes.length) {
-        if (hasBaseDMP(rp.ActiveHoldingsInfo, rp.Year)) {
-            if (rp.currDrawType == DRAW_INST) { feeItemCodes.push(new FeeCodeProp(ADMP_5_FREE, "000")); }
-            if (rp.currDrawType == DRAW_FCFS) { feeItemCodes.push(new FeeCodeProp(ADMP_5_FREEF, "000")); }
-        }
+    	if (hasBaseDMP(rp.ActiveHoldingsInfo, rp.Year)) {
+    		if (rp.currDrawType == DRAW_INST) { feeItemCodes.push(new FeeCodeProp(ADMP_5_FREE, "000")); }
+    		if (rp.currDrawType == DRAW_FCFS) { feeItemCodes.push(new FeeCodeProp(ADMP_5_FREEF, "000")); }
+    	}
     }
     return feeItemCodes;
 }
 function getAllFeeCodeByRuleFor_ANNUAL_TRKY_2014(ruleParams, feeSched) {
-    var feeItemCodes = new Array();
-    var rp = ruleParams;
+	var feeItemCodes = new Array();
+	var rp = ruleParams;
 
     //Annual Turkey Permit fee for NYS Resident having age  12+
     if ((rp.IsNyResiDent || rp.HasLifetimeHunt()) && rp.Age >= 12) { feeItemCodes.push(new FeeCodeProp(ATP_1_RES, "000")); }
@@ -933,8 +933,8 @@ function getAllFeeCodeByRuleFor_ANNUAL_TRKY_2014(ruleParams, feeSched) {
     return feeItemCodes;
 }
 function getAllFeeCodeByRuleFor_ANNUAL_TRKY_2012(ruleParams, feeSched) {
-    var feeItemCodes = new Array();
-    var rp = ruleParams;
+	var feeItemCodes = new Array();
+	var rp = ruleParams;
 
     //Annual Turkey Permit fee for NYS Resident having age  12+
     if ((rp.IsNyResiDent || rp.HasLifetimeHunt()) && rp.Age >= 12) { feeItemCodes.push(new FeeCodeProp(ATP_1_RES, "000")); }
@@ -952,8 +952,8 @@ function getAllFeeCodeByRuleFor_ANNUAL_TRKY_2012(ruleParams, feeSched) {
     return feeItemCodes;
 }
 function getAllFeeCodeByRuleFor_ANNUAL_TRAP_2012(ruleParams, feeSched) {
-    var feeItemCodes = new Array();
-    var rp = ruleParams;
+	var feeItemCodes = new Array();
+	var rp = ruleParams;
 
     //Annual Trapping License fee for NYS Resident having age  under 16
     if ((rp.IsNyResiDent || rp.HasLifetimeTrap()) && rp.Age < 16) { feeItemCodes.push(new FeeCodeProp(ATL_1_RES, "000")); }
@@ -965,10 +965,10 @@ function getAllFeeCodeByRuleFor_ANNUAL_TRAP_2012(ruleParams, feeSched) {
     if (!(rp.IsNyResiDent || rp.HasLifetimeTrap()) && rp.Age >= 16) { feeItemCodes.push(new FeeCodeProp(ATL_4_NORES, "000")); }
     //Annual Trapping License fee for Military Disabled having age  16+
     if (rp.Age >= 16 && (rp.IsNyResiDent || rp.HasLifetimeTrap()) && rp.IsDisableForYear) {
-        feeItemCodes.push(new FeeCodeProp(ATL_5_MD, "000"));
+    	feeItemCodes.push(new FeeCodeProp(ATL_5_MD, "000"));
         //Military disabled persons will only be charged one $5 fee per license year for the their base licenses (trap, hunt, fish) whether they purchase one or all three.
         if (rp.hasSaleLicMilitaryDisable || hasBaseLicMilitaryDisable(rp.ActiveHoldingsInfo)) {
-            feeItemCodes.push(new FeeCodeProp(RESMD_FREE, "000"));
+        	feeItemCodes.push(new FeeCodeProp(RESMD_FREE, "000"));
         }
     }
     //Annual Trapping License fee for Patriot having age  16+
@@ -981,8 +981,8 @@ function getAllFeeCodeByRuleFor_ANNUAL_TRAP_2012(ruleParams, feeSched) {
     return feeItemCodes;
 }
 function getAllFeeCodeByRuleFor_ANNUAL_TRAP_2014(ruleParams, feeSched) {
-    var feeItemCodes = new Array();
-    var rp = ruleParams;
+	var feeItemCodes = new Array();
+	var rp = ruleParams;
 
     //Annual Trapping License fee for NYS Resident having age  under 16
     if ((rp.IsNyResiDent || rp.HasLifetimeTrap()) && rp.Age < 16) { feeItemCodes.push(new FeeCodeProp(ATL_1_RES, "000")); }
@@ -994,10 +994,10 @@ function getAllFeeCodeByRuleFor_ANNUAL_TRAP_2014(ruleParams, feeSched) {
     if (!(rp.IsNyResiDent || rp.HasLifetimeTrap()) && rp.Age >= 16) { feeItemCodes.push(new FeeCodeProp(ATL_4_NORES, "000")); }
     //Annual Trapping License fee for Military Disabled having age  16+
     if (rp.Age >= 16 && (rp.IsNyResiDent || rp.HasLifetimeTrap()) && rp.IsDisableForYear) {
-        feeItemCodes.push(new FeeCodeProp(ATL_5_MD, "000"));
+    	feeItemCodes.push(new FeeCodeProp(ATL_5_MD, "000"));
         //Military disabled persons will only be charged one $5 fee per license year for the their base licenses (trap, hunt, fish) whether they purchase one or all three.
         if (rp.hasSaleLicMilitaryDisable || hasBaseLicMilitaryDisable(rp.ActiveHoldingsInfo)) {
-            feeItemCodes.push(new FeeCodeProp(RESMD_FREE, "000"));
+        	feeItemCodes.push(new FeeCodeProp(RESMD_FREE, "000"));
         }
     }
     //Annual Trapping License fee for Patriot having age  16+
@@ -1009,8 +1009,8 @@ function getAllFeeCodeByRuleFor_ANNUAL_TRAP_2014(ruleParams, feeSched) {
     return feeItemCodes;
 }
 function getAllFeeCodeByRuleFor_LIFETM_SPRT(ruleParams, feeSched) {
-    var feeItemCodes = new Array();
-    var rp = ruleParams;
+	var feeItemCodes = new Array();
+	var rp = ruleParams;
 
     //Lifetime Sportsman fee for NYS Resident having age  0-4
     if (rp.IsNyResiDent && rp.Age <= 4) { feeItemCodes.push(new FeeCodeProp(LSP_1_RES, "000")); }
@@ -1027,8 +1027,8 @@ function getAllFeeCodeByRuleFor_LIFETM_SPRT(ruleParams, feeSched) {
     return feeItemCodes;
 }
 function getAllFeeCodeByRuleFor_LIFETM_SBGM(ruleParams, feeSched) {
-    var feeItemCodes = new Array();
-    var rp = ruleParams;
+	var feeItemCodes = new Array();
+	var rp = ruleParams;
 
     //Lifetime Small & Big Game fee for NYS Resident having age  0-11
     if (rp.IsNyResiDent && rp.Age <= 11) { feeItemCodes.push(new FeeCodeProp(LSBGM_1_RES, "000")); }
@@ -1041,8 +1041,8 @@ function getAllFeeCodeByRuleFor_LIFETM_SBGM(ruleParams, feeSched) {
     return feeItemCodes;
 }
 function getAllFeeCodeByRuleFor_LIFETM_BOWH(ruleParams, feeSched) {
-    var feeItemCodes = new Array();
-    var rp = ruleParams;
+	var feeItemCodes = new Array();
+	var rp = ruleParams;
 
     //Lifetime Bowhunting fee for NYS Resident having age  0-11
     if ((rp.IsNyResiDent || rp.HasLifetimeHunt()) && rp.Age <= 11) { feeItemCodes.push(new FeeCodeProp(LBH_1_RES, "000")); }
@@ -1055,8 +1055,8 @@ function getAllFeeCodeByRuleFor_LIFETM_BOWH(ruleParams, feeSched) {
     return feeItemCodes;
 }
 function getAllFeeCodeByRuleFor_LIFETM_MUZZ(ruleParams, feeSched) {
-    var feeItemCodes = new Array();
-    var rp = ruleParams;
+	var feeItemCodes = new Array();
+	var rp = ruleParams;
 
     //Lifetime Muzzleloading fee for NYS Resident having age  0-13
     if ((rp.IsNyResiDent || rp.HasLifetimeHunt()) && rp.Age <= 13) { feeItemCodes.push(new FeeCodeProp(LMP_1_RES, "000")); }
@@ -1067,8 +1067,8 @@ function getAllFeeCodeByRuleFor_LIFETM_MUZZ(ruleParams, feeSched) {
     return feeItemCodes;
 }
 function getAllFeeCodeByRuleFor_LIFETM_TRAP(ruleParams, feeSched) {
-    var feeItemCodes = new Array();
-    var rp = ruleParams;
+	var feeItemCodes = new Array();
+	var rp = ruleParams;
 
     //Lifetime Trapping fee for NYS Resident having age  0+
     if (rp.IsNyResiDent) { feeItemCodes.push(new FeeCodeProp(LTL_1_RES, "000")); }
@@ -1077,8 +1077,8 @@ function getAllFeeCodeByRuleFor_LIFETM_TRAP(ruleParams, feeSched) {
     return feeItemCodes;
 }
 function getAllFeeCodeByRuleFor_LIFETM_INSCRIPTION(ruleParams, feeSched) {
-    var feeItemCodes = new Array();
-    var rp = ruleParams;
+	var feeItemCodes = new Array();
+	var rp = ruleParams;
 
     //Lifetime Inscription
     if (rp.IsNyResiDent) { feeItemCodes.push(new FeeCodeProp(LIL_1_RES, "000")); }
@@ -1087,22 +1087,22 @@ function getAllFeeCodeByRuleFor_LIFETM_INSCRIPTION(ruleParams, feeSched) {
     return feeItemCodes;
 }
 function getAllFeeCodeByRuleFor_DRIV_LIC_IMM(ruleParams, feeSched) {
-    var feeItemCodes = new Array();
-    var rp = ruleParams;
-    if (rp.hasValidNYDriverLicense) { feeItemCodes.push(new FeeCodeProp(FEE_LIFETIME_DRIV_LIC_IMMED, "000")); }
-    else if (rp.hasValidNYNonDriverLicense) { feeItemCodes.push(new FeeCodeProp(FEE_LIFETIME_DRIV_LIC_IMM_NON, "000")); }
+	var feeItemCodes = new Array();
+	var rp = ruleParams;
+	if (rp.hasValidNYDriverLicense) { feeItemCodes.push(new FeeCodeProp(FEE_LIFETIME_DRIV_LIC_IMMED, "000")); }
+	else if (rp.hasValidNYNonDriverLicense) { feeItemCodes.push(new FeeCodeProp(FEE_LIFETIME_DRIV_LIC_IMM_NON, "000")); }
 
-    return feeItemCodes;
+	return feeItemCodes;
 }
 function getAllFeeCodeByRuleFor_DRIV_LIC_REN(ruleParams, feeSched) {
-    var feeItemCodes = new Array();
-    var rp = ruleParams;
-    feeItemCodes.push(new FeeCodeProp(FEE_LIFETIME_DRIV_LIC_RENEW, "000"));
-    return feeItemCodes;
+	var feeItemCodes = new Array();
+	var rp = ruleParams;
+	feeItemCodes.push(new FeeCodeProp(FEE_LIFETIME_DRIV_LIC_RENEW, "000"));
+	return feeItemCodes;
 }
 function getAllFeeCodeByRuleFor_LIFETM_FISH(ruleParams, feeSched) {
-    var feeItemCodes = new Array();
-    var rp = ruleParams;
+	var feeItemCodes = new Array();
+	var rp = ruleParams;
 
     //Lifetime Fishing fee for NYS Resident having age  0-15
     if (rp.IsNyResiDent && rp.Age <= 15) { feeItemCodes.push(new FeeCodeProp(LFL_1_RES, "000")); }
@@ -1115,8 +1115,8 @@ function getAllFeeCodeByRuleFor_LIFETM_FISH(ruleParams, feeSched) {
     return feeItemCodes;
 }
 function getAllFeeCodeByRuleFor_FRESHWATER_FISHING_2012(ruleParams, feeSched) {
-    var feeItemCodes = new Array();
-    var rp = ruleParams;
+	var feeItemCodes = new Array();
+	var rp = ruleParams;
 
     //Annual Freshwater Fishing: NYS Resident having age 16-69
     if ((rp.IsNyResiDent || rp.HasLifetimeFish()) && rp.Age >= 16 && rp.Age <= 69) { feeItemCodes.push(new FeeCodeProp(AFF_1_RES, "000")); }
@@ -1128,10 +1128,10 @@ function getAllFeeCodeByRuleFor_FRESHWATER_FISHING_2012(ruleParams, feeSched) {
     if ((rp.IsNyResiDent || rp.HasLifetimeFish()) && rp.Age >= 16 && rp.IsNativeAmerican) { feeItemCodes.push(new FeeCodeProp(AFF_4_RESNAM, "000")); }
     //Annual Freshwater Fishing: NYS Resident Military Disabled having age 16+
     if ((rp.IsNyResiDent || rp.HasLifetimeFish()) && rp.Age >= 16 && rp.IsDisableForYear) {
-        feeItemCodes.push(new FeeCodeProp(AFF_5_RESMD, "000"));
+    	feeItemCodes.push(new FeeCodeProp(AFF_5_RESMD, "000"));
         //Military disabled persons will only be charged one $5 fee per license year for the their base licenses (trap, hunt, fish) whether they purchase one or all three.
         if (rp.hasSaleLicMilitaryDisable || hasBaseLicMilitaryDisable(rp.ActiveHoldingsInfo)) {
-            feeItemCodes.push(new FeeCodeProp(RESMD_FREE, "000"));
+        	feeItemCodes.push(new FeeCodeProp(RESMD_FREE, "000"));
         }
     }
     //Annual Freshwater Fishing: NYS Resident Patriot having age 16+
@@ -1141,8 +1141,8 @@ function getAllFeeCodeByRuleFor_FRESHWATER_FISHING_2012(ruleParams, feeSched) {
     return feeItemCodes;
 }
 function getAllFeeCodeByRuleFor_NONRES_FRESHWATER_FISHING(ruleParams, feeSched) {
-    var feeItemCodes = new Array();
-    var rp = ruleParams;
+	var feeItemCodes = new Array();
+	var rp = ruleParams;
 
     //Annual NonRes Freshwater Fishing: Non-Res having age 16+
     if (!(rp.IsNyResiDent || rp.HasLifetimeFish()) && rp.Age >= 16) { feeItemCodes.push(new FeeCodeProp(ANFF_1_NORES, "000")); }
@@ -1151,8 +1151,8 @@ function getAllFeeCodeByRuleFor_NONRES_FRESHWATER_FISHING(ruleParams, feeSched) 
     return feeItemCodes;
 }
 function getAllFeeCodeByRuleFor_NONRESIDENT_1_DAY_FISHING(ruleParams, feeSched) {
-    var feeItemCodes = new Array();
-    var rp = ruleParams;
+	var feeItemCodes = new Array();
+	var rp = ruleParams;
 
     //Annual Nonresident 1 Day Fishing: Non-Res having age 16+
     if (!(rp.IsNyResiDent || rp.HasLifetimeFish()) && rp.Age >= 16) { feeItemCodes.push(new FeeCodeProp(ANOF_1_NORES, "000")); }
@@ -1161,8 +1161,8 @@ function getAllFeeCodeByRuleFor_NONRESIDENT_1_DAY_FISHING(ruleParams, feeSched) 
     return feeItemCodes;
 }
 function getAllFeeCodeByRuleFor_NONRESIDENT_7_DAY_FISHING(ruleParams, feeSched) {
-    var feeItemCodes = new Array();
-    var rp = ruleParams;
+	var feeItemCodes = new Array();
+	var rp = ruleParams;
 
     //Annual Nonresident 7 Day Fishing: Non-Res having age 16+
     if (!(rp.IsNyResiDent || rp.HasLifetimeFish()) && rp.Age >= 16) { feeItemCodes.push(new FeeCodeProp(AN7F_1_NORES, "000")); }
@@ -1171,8 +1171,8 @@ function getAllFeeCodeByRuleFor_NONRESIDENT_7_DAY_FISHING(ruleParams, feeSched) 
     return feeItemCodes;
 }
 function getAllFeeCodeByRuleFor_SEVEN_DAY_FISHING_LICENSE_2012(ruleParams, feeSched) {
-    var feeItemCodes = new Array();
-    var rp = ruleParams;
+	var feeItemCodes = new Array();
+	var rp = ruleParams;
 
     //Annual 7 Day Fishing: NYS Resident having age 16+
     if ((rp.IsNyResiDent || rp.HasLifetimeFish()) && rp.Age >= 16) { feeItemCodes.push(new FeeCodeProp(A7FL_1_RES, "000")); }
@@ -1181,8 +1181,8 @@ function getAllFeeCodeByRuleFor_SEVEN_DAY_FISHING_LICENSE_2012(ruleParams, feeSc
     return feeItemCodes;
 }
 function getAllFeeCodeByRuleFor_SEVEN_DAY_FISHING_LICENSE_2014(ruleParams, feeSched) {
-    var feeItemCodes = new Array();
-    var rp = ruleParams;
+	var feeItemCodes = new Array();
+	var rp = ruleParams;
 
     //Annual 7 Day Fishing: NYS Resident having age 16+
     if ((rp.IsNyResiDent || rp.HasLifetimeFish()) && rp.Age >= 16) { feeItemCodes.push(new FeeCodeProp(A7FL_1_RES, "000")); }
@@ -1194,8 +1194,8 @@ function getAllFeeCodeByRuleFor_SEVEN_DAY_FISHING_LICENSE_2014(ruleParams, feeSc
     return feeItemCodes;
 }
 function getAllFeeCodeByRuleFor_CONSERVATION_LEGACY(ruleParams, feeSched) {
-    var feeItemCodes = new Array();
-    var rp = ruleParams;
+	var feeItemCodes = new Array();
+	var rp = ruleParams;
 
     //Annual Conservation Legacy: NYS Resident having age 16-69
     if ((rp.IsNyResiDent || rp.HasLifetimeHunt()) && rp.Age >= 16 && rp.Age <= 69) { feeItemCodes.push(new FeeCodeProp(ACL_1_RES, "000")); }
@@ -1203,15 +1203,15 @@ function getAllFeeCodeByRuleFor_CONSERVATION_LEGACY(ruleParams, feeSched) {
     if ((rp.IsNyResiDent || rp.HasLifetimeHunt()) && rp.IsDisableForYear) {
         //Military disabled persons will only be charged one $5 fee per license year for the their base licenses (trap, hunt, fish) whether they purchase one or all three.
         if (rp.hasSaleLicMilitaryDisable || hasBaseLicMilitaryDisable(rp.ActiveHoldingsInfo)) {
-            feeItemCodes.push(new FeeCodeProp(RESMD_FREE, "000"));
+        	feeItemCodes.push(new FeeCodeProp(RESMD_FREE, "000"));
         }
     }
     if (feeItemCodes.length == 0) { feeItemCodes.push(new FeeCodeProp(ACL_1_RES, "000")); }
     return feeItemCodes;
 }
 function getAllFeeCodeByRuleFor_JUNIOR_BOWHUNTING(ruleParams, feeSched) {
-    var feeItemCodes = new Array();
-    var rp = ruleParams;
+	var feeItemCodes = new Array();
+	var rp = ruleParams;
 
     //Annual Junior Bowhunting: NYS Resident having age 12-15
     if ((rp.IsNyResiDent || rp.HasLifetimeHunt()) && rp.Age >= 12 && rp.Age <= 15) { feeItemCodes.push(new FeeCodeProp(AJBH_1_RES, "000")); }
@@ -1224,8 +1224,8 @@ function getAllFeeCodeByRuleFor_JUNIOR_BOWHUNTING(ruleParams, feeSched) {
     return feeItemCodes;
 }
 function getAllFeeCodeByRuleFor_JUNIOR_HUNTING(ruleParams, feeSched) {
-    var feeItemCodes = new Array();
-    var rp = ruleParams;
+	var feeItemCodes = new Array();
+	var rp = ruleParams;
 
     //Annual Junior Hunting: NYS Res having age 12-13
     if ((rp.IsNyResiDent || rp.HasLifetimeHunt()) && rp.Age >= 12 && rp.Age <= 13) { feeItemCodes.push(new FeeCodeProp(AJH_1_RES, "000")); }
@@ -1246,8 +1246,8 @@ function getAllFeeCodeByRuleFor_JUNIOR_HUNTING(ruleParams, feeSched) {
     return feeItemCodes;
 }
 function getAllFeeCodeByRuleFor_JUNIOR_HUNT_TAGS(ruleParams, feeSched) {
-    var feeItemCodes = new Array();
-    var rp = ruleParams;
+	var feeItemCodes = new Array();
+	var rp = ruleParams;
 
     //Annual Junior Hunting Tags: NYS Res  having age 14-15
     if ((rp.IsNyResiDent || rp.HasLifetimeHunt()) && rp.Age >= 14 && rp.Age <= 15) { feeItemCodes.push(new FeeCodeProp(AJHT_1_RES, "000")); }
@@ -1258,8 +1258,8 @@ function getAllFeeCodeByRuleFor_JUNIOR_HUNT_TAGS(ruleParams, feeSched) {
     return feeItemCodes;
 }
 function getAllFeeCodeByRuleFor_NONRES_MUZZLELOADING(ruleParams, feeSched) {
-    var feeItemCodes = new Array();
-    var rp = ruleParams;
+	var feeItemCodes = new Array();
+	var rp = ruleParams;
 
     //Annual NonRes Muzzleloading: Non-Res having age 16+
     if (!(rp.IsNyResiDent || rp.HasLifetimeHunt()) && rp.Age >= 14) { feeItemCodes.push(new FeeCodeProp(ANMP_1_NORES, "000")); }
@@ -1268,8 +1268,8 @@ function getAllFeeCodeByRuleFor_NONRES_MUZZLELOADING(ruleParams, feeSched) {
     return feeItemCodes;
 }
 function getAllFeeCodeByRuleFor_NONRES_SUPER_SPORTSMAN(ruleParams, feeSched) {
-    var feeItemCodes = new Array();
-    var rp = ruleParams;
+	var feeItemCodes = new Array();
+	var rp = ruleParams;
 
     //Annual NonRes Super Sportsman: Non-Res having age 16+
     if (!(rp.IsNyResiDent || rp.HasLifetimeHunt()) && rp.Age >= 16) { feeItemCodes.push(new FeeCodeProp(ANSSP_1_NRES, "000")); }
@@ -1278,8 +1278,8 @@ function getAllFeeCodeByRuleFor_NONRES_SUPER_SPORTSMAN(ruleParams, feeSched) {
     return feeItemCodes;
 }
 function getAllFeeCodeByRuleFor_NONRESIDENT_BEAR_TAG(ruleParams, feeSched) {
-    var feeItemCodes = new Array();
-    var rp = ruleParams;
+	var feeItemCodes = new Array();
+	var rp = ruleParams;
 
     //Annual Nonresident Bear Tag : Non-Res having age 16+
     if (!(rp.IsNyResiDent || rp.HasLifetimeHunt()) && rp.Age >= 16) { feeItemCodes.push(new FeeCodeProp(TBR_1_NORES, "000")); }
@@ -1288,8 +1288,8 @@ function getAllFeeCodeByRuleFor_NONRESIDENT_BEAR_TAG(ruleParams, feeSched) {
     return feeItemCodes;
 }
 function getAllFeeCodeByRuleFor_NONRESIDENT_BIG_GAME(ruleParams, feeSched) {
-    var feeItemCodes = new Array();
-    var rp = ruleParams;
+	var feeItemCodes = new Array();
+	var rp = ruleParams;
 
     //Annual Nonresident Big Game: Non-Resident having age 16+
     if (!(rp.IsNyResiDent || rp.HasLifetimeHunt()) && rp.Age >= 16) { feeItemCodes.push(new FeeCodeProp(ANBG_1_NORES, "000")); }
@@ -1298,8 +1298,8 @@ function getAllFeeCodeByRuleFor_NONRESIDENT_BIG_GAME(ruleParams, feeSched) {
     return feeItemCodes;
 }
 function getAllFeeCodeByRuleFor_NONRESIDENT_BOWHUNTING(ruleParams, feeSched) {
-    var feeItemCodes = new Array();
-    var rp = ruleParams;
+	var feeItemCodes = new Array();
+	var rp = ruleParams;
 
     //Annual Nonresident Bowhunting: Non-Resident having age 16+
     if (!(rp.IsNyResiDent || rp.HasLifetimeHunt()) && rp.Age >= 16) { feeItemCodes.push(new FeeCodeProp(ANBH_1_NORES, "000")); }
@@ -1308,8 +1308,8 @@ function getAllFeeCodeByRuleFor_NONRESIDENT_BOWHUNTING(ruleParams, feeSched) {
     return feeItemCodes;
 }
 function getAllFeeCodeByRuleFor_NONRESIDENT_SMALL_GAME(ruleParams, feeSched) {
-    var feeItemCodes = new Array();
-    var rp = ruleParams;
+	var feeItemCodes = new Array();
+	var rp = ruleParams;
 
     //Annual Nonresident Small Game: Non-Resident having age 16+
     if (!(rp.IsNyResiDent || rp.HasLifetimeHunt()) && rp.Age >= 16) { feeItemCodes.push(new FeeCodeProp(ANSG_1_NORES, "000")); }
@@ -1318,8 +1318,8 @@ function getAllFeeCodeByRuleFor_NONRESIDENT_SMALL_GAME(ruleParams, feeSched) {
     return feeItemCodes;
 }
 function getAllFeeCodeByRuleFor_NONRESIDENT_TURKEY(ruleParams, feeSched) {
-    var feeItemCodes = new Array();
-    var rp = ruleParams;
+	var feeItemCodes = new Array();
+	var rp = ruleParams;
 
     //Annual Nonresident Turkey: Non-Res having age 12+
     if (!(rp.IsNyResiDent || rp.HasLifetimeHunt()) && rp.Age >= 12) { feeItemCodes.push(new FeeCodeProp(ANTP_1_NORES, "000")); }
@@ -1328,8 +1328,8 @@ function getAllFeeCodeByRuleFor_NONRESIDENT_TURKEY(ruleParams, feeSched) {
     return feeItemCodes;
 }
 function getAllFeeCodeByRuleFor_SMALL_AND_BIG_GAME(ruleParams, feeSched) {
-    var feeItemCodes = new Array();
-    var rp = ruleParams;
+	var feeItemCodes = new Array();
+	var rp = ruleParams;
 
     //Annual Small & Big Game: NYS Resident having age 16-69
     if ((rp.IsNyResiDent || rp.HasLifetimeHunt()) && rp.Age >= 16 && rp.Age <= 69) { feeItemCodes.push(new FeeCodeProp(ASBG_1_RES, "000")); }
@@ -1338,7 +1338,7 @@ function getAllFeeCodeByRuleFor_SMALL_AND_BIG_GAME(ruleParams, feeSched) {
     if ((rp.IsNyResiDent || rp.HasLifetimeHunt()) && rp.Age >= 16 && rp.IsDisableForYear) {
         //Military disabled persons will only be charged one $5 fee per license year for the their base licenses (trap, hunt, fish) whether they purchase one or all three.
         if (rp.hasSaleLicMilitaryDisable || hasBaseLicMilitaryDisable(rp.ActiveHoldingsInfo)) {
-            feeItemCodes.push(new FeeCodeProp(RESMD_FREE, "000"));
+        	feeItemCodes.push(new FeeCodeProp(RESMD_FREE, "000"));
         }
     }
 
@@ -1346,15 +1346,15 @@ function getAllFeeCodeByRuleFor_SMALL_AND_BIG_GAME(ruleParams, feeSched) {
     return feeItemCodes;
 }
 function getAllFeeCodeByRuleFor_SMALL_GAME(ruleParams, feeSched) {
-    var feeItemCodes = new Array();
-    var rp = ruleParams;
+	var feeItemCodes = new Array();
+	var rp = ruleParams;
 
     //Annual Small Game: NYS Resident having age 16-69
     if ((rp.IsNyResiDent || rp.HasLifetimeHunt()) && rp.Age >= 16 && rp.Age <= 69) { feeItemCodes.push(new FeeCodeProp(ASGM_1_RES, "000")); }
     if ((rp.IsNyResiDent || rp.HasLifetimeHunt()) && rp.Age >= 16 && rp.IsDisableForYear) {
         //Military disabled persons will only be charged one $5 fee per license year for the their base licenses (trap, hunt, fish) whether they purchase one or all three.
         if (rp.hasSaleLicMilitaryDisable || hasBaseLicMilitaryDisable(rp.ActiveHoldingsInfo)) {
-            feeItemCodes.push(new FeeCodeProp(RESMD_FREE, "000"));
+        	feeItemCodes.push(new FeeCodeProp(RESMD_FREE, "000"));
         }
     }
 
@@ -1362,8 +1362,8 @@ function getAllFeeCodeByRuleFor_SMALL_GAME(ruleParams, feeSched) {
     return feeItemCodes;
 }
 function getAllFeeCodeByRuleFor_SPORTSMAN(ruleParams, feeSched) {
-    var feeItemCodes = new Array();
-    var rp = ruleParams;
+	var feeItemCodes = new Array();
+	var rp = ruleParams;
     //Annual Sportsman: NYS Resident having age 16-69
     if ((rp.IsNyResiDent || rp.HasLifetimeHunt()) && rp.Age >= 16 && rp.Age <= 69) { feeItemCodes.push(new FeeCodeProp(ASP_1_RES, "000")); }
     //Annual Sportsman: NYS Res NYS Resident having age 70+
@@ -1373,10 +1373,10 @@ function getAllFeeCodeByRuleFor_SPORTSMAN(ruleParams, feeSched) {
     //Annual Sportsman: NYS Res Military Disabled having age 16+
     //if ((rp.IsNyResiDent || rp.HasLifetimeHunt()) && rp.Age >= 16 && rp.IsMilitaryServiceman) { feeItemCodes.push(new FeeCodeProp(ASP_4_RESMD, "000")); }
     if ((rp.IsNyResiDent || rp.HasLifetimeHunt()) && rp.Age >= 16 && (rp.IsDisableForYear || rp.IsPermanentDisabled)) {
-        feeItemCodes.push(new FeeCodeProp(ASP_4_RESMD, "000"));
+    	feeItemCodes.push(new FeeCodeProp(ASP_4_RESMD, "000"));
         //Military disabled persons will only be charged one $5 fee per license year for the their base licenses (trap, hunt, fish) whether they purchase one or all three.
         if (rp.hasSaleLicMilitaryDisable || hasBaseLicMilitaryDisable(rp.ActiveHoldingsInfo)) {
-            feeItemCodes.push(new FeeCodeProp(RESMD_FREE, "000"));
+        	feeItemCodes.push(new FeeCodeProp(RESMD_FREE, "000"));
         }
     }
 
@@ -1384,15 +1384,15 @@ function getAllFeeCodeByRuleFor_SPORTSMAN(ruleParams, feeSched) {
     return feeItemCodes;
 }
 function getAllFeeCodeByRuleFor_SUPER_SPORTSMAN(ruleParams, feeSched) {
-    var feeItemCodes = new Array();
-    var rp = ruleParams;
+	var feeItemCodes = new Array();
+	var rp = ruleParams;
 
     //Annual Super Sportsman : NYS Resident having age 16-69
     if ((rp.IsNyResiDent || rp.HasLifetimeHunt()) && rp.Age >= 16 && rp.Age <= 69) { feeItemCodes.push(new FeeCodeProp(ASSP_1_RES, "000")); }
     if ((rp.IsNyResiDent || rp.HasLifetimeHunt()) && rp.Age >= 16 && rp.IsDisableForYear) {
         //Military disabled persons will only be charged one $5 fee per license year for the their base licenses (trap, hunt, fish) whether they purchase one or all three.
         if (rp.hasSaleLicMilitaryDisable || hasBaseLicMilitaryDisable(rp.ActiveHoldingsInfo)) {
-            feeItemCodes.push(new FeeCodeProp(RESMD_FREE, "000"));
+        	feeItemCodes.push(new FeeCodeProp(RESMD_FREE, "000"));
         }
     }
 
@@ -1400,8 +1400,8 @@ function getAllFeeCodeByRuleFor_SUPER_SPORTSMAN(ruleParams, feeSched) {
     return feeItemCodes;
 }
 function getAllFeeCodeByRuleFor_NONRESIDENT_TRAPPING(ruleParams, feeSched) {
-    var feeItemCodes = new Array();
-    var rp = ruleParams;
+	var feeItemCodes = new Array();
+	var rp = ruleParams;
 
     //Annual Nonresident Trapping: Non-Res having age 16+
     if (!(rp.IsNyResiDent || rp.HasLifetimeTrap()) && rp.Age >= 16) { feeItemCodes.push(new FeeCodeProp(ANT_1_NORES, "000")); }
@@ -1410,50 +1410,50 @@ function getAllFeeCodeByRuleFor_NONRESIDENT_TRAPPING(ruleParams, feeSched) {
     return feeItemCodes;
 }
 function getAllFeeCodeByRuleFor_TRAPPER_SUPER_SPORTSMAN(ruleParams, feeSched) {
-    var feeItemCodes = new Array();
-    var rp = ruleParams;
+	var feeItemCodes = new Array();
+	var rp = ruleParams;
 
     //Annual Trapper Super Sportsman : NYS Resident having age 16-69
     if ((rp.IsNyResiDent || rp.HasLifetimeTrap()) && rp.Age >= 16 && rp.Age <= 69) { feeItemCodes.push(new FeeCodeProp(ATSS_1_RES, "000")); }
     if ((rp.IsNyResiDent || rp.HasLifetimeTrap()) && rp.Age >= 16 && rp.IsDisableForYear) {
         //Military disabled persons will only be charged one $5 fee per license year for the their base licenses (trap, hunt, fish) whether they purchase one or all three.
         if (rp.hasSaleLicMilitaryDisable || hasBaseLicMilitaryDisable(rp.ActiveHoldingsInfo)) {
-            feeItemCodes.push(new FeeCodeProp(RESMD_FREE, "000"));
+        	feeItemCodes.push(new FeeCodeProp(RESMD_FREE, "000"));
         }
     }
     if (feeItemCodes.length == 0) { feeItemCodes.push(new FeeCodeProp(ATSS_1_RES, "000")); }
     return feeItemCodes;
 }
 function getAllFeeCodeByRuleFor_LIFETIME_CARD_REPLACE(ruleParams, feeSched) {
-    var feeItemCodes = new Array();
-    var rp = ruleParams;
+	var feeItemCodes = new Array();
+	var rp = ruleParams;
 
-    feeItemCodes.push(new FeeCodeProp(OS1_LTCRD_RP, "000"));
+	feeItemCodes.push(new FeeCodeProp(OS1_LTCRD_RP, "000"));
 
     //if (feeItemCodes.length == 0) { feeItemCodes.push(new FeeCodeProp(OS1_LTCRD_RP, "000")); }
     return feeItemCodes;
 }
 function getAllFeeCodeByRuleFor_SPORTSMAN_ED_CERTIFICATION(ruleParams, feeSched) {
-    var feeItemCodes = new Array();
-    var rp = ruleParams;
+	var feeItemCodes = new Array();
+	var rp = ruleParams;
 
-    feeItemCodes.push(new FeeCodeProp(OS1_SPRT_ED, "000"));
+	feeItemCodes.push(new FeeCodeProp(OS1_SPRT_ED, "000"));
 
     //if (feeItemCodes.length == 0) { feeItemCodes.push(new FeeCodeProp(OS1_SPRT_ED, "000")); }
     return feeItemCodes;
 }
 function getAllFeeCodeByRuleFor_OTHER_SALE_CONSERVATION_FUND(ruleParams, feeSched) {
-    var feeItemCodes = new Array();
-    var rp = ruleParams;
+	var feeItemCodes = new Array();
+	var rp = ruleParams;
 
-    feeItemCodes.push(new FeeCodeProp(OS1_CN_FUND, "000"));
+	feeItemCodes.push(new FeeCodeProp(OS1_CN_FUND, "000"));
 
     //if (feeItemCodes.length == 0) { feeItemCodes.push(new FeeCodeProp(OS1_CN_FUND, "000")); }
     return feeItemCodes;
 }
 function getAllFeeCodeByRuleFor_OTHER_SALE_CONSERVATION_MAGAZINE(ruleParams, feeSched) {
-    var feeItemCodes = new Array();
-    var rp = ruleParams;
+	var feeItemCodes = new Array();
+	var rp = ruleParams;
     //If Application has magzine combo then don't add fee, will be add applicable discounted app level fee later
     feeItemCodes.push(new FeeCodeProp(OS1_CNMAGZ, "000"));
 
@@ -1461,128 +1461,128 @@ function getAllFeeCodeByRuleFor_OTHER_SALE_CONSERVATION_MAGAZINE(ruleParams, fee
     return feeItemCodes;
 }
 function getAllFeeCodeByRuleFor_OTHER_SALE_CONSERVATION_PATRON_SCHDL(ruleParams, feeSched) {
-    var feeItemCodes = new Array();
-    var rp = ruleParams;
+	var feeItemCodes = new Array();
+	var rp = ruleParams;
 
-    if (rp.IsNyResiDent) {
-        feeItemCodes.push(new FeeCodeProp(OS1_CNPATRN, "000"));
-    }
-    else {
-        feeItemCodes.push(new FeeCodeProp(OS2_CP_NORES, "000"));
-    }
+	if (rp.IsNyResiDent) {
+		feeItemCodes.push(new FeeCodeProp(OS1_CNPATRN, "000"));
+	}
+	else {
+		feeItemCodes.push(new FeeCodeProp(OS2_CP_NORES, "000"));
+	}
 
     //if (feeItemCodes.length == 0) { feeItemCodes.push(new FeeCodeProp(OS1_CNPATRN, "000")); }
     return feeItemCodes;
 }
 function getAllFeeCodeByRuleFor_OTHER_SALE_HABITAT_ACCESS_SCHDL(ruleParams, feeSched) {
-    var feeItemCodes = new Array();
-    var rp = ruleParams;
+	var feeItemCodes = new Array();
+	var rp = ruleParams;
 
-    if (rp.IsNyResiDent) {
-        feeItemCodes.push(new FeeCodeProp(OS1_HABITAT, "000"));
-    }
-    else {
-        feeItemCodes.push(new FeeCodeProp(OS2_NORES, "000"));
-    }
+	if (rp.IsNyResiDent) {
+		feeItemCodes.push(new FeeCodeProp(OS1_HABITAT, "000"));
+	}
+	else {
+		feeItemCodes.push(new FeeCodeProp(OS2_NORES, "000"));
+	}
 
     //if (feeItemCodes.length == 0) { feeItemCodes.push(new FeeCodeProp(OS1_HABITAT, "000")); }
     return feeItemCodes;
 }
 function getAllFeeCodeByRuleFor_OTHER_SALE_TRAIL_SUPPORTER_PATCH_SCHDL(ruleParams, feeSched) {
-    var feeItemCodes = new Array();
-    var rp = ruleParams;
+	var feeItemCodes = new Array();
+	var rp = ruleParams;
 
-    if (rp.IsNyResiDent) {
-        feeItemCodes.push(new FeeCodeProp(OS1_TRLPATCH, "000"));
-    }
-    else {
-        feeItemCodes.push(new FeeCodeProp(OS2_TP_NORES, "000"));
-    }
+	if (rp.IsNyResiDent) {
+		feeItemCodes.push(new FeeCodeProp(OS1_TRLPATCH, "000"));
+	}
+	else {
+		feeItemCodes.push(new FeeCodeProp(OS2_TP_NORES, "000"));
+	}
 
     //if (feeItemCodes.length == 0) { feeItemCodes.push(new FeeCodeProp(OS1_TRLPATCH, "000")); }
     return feeItemCodes;
 }
 function getAllFeeCodeByRuleFor_OTHER_SALE_VENISON_DONATION_SCHDL(ruleParams, feeSched) {
-    var feeItemCodes = new Array();
-    var rp = ruleParams;
+	var feeItemCodes = new Array();
+	var rp = ruleParams;
 
-    feeItemCodes.push(new FeeCodeProp(OS1_VENISON, "000"));
+	feeItemCodes.push(new FeeCodeProp(OS1_VENISON, "000"));
 
     //if (feeItemCodes.length == 0) { feeItemCodes.push(new FeeCodeProp(OS1_VENISON, "000")); }
     return feeItemCodes;
 }
 function isRuleForSelectable_ONEDAY_FISH_2012(ruleParams) {
-    var isSelectable = ((ruleParams.IsNyResiDent || ruleParams.HasLifetimeFish()) && ruleParams.Age >= 16 && ruleParams.Age <= 69 && !ruleParams.IsMilitaryServiceman);
-    return isSelectable;
+	var isSelectable = ((ruleParams.IsNyResiDent || ruleParams.HasLifetimeFish()) && ruleParams.Age >= 16 && ruleParams.Age <= 69 && !ruleParams.IsMilitaryServiceman);
+	return isSelectable;
 }
 function isRuleForSelectable_ONEDAY_FISH_2014(ruleParams) {
-    var isSelectable = false;
-    if (!ruleParams.IsLegallyBlind && !ruleParams.IsDisableForYear) {
-        isSelectable = ((ruleParams.IsNyResiDent || ruleParams.HasLifetimeFish()) && ruleParams.Age >= 16 && ruleParams.Age <= 69 && !ruleParams.IsMilitaryServiceman);
-    }
-    isSelectable = isSelectable || (!(ruleParams.IsNyResiDent || ruleParams.HasLifetimeFish()) && ruleParams.Age >= 16);
+	var isSelectable = false;
+	if (!ruleParams.IsLegallyBlind && !ruleParams.IsDisableForYear) {
+		isSelectable = ((ruleParams.IsNyResiDent || ruleParams.HasLifetimeFish()) && ruleParams.Age >= 16 && ruleParams.Age <= 69 && !ruleParams.IsMilitaryServiceman);
+	}
+	isSelectable = isSelectable || (!(ruleParams.IsNyResiDent || ruleParams.HasLifetimeFish()) && ruleParams.Age >= 16);
 
-    return isSelectable;
+	return isSelectable;
 }
 function isRuleForSelectable_FRESHWATER_FISHING_2014(ruleParams) {
-    var isSelectable = (ruleParams.Age >= 16);
-    return isSelectable;
+	var isSelectable = (ruleParams.Age >= 16);
+	return isSelectable;
 }
 function isRuleForSelectable_ANNUAL_MRIN(ruleParams) {
-    var isSelectable = (ruleParams.Age >= 16);
-    return isSelectable;
+	var isSelectable = (ruleParams.Age >= 16);
+	return isSelectable;
 }
 function isRuleForSelectable_ANNUAL_HUNT(ruleParams) {
-    var isSelectable = (ruleParams.Age >= 12 && ruleParams.HasHuntEd);
-    return isSelectable;
+	var isSelectable = (ruleParams.Age >= 12 && ruleParams.HasHuntEd);
+	return isSelectable;
 }
 function isRuleForSelectable_ANNUAL_BOWH_2012(ruleParams) {
-    var isSelectable = ((ruleParams.IsNyResiDent || ruleParams.HasLifetimeHunt()) && ruleParams.Age >= 16 && ruleParams.HasHuntEd && ruleParams.HasBowHunt);
-    return isSelectable;
+	var isSelectable = ((ruleParams.IsNyResiDent || ruleParams.HasLifetimeHunt()) && ruleParams.Age >= 16 && ruleParams.HasHuntEd && ruleParams.HasBowHunt);
+	return isSelectable;
 }
 function isRuleForSelectable_ANNUAL_BOWH_2014(ruleParams) {
-    var isSelectable = (ruleParams.Age >= 12 && ruleParams.HasHuntEd && ruleParams.HasBowHunt);
-    return isSelectable;
+	var isSelectable = (ruleParams.Age >= 12 && ruleParams.HasHuntEd && ruleParams.HasBowHunt);
+	return isSelectable;
 }
 function isRuleForSelectable_ANNUAL_MUZZ_2012(ruleParams) {
-    var isSelectable = ((ruleParams.IsNyResiDent || ruleParams.HasLifetimeHunt()) && ruleParams.Age >= 14 && ruleParams.HasHuntEd);
-    return isSelectable;
+	var isSelectable = ((ruleParams.IsNyResiDent || ruleParams.HasLifetimeHunt()) && ruleParams.Age >= 14 && ruleParams.HasHuntEd);
+	return isSelectable;
 }
 function isRuleForSelectable_ANNUAL_MUZZ_2014(ruleParams) {
-    var isSelectable = (ruleParams.Age >= 14 && ruleParams.HasHuntEd);
-    return isSelectable;
+	var isSelectable = (ruleParams.Age >= 14 && ruleParams.HasHuntEd);
+	return isSelectable;
 }
 function isRuleForSelectable_ANNUAL_DMP_2012(ruleParams) {
-    var isSelectable = ((ruleParams.IsNyResiDent || ruleParams.HasLifetimeHunt()) && ruleParams.Age > 13 && ruleParams.HasHuntEd);
-    isSelectable = isSelectable || ((ruleParams.IsNyResiDent || ruleParams.HasLifetimeHunt()) && ruleParams.Age >= 12 && ruleParams.HasHuntEd && ruleParams.HasBowHunt);
-    isSelectable = isSelectable || (!(ruleParams.IsNyResiDent || ruleParams.HasLifetimeHunt()) && ruleParams.Age > 13 && ruleParams.HasHuntEd);
-    isSelectable = isSelectable || (!(ruleParams.IsNyResiDent || ruleParams.HasLifetimeHunt()) && ruleParams.Age >= 12 && ruleParams.HasHuntEd && ruleParams.HasBowHunt);
-    return isSelectable;
+	var isSelectable = ((ruleParams.IsNyResiDent || ruleParams.HasLifetimeHunt()) && ruleParams.Age > 13 && ruleParams.HasHuntEd);
+	isSelectable = isSelectable || ((ruleParams.IsNyResiDent || ruleParams.HasLifetimeHunt()) && ruleParams.Age >= 12 && ruleParams.HasHuntEd && ruleParams.HasBowHunt);
+	isSelectable = isSelectable || (!(ruleParams.IsNyResiDent || ruleParams.HasLifetimeHunt()) && ruleParams.Age > 13 && ruleParams.HasHuntEd);
+	isSelectable = isSelectable || (!(ruleParams.IsNyResiDent || ruleParams.HasLifetimeHunt()) && ruleParams.Age >= 12 && ruleParams.HasHuntEd && ruleParams.HasBowHunt);
+	return isSelectable;
 }
 function isRuleForSelectable_ANNUAL_DMP_2014(ruleParams) {
-    var isSelectable = (ruleParams.Age >= 12 && ruleParams.HasHuntEd);
-    return isSelectable;
+	var isSelectable = (ruleParams.Age >= 12 && ruleParams.HasHuntEd);
+	return isSelectable;
 }
 function isRuleForSelectable_ANNUAL_TRKY_2012(ruleParams) {
-    var isSelectable = ((ruleParams.IsNyResiDent || ruleParams.HasLifetimeHunt()) && ruleParams.Age >= 12 && ruleParams.HasHuntEd);
-    return isSelectable;
+	var isSelectable = ((ruleParams.IsNyResiDent || ruleParams.HasLifetimeHunt()) && ruleParams.Age >= 12 && ruleParams.HasHuntEd);
+	return isSelectable;
 }
 function isRuleForSelectable_ANNUAL_TRKY_2014(ruleParams) {
-    var isSelectable = (ruleParams.Age >= 12 && ruleParams.HasHuntEd);
-    return isSelectable;
+	var isSelectable = (ruleParams.Age >= 12 && ruleParams.HasHuntEd);
+	return isSelectable;
 }
 function isRuleForSelectable_ANNUAL_TRAP_2012(ruleParams) {
-    var isSelectable = ((ruleParams.IsNyResiDent || ruleParams.HasLifetimeTrap()) && ruleParams.HasTrapEd);
-    return isSelectable;
+	var isSelectable = ((ruleParams.IsNyResiDent || ruleParams.HasLifetimeTrap()) && ruleParams.HasTrapEd);
+	return isSelectable;
 }
 function isRuleForSelectable_ANNUAL_TRAP_2014(ruleParams) {
-    var isSelectable = ((ruleParams.IsNyResiDent || ruleParams.HasLifetimeTrap()) && ruleParams.HasTrapEd);
-    isSelectable = isSelectable || (!(ruleParams.IsNyResiDent || ruleParams.HasLifetimeTrap()) && ruleParams.HasTrapEd);
-    return isSelectable;
+	var isSelectable = ((ruleParams.IsNyResiDent || ruleParams.HasLifetimeTrap()) && ruleParams.HasTrapEd);
+	isSelectable = isSelectable || (!(ruleParams.IsNyResiDent || ruleParams.HasLifetimeTrap()) && ruleParams.HasTrapEd);
+	return isSelectable;
 }
 function isRuleForSelectable_LIFETM_SPRT(ruleParams) {
-    var isSelectable = (ruleParams.IsNyResiDent);
-    return isSelectable;
+	var isSelectable = (ruleParams.IsNyResiDent);
+	return isSelectable;
 }
 function isRuleForSelectable_LIFETM_SBGM(ruleParams) {
     var isSelectable = (ruleParams.IsNyResiDent && ruleParams.Age < 70); //JIRA: 17391
@@ -1590,200 +1590,200 @@ function isRuleForSelectable_LIFETM_SBGM(ruleParams) {
     return isSelectable;
 }
 function isRuleForSelectable_LIFETM_BOWH(ruleParams) {
-    var isSelectable = (ruleParams.IsNyResiDent || ruleParams.HasLifetimeHunt());
-    return isSelectable;
+	var isSelectable = (ruleParams.IsNyResiDent || ruleParams.HasLifetimeHunt());
+	return isSelectable;
 }
 function isRuleForSelectable_LIFETM_MUZZ(ruleParams) {
-    var isSelectable = (ruleParams.IsNyResiDent || ruleParams.HasLifetimeHunt());
-    return isSelectable;
+	var isSelectable = (ruleParams.IsNyResiDent || ruleParams.HasLifetimeHunt());
+	return isSelectable;
 }
 function isRuleForSelectable_LIFETM_TRAP(ruleParams) {
-    var isSelectable = (ruleParams.IsNyResiDent);
-    return isSelectable;
+	var isSelectable = (ruleParams.IsNyResiDent);
+	return isSelectable;
 }
 function isRuleForSelectable_LIFETM_INSCRIPTION(ruleParams) {
-    var isSelectable = (ruleParams.IsNyResiDent);
-    return isSelectable;
+	var isSelectable = (ruleParams.IsNyResiDent);
+	return isSelectable;
 }
 function isRuleForSelectable_LIFETM_FISH(ruleParams) {
-    var isSelectable = (ruleParams.IsNyResiDent);
-    return isSelectable;
+	var isSelectable = (ruleParams.IsNyResiDent);
+	return isSelectable;
 }
 function isRuleForSelectable_FRESHWATER_FISHING_2012(ruleParams) {
-    var isSelectable = ((ruleParams.IsNyResiDent || ruleParams.HasLifetimeFish()) && ruleParams.Age >= 16);
-    return isSelectable;
+	var isSelectable = ((ruleParams.IsNyResiDent || ruleParams.HasLifetimeFish()) && ruleParams.Age >= 16);
+	return isSelectable;
 }
 function isRuleForSelectable_NONRES_FRESHWATER_FISHING(ruleParams) {
-    var isSelectable = (!(ruleParams.IsNyResiDent || ruleParams.HasLifetimeFish()) && ruleParams.Age >= 16);
-    return isSelectable;
+	var isSelectable = (!(ruleParams.IsNyResiDent || ruleParams.HasLifetimeFish()) && ruleParams.Age >= 16);
+	return isSelectable;
 }
 function isRuleForSelectable_NONRESIDENT_1_DAY_FISHING(ruleParams) {
-    var isSelectable = (!(ruleParams.IsNyResiDent || ruleParams.HasLifetimeFish()) && ruleParams.Age >= 16 && !ruleParams.IsMilitaryServiceman);
-    return isSelectable;
+	var isSelectable = (!(ruleParams.IsNyResiDent || ruleParams.HasLifetimeFish()) && ruleParams.Age >= 16 && !ruleParams.IsMilitaryServiceman);
+	return isSelectable;
 }
 function isRuleForSelectable_NONRESIDENT_7_DAY_FISHING(ruleParams) {
-    var isSelectable = (!(ruleParams.IsNyResiDent || ruleParams.HasLifetimeFish()) && ruleParams.Age >= 16 && !ruleParams.IsMilitaryServiceman);
-    return isSelectable;
+	var isSelectable = (!(ruleParams.IsNyResiDent || ruleParams.HasLifetimeFish()) && ruleParams.Age >= 16 && !ruleParams.IsMilitaryServiceman);
+	return isSelectable;
 }
 function isRuleForSelectable_SEVEN_DAY_FISHING_LICENSE_2012(ruleParams) {
-    var isSelectable = ((ruleParams.IsNyResiDent || ruleParams.HasLifetimeFish()) && ruleParams.Age >= 16 && ruleParams.Age <= 69 && !ruleParams.IsMilitaryServiceman);
-    return isSelectable;
+	var isSelectable = ((ruleParams.IsNyResiDent || ruleParams.HasLifetimeFish()) && ruleParams.Age >= 16 && ruleParams.Age <= 69 && !ruleParams.IsMilitaryServiceman);
+	return isSelectable;
 }
 function isRuleForSelectable_SEVEN_DAY_FISHING_LICENSE_2014(ruleParams) {
-    var isSelectable = false;
+	var isSelectable = false;
 
-    if (!ruleParams.IsLegallyBlind && !ruleParams.IsDisableForYear) {
-        isSelectable = ((ruleParams.IsNyResiDent || ruleParams.HasLifetimeFish()) && ruleParams.Age >= 16 && ruleParams.Age <= 69 && !ruleParams.IsMilitaryServiceman);
-    }
-    isSelectable = isSelectable || (!(ruleParams.IsNyResiDent || ruleParams.HasLifetimeFish()) && ruleParams.Age >= 16);
+	if (!ruleParams.IsLegallyBlind && !ruleParams.IsDisableForYear) {
+		isSelectable = ((ruleParams.IsNyResiDent || ruleParams.HasLifetimeFish()) && ruleParams.Age >= 16 && ruleParams.Age <= 69 && !ruleParams.IsMilitaryServiceman);
+	}
+	isSelectable = isSelectable || (!(ruleParams.IsNyResiDent || ruleParams.HasLifetimeFish()) && ruleParams.Age >= 16);
 
-    return isSelectable;
+	return isSelectable;
 }
 function isRuleForSelectable_CONSERVATION_LEGACY(ruleParams) {
-    var isSelectable = ((ruleParams.IsNyResiDent || ruleParams.HasLifetimeHunt()) && ruleParams.Age >= 16 && ruleParams.Age <= 69 && ruleParams.HasHuntEd && ruleParams.HasBowHunt);
-    return isSelectable;
+	var isSelectable = ((ruleParams.IsNyResiDent || ruleParams.HasLifetimeHunt()) && ruleParams.Age >= 16 && ruleParams.Age <= 69 && ruleParams.HasHuntEd && ruleParams.HasBowHunt);
+	return isSelectable;
 }
 function isRuleForSelectable_JUNIOR_BOWHUNTING(ruleParams) {
-    var isSelectable = (ruleParams.Age >= 12 && ruleParams.Age <= 15 && ruleParams.HasHuntEd && ruleParams.HasBowHunt);
-    return isSelectable;
+	var isSelectable = (ruleParams.Age >= 12 && ruleParams.Age <= 15 && ruleParams.HasHuntEd && ruleParams.HasBowHunt);
+	return isSelectable;
 }
 function isRuleForSelectable_JUNIOR_HUNTING(ruleParams) {
-    var isSelectable = (ruleParams.Age >= 12 && ruleParams.Age <= 15 && ruleParams.HasHuntEd);
-    return isSelectable;
+	var isSelectable = (ruleParams.Age >= 12 && ruleParams.Age <= 15 && ruleParams.HasHuntEd);
+	return isSelectable;
 }
 function isRuleForSelectable_JUNIOR_HUNT_TAGS(ruleParams) {
     var isSelectable = (ruleParams.Age >= 14 && ruleParams.Age <= 15 && ruleParams.HasHuntEd && ruleParams.HasJrHuntLic() && !hasJuniorTagItems(ruleParams.ActiveHoldingsInfo)); //RV - 11/25 - These conditions did not allow Junior Tags to display ..  && (ruleParams.AgedIn || ruleParams.NeedHuntEd)
     return isSelectable;
 }
 function isRuleForSelectable_NONRES_MUZZLELOADING(ruleParams) {
-    var isSelectable = (!(ruleParams.IsNyResiDent || ruleParams.HasLifetimeHunt()) && ruleParams.Age >= 14 && ruleParams.HasHuntEd);
-    return isSelectable;
+	var isSelectable = (!(ruleParams.IsNyResiDent || ruleParams.HasLifetimeHunt()) && ruleParams.Age >= 14 && ruleParams.HasHuntEd);
+	return isSelectable;
 }
 function isRuleForSelectable_NONRES_SUPER_SPORTSMAN(ruleParams) {
-    var isSelectable = (!(ruleParams.IsNyResiDent || ruleParams.HasLifetimeHunt()) && ruleParams.Age >= 16 && ruleParams.HasHuntEd && ruleParams.HasBowHunt);
-    return isSelectable;
+	var isSelectable = (!(ruleParams.IsNyResiDent || ruleParams.HasLifetimeHunt()) && ruleParams.Age >= 16 && ruleParams.HasHuntEd && ruleParams.HasBowHunt);
+	return isSelectable;
 }
 function isRuleForSelectable_NONRESIDENT_BEAR_TAG(ruleParams) {
-    var isSelectable = (!(ruleParams.IsNyResiDent || ruleParams.HasLifetimeHunt()) && ruleParams.Age >= 16);
-    return isSelectable;
+	var isSelectable = (!(ruleParams.IsNyResiDent || ruleParams.HasLifetimeHunt()) && ruleParams.Age >= 16);
+	return isSelectable;
 }
 function isRuleForSelectable_NONRESIDENT_BIG_GAME(ruleParams) {
-    var isSelectable = (!(ruleParams.IsNyResiDent || ruleParams.HasLifetimeHunt()) && ruleParams.Age >= 16 && ruleParams.HasHuntEd);
-    return isSelectable;
+	var isSelectable = (!(ruleParams.IsNyResiDent || ruleParams.HasLifetimeHunt()) && ruleParams.Age >= 16 && ruleParams.HasHuntEd);
+	return isSelectable;
 }
 function isRuleForSelectable_NONRESIDENT_BOWHUNTING(ruleParams) {
-    var isSelectable = (!(ruleParams.IsNyResiDent || ruleParams.HasLifetimeHunt()) && ruleParams.Age >= 16 && ruleParams.HasHuntEd && ruleParams.HasBowHunt);
-    return isSelectable;
+	var isSelectable = (!(ruleParams.IsNyResiDent || ruleParams.HasLifetimeHunt()) && ruleParams.Age >= 16 && ruleParams.HasHuntEd && ruleParams.HasBowHunt);
+	return isSelectable;
 }
 function isRuleForSelectable_NONRESIDENT_SMALL_GAME(ruleParams) {
-    var isSelectable = (!(ruleParams.IsNyResiDent || ruleParams.HasLifetimeHunt()) && ruleParams.Age >= 16 && ruleParams.HasHuntEd);
-    return isSelectable;
+	var isSelectable = (!(ruleParams.IsNyResiDent || ruleParams.HasLifetimeHunt()) && ruleParams.Age >= 16 && ruleParams.HasHuntEd);
+	return isSelectable;
 }
 function isRuleForSelectable_NONRESIDENT_TURKEY(ruleParams) {
-    var isSelectable = (!(ruleParams.IsNyResiDent || ruleParams.HasLifetimeHunt()) && ruleParams.Age >= 12);
-    return isSelectable;
+	var isSelectable = (!(ruleParams.IsNyResiDent || ruleParams.HasLifetimeHunt()) && ruleParams.Age >= 12);
+	return isSelectable;
 }
 function isRuleForSelectable_SMALL_AND_BIG_GAME(ruleParams) {
-    var isSelectable = (!ruleParams.IsDisableForYear && (ruleParams.IsNyResiDent || ruleParams.HasLifetimeHunt()) && ruleParams.Age >= 16 && ruleParams.Age <= 69 && ruleParams.HasHuntEd);
-    return isSelectable;
+	var isSelectable = (!ruleParams.IsDisableForYear && (ruleParams.IsNyResiDent || ruleParams.HasLifetimeHunt()) && ruleParams.Age >= 16 && ruleParams.Age <= 69 && ruleParams.HasHuntEd);
+	return isSelectable;
 }
 function isRuleForSelectable_SMALL_GAME(ruleParams) {
-    var isSelectable = (!ruleParams.IsDisableForYear && !ruleParams.IsMilitaryServiceman && (ruleParams.IsNyResiDent || ruleParams.HasLifetimeHunt()) && ruleParams.Age >= 16 && ruleParams.Age <= 69 && ruleParams.HasHuntEd);
-    return isSelectable;
+	var isSelectable = (!ruleParams.IsDisableForYear && !ruleParams.IsMilitaryServiceman && (ruleParams.IsNyResiDent || ruleParams.HasLifetimeHunt()) && ruleParams.Age >= 16 && ruleParams.Age <= 69 && ruleParams.HasHuntEd);
+	return isSelectable;
 }
 function isRuleForSelectable_SPORTSMAN(ruleParams) {
-    var isSelectable = (!ruleParams.IsMilitaryServiceman && (ruleParams.IsNyResiDent || ruleParams.HasLifetimeHunt()) && ruleParams.Age >= 16 && ruleParams.HasHuntEd);
-    return isSelectable;
+	var isSelectable = (!ruleParams.IsMilitaryServiceman && (ruleParams.IsNyResiDent || ruleParams.HasLifetimeHunt()) && ruleParams.Age >= 16 && ruleParams.HasHuntEd);
+	return isSelectable;
 }
 function isRuleForSelectable_SUPER_SPORTSMAN(ruleParams) {
-    var isSelectable = ((ruleParams.IsNyResiDent || ruleParams.HasLifetimeHunt()) && ruleParams.Age >= 16 && ruleParams.Age <= 69 && ruleParams.HasHuntEd && ruleParams.HasBowHunt);
-    return isSelectable;
+	var isSelectable = ((ruleParams.IsNyResiDent || ruleParams.HasLifetimeHunt()) && ruleParams.Age >= 16 && ruleParams.Age <= 69 && ruleParams.HasHuntEd && ruleParams.HasBowHunt);
+	return isSelectable;
 }
 function isRuleForSelectable_NONRESIDENT_TRAPPING(ruleParams) {
-    var isSelectable = (!(ruleParams.IsNyResiDent || ruleParams.HasLifetimeTrap()) && ruleParams.Age >= 16 && ruleParams.HasTrapEd);
-    return isSelectable;
+	var isSelectable = (!(ruleParams.IsNyResiDent || ruleParams.HasLifetimeTrap()) && ruleParams.Age >= 16 && ruleParams.HasTrapEd);
+	return isSelectable;
 }
 function isRuleForSelectable_TRAPPER_SUPER_SPORTSMAN(ruleParams) {
-    var isSelectable = ((ruleParams.IsNyResiDent || ruleParams.HasLifetimeTrap()) && ruleParams.Age >= 16 && ruleParams.Age <= 69 && ruleParams.HasTrapEd && ruleParams.HasHuntEd);
-    return isSelectable;
+	var isSelectable = ((ruleParams.IsNyResiDent || ruleParams.HasLifetimeTrap()) && ruleParams.Age >= 16 && ruleParams.Age <= 69 && ruleParams.HasTrapEd && ruleParams.HasHuntEd);
+	return isSelectable;
 }
 function isRuleForSelectable_LIFETIME_CARD_REPLACE(ruleParams) {
-    var isSelectable = (ruleParams.HasLifetimelic());
+	var isSelectable = (ruleParams.HasLifetimelic());
 
-    return isSelectable;
+	return isSelectable;
 }
 function isRuleForSelectable_SPORTSMAN_ED_CERTIFICATION(ruleParams) {
-    var isSelectable = (ruleParams.HasNYSSportEd);
-    return isSelectable;
+	var isSelectable = (ruleParams.HasNYSSportEd);
+	return isSelectable;
 }
 function isRuleForSelectable_OTHER_SALE_CONSERVATION_FUND(ruleParams) {
-    var isSelectable = true;
-    return isSelectable;
+	var isSelectable = true;
+	return isSelectable;
 }
 function isRuleForSelectable_OTHER_SALE_CONSERVATION_MAGAZINE(ruleParams) {
-    var isSelectable = true;
-    return isSelectable;
+	var isSelectable = true;
+	return isSelectable;
 }
 function isRuleForSelectable_OTHER_SALE_CONSERVATION_PATRON_SCHDL(ruleParams) {
-    var isSelectable = true;
-    return isSelectable;
+	var isSelectable = true;
+	return isSelectable;
 }
 function isRuleForSelectable_OTHER_SALE_HABITAT_ACCESS_SCHDL(ruleParams) {
-    var isSelectable = true;
-    return isSelectable;
+	var isSelectable = true;
+	return isSelectable;
 }
 function isRuleForSelectable_OTHER_SALE_TRAIL_SUPPORTER_PATCH_SCHDL(ruleParams) {
-    var isSelectable = true;
-    return isSelectable;
+	var isSelectable = true;
+	return isSelectable;
 }
 function isRuleForSelectable_OTHER_SALE_VENISON_DONATION_SCHDL(ruleParams) {
-    var isSelectable = true;
-    return isSelectable;
+	var isSelectable = true;
+	return isSelectable;
 }
 function isRuleForSelectable_DRIV_LIC(ruleParams) {
-    return (ruleParams.hasValidNYDriverLicense || ruleParams.hasValidNYNonDriverLicense);
+	return (ruleParams.hasValidNYDriverLicense || ruleParams.hasValidNYNonDriverLicense);
 }
 //////////////
 function checkRuletoCreateTag(ruleParams, tagProp, dictTags) {
-    var isOkToCreate = true;
-    if (tagProp.TagType == TAG_TYPE_1_BACK_TAG) {
-        isOkToCreate = !ruleParams.isTagInActiveHodings(tagProp.RecordType, tagProp.TagType);
-    }
-    if (tagProp.TagType == TAG_TYPE_2_BEAR_TAG) {
-        isOkToCreate = !ruleParams.isTagInActiveHodings(tagProp.RecordType, tagProp.TagType);
-    }
-    if (tagProp.TagType == TAG_TYPE_3_REG_SEASON_DEER) {
-        isOkToCreate = !ruleParams.isTagInActiveHodings(tagProp.RecordType, tagProp.TagType);
-    }
-    if (tagProp.TagType == TAG_TYPE_4_DMP_DEER_TAG) {
+	var isOkToCreate = true;
+	if (tagProp.TagType == TAG_TYPE_1_BACK_TAG) {
+		isOkToCreate = !ruleParams.isTagInActiveHodings(tagProp.RecordType, tagProp.TagType);
+	}
+	if (tagProp.TagType == TAG_TYPE_2_BEAR_TAG) {
+		isOkToCreate = !ruleParams.isTagInActiveHodings(tagProp.RecordType, tagProp.TagType);
+	}
+	if (tagProp.TagType == TAG_TYPE_3_REG_SEASON_DEER) {
+		isOkToCreate = !ruleParams.isTagInActiveHodings(tagProp.RecordType, tagProp.TagType);
+	}
+	if (tagProp.TagType == TAG_TYPE_4_DMP_DEER_TAG) {
         //
     }
     if (tagProp.TagType == TAG_TYPE_5_LOSER_DMP) {
-        isOkToCreate = false;
+    	isOkToCreate = false;
     }
     if (tagProp.TagType == TAG_TYPE_13_FALL_TURKEY_2_BIRD_AREA) {
-        isOkToCreate = isFallTurkeySeasonOver(ruleParams.Year);
-        if (isOkToCreate) {
-            isOkToCreate = !ruleParams.isTagInActiveHodings(tagProp.RecordType, tagProp.TagType);
-        }
+    	isOkToCreate = isFallTurkeySeasonOver(ruleParams.Year);
+    	if (isOkToCreate) {
+    		isOkToCreate = !ruleParams.isTagInActiveHodings(tagProp.RecordType, tagProp.TagType);
+    	}
     }
     if (tagProp.TagType == TAG_TYPE_14_FALL_TURKEY_STATEWIDE) {
-        isOkToCreate = isFallTurkeySeasonOver(ruleParams.Year);
-        if (isOkToCreate) {
-            isOkToCreate = !ruleParams.isTagInActiveHodings(tagProp.RecordType, tagProp.TagType);
-        }
+    	isOkToCreate = isFallTurkeySeasonOver(ruleParams.Year);
+    	if (isOkToCreate) {
+    		isOkToCreate = !ruleParams.isTagInActiveHodings(tagProp.RecordType, tagProp.TagType);
+    	}
     }
     if (tagProp.TagType == TAG_TYPE_15_SPRING_TURKEY_TAG_2) {
-        isOkToCreate = isSpringTurkeySeasonOver(ruleParams.Year);
-        if (isOkToCreate) {
-            isOkToCreate = !ruleParams.isTagInActiveHodings(tagProp.RecordType, tagProp.TagType);
-        }
+    	isOkToCreate = isSpringTurkeySeasonOver(ruleParams.Year);
+    	if (isOkToCreate) {
+    		isOkToCreate = !ruleParams.isTagInActiveHodings(tagProp.RecordType, tagProp.TagType);
+    	}
     }
     if (tagProp.TagType == TAG_TYPE_16_SPRING_TURKEY_TAG_1) {
-        isOkToCreate = isSpringTurkeySeasonOver(ruleParams.Year);
-        if (isOkToCreate) {
-            isOkToCreate = !ruleParams.isTagInActiveHodings(tagProp.RecordType, tagProp.TagType);
-        }
+    	isOkToCreate = isSpringTurkeySeasonOver(ruleParams.Year);
+    	if (isOkToCreate) {
+    		isOkToCreate = !ruleParams.isTagInActiveHodings(tagProp.RecordType, tagProp.TagType);
+    	}
     }
     if (tagProp.TagType == TAG_TYPE_17_BOW_TAG) {
         //This is not required, since the rule for EITHER_SEX/ANTLERLESS Deer handle generic way (first EITHER_SEX then ANTLERLESS)
@@ -1794,10 +1794,11 @@ function checkRuletoCreateTag(ruleParams, tagProp, dictTags) {
         isOkToCreate = false;
     }
     if (tagProp.TagType == TAG_TYPE_19_DEER_OF_EITHER_SEX_TAG) {
-        isOkToCreate = !ruleParams.isTagInActiveHodings(tagProp.RecordType, tagProp.TagType);
+    	isOkToCreate = !ruleParams.isTagInActiveHodings(tagProp.RecordType, tagProp.TagType) && !alreadyBeenReported(ruleParams.Year,tagProp.RecordType)
     }
+
     if (tagProp.TagType == TAG_TYPE_20_ANTLERLESS_DEER_TAG) {
-        isOkToCreate = !ruleParams.isTagInActiveHodings(tagProp.RecordType, tagProp.TagType);
+    	isOkToCreate = !ruleParams.isTagInActiveHodings(tagProp.RecordType, tagProp.TagType) && !alreadyBeenReported(ruleParams.Year,tagProp.RecordType)
     }
     if (tagProp.TagType == TAG_TYPE_22_SPORTSMAN_EDU_CERTIFICATE) {
         //No need to generate new record since record will use to generate report
@@ -1808,78 +1809,78 @@ function checkRuletoCreateTag(ruleParams, tagProp, dictTags) {
         isOkToCreate = false;
     }
     if (tagProp.TagType == TAG_TYPE_25_DRIV_LIC_IMM) {
-        isOkToCreate = !ruleParams.isTagInActiveHodings(tagProp.RecordType, tagProp.TagType);
+    	isOkToCreate = !ruleParams.isTagInActiveHodings(tagProp.RecordType, tagProp.TagType);
     }
     if (tagProp.TagType == TAG_TYPE_26_DRIV_LIC_REN) {
-        isOkToCreate = !ruleParams.isTagInActiveHodings(tagProp.RecordType, tagProp.TagType);
+    	isOkToCreate = !ruleParams.isTagInActiveHodings(tagProp.RecordType, tagProp.TagType);
     }
     return isOkToCreate;
 }
 function isFallTurkeySeasonOver(year) {
-    var retValue = true;
-    var seasonPeriod = GetDateRange("HUNTING_SEASONS", "FALL TURKEY SEASON", year);
-    if (seasonPeriod.length > 0) {
-        var now = new Date();
-        retValue = dateDiff(now, seasonPeriod[1]) >= 1;
-    }
-    return retValue;
+	var retValue = true;
+	var seasonPeriod = GetDateRange("HUNTING_SEASONS", "FALL TURKEY SEASON", year);
+	if (seasonPeriod.length > 0) {
+		var now = new Date();
+		retValue = dateDiff(now, seasonPeriod[1]) >= 1;
+	}
+	return retValue;
 }
 function isSpringTurkeySeasonOver(year) {
-    var retValue = true;
-    var seasonPeriod = GetDateRange("HUNTING_SEASONS", "SPRING TURKEY SEASON", parseInt(year, 10) + 1);
-    if (seasonPeriod.length > 0) {
-        var now = new Date();
-        retValue = dateDiff(now, seasonPeriod[1]) >= 1;
-    }
-    return retValue;
+	var retValue = true;
+	var seasonPeriod = GetDateRange("HUNTING_SEASONS", "SPRING TURKEY SEASON", parseInt(year, 10) + 1);
+	if (seasonPeriod.length > 0) {
+		var now = new Date();
+		retValue = dateDiff(now, seasonPeriod[1]) >= 1;
+	}
+	return retValue;
 }
 //////////////
 function getPrereq_ANNUAL_TRKY_2012(ruleParams) {
-    var arryPrereq = null;
-    if (isRuleForSelectable_ANNUAL_TRKY_2012(ruleParams)) {
-        arryPrereq = new Array();
-        arryPrereq.push(LIC06_HUNTING_LICENSE);
-        arryPrereq.push(LIC29_JUNIOR_HUNTING);
-        arryPrereq.push(LIC37_SMALL_AND_BIG_GAME);
-        arryPrereq.push(LIC38_SMALL_GAME);
-        arryPrereq.push(LIC39_SPORTSMAN);
-        arryPrereq.push(LIC40_SUPER_SPORTSMAN);
-        arryPrereq.push(LIC27_CONSERVATION_LEGACY);
-        arryPrereq.push(LIC12_LIFETIME_SMALL_AND_BIG_GAME);
-    }
-    return arryPrereq;
+	var arryPrereq = null;
+	if (isRuleForSelectable_ANNUAL_TRKY_2012(ruleParams)) {
+		arryPrereq = new Array();
+		arryPrereq.push(LIC06_HUNTING_LICENSE);
+		arryPrereq.push(LIC29_JUNIOR_HUNTING);
+		arryPrereq.push(LIC37_SMALL_AND_BIG_GAME);
+		arryPrereq.push(LIC38_SMALL_GAME);
+		arryPrereq.push(LIC39_SPORTSMAN);
+		arryPrereq.push(LIC40_SUPER_SPORTSMAN);
+		arryPrereq.push(LIC27_CONSERVATION_LEGACY);
+		arryPrereq.push(LIC12_LIFETIME_SMALL_AND_BIG_GAME);
+	}
+	return arryPrereq;
 }
 function getPrereq_DRIV_LIC(ruleParams) {
-    var arryPrereq = null;
-    if (isRuleForSelectable_DRIV_LIC(ruleParams)) {
-        arryPrereq = new Array();
-        arryPrereq.push(LIC10_LIFETIME_FISHING);
-        arryPrereq.push(LIC13_LIFETIME_SPORTSMAN);
-        if (ruleParams.HasHuntEd) {
-            arryPrereq.push(LIC11_LIFETIME_MUZZLELOADING);
-            arryPrereq.push(LIC12_LIFETIME_SMALL_AND_BIG_GAME);
-            if (ruleParams.HasBowHunt) {
-                arryPrereq.push(LIC09_LIFETIME_BOWHUNTING);
-            }
-        }
-        if (ruleParams.HasTrapEd) {
-            arryPrereq.push(LIC14_LIFETIME_TRAPPING);
-        }
-    }
-    return arryPrereq;
+	var arryPrereq = null;
+	if (isRuleForSelectable_DRIV_LIC(ruleParams)) {
+		arryPrereq = new Array();
+		arryPrereq.push(LIC10_LIFETIME_FISHING);
+		arryPrereq.push(LIC13_LIFETIME_SPORTSMAN);
+		if (ruleParams.HasHuntEd) {
+			arryPrereq.push(LIC11_LIFETIME_MUZZLELOADING);
+			arryPrereq.push(LIC12_LIFETIME_SMALL_AND_BIG_GAME);
+			if (ruleParams.HasBowHunt) {
+				arryPrereq.push(LIC09_LIFETIME_BOWHUNTING);
+			}
+		}
+		if (ruleParams.HasTrapEd) {
+			arryPrereq.push(LIC14_LIFETIME_TRAPPING);
+		}
+	}
+	return arryPrereq;
 }
 function getPrereq_ANNUAL_TRKY_2014(ruleParams) {
-    var arryPrereq = null;
-    if (isRuleForSelectable_ANNUAL_TRKY_2014(ruleParams)) {
-        arryPrereq = new Array();
-        arryPrereq.push(LIC06_HUNTING_LICENSE);
-        arryPrereq.push(LIC29_JUNIOR_HUNTING);
-        arryPrereq.push(LIC37_SMALL_AND_BIG_GAME);
-        arryPrereq.push(LIC38_SMALL_GAME);
-        arryPrereq.push(LIC39_SPORTSMAN);
-        arryPrereq.push(LIC40_SUPER_SPORTSMAN);
-        arryPrereq.push(LIC27_CONSERVATION_LEGACY);
-        arryPrereq.push(LIC12_LIFETIME_SMALL_AND_BIG_GAME);
+	var arryPrereq = null;
+	if (isRuleForSelectable_ANNUAL_TRKY_2014(ruleParams)) {
+		arryPrereq = new Array();
+		arryPrereq.push(LIC06_HUNTING_LICENSE);
+		arryPrereq.push(LIC29_JUNIOR_HUNTING);
+		arryPrereq.push(LIC37_SMALL_AND_BIG_GAME);
+		arryPrereq.push(LIC38_SMALL_GAME);
+		arryPrereq.push(LIC39_SPORTSMAN);
+		arryPrereq.push(LIC40_SUPER_SPORTSMAN);
+		arryPrereq.push(LIC27_CONSERVATION_LEGACY);
+		arryPrereq.push(LIC12_LIFETIME_SMALL_AND_BIG_GAME);
         //JIRA-47488
         arryPrereq.push(LIC31_NONRES_SUPER_SPORTSMAN);
         arryPrereq.push(LIC35_NONRESIDENT_SMALL_GAME);
@@ -1887,410 +1888,410 @@ function getPrereq_ANNUAL_TRKY_2014(ruleParams) {
     return arryPrereq;
 }
 function getPrereq_ANNUAL_MUZZ_2012(ruleParams) {
-    var arryPrereq = null;
-    if (isRuleForSelectable_ANNUAL_MUZZ_2012(ruleParams)) {
-        arryPrereq = new Array();
-        arryPrereq.push(LIC29_JUNIOR_HUNTING);
-        arryPrereq.push(LIC37_SMALL_AND_BIG_GAME);
-        arryPrereq.push(LIC39_SPORTSMAN);
-        arryPrereq.push(LIC12_LIFETIME_SMALL_AND_BIG_GAME);
-        arryPrereq.push(LIC13_LIFETIME_SPORTSMAN);
-    }
-    return arryPrereq;
+	var arryPrereq = null;
+	if (isRuleForSelectable_ANNUAL_MUZZ_2012(ruleParams)) {
+		arryPrereq = new Array();
+		arryPrereq.push(LIC29_JUNIOR_HUNTING);
+		arryPrereq.push(LIC37_SMALL_AND_BIG_GAME);
+		arryPrereq.push(LIC39_SPORTSMAN);
+		arryPrereq.push(LIC12_LIFETIME_SMALL_AND_BIG_GAME);
+		arryPrereq.push(LIC13_LIFETIME_SPORTSMAN);
+	}
+	return arryPrereq;
 }
 function getPrereq_ANNUAL_DMP_2014(ruleParams) {
-    var rp = ruleParams;
-    var arryPrereq = null;
-    if (isRuleForSelectable_ANNUAL_DMP_2014(ruleParams)) {
-        arryPrereq = new Array();
+	var rp = ruleParams;
+	var arryPrereq = null;
+	if (isRuleForSelectable_ANNUAL_DMP_2014(ruleParams)) {
+		arryPrereq = new Array();
 
         // JHS 10/14/13 DMP rules defect
 
         if (rp.Age >= 12 && rp.Age <= 13) {
-            if (rp.HasHuntEd && rp.HasBowHunt) {
-                arryPrereq.push(LIC04_BOWHUNTING_PRIVILEGE);
-                arryPrereq.push(LIC28_JUNIOR_BOWHUNTING);
-                arryPrereq.push(LIC09_LIFETIME_BOWHUNTING);
-            }
+        	if (rp.HasHuntEd && rp.HasBowHunt) {
+        		arryPrereq.push(LIC04_BOWHUNTING_PRIVILEGE);
+        		arryPrereq.push(LIC28_JUNIOR_BOWHUNTING);
+        		arryPrereq.push(LIC09_LIFETIME_BOWHUNTING);
+        	}
         }
         else if (rp.Age >= 14 && rp.Age <= 15) {
-            if (rp.HasHuntEd) {
-                arryPrereq.push(LIC29_JUNIOR_HUNTING);
-                arryPrereq.push(LIC12_LIFETIME_SMALL_AND_BIG_GAME);
-                arryPrereq.push(LIC13_LIFETIME_SPORTSMAN);
+        	if (rp.HasHuntEd) {
+        		arryPrereq.push(LIC29_JUNIOR_HUNTING);
+        		arryPrereq.push(LIC12_LIFETIME_SMALL_AND_BIG_GAME);
+        		arryPrereq.push(LIC13_LIFETIME_SPORTSMAN);
                 //JIRA - 17470
                 arryPrereq.push(LIC06_HUNTING_LICENSE);
             }
         }
         else if (rp.Age >= 16) {
-            arryPrereq.push(LIC06_HUNTING_LICENSE);
-            arryPrereq.push(LIC30_NONRES_MUZZLELOADING);
-            arryPrereq.push(LIC37_SMALL_AND_BIG_GAME);
-            arryPrereq.push(LIC12_LIFETIME_SMALL_AND_BIG_GAME);
-            arryPrereq.push(LIC33_NONRESIDENT_BIG_GAME);
-            arryPrereq.push(LIC34_NONRESIDENT_BOWHUNTING);
-            arryPrereq.push(LIC40_SUPER_SPORTSMAN);
-            arryPrereq.push(LIC13_LIFETIME_SPORTSMAN);
-            arryPrereq.push(LIC39_SPORTSMAN);
-            arryPrereq.push(LIC42_TRAPPER_SUPER_SPORTSMAN);
-            arryPrereq.push(LIC31_NONRES_SUPER_SPORTSMAN);
-            arryPrereq.push(LIC27_CONSERVATION_LEGACY);
+        	arryPrereq.push(LIC06_HUNTING_LICENSE);
+        	arryPrereq.push(LIC30_NONRES_MUZZLELOADING);
+        	arryPrereq.push(LIC37_SMALL_AND_BIG_GAME);
+        	arryPrereq.push(LIC12_LIFETIME_SMALL_AND_BIG_GAME);
+        	arryPrereq.push(LIC33_NONRESIDENT_BIG_GAME);
+        	arryPrereq.push(LIC34_NONRESIDENT_BOWHUNTING);
+        	arryPrereq.push(LIC40_SUPER_SPORTSMAN);
+        	arryPrereq.push(LIC13_LIFETIME_SPORTSMAN);
+        	arryPrereq.push(LIC39_SPORTSMAN);
+        	arryPrereq.push(LIC42_TRAPPER_SUPER_SPORTSMAN);
+        	arryPrereq.push(LIC31_NONRES_SUPER_SPORTSMAN);
+        	arryPrereq.push(LIC27_CONSERVATION_LEGACY);
         }
     }
     return arryPrereq;
 }
 function getPrereq_ANNUAL_DMP_2012(ruleParams) {
-    var rp = ruleParams;
-    var arryPrereq = null;
-    if (isRuleForSelectable_ANNUAL_DMP_2014(ruleParams)) {
-        arryPrereq = new Array();
+	var rp = ruleParams;
+	var arryPrereq = null;
+	if (isRuleForSelectable_ANNUAL_DMP_2014(ruleParams)) {
+		arryPrereq = new Array();
 
         // JHS 10/14/13 DMP rules defect
 
 
         if (rp.Age >= 12 && rp.Age <= 13) {
-            if (rp.HasHuntEd && rp.HasBowHunt) {
-                arryPrereq.push(LIC04_BOWHUNTING_PRIVILEGE);
-                arryPrereq.push(LIC28_JUNIOR_BOWHUNTING);
-                arryPrereq.push(LIC09_LIFETIME_BOWHUNTING);
-            }
+        	if (rp.HasHuntEd && rp.HasBowHunt) {
+        		arryPrereq.push(LIC04_BOWHUNTING_PRIVILEGE);
+        		arryPrereq.push(LIC28_JUNIOR_BOWHUNTING);
+        		arryPrereq.push(LIC09_LIFETIME_BOWHUNTING);
+        	}
         }
         else if (rp.Age >= 14 && rp.Age <= 15) {
-            if (rp.HasHuntEd) {
-                arryPrereq.push(LIC29_JUNIOR_HUNTING);
-                arryPrereq.push(LIC12_LIFETIME_SMALL_AND_BIG_GAME);
-                arryPrereq.push(LIC13_LIFETIME_SPORTSMAN);
-            }
+        	if (rp.HasHuntEd) {
+        		arryPrereq.push(LIC29_JUNIOR_HUNTING);
+        		arryPrereq.push(LIC12_LIFETIME_SMALL_AND_BIG_GAME);
+        		arryPrereq.push(LIC13_LIFETIME_SPORTSMAN);
+        	}
         }
         else if (rp.Age >= 16) {
-            arryPrereq.push(LIC30_NONRES_MUZZLELOADING);
-            arryPrereq.push(LIC37_SMALL_AND_BIG_GAME);
-            arryPrereq.push(LIC12_LIFETIME_SMALL_AND_BIG_GAME);
-            arryPrereq.push(LIC33_NONRESIDENT_BIG_GAME);
-            arryPrereq.push(LIC34_NONRESIDENT_BOWHUNTING);
-            arryPrereq.push(LIC40_SUPER_SPORTSMAN);
-            arryPrereq.push(LIC13_LIFETIME_SPORTSMAN);
-            arryPrereq.push(LIC39_SPORTSMAN);
-            arryPrereq.push(LIC42_TRAPPER_SUPER_SPORTSMAN);
-            arryPrereq.push(LIC31_NONRES_SUPER_SPORTSMAN);
-            arryPrereq.push(LIC27_CONSERVATION_LEGACY);
+        	arryPrereq.push(LIC30_NONRES_MUZZLELOADING);
+        	arryPrereq.push(LIC37_SMALL_AND_BIG_GAME);
+        	arryPrereq.push(LIC12_LIFETIME_SMALL_AND_BIG_GAME);
+        	arryPrereq.push(LIC33_NONRESIDENT_BIG_GAME);
+        	arryPrereq.push(LIC34_NONRESIDENT_BOWHUNTING);
+        	arryPrereq.push(LIC40_SUPER_SPORTSMAN);
+        	arryPrereq.push(LIC13_LIFETIME_SPORTSMAN);
+        	arryPrereq.push(LIC39_SPORTSMAN);
+        	arryPrereq.push(LIC42_TRAPPER_SUPER_SPORTSMAN);
+        	arryPrereq.push(LIC31_NONRES_SUPER_SPORTSMAN);
+        	arryPrereq.push(LIC27_CONSERVATION_LEGACY);
         }
     }
     return arryPrereq;
 }
 function getPrereq_ANNUAL_BOWH_2014(ruleParams) {
-    var arryPrereq = null;
-    if (isRuleForSelectable_ANNUAL_BOWH_2014(ruleParams)) {
-        arryPrereq = new Array();
-        arryPrereq.push(LIC06_HUNTING_LICENSE);
-        arryPrereq.push(LIC37_SMALL_AND_BIG_GAME);
-        arryPrereq.push(LIC12_LIFETIME_SMALL_AND_BIG_GAME);
-        arryPrereq.push(LIC42_TRAPPER_SUPER_SPORTSMAN);
-        arryPrereq.push(LIC13_LIFETIME_SPORTSMAN);
-        arryPrereq.push(LIC39_SPORTSMAN);
-        arryPrereq.push(LIC38_SMALL_GAME);
-        arryPrereq.push(LIC35_NONRESIDENT_SMALL_GAME);
-        arryPrereq.push(LIC33_NONRESIDENT_BIG_GAME);
-    }
-    return arryPrereq;
+	var arryPrereq = null;
+	if (isRuleForSelectable_ANNUAL_BOWH_2014(ruleParams)) {
+		arryPrereq = new Array();
+		arryPrereq.push(LIC06_HUNTING_LICENSE);
+		arryPrereq.push(LIC37_SMALL_AND_BIG_GAME);
+		arryPrereq.push(LIC12_LIFETIME_SMALL_AND_BIG_GAME);
+		arryPrereq.push(LIC42_TRAPPER_SUPER_SPORTSMAN);
+		arryPrereq.push(LIC13_LIFETIME_SPORTSMAN);
+		arryPrereq.push(LIC39_SPORTSMAN);
+		arryPrereq.push(LIC38_SMALL_GAME);
+		arryPrereq.push(LIC35_NONRESIDENT_SMALL_GAME);
+		arryPrereq.push(LIC33_NONRESIDENT_BIG_GAME);
+	}
+	return arryPrereq;
 }
 function getPrereq_ANNUAL_BOWH_2012(ruleParams) {
-    var rp = ruleParams;
-    var arryPrereq = null;
-    if (isRuleForSelectable_ANNUAL_BOWH_2012(ruleParams)) {
-        arryPrereq = new Array();
-        arryPrereq.push(LIC06_HUNTING_LICENSE);
-        arryPrereq.push(LIC37_SMALL_AND_BIG_GAME);
-        arryPrereq.push(LIC12_LIFETIME_SMALL_AND_BIG_GAME);
-        arryPrereq.push(LIC42_TRAPPER_SUPER_SPORTSMAN);
-        arryPrereq.push(LIC13_LIFETIME_SPORTSMAN);
-        arryPrereq.push(LIC39_SPORTSMAN);
-    }
-    return arryPrereq;
+	var rp = ruleParams;
+	var arryPrereq = null;
+	if (isRuleForSelectable_ANNUAL_BOWH_2012(ruleParams)) {
+		arryPrereq = new Array();
+		arryPrereq.push(LIC06_HUNTING_LICENSE);
+		arryPrereq.push(LIC37_SMALL_AND_BIG_GAME);
+		arryPrereq.push(LIC12_LIFETIME_SMALL_AND_BIG_GAME);
+		arryPrereq.push(LIC42_TRAPPER_SUPER_SPORTSMAN);
+		arryPrereq.push(LIC13_LIFETIME_SPORTSMAN);
+		arryPrereq.push(LIC39_SPORTSMAN);
+	}
+	return arryPrereq;
 }
 function getPrereq_LIFETM_BOWH(ruleParams) {
-    var arryPrereq = new Array();
-    arryPrereq.push(LIC12_LIFETIME_SMALL_AND_BIG_GAME);
-    arryPrereq.push(LIC13_LIFETIME_SPORTSMAN);
-    return arryPrereq;
+	var arryPrereq = new Array();
+	arryPrereq.push(LIC12_LIFETIME_SMALL_AND_BIG_GAME);
+	arryPrereq.push(LIC13_LIFETIME_SPORTSMAN);
+	return arryPrereq;
 }
 function getPrereq_LIFETM_INSCRIPTION(ruleParams) {
-    var arryPrereq = null;
-    if (isRuleForSelectable_LIFETM_INSCRIPTION(ruleParams)) {
-        arryPrereq = new Array();
-        arryPrereq.push(LIC12_LIFETIME_SMALL_AND_BIG_GAME);
-        arryPrereq.push(LIC13_LIFETIME_SPORTSMAN);
-        arryPrereq.push(LIC11_LIFETIME_MUZZLELOADING);
-        arryPrereq.push(LIC10_LIFETIME_FISHING);
-        arryPrereq.push(LIC14_LIFETIME_TRAPPING);
-        arryPrereq.push(LIC09_LIFETIME_BOWHUNTING);
-    }
-    return arryPrereq;
+	var arryPrereq = null;
+	if (isRuleForSelectable_LIFETM_INSCRIPTION(ruleParams)) {
+		arryPrereq = new Array();
+		arryPrereq.push(LIC12_LIFETIME_SMALL_AND_BIG_GAME);
+		arryPrereq.push(LIC13_LIFETIME_SPORTSMAN);
+		arryPrereq.push(LIC11_LIFETIME_MUZZLELOADING);
+		arryPrereq.push(LIC10_LIFETIME_FISHING);
+		arryPrereq.push(LIC14_LIFETIME_TRAPPING);
+		arryPrereq.push(LIC09_LIFETIME_BOWHUNTING);
+	}
+	return arryPrereq;
 }
 function getPrereq_LIFETM_MUZZ(ruleParams) {
-    var arryPrereq = new Array();
-    arryPrereq.push(LIC12_LIFETIME_SMALL_AND_BIG_GAME);
-    arryPrereq.push(LIC13_LIFETIME_SPORTSMAN);
-    return arryPrereq;
+	var arryPrereq = new Array();
+	arryPrereq.push(LIC12_LIFETIME_SMALL_AND_BIG_GAME);
+	arryPrereq.push(LIC13_LIFETIME_SPORTSMAN);
+	return arryPrereq;
 }
 function getPrereq_NONRES_MUZZLELOADING(ruleParams) {
-    var arryPrereq = null;
-    var rp = ruleParams;
+	var arryPrereq = null;
+	var rp = ruleParams;
 
-    if (!(rp.IsNyResiDent || rp.HasLifetimeHunt()) && rp.Age >= 16) {
+	if (!(rp.IsNyResiDent || rp.HasLifetimeHunt()) && rp.Age >= 16) {
 
-    } else {
-        arryPrereq = new Array();
-        arryPrereq.push(LIC29_JUNIOR_HUNTING);
-    }
-    return arryPrereq;
+	} else {
+		arryPrereq = new Array();
+		arryPrereq.push(LIC29_JUNIOR_HUNTING);
+	}
+	return arryPrereq;
 }
 function getPrereq_NONRESIDENT_BEAR_TAG(ruleParams) {
-    var arryPrereq = new Array();
-    arryPrereq.push(LIC06_HUNTING_LICENSE);
-    arryPrereq.push(LIC31_NONRES_SUPER_SPORTSMAN);
-    arryPrereq.push(LIC33_NONRESIDENT_BIG_GAME);
-    arryPrereq.push(LIC34_NONRESIDENT_BOWHUNTING);
-    arryPrereq.push(LIC30_NONRES_MUZZLELOADING);
-    return arryPrereq;
+	var arryPrereq = new Array();
+	arryPrereq.push(LIC06_HUNTING_LICENSE);
+	arryPrereq.push(LIC31_NONRES_SUPER_SPORTSMAN);
+	arryPrereq.push(LIC33_NONRESIDENT_BIG_GAME);
+	arryPrereq.push(LIC34_NONRESIDENT_BOWHUNTING);
+	arryPrereq.push(LIC30_NONRES_MUZZLELOADING);
+	return arryPrereq;
 }
 function getPrereq_NONRESIDENT_TURKEY(ruleParams) {
-    var arryPrereq = new Array();
-    arryPrereq.push(LIC06_HUNTING_LICENSE);
-    arryPrereq.push(LIC31_NONRES_SUPER_SPORTSMAN);
-    arryPrereq.push(LIC35_NONRESIDENT_SMALL_GAME);
-    arryPrereq.push(LIC29_JUNIOR_HUNTING);
-    return arryPrereq;
+	var arryPrereq = new Array();
+	arryPrereq.push(LIC06_HUNTING_LICENSE);
+	arryPrereq.push(LIC31_NONRES_SUPER_SPORTSMAN);
+	arryPrereq.push(LIC35_NONRESIDENT_SMALL_GAME);
+	arryPrereq.push(LIC29_JUNIOR_HUNTING);
+	return arryPrereq;
 }
 function getPrereq_ANNUAL_MUZZ_2014(ruleParams) {
-    var arryPrereq = new Array();
-    arryPrereq.push(LIC06_HUNTING_LICENSE);
-    arryPrereq.push(LIC12_LIFETIME_SMALL_AND_BIG_GAME);
-    arryPrereq.push(LIC13_LIFETIME_SPORTSMAN);
-    arryPrereq.push(LIC38_SMALL_GAME);
-    arryPrereq.push(LIC35_NONRESIDENT_SMALL_GAME);
-    arryPrereq.push(LIC33_NONRESIDENT_BIG_GAME);
-    arryPrereq.push(LIC37_SMALL_AND_BIG_GAME);
-    arryPrereq.push(LIC42_TRAPPER_SUPER_SPORTSMAN);
-    return arryPrereq;
+	var arryPrereq = new Array();
+	arryPrereq.push(LIC06_HUNTING_LICENSE);
+	arryPrereq.push(LIC12_LIFETIME_SMALL_AND_BIG_GAME);
+	arryPrereq.push(LIC13_LIFETIME_SPORTSMAN);
+	arryPrereq.push(LIC38_SMALL_GAME);
+	arryPrereq.push(LIC35_NONRESIDENT_SMALL_GAME);
+	arryPrereq.push(LIC33_NONRESIDENT_BIG_GAME);
+	arryPrereq.push(LIC37_SMALL_AND_BIG_GAME);
+	arryPrereq.push(LIC42_TRAPPER_SUPER_SPORTSMAN);
+	return arryPrereq;
 }
 
 //////////////
 
 function getIncl_CONSERVATION_LEGACY(ruleParams) {
-    var arryInc = new Array();
-    arryInc.push(LIC03_ONE_DAY_FISHING_LICENSE);
-    arryInc.push(LIC22_FRESHWATER_FISHING);
-    arryInc.push(LIC26_SEVEN_DAY_FISHING_LICENSE);
-    arryInc.push(LIC04_BOWHUNTING_PRIVILEGE);
-    arryInc.push(LIC07_MUZZLELOADING_PRIVILEGE);
-    arryInc.push(LIC08_TURKEY_PERMIT);
-    arryInc.push(LIC37_SMALL_AND_BIG_GAME);
-    arryInc.push(LIC38_SMALL_GAME);
-    arryInc.push(LIC39_SPORTSMAN);
-    arryInc.push(LIC40_SUPER_SPORTSMAN);
-    arryInc.push(LIC42_TRAPPER_SUPER_SPORTSMAN);
-    arryInc.push(LIC06_HUNTING_LICENSE);
+	var arryInc = new Array();
+	arryInc.push(LIC03_ONE_DAY_FISHING_LICENSE);
+	arryInc.push(LIC22_FRESHWATER_FISHING);
+	arryInc.push(LIC26_SEVEN_DAY_FISHING_LICENSE);
+	arryInc.push(LIC04_BOWHUNTING_PRIVILEGE);
+	arryInc.push(LIC07_MUZZLELOADING_PRIVILEGE);
+	arryInc.push(LIC08_TURKEY_PERMIT);
+	arryInc.push(LIC37_SMALL_AND_BIG_GAME);
+	arryInc.push(LIC38_SMALL_GAME);
+	arryInc.push(LIC39_SPORTSMAN);
+	arryInc.push(LIC40_SUPER_SPORTSMAN);
+	arryInc.push(LIC42_TRAPPER_SUPER_SPORTSMAN);
+	arryInc.push(LIC06_HUNTING_LICENSE);
 
-    return arryInc;
+	return arryInc;
 }
 function getIncl_SMALL_AND_BIG_GAME(ruleParams) {
-    var arryInc = new Array();
-    arryInc.push(LIC38_SMALL_GAME);
-    arryInc.push(LIC39_SPORTSMAN);
-    arryInc.push(LIC40_SUPER_SPORTSMAN);
-    arryInc.push(LIC27_CONSERVATION_LEGACY);
-    arryInc.push(LIC42_TRAPPER_SUPER_SPORTSMAN);
-    arryInc.push(LIC06_HUNTING_LICENSE);
-    return arryInc;
+	var arryInc = new Array();
+	arryInc.push(LIC38_SMALL_GAME);
+	arryInc.push(LIC39_SPORTSMAN);
+	arryInc.push(LIC40_SUPER_SPORTSMAN);
+	arryInc.push(LIC27_CONSERVATION_LEGACY);
+	arryInc.push(LIC42_TRAPPER_SUPER_SPORTSMAN);
+	arryInc.push(LIC06_HUNTING_LICENSE);
+	return arryInc;
 }
 function getIncl_NONRESIDENT_TURKEY(ruleParams) {
-    var arryInc = new Array();
-    arryInc.push(LIC08_TURKEY_PERMIT);
+	var arryInc = new Array();
+	arryInc.push(LIC08_TURKEY_PERMIT);
 
-    return arryInc;
+	return arryInc;
 }
 function getIncl_NONRES_SUPER_SPORTSMAN(ruleParams) {
-    var arryInc = new Array();
-    arryInc.push(LIC33_NONRESIDENT_BIG_GAME);
-    arryInc.push(LIC24_NONRESIDENT_1_DAY_FISHING);
-    arryInc.push(LIC23_NONRES_FRESHWATER_FISHING);
-    arryInc.push(LIC25_NONRESIDENT_7_DAY_FISHING);
-    arryInc.push(LIC30_NONRES_MUZZLELOADING);
-    arryInc.push(LIC07_MUZZLELOADING_PRIVILEGE);
-    arryInc.push(LIC36_NONRESIDENT_TURKEY);
-    arryInc.push(LIC35_NONRESIDENT_SMALL_GAME);
-    arryInc.push(LIC34_NONRESIDENT_BOWHUNTING);
-    arryInc.push(LIC04_BOWHUNTING_PRIVILEGE);
-    arryInc.push(LIC06_HUNTING_LICENSE);
-    arryInc.push(LIC03_ONE_DAY_FISHING_LICENSE);
-    arryInc.push(LIC22_FRESHWATER_FISHING);
-    arryInc.push(LIC26_SEVEN_DAY_FISHING_LICENSE);
-    arryInc.push(LIC08_TURKEY_PERMIT);
-    return arryInc;
+	var arryInc = new Array();
+	arryInc.push(LIC33_NONRESIDENT_BIG_GAME);
+	arryInc.push(LIC24_NONRESIDENT_1_DAY_FISHING);
+	arryInc.push(LIC23_NONRES_FRESHWATER_FISHING);
+	arryInc.push(LIC25_NONRESIDENT_7_DAY_FISHING);
+	arryInc.push(LIC30_NONRES_MUZZLELOADING);
+	arryInc.push(LIC07_MUZZLELOADING_PRIVILEGE);
+	arryInc.push(LIC36_NONRESIDENT_TURKEY);
+	arryInc.push(LIC35_NONRESIDENT_SMALL_GAME);
+	arryInc.push(LIC34_NONRESIDENT_BOWHUNTING);
+	arryInc.push(LIC04_BOWHUNTING_PRIVILEGE);
+	arryInc.push(LIC06_HUNTING_LICENSE);
+	arryInc.push(LIC03_ONE_DAY_FISHING_LICENSE);
+	arryInc.push(LIC22_FRESHWATER_FISHING);
+	arryInc.push(LIC26_SEVEN_DAY_FISHING_LICENSE);
+	arryInc.push(LIC08_TURKEY_PERMIT);
+	return arryInc;
 }
 function getIncl_SPORTSMAN(ruleParams) {
-    var arryInc = new Array();
-    arryInc.push(LIC37_SMALL_AND_BIG_GAME);
-    arryInc.push(LIC38_SMALL_GAME);
-    arryInc.push(LIC03_ONE_DAY_FISHING_LICENSE);
-    arryInc.push(LIC22_FRESHWATER_FISHING);
-    arryInc.push(LIC26_SEVEN_DAY_FISHING_LICENSE);
-    arryInc.push(LIC27_CONSERVATION_LEGACY);
-    arryInc.push(LIC40_SUPER_SPORTSMAN);
-    arryInc.push(LIC42_TRAPPER_SUPER_SPORTSMAN);
-    arryInc.push(LIC06_HUNTING_LICENSE);
-    return arryInc;
+	var arryInc = new Array();
+	arryInc.push(LIC37_SMALL_AND_BIG_GAME);
+	arryInc.push(LIC38_SMALL_GAME);
+	arryInc.push(LIC03_ONE_DAY_FISHING_LICENSE);
+	arryInc.push(LIC22_FRESHWATER_FISHING);
+	arryInc.push(LIC26_SEVEN_DAY_FISHING_LICENSE);
+	arryInc.push(LIC27_CONSERVATION_LEGACY);
+	arryInc.push(LIC40_SUPER_SPORTSMAN);
+	arryInc.push(LIC42_TRAPPER_SUPER_SPORTSMAN);
+	arryInc.push(LIC06_HUNTING_LICENSE);
+	return arryInc;
 }
 function getIncl_SUPER_SPORTSMAN(ruleParams) {
-    var arryInc = new Array();
-    arryInc.push(LIC37_SMALL_AND_BIG_GAME);
-    arryInc.push(LIC38_SMALL_GAME);
-    arryInc.push(LIC39_SPORTSMAN);
-    arryInc.push(LIC27_CONSERVATION_LEGACY);
-    arryInc.push(LIC03_ONE_DAY_FISHING_LICENSE);
-    arryInc.push(LIC22_FRESHWATER_FISHING);
-    arryInc.push(LIC26_SEVEN_DAY_FISHING_LICENSE);
-    arryInc.push(LIC04_BOWHUNTING_PRIVILEGE);
-    arryInc.push(LIC07_MUZZLELOADING_PRIVILEGE);
-    arryInc.push(LIC08_TURKEY_PERMIT);
-    arryInc.push(LIC42_TRAPPER_SUPER_SPORTSMAN);
-    arryInc.push(LIC06_HUNTING_LICENSE);
+	var arryInc = new Array();
+	arryInc.push(LIC37_SMALL_AND_BIG_GAME);
+	arryInc.push(LIC38_SMALL_GAME);
+	arryInc.push(LIC39_SPORTSMAN);
+	arryInc.push(LIC27_CONSERVATION_LEGACY);
+	arryInc.push(LIC03_ONE_DAY_FISHING_LICENSE);
+	arryInc.push(LIC22_FRESHWATER_FISHING);
+	arryInc.push(LIC26_SEVEN_DAY_FISHING_LICENSE);
+	arryInc.push(LIC04_BOWHUNTING_PRIVILEGE);
+	arryInc.push(LIC07_MUZZLELOADING_PRIVILEGE);
+	arryInc.push(LIC08_TURKEY_PERMIT);
+	arryInc.push(LIC42_TRAPPER_SUPER_SPORTSMAN);
+	arryInc.push(LIC06_HUNTING_LICENSE);
 
-    return arryInc;
+	return arryInc;
 }
 function getIncl_TRAPPER_SUPER_SPORTSMAN(ruleParams) {
-    var arryInc = new Array();
-    arryInc.push(LIC37_SMALL_AND_BIG_GAME);
-    arryInc.push(LIC03_ONE_DAY_FISHING_LICENSE);
-    arryInc.push(LIC22_FRESHWATER_FISHING);
-    arryInc.push(LIC26_SEVEN_DAY_FISHING_LICENSE);
-    arryInc.push(LIC07_MUZZLELOADING_PRIVILEGE);
-    arryInc.push(LIC08_TURKEY_PERMIT);
-    arryInc.push(LIC15_TRAPPING_LICENSE);
-    arryInc.push(LIC39_SPORTSMAN);
-    arryInc.push(LIC27_CONSERVATION_LEGACY);
-    arryInc.push(LIC38_SMALL_GAME);
-    arryInc.push(LIC40_SUPER_SPORTSMAN);
-    arryInc.push(LIC06_HUNTING_LICENSE);
-    return arryInc;
+	var arryInc = new Array();
+	arryInc.push(LIC37_SMALL_AND_BIG_GAME);
+	arryInc.push(LIC03_ONE_DAY_FISHING_LICENSE);
+	arryInc.push(LIC22_FRESHWATER_FISHING);
+	arryInc.push(LIC26_SEVEN_DAY_FISHING_LICENSE);
+	arryInc.push(LIC07_MUZZLELOADING_PRIVILEGE);
+	arryInc.push(LIC08_TURKEY_PERMIT);
+	arryInc.push(LIC15_TRAPPING_LICENSE);
+	arryInc.push(LIC39_SPORTSMAN);
+	arryInc.push(LIC27_CONSERVATION_LEGACY);
+	arryInc.push(LIC38_SMALL_GAME);
+	arryInc.push(LIC40_SUPER_SPORTSMAN);
+	arryInc.push(LIC06_HUNTING_LICENSE);
+	return arryInc;
 }
 function getIncl_FRESHWATER_FISHING_2012(ruleParams) {
-    var arryInc = new Array();
-    arryInc.push(LIC03_ONE_DAY_FISHING_LICENSE);
-    arryInc.push(LIC24_NONRESIDENT_1_DAY_FISHING);
-    arryInc.push(LIC25_NONRESIDENT_7_DAY_FISHING);
-    arryInc.push(LIC26_SEVEN_DAY_FISHING_LICENSE);
+	var arryInc = new Array();
+	arryInc.push(LIC03_ONE_DAY_FISHING_LICENSE);
+	arryInc.push(LIC24_NONRESIDENT_1_DAY_FISHING);
+	arryInc.push(LIC25_NONRESIDENT_7_DAY_FISHING);
+	arryInc.push(LIC26_SEVEN_DAY_FISHING_LICENSE);
 
-    return arryInc;
+	return arryInc;
 }
 function getIncl_NONRES_FRESHWATER_FISHING(ruleParams) {
-    var arryInc = new Array();
-    arryInc.push(LIC03_ONE_DAY_FISHING_LICENSE);
-    arryInc.push(LIC24_NONRESIDENT_1_DAY_FISHING);
-    arryInc.push(LIC25_NONRESIDENT_7_DAY_FISHING);
-    arryInc.push(LIC26_SEVEN_DAY_FISHING_LICENSE);
-    return arryInc;
+	var arryInc = new Array();
+	arryInc.push(LIC03_ONE_DAY_FISHING_LICENSE);
+	arryInc.push(LIC24_NONRESIDENT_1_DAY_FISHING);
+	arryInc.push(LIC25_NONRESIDENT_7_DAY_FISHING);
+	arryInc.push(LIC26_SEVEN_DAY_FISHING_LICENSE);
+	return arryInc;
 }
 function getIncl_LIFETM_FISH(ruleParams) {
-    var arryInc = new Array();
-    arryInc.push(LIC03_ONE_DAY_FISHING_LICENSE);
-    arryInc.push(LIC22_FRESHWATER_FISHING);
-    arryInc.push(LIC26_SEVEN_DAY_FISHING_LICENSE);
-    arryInc.push(LIC13_LIFETIME_SPORTSMAN);
-    arryInc.push(LIC12_LIFETIME_SMALL_AND_BIG_GAME);
-    return arryInc;
+	var arryInc = new Array();
+	arryInc.push(LIC03_ONE_DAY_FISHING_LICENSE);
+	arryInc.push(LIC22_FRESHWATER_FISHING);
+	arryInc.push(LIC26_SEVEN_DAY_FISHING_LICENSE);
+	arryInc.push(LIC13_LIFETIME_SPORTSMAN);
+	arryInc.push(LIC12_LIFETIME_SMALL_AND_BIG_GAME);
+	return arryInc;
 }
 function getIncl_LIFETM_SBGM(ruleParams) {
-    var arryInc = new Array();
-    arryInc.push(LIC37_SMALL_AND_BIG_GAME);
-    arryInc.push(LIC42_TRAPPER_SUPER_SPORTSMAN);
-    arryInc.push(LIC40_SUPER_SPORTSMAN);
-    arryInc.push(LIC27_CONSERVATION_LEGACY);
-    arryInc.push(LIC39_SPORTSMAN);
-    arryInc.push(LIC38_SMALL_GAME);
-    arryInc.push(LIC13_LIFETIME_SPORTSMAN);
-    arryInc.push(LIC10_LIFETIME_FISHING);
-    arryInc.push(LIC29_JUNIOR_HUNTING);
-    arryInc.push(LIC06_HUNTING_LICENSE);
-    return arryInc;
+	var arryInc = new Array();
+	arryInc.push(LIC37_SMALL_AND_BIG_GAME);
+	arryInc.push(LIC42_TRAPPER_SUPER_SPORTSMAN);
+	arryInc.push(LIC40_SUPER_SPORTSMAN);
+	arryInc.push(LIC27_CONSERVATION_LEGACY);
+	arryInc.push(LIC39_SPORTSMAN);
+	arryInc.push(LIC38_SMALL_GAME);
+	arryInc.push(LIC13_LIFETIME_SPORTSMAN);
+	arryInc.push(LIC10_LIFETIME_FISHING);
+	arryInc.push(LIC29_JUNIOR_HUNTING);
+	arryInc.push(LIC06_HUNTING_LICENSE);
+	return arryInc;
 }
 function getIncl_LIFETM_SPRT(ruleParams) {
-    var arryInc = new Array();
+	var arryInc = new Array();
 
-    arryInc.push(LIC37_SMALL_AND_BIG_GAME);
-    arryInc.push(LIC03_ONE_DAY_FISHING_LICENSE);
-    arryInc.push(LIC10_LIFETIME_FISHING);
-    arryInc.push(LIC12_LIFETIME_SMALL_AND_BIG_GAME);
-    arryInc.push(LIC22_FRESHWATER_FISHING);
-    arryInc.push(LIC26_SEVEN_DAY_FISHING_LICENSE);
-    arryInc.push(LIC29_JUNIOR_HUNTING);
-    arryInc.push(LIC38_SMALL_GAME);
-    arryInc.push(LIC39_SPORTSMAN);
-    arryInc.push(LIC42_TRAPPER_SUPER_SPORTSMAN);
-    arryInc.push(LIC40_SUPER_SPORTSMAN);
-    arryInc.push(LIC27_CONSERVATION_LEGACY);
-    arryInc.push(LIC06_HUNTING_LICENSE);
-    arryInc.push(LIC08_TURKEY_PERMIT);
-    return arryInc;
+	arryInc.push(LIC37_SMALL_AND_BIG_GAME);
+	arryInc.push(LIC03_ONE_DAY_FISHING_LICENSE);
+	arryInc.push(LIC10_LIFETIME_FISHING);
+	arryInc.push(LIC12_LIFETIME_SMALL_AND_BIG_GAME);
+	arryInc.push(LIC22_FRESHWATER_FISHING);
+	arryInc.push(LIC26_SEVEN_DAY_FISHING_LICENSE);
+	arryInc.push(LIC29_JUNIOR_HUNTING);
+	arryInc.push(LIC38_SMALL_GAME);
+	arryInc.push(LIC39_SPORTSMAN);
+	arryInc.push(LIC42_TRAPPER_SUPER_SPORTSMAN);
+	arryInc.push(LIC40_SUPER_SPORTSMAN);
+	arryInc.push(LIC27_CONSERVATION_LEGACY);
+	arryInc.push(LIC06_HUNTING_LICENSE);
+	arryInc.push(LIC08_TURKEY_PERMIT);
+	return arryInc;
 }
 function getIncl_LIFETM_MUZZ(ruleParams) {
-    var arryInc = new Array();
-    arryInc.push(LIC27_CONSERVATION_LEGACY);
-    arryInc.push(LIC40_SUPER_SPORTSMAN);
-    arryInc.push(LIC07_MUZZLELOADING_PRIVILEGE);
-    return arryInc;
+	var arryInc = new Array();
+	arryInc.push(LIC27_CONSERVATION_LEGACY);
+	arryInc.push(LIC40_SUPER_SPORTSMAN);
+	arryInc.push(LIC07_MUZZLELOADING_PRIVILEGE);
+	return arryInc;
 }
 function getIncl_LIFETM_BOWH(ruleParams) {
-    var arryInc = new Array();
-    arryInc.push(LIC27_CONSERVATION_LEGACY);
-    arryInc.push(LIC40_SUPER_SPORTSMAN);
-    arryInc.push(LIC28_JUNIOR_BOWHUNTING);
-    arryInc.push(LIC04_BOWHUNTING_PRIVILEGE);
-    return arryInc;
+	var arryInc = new Array();
+	arryInc.push(LIC27_CONSERVATION_LEGACY);
+	arryInc.push(LIC40_SUPER_SPORTSMAN);
+	arryInc.push(LIC28_JUNIOR_BOWHUNTING);
+	arryInc.push(LIC04_BOWHUNTING_PRIVILEGE);
+	return arryInc;
 }
 function getIncl_LIFETM_TRAP(ruleParams) {
-    var arryInc = new Array();
-    arryInc.push(LIC15_TRAPPING_LICENSE);
-    return arryInc;
+	var arryInc = new Array();
+	arryInc.push(LIC15_TRAPPING_LICENSE);
+	return arryInc;
 }
 function getIncl_NONRES_MUZZLELOADING() {
-    var arryInc = new Array();
-    arryInc.push(LIC07_MUZZLELOADING_PRIVILEGE);
-    return arryInc;
+	var arryInc = new Array();
+	arryInc.push(LIC07_MUZZLELOADING_PRIVILEGE);
+	return arryInc;
 }
 function getIncl_NONRESIDENT_BOWHUNTING() {
-    var arryInc = new Array();
-    arryInc.push(LIC04_BOWHUNTING_PRIVILEGE);
-    return arryInc;
+	var arryInc = new Array();
+	arryInc.push(LIC04_BOWHUNTING_PRIVILEGE);
+	return arryInc;
 }
 function getIncl_NONRESIDENT_SMALL_GAME() {
-    var arryInc = new Array();
-    arryInc.push(LIC31_NONRES_SUPER_SPORTSMAN);
+	var arryInc = new Array();
+	arryInc.push(LIC31_NONRES_SUPER_SPORTSMAN);
     //JIRA - 48190
     //arryInc.push(LIC06_HUNTING_LICENSE);
     return arryInc;
 }
 function getIncl_JUNIOR_HUNTING() {
-    var arryInc = new Array();
-    arryInc.push(LIC06_HUNTING_LICENSE);
-    return arryInc;
+	var arryInc = new Array();
+	arryInc.push(LIC06_HUNTING_LICENSE);
+	return arryInc;
 }
 function getIncl_SMALL_GAME() {
-    var arryInc = new Array();
+	var arryInc = new Array();
     //JIRA - 48190
     //arryInc.push(LIC06_HUNTING_LICENSE);
     return arryInc;
 }
 function getIncl_JUNIOR_BOWHUNTING() {
-    var arryInc = new Array();
-    arryInc.push(LIC04_BOWHUNTING_PRIVILEGE);
-    return arryInc;
+	var arryInc = new Array();
+	arryInc.push(LIC04_BOWHUNTING_PRIVILEGE);
+	return arryInc;
 }
 function getIncl_NONRESIDENT_TRAPPING() {
-    var arryInc = new Array();
-    arryInc.push(LIC15_TRAPPING_LICENSE);
-    return arryInc;
+	var arryInc = new Array();
+	arryInc.push(LIC15_TRAPPING_LICENSE);
+	return arryInc;
 }
 ////////
 
@@ -2310,42 +2311,47 @@ tagsMap.put(TAG_TYPE_25_DRIV_LIC_IMM, new TagProp(LIC56_TAG_DRIV_LIC_IMM, AA55_T
 tagsMap.put(TAG_TYPE_26_DRIV_LIC_REN, new TagProp(LIC57_TAG_DRIV_LIC_REN, AA56_TAG_DRIV_LIC_REN, "", TAG_TYPE_26_DRIV_LIC_REN, 1));
 
 function getTag_ANNUAL_TRKY_2012(ruleParams) {
-    var rp = ruleParams;
-    var arryTags = new Array();
+	var rp = ruleParams;
+	var arryTags = new Array();
 
-    arryTags.push(TAG_TYPE_16_SPRING_TURKEY_TAG_1);
-    arryTags.push(TAG_TYPE_15_SPRING_TURKEY_TAG_2);
-    arryTags.push(TAG_TYPE_14_FALL_TURKEY_STATEWIDE);
-    arryTags.push(TAG_TYPE_13_FALL_TURKEY_2_BIRD_AREA);
+	arryTags.push(TAG_TYPE_16_SPRING_TURKEY_TAG_1);
+	arryTags.push(TAG_TYPE_15_SPRING_TURKEY_TAG_2);
+	arryTags.push(TAG_TYPE_14_FALL_TURKEY_STATEWIDE);
+	arryTags.push(TAG_TYPE_13_FALL_TURKEY_2_BIRD_AREA);
 
-    return arryTags;
+	return arryTags;
 }
 function getTag_JUNIOR_BOWHUNTING(ruleParams) {
-    var rp = ruleParams;
-    var arryTags = new Array();
-    arryTags.push(TAG_TYPE_1_BACK_TAG);
-    if ((rp.EitherOrAntler & 4) == 0) {
-        arryTags.push(TAG_TYPE_19_DEER_OF_EITHER_SEX_TAG);
-    } else if ((rp.EitherOrAntler & 8) == 0) {
-        arryTags.push(TAG_TYPE_20_ANTLERLESS_DEER_TAG);
-    }
+	var rp = ruleParams;
+	var arryTags = new Array();
+	arryTags.push(TAG_TYPE_1_BACK_TAG);
+	if ((rp.EitherOrAntler & 4) == 0) {
+		if (alreadyBeenReported(ruleParams.Year,"Licenses/Tag/Hunting/Either Sex")) {
+			arryTags.push(TAG_TYPE_20_ANTLERLESS_DEER_TAG);
+		}else{
+			arryTags.push(TAG_TYPE_19_DEER_OF_EITHER_SEX_TAG);        
+		}
+		//arryTags.push(TAG_TYPE_19_DEER_OF_EITHER_SEX_TAG);
+	} else if ((rp.EitherOrAntler & 8) == 0) {
+		arryTags.push(TAG_TYPE_20_ANTLERLESS_DEER_TAG);
+	}
 
-    return arryTags;
+	return arryTags;
 }
 function getTag_JUNIOR_HUNTING(ruleParams) {
-    var rp = ruleParams;
-    var arryTags = new Array();
-    arryTags.push(TAG_TYPE_1_BACK_TAG);
-    if (rp.AgeLookAhead30Days >= 14) {
-        arryTags.push(TAG_TYPE_3_REG_SEASON_DEER);
-        arryTags.push(TAG_TYPE_2_BEAR_TAG);
-    }
-    return arryTags;
+	var rp = ruleParams;
+	var arryTags = new Array();
+	arryTags.push(TAG_TYPE_1_BACK_TAG);
+	if (rp.AgeLookAhead30Days >= 14) {
+		arryTags.push(TAG_TYPE_3_REG_SEASON_DEER);
+		arryTags.push(TAG_TYPE_2_BEAR_TAG);
+	}
+	return arryTags;
 }
 function getTag_JUNIOR_HUNT_TAGS(ruleParams) {
-    var rp = ruleParams;
-    var arryTags = new Array();
-    arryTags.push(TAG_TYPE_1_BACK_TAG);
+	var rp = ruleParams;
+	var arryTags = new Array();
+	arryTags.push(TAG_TYPE_1_BACK_TAG);
 
     //RV - 11/25 - Add the appropriate tags for Aged In Junior Hunter (13 turned 14 during season)
     arryTags.push(TAG_TYPE_3_REG_SEASON_DEER);
@@ -2354,295 +2360,325 @@ function getTag_JUNIOR_HUNT_TAGS(ruleParams) {
     return arryTags;
 }
 function getTag_NONRESIDENT_TURKEY(ruleParams) {
-    var rp = ruleParams;
-    var arryTags = new Array();
-    arryTags.push(TAG_TYPE_16_SPRING_TURKEY_TAG_1);
-    arryTags.push(TAG_TYPE_15_SPRING_TURKEY_TAG_2);
-    arryTags.push(TAG_TYPE_14_FALL_TURKEY_STATEWIDE);
-    arryTags.push(TAG_TYPE_13_FALL_TURKEY_2_BIRD_AREA);
+	var rp = ruleParams;
+	var arryTags = new Array();
+	arryTags.push(TAG_TYPE_16_SPRING_TURKEY_TAG_1);
+	arryTags.push(TAG_TYPE_15_SPRING_TURKEY_TAG_2);
+	arryTags.push(TAG_TYPE_14_FALL_TURKEY_STATEWIDE);
+	arryTags.push(TAG_TYPE_13_FALL_TURKEY_2_BIRD_AREA);
 
-    return arryTags;
+	return arryTags;
 }
 function getTag_ANNUAL_TRKY_2014(ruleParams) {
-    var rp = ruleParams;
-    var arryTags = new Array();
-    arryTags.push(TAG_TYPE_16_SPRING_TURKEY_TAG_1);
-    arryTags.push(TAG_TYPE_15_SPRING_TURKEY_TAG_2);
-    arryTags.push(TAG_TYPE_14_FALL_TURKEY_STATEWIDE);
-    arryTags.push(TAG_TYPE_13_FALL_TURKEY_2_BIRD_AREA);
+	var rp = ruleParams;
+	var arryTags = new Array();
+	arryTags.push(TAG_TYPE_16_SPRING_TURKEY_TAG_1);
+	arryTags.push(TAG_TYPE_15_SPRING_TURKEY_TAG_2);
+	arryTags.push(TAG_TYPE_14_FALL_TURKEY_STATEWIDE);
+	arryTags.push(TAG_TYPE_13_FALL_TURKEY_2_BIRD_AREA);
 
-    return arryTags;
+	return arryTags;
 }
 function getTag_ANNUAL_MUZZ_2012(ruleParams) {
-    var rp = ruleParams;
-    var arryTags = new Array();
-    arryTags.push(TAG_TYPE_1_BACK_TAG);
-    if ((rp.EitherOrAntler & 4) == 0) {
-        arryTags.push(TAG_TYPE_19_DEER_OF_EITHER_SEX_TAG);
-    } else if ((rp.EitherOrAntler & 8) == 0) {
-        arryTags.push(TAG_TYPE_20_ANTLERLESS_DEER_TAG);
-    }
-    return arryTags;
+	var rp = ruleParams;
+	var arryTags = new Array();
+	arryTags.push(TAG_TYPE_1_BACK_TAG);
+	if ((rp.EitherOrAntler & 4) == 0) {
+		arryTags.push(TAG_TYPE_19_DEER_OF_EITHER_SEX_TAG);
+	} else if ((rp.EitherOrAntler & 8) == 0) {
+		arryTags.push(TAG_TYPE_20_ANTLERLESS_DEER_TAG);
+	}
+	return arryTags;
 }
 function getTag_ANNUAL_MUZZ_2014(ruleParams) {
-    var rp = ruleParams;
-    var arryTags = new Array();
-    arryTags.push(TAG_TYPE_1_BACK_TAG);
-    if ((rp.EitherOrAntler & 4) == 0) {
-        arryTags.push(TAG_TYPE_19_DEER_OF_EITHER_SEX_TAG);
+	var rp = ruleParams;
+	var arryTags = new Array();
+	arryTags.push(TAG_TYPE_1_BACK_TAG);    
+	if ((rp.EitherOrAntler & 4) == 0) {
+		if (alreadyBeenReported(ruleParams.Year,"Licenses/Tag/Hunting/Either Sex")) {
+			arryTags.push(TAG_TYPE_20_ANTLERLESS_DEER_TAG);
+		}else{
+			arryTags.push(TAG_TYPE_19_DEER_OF_EITHER_SEX_TAG);        
+		}
+        //arryTags.push(TAG_TYPE_19_DEER_OF_EITHER_SEX_TAG);        
     } else if ((rp.EitherOrAntler & 8) == 0) {
-        arryTags.push(TAG_TYPE_20_ANTLERLESS_DEER_TAG);
+    	arryTags.push(TAG_TYPE_20_ANTLERLESS_DEER_TAG);
     }
     return arryTags;
 }
 function getTag_NONRES_MUZZLELOADING(ruleParams) {
-    var rp = ruleParams;
-    var arryTags = new Array();
-    arryTags.push(TAG_TYPE_1_BACK_TAG);
-    if ((rp.EitherOrAntler & 4) == 0) {
-        arryTags.push(TAG_TYPE_19_DEER_OF_EITHER_SEX_TAG);
-    } else if ((rp.EitherOrAntler & 8) == 0) {
-        arryTags.push(TAG_TYPE_20_ANTLERLESS_DEER_TAG);
-    }
-    return arryTags;
+	var rp = ruleParams;
+	var arryTags = new Array();
+	arryTags.push(TAG_TYPE_1_BACK_TAG);
+	if ((rp.EitherOrAntler & 4) == 0) {
+		if (alreadyBeenReported(ruleParams.Year,"Licenses/Tag/Hunting/Either Sex")) {
+			arryTags.push(TAG_TYPE_20_ANTLERLESS_DEER_TAG);
+		}else{
+			arryTags.push(TAG_TYPE_19_DEER_OF_EITHER_SEX_TAG);        
+		}
+		//arryTags.push(TAG_TYPE_19_DEER_OF_EITHER_SEX_TAG);
+	} else if ((rp.EitherOrAntler & 8) == 0) {
+		arryTags.push(TAG_TYPE_20_ANTLERLESS_DEER_TAG);
+	}
+	return arryTags;
 }
 function getTag_LIFETM_MUZZ(ruleParams) {
-    var rp = ruleParams;
-    var arryTags = new Array();
-    var cndFul = new COND_FULLFILLMENT();
+	var rp = ruleParams;
+	var arryTags = new Array();
+	var cndFul = new COND_FULLFILLMENT();
 
-    if (rp.AgeLookAhead30Days >= 12 && rp.HasHuntEd) {
-        arryTags.push(TAG_TYPE_1_BACK_TAG);
-    }
+	if (rp.AgeLookAhead30Days >= 12 && rp.HasHuntEd) {
+		arryTags.push(TAG_TYPE_1_BACK_TAG);
+	}
 
-    if (rp.AgeLookAhead30Days >= 14 && rp.HasHuntEd) {
-        if ((rp.EitherOrAntler & 4) == 0) {
-            arryTags.push(TAG_TYPE_19_DEER_OF_EITHER_SEX_TAG);
+	if (rp.AgeLookAhead30Days >= 14 && rp.HasHuntEd) {
+		if ((rp.EitherOrAntler & 4) == 0) {
+			if (alreadyBeenReported(ruleParams.Year,"Licenses/Tag/Hunting/Either Sex")) {
+				arryTags.push(TAG_TYPE_20_ANTLERLESS_DEER_TAG);
+			}else{
+				arryTags.push(TAG_TYPE_19_DEER_OF_EITHER_SEX_TAG);        
+			}
+            //arryTags.push(TAG_TYPE_19_DEER_OF_EITHER_SEX_TAG);
         } else if ((rp.EitherOrAntler & 8) == 0) {
-            arryTags.push(TAG_TYPE_20_ANTLERLESS_DEER_TAG);
+        	arryTags.push(TAG_TYPE_20_ANTLERLESS_DEER_TAG);
         }
     }
 
     if (rp.AgeLookAhead30Days < 12) {
-        if (!hmfulfilmmentCond.containsKey(cndFul.Condition_VerifyAgedIn)) {
-            hmfulfilmmentCond.put(cndFul.Condition_VerifyAgedIn, cndFul.Condition_VerifyAgedIn);
-        }
+    	if (!hmfulfilmmentCond.containsKey(cndFul.Condition_VerifyAgedIn)) {
+    		hmfulfilmmentCond.put(cndFul.Condition_VerifyAgedIn, cndFul.Condition_VerifyAgedIn);
+    	}
     }
 
     if (!rp.HasHuntEd) {
-        if (!hmfulfilmmentCond.containsKey(cndFul.Condition_NeedHuntingEd)) {
-            hmfulfilmmentCond.put(cndFul.Condition_NeedHuntingEd, cndFul.Condition_NeedHuntingEd);
-        }
+    	if (!hmfulfilmmentCond.containsKey(cndFul.Condition_NeedHuntingEd)) {
+    		hmfulfilmmentCond.put(cndFul.Condition_NeedHuntingEd, cndFul.Condition_NeedHuntingEd);
+    	}
     }
 
     return arryTags;
 }
 function getTag_ANNUAL_DMP_2012(ruleParams) {
-    var rp = ruleParams;
-    var arryTags = new Array();
-    arryTags.push(TAG_TYPE_1_BACK_TAG);
-    arryTags.push(TAG_TYPE_4_DMP_DEER_TAG);
-    return arryTags;
+	var rp = ruleParams;
+	var arryTags = new Array();
+	arryTags.push(TAG_TYPE_1_BACK_TAG);
+	arryTags.push(TAG_TYPE_4_DMP_DEER_TAG);
+	return arryTags;
 }
 function getTag_ANNUAL_DMP_2014(ruleParams) {
-    var rp = ruleParams;
-    var arryTags = new Array();
-    arryTags.push(TAG_TYPE_1_BACK_TAG);
-    arryTags.push(TAG_TYPE_4_DMP_DEER_TAG);
-    return arryTags;
+	var rp = ruleParams;
+	var arryTags = new Array();
+	arryTags.push(TAG_TYPE_1_BACK_TAG);
+	arryTags.push(TAG_TYPE_4_DMP_DEER_TAG);
+	return arryTags;
 }
 function getTag_ANNUAL_BOWH_2012(ruleParams) {
-    var rp = ruleParams;
-    var arryTags = new Array();
-    arryTags.push(TAG_TYPE_1_BACK_TAG);
-    if ((rp.EitherOrAntler & 4) == 0) {
-        arryTags.push(TAG_TYPE_19_DEER_OF_EITHER_SEX_TAG);
-    } else if ((rp.EitherOrAntler & 8) == 0) {
-        arryTags.push(TAG_TYPE_20_ANTLERLESS_DEER_TAG);
-    }
-    return arryTags;
+	var rp = ruleParams;
+	var arryTags = new Array();
+	arryTags.push(TAG_TYPE_1_BACK_TAG);
+	if ((rp.EitherOrAntler & 4) == 0) {
+		arryTags.push(TAG_TYPE_19_DEER_OF_EITHER_SEX_TAG);
+	} else if ((rp.EitherOrAntler & 8) == 0) {
+		arryTags.push(TAG_TYPE_20_ANTLERLESS_DEER_TAG);
+	}
+	return arryTags;
 }
 function getTag_NONRESIDENT_BOWHUNTING(ruleParams) {
-    var rp = ruleParams;
-    var arryTags = new Array();
-    arryTags.push(TAG_TYPE_1_BACK_TAG);
-    if ((rp.EitherOrAntler & 4) == 0) {
-        arryTags.push(TAG_TYPE_19_DEER_OF_EITHER_SEX_TAG);
-    } else if ((rp.EitherOrAntler & 8) == 0) {
-        arryTags.push(TAG_TYPE_20_ANTLERLESS_DEER_TAG);
-    }
-    return arryTags;
+	var rp = ruleParams;
+	var arryTags = new Array();
+	arryTags.push(TAG_TYPE_1_BACK_TAG);
+	if ((rp.EitherOrAntler & 4) == 0) {
+		if (alreadyBeenReported(ruleParams.Year,"Licenses/Tag/Hunting/Either Sex")) {
+			arryTags.push(TAG_TYPE_20_ANTLERLESS_DEER_TAG);
+		}else{
+			arryTags.push(TAG_TYPE_19_DEER_OF_EITHER_SEX_TAG);        
+		}
+		//arryTags.push(TAG_TYPE_19_DEER_OF_EITHER_SEX_TAG);
+	} else if ((rp.EitherOrAntler & 8) == 0) {
+		arryTags.push(TAG_TYPE_20_ANTLERLESS_DEER_TAG);
+	}
+	return arryTags;
 }
 function getTag_LIFETM_BOWH(ruleParams) {
-    var rp = ruleParams;
-    var arryTags = new Array();
+	var rp = ruleParams;
+	var arryTags = new Array();
 
-    logDebug(rp.toString());
+	logDebug(rp.toString());
 
-    if (rp.AgeLookAhead30Days >= 12 && rp.HasHuntEd && rp.HasBowHunt) {
-        arryTags.push(TAG_TYPE_1_BACK_TAG);
-        if ((rp.EitherOrAntler & 4) == 0) {
-            arryTags.push(TAG_TYPE_19_DEER_OF_EITHER_SEX_TAG);
-        } else if ((rp.EitherOrAntler & 8) == 0) {
-            arryTags.push(TAG_TYPE_20_ANTLERLESS_DEER_TAG);
-        }
+	if (rp.AgeLookAhead30Days >= 12 && rp.HasHuntEd && rp.HasBowHunt) {
+		arryTags.push(TAG_TYPE_1_BACK_TAG);
+		if ((rp.EitherOrAntler & 4) == 0) {
+			if (alreadyBeenReported(ruleParams.Year,"Licenses/Tag/Hunting/Either Sex")) {
+				arryTags.push(TAG_TYPE_20_ANTLERLESS_DEER_TAG);
+			}else{
+				arryTags.push(TAG_TYPE_19_DEER_OF_EITHER_SEX_TAG);        
+			}
+			//arryTags.push(TAG_TYPE_19_DEER_OF_EITHER_SEX_TAG);
+		} else if ((rp.EitherOrAntler & 8) == 0) {
+			arryTags.push(TAG_TYPE_20_ANTLERLESS_DEER_TAG);
+		}
 
-        if (rp.AgeLookAhead30Days >= 12 && rp.AgeLookAhead30Days <= 13 && rp.HasBowHunt && rp.HasHuntEd && rp.HasLifetimeHunt()) {
-        	if ((AInfo["Lifetime Bowhunting"] == "CHECKED") || (AInfo["Bowhunting Privilege"] == "CHECKED")){
-        		arryTags.push(TAG_TYPE_2_BEAR_TAG);		
-        	}
-    	}
+		if (rp.AgeLookAhead30Days >= 12 && rp.AgeLookAhead30Days <= 13 && rp.HasBowHunt && rp.HasHuntEd && rp.HasLifetimeHunt()) {
+			if ((AInfo["Lifetime Bowhunting"] == "CHECKED") || (AInfo["Bowhunting Privilege"] == "CHECKED")){
+				arryTags.push(TAG_TYPE_2_BEAR_TAG);		
+			}
+		}
 
-    } else {
-        var cndFul = new COND_FULLFILLMENT();
-        if (rp.AgeLookAhead30Days < 12) {
-            if (!hmfulfilmmentCond.containsKey(cndFul.Condition_VerifyAgedIn)) {
-                hmfulfilmmentCond.put(cndFul.Condition_VerifyAgedIn, cndFul.Condition_VerifyAgedIn);
-            }
-        }
-        if (!rp.HasHuntEd && !rp.HasBowHunt) {
-            if (!hmfulfilmmentCond.containsKey(cndFul.Condition_NeedHuntingEd)) {
-                hmfulfilmmentCond.put(cndFul.Condition_NeedHuntingEd, cndFul.Condition_NeedHuntingEd);
-            }
-        }
-    }
-    return arryTags;
+	} else {
+		var cndFul = new COND_FULLFILLMENT();
+		if (rp.AgeLookAhead30Days < 12) {
+			if (!hmfulfilmmentCond.containsKey(cndFul.Condition_VerifyAgedIn)) {
+				hmfulfilmmentCond.put(cndFul.Condition_VerifyAgedIn, cndFul.Condition_VerifyAgedIn);
+			}
+		}
+		if (!rp.HasHuntEd && !rp.HasBowHunt) {
+			if (!hmfulfilmmentCond.containsKey(cndFul.Condition_NeedHuntingEd)) {
+				hmfulfilmmentCond.put(cndFul.Condition_NeedHuntingEd, cndFul.Condition_NeedHuntingEd);
+			}
+		}
+	}
+	return arryTags;
 }
 function getTag_ANNUAL_BOWH_2014(ruleParams) {
-    var rp = ruleParams;
-    var arryTags = new Array();
-    arryTags.push(TAG_TYPE_1_BACK_TAG);
-    if ((rp.EitherOrAntler & 4) == 0) {
-        arryTags.push(TAG_TYPE_19_DEER_OF_EITHER_SEX_TAG);
-    } else if ((rp.EitherOrAntler & 8) == 0) {
-        arryTags.push(TAG_TYPE_20_ANTLERLESS_DEER_TAG);
-    }
+	var rp = ruleParams;
+	var arryTags = new Array();
+	arryTags.push(TAG_TYPE_1_BACK_TAG);
+	if ((rp.EitherOrAntler & 4) == 0) {
+		if (alreadyBeenReported(ruleParams.Year,"Licenses/Tag/Hunting/Either Sex")) {
+			arryTags.push(TAG_TYPE_20_ANTLERLESS_DEER_TAG);
+		}else{
+			arryTags.push(TAG_TYPE_19_DEER_OF_EITHER_SEX_TAG);        
+		}
+		//arryTags.push(TAG_TYPE_19_DEER_OF_EITHER_SEX_TAG);
+	} else if ((rp.EitherOrAntler & 8) == 0) {
+		arryTags.push(TAG_TYPE_20_ANTLERLESS_DEER_TAG);
+	}
 
-    if (rp.AgeLookAhead30Days >= 12 && rp.AgeLookAhead30Days <= 13) {
-    	if (rp.HasHuntEd && rp.HasBowHunt && ((AInfo["Bowhunting Privilege"] == "CHECKED") || (AInfo["Lifetime Bowhunting"] == "CHECKED")) && (rp.HasJrHuntLic() || rp.HasLifetimeHunt())) {
-    		arryTags.push(TAG_TYPE_2_BEAR_TAG);		
-    	}
-    }
-    
-    return arryTags;
+	if (rp.AgeLookAhead30Days >= 12 && rp.AgeLookAhead30Days <= 13) {
+		if (rp.HasHuntEd && rp.HasBowHunt && ((AInfo["Bowhunting Privilege"] == "CHECKED") || (AInfo["Lifetime Bowhunting"] == "CHECKED")) && (rp.HasJrHuntLic() || rp.HasLifetimeHunt())) {
+			arryTags.push(TAG_TYPE_2_BEAR_TAG);		
+		}
+	}
+
+	return arryTags;
 }
 function getTag_CONSERVATION_LEGACY(ruleParams) {
-    var rp = ruleParams;
-    var arryTags = new Array();
-    arryTags.push(TAG_TYPE_1_BACK_TAG);
-    arryTags.push(TAG_TYPE_3_REG_SEASON_DEER);
-    arryTags.push(TAG_TYPE_2_BEAR_TAG);
-    arryTags.push(TAG_TYPE_19_DEER_OF_EITHER_SEX_TAG);
-    arryTags.push(TAG_TYPE_20_ANTLERLESS_DEER_TAG);
-    arryTags.push(TAG_TYPE_16_SPRING_TURKEY_TAG_1);
-    arryTags.push(TAG_TYPE_15_SPRING_TURKEY_TAG_2);
-    arryTags.push(TAG_TYPE_14_FALL_TURKEY_STATEWIDE);
-    arryTags.push(TAG_TYPE_13_FALL_TURKEY_2_BIRD_AREA);
-    return arryTags;
+	var rp = ruleParams;
+	var arryTags = new Array();
+	arryTags.push(TAG_TYPE_1_BACK_TAG);
+	arryTags.push(TAG_TYPE_3_REG_SEASON_DEER);
+	arryTags.push(TAG_TYPE_2_BEAR_TAG);
+	arryTags.push(TAG_TYPE_19_DEER_OF_EITHER_SEX_TAG);
+	arryTags.push(TAG_TYPE_20_ANTLERLESS_DEER_TAG);
+	arryTags.push(TAG_TYPE_16_SPRING_TURKEY_TAG_1);
+	arryTags.push(TAG_TYPE_15_SPRING_TURKEY_TAG_2);
+	arryTags.push(TAG_TYPE_14_FALL_TURKEY_STATEWIDE);
+	arryTags.push(TAG_TYPE_13_FALL_TURKEY_2_BIRD_AREA);
+	return arryTags;
 }
 function getTag_NONRESIDENT_BIG_GAME(ruleParams) {
-    var rp = ruleParams;
-    var arryTags = new Array();
-    arryTags.push(TAG_TYPE_1_BACK_TAG);
-    arryTags.push(TAG_TYPE_3_REG_SEASON_DEER);
-    return arryTags;
+	var rp = ruleParams;
+	var arryTags = new Array();
+	arryTags.push(TAG_TYPE_1_BACK_TAG);
+	arryTags.push(TAG_TYPE_3_REG_SEASON_DEER);
+	return arryTags;
 }
 function getTag_NONRESIDENT_SMALL_GAME(ruleParams) {
-    var rp = ruleParams;
-    var arryTags = new Array();
-    arryTags.push(TAG_TYPE_1_BACK_TAG);
-    return arryTags;
+	var rp = ruleParams;
+	var arryTags = new Array();
+	arryTags.push(TAG_TYPE_1_BACK_TAG);
+	return arryTags;
 }
 function getTag_NONRES_SUPER_SPORTSMAN(ruleParams) {
-    var rp = ruleParams;
-    var arryTags = new Array();
-    arryTags.push(TAG_TYPE_1_BACK_TAG);
-    arryTags.push(TAG_TYPE_3_REG_SEASON_DEER);
-    arryTags.push(TAG_TYPE_19_DEER_OF_EITHER_SEX_TAG);
-    arryTags.push(TAG_TYPE_20_ANTLERLESS_DEER_TAG);
-    arryTags.push(TAG_TYPE_16_SPRING_TURKEY_TAG_1);
-    arryTags.push(TAG_TYPE_15_SPRING_TURKEY_TAG_2);
-    arryTags.push(TAG_TYPE_14_FALL_TURKEY_STATEWIDE);
-    arryTags.push(TAG_TYPE_13_FALL_TURKEY_2_BIRD_AREA);
-    return arryTags;
+	var rp = ruleParams;
+	var arryTags = new Array();
+	arryTags.push(TAG_TYPE_1_BACK_TAG);
+	arryTags.push(TAG_TYPE_3_REG_SEASON_DEER);
+	arryTags.push(TAG_TYPE_19_DEER_OF_EITHER_SEX_TAG);
+	arryTags.push(TAG_TYPE_20_ANTLERLESS_DEER_TAG);
+	arryTags.push(TAG_TYPE_16_SPRING_TURKEY_TAG_1);
+	arryTags.push(TAG_TYPE_15_SPRING_TURKEY_TAG_2);
+	arryTags.push(TAG_TYPE_14_FALL_TURKEY_STATEWIDE);
+	arryTags.push(TAG_TYPE_13_FALL_TURKEY_2_BIRD_AREA);
+	return arryTags;
 }
 function getTag_SMALL_AND_BIG_GAME(ruleParams) {
-    var rp = ruleParams;
-    var arryTags = new Array();
-    arryTags.push(TAG_TYPE_1_BACK_TAG);
-    arryTags.push(TAG_TYPE_3_REG_SEASON_DEER);
-    arryTags.push(TAG_TYPE_2_BEAR_TAG);
-    return arryTags;
+	var rp = ruleParams;
+	var arryTags = new Array();
+	arryTags.push(TAG_TYPE_1_BACK_TAG);
+	arryTags.push(TAG_TYPE_3_REG_SEASON_DEER);
+	arryTags.push(TAG_TYPE_2_BEAR_TAG);
+	return arryTags;
 }
 function getTag_SPORTSMAN(ruleParams) {
-    var rp = ruleParams;
-    var arryTags = new Array();
-    arryTags.push(TAG_TYPE_1_BACK_TAG);
-    arryTags.push(TAG_TYPE_3_REG_SEASON_DEER);
-    arryTags.push(TAG_TYPE_2_BEAR_TAG);
-    return arryTags;
+	var rp = ruleParams;
+	var arryTags = new Array();
+	arryTags.push(TAG_TYPE_1_BACK_TAG);
+	arryTags.push(TAG_TYPE_3_REG_SEASON_DEER);
+	arryTags.push(TAG_TYPE_2_BEAR_TAG);
+	return arryTags;
 }
 function getTag_LIFETM_SPRT(ruleParams) {
-    var rp = ruleParams;
-    var arryTags = new Array();
+	var rp = ruleParams;
+	var arryTags = new Array();
 
-    if (rp.AgeLookAhead30Days >= 12 && rp.HasHuntEd) {
-        arryTags.push(TAG_TYPE_1_BACK_TAG);
-        arryTags.push(TAG_TYPE_16_SPRING_TURKEY_TAG_1);
-        arryTags.push(TAG_TYPE_15_SPRING_TURKEY_TAG_2);
-        arryTags.push(TAG_TYPE_14_FALL_TURKEY_STATEWIDE);
-        arryTags.push(TAG_TYPE_13_FALL_TURKEY_2_BIRD_AREA);
-        if (rp.AgeLookAhead30Days >= 14) {
-            arryTags.push(TAG_TYPE_3_REG_SEASON_DEER);
-            arryTags.push(TAG_TYPE_2_BEAR_TAG);
-        }
-        if (rp.AgeLookAhead30Days >= 12 && rp.AgeLookAhead30Days <= 13 && rp.HasBowHunt) {
-        	if ((AInfo["Lifetime Sportsman"] == "CHECKED") && (AInfo["Lifetime Bowhunting"] == "CHECKED")) {
-        		arryTags.push(TAG_TYPE_2_BEAR_TAG);		
-        	}
-    	}
-    } else {
-        var cndFul = new COND_FULLFILLMENT();
-        if (rp.AgeLookAhead30Days < 12) {
-            if (!hmfulfilmmentCond.containsKey(cndFul.Condition_VerifyAgedIn)) {
-                hmfulfilmmentCond.put(cndFul.Condition_VerifyAgedIn, cndFul.Condition_VerifyAgedIn);
-            }
-        }
-        if (!rp.HasHuntEd) {
-            if (!hmfulfilmmentCond.containsKey(cndFul.Condition_NeedHuntingEd)) {
-                hmfulfilmmentCond.put(cndFul.Condition_NeedHuntingEd, cndFul.Condition_NeedHuntingEd);
-            }
-        }
-    }
-    return arryTags;
+	if (rp.AgeLookAhead30Days >= 12 && rp.HasHuntEd) {
+		arryTags.push(TAG_TYPE_1_BACK_TAG);
+		arryTags.push(TAG_TYPE_16_SPRING_TURKEY_TAG_1);
+		arryTags.push(TAG_TYPE_15_SPRING_TURKEY_TAG_2);
+		arryTags.push(TAG_TYPE_14_FALL_TURKEY_STATEWIDE);
+		arryTags.push(TAG_TYPE_13_FALL_TURKEY_2_BIRD_AREA);
+		if (rp.AgeLookAhead30Days >= 14) {
+			arryTags.push(TAG_TYPE_3_REG_SEASON_DEER);
+			arryTags.push(TAG_TYPE_2_BEAR_TAG);
+		}
+		if (rp.AgeLookAhead30Days >= 12 && rp.AgeLookAhead30Days <= 13 && rp.HasBowHunt) {
+			if ((AInfo["Lifetime Sportsman"] == "CHECKED") && (AInfo["Lifetime Bowhunting"] == "CHECKED")) {
+				arryTags.push(TAG_TYPE_2_BEAR_TAG);		
+			}
+		}
+	} else {
+		var cndFul = new COND_FULLFILLMENT();
+		if (rp.AgeLookAhead30Days < 12) {
+			if (!hmfulfilmmentCond.containsKey(cndFul.Condition_VerifyAgedIn)) {
+				hmfulfilmmentCond.put(cndFul.Condition_VerifyAgedIn, cndFul.Condition_VerifyAgedIn);
+			}
+		}
+		if (!rp.HasHuntEd) {
+			if (!hmfulfilmmentCond.containsKey(cndFul.Condition_NeedHuntingEd)) {
+				hmfulfilmmentCond.put(cndFul.Condition_NeedHuntingEd, cndFul.Condition_NeedHuntingEd);
+			}
+		}
+	}
+	return arryTags;
 }
 function getTag_SMALL_GAME(ruleParams) {
-    var rp = ruleParams;
-    var arryTags = new Array();
-    arryTags.push(TAG_TYPE_1_BACK_TAG);
-    return arryTags;
+	var rp = ruleParams;
+	var arryTags = new Array();
+	arryTags.push(TAG_TYPE_1_BACK_TAG);
+	return arryTags;
 }
 function getTag_SUPER_SPORTSMAN(ruleParams) {
-    var rp = ruleParams;
-    var arryTags = new Array();
-    arryTags.push(TAG_TYPE_1_BACK_TAG);
-    arryTags.push(TAG_TYPE_3_REG_SEASON_DEER);
-    arryTags.push(TAG_TYPE_2_BEAR_TAG);
-    arryTags.push(TAG_TYPE_19_DEER_OF_EITHER_SEX_TAG);
-    arryTags.push(TAG_TYPE_20_ANTLERLESS_DEER_TAG);
-    arryTags.push(TAG_TYPE_16_SPRING_TURKEY_TAG_1);
-    arryTags.push(TAG_TYPE_15_SPRING_TURKEY_TAG_2);
-    arryTags.push(TAG_TYPE_14_FALL_TURKEY_STATEWIDE);
-    arryTags.push(TAG_TYPE_13_FALL_TURKEY_2_BIRD_AREA);
-    return arryTags;
+	var rp = ruleParams;
+	var arryTags = new Array();
+	arryTags.push(TAG_TYPE_1_BACK_TAG);
+	arryTags.push(TAG_TYPE_3_REG_SEASON_DEER);
+	arryTags.push(TAG_TYPE_2_BEAR_TAG);
+	arryTags.push(TAG_TYPE_19_DEER_OF_EITHER_SEX_TAG);
+	arryTags.push(TAG_TYPE_20_ANTLERLESS_DEER_TAG);
+	arryTags.push(TAG_TYPE_16_SPRING_TURKEY_TAG_1);
+	arryTags.push(TAG_TYPE_15_SPRING_TURKEY_TAG_2);
+	arryTags.push(TAG_TYPE_14_FALL_TURKEY_STATEWIDE);
+	arryTags.push(TAG_TYPE_13_FALL_TURKEY_2_BIRD_AREA);
+	return arryTags;
 }
 function getTag_TRAPPER_SUPER_SPORTSMAN(ruleParams) {
-    var rp = ruleParams;
-    var arryTags = new Array();
-    arryTags.push(TAG_TYPE_1_BACK_TAG);
-    arryTags.push(TAG_TYPE_3_REG_SEASON_DEER);
-    arryTags.push(TAG_TYPE_2_BEAR_TAG);
-    arryTags.push(TAG_TYPE_19_DEER_OF_EITHER_SEX_TAG);
+	var rp = ruleParams;
+	var arryTags = new Array();
+	arryTags.push(TAG_TYPE_1_BACK_TAG);
+	arryTags.push(TAG_TYPE_3_REG_SEASON_DEER);
+	arryTags.push(TAG_TYPE_2_BEAR_TAG);
+	arryTags.push(TAG_TYPE_19_DEER_OF_EITHER_SEX_TAG);
     //	arryTags.push(TAG_TYPE_20_ANTLERLESS_DEER_TAG);  - Raj Koul 11/05/2014
     arryTags.push(TAG_TYPE_16_SPRING_TURKEY_TAG_1);
     arryTags.push(TAG_TYPE_15_SPRING_TURKEY_TAG_2);
@@ -2651,51 +2687,51 @@ function getTag_TRAPPER_SUPER_SPORTSMAN(ruleParams) {
     return arryTags;
 }
 function getTag_LIFETM_SBGM(ruleParams) {
-    var rp = ruleParams;
-    var arryTags = new Array();
+	var rp = ruleParams;
+	var arryTags = new Array();
 
-    if (rp.AgeLookAhead30Days >= 12 && rp.HasHuntEd) {
-        arryTags.push(TAG_TYPE_1_BACK_TAG);
-    }
-    if (rp.AgeLookAhead30Days >= 14 && rp.HasHuntEd) {
-        arryTags.push(TAG_TYPE_2_BEAR_TAG);
-        arryTags.push(TAG_TYPE_3_REG_SEASON_DEER);
-    } else {
-        var cndFul = new COND_FULLFILLMENT();
-        if (rp.AgeLookAhead30Days < 12) {
-            if (!hmfulfilmmentCond.containsKey(cndFul.Condition_VerifyAgedIn)) {
-                hmfulfilmmentCond.put(cndFul.Condition_VerifyAgedIn, cndFul.Condition_VerifyAgedIn);
-            }
-        }
-        if (!rp.HasHuntEd) {
-            if (!hmfulfilmmentCond.containsKey(cndFul.Condition_NeedHuntingEd)) {
-                hmfulfilmmentCond.put(cndFul.Condition_NeedHuntingEd, cndFul.Condition_NeedHuntingEd);
-            }
-        }
-    }
-    return arryTags;
+	if (rp.AgeLookAhead30Days >= 12 && rp.HasHuntEd) {
+		arryTags.push(TAG_TYPE_1_BACK_TAG);
+	}
+	if (rp.AgeLookAhead30Days >= 14 && rp.HasHuntEd) {
+		arryTags.push(TAG_TYPE_2_BEAR_TAG);
+		arryTags.push(TAG_TYPE_3_REG_SEASON_DEER);
+	} else {
+		var cndFul = new COND_FULLFILLMENT();
+		if (rp.AgeLookAhead30Days < 12) {
+			if (!hmfulfilmmentCond.containsKey(cndFul.Condition_VerifyAgedIn)) {
+				hmfulfilmmentCond.put(cndFul.Condition_VerifyAgedIn, cndFul.Condition_VerifyAgedIn);
+			}
+		}
+		if (!rp.HasHuntEd) {
+			if (!hmfulfilmmentCond.containsKey(cndFul.Condition_NeedHuntingEd)) {
+				hmfulfilmmentCond.put(cndFul.Condition_NeedHuntingEd, cndFul.Condition_NeedHuntingEd);
+			}
+		}
+	}
+	return arryTags;
 }
 function getTag_NONRESIDENT_BEAR_TAG(ruleParams) {
-    var rp = ruleParams;
-    var arryTags = new Array();
-    arryTags.push(TAG_TYPE_1_BACK_TAG);
-    arryTags.push(TAG_TYPE_2_BEAR_TAG);
-    return arryTags;
+	var rp = ruleParams;
+	var arryTags = new Array();
+	arryTags.push(TAG_TYPE_1_BACK_TAG);
+	arryTags.push(TAG_TYPE_2_BEAR_TAG);
+	return arryTags;
 }
 function getTag_ANNUAL_HUNT(ruleParams) {
-    var rp = ruleParams;
-    var arryTags = new Array();
-    arryTags.push(TAG_TYPE_1_BACK_TAG);
+	var rp = ruleParams;
+	var arryTags = new Array();
+	arryTags.push(TAG_TYPE_1_BACK_TAG);
 
     //JIRA - 17422- 44608
     if ((rp.IsNyResiDent || rp.HasLifetimeHunt()) && rp.AgeLookAhead30Days >= 14) {
-        arryTags.push(TAG_TYPE_3_REG_SEASON_DEER);
-        arryTags.push(TAG_TYPE_2_BEAR_TAG);
+    	arryTags.push(TAG_TYPE_3_REG_SEASON_DEER);
+    	arryTags.push(TAG_TYPE_2_BEAR_TAG);
     }
 
     if (!(rp.IsNyResiDent || rp.HasLifetimeHunt()) && rp.AgeLookAhead30Days >= 14) {
-        arryTags.push(TAG_TYPE_3_REG_SEASON_DEER);
-        arryTags.push(TAG_TYPE_2_BEAR_TAG);
+    	arryTags.push(TAG_TYPE_3_REG_SEASON_DEER);
+    	arryTags.push(TAG_TYPE_2_BEAR_TAG);
     }
 
     if (rp.AgeLookAhead30Days >= 12 && rp.AgeLookAhead30Days <= 13) {
@@ -2826,7 +2862,7 @@ function hasSaleLicMilitaryDisable(recordType) {
 	return isExist;
 }
 function hasBaseDMP(activeHoldingsInfo, sYear) {
-    var isExist = false;
+	var isExist = false;
     //Verify Recordtype required ActiveHolding Checking to display selection
     var validDmpRecArray = Array();
     validDmpRecArray.push(AA05_DEER_MANAGEMENT_PERMIT);
@@ -2837,27 +2873,27 @@ function hasBaseDMP(activeHoldingsInfo, sYear) {
     //Check For Instant or FCFS
     //getDrawTypeByPeriod
     for (var idx = 0; idx < activeHoldingsInfo.length; idx++) {
-        if (exists(activeHoldingsInfo[idx].RecordType, validDmpRecArray)) {
-            var itemCapString = activeHoldingsInfo[idx].Tag_or_DocumentID;
-            if (activeHoldingsInfo[idx].RecordType == AA05_DEER_MANAGEMENT_PERMIT) {
+    	if (exists(activeHoldingsInfo[idx].RecordType, validDmpRecArray)) {
+    		var itemCapString = activeHoldingsInfo[idx].Tag_or_DocumentID;
+    		if (activeHoldingsInfo[idx].RecordType == AA05_DEER_MANAGEMENT_PERMIT) {
                 //var isActiveDmp = ((dateDiff(new Date(), convertDate(activeHoldingsInfo[idx].ToDate))) > 0);
                 var isActiveDmp = true;
                 var seasonPeriod = GetDateRange(DEC_CONFIG, LICENSE_SEASON, sYear);
                 var diff = dateDiff(new Date(activeHoldingsInfo[idx].ToDate), seasonPeriod[1]);
                 isActiveDmp = isActiveDmp && (diff <= 0)
                 if (isActiveDmp) {
-                    if (isNull(itemCapString, '') != '') {
-                        var itemCapId = getCapId(itemCapString);
+                	if (isNull(itemCapString, '') != '') {
+                		var itemCapId = getCapId(itemCapString);
                         //JIRA - 41760
                         loadASITables(itemCapId);
                         if (typeof (DRAWRESULT) == "object") {
-                            for (y in DRAWRESULT) {
-                                var drawType = DRAWRESULT[y]["DRAW TYPE"];
-                                if (drawType == "INSTANT") {
-                                    isExist = true;
-                                    break;
-                                }
-                            }
+                        	for (y in DRAWRESULT) {
+                        		var drawType = DRAWRESULT[y]["DRAW TYPE"];
+                        		if (drawType == "INSTANT") {
+                        			isExist = true;
+                        			break;
+                        		}
+                        	}
                         }
                         //
                     }
@@ -2868,16 +2904,16 @@ function hasBaseDMP(activeHoldingsInfo, sYear) {
             }
             //Check for Instant or ibp
             if (isExist) {
-                break;
+            	break;
             }
         }
     }
     return isExist;
 }
 function hasWmuDefinedItems(activeHoldingsInfo) {
-    var isExist = false;
+	var isExist = false;
 
-    return false;
+	return false;
     //No Need following Verfication since DMP available sfter rules validation
     var validRecArray = Array();
     validRecArray.push(AA04_BOWHUNTING_PRIVILEGE);
@@ -2902,10 +2938,10 @@ function hasWmuDefinedItems(activeHoldingsInfo) {
 
 
     for (var idx = 0; idx < activeHoldingsInfo.length; idx++) {
-        if (exists(activeHoldingsInfo[idx].RecordType, validRecArray)) {
-            isExist = true;
-            break;
-        }
+    	if (exists(activeHoldingsInfo[idx].RecordType, validRecArray)) {
+    		isExist = true;
+    		break;
+    	}
     }
 
     return isExist;
@@ -2918,17 +2954,17 @@ function hasJuniorTagItems(activeHoldingsInfo) {
     validRecArray.push(AA57_JUNIOR_HUNTING_TAGS);
 
     for (var idx = 0; idx < activeHoldingsInfo.length; idx++) {
-        if (exists(activeHoldingsInfo[idx].RecordType, validRecArray)) {
-            isExist = true;
-            break;
-        }
+    	if (exists(activeHoldingsInfo[idx].RecordType, validRecArray)) {
+    		isExist = true;
+    		break;
+    	}
     }
 
     return isExist;
 }
 function differBySwitch(year) {
-    var differYear = year;
-    return differYear;
+	var differYear = year;
+	return differYear;
 
     //IMPOROVE: We already after switch date: No need to check
     var strSwitchDate = lookup("DEC_CONFIG", "SWITCH_DATE");
@@ -2937,23 +2973,23 @@ function differBySwitch(year) {
 
     if (strSwitchDateOverride != undefined)
     strSwitchDate = strSwitchDateOverride;    	
-    */
-    if (isNull(strSwitchDate, '') != '') {
-        var seasonPeriod = GetDateRange(DEC_CONFIG, LICENSE_SEASON, year);
+*/
+if (isNull(strSwitchDate, '') != '') {
+	var seasonPeriod = GetDateRange(DEC_CONFIG, LICENSE_SEASON, year);
 
-        var switchDate = new Date(strSwitchDate);
-        var diff = dateDiff(new Date(), switchDate);
-        if (diff > 0) {
-            if (switchDate >= seasonPeriod[0] && switchDate <= seasonPeriod[1]) {
-                differYear = (parseInt(year) - 1);
-            }
-        }
-    }
-    return differYear;
+	var switchDate = new Date(strSwitchDate);
+	var diff = dateDiff(new Date(), switchDate);
+	if (diff > 0) {
+		if (switchDate >= seasonPeriod[0] && switchDate <= seasonPeriod[1]) {
+			differYear = (parseInt(year) - 1);
+		}
+	}
+}
+return differYear;
 }
 function isAfterSwitchDate() {
 
-    if (!"not set".equals(isAfterSwitchDateFlag)) {
+	if (!"not set".equals(isAfterSwitchDateFlag)) {
         return isAfterSwitchDateFlag; // use cached value
     }
 
@@ -2968,14 +3004,14 @@ function isAfterSwitchDate() {
 
     if (strSwitchDateOverride != undefined)
     strSwitchDate = strSwitchDateOverride;  
-    */
-    if (isNull(strSwitchDate, '') != '') {
-        var switchDate = new Date(strSwitchDate);
-        var diff = dateDiff(switchDate, new Date());
-        retVal = (diff >= 0);
-    }
-    isAfterSwitchDateFlag = retVal;
-    return retVal;
+*/
+if (isNull(strSwitchDate, '') != '') {
+	var switchDate = new Date(strSwitchDate);
+	var diff = dateDiff(switchDate, new Date());
+	retVal = (diff >= 0);
+}
+isAfterSwitchDateFlag = retVal;
+return retVal;
 }
 function getVoidableFilterArray() {
     var validRecTypeArray = new Array();     //   record types
@@ -3106,173 +3142,173 @@ function getReprintFilterArray() {
 
 //Fullfillment Codition
 function COND_FULLFILLMENT() {
-    this.ConditionGroup = "Fulfillment"
-    this.ConditionType = "Fulfillment"
-    this.Condition_DailyInternetSales = "Daily Internet Sales";
-    this.Condition_DailyCallCenterSales = "DailyCall Center Sales";
-    this.Condition_IBPTag = "IBP Tag";
-    this.Condition_NeedHuntingEd = "Need Hunting Ed";
-    this.Condition_VerifyAgedIn = "Verify Aged-In";
-    this.Condition_YearlyLifetime = "Yearly Lifetime";
-    this.Condition_AutoGenAppl = "Auto-Generated Applications";
-    this.Condition_EducRefContUpd = "Education for Ref Contact Updated";
+	this.ConditionGroup = "Fulfillment"
+	this.ConditionType = "Fulfillment"
+	this.Condition_DailyInternetSales = "Daily Internet Sales";
+	this.Condition_DailyCallCenterSales = "DailyCall Center Sales";
+	this.Condition_IBPTag = "IBP Tag";
+	this.Condition_NeedHuntingEd = "Need Hunting Ed";
+	this.Condition_VerifyAgedIn = "Verify Aged-In";
+	this.Condition_YearlyLifetime = "Yearly Lifetime";
+	this.Condition_AutoGenAppl = "Auto-Generated Applications";
+	this.Condition_EducRefContUpd = "Education for Ref Contact Updated";
 
-    this.getConditionByFullfillmentType = function (fullfillmentType) {
-        if (fullfillmentType == this.Condition_DailyInternetSales) {
-            return this.GetQryForDailyInternetSales();
-        }
-        if (fullfillmentType == this.Condition_DailyCallCenterSales) {
-            return this.GetQryForDailyCallCenterSales();
-        }
-        if (fullfillmentType == this.Condition_IBPTag) {
-            return this.GetQryForCondition_IBPTag();
-        }
-        if (fullfillmentType == this.Condition_NeedHuntingEd) {
-            return this.GetQryForNeedHuntingEd();
-        }
-        if (fullfillmentType == this.Condition_VerifyAgedIn) {
-            return this.GetQryForVerifyAgedIn();
-        }
-        if (fullfillmentType == this.Condition_YearlyLifetime) {
-            return this.GetQryForYearlyLifetime();
-        }
-        if (fullfillmentType == this.Condition_AutoGenAppl) {
-            return this.GetQryForAutoGenAppl();
-        }
-        if (fullfillmentType == this.Condition_EducRefContUpd) {
-            return this.GetQryForEducRefContUpd();
-        }
-        return null;
-    }
-    this.GetQryForDailyInternetSales = function () {
-        var emCondm = aa.proxyInvoker.newInstance("com.accela.aa.aamain.cap.CapConditionModel").getOutput();
-        emCondm.setServiceProviderCode(aa.getServiceProviderCode());
-        emCondm.setConditionGroup(this.ConditionGroup);
-        emCondm.setConditionType(this.ConditionGroup);
-        emCondm.setConditionDescription(this.Condition_DailyInternetSales);
+	this.getConditionByFullfillmentType = function (fullfillmentType) {
+		if (fullfillmentType == this.Condition_DailyInternetSales) {
+			return this.GetQryForDailyInternetSales();
+		}
+		if (fullfillmentType == this.Condition_DailyCallCenterSales) {
+			return this.GetQryForDailyCallCenterSales();
+		}
+		if (fullfillmentType == this.Condition_IBPTag) {
+			return this.GetQryForCondition_IBPTag();
+		}
+		if (fullfillmentType == this.Condition_NeedHuntingEd) {
+			return this.GetQryForNeedHuntingEd();
+		}
+		if (fullfillmentType == this.Condition_VerifyAgedIn) {
+			return this.GetQryForVerifyAgedIn();
+		}
+		if (fullfillmentType == this.Condition_YearlyLifetime) {
+			return this.GetQryForYearlyLifetime();
+		}
+		if (fullfillmentType == this.Condition_AutoGenAppl) {
+			return this.GetQryForAutoGenAppl();
+		}
+		if (fullfillmentType == this.Condition_EducRefContUpd) {
+			return this.GetQryForEducRefContUpd();
+		}
+		return null;
+	}
+	this.GetQryForDailyInternetSales = function () {
+		var emCondm = aa.proxyInvoker.newInstance("com.accela.aa.aamain.cap.CapConditionModel").getOutput();
+		emCondm.setServiceProviderCode(aa.getServiceProviderCode());
+		emCondm.setConditionGroup(this.ConditionGroup);
+		emCondm.setConditionType(this.ConditionGroup);
+		emCondm.setConditionDescription(this.Condition_DailyInternetSales);
 
-        return emCondm;
-    }
+		return emCondm;
+	}
 
-    this.GetQryForDailyCallCenterSales = function () {
-        var cond = new COND_FULLFILLMENT();
-        var emCondm = aa.proxyInvoker.newInstance("com.accela.aa.aamain.cap.CapConditionModel").getOutput();
-        emCondm.setServiceProviderCode(aa.getServiceProviderCode());
-        emCondm.setConditionGroup(this.ConditionGroup);
-        emCondm.setConditionType(this.ConditionGroup);
-        emCondm.setConditionDescription(this.Condition_DailyCallCenterSales);
+	this.GetQryForDailyCallCenterSales = function () {
+		var cond = new COND_FULLFILLMENT();
+		var emCondm = aa.proxyInvoker.newInstance("com.accela.aa.aamain.cap.CapConditionModel").getOutput();
+		emCondm.setServiceProviderCode(aa.getServiceProviderCode());
+		emCondm.setConditionGroup(this.ConditionGroup);
+		emCondm.setConditionType(this.ConditionGroup);
+		emCondm.setConditionDescription(this.Condition_DailyCallCenterSales);
 
-        return emCondm;
-    }
+		return emCondm;
+	}
 
-    this.GetQryForNeedHuntingEd = function () {
-        var cond = new COND_FULLFILLMENT();
-        var emCondm = aa.proxyInvoker.newInstance("com.accela.aa.aamain.cap.CapConditionModel").getOutput();
-        emCondm.setServiceProviderCode(aa.getServiceProviderCode());
-        emCondm.setConditionGroup(this.ConditionGroup);
-        emCondm.setConditionType(this.ConditionGroup);
-        emCondm.setConditionDescription(this.Condition_NeedHuntingEd);
+	this.GetQryForNeedHuntingEd = function () {
+		var cond = new COND_FULLFILLMENT();
+		var emCondm = aa.proxyInvoker.newInstance("com.accela.aa.aamain.cap.CapConditionModel").getOutput();
+		emCondm.setServiceProviderCode(aa.getServiceProviderCode());
+		emCondm.setConditionGroup(this.ConditionGroup);
+		emCondm.setConditionType(this.ConditionGroup);
+		emCondm.setConditionDescription(this.Condition_NeedHuntingEd);
 
-        return emCondm;
-    }
+		return emCondm;
+	}
 
-    this.GetQryForVerifyAgedIn = function () {
-        var cond = new COND_FULLFILLMENT();
-        var emCondm = aa.proxyInvoker.newInstance("com.accela.aa.aamain.cap.CapConditionModel").getOutput();
-        emCondm.setServiceProviderCode(aa.getServiceProviderCode());
-        emCondm.setConditionGroup(this.ConditionGroup);
-        emCondm.setConditionType(this.ConditionGroup);
-        emCondm.setConditionDescription(this.Condition_VerifyAgedIn);
+	this.GetQryForVerifyAgedIn = function () {
+		var cond = new COND_FULLFILLMENT();
+		var emCondm = aa.proxyInvoker.newInstance("com.accela.aa.aamain.cap.CapConditionModel").getOutput();
+		emCondm.setServiceProviderCode(aa.getServiceProviderCode());
+		emCondm.setConditionGroup(this.ConditionGroup);
+		emCondm.setConditionType(this.ConditionGroup);
+		emCondm.setConditionDescription(this.Condition_VerifyAgedIn);
 
-        return emCondm;
-    }
+		return emCondm;
+	}
 
-    this.GetQryForCondition_IBPTag = function () {
-        var cond = new COND_FULLFILLMENT();
-        var emCondm = aa.proxyInvoker.newInstance("com.accela.aa.aamain.cap.CapConditionModel").getOutput();
-        emCondm.setServiceProviderCode(aa.getServiceProviderCode());
-        emCondm.setConditionGroup(this.ConditionGroup);
-        emCondm.setConditionType(this.ConditionGroup);
-        emCondm.setConditionDescription(this.Condition_IBPTag);
+	this.GetQryForCondition_IBPTag = function () {
+		var cond = new COND_FULLFILLMENT();
+		var emCondm = aa.proxyInvoker.newInstance("com.accela.aa.aamain.cap.CapConditionModel").getOutput();
+		emCondm.setServiceProviderCode(aa.getServiceProviderCode());
+		emCondm.setConditionGroup(this.ConditionGroup);
+		emCondm.setConditionType(this.ConditionGroup);
+		emCondm.setConditionDescription(this.Condition_IBPTag);
 
-        return emCondm;
-    }
+		return emCondm;
+	}
 
-    this.GetQryForYearlyLifetime = function () {
-        var cond = new COND_FULLFILLMENT();
-        var emCondm = aa.proxyInvoker.newInstance("com.accela.aa.aamain.cap.CapConditionModel").getOutput();
-        emCondm.setServiceProviderCode(aa.getServiceProviderCode());
-        emCondm.setConditionGroup(this.ConditionGroup);
-        emCondm.setConditionType(this.ConditionGroup);
-        emCondm.setConditionDescription(this.Condition_YearlyLifetime);
+	this.GetQryForYearlyLifetime = function () {
+		var cond = new COND_FULLFILLMENT();
+		var emCondm = aa.proxyInvoker.newInstance("com.accela.aa.aamain.cap.CapConditionModel").getOutput();
+		emCondm.setServiceProviderCode(aa.getServiceProviderCode());
+		emCondm.setConditionGroup(this.ConditionGroup);
+		emCondm.setConditionType(this.ConditionGroup);
+		emCondm.setConditionDescription(this.Condition_YearlyLifetime);
 
-        return emCondm;
-    }
+		return emCondm;
+	}
 
-    this.GetQryForAutoGenAppl = function () {
-        var cond = new COND_FULLFILLMENT();
-        var emCondm = aa.proxyInvoker.newInstance("com.accela.aa.aamain.cap.CapConditionModel").getOutput();
-        emCondm.setServiceProviderCode(aa.getServiceProviderCode());
-        emCondm.setConditionGroup(this.ConditionGroup);
-        emCondm.setConditionType(this.ConditionGroup);
-        emCondm.setConditionDescription(this.Condition_AutoGenAppl);
+	this.GetQryForAutoGenAppl = function () {
+		var cond = new COND_FULLFILLMENT();
+		var emCondm = aa.proxyInvoker.newInstance("com.accela.aa.aamain.cap.CapConditionModel").getOutput();
+		emCondm.setServiceProviderCode(aa.getServiceProviderCode());
+		emCondm.setConditionGroup(this.ConditionGroup);
+		emCondm.setConditionType(this.ConditionGroup);
+		emCondm.setConditionDescription(this.Condition_AutoGenAppl);
 
-        return emCondm;
-    }
+		return emCondm;
+	}
 
-    this.GetQryForEducRefContUpd = function () {
-        var cond = new COND_FULLFILLMENT();
-        var emCondm = aa.proxyInvoker.newInstance("com.accela.aa.aamain.cap.CapConditionModel").getOutput();
-        emCondm.setServiceProviderCode(aa.getServiceProviderCode());
-        emCondm.setConditionGroup(this.ConditionGroup);
-        emCondm.setConditionType(this.ConditionGroup);
-        emCondm.setConditionDescription(this.Condition_EducRefContUpd);
+	this.GetQryForEducRefContUpd = function () {
+		var cond = new COND_FULLFILLMENT();
+		var emCondm = aa.proxyInvoker.newInstance("com.accela.aa.aamain.cap.CapConditionModel").getOutput();
+		emCondm.setServiceProviderCode(aa.getServiceProviderCode());
+		emCondm.setConditionGroup(this.ConditionGroup);
+		emCondm.setConditionType(this.ConditionGroup);
+		emCondm.setConditionDescription(this.Condition_EducRefContUpd);
 
-        return emCondm;
-    }
+		return emCondm;
+	}
 }
 
 //IBP Process Codition
 function COND_IBP() {
-    this.ConditionGroup = "DMP Lottery"
-    this.ConditionType = "DMP Application Result"
-    this.Condition_SetforIBP = "Set for IBP Choice";
-    this.Condition_WMUChoice_1 = "WMU Choice 1";
-    this.Condition_WMUChoice_2 = "WMU Choice 2";
-    this.Condition_WMUChoice_1_IBP = "WMU Choice 1 IBP";
-    this.Condition_WMUChoice_2_IBP = "WMU Choice 2 IBP";
+	this.ConditionGroup = "DMP Lottery"
+	this.ConditionType = "DMP Application Result"
+	this.Condition_SetforIBP = "Set for IBP Choice";
+	this.Condition_WMUChoice_1 = "WMU Choice 1";
+	this.Condition_WMUChoice_2 = "WMU Choice 2";
+	this.Condition_WMUChoice_1_IBP = "WMU Choice 1 IBP";
+	this.Condition_WMUChoice_2_IBP = "WMU Choice 2 IBP";
 
-    this.getConditionByFullfillmentType = function (fullfillmentType) {
-        if (fullfillmentType == this.Condition_SetforIBP) {
-            return this.GetQryForSetforIBPChoice();
-        }
+	this.getConditionByFullfillmentType = function (fullfillmentType) {
+		if (fullfillmentType == this.Condition_SetforIBP) {
+			return this.GetQryForSetforIBPChoice();
+		}
         /*
         if (fullfillmentType == this.Condition_SetforIBPChoice_2) {
         return this.GetQryForSetforIBPChoice_2();
         }
         */
         if (fullfillmentType == this.Condition_WMUChoice_1) {
-            return this.GetQryForWMUChoice_1();
+        	return this.GetQryForWMUChoice_1();
         }
         if (fullfillmentType == this.Condition_WMUChoice_2) {
-            return this.GetQryForWMUChoice_2();
+        	return this.GetQryForWMUChoice_2();
         }
         if (fullfillmentType == this.Condition_WMUChoice_1_IBP) {
-            return this.GetQryForWMUChoice_1_IBP();
+        	return this.GetQryForWMUChoice_1_IBP();
         }
         if (fullfillmentType == this.Condition_WMUChoice_2_IBP) {
-            return this.GetQryForWMUChoice_2_IBP();
+        	return this.GetQryForWMUChoice_2_IBP();
         }
         return null;
     }
     this.GetQryForSetforIBPChoice = function () {
-        var emCondm = aa.proxyInvoker.newInstance("com.accela.aa.aamain.cap.CapConditionModel").getOutput();
-        emCondm.setServiceProviderCode(aa.getServiceProviderCode());
-        emCondm.setConditionGroup(this.ConditionGroup);
-        emCondm.setConditionType(this.ConditionGroup);
-        emCondm.setConditionDescription(this.Condition_SetforIBP);
+    	var emCondm = aa.proxyInvoker.newInstance("com.accela.aa.aamain.cap.CapConditionModel").getOutput();
+    	emCondm.setServiceProviderCode(aa.getServiceProviderCode());
+    	emCondm.setConditionGroup(this.ConditionGroup);
+    	emCondm.setConditionType(this.ConditionGroup);
+    	emCondm.setConditionDescription(this.Condition_SetforIBP);
 
-        return emCondm;
+    	return emCondm;
     }
 
     /*
@@ -3288,43 +3324,43 @@ function COND_IBP() {
     */
 
     this.GetQryForWMUChoice_1 = function () {
-        var emCondm = aa.proxyInvoker.newInstance("com.accela.aa.aamain.cap.CapConditionModel").getOutput();
-        emCondm.setServiceProviderCode(aa.getServiceProviderCode());
-        emCondm.setConditionGroup(this.ConditionGroup);
-        emCondm.setConditionType(this.ConditionGroup);
-        emCondm.setConditionDescription(this.Condition_WMUChoice_1);
+    	var emCondm = aa.proxyInvoker.newInstance("com.accela.aa.aamain.cap.CapConditionModel").getOutput();
+    	emCondm.setServiceProviderCode(aa.getServiceProviderCode());
+    	emCondm.setConditionGroup(this.ConditionGroup);
+    	emCondm.setConditionType(this.ConditionGroup);
+    	emCondm.setConditionDescription(this.Condition_WMUChoice_1);
 
-        return emCondm;
+    	return emCondm;
     }
 
     this.GetQryForWMUChoice_2 = function () {
-        var emCondm = aa.proxyInvoker.newInstance("com.accela.aa.aamain.cap.CapConditionModel").getOutput();
-        emCondm.setServiceProviderCode(aa.getServiceProviderCode());
-        emCondm.setConditionGroup(this.ConditionGroup);
-        emCondm.setConditionType(this.ConditionGroup);
-        emCondm.setConditionDescription(this.Condition_WMUChoice_2);
+    	var emCondm = aa.proxyInvoker.newInstance("com.accela.aa.aamain.cap.CapConditionModel").getOutput();
+    	emCondm.setServiceProviderCode(aa.getServiceProviderCode());
+    	emCondm.setConditionGroup(this.ConditionGroup);
+    	emCondm.setConditionType(this.ConditionGroup);
+    	emCondm.setConditionDescription(this.Condition_WMUChoice_2);
 
-        return emCondm;
+    	return emCondm;
     }
 
     this.GetQryForWMUChoice_1_IBP = function () {
-        var emCondm = aa.proxyInvoker.newInstance("com.accela.aa.aamain.cap.CapConditionModel").getOutput();
-        emCondm.setServiceProviderCode(aa.getServiceProviderCode());
-        emCondm.setConditionGroup(this.ConditionGroup);
-        emCondm.setConditionType(this.ConditionGroup);
-        emCondm.setConditionDescription(this.Condition_WMUChoice_1_IBP);
+    	var emCondm = aa.proxyInvoker.newInstance("com.accela.aa.aamain.cap.CapConditionModel").getOutput();
+    	emCondm.setServiceProviderCode(aa.getServiceProviderCode());
+    	emCondm.setConditionGroup(this.ConditionGroup);
+    	emCondm.setConditionType(this.ConditionGroup);
+    	emCondm.setConditionDescription(this.Condition_WMUChoice_1_IBP);
 
-        return emCondm;
+    	return emCondm;
     }
 
     this.GetQryForWMUChoice_2_IBP = function () {
-        var emCondm = aa.proxyInvoker.newInstance("com.accela.aa.aamain.cap.CapConditionModel").getOutput();
-        emCondm.setServiceProviderCode(aa.getServiceProviderCode());
-        emCondm.setConditionGroup(this.ConditionGroup);
-        emCondm.setConditionType(this.ConditionGroup);
-        emCondm.setConditionDescription(this.Condition_WMUChoice_2_IBP);
+    	var emCondm = aa.proxyInvoker.newInstance("com.accela.aa.aamain.cap.CapConditionModel").getOutput();
+    	emCondm.setServiceProviderCode(aa.getServiceProviderCode());
+    	emCondm.setConditionGroup(this.ConditionGroup);
+    	emCondm.setConditionType(this.ConditionGroup);
+    	emCondm.setConditionDescription(this.Condition_WMUChoice_2_IBP);
 
-        return emCondm;
+    	return emCondm;
     }
 }
 
@@ -3402,16 +3438,16 @@ function getRevokTrapRecTypeArray() {
 }
 //JIRA-44605
 function get60dayFishRecTypeArray() {
-    var validRecTypeArray = new Array();
+	var validRecTypeArray = new Array();
 
-    validRecTypeArray.push(AA02_MARINE_REGISTRY);
-    validRecTypeArray.push(AA01_FISHING_LICENSE);
-    validRecTypeArray.push(AA03_ONE_DAY_FISHING_LICENSE);
-    validRecTypeArray.push(AA22_FRESHWATER_FISHING);
-    validRecTypeArray.push(AA23_NONRES_FRESHWATER_FISHING);
-    validRecTypeArray.push(AA24_NONRESIDENT_1_DAY_FISHING);
-    validRecTypeArray.push(AA25_NONRESIDENT_7_DAY_FISHING);
-    validRecTypeArray.push(AA26_SEVEN_DAY_FISHING_LICENSE);
+	validRecTypeArray.push(AA02_MARINE_REGISTRY);
+	validRecTypeArray.push(AA01_FISHING_LICENSE);
+	validRecTypeArray.push(AA03_ONE_DAY_FISHING_LICENSE);
+	validRecTypeArray.push(AA22_FRESHWATER_FISHING);
+	validRecTypeArray.push(AA23_NONRES_FRESHWATER_FISHING);
+	validRecTypeArray.push(AA24_NONRESIDENT_1_DAY_FISHING);
+	validRecTypeArray.push(AA25_NONRESIDENT_7_DAY_FISHING);
+	validRecTypeArray.push(AA26_SEVEN_DAY_FISHING_LICENSE);
 
-    return validRecTypeArray;
+	return validRecTypeArray;
 }
