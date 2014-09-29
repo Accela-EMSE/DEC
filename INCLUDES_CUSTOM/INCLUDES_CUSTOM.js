@@ -8897,3 +8897,21 @@ function logDebug(dstr) {
 	catch(err) { aa.debug("emse","couldn't send email for script error : " + err.message) }
 	
 }
+
+
+function alreadyBeenReported(year, recType) {
+    var applicant = getContactObj(capId, "Individual");
+    if (applicant) {
+        var caps = applicant.getCaps(recType);
+        for (var i in caps) {
+            var tagId = caps[i];
+            var tagCap = aa.cap.getCap(tagId).getOutput();
+            var tagYear = getAppSpecific("Year", tagId);
+            if (tagCap.getCapStatus() == "Reported" && tagYear == year) {
+                return true;
+            }
+        }
+    }
+
+    return false;
+}
