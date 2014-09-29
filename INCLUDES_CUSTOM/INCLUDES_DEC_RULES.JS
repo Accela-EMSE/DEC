@@ -2863,7 +2863,8 @@ function hasBaseDMP(activeHoldingsInfo, sYear) {
                     }
                 }
             } else if (activeHoldingsInfo[idx].RecordType == AA13_LIFETIME_SPORTSMAN) {
-                isExist = (dateDiff(convertDate("10/1/2009"), convertDate(activeHoldingsInfo[idx].FromDate)) <= 0);
+                //isExist = (dateDiff(convertDate("10/1/2009"), convertDate(activeHoldingsInfo[idx].FromDate)) <= 0);
+                isExist = (activeHoldingsInfo[idx].LicenseYear < 2009);
             }
             //Check for Instant or ibp
             if (isExist) {
