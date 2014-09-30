@@ -771,7 +771,11 @@ function getAllFeeCodeByRuleFor_ANNUAL_HUNT(ruleParams, feeSched) {
     //Annual Hunting License fee for Patriot having age  16+
     if ((rp.IsNyResiDent || rp.HasLifetimeHunt()) && rp.IsMilitaryServiceman) { feeItemCodes.push(new FeeCodeProp(AHL_8_PATR, "000")); }
     //Annual Hunting License: NYS Res having age 14-15
-    if ((rp.IsNyResiDent || rp.HasLifetimeHunt()) && rp.Age >= 14 && rp.Age <= 15) { feeItemCodes.push(new FeeCodeProp(AHL_10_RES, "000")); }
+    if ((rp.IsNyResiDent || rp.HasLifetimeHunt()) && rp.IsNativeAmerican && rp.Age >= 14 && rp.Age <= 15) {
+    	feeItemCodes.push(new FeeCodeProp(AJH_6_RESNAM, "000")); 
+	}else if ((rp.IsNyResiDent || rp.HasLifetimeHunt()) && rp.Age >= 14 && rp.Age <= 15) {
+		feeItemCodes.push(new FeeCodeProp(AHL_10_RES, "000")); 
+	}
     //Annual Hunting License: Non-Res having age 14-15
     if (!(rp.IsNyResiDent || rp.HasLifetimeHunt()) && rp.Age >= 14 && rp.Age <= 15) { feeItemCodes.push(new FeeCodeProp(AHL_9_NORES, "000")); }
 
