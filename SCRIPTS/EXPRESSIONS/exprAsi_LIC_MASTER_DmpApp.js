@@ -1,40 +1,5 @@
 /////////////////
 var servProvCode = expression.getValue("$$servProvCode$$").value;
-
-var oHuntDmpApp = expression.getValue("ASI::HUNTING LICENSE::Deer Management Permit");
-var isHuntDmpApp = ((oHuntDmpApp.value != null && (oHuntDmpApp.value.equalsIgnoreCase('YES') || oHuntDmpApp.value.equalsIgnoreCase('Y') || oHuntDmpApp.value.equalsIgnoreCase('CHECKED') || oHuntDmpApp.value.equalsIgnoreCase('SELECTED') || oHuntDmpApp.value.equalsIgnoreCase('TRUE') || oHuntDmpApp.value.equalsIgnoreCase('ON'))));
-
-var vPreferencePoints = expression.getValue("ASI::HUNTING LICENSE::Preference Points");
-var oHWmuChoice1 = expression.getValue("ASI::HUNTING LICENSE::WMU Choice 1");
-var oHWmuChoice2 = expression.getValue("ASI::HUNTING LICENSE::WMU Choice 2");
-var oApplyLO1 = expression.getValue("ASI::HUNTING LICENSE::Apply Land Owner for Choice1");
-var oApplyLO2 = expression.getValue("ASI::HUNTING LICENSE::Apply Land Owner for Choice2");
-
-vPreferencePoints.readOnly = true;
-vPreferencePoints.hidden = !isHuntDmpApp;
-expression.setReturn(vPreferencePoints);
-
-oHWmuChoice1.required = isHuntDmpApp;
-//oHWmuChoice1.readOnly = !isHuntDmpApp;
-oHWmuChoice1.hidden = !isHuntDmpApp;
-expression.setReturn(oHWmuChoice1);
-
-oHWmuChoice2.required = isHuntDmpApp;
-//oHWmuChoice2.readOnly = !isHuntDmpApp;
-oHWmuChoice2.hidden = !isHuntDmpApp;
-expression.setReturn(oHWmuChoice2);
-
-//oApplyLO1.readOnly = !isHuntDmpApp;
-
-oApplyLO1.hidden = !isHuntDmpApp && f.currDrawType != DRAW_FCFS;
-expression.setReturn(oApplyLO1);
-
-//oApplyLO2.readOnly = !isHuntDmpApp;
-oApplyLO2.hidden = !isHuntDmpApp && f.currDrawType != DRAW_FCFS;
-expression.setReturn(oApplyLO2);
-/////////////////
-
-
 var aa = expression.getScriptRoot();
 
 eval(getScriptText("INCLUDES_ACCELA_FUNCTIONS"));
@@ -171,3 +136,40 @@ myLicObj[myLicObj.length] = expression.getValue("ASI::OTHER SALES::Lifetime Card
 myLicObj[myLicObj.length] = expression.getValue("ASI::OTHER SALES::Sportsman Ed Certification");
 myLicObj[myLicObj.length] = expression.getValue("ASI::LIFETIME LICENSES::Lifetime Inscription");
 ////
+
+
+
+var oHuntDmpApp = expression.getValue("ASI::HUNTING LICENSE::Deer Management Permit");
+var isHuntDmpApp = ((oHuntDmpApp.value != null && (oHuntDmpApp.value.equalsIgnoreCase('YES') || oHuntDmpApp.value.equalsIgnoreCase('Y') || oHuntDmpApp.value.equalsIgnoreCase('CHECKED') || oHuntDmpApp.value.equalsIgnoreCase('SELECTED') || oHuntDmpApp.value.equalsIgnoreCase('TRUE') || oHuntDmpApp.value.equalsIgnoreCase('ON'))));
+
+var vPreferencePoints = expression.getValue("ASI::HUNTING LICENSE::Preference Points");
+var oHWmuChoice1 = expression.getValue("ASI::HUNTING LICENSE::WMU Choice 1");
+var oHWmuChoice2 = expression.getValue("ASI::HUNTING LICENSE::WMU Choice 2");
+var oApplyLO1 = expression.getValue("ASI::HUNTING LICENSE::Apply Land Owner for Choice1");
+var oApplyLO2 = expression.getValue("ASI::HUNTING LICENSE::Apply Land Owner for Choice2");
+
+vPreferencePoints.readOnly = true;
+vPreferencePoints.hidden = !isHuntDmpApp;
+expression.setReturn(vPreferencePoints);
+
+oHWmuChoice1.required = isHuntDmpApp;
+//oHWmuChoice1.readOnly = !isHuntDmpApp;
+oHWmuChoice1.hidden = !isHuntDmpApp;
+expression.setReturn(oHWmuChoice1);
+
+oHWmuChoice2.required = isHuntDmpApp;
+//oHWmuChoice2.readOnly = !isHuntDmpApp;
+oHWmuChoice2.hidden = !isHuntDmpApp;
+expression.setReturn(oHWmuChoice2);
+
+//oApplyLO1.readOnly = !isHuntDmpApp;
+
+oApplyLO1.hidden = !isHuntDmpApp && f.currDrawType != DRAW_FCFS;
+expression.setReturn(oApplyLO1);
+
+//oApplyLO2.readOnly = !isHuntDmpApp;
+oApplyLO2.hidden = !isHuntDmpApp && f.currDrawType != DRAW_FCFS;
+expression.setReturn(oApplyLO2);
+/////////////////
+
+
