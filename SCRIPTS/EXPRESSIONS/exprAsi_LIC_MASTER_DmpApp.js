@@ -25,6 +25,7 @@ oHWmuChoice2.hidden = !isHuntDmpApp;
 expression.setReturn(oHWmuChoice2);
 
 //oApplyLO1.readOnly = !isHuntDmpApp;
+
 oApplyLO1.hidden = !isHuntDmpApp && f.currDrawType != DRAW_FCFS;
 expression.setReturn(oApplyLO1);
 
@@ -33,7 +34,7 @@ oApplyLO2.hidden = !isHuntDmpApp && f.currDrawType != DRAW_FCFS;
 expression.setReturn(oApplyLO2);
 /////////////////
 
-/*
+
 var aa = expression.getScriptRoot();
 
 eval(getScriptText("INCLUDES_ACCELA_FUNCTIONS"));
@@ -170,4 +171,3 @@ myLicObj[myLicObj.length] = expression.getValue("ASI::OTHER SALES::Lifetime Card
 myLicObj[myLicObj.length] = expression.getValue("ASI::OTHER SALES::Sportsman Ed Certification");
 myLicObj[myLicObj.length] = expression.getValue("ASI::LIFETIME LICENSES::Lifetime Inscription");
 ////
-*/
