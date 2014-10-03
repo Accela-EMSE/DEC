@@ -300,12 +300,12 @@ function copyLicASI(newCap, newAInfo) {
                     ignore = true;
                     break;
                 }
-            if (ignore)
-                continue;
-        }
-    editAppSpecific(newAInfo[item].FieldName, newAInfo[item].Value, newCap);
-	
-	
+                if (ignore)
+                    continue;
+            }
+            editAppSpecific(newAInfo[item].FieldName, newAInfo[item].Value, newCap);
+
+
 	// Re-enable for further testing
 	/*
 	var scriptName = "COPYLICASI";
@@ -317,8 +317,8 @@ function copyLicASI(newCap, newAInfo) {
 	*/
 	
 	logDebug("Setting " + newCap.getCustomID() + " ASI field " + newAInfo[item].FieldName + " to " + newAInfo[item].Value);
-    }
-    logDebug("EXIT: copyLicASI");
+}
+logDebug("EXIT: copyLicASI");
 }
 
 function updateContacts() {
@@ -502,7 +502,7 @@ function editContactPeopleTemplateAttribute(peopleSequenceNumber, pAttributeName
     var peopAttrResult = aa.people.getPeopleAttributeByPeople(peopleSequenceNumber, "Individual");
 
     if (!peopAttrResult.getSuccess())
-    { logDebug("**WARNING retrieving reference license professional attribute: " + peopAttrResult.getErrorMessage()); return false }
+        { logDebug("**WARNING retrieving reference license professional attribute: " + peopAttrResult.getErrorMessage()); return false }
 
     var peopAttrArray = peopAttrResult.getOutput();
     var attrfound = false;
@@ -663,20 +663,20 @@ function issueSelectedSalesItems(frm) {
     closeTask("Issuance", "Approved", "", "");
 
     //if (appMatch("Licenses/Annual/Application/NA")) {
-    if (appTypeString == 'Licenses/Annual/Application/NA' || isExpressFlow()) {
-        var seasonPeriod = GetDateRange(DEC_CONFIG, LICENSE_SEASON, frm.Year);
-        clacFromDt = dateAdd(convertDate(seasonPeriod[1]), 0);
-        setLicExpirationDate(capId, "", clacFromDt);
-    }
-    var arryTargetCapAttrib = new Array();
-    var arryAccumTags = new Array();
+        if (appTypeString == 'Licenses/Annual/Application/NA' || isExpressFlow()) {
+            var seasonPeriod = GetDateRange(DEC_CONFIG, LICENSE_SEASON, frm.Year);
+            clacFromDt = dateAdd(convertDate(seasonPeriod[1]), 0);
+            setLicExpirationDate(capId, "", clacFromDt);
+        }
+        var arryTargetCapAttrib = new Array();
+        var arryAccumTags = new Array();
 
-    var uObj = new USEROBJ(publicUserID);
-    salesAgentInfoArray = getAgentInfo(publicUserID, uObj);
-    attachAgent(uObj);
-    if (appTypeString == 'Licenses/Other/Sales/Application') {
-        attachedContacts();
-    }
+        var uObj = new USEROBJ(publicUserID);
+        salesAgentInfoArray = getAgentInfo(publicUserID, uObj);
+        attachAgent(uObj);
+        if (appTypeString == 'Licenses/Other/Sales/Application') {
+            attachedContacts();
+        }
 
     //Mark Fullfillment
     var fullfillCond = '';
@@ -713,7 +713,7 @@ function issueSelectedSalesItems(frm) {
     var sortedRecArray = [];
     for (var key in recArr) sortedRecArray.push(recArr[key]);
 
-    sortedRecArray.sort(function (a, b) { return (a.sortOrder - b.sortOrder); });
+        sortedRecArray.sort(function (a, b) { return (a.sortOrder - b.sortOrder); });
 
     for (var idx = 0; idx < sortedRecArray.length; idx++) {
         var oLic = sortedRecArray[idx];
@@ -788,11 +788,11 @@ function issueSelectedSalesItems(frm) {
                     }
                     oLic.TagsArray = TagsArray;
 
-                    if (exists(TAG_TYPE_19_DEER_OF_EITHER_SEX_TAG, oLic.TagsArray)) {
+                    if (exists(TAG_TYPE_19_DEER_OF_EITHER_SEX_TAG, oLic.TagsArray)) {                        
                         ruleParams.SetEitherOrAntler(4);
                     }
 
-                    if (exists(TAG_TYPE_20_ANTLERLESS_DEER_TAG, oLic.TagsArray)) {
+                    if (exists(TAG_TYPE_20_ANTLERLESS_DEER_TAG, oLic.TagsArray)) {                        
                         ruleParams.SetEitherOrAntler(8);
                     }
 
@@ -854,7 +854,7 @@ function issueSelectedSalesItems(frm) {
                         clacFromDt = dateAdd(convertDate(effectiveDt), -1);
                         setLicExpirationDate(newLicId, clacFromDt);
                         //} else if (ats == AA23_NONRES_FRESHWATER_FISHING || ats == AA22_FRESHWATER_FISHING || ats == AA66_FRESHWATER_FISHING_3Y || ats == AA67_FRESHWATER_FISHING_5Y) {
-                    } else if (ats == AA23_NONRES_FRESHWATER_FISHING || ats == AA22_FRESHWATER_FISHING) {
+                        } else if (ats == AA23_NONRES_FRESHWATER_FISHING || ats == AA22_FRESHWATER_FISHING) {
                         //JIRA: 21268
                         if (frm.isAfterSwitchDate()) {
                             effectiveDt = AInfo["Effective Date Fishing"];
@@ -1223,11 +1223,11 @@ function addFeeAndSetAsitForFeetxfer(frm) {
     var tempObject = new Array();
     var newAsitArray = new Array();
     for (item in feeArr) {
-		if (!feeArr[item].feeCode) {
-			logDebug("**INFODEBUG Null fee item found");
-			logDebug("**INFODEBUG frm dump: " + frm.toString());
-			}
-		else { 
+      if (!feeArr[item].feeCode) {
+         logDebug("**INFODEBUG Null fee item found");
+         logDebug("**INFODEBUG frm dump: " + frm.toString());
+     }
+     else { 
 			//logDebug(feeArr[item].feeschedule + " " + feeArr[item].feeCode + " " + feeArr[item].version + " " + feeArr[item].feeUnit);
 			addFeeWithVersion(feeArr[item].feeCode, feeArr[item].feeschedule, feeArr[item].version, "FINAL", feeArr[item].feeUnit.toString(), "N");
 
@@ -1455,7 +1455,7 @@ function copyContactAppSpecificToRecordAppSpecific() {
         editAppSpecific4ACA("A_Driver_License_Number", thisContact["driverLicenseNbr"]);
         editAppSpecific4ACA("A_Non_Driver_License_Number", thisContact["stateIDNbr"]);
         editAppSpecific4ACA("A_NY_Resident_Proof_Document", thisContact["NY Resident Proof Document"]);
-		editAppSpecific4ACA("A_Parent_Driver_License_Number", thisContact["Parent Driver License Number"]);
+        editAppSpecific4ACA("A_Parent_Driver_License_Number", thisContact["Parent Driver License Number"]);
 
         var strAnnual = null;
         var strPrev = null;
@@ -1653,44 +1653,44 @@ function copyContactAppSpecificToRecordAppSpecific() {
                             county.equalsIgnoreCase("Schuyler") || county.equalsIgnoreCase("Seneca") || county.equalsIgnoreCase("St. Lawrence") || county.equalsIgnoreCase("Steuben") || county.equalsIgnoreCase("Suffolk") || county.equalsIgnoreCase("Sullivan") || 
                             county.equalsIgnoreCase("Tioga") || county.equalsIgnoreCase("Tompkins") || county.equalsIgnoreCase("Ulster") || county.equalsIgnoreCase("Warren") || county.equalsIgnoreCase("Washington") || county.equalsIgnoreCase("Wayne") || county.equalsIgnoreCase("Westchester") || 
                             county.equalsIgnoreCase("Wyoming") || county.equalsIgnoreCase("Yates")) && (countyASI == null || countyASI == "")) {                            
-                                countyValidationSuccessful = false;                            
-                        }else{
-                            if (stateValue == "NY" && (countyASI == null || countyASI == "")) {
-                                addressErrorCount ++;
-                                if (addressErrorCount == 1) {
-                                    if (county != "" && county != null) {
-                                        isNotValidToProceed = "Please select a valid County of Residence for New York State address from the Drop Down below. " + county + " is not a valid County.";
-                                    }else{
-                                        isNotValidToProceed = "Please select a valid County of Residence for New York State address from the Drop Down below.";
-                                    }
-                                }
-                                if (addressErrorCount == 2) {
-                                    if (county != "" && county != null) {
-                                        isNotValidToProceed = "Please select a valid County of Residence for New York State address from the Drop Down below.";
-                                    }else{
-                                        isNotValidToProceed = "Please select a valid County of Residence for New York State address from the Drop Down below.";
-                                    }
-                                }
-                            }else{
-                                if (isNyState) {
-                                    countyValidationSuccessful = true;
-                                    thisAddr.setAddressLine3(countyASI);                                                             
-                                }                                
-                            }
-                        }
-                        contactAddressModelArr.add(thisAddr);                    
-                    }
-                }
-                if (countyValidationSuccessful) {
-                    capContact.getPeople().setContactAddressList(contactAddressModelArr);
-                }
+    countyValidationSuccessful = false;                            
+}else{
+    if (stateValue == "NY" && (countyASI == null || countyASI == "")) {
+        addressErrorCount ++;
+        if (addressErrorCount == 1) {
+            if (county != "" && county != null) {
+                isNotValidToProceed = "Please select a valid County of Residence for New York State address from the Drop Down below. " + county + " is not a valid County.";
+            }else{
+                isNotValidToProceed = "Please select a valid County of Residence for New York State address from the Drop Down below.";
             }
         }
+        if (addressErrorCount == 2) {
+            if (county != "" && county != null) {
+                isNotValidToProceed = "Please select a valid County of Residence for New York State address from the Drop Down below.";
+            }else{
+                isNotValidToProceed = "Please select a valid County of Residence for New York State address from the Drop Down below.";
+            }
+        }
+    }else{
+        if (isNyState) {
+            countyValidationSuccessful = true;
+            thisAddr.setAddressLine3(countyASI);                                                             
+        }                                
     }
+}
+contactAddressModelArr.add(thisAddr);                    
+}
+}
+if (countyValidationSuccessful) {
+    capContact.getPeople().setContactAddressList(contactAddressModelArr);
+}
+}
+}
+}
 
-    logDebug("EXIT: copyContactAppSpecificToRecordAppSpecific");
+logDebug("EXIT: copyContactAppSpecificToRecordAppSpecific");
 
-    return isNotValidToProceed;
+return isNotValidToProceed;
 }
 
 function GetContactASITDelimitedString(rowsValueArray) {
@@ -2016,7 +2016,7 @@ function updateFeeWithVersion(fcode, fsched, fversion, fperiod, fqty, finvoice, 
                 }
             }
 
-        for (feeNum in feeList)
+            for (feeNum in feeList)
             if (feeList[feeNum].getFeeitemStatus().equals("NEW") && !feeUpdated)  // update this fee item
             {
                 feeSeq = feeList[feeNum].getFeeSeqNbr();
@@ -2030,11 +2030,11 @@ function updateFeeWithVersion(fcode, fsched, fversion, fperiod, fqty, finvoice, 
                     }
                 }
                 else
-                { logDebug("**ERROR: updating qty on fee item (" + fcode + "): " + editResult.getErrorMessage()); break }
+                    { logDebug("**ERROR: updating qty on fee item (" + fcode + "): " + editResult.getErrorMessage()); break }
             }
-    }
-    else
-    { logDebug("**ERROR: getting fee items (" + fcode + "): " + getFeeResult.getErrorMessage()) }
+        }
+        else
+            { logDebug("**ERROR: getting fee items (" + fcode + "): " + getFeeResult.getErrorMessage()) }
 
     // Add fee if no fee has been updated OR invoiced fee already exists and duplicates are allowed
     if (!feeUpdated && adjustedQty != 0 && (!invFeeFound || invFeeFound && pDuplicate == "Y"))
@@ -2145,12 +2145,12 @@ function addStdConditionWithComments(cType, cDesc, cShortComment, cLongComment) 
                     logDebug("**ERROR: adding condition (" + standardCondition.getConditionDesc() + "): " + addCapCondResult.getErrorMessage());
                 }
             }
+        }
+        logDebug("EXIT: addStdConditionWithComments");
     }
-    logDebug("EXIT: addStdConditionWithComments");
-}
 
-function distributeFeesAndPayments(sourceCapId, arryTargetCapAttrib, pSalesAgentInfoArray) {
-    logDebug("ENTER: distributeFeesAndPayments");
+    function distributeFeesAndPayments(sourceCapId, arryTargetCapAttrib, pSalesAgentInfoArray) {
+        logDebug("ENTER: distributeFeesAndPayments");
     //logDebug("Elapsed Time: " + elapsed());
 
     //
@@ -2189,17 +2189,17 @@ function distributeFeesAndPayments(sourceCapId, arryTargetCapAttrib, pSalesAgent
                     invoiceNbrArray.push(pfObj[ij].getInvoiceNbr());
                     feeAllocationArray.push(pfObj[ij].getFeeAllocation());
                 }
-        }
+            }
 
 
-        if (feeSeqArray.length > 0) {
-            z = aa.finance.applyRefund(capId, thisPay, feeSeqArray, invoiceNbrArray, feeAllocationArray, "FeeStat", "InvStat", "123");
-            if (z.getSuccess())
-                logDebug("Refund applied")
-            else
-                logDebug("Error applying refund " + z.getErrorMessage());
+            if (feeSeqArray.length > 0) {
+                z = aa.finance.applyRefund(capId, thisPay, feeSeqArray, invoiceNbrArray, feeAllocationArray, "FeeStat", "InvStat", "123");
+                if (z.getSuccess())
+                    logDebug("Refund applied")
+                else
+                    logDebug("Error applying refund " + z.getErrorMessage());
+            }
         }
-    }
 
     //
     // Step 2: void from the source
@@ -2403,7 +2403,7 @@ function activateTaskForRec(wfstr) // optional process name
     if (workflowResult.getSuccess())
         var wfObj = workflowResult.getOutput();
     else
-    { logMessage("**ERROR: Failed to get workflow object: " + workflowResult.getErrorMessage()); return false; }
+        { logMessage("**ERROR: Failed to get workflow object: " + workflowResult.getErrorMessage()); return false; }
 
     for (i in wfObj) {
         var fTask = wfObj[i];
@@ -2439,7 +2439,7 @@ function closeTaskForRec(wfstr, wfstat, wfcomment, wfnote) // optional process n
     if (workflowResult.getSuccess())
         var wfObj = workflowResult.getOutput();
     else
-    { logMessage("**ERROR: Failed to get workflow object: " + workflowResult.getErrorMessage()); return false; }
+        { logMessage("**ERROR: Failed to get workflow object: " + workflowResult.getErrorMessage()); return false; }
 
     if (!wfstat) wfstat = "NA";
 
@@ -2609,9 +2609,9 @@ function isRevocation(RrevocationType, contactCondArray) {
         if (r.description == RrevocationType && r.type == 'Revocation') {
             if (r.statusType == "Applied") {
                 //if ((!r.effiectDate || now >= r.effiectDate) && (!r.expireDate || now <= r.expireDate)) {     //based on customer request ...Raj
-                isRevoked = true;
-                break;
-            }
+                    isRevoked = true;
+                    break;
+                }
             //}
         }
     }
@@ -2625,8 +2625,8 @@ function isSuspension(contactCondArray) {
         if (r.description == "Suspension of Privileges" && r.type == 'Suspension') {
             if (r.statusType == "Applied") {                                                                    //based on customer request ...Raj
                 //if (now >= r.effiectDate && now <= r.expireDate) {                                            
-                isSuspension = true;
-                break;
+                    isSuspension = true;
+                    break;
                 //}
             }
         }
@@ -2648,8 +2648,8 @@ function isFulfillmentCond(FulfillmentType, contactCondArray) {
         var r = contactCondArray[conCond];
         if (r.description == FulfillmentType && r.type == 'Revocation') {
             //if (now >= r.effiectDate && now <= r.expireDate) {
-            isNeedFulfillment = true;
-            break;
+                isNeedFulfillment = true;
+                break;
             //}
         }
     }
@@ -3252,41 +3252,41 @@ function contactObj(ccsm) {
         this.asiObj = this.people.getAttributes().toArray();
         for (var xx1 in this.asiObj) this.asi[this.asiObj[xx1].attributeName] = this.asiObj[xx1].attributeValue;
         //this.primary = this.capContact.getPrimaryFlag().equals("Y");
-        this.primary = this.capContact.getPrimaryFlag() && this.capContact.getPrimaryFlag().equals("Y");
-        this.relation = this.people.relation;
-        this.seqNumber = this.people.contactSeqNumber;
-        this.type = this.people.getContactType();
-        this.capId = this.capContactScript.getCapID();
-        var contactAddressrs = aa.address.getContactAddressListByCapContact(this.capContact);
-        if (contactAddressrs.getSuccess()) {
-            this.addresses = contactAddressrs.getOutput();
-            var contactAddressModelArr = convertContactAddressModelArr(contactAddressrs.getOutput());
-            this.people.setContactAddressList(contactAddressModelArr);
-        }
+    this.primary = this.capContact.getPrimaryFlag() && this.capContact.getPrimaryFlag().equals("Y");
+    this.relation = this.people.relation;
+    this.seqNumber = this.people.contactSeqNumber;
+    this.type = this.people.getContactType();
+    this.capId = this.capContactScript.getCapID();
+    var contactAddressrs = aa.address.getContactAddressListByCapContact(this.capContact);
+    if (contactAddressrs.getSuccess()) {
+        this.addresses = contactAddressrs.getOutput();
+        var contactAddressModelArr = convertContactAddressModelArr(contactAddressrs.getOutput());
+        this.people.setContactAddressList(contactAddressModelArr);
     }
-    this.toString = function () { return this.capId + " : " + this.type + " " + this.people.getLastName() + "," + this.people.getFirstName() + " (id:" + this.seqNumber + "/" + this.refSeqNumber + ") #ofAddr=" + this.addresses.length + " primary=" + this.primary; }
+}
+this.toString = function () { return this.capId + " : " + this.type + " " + this.people.getLastName() + "," + this.people.getFirstName() + " (id:" + this.seqNumber + "/" + this.refSeqNumber + ") #ofAddr=" + this.addresses.length + " primary=" + this.primary; }
 
-    this.getEmailTemplateParams = function (params) {
-        addParameter(params, "$$LastName$$", this.people.getLastName());
-        addParameter(params, "$$FirstName$$", this.people.getFirstName());
-        addParameter(params, "$$MiddleName$$", this.people.getMiddleName());
-        addParameter(params, "$$BusinesName$$", this.people.getBusinessName());
-        addParameter(params, "$$ContactSeqNumber$$", this.seqNumber);
-        addParameter(params, "$$ContactType$$", this.type);
-        addParameter(params, "$$Relation$$", this.relation);
-        addParameter(params, "$$Phone1$$", this.people.getPhone1());
-        addParameter(params, "$$Phone2$$", this.people.getPhone2());
-        addParameter(params, "$$Email$$", this.people.getEmail());
-        addParameter(params, "$$AddressLine1$$", this.people.getCompactAddress().getAddressLine1());
-        addParameter(params, "$$AddressLine2$$", this.people.getCompactAddress().getAddressLine2());
-        addParameter(params, "$$City$$", this.people.getCompactAddress().getCity());
-        addParameter(params, "$$State$$", this.people.getCompactAddress().getState());
-        addParameter(params, "$$Zip$$", this.people.getCompactAddress().getZip());
-        addParameter(params, "$$Fax$$", this.people.getFax());
-        addParameter(params, "$$Country$$", this.people.getCompactAddress().getCountry());
-        addParameter(params, "$$FullName$$", this.people.getFullName());
-        return params;
-    }
+this.getEmailTemplateParams = function (params) {
+    addParameter(params, "$$LastName$$", this.people.getLastName());
+    addParameter(params, "$$FirstName$$", this.people.getFirstName());
+    addParameter(params, "$$MiddleName$$", this.people.getMiddleName());
+    addParameter(params, "$$BusinesName$$", this.people.getBusinessName());
+    addParameter(params, "$$ContactSeqNumber$$", this.seqNumber);
+    addParameter(params, "$$ContactType$$", this.type);
+    addParameter(params, "$$Relation$$", this.relation);
+    addParameter(params, "$$Phone1$$", this.people.getPhone1());
+    addParameter(params, "$$Phone2$$", this.people.getPhone2());
+    addParameter(params, "$$Email$$", this.people.getEmail());
+    addParameter(params, "$$AddressLine1$$", this.people.getCompactAddress().getAddressLine1());
+    addParameter(params, "$$AddressLine2$$", this.people.getCompactAddress().getAddressLine2());
+    addParameter(params, "$$City$$", this.people.getCompactAddress().getCity());
+    addParameter(params, "$$State$$", this.people.getCompactAddress().getState());
+    addParameter(params, "$$Zip$$", this.people.getCompactAddress().getZip());
+    addParameter(params, "$$Fax$$", this.people.getFax());
+    addParameter(params, "$$Country$$", this.people.getCompactAddress().getCountry());
+    addParameter(params, "$$FullName$$", this.people.getFullName());
+    return params;
+}
 
     this.replace = function (targetCapId) { // send to another record, optional new contact type
 
@@ -3368,10 +3368,10 @@ function contactObj(ccsm) {
     this.createPublicUser = function () {
 
         if (!this.capContact.getEmail())
-        { logDebug("(contactObj) Couldn't create public user for : " + this + ", no email address"); return false; }
+            { logDebug("(contactObj) Couldn't create public user for : " + this + ", no email address"); return false; }
 
         if (String(this.people.getContactTypeFlag()).equals("organization"))
-        { logDebug("(contactObj) Couldn't create public user for " + this + ", the contact is an organization"); return false; }
+            { logDebug("(contactObj) Couldn't create public user for " + this + ", the contact is an organization"); return false; }
 
         // check to see if public user exists already based on email address
         var getUserResult = aa.publicUser.getPublicUserByEmail(this.capContact.getEmail())
@@ -4048,90 +4048,90 @@ function verifyNotMilitaryAndDisabled() {
     if ((typeof (ANNUALDISABILITY) == "object"))
         for (var y in ANNUALDISABILITY) rowNum++;
 
-    var MilitaryServiceman = (AInfo["Military Serviceman"] == "Yes");
-    var PermanentDisability = (AInfo["Permanent Disability"] == "Yes");
-    var HasAnnualDisability = (rowNum > 0) && !PermanentDisability;
+            var MilitaryServiceman = (AInfo["Military Serviceman"] == "Yes");
+        var PermanentDisability = (AInfo["Permanent Disability"] == "Yes");
+        var HasAnnualDisability = (rowNum > 0) && !PermanentDisability;
 
-    if ((MilitaryServiceman ? 1 : 0) + (PermanentDisability ? 1 : 0) + (HasAnnualDisability ? 1 : 0) > 1) {
-        retMsg += "Please choose only one of Military Service, Permanent Disability, or Annual Disability.";
-        retMsg += "<Br />";
-    }
-    return retMsg;
-}
-
-
-function ActiveOrReserve() {
-    var retMsg = ''
-    var isUSReserveMember = (AInfo["U.S. Reserve Member"] == "CHECKED");
-    var isFulltimeUSArmedService = (AInfo["Full-time U.S. Armed Service"] == "CHECKED");
-    if (isFulltimeUSArmedService && isUSReserveMember) {
-        retMsg += "Please choose only one: U.S. Reserve Member or Full-time U.S. Armed Service.";
-        retMsg += "<Br />";
-    }
-    return retMsg;
-
-}
-function isValidIntegerInches(inputvalue) {
-    var isvalid = true;
-    if (inputvalue != null && inputvalue != '') {
-        var pattern = /^[0-9]+$/;
-
-        isvalid = (pattern.test(inputvalue));
-    }
-    return isvalid;
-}
-function VerifyFeets() {
-    var retMsg = ''
-    var inchVal = AInfo["Height"];
-    var isValid = isValidIntegerInches(inchVal);
-
-    if (!isValid) {
-        retMsg = 'Please enter valid integer.';
-    }
-    else {
-        if (inchVal != null && (parseInt(inchVal) < 0)) {
-            retMsg = "Inches must be greater than 0.";
+        if ((MilitaryServiceman ? 1 : 0) + (PermanentDisability ? 1 : 0) + (HasAnnualDisability ? 1 : 0) > 1) {
+            retMsg += "Please choose only one of Military Service, Permanent Disability, or Annual Disability.";
+            retMsg += "<Br />";
         }
+        return retMsg;
     }
-    return retMsg;
-}
 
-function VerifyInches() {
-    var retMsg = ''
-    var inchVal = AInfo["Height - inches"];
-    var isValid = isValidIntegerInches(inchVal);
 
-    if (!isValid) {
-        retMsg = 'Please enter valid integer.';
-    }
-    else {
-        if (inchVal != null && (parseInt(inchVal) > 11 || parseInt(inchVal) < 0)) {
-            retMsg = "Inches must be between 0 to 11";
+    function ActiveOrReserve() {
+        var retMsg = ''
+        var isUSReserveMember = (AInfo["U.S. Reserve Member"] == "CHECKED");
+        var isFulltimeUSArmedService = (AInfo["Full-time U.S. Armed Service"] == "CHECKED");
+        if (isFulltimeUSArmedService && isUSReserveMember) {
+            retMsg += "Please choose only one: U.S. Reserve Member or Full-time U.S. Armed Service.";
+            retMsg += "<Br />";
         }
+        return retMsg;
+
     }
-    return retMsg;
-}
-function verifySportsmanEd() {
-    var retMsg = ''
-    var rowNum = 0;
-    if ((typeof (SPORTSMANEDUCATION) == "object")) {
-        for (var y in SPORTSMANEDUCATION) {
-            rowNum++;
-            var certNum = SPORTSMANEDUCATION[y]["Certificate Number"]
-            var certState = SPORTSMANEDUCATION[y]["State"]
-            if (certState == 'NY') {
-                if (!isValidCertificateNum(certNum)) {
-                    retMsg += ("Sportsman Education row #" + rowNum + ": Please enter valid certificate number.");
+    function isValidIntegerInches(inputvalue) {
+        var isvalid = true;
+        if (inputvalue != null && inputvalue != '') {
+            var pattern = /^[0-9]+$/;
+
+            isvalid = (pattern.test(inputvalue));
+        }
+        return isvalid;
+    }
+    function VerifyFeets() {
+        var retMsg = ''
+        var inchVal = AInfo["Height"];
+        var isValid = isValidIntegerInches(inchVal);
+
+        if (!isValid) {
+            retMsg = 'Please enter valid integer.';
+        }
+        else {
+            if (inchVal != null && (parseInt(inchVal) < 0)) {
+                retMsg = "Inches must be greater than 0.";
+            }
+        }
+        return retMsg;
+    }
+
+    function VerifyInches() {
+        var retMsg = ''
+        var inchVal = AInfo["Height - inches"];
+        var isValid = isValidIntegerInches(inchVal);
+
+        if (!isValid) {
+            retMsg = 'Please enter valid integer.';
+        }
+        else {
+            if (inchVal != null && (parseInt(inchVal) > 11 || parseInt(inchVal) < 0)) {
+                retMsg = "Inches must be between 0 to 11";
+            }
+        }
+        return retMsg;
+    }
+    function verifySportsmanEd() {
+        var retMsg = ''
+        var rowNum = 0;
+        if ((typeof (SPORTSMANEDUCATION) == "object")) {
+            for (var y in SPORTSMANEDUCATION) {
+                rowNum++;
+                var certNum = SPORTSMANEDUCATION[y]["Certificate Number"]
+                var certState = SPORTSMANEDUCATION[y]["State"]
+                if (certState == 'NY') {
+                    if (!isValidCertificateNum(certNum)) {
+                        retMsg += ("Sportsman Education row #" + rowNum + ": Please enter valid certificate number.");
+                        retMsg += '<Br />';
+                    }
+                }
+
+                var certDate = SPORTSMANEDUCATION[y]["Certification Date"]
+                var diff = dateDiff(new Date(), new Date(certDate));
+                if (diff > 0) {
+                    retMsg += ("Sportsman Education row #" + rowNum + ": Certification Date cannot be after today's date.");
                     retMsg += '<Br />';
                 }
-            }
-
-            var certDate = SPORTSMANEDUCATION[y]["Certification Date"]
-            var diff = dateDiff(new Date(), new Date(certDate));
-            if (diff > 0) {
-                retMsg += ("Sportsman Education row #" + rowNum + ": Certification Date cannot be after today's date.");
-                retMsg += '<Br />';
-            }
             //code started
             var asiValDate = new Date(certDate);
             var cDate = new Date();
@@ -5121,27 +5121,27 @@ function addContactStdConditionWithComments(contSeqNum, cType, cDesc) {
                     }
                 }
             }
-    }
-    if (!foundCondition) logDebug("**WARNING: couldn't find standard condition for " + cType + " / " + cDesc);
-}
-
-function arrayUnique(array) {
-    var a = array.concat();
-    for (var i = 0; i < a.length; ++i) {
-        for (var j = i + 1; j < a.length; ++j) {
-            if (a[i] === a[j])
-                a.splice(j--, 1);
         }
+        if (!foundCondition) logDebug("**WARNING: couldn't find standard condition for " + cType + " / " + cDesc);
     }
 
-    return a;
-}
+    function arrayUnique(array) {
+        var a = array.concat();
+        for (var i = 0; i < a.length; ++i) {
+            for (var j = i + 1; j < a.length; ++j) {
+                if (a[i] === a[j])
+                    a.splice(j--, 1);
+            }
+        }
 
-function elapsed() {
-    var thisDate = new Date();
-    var thisTime = thisDate.getTime();
-    return ((thisTime - startTime) / 1000)
-}
+        return a;
+    }
+
+    function elapsed() {
+        var thisDate = new Date();
+        var thisTime = thisDate.getTime();
+        return ((thisTime - startTime) / 1000)
+    }
 
 function addASITable4ACAPageFlow(destinationTableGroupModel, tableName, tableValueArray) // optional capId
 {
@@ -5153,21 +5153,21 @@ function addASITable4ACAPageFlow(destinationTableGroupModel, tableName, tableVal
     if (arguments.length > 3)
         itemCap = arguments[3]; // use cap ID specified in args
 
-	if (!destinationTableGroupModel) {
-		return false;
-		}
-		
-    var tam = destinationTableGroupModel.getTablesMap();
-	if (!tam) {
-		return false;
-		}
-	
-	var ta = tam.values();
-    var tai = ta.iterator();
+    if (!destinationTableGroupModel) {
+      return false;
+  }
 
-    var found = false;
+  var tam = destinationTableGroupModel.getTablesMap();
+  if (!tam) {
+      return false;
+  }
 
-    while (tai.hasNext()) {
+  var ta = tam.values();
+  var tai = ta.iterator();
+
+  var found = false;
+
+  while (tai.hasNext()) {
         var tsm = tai.next();  // com.accela.aa.aamain.appspectable.AppSpecificTableModel
         if (tsm.getTableName().equals(tableName)) { found = true; break; }
     }
@@ -5373,15 +5373,15 @@ function processProfileUpdate() {
 
         for (var i in c.addresses) { capContactAdd.push("" + c.addresses[i].getAddressID()); logDebug("ccontact adress : " + c.addresses[i].getAddressID()); }
 
-        for (var i in pa) { peopleAdd.push("" + pa[i].getAddressID()); logDebug("people adress : " + pa[i].getAddressID()); }
+            for (var i in pa) { peopleAdd.push("" + pa[i].getAddressID()); logDebug("people adress : " + pa[i].getAddressID()); }
 
-        var diff = peopleAdd.filter(function (n) { return capContactAdd.indexOf(n) == -1 });
+                var diff = peopleAdd.filter(function (n) { return capContactAdd.indexOf(n) == -1 });
 
-        for (var i in diff) {
-            for (var j in pa) {
-                if (String(pa[j].getAddressID()).equals(diff[i])) {
-                    var theAdd = pa[j];
-                    logDebug("disabling address " + theAdd);
+            for (var i in diff) {
+                for (var j in pa) {
+                    if (String(pa[j].getAddressID()).equals(diff[i])) {
+                        var theAdd = pa[j];
+                        logDebug("disabling address " + theAdd);
                     //deactivate address on the reference contact
                     theAdd.setAuditStatus("I");
                     theAdd.setExpirationDate(aa.date.getCurrentDate());
@@ -5881,23 +5881,23 @@ function ctrcaForDMVRequest() {
 function editContactType(existingType, newType) {
     //Function will change contact types from exsistingType to newType,
     //optional paramter capID{
-    var updateCap = capId
-    if (arguments.length == 3)
-        updateCap = arguments[2]
+        var updateCap = capId
+        if (arguments.length == 3)
+            updateCap = arguments[2]
 
-    capContactResult = aa.people.getCapContactByCapID(updateCap);
-    if (capContactResult.getSuccess()) {
-        Contacts = capContactResult.getOutput();
-        for (yy in Contacts) {
-            var theContact = Contacts[yy].getCapContactModel();
-            if (theContact.getContactType() == existingType) {
-                theContact.setContactType(newType);
-                aa.people.editCapContact(theContact);
-                logDebug(" Contact for " + theContact.getFullName() + " Updated to " + newType);
+        capContactResult = aa.people.getCapContactByCapID(updateCap);
+        if (capContactResult.getSuccess()) {
+            Contacts = capContactResult.getOutput();
+            for (yy in Contacts) {
+                var theContact = Contacts[yy].getCapContactModel();
+                if (theContact.getContactType() == existingType) {
+                    theContact.setContactType(newType);
+                    aa.people.editCapContact(theContact);
+                    logDebug(" Contact for " + theContact.getFullName() + " Updated to " + newType);
+                }
             }
         }
     }
-}
 //Obsolete
 function transferFeesAndPayments(sourceCapId, targetCapId) {
     //
@@ -5920,17 +5920,17 @@ function transferFeesAndPayments(sourceCapId, targetCapId) {
                     invoiceNbrArray.push(pfObj[ij].getInvoiceNbr());
                     feeAllocationArray.push(pfObj[ij].getFeeAllocation());
                 }
-        }
+            }
 
-        if (feeSeqArray.length > 0) {
-            z = aa.finance.applyRefund(capId, thisPay, feeSeqArray, invoiceNbrArray, feeAllocationArray, "FeeStat", "InvStat", "123");
-            if (z.getSuccess()) {
-                logDebug("Refund applied");
-            } else {
-                logDebug("Error applying refund " + z.getErrorMessage());
+            if (feeSeqArray.length > 0) {
+                z = aa.finance.applyRefund(capId, thisPay, feeSeqArray, invoiceNbrArray, feeAllocationArray, "FeeStat", "InvStat", "123");
+                if (z.getSuccess()) {
+                    logDebug("Refund applied");
+                } else {
+                    logDebug("Error applying refund " + z.getErrorMessage());
+                }
             }
         }
-    }
 
     //
     // Step 2: add the fees to the target and void from the source
@@ -6419,6 +6419,8 @@ function SetExpressformForSelectedLics(frm) {
     }
     if (isHuntSection) {
         frm.SetSelected(LIC04_BOWHUNTING_PRIVILEGE, (AInfo["Bowhunting Privilege"] == "CHECKED"), 1);
+        //sanket jadhav        
+        frm.SetSelected(LIC01_JUNIOR_HUNTING_TAGS, (AInfo["Junior Hunting Tags"] == "CHECKED"), 1);
         //3-5 Year
         //frm.SetSelected(LIC60_BOWHUNTING_PRIVILEGE_3Y, (AInfo["3 Year Bowhunting Privilege"] == "CHECKED"), 1);
         //frm.SetSelected(LIC61_BOWHUNTING_PRIVILEGE_5Y, (AInfo["5 Year Bowhunting Privilege"] == "CHECKED"), 1);
@@ -6525,6 +6527,8 @@ function verifyAnyExpressSalesSelect() {
     var isChecked = false;
     if (appTypeString == 'Licenses/Sales/Application/Hunting' || appTypeString == 'Licenses/Sales/Application/Hunting and Fishing' || appTypeString == 'Licenses/Sales/Application/Sporting' || appTypeString == 'Licenses/Sales/Application/Hunting C' || appTypeString == 'Licenses/Sales/Application/Hunting and Fishing C' || appTypeString == 'Licenses/Sales/Application/Sporting C') {
         isChecked = isChecked || (AInfo["Bowhunting Privilege"] == "CHECKED");
+        //Sanket Jadhav
+        isChecked = isChecked || (AInfo["Junior Hunting Tags"] == "CHECKED");
         //3-5 Year
         //isChecked = isChecked || (AInfo["3 Year Bowhunting Privilege"] == "CHECKED");
         //isChecked = isChecked || (AInfo["5 Year Bowhunting Privilege"] == "CHECKED");
@@ -6923,7 +6927,7 @@ function transferLifetimeLicenses() {
         }
 
         distributeFeesForTransfer(capId, arryLic, salesAgentInfoArray);
-		
+
 		//Build Tags to mail out will be print in nightly job
 		var vToday = new Date();
 		vToday.setHours(0);
@@ -6949,11 +6953,11 @@ function createTransferLicTable() {
             var new_asit;
 
             //if (!(typeof (LICENSESTOTRANSFER) == "object")) {
-            var availableItems = GetLicsForTransfer(peopleSequenceNumber);
-            var newAsitArray = GetLicesesTotransferAsitTableArray(availableItems);
+                var availableItems = GetLicsForTransfer(peopleSequenceNumber);
+                var newAsitArray = GetLicesesTotransferAsitTableArray(availableItems);
 
-            asitModel = cap.getAppSpecificTableGroupModel();
-            new_asit = addASITable4ACAPageFlow(asitModel, "LICENSES TO TRANSFER", newAsitArray);
+                asitModel = cap.getAppSpecificTableGroupModel();
+                new_asit = addASITable4ACAPageFlow(asitModel, "LICENSES TO TRANSFER", newAsitArray);
             //}
         }
         break;
@@ -7147,17 +7151,17 @@ function distributeFeesForTransfer(sourceCapId, arryLic, pSalesAgentInfoArray) {
                     invoiceNbrArray.push(pfObj[ij].getInvoiceNbr());
                     feeAllocationArray.push(pfObj[ij].getFeeAllocation());
                 }
-        }
+            }
 
 
-        if (feeSeqArray.length > 0) {
-            z = aa.finance.applyRefund(capId, thisPay, feeSeqArray, invoiceNbrArray, feeAllocationArray, "FeeStat", "InvStat", "123");
-            if (z.getSuccess())
-                logDebug("Refund applied")
-            else
-                logDebug("Error applying refund " + z.getErrorMessage());
+            if (feeSeqArray.length > 0) {
+                z = aa.finance.applyRefund(capId, thisPay, feeSeqArray, invoiceNbrArray, feeAllocationArray, "FeeStat", "InvStat", "123");
+                if (z.getSuccess())
+                    logDebug("Refund applied")
+                else
+                    logDebug("Error applying refund " + z.getErrorMessage());
+            }
         }
-    }
 
     //
     // Step 2: void from the source
@@ -7755,7 +7759,7 @@ function createNewRegPublicUserFromContact() {
         logDebug("(contactObj) Reset password for " + newRegEmail + "  sucessfully.");
         } else {
         logDebug("(contactObj **WARNING: Reset password for  " + newRegEmail + "  failure:" + resetPasswordResult.getErrorMessage());
-        }*/
+    }*/
 
         // send Activate email
         aa.publicUser.sendActivateEmail(userModel, true, true);
@@ -7821,38 +7825,38 @@ Date.prototype.format = function (format) {
     }
 
     if (/(y+)/.test(format)) format = format.replace(RegExp.$1,
-    (this.getFullYear() + "").substr(4 - RegExp.$1.length));
-    for (var k in o) if (new RegExp("(" + k + ")").test(format))
-        format = format.replace(RegExp.$1,
-      RegExp.$1.length == 1 ? o[k] :
-        ("00" + o[k]).substr(("" + o[k]).length));
-    return format;
-}
-function addTimeLog() {
-    logDebug("ENTER: addTimeLog");
-    var now = new Date();
-    var sKey = controlString;
-    var sAction = null;
-
-    var keyObj = getKeyActionByControlString(controlString);
-    if (keyObj) {
-        sKey = keyObj.Key;
-        sAction = keyObj.Action;
-    } else {
-        sAction = "CTRCA";
+        (this.getFullYear() + "").substr(4 - RegExp.$1.length));
+        for (var k in o) if (new RegExp("(" + k + ")").test(format))
+            format = format.replace(RegExp.$1,
+              RegExp.$1.length == 1 ? o[k] :
+              ("00" + o[k]).substr(("" + o[k]).length));
+        return format;
     }
-    var nNumericMsec = now.getTime();
-    var sDateTimeValue = now.format("MM/dd/yyyy h:mm:ss");
-    var nVisitIndex = getVisitIndex(sKey, sAction);
+    function addTimeLog() {
+        logDebug("ENTER: addTimeLog");
+        var now = new Date();
+        var sKey = controlString;
+        var sAction = null;
 
-    var tableValueArray = {
-        "Key": sKey + "",
-        "Action": sAction + "",
-        "Visit Index": nVisitIndex + "",
-        "DateTime Value": sDateTimeValue + "",
-        "Numeric msec": nNumericMsec + "",
-        "controlString": controlString + ""
-    };
+        var keyObj = getKeyActionByControlString(controlString);
+        if (keyObj) {
+            sKey = keyObj.Key;
+            sAction = keyObj.Action;
+        } else {
+            sAction = "CTRCA";
+        }
+        var nNumericMsec = now.getTime();
+        var sDateTimeValue = now.format("MM/dd/yyyy h:mm:ss");
+        var nVisitIndex = getVisitIndex(sKey, sAction);
+
+        var tableValueArray = {
+            "Key": sKey + "",
+            "Action": sAction + "",
+            "Visit Index": nVisitIndex + "",
+            "DateTime Value": sDateTimeValue + "",
+            "Numeric msec": nNumericMsec + "",
+            "controlString": controlString + ""
+        };
 
     //save the latest reprint log to ASIT.
     if (controlString == "ConvertToRealCapAfter") {
@@ -7861,7 +7865,7 @@ function addTimeLog() {
         var newAsitArray = GetTimeLogAsitTableArray(tableValueArray);
 
         var asitModel = cap.getAppSpecificTableGroupModel();
-		
+
         var new_asit = addASITable4ACAPageFlow(asitModel, "TIME LOG", newAsitArray);
     }
     logDebug("EXIT: addTimeLog");
@@ -8341,12 +8345,12 @@ function makePaymentForLegacy(feeAmount) {
             for (fNum in fList)
                 feeSeqNbr = fList[fNum].getFeeSeqNbr();
             //if (fList[fNum].getFeeSeqNbr() == feeSeqNbr) {
-            invNbr = iList[iNum].getInvNbr();
-            feeAmount = fList[fNum].getFee();
-            iFound = true;
-            logMessage("Invoice Number Found: " + invNbr);
-            logMessage("Fee Amount: " + feeAmount);
-            break;
+                invNbr = iList[iNum].getInvNbr();
+                feeAmount = fList[fNum].getFee();
+                iFound = true;
+                logMessage("Invoice Number Found: " + invNbr);
+                logMessage("Fee Amount: " + feeAmount);
+                break;
             //}
         }
         if (!iFound) {
@@ -8427,18 +8431,18 @@ function makePaymentForLegacy(feeAmount) {
     if (receiptResult.getSuccess()) {
         receipt = receiptResult.getOutput();
         logDebug("Receipt successfully created: "); // + receipt.getReceiptNbr());
-    }
-    else {
-        logDebug("error generating receipt: " + receiptResult.getErrorMessage());
-        return false;
-    }
+}
+else {
+    logDebug("error generating receipt: " + receiptResult.getErrorMessage());
+    return false;
+}
 
     //everything committed successfully
     logDebug("Exit: makePaymentForLegacy");
     return true;
 }
 
- 
+
 function loadASITables4ACA() {
 
  	//
@@ -8451,20 +8455,20 @@ function loadASITables4ACA() {
 	if (arguments.length == 1) {
 		itemCap = arguments[0]; // use cap ID specified in args
 		var gm = aa.appSpecificTableScript.getAppSpecificTableGroupModel(itemCap).getOutput();
-		}
-	else {
-		var gm = cap.getAppSpecificTableGroupModel()
-		}
+  }
+  else {
+      var gm = cap.getAppSpecificTableGroupModel()
+  }
 
-	if (!gm) {
-		return false;
-		}
-		
-	var ta = gm.getTablesMap();
-	var tai = ta.values().iterator();
+  if (!gm) {
+      return false;
+  }
 
-	while (tai.hasNext())  {
-	  var tsm = tai.next();
+  var ta = gm.getTablesMap();
+  var tai = ta.values().iterator();
+
+  while (tai.hasNext())  {
+     var tsm = tai.next();
 
 	  if (tsm.rowIndex.isEmpty()) continue;  // empty table
 
@@ -8476,49 +8480,49 @@ function loadASITables4ACA() {
 
 	  if (!isNaN(tn.substring(0,1))) tn = "TBL" + tn  // prepend with TBL if it starts with a number
 
-  	  var tsmfldi = tsm.getTableField().iterator();
-	  var tsmcoli = tsm.getColumns().iterator();
-	  var numrows = 1;
+       var tsmfldi = tsm.getTableField().iterator();
+   var tsmcoli = tsm.getColumns().iterator();
+   var numrows = 1;
 
 	  while (tsmfldi.hasNext())  // cycle through fields
-		{
+    {
 		if (!tsmcoli.hasNext())  // cycle through columns
-			{
+     {
 
-			var tsmcoli = tsm.getColumns().iterator();
+         var tsmcoli = tsm.getColumns().iterator();
 			tempArray.push(tempObject);  // end of record
 			var tempObject = new Array();  // clear the temp obj
 			numrows++;
-			}
-		var tcol = tsmcoli.next();
-		var tval = tsmfldi.next().getInputValue();
-		tempObject[tcol.getColumnName()] = tval;
-		}
+     }
+     var tcol = tsmcoli.next();
+     var tval = tsmfldi.next().getInputValue();
+     tempObject[tcol.getColumnName()] = tval;
+ }
 	  tempArray.push(tempObject);  // end of record
 	  var copyStr = "" + tn + " = tempArray";
 	  logDebug("ASI Table Array : " + tn + " (" + numrows + " Rows)");
 	  eval(copyStr);  // move to table name
-	  }
+ }
 
-	}
+}
 
- function updateWMURecordWrapper(capidstring,boolIncrementUsedCount,boolIsClosed,boolUpdateEffectiveDate) {
+function updateWMURecordWrapper(capidstring,boolIncrementUsedCount,boolIsClosed,boolUpdateEffectiveDate) {
 	eval(getScriptText("INCLUDES_EMSE_WS_GLOBALS")); 
- 
+
 	if (APP_URL && APP_LOGIN && APP_PASS) {
 		//Authenticate with Accela Automation
 		var mySSOID = authenticateUser(aa.getServiceProviderCode(),SOAP_AUTH,SOAP_SIGNON, APP_LOGIN, APP_PASS,"", APP_URL);
 		logDebug("sso id is " + mySSOID);
 		if (mySSOID) {
-		var emseResponse = updateWMURecord(aa.getServiceProviderCode(),APP_URL,SOAP_TRIGGER,APP_LOGIN,mySSOID,"UPDATE_WMU_RECORD_ASYNC",capidstring,boolIncrementUsedCount,boolIsClosed,boolUpdateEffectiveDate);
-		logDebug("emse response is " + emseResponse);
-		}
-	}
-	else {
-	emseResponse = "ERROR: INTERFACE:CONFIGS,AUTH_BIZ_SERVER_INFO not set up correctly with biz server url, username and password";
-	}
-	
-	return emseResponse;
+          var emseResponse = updateWMURecord(aa.getServiceProviderCode(),APP_URL,SOAP_TRIGGER,APP_LOGIN,mySSOID,"UPDATE_WMU_RECORD_ASYNC",capidstring,boolIncrementUsedCount,boolIsClosed,boolUpdateEffectiveDate);
+          logDebug("emse response is " + emseResponse);
+      }
+  }
+  else {
+   emseResponse = "ERROR: INTERFACE:CONFIGS,AUTH_BIZ_SERVER_INFO not set up correctly with biz server url, username and password";
+}
+
+return emseResponse;
 }
 
 function updateWMURecord(agency,url,SOAP_TRIGGER,user,ssoid,script,capidstring,boolIncrementUsedCount,boolIsClosed,boolUpdateEffectiveDate){
@@ -8526,7 +8530,7 @@ function updateWMURecord(agency,url,SOAP_TRIGGER,user,ssoid,script,capidstring,b
  	var soapTrigger = SOAP_TRIGGER.toString();
  	var httpResp = null;
  	try{
- 		 		
+
  		//create our SOAP Envelope
  		soapTrigger = soapTrigger.replace("$$AGENCY$$",agency.toUpperCase());
  		soapTrigger = soapTrigger.replace("$$USERID$$",user.toUpperCase());
@@ -8543,19 +8547,19 @@ function updateWMURecord(agency,url,SOAP_TRIGGER,user,ssoid,script,capidstring,b
  		
  		logDebug(soapTrigger);
  		//Make our web service call
-		httpResp = aa.util.httpPostToSoapWebService(svcURL,soapTrigger,null,null,"").getOutput();
-		return(httpResp);	
-		
- 	}
- 	catch(err){
+      httpResp = aa.util.httpPostToSoapWebService(svcURL,soapTrigger,null,null,"").getOutput();
+      return(httpResp);	
+
+  }
+  catch(err){
 		//Catch any errors
 		logDebug("error in triggerScript : " + err);
 		httpResp = null;
 	}
 	return httpResp;
- }
+}
 
-	
+
 function authenticateUser(agency, SOAP_AUTH,SOAP_SIGNON, userid, password, ssoid, url){
 	var httpResp = null; //our response string
 	var ssoUrl = url + "av-biz-ws-0.9/services/SSOService";
@@ -8620,9 +8624,9 @@ function authenticateUser(agency, SOAP_AUTH,SOAP_SIGNON, userid, password, ssoid
 	}
 	return ssoid;
 }
-	
+
 function createRefContactsFromCapContactsAndLink(pCapId, contactTypeArray, ignoreAttributeArray, replaceCapContact, overwriteRefContact, refContactExists)
-	{
+{
 
 	// contactTypeArray is either null (all), or an array or contact types to process
 	//
@@ -8653,7 +8657,7 @@ function createRefContactsFromCapContactsAndLink(pCapId, contactTypeArray, ignor
 	var cCopy = aa.people.getCapContactByCapID(pCapId).getOutput()  // must have two working datasets
 
 	for (var i in c)
-	   {
+    {
 	   var ruleForRefContactType = "U"; // default behavior is create the ref contact using transaction contact type
 	   var con = c[i];
 
@@ -8662,113 +8666,113 @@ function createRefContactsFromCapContactsAndLink(pCapId, contactTypeArray, ignor
 	   var contactFlagForType = lookup(standardChoiceForBusinessRules,p.getContactType());
 
 	   if (!defaultContactFlag && !contactFlagForType) // standard choice not used for rules, check the array passed
-	   	{
-	   	if (contactTypeArray && !exists(p.getContactType(),contactTypeArray))
+      {
+       if (contactTypeArray && !exists(p.getContactType(),contactTypeArray))
 			continue;  // not in the contact type list.  Move along.
-		}
+  }
 
 	   if (!contactFlagForType && defaultContactFlag) // explicit contact type not used, use the default
-	   	{
-	   	ruleForRefContactType = defaultContactFlag;
-	   	}
+      {
+       ruleForRefContactType = defaultContactFlag;
+   }
 
 	   if (contactFlagForType) // explicit contact type is indicated
-	   	{
-	   	ruleForRefContactType = contactFlagForType;
-	   	}
+      {
+       ruleForRefContactType = contactFlagForType;
+   }
 
-	   if (ruleForRefContactType.equals("D"))
-	   	continue;
+   if (ruleForRefContactType.equals("D"))
+       continue;
 
-	   var refContactType = "";
+   var refContactType = "";
 
-	   switch(ruleForRefContactType)
-	   	{
-		   case "U":
-		     refContactType = p.getContactType();
-		     break;
-		   case "I":
-		     refContactType = "Individual";
-		     break;
-		   case "O":
-		     refContactType = "Organization";
-		     break;
-		   case "F":
-		     if (p.getContactTypeFlag() && p.getContactTypeFlag().equals("organization"))
-		     	refContactType = "Organization";
-		     else
-		     	refContactType = "Individual";
-		     break;
-		}
+   switch(ruleForRefContactType)
+   {
+       case "U":
+       refContactType = p.getContactType();
+       break;
+       case "I":
+       refContactType = "Individual";
+       break;
+       case "O":
+       refContactType = "Organization";
+       break;
+       case "F":
+       if (p.getContactTypeFlag() && p.getContactTypeFlag().equals("organization"))
+        refContactType = "Organization";
+    else
+        refContactType = "Individual";
+    break;
+}
 
-	   var refContactNum = con.getCapContactModel().getRefContactNumber();
+var refContactNum = con.getCapContactModel().getRefContactNumber();
 
 	   if (refContactNum)  // This is a reference contact.   Let's refresh or overwrite as requested in parms.
-	   	{
-	   	if (overwriteRefContact)
-	   		{
+      {
+       if (overwriteRefContact)
+       {
 	   		p.setContactSeqNumber(refContactNum);  // set the ref seq# to refresh
 	   		p.setContactType(refContactType);
 
-	   						var a = p.getAttributes();
+          var a = p.getAttributes();
 
-							if (a)
-								{
-								var ai = a.iterator();
-								while (ai.hasNext())
-									{
-									var xx = ai.next();
-									xx.setContactNo(refContactNum);
-									}
-					}
+          if (a)
+          {
+            var ai = a.iterator();
+            while (ai.hasNext())
+            {
+               var xx = ai.next();
+               xx.setContactNo(refContactNum);
+           }
+       }
 
 			// custom for DEC, since we aren't using attributes JIRA-51495
-	   		var r = aa.people.editPeople(p);
+          var r = aa.people.editPeople(p);
 
-			if (!r.getSuccess())
-				logDebug("WARNING: couldn't refresh reference people : " + r.getErrorMessage());
-			else
-				logDebug("Successfully refreshed ref contact #" + refContactNum + " with CAP contact data");
-			}
+          if (!r.getSuccess())
+            logDebug("WARNING: couldn't refresh reference people : " + r.getErrorMessage());
+        else
+            logDebug("Successfully refreshed ref contact #" + refContactNum + " with CAP contact data");
+    }
 
-	   	if (replaceCapContact)
-	   		{
+    if (replaceCapContact)
+    {
 				// To Be Implemented later.   Is there a use case?
 			}
 
-	   	}
+       }
 	   	else  // user entered the contact freehand.   Let's create or link to ref contact.
 	   	{
-			var ccmSeq = p.getContactSeqNumber();
+         var ccmSeq = p.getContactSeqNumber();
 
 			var existingContact = refContactExists(p);  // Call the custom function to see if the REF contact exists
 
 			var p = cCopy[i].getPeople();  // get a fresh version, had to mangle the first for the search
 
 			if (existingContact)  // we found a match with our custom function.  Use this one.
-				{
-					refPeopleId = existingContact;
-				}
+            {
+               refPeopleId = existingContact;
+           }
 			else  // did not find a match, let's create one
-				{
+            {
 
-				var a = p.getAttributes();
+                var a = p.getAttributes();
 
-				if (a)
-					{
+                if (a)
+                {
 					//
 					// Clear unwanted attributes
 					var ai = a.iterator();
 					while (ai.hasNext())
-						{
-						var xx = ai.next();
-						if (ignoreAttributeArray && exists(xx.getAttributeName().toUpperCase(),ignoreAttributeArray))
-							ai.remove();
-						}
-					}
+                  {
+                      var xx = ai.next();
+                      if (ignoreAttributeArray && exists(xx.getAttributeName().toUpperCase(),ignoreAttributeArray))
+                         ai.remove();
+                 }
+             }
 
-				p.setContactType(refContactType);
-				var r = aa.people.createPeople(p);
+             p.setContactType(refContactType);
+             var r = aa.people.createPeople(p);
 
                 //sanket jadhav
                 var peopleSequenceNumberX = null;
@@ -8818,8 +8822,8 @@ function createRefContactsFromCapContactsAndLink(pCapId, contactTypeArray, ignor
                     }
                 }
 
-				if (!r.getSuccess())
-					{logDebug("WARNING: couldn't create reference people : " + r.getErrorMessage()); continue; }
+                if (!r.getSuccess())
+                   {logDebug("WARNING: couldn't create reference people : " + r.getErrorMessage()); continue; }
 
 				//
 				// createPeople is nice and updates the sequence number to the ref seq
@@ -8832,31 +8836,31 @@ function createRefContactsFromCapContactsAndLink(pCapId, contactTypeArray, ignor
 
 				// Need to link to an existing public user.
 
-			    var getUserResult = aa.publicUser.getPublicUserByEmail(con.getEmail())
-			    if (getUserResult.getSuccess() && getUserResult.getOutput()) {
-			        var userModel = getUserResult.getOutput();
-			        logDebug("createRefContactsFromCapContactsAndLink: Found an existing public user: " + userModel.getUserID());
+             var getUserResult = aa.publicUser.getPublicUserByEmail(con.getEmail())
+             if (getUserResult.getSuccess() && getUserResult.getOutput()) {
+                 var userModel = getUserResult.getOutput();
+                 logDebug("createRefContactsFromCapContactsAndLink: Found an existing public user: " + userModel.getUserID());
 
-					if (refPeopleId)	{
-						logDebug("createRefContactsFromCapContactsAndLink: Linking this public user with new reference contact : " + refPeopleId);
-						aa.licenseScript.associateContactWithPublicUser(userModel.getUserSeqNum(), refPeopleId);
-						}
-					}
-				}
+                 if (refPeopleId)	{
+                  logDebug("createRefContactsFromCapContactsAndLink: Linking this public user with new reference contact : " + refPeopleId);
+                  aa.licenseScript.associateContactWithPublicUser(userModel.getUserSeqNum(), refPeopleId);
+              }
+          }
+      }
 
 			//
 			// now that we have the reference Id, we can link back to reference
 			//
 
-		    var ccm = aa.people.getCapContactByPK(pCapId,ccmSeq).getOutput().getCapContactModel();
+          var ccm = aa.people.getCapContactByPK(pCapId,ccmSeq).getOutput().getCapContactModel();
 
-		    ccm.setRefContactNumber(refPeopleId);
-		    r = aa.people.editCapContact(ccm);
+          ccm.setRefContactNumber(refPeopleId);
+          r = aa.people.editCapContact(ccm);
 
-		    if (!r.getSuccess())
-				{ logDebug("WARNING: error updating cap contact model : " + r.getErrorMessage()); }
-			else
-				{ logDebug("Successfully linked ref contact " + refPeopleId + " to cap contact " + ccmSeq);}
+          if (!r.getSuccess())
+            { logDebug("WARNING: error updating cap contact model : " + r.getErrorMessage()); }
+        else
+            { logDebug("Successfully linked ref contact " + refPeopleId + " to cap contact " + ccmSeq);}
 
 
 	    }  // end if user hand entered contact
@@ -8872,30 +8876,30 @@ function logDebug(dstr) {
 		debug += dstr + br;
 	if ((showDebug & vLevel) == vLevel)
 		aa.debug(aa.getServiceProviderCode() + " : " + aa.env.getValue("CurrentUserID"), dstr);
-		
+
 	try {
-	if ((String(dstr).indexOf("**ERROR") > -1) || (String(dstr).indexOf("**INFODEBUG") > -1)) {
-		var errorEmail = lookup("DEC_CONFIG","SCRIPT_ERROR_EMAILS");
-		if (errorEmail) {
-			if (typeof(capId) == "object") {
-				var subject = "Script Error on Record:" + capId.getCustomID() + " Site:" + lookup("ACA_CONFIGS","ACA_SITE");
-				}
-			else
-				var subject = "Script Error Site:" + lookup("ACA_CONFIGS","ACA_SITE");
-				}
-				
-			var msg = "Event Name :" + aa.env.getValue("EventName") + "<br>";
-			msg+= "Script Code:" + aa.env.getValue("ScriptCode") + "<br>";
-			msg+= "User ID    :" + aa.env.getValue("CurrentUserID") + "<br>";
-			msg+= "Error      :" + dstr + "<br>";
-			msg+= "Stack Trace<br><br>";
-			msg+=debug;
-			
-			aa.sendMail("noreply@accela.com", errorEmail, "", subject, msg);
-		}
-	}
-	catch(err) { aa.debug("emse","couldn't send email for script error : " + err.message) }
-	
+       if ((String(dstr).indexOf("**ERROR") > -1) || (String(dstr).indexOf("**INFODEBUG") > -1)) {
+          var errorEmail = lookup("DEC_CONFIG","SCRIPT_ERROR_EMAILS");
+          if (errorEmail) {
+             if (typeof(capId) == "object") {
+                var subject = "Script Error on Record:" + capId.getCustomID() + " Site:" + lookup("ACA_CONFIGS","ACA_SITE");
+            }
+            else
+                var subject = "Script Error Site:" + lookup("ACA_CONFIGS","ACA_SITE");
+        }
+
+        var msg = "Event Name :" + aa.env.getValue("EventName") + "<br>";
+        msg+= "Script Code:" + aa.env.getValue("ScriptCode") + "<br>";
+        msg+= "User ID    :" + aa.env.getValue("CurrentUserID") + "<br>";
+        msg+= "Error      :" + dstr + "<br>";
+        msg+= "Stack Trace<br><br>";
+        msg+=debug;
+
+        aa.sendMail("noreply@accela.com", errorEmail, "", subject, msg);
+    }
+}
+catch(err) { aa.debug("emse","couldn't send email for script error : " + err.message) }
+
 }
 
 
