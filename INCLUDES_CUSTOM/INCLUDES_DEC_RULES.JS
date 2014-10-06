@@ -773,9 +773,9 @@ function getAllFeeCodeByRuleFor_ANNUAL_HUNT(ruleParams, feeSched) {
     //Annual Hunting License: NYS Res having age 14-15
     if ((rp.IsNyResiDent || rp.HasLifetimeHunt()) && rp.IsNativeAmerican && rp.Age >= 14 && rp.Age <= 15) {
     	feeItemCodes.push(new FeeCodeProp(AJH_6_RESNAM, "000")); 
-	}else if ((rp.IsNyResiDent || rp.HasLifetimeHunt()) && rp.Age >= 14 && rp.Age <= 15) {
-		feeItemCodes.push(new FeeCodeProp(AHL_10_RES, "000")); 
-	}
+    }else if ((rp.IsNyResiDent || rp.HasLifetimeHunt()) && rp.Age >= 14 && rp.Age <= 15) {
+    	feeItemCodes.push(new FeeCodeProp(AHL_10_RES, "000")); 
+    }
     //Annual Hunting License: Non-Res having age 14-15
     if (!(rp.IsNyResiDent || rp.HasLifetimeHunt()) && rp.Age >= 14 && rp.Age <= 15) { feeItemCodes.push(new FeeCodeProp(AHL_9_NORES, "000")); }
 
@@ -2444,7 +2444,9 @@ function getTag_LIFETM_MUZZ(ruleParams) {
 			}
             //arryTags.push(TAG_TYPE_19_DEER_OF_EITHER_SEX_TAG);
         } else if ((rp.EitherOrAntler & 8) == 0) {
-        	arryTags.push(TAG_TYPE_20_ANTLERLESS_DEER_TAG);
+        	if (!rp.HasAnnualMuzzLoadLic) {
+        		arryTags.push(TAG_TYPE_20_ANTLERLESS_DEER_TAG);
+        	}
         }
     }
 
@@ -2518,8 +2520,10 @@ function getTag_LIFETM_BOWH(ruleParams) {
 				arryTags.push(TAG_TYPE_19_DEER_OF_EITHER_SEX_TAG);        
 			}
 			//arryTags.push(TAG_TYPE_19_DEER_OF_EITHER_SEX_TAG);
-		} else if ((rp.EitherOrAntler & 8) == 0) {
-			arryTags.push(TAG_TYPE_20_ANTLERLESS_DEER_TAG);
+		} else if ((rp.EitherOrAntler & 8) == 0) {			
+			if (!rp.HasBowHuntLic) {				
+				arryTags.push(TAG_TYPE_20_ANTLERLESS_DEER_TAG);
+			}
 		}
 
 		if (rp.AgeLookAhead30Days >= 12 && rp.AgeLookAhead30Days <= 13 && rp.HasBowHunt && rp.HasHuntEd && rp.HasLifetimeHunt()) {
