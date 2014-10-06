@@ -692,7 +692,7 @@ function form_OBJECT(identity) {
 
                 if (this.optmzType == OPTZ_TYPE_ALLFEES || (this.optmzType == OPTZ_TYPE_SELECTED_FEES && this.licObjARRAY[idx].IsSelected)) {
                     //if (this.optmzType == OPTZ_TYPE_ALLFEES || (this.optmzType == OPTZ_TYPE_SELECTED_FEES && this.licObjARRAY[idx].IsSelected) || this.optmzType == OPTZ_TYPE_CTRC) {
-                    var ofd = getFeeCodeByRule(ruleParams, this.licObjARRAY[idx].feeschedule, this.licObjARRAY[idx].feeversion, this.licObjARRAY[idx].FNfeeRule);
+                        var ofd = getFeeCodeByRule(ruleParams, this.licObjARRAY[idx].feeschedule, this.licObjARRAY[idx].feeversion, this.licObjARRAY[idx].FNfeeRule);
                     //eval("var feeItemCodes = " + this.licObjARRAY[idx].FNfeeRule + "(ruleParams, " + this.licObjARRAY[idx].feeschedule + " );");
                     var mstr = '';
                     if (ofd != null) {
@@ -2423,6 +2423,10 @@ function rulePARAMS(identity) {
     this.hasLifetimeFish = "not set";
     this.hasLifetimeHunt = "not set";
     this.hasLifetimeTrap = "not set";
+    //Sanket Jadhav
+    this.hasBowHuntLic = "not set";
+    this.hasLTBowHuntLic = "not set";
+    this.hasAnnualMuzzLoadLic = "not set";
     /* 3-5 Year
     this.has3YHuntExpiration = "not set";
     this.has5YHuntExpiration = "not set";
@@ -2479,6 +2483,58 @@ function rulePARAMS(identity) {
         }
         return isValid;
     }
+
+    // Checking if Annual bowhunt exists
+    this.HasBowHuntLic = function () {
+        if (!"not set".equals(this.hasBowHuntLic)) {
+            return this.hasBowHuntLic; // use cached value
+        }
+        this.hasBowHuntLic = false;
+        for (var idx = 0; idx < this.ActiveHoldingsInfo.length; idx++) {
+            var verifyLicArray = new Array();
+            verifyLicArray.push(AA04_BOWHUNTING_PRIVILEGE);            
+            if (exists(this.ActiveHoldingsInfo[idx].RecordType, verifyLicArray)) {
+                this.hasBowHuntLic = true;
+                break;
+            }
+        }
+        return this.hasBowHuntLic;
+    }
+
+    // Checking if Annual Muzzle load exists
+    this.HasAnnualMuzzLoadLic = function () {
+        if (!"not set".equals(this.hasAnnualMuzzLoadLic)) {
+            return this.hasAnnualMuzzLoadLic; // use cached value
+        }
+        this.hasAnnualMuzzLoadLic = false;
+        for (var idx = 0; idx < this.ActiveHoldingsInfo.length; idx++) {
+            var verifyLicArray = new Array();
+            verifyLicArray.push(AA07_MUZZLELOADING_PRIVILEGE);            
+            if (exists(this.ActiveHoldingsInfo[idx].RecordType, verifyLicArray)) {
+                this.hasAnnualMuzzLoadLic = true;
+                break;
+            }
+        }
+        return this.hasAnnualMuzzLoadLic;
+    }
+
+    // Checking if LifeTime bowhunt exists
+    this.HasLTBowHuntLic = function () {
+        if (!"not set".equals(this.hasLTBowHuntLic)) {
+            return this.hasBowHuntLic; // use cached value
+        }
+        this.hasLTBowHuntLic = false;
+        for (var idx = 0; idx < this.ActiveHoldingsInfo.length; idx++) {
+            var verifyLicArray = new Array();
+            verifyLicArray.push(AA09_LIFETIME_BOWHUNTING);            
+            if (exists(this.ActiveHoldingsInfo[idx].RecordType, verifyLicArray)) {
+                this.hasLTBowHuntLic = true;
+                break;
+            }
+        }
+        return this.hasLTBowHuntLic;
+    }
+
     this.HasLifetimeHunt = function () {
         if (!"not set".equals(this.hasLifetimeHunt)) {
             return this.hasLifetimeHunt; // use cached value
@@ -2904,38 +2960,38 @@ function getActiveHoldings(peopleSequenceNumber, year) {
         sql += "AND ( A.b1_appl_status = 'Approved' OR A.b1_appl_status = 'Active' ) ";
         sql += "AND E.rec_status = 'A' ";
         sql += "AND ( E.expiration_date IS NULL ";
-        sql += "OR E.expiration_date > SYSDATE ) ";
-    }
+            sql += "OR E.expiration_date > SYSDATE ) ";
+}
 
-    var vError = '';
-    var conn = null;
-    var sStmt = null;
-    var rSet = null;
-    try {
-        var initialContext = aa.proxyInvoker.newInstance("javax.naming.InitialContext", null).getOutput();
-        var ds = initialContext.lookup("java:/AA");
-        conn = ds.getConnection();
+var vError = '';
+var conn = null;
+var sStmt = null;
+var rSet = null;
+try {
+    var initialContext = aa.proxyInvoker.newInstance("javax.naming.InitialContext", null).getOutput();
+    var ds = initialContext.lookup("java:/AA");
+    conn = ds.getConnection();
 
-        sStmt = conn.prepareStatement(sql);
-        rSet = sStmt.executeQuery();
+    sStmt = conn.prepareStatement(sql);
+    rSet = sStmt.executeQuery();
 
-        while (rSet.next()) {
-            var capIdModel = aa.cap.getCapID(rSet.getString("B1_PER_ID1"), rSet.getString("B1_PER_ID2"), rSet.getString("B1_PER_ID3")).getOutput();
-            var itemCap = aa.cap.getCapBasicInfo(capIdModel).getOutput();
-            var itemCapId = itemCap.getCapID();
-            appTypeResult = itemCap.getCapType();
-            appTypeString = appTypeResult.toString();
-            if (exists(appTypeString, validActiveholdingsArray)) {
-                var newActiveTag = new ACTIVE_ITEM(itemCapId, itemCap, appTypeString);
-                availableActiveItems.push(newActiveTag);
-            }
+    while (rSet.next()) {
+        var capIdModel = aa.cap.getCapID(rSet.getString("B1_PER_ID1"), rSet.getString("B1_PER_ID2"), rSet.getString("B1_PER_ID3")).getOutput();
+        var itemCap = aa.cap.getCapBasicInfo(capIdModel).getOutput();
+        var itemCapId = itemCap.getCapID();
+        appTypeResult = itemCap.getCapType();
+        appTypeString = appTypeResult.toString();
+        if (exists(appTypeString, validActiveholdingsArray)) {
+            var newActiveTag = new ACTIVE_ITEM(itemCapId, itemCap, appTypeString);
+            availableActiveItems.push(newActiveTag);
         }
-    } catch (vError) {
-        logDebug("Runtime error occurred: " + vError);
     }
-    closeDBQueryObject(rSet, sStmt, conn);
+} catch (vError) {
+    logDebug("Runtime error occurred: " + vError);
+}
+closeDBQueryObject(rSet, sStmt, conn);
 
-    return availableActiveItems;
+return availableActiveItems;
 }
 
 function getActiveHoldingsOldVersion(peopleSequenceNumber, year) {
@@ -3034,84 +3090,84 @@ function ACTIVE_ITEM(itemCapId, itemCap, recordType) {
         retStr += " - ";
         retStr += this.Description;
         retStr += "(";
-        retStr += this.CapStatus;
-        retStr += ", ";
-        retStr += this.RecordType;
-        retStr += ", Year: " + this.LicenseYear;
-        retStr += ", IsTag: " + this.IsTag();
-        retStr += ", ItemCode: " + this.ItemCode;
-        retStr += ", TagType: " + this.TagType;
-        retStr += ", ReplaceOrdinalNumber: " + this.ReplaceOrdinalNumber;
-        retStr += ", FromDate: " + this.FromDate;
-        retStr += ", ToDate: " + this.ToDate;
-        retStr += ")";
-        return retStr;
-    }
-    this.setActiveItems = function () {
-        try {
-            if (this.itemCapId != null) {
-                this.CapStatus = this.itemCap.getCapStatus();
-                this.Description = this.itemCap.getSpecialText();
-                this.altId = this.itemCapId.getCustomID();
+            retStr += this.CapStatus;
+            retStr += ", ";
+            retStr += this.RecordType;
+            retStr += ", Year: " + this.LicenseYear;
+            retStr += ", IsTag: " + this.IsTag();
+            retStr += ", ItemCode: " + this.ItemCode;
+            retStr += ", TagType: " + this.TagType;
+            retStr += ", ReplaceOrdinalNumber: " + this.ReplaceOrdinalNumber;
+            retStr += ", FromDate: " + this.FromDate;
+            retStr += ", ToDate: " + this.ToDate;
+            retStr += ")";
+return retStr;
+}
+this.setActiveItems = function () {
+    try {
+        if (this.itemCapId != null) {
+            this.CapStatus = this.itemCap.getCapStatus();
+            this.Description = this.itemCap.getSpecialText();
+            this.altId = this.itemCapId.getCustomID();
 
-                loadAppSpecific(this.itemAinfo, this.itemCapId);
-                this.LicenseYear = this.itemAinfo["Year"];
-                this.ItemCode = this.itemAinfo["Item Code"];
-                this.TagType = this.itemAinfo["Tag Type"];
-                this.ReplaceOrdinalNumber = this.itemAinfo["Replace Ordinal Number"];
-                if (this.RecordType == AA54_TAG_PRIV_PANEL) {
-                    this.PrintConsignedLines = this.itemAinfo["PrintConsignedLines"];
-                }
+            loadAppSpecific(this.itemAinfo, this.itemCapId);
+            this.LicenseYear = this.itemAinfo["Year"];
+            this.ItemCode = this.itemAinfo["Item Code"];
+            this.TagType = this.itemAinfo["Tag Type"];
+            this.ReplaceOrdinalNumber = this.itemAinfo["Replace Ordinal Number"];
+            if (this.RecordType == AA54_TAG_PRIV_PANEL) {
+                this.PrintConsignedLines = this.itemAinfo["PrintConsignedLines"];
+            }
 
-                if (this.RecordType == AA24_NONRESIDENT_1_DAY_FISHING || this.RecordType == AA03_ONE_DAY_FISHING_LICENSE) {
-                    this.fileDate = this.itemCap.getFileDate();
-                    this.DT_FromDate = isNull(this.itemAinfo["Effective Date"], '') == '' ? new Date(this.fileDate.getMonth() + "/" + this.fileDate.getDayOfMonth() + "/" + this.fileDate.getYear()) : convertDate(this.itemAinfo["Effective Date"]);
-                    this.FromDate = jsDateToMMDDYYYY(this.DT_FromDate);
-                } else if (this.RecordType == AA25_NONRESIDENT_7_DAY_FISHING || this.RecordType == AA26_SEVEN_DAY_FISHING_LICENSE) {
-                    this.fileDate = this.itemCap.getFileDate();
-                    this.DT_FromDate = isNull(this.itemAinfo["Effective Date"], '') == '' ? new Date(this.fileDate.getMonth() + "/" + this.fileDate.getDayOfMonth() + "/" + this.fileDate.getYear()) : convertDate(this.itemAinfo["Effective Date"]);
-                    this.FromDate = jsDateToMMDDYYYY(this.DT_FromDate);
-                } else {
-                    this.fileDate = this.itemCap.getFileDate();
-                    this.DT_FromDate = new Date(this.fileDate.getMonth() + "/" + this.fileDate.getDayOfMonth() + "/" + this.fileDate.getYear());
-                    this.FromDate = jsDateToMMDDYYYY(this.DT_FromDate);
-                }
+            if (this.RecordType == AA24_NONRESIDENT_1_DAY_FISHING || this.RecordType == AA03_ONE_DAY_FISHING_LICENSE) {
+                this.fileDate = this.itemCap.getFileDate();
+                this.DT_FromDate = isNull(this.itemAinfo["Effective Date"], '') == '' ? new Date(this.fileDate.getMonth() + "/" + this.fileDate.getDayOfMonth() + "/" + this.fileDate.getYear()) : convertDate(this.itemAinfo["Effective Date"]);
+                this.FromDate = jsDateToMMDDYYYY(this.DT_FromDate);
+            } else if (this.RecordType == AA25_NONRESIDENT_7_DAY_FISHING || this.RecordType == AA26_SEVEN_DAY_FISHING_LICENSE) {
+                this.fileDate = this.itemCap.getFileDate();
+                this.DT_FromDate = isNull(this.itemAinfo["Effective Date"], '') == '' ? new Date(this.fileDate.getMonth() + "/" + this.fileDate.getDayOfMonth() + "/" + this.fileDate.getYear()) : convertDate(this.itemAinfo["Effective Date"]);
+                this.FromDate = jsDateToMMDDYYYY(this.DT_FromDate);
+            } else {
+                this.fileDate = this.itemCap.getFileDate();
+                this.DT_FromDate = new Date(this.fileDate.getMonth() + "/" + this.fileDate.getDayOfMonth() + "/" + this.fileDate.getYear());
+                this.FromDate = jsDateToMMDDYYYY(this.DT_FromDate);
+            }
 
-                this.ExpDate = this.getExpDate(this.itemCapId);
-                this.DT_ToDate = null;
-                if (this.ExpDate != null) {
-                    this.DT_ToDate = new Date(this.ExpDate.getMonth() + "/" + this.ExpDate.getDayOfMonth() + "/" + this.ExpDate.getYear());
-                    this.ToDate = jsDateToMMDDYYYY(this.DT_ToDate);
-                }
+            this.ExpDate = this.getExpDate(this.itemCapId);
+            this.DT_ToDate = null;
+            if (this.ExpDate != null) {
+                this.DT_ToDate = new Date(this.ExpDate.getMonth() + "/" + this.ExpDate.getDayOfMonth() + "/" + this.ExpDate.getYear());
+                this.ToDate = jsDateToMMDDYYYY(this.DT_ToDate);
             }
         }
-        catch (err) {
-            logDebug("Exception in setActiveItems:" + err.message);
-        }
     }
-    this.getExpDate = function () {
-        var expDate = null;
-        try {
-            var searchCapId = this.itemCapId;
-            if (arguments.length == 1) searchCapId = arguments[0];
+    catch (err) {
+        logDebug("Exception in setActiveItems:" + err.message);
+    }
+}
+this.getExpDate = function () {
+    var expDate = null;
+    try {
+        var searchCapId = this.itemCapId;
+        if (arguments.length == 1) searchCapId = arguments[0];
 
-            if (searchCapId != null) {
-                var b1ExpResult = aa.expiration.getLicensesByCapID(searchCapId)
-                if (b1ExpResult.getSuccess()) {
-                    var b1Exp = b1ExpResult.getOutput();
-                    expDate = b1Exp.getExpDate();
-                }
-                else {
-                    logDebug("**WARNING: Getting B1Expiration Object for Cap.  Reason is: " + b1ExpResult.getErrorType() + ":" + b1ExpResult.getErrorMessage());
-                }
+        if (searchCapId != null) {
+            var b1ExpResult = aa.expiration.getLicensesByCapID(searchCapId)
+            if (b1ExpResult.getSuccess()) {
+                var b1Exp = b1ExpResult.getOutput();
+                expDate = b1Exp.getExpDate();
+            }
+            else {
+                logDebug("**WARNING: Getting B1Expiration Object for Cap.  Reason is: " + b1ExpResult.getErrorType() + ":" + b1ExpResult.getErrorMessage());
             }
         }
-        catch (err) {
-            logDebug("**WARNING: Exception in getExpDate:" + err.message);
-        }
-        return expDate;
     }
-    this.setActiveItems();
+    catch (err) {
+        logDebug("**WARNING: Exception in getExpDate:" + err.message);
+    }
+    return expDate;
+}
+this.setActiveItems();
 }
 function exists(eVal, eArray) {
     for (ii in eArray)
