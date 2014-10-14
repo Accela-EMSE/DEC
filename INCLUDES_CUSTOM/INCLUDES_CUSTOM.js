@@ -8919,3 +8919,37 @@ function alreadyBeenReported(year, recType) {
 
     return false;
 }
+
+function loadLegacyLicenseInformation(){
+	var lInfo = loadASITable("LICENSE INFORMATION");
+	if(!lInfo){
+		 var applicant = getContactObj(capId, "Individual");
+		if (applicant) {
+			var caps = applicant.getCaps();
+			if(caps.length > 0) {
+				for (var i in caps) {
+					var license = aa.cap.getCap(caps[i]).getOutput();
+					var lType = license.getCapType();
+					var year = AInfo['Year']; 
+					var date = AInfo['Effective Date'];
+					var fee = aa.fee.getFeeTotal(caps[i]).getOutput();
+					for (ii in productArray) {
+						rowToAdd = new Array();
+						rowToAdd["License Year"] = year;
+						rowToAdd["License Type"] = lType;
+						rowToAdd["Effective Date"] = date;
+						rowToAdd["Fee"] = fee;
+						addToASITable("LICENSE INFORMATION", rowToAdd);
+					}
+				}
+			}
+			else{
+				var minRows = 1;
+				cancel = true;
+				showMessage = true;
+				comment("You must enter at least " + minRows + " row(s) on this table");
+			}
+		}
+	}
+	logDebug("**ERROR: Goes inside the function");
+}
