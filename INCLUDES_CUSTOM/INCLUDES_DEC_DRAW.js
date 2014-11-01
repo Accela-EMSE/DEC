@@ -254,7 +254,10 @@ function verifyWmuConfiguration(year, wmu, drawtype, choiceNum, drawResult) {
                             }
                         }
                         
-						//copyLicASI(cnfgCapId, newAInfo);
+                        if (drawtype == DRAW_FCFS) {
+                            //copyLicASI(cnfgCapId, newAInfo);                        
+							updateWMURecordWrapper(cnfgCapId.getCustomID(),"YES","NO","NO"));
+                        }
 						// async code.   will increment the asi field by one, based on the current value.
 						
                         if (drawtype != DRAW_INST && drawtype != DRAW_FCFS) {
