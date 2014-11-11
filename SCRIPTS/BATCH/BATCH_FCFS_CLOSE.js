@@ -34,10 +34,10 @@ eval(getScriptText("INCLUDES_BATCH"));
 
 
 function getScriptText(vScriptName) {
-    vScriptName = vScriptName.toUpperCase();
-    var emseBiz = aa.proxyInvoker.newInstance("com.accela.aa.emse.emse.EMSEBusiness").getOutput();
-    var emseScript = emseBiz.getScriptByPK(aa.getServiceProviderCode(), vScriptName, "ADMIN");
-    return emseScript.getScriptText() + "";
+	vScriptName = vScriptName.toUpperCase();
+	var emseBiz = aa.proxyInvoker.newInstance("com.accela.aa.emse.emse.EMSEBusiness").getOutput();
+	var emseScript = emseBiz.getScriptByPK(aa.getServiceProviderCode(), vScriptName, "ADMIN");
+	return emseScript.getScriptText() + "";
 }
 /*------------------------------------------------------------------------------------------------------/
 | START: BATCH PARAMETERS
@@ -80,24 +80,24 @@ logDebug("Start of Job");
 if (!timeExpired) var isSuccess = mainProcess();
 logDebug("End of Job: Elapsed Time : " + elapsed() + " Seconds");
 if (isSuccess) {
-    aa.print("Passed");
-    aa.env.setValue("ScriptReturnCode", "0");
-    if (isPartialSuccess) {
-        aa.env.setValue("ScriptReturnMessage", "A script timeout has caused partial completion of this process.  Please re-run.");
-        aa.eventLog.createEventLog("Batch Job run partial successful.", "Batch Process", batchJobName, sysDate, sysDate, batchJobDesc, batchJobResult, batchJobID);
-    } else {
-        aa.env.setValue("ScriptReturnMessage", "Batch Job run successfully.");
-        aa.eventLog.createEventLog("Batch Job run successfully.", "Batch Process", batchJobName, sysDate, sysDate, batchJobDesc, batchJobResult, batchJobID);
-    }
+	aa.print("Passed");
+	aa.env.setValue("ScriptReturnCode", "0");
+	if (isPartialSuccess) {
+		aa.env.setValue("ScriptReturnMessage", "A script timeout has caused partial completion of this process.  Please re-run.");
+		aa.eventLog.createEventLog("Batch Job run partial successful.", "Batch Process", batchJobName, sysDate, sysDate, batchJobDesc, batchJobResult, batchJobID);
+	} else {
+		aa.env.setValue("ScriptReturnMessage", "Batch Job run successfully.");
+		aa.eventLog.createEventLog("Batch Job run successfully.", "Batch Process", batchJobName, sysDate, sysDate, batchJobDesc, batchJobResult, batchJobID);
+	}
 }
 else {
-    aa.print("Failed");
-    aa.env.setValue("ScriptReturnCode", "1");
-    aa.env.setValue("ScriptReturnMessage", "Batch Job failed: " + emailText);
+	aa.print("Failed");
+	aa.env.setValue("ScriptReturnCode", "1");
+	aa.env.setValue("ScriptReturnMessage", "Batch Job failed: " + emailText);
 }
 
 if (emailAddress.length)
-    aa.sendMail("noreply@accela.com", emailAddress, "", batchJobName + " Results", emailText);
+	aa.sendMail("noreply@accela.com", emailAddress, "", batchJobName + " Results", emailText);
 /*------------------------------------------------------------------------------------------------------/
 | END: MAIN LOGIC
 /-----------------------------------------------------------------------------------------------------*/
@@ -128,8 +128,10 @@ function mainProcess() {
 		logMessage("ERROR", "ERROR: Getting Records, reason is: " + vCapListResult.getErrorType() + ":" + vCapListResult.getErrorMessage());
 	}
 	for (thisCap in vCapList){
+		var currentYear = new Date();
+		var year = currentYear.getFullYear();		
 		var capId = aa.cap.getCapID(vCapList[thisCap].getCapID().getID1(), vCapList[thisCap].getCapID().getID2(), vCapList[thisCap].getCapID().getID3()).getOutput();
-		logDebug("Cap ID value: " + capId.getCustomID());
+		//logDebug("Cap ID value: " + capId.getCustomID());
 		var cnfgAinfo = new Array();
 		loadAppSpecific(cnfgAinfo, capId);
 		if(cnfgAinfo["Draw Type"] == "FCFS"){
@@ -139,19 +141,20 @@ function mainProcess() {
 			usedCount = cnfgAinfo["Used Count"];
 			var wmuStatus = cnfgAinfo["Status"];
 			var wmuName = cnfgAinfo["WMU"];
-			var sum = usedCount - prmitTarget;
-			if(sum > 0){
-				aa.print("Value: "+ (prmitTarget < usedCount) + " WMU Name: " + wmuName);
-				aa.print("CapId: " + capId.getCustomID() + "Permit Count: " + prmitTarget + " UsedCount: " + usedCount + " WMU Status: " + wmuStatus + " WMU Name: " + wmuName + " Close Date: " + cnfgAinfo["Close Date"]);
-				if(wmuStatus == "Open"){
-					//cnfgAinfo["Status"] = "Closed";
-					//cnfgAinfo["Close Date"] = dateString;
+			var sum = usedCount - prmitTarget;			
+			if(sum > 0 || wmuStatus == "Closed"){
+			logDebug(">>>> wmuStatus : " + wmuStatus + "  " + capId.getCustomID() + "  " + year);			
+			var regex = new RegExp( '\\b' + year + '\\b' );
+			logDebug(" Flag 2 : " + (regex.test(capId.getCustomID())));				
+			
+				if (regex.test(capId.getCustomID())) {												
+				logDebug(" WMU Name: " + wmuName + " wmuStatus: " + wmuStatus);				
+				if(wmuStatus == "Open"){																			
 					editAppSpecific("Status", "Closed", capId);
-					editAppSpecific("Close Date", dateString, capId);
-					//aa.print("WMU Status: " + cnfgAinfo["Status"] + " Close Date: " + cnfgAinfo["Close Date"]);
+				}
+					editAppSpecific("Close Date", dateString, capId);					
 					editLookupAuditStatus("WMU Choice 1", wmuName, "I");
 					editLookupAuditStatus("WMU Choice 2", wmuName, "I");
-					
 				}
 			}
 		}
@@ -160,15 +163,15 @@ function mainProcess() {
 
 function editLookupAuditStatus(stdChoice, stdValue, stdAuditStaus) {
    //check if stdChoice and stdValue already exist; if they do, update;
-	var bizDomScriptResult = aa.bizDomain.getBizDomainByValue(stdChoice, stdValue);
-	if (bizDomScriptResult.getSuccess()) {
-		bds = bizDomScriptResult.getOutput();
-		var bd = bds.getBizDomain();
-		bd.setAuditStatus(stdAuditStaus);
-		var editResult = aa.bizDomain.editBizDomain(bd)
-		if (editResult.getSuccess())
-			aa.print("Successfully edited Std Choice Audit Status(" + stdChoice + "," + stdValue + ") = " + stdAuditStaus);
-		else
-			aa.print("**WARNING editing Std Choice  Audit Statu" + editResult.getErrorMessage());
-	}
+   var bizDomScriptResult = aa.bizDomain.getBizDomainByValue(stdChoice, stdValue);
+   if (bizDomScriptResult.getSuccess()) {
+   	bds = bizDomScriptResult.getOutput();
+   	var bd = bds.getBizDomain();
+   	bd.setAuditStatus(stdAuditStaus);
+   	var editResult = aa.bizDomain.editBizDomain(bd)
+   	if (editResult.getSuccess())
+   		aa.print("Successfully edited Std Choice Audit Status(" + stdChoice + "," + stdValue + ") = " + stdAuditStaus);
+   	else
+   		aa.print("**WARNING editing Std Choice  Audit Statu" + editResult.getErrorMessage());
+   }
 }
