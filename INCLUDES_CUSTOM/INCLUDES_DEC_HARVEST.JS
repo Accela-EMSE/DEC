@@ -1079,7 +1079,7 @@ function ReprintDocuments() {
 }
 
 function distributeFeesForReprint(sourceCapId, arryTag, arryLic, pSalesAgentInfoArray, arryNoFeeLic) {
-    logDebug("ENTER: distributeFeesAndPayments");
+    logDebug("ENTER: distributeFeesAndPayments for reprint documents");
     //logDebug("Elapsed Time: " + elapsed());
 
     //
@@ -1181,9 +1181,11 @@ logDebug("Step 3: transfer the funds from Source to each Target cap");
 
 var perTagAmt = 0;
 var perLicAmt = 0;
+logDebug("Amt Fee Rplc1: " + amtFeeRplc1);
 if (arryLic.length && amtFeeRplc1 > 0) {
-    perLicAmt = (amtFeeRplc1 / arryLic.length)
-    perLicAmt = (Math.round(perLicAmt * 100) / 100);
+    perLicAmt = (amtFeeRplc1 / arryLic.length);
+    perLicAmt = (Math.round(perLicAmt * 100) / 100); //2.5 for 2 licenses
+	logDebug("Per License Amount: " + perLicAmt);
 }
 if (arryTag.length && amtFeeRplc2 > 0) {
     //JIRA: 17343
@@ -1195,6 +1197,10 @@ if (arryTag.length && amtFeeRplc2 > 0) {
 var unapplied = paymentGetNotAppliedTot()
 
 //Distribution for licenses
+var agentCommission = lookup("AGENT_COMMISSION_FEE", "Agent Commission");
+var amtCommission = (agentCommission/arryLic.length);
+amtCommission = (Math.floor(amtCommission * 100))/100;
+logDebug("Amt Commission before entering for loop: " + amtCommission + " Agent Commission " + agentCommission + " array length " + arryLic.length);
 for (var item in arryLic) {
     var targetCapId = arryLic[item];
 
@@ -1206,12 +1212,15 @@ for (var item in arryLic) {
     if (item == arryLic.length - 1) {
         amtAgentCharge = amtFeeRplc1 - (perLicAmt * (arryLic.length - 1));
         amtAgentCharge = (Math.round(amtAgentCharge * 100) / 100);
+		amtCommission = agentCommission - (amtCommission * (arryLic.length - 1));
     }
     var cmnsPerc = GetCommissionByUser(commissionCodeRplc1 + "", pSalesAgentInfoArray);
 
-    var amtCommission = cmnsPerc == 0 ? 0 : (cmnsPerc * amtAgentCharge) / 100;
-    amtCommission = (Math.round(amtCommission * 100) / 100);
+    
+    //amtCommission = (Math.round(amtCommission * 100) / 100);
+	logDebug("Amt Commission : " + amtCommission);
     amtAgentCharge -= amtCommission;
+	logDebug("Amt Agent Charge : " + amtAgentCharge);
 
     feeSeqAndPeriodArray = addFeeWithVersionAndReturnfeeSeq("AGENT_CHARGE", "FEE_REPRINT_FEE_SCHDL", 1, "FINAL", amtAgentCharge, "Y", targetCapId)
     targetfeeSeq_L.push(feeSeqAndPeriodArray[0]);
@@ -1225,6 +1234,7 @@ for (var item in arryLic) {
     createInvoice(targetfeeSeq_L, targetpaymentPeriod_L, targetCapId);
 
     balanceDue = amtCommission + amtAgentCharge;
+	logDebug("Balance Due: " + balanceDue);
 
     //No need to check in dec case
     //balanceDue = parseFloat(parseFloat(targetfd.feeUnit) * parseFloat(targetfd.formula));
@@ -1918,6 +1928,7 @@ function addFeeForUpgrade() {
             for (item in feeArr) {
                 var feeAmount = feeArr[item].formula;
                 var amtCharge = parseFloat(parseFloat(feeAmount) - parseFloat(amtPaid));
+				logDebug("addFeeWithVersion(LSP_UPGRADE," + feeArr[item].feeschedule + "," + feeArr[item].version, +  ",FINAL," + (amtCharge < 0 ? 0 : amtCharge) + ",N");
                 addFeeWithVersion("LSP_UPGRADE", feeArr[item].feeschedule, feeArr[item].version, "FINAL", (amtCharge < 0 ? 0 : amtCharge), "N")
                 break;
             }
@@ -2523,8 +2534,6 @@ function GetDocsToVoidSale(peopleSequenceNumber) {
         for (var ccp in allContactCaps) {
             var itemCapId = allContactCaps[ccp];
             var itemCap = aa.cap.getCap(itemCapId).getOutput();
-			// Jira 51337
-			if (!itemCap) continue;
             appTypeString = itemCap.getCapType().toString();
             var appRec = new ACTIVE_ITEM(itemCapId, itemCap, appTypeString);
             if (appRec.isOpenToday()) {
@@ -2534,8 +2543,6 @@ function GetDocsToVoidSale(peopleSequenceNumber) {
                     for (y in capArray) {
                         var childCapId = capArray[y];
                         var itemCap = aa.cap.getCap(childCapId).getOutput();
-						// Jira 51337
-						if (!itemCap) continue;
                         appTypeString = itemCap.getCapType().toString();
                         var ata = appTypeString.split("/");
 
