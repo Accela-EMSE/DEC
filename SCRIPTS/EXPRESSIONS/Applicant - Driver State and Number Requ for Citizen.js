@@ -64,7 +64,7 @@ if (capTypeExpr.getValue() != "Licenses/DEC Internal/Enforcement/Enforcement Req
 
     if (isCitizen) {
         var msg = "";
-        if (bDate.getValue()) {
+        if (bDate.getValue() && bDate.getValue().trim() != '') {
             dd = diffDate(oToday.getValue(), bDate.getValue());
             if (dd > 0)
                 msg = "Birth Date cannot be in the future";
