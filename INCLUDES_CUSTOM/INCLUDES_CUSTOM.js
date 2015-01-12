@@ -5216,7 +5216,7 @@ function addASITable4ACAPageFlow(destinationTableGroupModel, tableName, tableVal
 
         i--;
 
-        tsm.setTableField(fld);
+        tsm.setTableFields(fld);
         tsm.setReadonlyField(fld_readonly); // set readonly field
     }
 
@@ -8454,10 +8454,10 @@ function loadASITables4ACA() {
 	var itemCap = capId;
 	if (arguments.length == 1) {
 		itemCap = arguments[0]; // use cap ID specified in args
-		var gm = aa.appSpecificTableScript.getAppSpecificTableGroupModel(itemCap).getOutput();
+		var gm = aa.appSpecificTableScript.getAppSpecificTableGroupModel(itemCap).getOutput().getAppSpecificTableGroupModel();
   }
   else {
-      var gm = cap.getAppSpecificTableGroupModel()
+      var gm = cap.getAppSpecificTableGroupModel();
   }
 
   if (!gm) {
